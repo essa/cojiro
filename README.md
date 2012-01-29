@@ -30,3 +30,8 @@ For story-writers:
 
 * Discover story leads in languages you don’t speak by searching translated metadata (titles, summaries, excerpts)
 * Get help looking for relevant sources in multiple languages by posting questions and calls for help
+
+Copyright
+---------
+
+Copyright (c) 2011 NetaLab. See MIT-LICENSE for details.
