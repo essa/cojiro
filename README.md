@@ -3,7 +3,7 @@ cojiro [![Build Status](https://secure.travis-ci.org/netalab/cojiro.png)](http:/
 
 A platform for cross-lingual curation.
 
-(In the spirit of [Readme Driven Development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html), this text describes an application that is not yet implemented. For an up-to-date overview of implemented features see the latest build on Travis-CI.)
+(In the spirit of [Readme Driven Development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html), this text describes an application that is not yet implemented. For an up-to-date overview of implemented features see the latest build on [Travis-CI](http://travis-ci.org/netalab/cojiro).)
 
 Features
 --------
