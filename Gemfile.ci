@@ -1,0 +1,10 @@
+# ref: http://madebynathan.com/2011/12/13/testing-multiple-databases-for-a-rails-app-on-travis-ci/ 
+
+def gem(*args)
+  # Override 'gem' method to block gems not needed by travis-ci in 'real' Gemfile
+#  super unless %w(...).include?(args.first)
+  super
+end
+
+# Eval Gemfile
+eval(IO.read(File.join(File.dirname(__FILE__), 'Gemfile')), binding) 

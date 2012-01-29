@@ -22,3 +22,6 @@
 
 # Ignore swap files
 *.swp
+
+# Ignore database.yml
+config/database.yml
