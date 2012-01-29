@@ -1,4 +1,4 @@
-cojiro
+cojiro [![Build Status](https://secure.travis-ci.org/netalab/cojiro.png)](http://travis-ci.org/netalab/cojiro) 
 ======
 
 A platform for cross-lingual curation.
