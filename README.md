@@ -34,4 +34,4 @@ For story-writers:
 Copyright
 ---------
 
-Copyright (c) 2011 NetaLab. See MIT-LICENSE for details.
+Copyright (c) 2011 NetaLab. See [MIT-LICENSE](MIT-LICENSE) for details.
