@@ -1,7 +1,7 @@
 cojiro [![Build Status](https://secure.travis-ci.org/netalab/cojiro.png)](http://travis-ci.org/netalab/cojiro) 
 ======
 
-A platform for cross-lingual curation.
+cojiro is a platform for discovering and sharing conversations across languages.
 
 (In the spirit of [Readme Driven Development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html), this text describes an application that is not yet implemented. For an up-to-date overview of implemented features see the latest build on [Travis-CI](http://travis-ci.org/netalab/cojiro).)
 
