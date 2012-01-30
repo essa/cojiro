@@ -15,6 +15,7 @@ General features:
 * Submit and index media sources (articles, tweets, videos, photos) in any supported language with a single click
 * Collaborate with users in other languages to organize sources (links) into multilingual discussion threads
 * Discuss content with users in other languages via multilingual threaded commenting
+* All changes recorded in revision history
 
 For bilinguals:
 
