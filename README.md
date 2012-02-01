@@ -10,11 +10,11 @@ Introduction
 
 An earthquake has hit Japan, and the world wants to know what is happening. Information is pouring out in blogs, bulletin boards, video sharing sites and local websites, but the voices on the ground are buried in the noise, and the language they are speaking in is Japanese.
 
-Enter *cojiro*, a platform designed to enable people with complementary skill sets to identify, group and convey stories in one language to a broader audience in another language. The platform is based on the philosophy that in order to effectively bridge language barriers, content should only be translated if there is an audience who will actually read it.
+Enter **cojiro**, a platform designed to enable people with complementary skill sets to identify, group and convey stories in one language to a broader audience in another language. The platform is based on the philosophy that in order to effectively bridge language barriers, content should only be translated if there is an audience who will actually read it.
 
 To do this, cojiro appeals to two key user groups to narrow the focus of translation: domain experts in the source language, whose knowledge of local contexts and specific areas is essential to uncovering and grouping interesting conversations, and readers in the target language, who can evaluate which of these conversations would be of interest to foreign audiences.
 
-Closing the feedback loop between these groups would make cross-lingual sharing and collaboration a much more seamless process -- and, we believe, a much more interesting and exciting one.
+Closing the feedback loop between these groups would make cross-lingual sharing and collaboration a much more seamless process—and, we believe, a much more interesting and exciting one.
 
 Features
 --------
