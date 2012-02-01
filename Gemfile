@@ -21,6 +21,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'haml', ">= 3.1.alpha.50"
+gem 'haml-rails'
 
 group :test, :development do
   gem 'rspec-rails'
