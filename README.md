@@ -10,7 +10,7 @@ Introduction
 
 An earthquake has hit Japan, and the world wants to know what is happening. Information is pouring out in blogs, bulletin boards, video sharing sites and local websites, but the voices on the ground are buried in the noise, and the language they are speaking in is Japanese.
 
-Enter cojiro, a platform designed to enable people with complementary skill sets to identify, group and convey stories in one language to a broader audience in another language. The platform is based on the idea that in order to effectively bridge language barriers, content should only be translated if there is an audience who will actually read it.
+Enter **cojiro**, a platform designed to enable people with complementary skill sets to identify, group and convey stories in one language to a broader audience in another language. The platform is based on the idea that in order to effectively bridge language barriers, content should only be translated if there is an audience who will actually read it.
 
 To do this, cojiro appeals to two key user groups to narrow the focus of translation: domain experts in the source language, whose knowledge of local contexts and specific topics is essential to uncovering and grouping interesting conversations, and readers in the target language, who can evaluate which of these conversations would be of interest to foreign audiences.
 
@@ -43,11 +43,6 @@ For storywriters:
 * Discover story leads in languages you don’t speak by searching translated metadata (titles, summaries, excerpts)
 * Get help looking for relevant sources in multiple languages by posting questions and calls for help
 
-Contributing
-------------
-
-We welcome feature suggestions, bug fixes and pull requests. We'll be posting more detailed instructions on how to help out to the wiki soon.
-
 Components
 ----------
 
@@ -70,6 +65,11 @@ We use:
 * [rspec](http://rspec.info/) for unit tests
 * [capybara](https://github.com/jnicklas/capybara) and [capybara-webkit](https://github.com/thoughtbot/capybara-webkit) for simulating the browser
 * [jasmine](http://pivotal.github.com/jasmine/) for javascript tests
+
+Contributing
+------------
+
+We welcome feature suggestions, bug fixes and pull requests, as well as help with interface localization to new languages. We'll be posting more detailed instructions on how to help out to the wiki soon.
 
 Copyright
 ---------
