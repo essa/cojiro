@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/svenfuchs/globalize3.git
+  revision: cda6ddab725c1ddaa449847a7b50b6e7e619870c
+  specs:
+    globalize3 (0.2.0.beta8)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      paper_trail (~> 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -75,6 +84,7 @@ GEM
       activesupport (~> 3.0)
       haml (~> 3.0)
       railties (~> 3.0)
+    hashie (1.2.0)
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.1)
@@ -89,6 +99,17 @@ GEM
     mime-types (1.17.2)
     multi_json (1.0.4)
     nokogiri (1.5.0)
+    oauth (0.4.5)
+    omniauth (1.0.2)
+      hashie (~> 1.2)
+      rack
+    omniauth-oauth (1.0.0)
+      oauth
+      omniauth (~> 1.0)
+    omniauth-twitter (0.0.7)
+      omniauth-oauth (~> 1.0)
+    paper_trail (2.6.0)
+      rails (~> 3)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.1)
@@ -167,9 +188,12 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   factory_girl_rails
+  globalize3!
   haml (>= 3.1.alpha.50)
   haml-rails
   jquery-rails
+  omniauth
+  omniauth-twitter
   rails (= 3.2.0)
   rspec-rails
   sass-rails (~> 3.2.3)

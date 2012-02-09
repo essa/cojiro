@@ -1,0 +1,2 @@
+class CothreadsController < ApplicationController
+end

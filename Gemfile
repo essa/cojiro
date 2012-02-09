@@ -23,6 +23,9 @@ end
 gem 'jquery-rails'
 gem 'haml', ">= 3.1.alpha.50"
 gem 'haml-rails'
+gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
+gem 'omniauth'
+gem 'omniauth-twitter'
 
 group :test, :development do
   gem 'rspec-rails'

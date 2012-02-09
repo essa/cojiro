@@ -11,6 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20120209061359) do
+
+  create_table "cothread_translations", :force => true do |t|
+    t.integer  "cothread_id"
+    t.string   "locale"
+    t.string   "title"
+    t.text     "summary"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "cothread_translations", ["cothread_id"], :name => "index_cothread_translations_on_cothread_id"
+  add_index "cothread_translations", ["locale"], :name => "index_cothread_translations_on_locale"
+
+  create_table "cothreads", :force => true do |t|
+    t.string   "original_language", :limit => 2
+    t.integer  "user_id"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.text     "profile"
+    t.string   "location"
+    t.string   "mysite"
+    t.string   "fullname"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end
