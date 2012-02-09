@@ -8,6 +8,7 @@ Feature: Create new thread
       | name  |
       | alice |
 
+  @wip
   Scenario: User successfully creates a new thread
     Given I am logged in through Twitter as "alice"
     When I create the following thread:
