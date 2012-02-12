@@ -1,13 +1,18 @@
-Given /^the following users:$/ do |table|
+#Given /^the following users:$/ do |table|
+#  table.hashes.each do |hash|
+#    Factory(:user, hash)
+#  end
+#end
+
+Given /^the following Twitter users:$/ do |table|
   table.hashes.each do |hash|
-    Factory(:user, hash)
+    OmniAuth.config.add_mock(:twitter,
+                             {:uid => hash[:uid],
+                               'provider' => 'twitter',
+                               'info'=> { 'name' => hash[:name], 'nickname' => hash[:nickname] }})
   end
 end
 
 Given /^I am logged in through Twitter as "([^"]*)"$/ do |name|
-  OmniAuth.config.add_mock(:twitter, 
-                           {:uid => '12345',
-                             'provider' => 'twitter',
-                             'info'=> { 'name' => name, 'nickname' => name }})
   visit "/auth/twitter"
 end

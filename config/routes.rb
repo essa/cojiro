@@ -4,7 +4,7 @@ Cojiro::Application.routes.draw do
 
   match '/auth/:provider/callback' => 'sessions#callback'
 
-  scope '/:locale', :locale => /en|ja/ do
+  scope '/:locale', :locale => /#{Rails.application.config.base_languages.join("|")}/ do
 
     resources :cothreads, :path => :threads
 

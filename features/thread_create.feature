@@ -4,9 +4,9 @@ Feature: Create new thread
   So that I can group and share my sources on a topic and discuss them with others
 
   Background:
-    Given the following users:
-      | name    |
-      | csasaki |
+    Given the following Twitter users:
+      | uid   | name    | nickname |
+      | 12345 | csasaki | csasaki  |
 
   @wip
   Scenario: User successfully creates a new thread

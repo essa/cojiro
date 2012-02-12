@@ -1,6 +1,10 @@
 When /^I create the following thread:$/ do |table|
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
+  visit homepage_path
+  click_on('Start a thread')
+  table.rows_hash.each do |field,value|
+    fill_in(field, :with => value)
+  end
+  click_button('Create thread')
 end
 
 Then /^I should see the new thread "([^"]*)"$/ do |title|
