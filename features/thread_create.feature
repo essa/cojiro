@@ -4,13 +4,13 @@ Feature: Create new thread
   So that I can group and share my sources on a topic and discuss them with others
 
   Background:
-    Given the following Twitter users:
-      | uid   | name    | nickname |
-      | 12345 | csasaki | csasaki  |
+    Given I am logged in through Twitter as the following user:
+      | name     | csasaki |
+      | uid      | 12345   |
+      | nickname | Cojiro Sasaki |
 
   @wip
   Scenario: User successfully creates a new thread
-    Given I am logged in through Twitter as "csasaki"
     When I create the following thread:
       | title   | Co-working spaces in Tokyo |
       | summary | I want to write an an article about the increased popularity of co-working spaces. |
@@ -19,7 +19,6 @@ Feature: Create new thread
 
   @wip
   Scenario Outline: User tries to create a thread with invalid input
-    Given I am logged in through Twitter as "csasaki"
     When I create the following thread:
       | title   | <title>   |
       | summary | <summary> |

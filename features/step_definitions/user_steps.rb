@@ -4,15 +4,10 @@
 #  end
 #end
 
-Given /^the following Twitter users:$/ do |table|
-  table.hashes.each do |hash|
-    OmniAuth.config.add_mock(:twitter,
-                             {:uid => hash[:uid],
-                               'provider' => 'twitter',
-                               'info'=> { 'name' => hash[:name], 'nickname' => hash[:nickname] }})
-  end
-end
-
-Given /^I am logged in through Twitter as "([^"]*)"$/ do |name|
+Given /^I am logged in through Twitter as the following user:$/ do |table|
+  OmniAuth.config.add_mock(:twitter,
+                           { :provider => 'twitter',
+                             :uid => table.rows_hash[:uid],
+                             :info => { :name => table.rows_hash[:name], :nickname => table.rows_hash[:nickname] }})
   visit "/auth/twitter"
 end
