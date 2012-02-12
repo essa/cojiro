@@ -8,6 +8,6 @@ Given /^I am logged in through Twitter as "([^"]*)"$/ do |name|
   OmniAuth.config.add_mock(:twitter, 
                            {:uid => '12345',
                              'provider' => 'twitter',
-                             'user_info'=> { 'nickname' => name }})
+                             'info'=> { 'name' => name, 'nickname' => name }})
   visit "/auth/twitter"
 end

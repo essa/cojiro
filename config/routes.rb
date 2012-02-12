@@ -2,7 +2,7 @@ Cojiro::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  match '/auth/:provider/callback' => 'sessions#create'
+  match '/auth/:provider/callback' => 'sessions#callback'
 
   scope '/:locale', :locale => /en|ja/ do
 

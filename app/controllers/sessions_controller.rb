@@ -1,8 +1,14 @@
 class SessionsController < ApplicationController
 
-  def create
-#    @user = User.find_or_create_from_auth_hash(auth_hash)
-#    self.current_user = @user
+  def callback
+    auth = auth_hash
+    unless @auth = Authorization.find_from_hash(auth)
+      # Create a new user or add an auth to existing user, depending on
+      # whether there is already a user signed in.
+      @auth = Authorization.create_from_hash!(auth, current_user)
+    end
+
+    session[:user] = @auth.user.name
     redirect_to '/'
   end
 

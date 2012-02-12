@@ -5,12 +5,12 @@ Feature: Create new thread
 
   Background:
     Given the following users:
-      | name  |
-      | alice |
+      | name    |
+      | csasaki |
 
   @wip
   Scenario: User successfully creates a new thread
-    Given I am logged in through Twitter as "alice"
+    Given I am logged in through Twitter as "csasaki"
     When I create the following thread:
       | title   | Co-working spaces in Tokyo |
       | summary | I want to write an an article about the increased popularity of co-working spaces. |
@@ -19,7 +19,7 @@ Feature: Create new thread
 
   @wip
   Scenario Outline: User tries to create a thread with invalid input
-    Given I am logged in through Twitter as "alice"
+    Given I am logged in through Twitter as "csasaki"
     When I create the following thread:
       | title   | <title>   |
       | summary | <summary> |
