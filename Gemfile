@@ -7,7 +7,6 @@ gem 'rails', '3.2.0'
 
 gem 'sqlite3'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -26,6 +25,7 @@ gem 'haml-rails'
 gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'twitter_bootstrap_form_for'
 
 group :test, :development do
   gem 'rspec-rails'

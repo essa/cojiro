@@ -3,6 +3,7 @@ Cojiro::Application.routes.draw do
   # first created -> highest priority.
 
   match '/auth/:provider/callback' => 'sessions#callback'
+  match '/:locale/', :locale => /#{Rails.application.config.base_languages.join("|")}/, :to => 'homepage#index', :as => 'homepage'
 
   scope '/:locale', :locale => /#{Rails.application.config.base_languages.join("|")}/ do
 
@@ -10,7 +11,7 @@ Cojiro::Application.routes.draw do
 
   end
 
-#  root :to => 'homepage#index'
+  root :to => 'homepage#index'
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

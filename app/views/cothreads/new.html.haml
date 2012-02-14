@@ -1,0 +1,8 @@
+= twitter_bootstrap_form_for @cothread do |cothread|
+
+  = cothread.inputs do
+    = cothread.text_field :title, "Title"
+    = cothread.text_area :summary, "Summary"
+
+  = cothread.actions do
+    = cothread.submit 'Create thread'

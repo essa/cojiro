@@ -5,23 +5,23 @@ Feature: Create new thread
 
   Background:
     Given I am logged in through Twitter as the following user:
-      | name     | csasaki |
-      | uid      | 12345   |
+      | name     | csasaki       |
+      | uid      | 12345         |
       | nickname | Cojiro Sasaki |
+    And my locale is "en"
 
-  @wip
   Scenario: User successfully creates a new thread
     When I create the following thread:
-      | title   | Co-working spaces in Tokyo |
-      | summary | I want to write an an article about the increased popularity of co-working spaces. |
+      | Title   | Co-working spaces in Tokyo                                                         |
+      | Summary | I want to write an an article about the increased popularity of co-working spaces. |
     Then I should see the new thread "Co-working spaces in Tokyo"
-    And I should see a success message
+    #    And I should see a success message
 
   @wip
   Scenario Outline: User tries to create a thread with invalid input
     When I create the following thread:
-      | title   | <title>   |
-      | summary | <summary> |
+      | Title   | <title>   |
+      | Summary | <summary> |
     Then I should see the new thread page
     And I should see an error message "<message>"
 

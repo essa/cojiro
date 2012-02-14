@@ -14,4 +14,12 @@ class User < ActiveRecord::Base
         :fullname => hash['info']['name'])
   end
 
+  def self.current_user=(user)
+    Thread.current[:cojiro_current_user] = user
+  end
+
+  def self.current_user
+    Thread.current[:cojiro_current_user]
+  end
+
 end

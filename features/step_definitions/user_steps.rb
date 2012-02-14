@@ -9,5 +9,6 @@ Given /^I am logged in through Twitter as the following user:$/ do |table|
                            { :provider => 'twitter',
                              :uid => table.rows_hash[:uid],
                              :info => { :name => table.rows_hash[:name], :nickname => table.rows_hash[:nickname] }})
-  visit "/auth/twitter"
+  visit "/"
+  click_link "Sign in through Twitter"
 end
