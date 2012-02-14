@@ -45,7 +45,7 @@ describe CothreadsController do
         Cothread.should_receive(:new).and_return { cothread }
       end
 
-      it "assigns newly created cotread as @cothread" do
+      it "assigns newly created cothread as @cothread" do
         get :new
         assigns(:cothread).should be(@mock_cothread)
       end
