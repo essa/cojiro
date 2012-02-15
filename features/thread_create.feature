@@ -5,9 +5,9 @@ Feature: Create new thread
 
   Background:
     Given I am logged in through Twitter as the following user:
-      | name     | csasaki       |
+      | name     | Cojiro Sasaki |
       | uid      | 12345         |
-      | nickname | Cojiro Sasaki |
+      | nickname | csasaki       |
     And my locale is "en"
 
   Scenario: User successfully creates a new thread
@@ -15,7 +15,7 @@ Feature: Create new thread
       | Title   | Co-working spaces in Tokyo                                                         |
       | Summary | I want to write an an article about the increased popularity of co-working spaces. |
     Then I should see the new thread "Co-working spaces in Tokyo"
-    #    And I should see a success message
+    And I should see a success message
 
   @wip
   Scenario Outline: User tries to create a thread with invalid input
@@ -23,7 +23,7 @@ Feature: Create new thread
       | Title   | <title>   |
       | Summary | <summary> |
     Then I should see the new thread page
-    And I should see an error message "<message>"
+    And I should see an error message: "<message>"
 
     Examples:
       | title   | summary                                             | message        |

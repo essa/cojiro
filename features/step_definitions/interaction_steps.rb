@@ -1,7 +1,3 @@
-Then /^I should see a success message$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^I should see an error message "([^"]*)"$/ do |message|
-  pending # express the regexp above with the code you wish you had
+Then /^I should see an? (error|success|notice) message(?:: "(.*)")?$/ do |msg_type,message|
+  page.should have_css(".#{msg_type.gsub('notice','message')}", :text => message)
 end

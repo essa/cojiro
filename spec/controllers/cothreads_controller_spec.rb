@@ -72,8 +72,16 @@ describe CothreadsController do
           assigns(:cothread).should be(@mock_cothread)
         end
 
-        it "redirects to the cothread"
-        it "displays a success message"
+        it "redirects to the cothread" do
+          post :create, :cothread => { 'these' => 'params' }
+          response.should redirect_to(@mock_cothread)
+        end
+
+        it "displays a success message" do
+          post :create, :cothread => { 'these' => 'params' }
+          flash[:success].should_not be_nil
+        end
+
       end
 
       context "with invalid params" do

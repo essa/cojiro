@@ -10,4 +10,6 @@
       = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
     .container
       .content
+        - flash.each do |name, msg|
+          = content_tag :div, '<a class="close" href="#">×</a>'.html_safe + msg, :class => "alert-message #{name}", :id => "flash_#{name}", :'data-alert' => 'alert' if msg.is_a?(String)
         = yield

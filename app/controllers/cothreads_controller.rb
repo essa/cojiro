@@ -10,8 +10,10 @@ class CothreadsController < ApplicationController
 
   def create
     @cothread = Cothread.new(params[:cothread].merge(:user_id => current_user.id))
-    @cothread.save
-    redirect_to @cothread
+    if @cothread.save
+      flash[:success] = "New thread successfully created."
+      redirect_to @cothread
+    end
   end
 
   private
