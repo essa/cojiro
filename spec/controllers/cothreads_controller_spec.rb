@@ -13,18 +13,19 @@ describe CothreadsController do
   end
 
   describe "GET show" do
+
     before do
       cothread = mock_cothread
       Cothread.should_receive(:find).with("37").and_return { @cothread }
     end
 
+    before(:each) { get :show, :id => "37" }
+
     it "assigns the requested cothread as @cothread" do
-      get :show, :id => "37"
       assigns(:cothread).should be(@cothread)
     end
 
     it "renders the show view" do
-      get :show, :id => "37"
       response.should render_template("show")
     end
 
@@ -45,13 +46,13 @@ describe CothreadsController do
         Cothread.should_receive(:new).and_return { cothread }
       end
 
+      before(:each) { get :new }
+
       it "assigns newly created cotread as @cothread" do
-        get :new
         assigns(:cothread).should be(@mock_cothread)
       end
 
       it "renders the new view" do
-        get :new
         response.should render_template("new")
       end
 
@@ -67,18 +68,17 @@ describe CothreadsController do
           Cothread.stub(:new).with( { 'these' => 'params', 'user_id' => @mock_user.id } ) { cothread }
         end
 
+        before(:each) { post :create, :cothread => { 'these' => 'params' } }
+
         it "assigns newly created cothread as @cothread" do
-          post :create, :cothread => { 'these' => 'params' }
           assigns(:cothread).should be(@mock_cothread)
         end
 
         it "redirects to the cothread" do
-          post :create, :cothread => { 'these' => 'params' }
           response.should redirect_to(@mock_cothread)
         end
 
         it "displays a success message" do
-          post :create, :cothread => { 'these' => 'params' }
           flash[:success].should_not be_nil
         end
 

@@ -3,7 +3,8 @@ require 'spec_helper'
 describe HomepageController do
 
   describe "GET index" do
-    before { get :index }
+
+    before(:each) { get :index }
 
     it "should return success" do
       response.should be_success
