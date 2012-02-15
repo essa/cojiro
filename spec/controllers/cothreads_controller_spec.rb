@@ -48,7 +48,7 @@ describe CothreadsController do
 
       before(:each) { get :new }
 
-      it "assigns newly created cotread as @cothread" do
+      it "assigns newly created cothread as @cothread" do
         assigns(:cothread).should be(@mock_cothread)
       end
 
