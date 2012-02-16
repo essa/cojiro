@@ -1,5 +1,11 @@
 class SessionsController < ApplicationController
 
+  def destroy
+    reset_session
+
+    redirect_to homepage_path
+  end
+
   def callback
     auth = auth_hash
     unless @auth = Authorization.find_from_hash(auth)

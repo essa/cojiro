@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :initialize_user, :set_locale
 
+  helper_method :logged_in?
+
   def set_locale
     I18n.locale = params[:locale]
   end
@@ -12,6 +14,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def logged_in?
+    current_user.is_a?(User)
+  end
 
   # get current user
   def current_user

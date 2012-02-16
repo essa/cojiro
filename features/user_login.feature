@@ -11,7 +11,8 @@ Feature: Login to cojiro
       | nickname | csasaki       |
     And I am on the homepage
     When I click on "Sign in through Twitter"
-    Then I should see a success message
-    And I should be redirected to the homepage
+    Then I should see a link to "csasaki"
+    And I should see a link to "Logout"
+    And I should not see a link to "Sign in through Twitter"
 
   Scenario Outline: Invalid login
