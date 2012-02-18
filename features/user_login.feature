@@ -3,7 +3,6 @@ Feature: Login to cojiro
   I want to log in to cojiro
   So that I can add new links and group them in threads
 
-  @wip
   Scenario: Valid login through Twitter
     Given I am logged into Twitter as the following user:
       | name     | Cojiro Sasaki |

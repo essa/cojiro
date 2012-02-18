@@ -3,7 +3,7 @@ module OmniAuthHelpers
     OmniAuth.config.add_mock(:twitter,
                              { :provider => 'twitter',
                                :uid => uid,
-                               :info => { :name => name, :nickname => name }})
+                               :info => { :name => name, :nickname => nickname }})
   end
 end
 World(OmniAuthHelpers)
