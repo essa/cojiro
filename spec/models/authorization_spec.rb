@@ -17,6 +17,7 @@ describe Authorization do
     }
 
     subject { Authorization.create_from_hash!(hash) }
+
     it { should be_valid }
     its(:provider) { should == "twitter" }
     its(:uid) { should == "4138021" }
