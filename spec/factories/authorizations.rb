@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :authorization do
     provider "twitter"
     uid "12345"
-    user_id "1"
+    association :user, :factory => :user
   end
 end

@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :user do
-    name "cojiro"
+    name "csasaki"
     profile "my profile"
     location "Tokyo, Japan"
     mysite "http://www.mysite.com"
