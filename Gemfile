@@ -30,6 +30,7 @@ gem 'twitter_bootstrap_form_for'
 group :test, :development do
   gem 'rspec-rails'
   gem 'cucumber-rails'
+  gem 'cucumber', '>= 1.1.6'
   gem 'spork', '~> 0.9.0.rc'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
