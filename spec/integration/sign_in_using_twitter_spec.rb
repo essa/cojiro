@@ -4,17 +4,12 @@ describe "Twitter sign-in" do
 
   describe "sign in using Twitter for the first time" do
 
-    before(:all) do
-      OmniAuth.config.test_mode = true
-    end
-
     before do
       User.count.should == 0
-      OmniAuth.config.add_mock(:twitter, 
-                               { :uid => '12345',
-                                 :provider => "twitter",
-                                 :info => { :name => "Cojiro Sasaki", :nickname => "csasaki" }})
-      visit "/auth/twitter"
+      OmniAuthHelpers::add_twitter_mock('12345',
+                                        "Cojiro Sasaki",
+                                        "csasaki")
+      visit '/auth/twitter'
     end
 
     it "should save all the information provided by Twitter" do

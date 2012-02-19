@@ -1,16 +1,7 @@
 require 'spec_helper'
 
 describe CothreadsController do
-
-  ["cothread", "user"].each do |model_name|
-  eval <<-END_RUBY
-    def mock_#{model_name}(stubs={})
-    (@mock_#{model_name} ||= mock_model(#{model_name.capitalize}).as_null_object).tap do |m|
-      m.stub(stubs) unless stubs.empty?
-    end
-  end
-  END_RUBY
-  end
+  include MockModels
 
   describe "GET show" do
 

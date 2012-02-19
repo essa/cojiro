@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     end
 
     session[:user] = @auth.user.name
-    redirect_to '/'
+    redirect_to homepage_path
   end
 
   protected
