@@ -12,10 +12,14 @@
       .navbar-inner
         .container
           = link_to "cojiro", homepage_path, :class => "brand"
-          %ul.nav
+          %ul.nav.secondary-nav.pull-right
             - if logged_in?
-              %li= link_to @current_user.name, "#"
-              %li= link_to "Logout", logout_path
+              %li#profile-menu.dropdown
+                = link_to "#profile-menu", :class => 'dropdown-toggle', :'data-toggle' => 'dropdown' do
+                  = "@" + @current_user.name
+                  %b.caret
+                %ul.dropdown-menu
+                  %li= link_to "Logout", logout_path
             - else
               %li= link_to "Sign in through Twitter", '/auth/twitter'
     .container
