@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "homepage/index.html.haml" do
+describe "homepage/index" do
 
   # to make sure both logged-in/logged-out test check for
   # same link text(s)

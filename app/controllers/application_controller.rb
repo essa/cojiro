@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     current_user.is_a?(User)
   end
 
+  def login_required
+    redirect_to homepage_path unless logged_in?
+  end
+
   # get current user
   def current_user
     @current_user

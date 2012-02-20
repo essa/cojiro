@@ -3,21 +3,42 @@ require 'spec_helper'
 describe CothreadsController do
   include MockModels
 
-  describe "GET show" do
+  context "with anonymous user" do
 
-    before do
-      cothread = mock_cothread
-      Cothread.should_receive(:find).with("37").and_return { @cothread }
+    before { controller.stub(:logged_in?) { false } }
+
+#    it "should redirect new, create and destroy requests to login page" do
+      it "should redirect new and create requests to login page" do
+      requests = 
+        [
+          proc {  get :new },
+          proc {  post :create, :entry => {'these' => 'params'} },
+#          proc {  delete :destroy, :id => "37" },
+      ]
+
+      requests.each do |r|
+        r.call
+        response.should redirect_to(homepage_path)
+      end
     end
 
-    before(:each) { get :show, :id => "37" }
+    describe "GET show" do
 
-    it "assigns the requested cothread as @cothread" do
-      assigns(:cothread).should be(@cothread)
-    end
+      before do
+        cothread = mock_cothread
+        Cothread.should_receive(:find).with("37").and_return { @cothread }
+      end
 
-    it "renders the show view" do
-      response.should render_template("show")
+      before(:each) { get :show, :id => "37" }
+
+      it "assigns the requested cothread as @cothread" do
+        assigns(:cothread).should be(@cothread)
+      end
+
+      it "renders the show view" do
+        response.should render_template("show")
+      end
+
     end
 
   end
@@ -25,7 +46,7 @@ describe CothreadsController do
   context "with logged-in user" do
 
     before do
-#      controller.stub(:logged_in?) { true }
+      controller.stub(:logged_in?) { true }
       user = mock_user
       controller.stub(:current_user) { user }
     end

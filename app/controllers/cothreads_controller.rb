@@ -1,5 +1,6 @@
 class CothreadsController < ApplicationController
   before_filter :find_cothread, :except => [:new, :create]
+  before_filter :login_required, :except => [:show]
 
   def show
   end
