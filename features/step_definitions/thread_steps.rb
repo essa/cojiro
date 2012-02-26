@@ -1,6 +1,6 @@
 When /^I create the following thread:$/ do |table|
   # should be homepage_path but default_url_options not picked up by cucumber
-  visit '/'
+  visit homepage_path
   click_on('Start a thread')
   table.rows_hash.each do |field,value|
     fill_in(field, :with => value)

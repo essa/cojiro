@@ -22,10 +22,6 @@ describe "Twitter sign-in" do
       user.authorizations.first.uid.should == '12345'
     end
 
-    after(:all) do
-      OmniAuth.config.test_mode = false
-    end
-    
   end
 
 end

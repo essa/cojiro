@@ -3,5 +3,5 @@
 #end
 
 Given /^I am on the homepage$/ do
-  visit '/'
+  visit homepage_path
 end
