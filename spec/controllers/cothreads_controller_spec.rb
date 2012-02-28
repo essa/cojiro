@@ -97,6 +97,26 @@ describe CothreadsController do
       end
 
       context "with invalid params" do
+
+        before do
+          cothread = mock_cothread
+          cothread.should_receive(:save).and_return { false }
+          Cothread.stub(:new).with( { 'these' => 'params', 'user_id' => @mock_user.id } ) { cothread }
+        end
+
+        before(:each) { post :create, :cothread => { 'these' => 'params' } }
+
+        it "assigns newly created cothread as @cothread" do
+          assigns(:cothread).should be(@mock_cothread)
+        end
+
+        it "re-renders the new cothread page" do
+          response.should render_template("new")
+        end
+
+        it "displays an error message" do
+          flash[:error].should == "There were errors in the information entered."
+        end
       end
 
     end

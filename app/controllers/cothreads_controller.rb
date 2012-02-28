@@ -15,6 +15,7 @@ class CothreadsController < ApplicationController
       flash[:success] = "New thread successfully created."
       redirect_to @cothread
     else
+      flash.now[:error] = "There were errors in the information entered."
       render :new
     end
   end
