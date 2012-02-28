@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :cothread do
+    title "Co-working spaces in Tokyo"
+    user
   end
 end
