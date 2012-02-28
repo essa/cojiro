@@ -14,6 +14,8 @@ class CothreadsController < ApplicationController
     if @cothread.save
       flash[:success] = "New thread successfully created."
       redirect_to @cothread
+    else
+      render :new
     end
   end
 

@@ -15,5 +15,5 @@ Then /^I should see the new thread "([^"]*)"$/ do |title|
 end
 
 Then /^I should see the new thread page$/ do
-  pending # express the regexp above with the code you wish you had
+  page.should have_css("form", :id => "new_cothread")
 end
