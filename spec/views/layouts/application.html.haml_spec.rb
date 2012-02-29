@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "homepage/index" do
+describe '/layouts/application' do
 
   # to make sure both logged-in/logged-out test check for
   # same link text(s)
@@ -21,9 +21,12 @@ describe "homepage/index" do
     end
 
     context "logged-in user" do
-      before { view.stub(:logged_in?) { true } }
+      before do
+        view.stub(:logged_in?) { true } 
+        assign(:current_user, Factory(:user))
+      end
 
-      describe "create tread link" do
+      describe "create thread link" do
         it "should render the create thread button" do
           render
           rendered.should have_link(@start_a_thread)

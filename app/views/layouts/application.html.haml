@@ -10,6 +10,10 @@
       .navbar-inner
         .container
           = link_to "cojiro", homepage_path, :class => "brand"
+          %ul.nav
+            - if logged_in?
+              %li
+                = link_to "Start a thread", new_cothread_path
           %ul.nav.secondary-nav.pull-right
             - if logged_in?
               %li#profile-menu.dropdown

@@ -14,7 +14,6 @@ Feature: Navigation bar
       | page      | link                    |
       | homepage  | Sign in through Twitter |
 
-  @wip
   Scenario Outline: Logged-in user
     Given I am logged in through Twitter as the following user:
       | name     | Cojiro Sasaki |
