@@ -1,10 +1,13 @@
 require 'spec_helper'
 
-describe '/layouts/application' do
+describe 'layouts/application' do
 
   # to make sure both logged-in/logged-out test check for
   # same link text(s)
-  before { @start_a_thread = "Start a thread" }
+  before do
+    @start_a_thread = "Start a thread"
+    @twitter_sign_in = "Sign in through Twitter"
+  end
 
   context "English locale" do
     before { I18n.locale = Globalize.locale = :en }
@@ -12,12 +15,16 @@ describe '/layouts/application' do
     context "logged-out user" do
       before { view.stub(:logged_in?) { false } }
 
-      describe "create thread link" do
-        it "should not render the create thread button" do
-          render
-          rendered.should_not have_link(@start_a_thread)
-        end
+      it "should not render start a thread link" do
+        render
+        rendered.should_not have_link(@start_a_thread)
       end
+
+      it "should render twitter sign-in link" do
+        render
+        rendered.should have_link(@twitter_sign_in)
+      end
+
     end
 
     context "logged-in user" do
@@ -26,12 +33,16 @@ describe '/layouts/application' do
         assign(:current_user, Factory(:user))
       end
 
-      describe "create thread link" do
-        it "should render the create thread button" do
-          render
-          rendered.should have_link(@start_a_thread)
-        end
+      it "should render start a thread link" do
+        render
+        rendered.should have_link(@start_a_thread)
       end
+
+      it "should not render twitter sign-in link" do
+        render
+        rendered.should_not have_link(@twitter_sign_in)
+      end
+
     end
   end
 end
