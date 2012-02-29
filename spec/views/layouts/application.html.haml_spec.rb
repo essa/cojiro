@@ -15,12 +15,12 @@ describe 'layouts/application' do
     context "logged-out user" do
       before { view.stub(:logged_in?) { false } }
 
-      it "should not render start a thread link" do
+      it "does not render start a thread link" do
         render
         rendered.should_not have_link(@start_a_thread)
       end
 
-      it "should render twitter sign-in link" do
+      it "renders twitter sign-in link" do
         render
         rendered.should have_link(@twitter_sign_in)
       end
@@ -33,12 +33,12 @@ describe 'layouts/application' do
         assign(:current_user, Factory(:user))
       end
 
-      it "should render start a thread link" do
+      it "renders start a thread link" do
         render
         rendered.should have_link(@start_a_thread)
       end
 
-      it "should not render twitter sign-in link" do
+      it "does not render twitter sign-in link" do
         render
         rendered.should_not have_link(@twitter_sign_in)
       end

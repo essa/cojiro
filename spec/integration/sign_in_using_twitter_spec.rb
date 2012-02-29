@@ -12,7 +12,7 @@ describe "Twitter sign-in" do
       visit '/auth/twitter'
     end
 
-    it "should save all the information provided by Twitter" do
+    it "saves all the information provided by Twitter" do
       User.count.should == 1
       user = User.first
       user.name.should == 'csasaki'

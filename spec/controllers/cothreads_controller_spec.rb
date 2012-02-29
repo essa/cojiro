@@ -7,8 +7,8 @@ describe CothreadsController do
 
     before { controller.stub(:logged_in?) { false } }
 
-#    it "should redirect new, create and destroy requests to login page" do
-      it "should redirect new and create requests to login page" do
+#    it "redirects new, create and destroy requests to login page" do
+      it "redirects new and create requests to login page" do
       requests = 
         [
           proc {  get :new },

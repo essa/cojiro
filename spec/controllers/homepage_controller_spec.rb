@@ -6,11 +6,11 @@ describe HomepageController do
 
     before(:each) { get :index }
 
-    it "should return success" do
+    it "returns success" do
       response.should be_success
     end
 
-    it "should render the index template" do
+    it "renders the index template" do
       response.should render_template("index")
     end
     

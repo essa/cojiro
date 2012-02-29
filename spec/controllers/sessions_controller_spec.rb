@@ -37,12 +37,12 @@ describe SessionsController do
       auth.should_receive(:user).and_return(user)
     end
 
-    it "should assign @auth" do
+    it "assigns @auth" do
       get :callback
       assigns(:auth).should be(@mock_authorization)
     end
 
-    it "should set user session cookie" do
+    it "sets user session cookie" do
       get :callback
       session[:user].should == "csasaki"
     end
