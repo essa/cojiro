@@ -5,7 +5,7 @@
 
   = cothread.fieldset do
     = cothread.text_field :title, "Title"
-    = cothread.text_area :summary, "Summary"
+    = cothread.text_area :summary, "Summary", :rows => 5, :class => 'input-xlarge'
 
   = cothread.actions do
     = cothread.submit 'Create thread'
