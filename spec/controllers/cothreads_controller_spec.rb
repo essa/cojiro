@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe CothreadsController do
   include MockModels
+  include Helpers
 
   context "with anonymous user" do
 
@@ -120,5 +121,14 @@ describe CothreadsController do
       end
 
     end
+
+    describe "DELETE destroy" do
+
+      it "destroys the requested entry"
+      it "redirects to the homepage"
+      it "returns a success message"
+
+    end
+
   end
 end

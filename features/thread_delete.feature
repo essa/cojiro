@@ -9,5 +9,14 @@ Feature: Delete a thread
       | uid      | 12345         |
       | nickname | csasaki       |
     And my locale is "en"
+    And the following thread exists:
+      | user    | csasaki                                                                            |
+      | title   | Co-working spaces in Tokyo                                                         |
+      | summary | I want to write an an article about the increased popularity of co-working spaces. |
 
+  @wip
   Scenario: User successfully deletes a thread
+    Given I am on the thread "Co-working spaces in Tokyo"
+    When I click on "Delete thread"
+    Then I should see the homepage
+    And I should see a success message
