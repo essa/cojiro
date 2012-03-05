@@ -19,6 +19,14 @@ When /^I create the following thread:$/ do |table|
   click_button('Create thread')
 end
 
+When /^I delete the thread "([^"]*)"$/ do |title|
+  cothread = Cothread.find_by_title(title)
+  visit cothread_path(cothread)
+  handle_js_confirm do
+    click_link('Delete thread')
+  end
+end
+
 Then /^I should see the new thread "([^"]*)"$/ do |title|
   cothread = Cothread.find_by_title(title)
   page.should have_content(cothread.title)

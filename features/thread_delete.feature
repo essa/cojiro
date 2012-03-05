@@ -14,9 +14,8 @@ Feature: Delete a thread
       | title   | Co-working spaces in Tokyo                                                         |
       | summary | I want to write an an article about the increased popularity of co-working spaces. |
 
-  @wip
+  @javascript
   Scenario: User successfully deletes a thread
-    Given I am on the thread "Co-working spaces in Tokyo"
-    When I click on "Delete thread"
+    When I delete the thread "Co-working spaces in Tokyo"
     Then I should see the homepage
-    And I should see a success message
+    And I should see a success message: "Cothread "Co-working spaces in Tokyo" deleted."

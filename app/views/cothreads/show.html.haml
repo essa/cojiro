@@ -4,3 +4,5 @@
     = @cothread.title
 %p
   = @cothread.summary
+%p
+  = link_to "Delete thread", @cothread, :confirm => "Are you sure you want to destroy this entry?", :method => :delete
