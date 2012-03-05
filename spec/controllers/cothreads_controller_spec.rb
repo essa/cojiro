@@ -123,25 +123,40 @@ describe CothreadsController do
     describe "DELETE destroy" do
 
       before do
-        cothread = mock_cothread
+        cothread = mock_cothread(:title => "Co-working spaces in Tokyo")
         Cothread.should_receive(:find).and_return(cothread)
       end
 
-      it "destroys the requested thread" do
-        @mock_cothread.should_receive(:destroy).and_return(true)
-        delete :destroy, :id => 37
+      context "with valid params" do
+
+        before do
+          @mock_cothread.should_receive(:destroy).and_return(true)
+          delete :destroy, :id => 37
+        end
+
+        it "redirects to the homepage" do
+          response.should redirect_to homepage_path
+        end
+
+        it "returns a success message" do
+          flash[:success].should == "Cothread \"Co-working spaces in Tokyo\" deleted."
+        end
+
       end
 
-      it "redirects to the homepage" do
-        delete :destroy, :id => 37
-        response.should redirect_to homepage_path
-      end
+      context "with invalid params" do
 
-      it "returns a success message" do
-        @mock_cothread.stub(:destroy) { true }
-        @mock_cothread.stub(:title) { "Co-working spaces in Tokyo" }
-        delete :destroy, :id => 37
-        flash[:success].should == "Cothread \"Co-working spaces in Tokyo\" deleted."
+        before do
+          @mock_cothread.should_receive(:destroy).and_return(false)
+          delete :destroy, :id => 37
+        end
+
+        it "redirects to the homepage" do
+          response.should redirect_to homepage_path
+        end
+
+        it "returns an error message"
+
       end
 
     end
