@@ -1,6 +1,6 @@
 class CothreadsController < ApplicationController
-  before_filter :find_cothread, :except => [:new, :create]
   before_filter :login_required, :except => [:show]
+  before_filter :find_cothread, :except => [:new, :create]
 
   def show
   end
@@ -18,6 +18,14 @@ class CothreadsController < ApplicationController
       flash.now[:error] = "There were errors in the information entered."
       render :new
     end
+  end
+
+  def destroy
+    title = @cothread.title
+    if @cothread.destroy
+      flash[:success] = "Cothread \"#{title}\" deleted."
+    end
+    redirect_to homepage_path
   end
 
   private
