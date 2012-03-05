@@ -7,13 +7,12 @@ describe CothreadsController do
 
     before { controller.stub(:logged_in?) { false } }
 
-#    it "redirects new, create and destroy requests to login page" do
-      it "redirects new and create requests to login page" do
+    it "redirects new, create and destroy requests to login page" do
       requests = 
         [
           proc {  get :new },
           proc {  post :create, :entry => {'these' => 'params'} },
-#          proc {  delete :destroy, :id => "37" },
+          proc {  delete :destroy, :id => "37" },
       ]
 
       requests.each do |r|
@@ -120,5 +119,32 @@ describe CothreadsController do
       end
 
     end
+
+    describe "DELETE destroy" do
+
+      before do
+        cothread = mock_cothread
+        Cothread.should_receive(:find).and_return(cothread)
+      end
+
+      it "destroys the requested thread" do
+        @mock_cothread.should_receive(:destroy).and_return(true)
+        delete :destroy, :id => 37
+      end
+
+      it "redirects to the homepage" do
+        delete :destroy, :id => 37
+        response.should redirect_to homepage_path
+      end
+
+      it "returns a success message" do
+        @mock_cothread.stub(:destroy) { true }
+        @mock_cothread.stub(:title) { "Co-working spaces in Tokyo" }
+        delete :destroy, :id => 37
+        flash[:success].should == "Cothread \"Co-working spaces in Tokyo\" deleted."
+      end
+
+    end
+
   end
 end

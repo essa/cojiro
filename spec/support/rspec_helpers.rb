@@ -9,3 +9,7 @@ module MockModels
   END_RUBY
   end
 end
+
+module Helpers
+  # TODO: add helpers for destroy
+end
