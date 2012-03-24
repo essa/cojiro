@@ -30,14 +30,18 @@ gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_boot
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'cucumber-rails'
   gem 'cucumber', '>= 1.1.6'
   gem 'spork', '~> 0.9.0.rc'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem "ruby-debug-base19x", "~> 0.11.29"
 end
 
+group :test do
+  # ref: http://datacodescotch.blogspot.jp/2011/11/warning-cucumber-rails-required-outside.html 
+  gem 'cucumber-rails', '~> 1.0', require: false
+end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -49,6 +53,3 @@ end
 
 # Deploy with Capistrano
 # gem 'capistrano'
-
-# To use debugger
-gem 'ruby-debug19', :require => 'ruby-debug'
