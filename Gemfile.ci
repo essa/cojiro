@@ -2,8 +2,7 @@
 
 def gem(*args)
   # Override 'gem' method to block gems not needed by travis-ci in 'real' Gemfile
-#  super unless %w(...).include?(args.first)
-  super
+  super unless %w(ruby-debug-base19x).include?(args.first)
 end
 
 # Eval Gemfile
