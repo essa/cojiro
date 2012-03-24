@@ -35,6 +35,7 @@ group :test, :development do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
   gem "ruby-debug-base19x", "~> 0.11.29"
 end
 
