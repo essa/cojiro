@@ -38,6 +38,8 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
+  gem 'jasmine'
+  gem 'jasminerice'
   gem "ruby-debug-base19x", "~> 0.11.29"
 end
 

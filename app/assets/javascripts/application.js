@@ -18,6 +18,8 @@
 //= require underscore
 //= require backbone
 //
+//= require cojiro_app
+//
 //= require_tree ./models
 //= require_tree ./collections
 //= require_tree ./views
