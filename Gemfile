@@ -18,6 +18,8 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 2.0.1', :branch => '2.0'
+  gem 'haml_coffee_assets', :git => 'https://github.com/netzpirat/haml_coffee_assets.git'
+  gem 'execjs'
 end
 
 gem 'jquery-rails'
