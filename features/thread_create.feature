@@ -10,6 +10,7 @@ Feature: Create new thread
       | nickname | csasaki       |
     And my locale is "en"
 
+  @javascript @wip
   Scenario: User successfully creates a new thread
     When I create the following thread:
       | Title   | Co-working spaces in Tokyo                                                         |

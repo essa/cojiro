@@ -14,7 +14,7 @@ Feature: Delete a thread
       | title   | Co-working spaces in Tokyo                                                         |
       | summary | I want to write an an article about the increased popularity of co-working spaces. |
 
-  @javascript
+  @javascript @wip
   Scenario: User successfully deletes a thread
     When I delete the thread "Co-working spaces in Tokyo"
     Then I should see the homepage
