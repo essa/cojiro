@@ -26,4 +26,8 @@
 # Ignore database.yml
 /config/database.yml
 
+# Ignore binstubs
 /bin/*
+
+# Ignore local rbenv version
+.rbenv-version
