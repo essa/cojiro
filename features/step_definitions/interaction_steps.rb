@@ -13,3 +13,7 @@ end
 Then /^I should not see a link to "([^"]*)"$/ do |link_text|
   page.should_not have_link(link_text)
 end
+
+Then /^I (should|should not) see the text:? "([^"]*)"$/ do |expectation, text|
+  page.send(expectation.gsub(' ','_'),have_content(text))
+end
