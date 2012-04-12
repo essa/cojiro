@@ -1,16 +1,14 @@
 # ref: http://blog.bandzarewicz.com/blog/2012/03/08/backbone-dot-js-tdd-with-jasmine-part-one-the-model/
 #
 describe 'CojiroApp.Models.Cothread', ->
-  it 'should be defined', ->
-    expect(CojiroApp.Models.Cothread).toBeDefined()
+  it 'should be defined', -> expect(CojiroApp.Models.Cothread).toBeDefined()
 
   it 'can be instantiated', ->
     cothread = new CojiroApp.Models.Cothread
     expect(cothread).not.toBeNull()
 
   describe 'new instance default values', ->
-    beforeEach ->
-      this.cothread = new CojiroApp.Models.Cothread()
+    beforeEach -> this.cothread = new CojiroApp.Models.Cothread()
 
     it 'has default values for the .title attribute', ->
       expect(this.cothread.get('title')).toEqual('')
@@ -19,12 +17,10 @@ describe 'CojiroApp.Models.Cothread', ->
       expect(this.cothread.get('summary')).toEqual('')
 
   describe 'getters', ->
-    beforeEach ->
-      this.cothread = new CojiroApp.Models.Cothread()
+    beforeEach -> this.cothread = new CojiroApp.Models.Cothread()
 
     describe '#getId', ->
-      it 'should be defined', ->
-        expect(this.cothread.getId).toBeDefined()
+      it 'should be defined', -> expect(this.cothread.getId).toBeDefined()
 
       it 'returns undefined if id is not defined', ->
         expect(this.cothread.getId()).toBeUndefined()
@@ -34,8 +30,7 @@ describe 'CojiroApp.Models.Cothread', ->
         expect(this.cothread.getId()).toEqual(66)
 
     describe '#getTitle', ->
-      it 'should be defined', ->
-        expect(this.cothread.getTitle).toBeDefined()
+      it 'should be defined', -> expect(this.cothread.getTitle).toBeDefined()
 
       it 'returns value for the title attribute', ->
         stub = sinon.stub(this.cothread, 'get').returns('Thread title')
@@ -44,8 +39,7 @@ describe 'CojiroApp.Models.Cothread', ->
         expect(stub).toHaveBeenCalledWith('title')
 
     describe '#getSummary', ->
-      it 'should be defined', ->
-        expect(this.cothread.getSummary).toBeDefined()
+      it 'should be defined', -> expect(this.cothread.getSummary).toBeDefined()
 
       it 'returns value for the summary attribute', ->
         stub = sinon.stub(this.cothread, 'get').returns('Thread summary')
@@ -54,11 +48,8 @@ describe 'CojiroApp.Models.Cothread', ->
         expect(stub).toHaveBeenCalledWith('summary')
 
     describe '#save', ->
-      beforeEach ->
-        this.server = sinon.fakeServer.create()
-
-      afterEach ->
-        this.server.restore()
+      beforeEach -> this.server = sinon.fakeServer.create()
+      afterEach -> this.server.restore()
 
       it 'sends valid data to the server', ->
         this.cothread.save({ title: 'Co-working spaces in Tokyo' })
@@ -76,14 +67,9 @@ describe 'CojiroApp.Models.Cothread', ->
             this.cothread.save()
             this.request = this.server.requests[0]
 
-          it 'should be a POST', ->
-            expect(this.request.method).toEqual('POST')
-
-          it 'should be async', ->
-            expect(this.request.async).toBeTruthy()
-
-          it 'should have a valid URL', ->
-            expect(this.request.url).toEqual('/threads.json')
+          it 'should be a POST', -> expect(this.request).toBePOST()
+          it 'should be async', -> expect(this.request).toBeAsync()
+          it 'should have a valid URL', -> expect(this.request).toHaveUrl('/threads.json')
 
         describe 'on update', ->
           beforeEach ->
@@ -91,11 +77,6 @@ describe 'CojiroApp.Models.Cothread', ->
             this.cothread.save()
             this.request = this.server.requests[0]
 
-          it 'should be a PUT', ->
-            expect(this.request.method).toEqual('PUT')
-
-          it 'should be async', ->
-            expect(this.request.async).toBeTruthy()
-
-          it 'should have a valid URL', ->
-            expect(this.request.url).toEqual('/threads/66.json')
+          it 'should be a PUT', -> expect(this.request).toBePUT()
+          it 'should be async', -> expect(this.request).toBeAsync()
+          it 'should have a valid URL', -> expect(this.request).toHaveUrl('/threads/66.json')
