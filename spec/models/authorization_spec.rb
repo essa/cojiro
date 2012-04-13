@@ -7,7 +7,7 @@ describe Authorization do
     it { should be_valid }
   end
 
-  describe "create_from_hash" do
+  describe ".create_from_hash" do
 
     hash = { 
       "provider"=>"twitter", 
