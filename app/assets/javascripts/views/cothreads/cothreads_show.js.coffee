@@ -1,8 +1,8 @@
-CojiroApp.Views.CothreadsShow = Backbone.View.extend
+class CojiroApp.Views.CothreadsShow extends Backbone.View
   id: 'thread'
 
   initialize: ->
 
   render: ->
-    this.$el.html(JST['cothreads/show'])
-    return this
+    @$el.html(JST['cothreads/show'])
+    @

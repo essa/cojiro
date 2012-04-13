@@ -8,52 +8,52 @@ describe 'CojiroApp.Models.Cothread', ->
     expect(cothread).not.toBeNull()
 
   describe 'new instance default values', ->
-    beforeEach -> this.cothread = new CojiroApp.Models.Cothread()
+    beforeEach -> @cothread = new CojiroApp.Models.Cothread()
 
     it 'has default values for the .title attribute', ->
-      expect(this.cothread.get('title')).toEqual('')
+      expect(@cothread.get('title')).toEqual('')
 
     it 'has default values for the .summary attribute', ->
-      expect(this.cothread.get('summary')).toEqual('')
+      expect(@cothread.get('summary')).toEqual('')
 
   describe 'getters', ->
-    beforeEach -> this.cothread = new CojiroApp.Models.Cothread()
+    beforeEach -> @cothread = new CojiroApp.Models.Cothread()
 
     describe '#getId', ->
-      it 'should be defined', -> expect(this.cothread.getId).toBeDefined()
+      it 'should be defined', -> expect(@cothread.getId).toBeDefined()
 
       it 'returns undefined if id is not defined', ->
-        expect(this.cothread.getId()).toBeUndefined()
+        expect(@cothread.getId()).toBeUndefined()
 
       it "otherwise returns model's id", ->
-        this.cothread.id = 66;
-        expect(this.cothread.getId()).toEqual(66)
+        @cothread.id = 66;
+        expect(@cothread.getId()).toEqual(66)
 
     describe '#getTitle', ->
-      it 'should be defined', -> expect(this.cothread.getTitle).toBeDefined()
+      it 'should be defined', -> expect(@cothread.getTitle).toBeDefined()
 
       it 'returns value for the title attribute', ->
-        stub = sinon.stub(this.cothread, 'get').returns('Thread title')
+        stub = sinon.stub(@cothread, 'get').returns('Thread title')
 
-        expect(this.cothread.getTitle()).toEqual('Thread title')
+        expect(@cothread.getTitle()).toEqual('Thread title')
         expect(stub).toHaveBeenCalledWith('title')
 
     describe '#getSummary', ->
-      it 'should be defined', -> expect(this.cothread.getSummary).toBeDefined()
+      it 'should be defined', -> expect(@cothread.getSummary).toBeDefined()
 
       it 'returns value for the summary attribute', ->
-        stub = sinon.stub(this.cothread, 'get').returns('Thread summary')
+        stub = sinon.stub(@cothread, 'get').returns('Thread summary')
 
-        expect(this.cothread.getSummary()).toEqual('Thread summary')
+        expect(@cothread.getSummary()).toEqual('Thread summary')
         expect(stub).toHaveBeenCalledWith('summary')
 
     describe '#save', ->
-      beforeEach -> this.server = sinon.fakeServer.create()
-      afterEach -> this.server.restore()
+      beforeEach -> @server = sinon.fakeServer.create()
+      afterEach -> @server.restore()
 
       it 'sends valid data to the server', ->
-        this.cothread.save({ title: 'Co-working spaces in Tokyo' })
-        request = this.server.requests[0]
+        @cothread.save({ title: 'Co-working spaces in Tokyo' })
+        request = @server.requests[0]
         params = JSON.parse(request.requestBody)
 
         expect(params.cothread).toBeDefined()
@@ -63,20 +63,20 @@ describe 'CojiroApp.Models.Cothread', ->
 
         describe 'on create', ->
           beforeEach ->
-            this.cothread.id = null
-            this.cothread.save()
-            this.request = this.server.requests[0]
+            @cothread.id = null
+            @cothread.save()
+            @request = @server.requests[0]
 
-          it 'should be a POST', -> expect(this.request).toBePOST()
-          it 'should be async', -> expect(this.request).toBeAsync()
-          it 'should have a valid URL', -> expect(this.request).toHaveUrl('/threads.json')
+          it 'should be a POST', -> expect(@request).toBePOST()
+          it 'should be async', -> expect(@request).toBeAsync()
+          it 'should have a valid URL', -> expect(@request).toHaveUrl('/threads.json')
 
         describe 'on update', ->
           beforeEach ->
-            this.cothread.id = 66
-            this.cothread.save()
-            this.request = this.server.requests[0]
+            @cothread.id = 66
+            @cothread.save()
+            @request = @server.requests[0]
 
-          it 'should be a PUT', -> expect(this.request).toBePUT()
-          it 'should be async', -> expect(this.request).toBeAsync()
-          it 'should have a valid URL', -> expect(this.request).toHaveUrl('/threads/66.json')
+          it 'should be a PUT', -> expect(@request).toBePUT()
+          it 'should be async', -> expect(@request).toBeAsync()
+          it 'should have a valid URL', -> expect(@request).toHaveUrl('/threads/66.json')

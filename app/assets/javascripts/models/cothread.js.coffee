@@ -1,15 +1,15 @@
-CojiroApp.Models.Cothread = Backbone.Model.extend
+class CojiroApp.Models.Cothread extends Backbone.Model
   url: ->
-    if this.isNew()
+    if @isNew()
       '/threads.json'
     else
-      '/threads/' + this.getId() + '.json'
+      '/threads/' + @getId() + '.json'
 
   defaults:
     title: ''
     summary: ''
 
-  toJSON: -> { cothread: this.attributes }
-  getId: -> this.id
-  getTitle: -> this.get('title')
-  getSummary: -> this.get('summary')
+  toJSON: -> cothread: @attributes
+  getId: -> @id
+  getTitle: -> @get('title')
+  getSummary: -> @get('summary')
