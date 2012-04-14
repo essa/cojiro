@@ -1,8 +1,10 @@
 class CothreadsController < ApplicationController
   before_filter :login_required, :except => [:show]
   before_filter :find_cothread, :except => [:new, :create]
+  respond_to :html, :json
 
   def show
+    respond_with(@cothread)
   end
 
   def new

@@ -69,7 +69,7 @@ describe 'CojiroApp.Models.Cothread', ->
 
           it 'is a POST', -> expect(@request).toBePOST()
           it 'is async', -> expect(@request).toBeAsync()
-          it 'has a valid URL', -> expect(@request).toHaveUrl('/threads.json')
+          it 'has a valid URL', -> expect(@request).toHaveUrl('/threads')
 
         describe 'on update', ->
           beforeEach ->
@@ -79,4 +79,4 @@ describe 'CojiroApp.Models.Cothread', ->
 
           it 'is a PUT', -> expect(@request).toBePUT()
           it 'is async', -> expect(@request).toBeAsync()
-          it 'has a valid URL', -> expect(@request).toHaveUrl('/threads/66.json')
+          it 'has a valid URL', -> expect(@request).toHaveUrl('/threads/66')

@@ -1,5 +1,14 @@
 - title @cothread.title
-.page-header
-  %h1
-
 #thread
+
+%script#bootstrap{ type: "text/json" }
+  { "cothread":
+  =@cothread.to_json.html_safe
+  }
+
+=content_for :javascript do
+  %script{ type: "text/javascript" }
+    $(function () {
+    data = JSON.parse($('#bootstrap').text());
+    CojiroApp.init(data);
+    });

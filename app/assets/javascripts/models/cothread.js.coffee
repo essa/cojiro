@@ -1,9 +1,9 @@
 class CojiroApp.Models.Cothread extends Backbone.Model
   url: ->
     if @isNew()
-      '/threads.json'
+      '/threads'
     else
-      '/threads/' + @getId() + '.json'
+      '/threads/' + @getId()
 
   defaults:
     title: ''

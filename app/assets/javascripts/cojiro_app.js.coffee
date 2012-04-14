@@ -3,6 +3,10 @@ window.CojiroApp =
   Collections: {}
   Views: {}
   Routers: {}
-  init: ->
-    new CojiroApp.Routers.Cothreads()
-    Backbone.history.start()
+  init: (data) ->
+    @cothread = new CojiroApp.Models.Cothread(data.cothread)
+
+    new CojiroApp.Routers.Cothreads(model: @cothread)
+    if (!Backbone.history.started)
+      Backbone.history.start()
+      Backbone.history.started = true
