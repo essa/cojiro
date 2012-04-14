@@ -17,6 +17,13 @@ GIT
       paper_trail (~> 2)
 
 GIT
+  remote: https://github.com/fnando/i18n-js.git
+  revision: eeec14066b50f72876aa789c9b1f226172452798
+  specs:
+    i18n-js (2.1.2)
+      i18n
+
+GIT
   remote: https://github.com/netzpirat/haml_coffee_assets.git
   revision: e5bd7108f9e49ead5cd6309c32ee7c38cb28695b
   specs:
@@ -242,6 +249,7 @@ DEPENDENCIES
   haml (>= 3.1.alpha.50)
   haml-rails
   haml_coffee_assets!
+  i18n-js!
   jasmine
   jasminerice
   jquery-rails

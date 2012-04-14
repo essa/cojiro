@@ -20,6 +20,7 @@ group :assets do
   gem 'bootstrap-sass', '~> 2.0.1', :branch => '2.0'
   gem 'haml_coffee_assets', :git => 'https://github.com/netzpirat/haml_coffee_assets.git'
   gem 'execjs'
+  gem 'i18n-js', :git => 'https://github.com/fnando/i18n-js.git'
 end
 
 gem 'jquery-rails'

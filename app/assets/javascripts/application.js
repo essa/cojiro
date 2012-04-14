@@ -18,6 +18,9 @@
 //= require underscore
 //= require backbone
 //
+//= require i18n
+//= require i18n/translations
+//
 //= require cojiro_app
 //
 //= require_tree ./models
