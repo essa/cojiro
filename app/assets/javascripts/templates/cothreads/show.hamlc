@@ -1,2 +1,3 @@
 // code for app/assets/javascripts/templates/hello.jst.hamlc
-%h1 Hello HAML
+%h1=@model.getTitle()
+%p=@model.getSummary()
