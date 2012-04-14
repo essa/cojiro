@@ -95,4 +95,22 @@ $statbar-text: #777777;
   text-transform: uppercase;
 }
 
+.thumbnail {
+  .addneta {
+    background-color: $statbar-warmgrey;
+    text-align: center;
+    margin: 1px;
+    a {
+      font-size: 2em;
+      display: block;
+      height: 235px;
+      vertical-align: middle;
+    }
+    a:hover{
+      background-color: $statbar-grey;
+      text-decoration: none;
+    }
+  }
+}
+
 @import "bootstrap";

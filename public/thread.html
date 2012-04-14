@@ -159,39 +159,6 @@
       		</li>
       	</ul><!-- End of Row 3 -->
 
-
-      <!-- Row 4 -->
-      	<ul class="thumbnails">
-      		<li class="span3">
-      			<div class="thumbnail">
-	    	  		<img src="http://placehold.it/225x200">
-		      		<h5>Thumbnail label</h5>
-		      		<p>Thumbnail caption</p>
-      			</div>
-      		</li>
-      		<li class="span3">
-      			<div class="thumbnail">
-	    	  		<img src="http://placehold.it/225x200">
-		      		<h5>Thumbnail label</h5>
-		      		<p>Thumbnail caption</p>
-      			</div>
-      		</li>
-      		<li class="span3">
-      			<div class="thumbnail">
-	    	  		<img src="http://placehold.it/225x200">
-		      		<h5>Thumbnail label</h5>
-		      		<p>Thumbnail caption</p>
-      			</div>
-      		</li>
-      		<li class="span3">
-      			<div class="thumbnail">
-	    	  		<img src="http://placehold.it/225x200">
-		      		<h5>Thumbnail label</h5>
-		      		<p>Thumbnail caption</p>
-      			</div>
-      		</li>
-      	</ul><!-- End of Row 4 -->
-
       <!-- Row 4 -->
       	<ul class="thumbnails">
       		<li class="span4">
@@ -209,38 +176,67 @@
       			</div>
       		</li>
       		<li class="span4">
-      			<div class="thumbnail">
-	    	  		<img src="http://placehold.it/300x200">
-		      		<h5>Thumbnail label</h5>
-		      		<p>Thumbnail caption</p>
-      			</div>
+          <div class="thumbnail">
+            <div class="addneta">
+              <a data-toggle="modal" href="#netaModal">+ Add a neta</a>
+            </div>
+          </div>
       		</li>
       	</ul><!-- End of Row 5 -->
+        
+        <div class="modal hide" id="netaModal"> <!-- Start #1 modal overlay for Add Neta -->
+          <div class="modal-header">
+            <a class="close" data-dismiss="modal">×</a>
+            <h3>Step 1: Enter the URL of your new <a href="#" rel="tooltip" title="Here is a definition of a neta, except the tooltip is not working">neta</a></h3>
+          </div>
+          <div class="modal-body">
+            <form>
+              <input type="text" class="span6" placeholder="Enter URL">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+            <a href="#netaModal2" data-toggle="modal" class="btn btn-primary" data-dismiss="modal">Next</a>
+          </div>
+        </div> <!-- End #1 modal overlay-->
 
-      <!-- Row 4 -->
-      	<ul class="thumbnails">
-      		<li class="span4">
-      			<div class="thumbnail">
-	    	  		<img src="http://placehold.it/300x200">
-		      		<h5>Thumbnail label</h5>
-		      		<p>Thumbnail caption</p>
-      			</div>
-      		</li>
-      		<li class="span4">
-      			<div class="thumbnail">
-	    	  		<img src="http://placehold.it/300x200">
-		      		<h5>Thumbnail label</h5>
-		      		<p>Thumbnail caption</p>
-      			</div>
-      		</li>
-      		<li class="span4">
-      			<div class="thumbnail">
-	    	  		<img src="http://placehold.it/300x200">
-		      		<h5>Thumbnail label</h5>
-		      		<p>Thumbnail caption</p>
-      			</div>
-      		</li>
-      	</ul><!-- End of Row 5 -->
+         <div class="modal hide" id="netaModal2"> <!-- Start #2 modal overlay for Add Neta -->
+          <div class="modal-header">
+            <a class="close" data-dismiss="modal">×</a>
+            <h3>Step 2: Enter details</h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+        <fieldset>
+          <div class="control-group"> <!-- language -->
+            <label class="control-label" for="input01">Language</label>
+            <div class="controls btn-group" data-toggle="buttons-radio" >
+              <button class="btn">English</button>
+              <button class="btn">Japanese</button>
+            </div>
+            <input type="hidden" name="netaLang" value="0" />
+          </div>
+          <div class="control-group"> <!-- title -->
+            <label class="control-label" for="textarea">Title</label>
+            <div class="controls">
+              <input type="text" class="span4" id="netaTitle">
+            </div>
+          </div>
+          <div class="control-group"> <!-- summary -->
+            <label class="control-label" for="textarea">Summary</label>  
+            <div class="controls">
+              <textarea class="span4" id="netaSummary" rows="3"></textarea>  
+              <p class="help-block">Tip: aim for both context and brevity.</p>
+            </div>
+          </div>
+        </fieldset>
+        </div>
+          <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+            <a href="#" type="submit" class="btn btn-primary" data-dismiss="modal">Okay, add it!</a>
+          </div>
+        </div> <!-- End 2nd modal overlay-->
+
 
       <hr>
 
