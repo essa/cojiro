@@ -1,7 +1,7 @@
 # ref: http://blog.bandzarewicz.com/blog/2012/03/08/backbone-dot-js-tdd-with-jasmine-part-one-the-model/
 #
 describe 'CojiroApp.Models.Cothread', ->
-  it 'should be defined', -> expect(CojiroApp.Models.Cothread).toBeDefined()
+  it 'is defined', -> expect(CojiroApp.Models.Cothread).toBeDefined()
 
   it 'can be instantiated', ->
     cothread = new CojiroApp.Models.Cothread
@@ -20,7 +20,7 @@ describe 'CojiroApp.Models.Cothread', ->
     beforeEach -> @cothread = new CojiroApp.Models.Cothread()
 
     describe '#getId', ->
-      it 'should be defined', -> expect(@cothread.getId).toBeDefined()
+      it 'is defined', -> expect(@cothread.getId).toBeDefined()
 
       it 'returns undefined if id is not defined', ->
         expect(@cothread.getId()).toBeUndefined()
@@ -30,7 +30,7 @@ describe 'CojiroApp.Models.Cothread', ->
         expect(@cothread.getId()).toEqual(66)
 
     describe '#getTitle', ->
-      it 'should be defined', -> expect(@cothread.getTitle).toBeDefined()
+      it 'is defined', -> expect(@cothread.getTitle).toBeDefined()
 
       it 'returns value for the title attribute', ->
         stub = sinon.stub(@cothread, 'get').returns('Thread title')
@@ -39,7 +39,7 @@ describe 'CojiroApp.Models.Cothread', ->
         expect(stub).toHaveBeenCalledWith('title')
 
     describe '#getSummary', ->
-      it 'should be defined', -> expect(@cothread.getSummary).toBeDefined()
+      it 'is defined', -> expect(@cothread.getSummary).toBeDefined()
 
       it 'returns value for the summary attribute', ->
         stub = sinon.stub(@cothread, 'get').returns('Thread summary')
@@ -67,9 +67,9 @@ describe 'CojiroApp.Models.Cothread', ->
             @cothread.save()
             @request = @server.requests[0]
 
-          it 'should be a POST', -> expect(@request).toBePOST()
-          it 'should be async', -> expect(@request).toBeAsync()
-          it 'should have a valid URL', -> expect(@request).toHaveUrl('/threads.json')
+          it 'is a POST', -> expect(@request).toBePOST()
+          it 'is async', -> expect(@request).toBeAsync()
+          it 'has a valid URL', -> expect(@request).toHaveUrl('/threads.json')
 
         describe 'on update', ->
           beforeEach ->
@@ -77,6 +77,6 @@ describe 'CojiroApp.Models.Cothread', ->
             @cothread.save()
             @request = @server.requests[0]
 
-          it 'should be a PUT', -> expect(@request).toBePUT()
-          it 'should be async', -> expect(@request).toBeAsync()
-          it 'should have a valid URL', -> expect(@request).toHaveUrl('/threads/66.json')
+          it 'is a PUT', -> expect(@request).toBePUT()
+          it 'is async', -> expect(@request).toBeAsync()
+          it 'has a valid URL', -> expect(@request).toHaveUrl('/threads/66.json')
