@@ -113,4 +113,58 @@ $statbar-text: #777777;
   }
 }
 
+.comment {
+
+  margin-top: 5px;
+  border-top: solid thin $statbar-grey;
+  padding-top: 5px;
+  display: table;
+  height: 30px;
+
+  .append {
+    border-top: solid thin $statbar-warmgrey;
+    padding-top: 5px;
+  }
+
+  p {
+    padding-bottom: 5px;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+
+  .metadata > a  {
+      text-decoration: none;
+    }
+
+  small {
+    color: $statbar-text;
+    font-style: italic;
+    font-size: 80%;
+    }
+}
+
+.commentheader {
+  float: right;
+  display: block;
+
+  .control-label {
+    font-size: 115%;
+    padding-right: 5px;
+  }
+}
+
+.commentbox{
+  display: block;
+  margin: 10px 0px;
+  padding: 20px 0px;
+  float: right;
+
+  textarea {
+    resize: vertical;
+    clear: both;
+  }
+}
+
 @import "bootstrap";
