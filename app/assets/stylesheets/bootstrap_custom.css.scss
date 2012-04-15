@@ -95,8 +95,50 @@ $statbar-text: #777777;
   text-transform: uppercase;
 }
 
+/* ----------------------------- */
+/* -------- Neta area ---------- */
+/* ----------------------------- */
+
 .thumbnail {
-  .addneta {
+
+  h4 { // Title
+    font-family: Georgia,"Times New Roman",Times,serif;
+    color: darkgrey;
+    margin-bottom: 5px;
+  }
+
+  p { // Favicon and source
+    font-style: italic;
+    line-height: 1.1;
+    
+    img {
+      vertical-align: middle;
+      margin: 5px 0px;
+    }
+  }
+
+  .text {
+    line-height: 1.4;
+    padding: 10px;
+  }
+
+  .metadata { // Metadata block above the multimedia area
+    background-color: $statbar-warmgrey;
+    size: 200%;
+    padding: 10px 5px 5px 5px;
+    @include border-top-radius(4px);
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+    a:hover {
+      text-decoration: none;
+      color: black;
+    }
+  }
+
+  .addneta { // For the last block "Add neta"
     background-color: $statbar-warmgrey;
     text-align: center;
     margin: 1px;
@@ -113,6 +155,31 @@ $statbar-text: #777777;
   }
 }
 
+.caption { // For neta with an image and a caption style
+  position: relative;
+
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+    display: block;
+    color: white;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    padding: 10px;
+    size: 90%;
+    line-height: 1.4;
+    position: absolute;
+    @include border-bottom-radius(4px);    
+  }
+}
+
+
+/* ----------------------------- */
+/* ------ Comment area --------- */
+/* ----------------------------- */
+
+/* Comment display */
 .comment {
 
   margin-top: 5px;
@@ -145,6 +212,7 @@ $statbar-text: #777777;
     }
 }
 
+/* Header fo comment area */
 .commentheader {
   float: right;
   display: block;
@@ -155,16 +223,20 @@ $statbar-text: #777777;
   }
 }
 
+/* Comment box at the very bottom */
 .commentbox{
-  display: block;
-  margin: 10px 0px;
-  padding: 20px 0px;
+  margin-top: 10px;
   float: right;
 
   textarea {
     resize: vertical;
     clear: both;
   }
+
+  .controls {
+    float: right;
+  }
+
 }
 
 @import "bootstrap";
