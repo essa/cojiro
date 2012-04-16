@@ -16,4 +16,7 @@
 // Loads all Bootstrap javascripts
 //= require bootstrap
 //
+// Masonry Jquery plugin
+//= require jquery.masonry
+//
 //= require_tree .
