@@ -76,7 +76,7 @@ describe CothreadsController do
         before do
           cothread = mock_cothread
           cothread.should_receive(:save).and_return { true }
-          Cothread.stub(:new).with( { 'these' => 'params', 'user_id' => @mock_user.id } ) { cothread }
+          Cothread.stub(:new).with( { 'these' => 'params' } ) { cothread }
         end
 
         before(:each) { post :create, :cothread => { 'these' => 'params' } }
@@ -100,7 +100,7 @@ describe CothreadsController do
         before do
           cothread = mock_cothread
           cothread.should_receive(:save).and_return { false }
-          Cothread.stub(:new).with( { 'these' => 'params', 'user_id' => @mock_user.id } ) { cothread }
+          Cothread.stub(:new).with( { 'these' => 'params' } ) { cothread }
         end
 
         before(:each) { post :create, :cothread => { 'these' => 'params' } }
