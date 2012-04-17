@@ -13,5 +13,8 @@ Feature: Login to cojiro
     Then I should see a link to "csasaki"
     And I should see a link to "Logout"
     And I should not see a link to "Sign in through Twitter"
+    And the following user should exist:
+      | name     | csasaki        |
+      | fullname | Cojiro Sasaki  |
 
   Scenario Outline: Invalid login

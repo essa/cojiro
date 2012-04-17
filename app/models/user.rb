@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  attr_accessible :name, :fullname, :location, :profile, :mysite
 
   # associations
   has_many :cothreads
