@@ -1,4 +1,4 @@
-class CojiroApp.Models.Cothread extends Backbone.Model
+class CojiroApp.Models.Thread extends Backbone.Model
   url: ->
     if @isNew()
       '/threads'
@@ -9,7 +9,7 @@ class CojiroApp.Models.Cothread extends Backbone.Model
     title: ''
     summary: ''
 
-  toJSON: -> cothread: @attributes
+  toJSON: -> thread: @attributes
   getId: -> @id
   getTitle: -> @get('title')
   getSummary: -> @get('summary')

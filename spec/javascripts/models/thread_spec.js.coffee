@@ -1,50 +1,50 @@
 # ref: http://blog.bandzarewicz.com/blog/2012/03/08/backbone-dot-js-tdd-with-jasmine-part-one-the-model/
 #
-describe 'CojiroApp.Models.Cothread', ->
-  it 'is defined', -> expect(CojiroApp.Models.Cothread).toBeDefined()
+describe 'CojiroApp.Models.Thread', ->
+  it 'is defined', -> expect(CojiroApp.Models.Thread).toBeDefined()
 
   it 'can be instantiated', ->
-    cothread = new CojiroApp.Models.Cothread
-    expect(cothread).not.toBeNull()
+    thread = new CojiroApp.Models.Thread
+    expect(thread).not.toBeNull()
 
   describe 'new instance default values', ->
-    beforeEach -> @cothread = new CojiroApp.Models.Cothread()
+    beforeEach -> @thread = new CojiroApp.Models.Thread()
 
     it 'has default values for the .title attribute', ->
-      expect(@cothread.get('title')).toEqual('')
+      expect(@thread.get('title')).toEqual('')
 
     it 'has default values for the .summary attribute', ->
-      expect(@cothread.get('summary')).toEqual('')
+      expect(@thread.get('summary')).toEqual('')
 
   describe 'getters', ->
-    beforeEach -> @cothread = new CojiroApp.Models.Cothread()
+    beforeEach -> @thread = new CojiroApp.Models.Thread()
 
     describe '#getId', ->
-      it 'is defined', -> expect(@cothread.getId).toBeDefined()
+      it 'is defined', -> expect(@thread.getId).toBeDefined()
 
       it 'returns undefined if id is not defined', ->
-        expect(@cothread.getId()).toBeUndefined()
+        expect(@thread.getId()).toBeUndefined()
 
       it "otherwise returns model's id", ->
-        @cothread.id = 66;
-        expect(@cothread.getId()).toEqual(66)
+        @thread.id = 66;
+        expect(@thread.getId()).toEqual(66)
 
     describe '#getTitle', ->
-      it 'is defined', -> expect(@cothread.getTitle).toBeDefined()
+      it 'is defined', -> expect(@thread.getTitle).toBeDefined()
 
       it 'returns value for the title attribute', ->
-        stub = sinon.stub(@cothread, 'get').returns('Thread title')
+        stub = sinon.stub(@thread, 'get').returns('Thread title')
 
-        expect(@cothread.getTitle()).toEqual('Thread title')
+        expect(@thread.getTitle()).toEqual('Thread title')
         expect(stub).toHaveBeenCalledWith('title')
 
     describe '#getSummary', ->
-      it 'is defined', -> expect(@cothread.getSummary).toBeDefined()
+      it 'is defined', -> expect(@thread.getSummary).toBeDefined()
 
       it 'returns value for the summary attribute', ->
-        stub = sinon.stub(@cothread, 'get').returns('Thread summary')
+        stub = sinon.stub(@thread, 'get').returns('Thread summary')
 
-        expect(@cothread.getSummary()).toEqual('Thread summary')
+        expect(@thread.getSummary()).toEqual('Thread summary')
         expect(stub).toHaveBeenCalledWith('summary')
 
     describe '#save', ->
@@ -52,19 +52,19 @@ describe 'CojiroApp.Models.Cothread', ->
       afterEach -> @server.restore()
 
       it 'sends valid data to the server', ->
-        @cothread.save({ title: 'Co-working spaces in Tokyo' })
+        @thread.save({ title: 'Co-working spaces in Tokyo' })
         request = @server.requests[0]
         params = JSON.parse(request.requestBody)
 
-        expect(params.cothread).toBeDefined()
-        expect(params.cothread.title).toEqual('Co-working spaces in Tokyo')
+        expect(params.thread).toBeDefined()
+        expect(params.thread.title).toEqual('Co-working spaces in Tokyo')
 
       describe 'request', ->
 
         describe 'on create', ->
           beforeEach ->
-            @cothread.id = null
-            @cothread.save()
+            @thread.id = null
+            @thread.save()
             @request = @server.requests[0]
 
           it 'is a POST', -> expect(@request).toBePOST()
@@ -73,8 +73,8 @@ describe 'CojiroApp.Models.Cothread', ->
 
         describe 'on update', ->
           beforeEach ->
-            @cothread.id = 66
-            @cothread.save()
+            @thread.id = 66
+            @thread.save()
             @request = @server.requests[0]
 
           it 'is a PUT', -> expect(@request).toBePUT()

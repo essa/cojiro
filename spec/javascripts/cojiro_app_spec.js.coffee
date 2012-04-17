@@ -6,17 +6,17 @@ describe "CojiroApp", ->
 
   describe "init()", ->
     it "accepts JSON and instantiates collections from it", ->
-      cothreadsJSON =
-        "cothread":
+      threadsJSON =
+        "thread":
           "title": "Co-working spaces in Tokyo","summary": "I'm collecting blog posts on co-working spaces in Tokyo."
 
-      CojiroApp.init(cothreadsJSON)
+      CojiroApp.init(threadsJSON)
 
-      expect(CojiroApp.cothread).not.toEqual(undefined)
-      expect(CojiroApp.cothread.getTitle()).toEqual("Co-working spaces in Tokyo")
-      expect(CojiroApp.cothread.getSummary()).toEqual("I'm collecting blog posts on co-working spaces in Tokyo.")
+      expect(CojiroApp.thread).not.toEqual(undefined)
+      expect(CojiroApp.thread.getTitle()).toEqual("Co-working spaces in Tokyo")
+      expect(CojiroApp.thread.getSummary()).toEqual("I'm collecting blog posts on co-working spaces in Tokyo.")
 
-    it "instantiates a Cothreads router", ->
-      CojiroApp.Routers.Cothreads = sinon.spy()
+    it "instantiates a Threads router", ->
+      CojiroApp.Routers.Threads = sinon.spy()
       CojiroApp.init({})
-      expect(CojiroApp.Routers.Cothreads).toHaveBeenCalled()
+      expect(CojiroApp.Routers.Threads).toHaveBeenCalled()
