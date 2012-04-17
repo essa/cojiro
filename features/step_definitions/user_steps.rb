@@ -13,3 +13,11 @@ Given /^I am logged in through Twitter as the following user:$/ do |table|
   visit homepage_path
   click_link "Sign in through Twitter"
 end
+
+Then /^the following user should exist:$/ do |table|
+  (name = table.rows_hash.delete('name')).should be
+  user = User.find_by_name(name)
+  table.rows_hash.each do |field, value|
+    user.send(field).should == value
+  end
+end

@@ -18,4 +18,4 @@ Feature: Delete a thread
   Scenario: User successfully deletes a thread
     When I delete the thread "Co-working spaces in Tokyo"
     Then I should see the homepage
-    And I should see a success message: "Cothread "Co-working spaces in Tokyo" deleted."
+    And I should see a success message: "Thread "Co-working spaces in Tokyo" deleted."

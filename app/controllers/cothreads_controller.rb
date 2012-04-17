@@ -24,7 +24,9 @@ class CothreadsController < ApplicationController
   def destroy
     title = @cothread.title
     if @cothread.destroy
-      flash[:success] = "Cothread \"#{title}\" deleted."
+      flash[:success] = "Thread \"#{title}\" deleted."
+    else
+      flash[:error] = "Thread \"#{title}\" could not be deleted."
     end
     redirect_to homepage_path
   end
