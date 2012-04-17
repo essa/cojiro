@@ -1,4 +1,6 @@
 class Cothread < ActiveRecord::Base
+  attr_accessible :title, :summary, :source_language
+
   translates :title, :summary
 
   #validations

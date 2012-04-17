@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  describe "new_from_hash" do
+  describe ".new_from_hash" do
 
     before do
       hash = { 
