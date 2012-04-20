@@ -7,7 +7,7 @@ describe Cothread do
 
   describe "validation with factory" do
     before do
-      @cothread = Factory(:cothread)
+      @cothread = FactoryGirl.create(:cothread)
     end
 
     subject { @cothread }

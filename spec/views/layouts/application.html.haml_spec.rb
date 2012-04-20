@@ -30,7 +30,7 @@ describe 'layouts/application' do
     context "logged-in user" do
       before do
         view.stub(:logged_in?) { true } 
-        assign(:current_user, Factory(:user))
+        assign(:current_user, FactoryGirl.create(:user))
       end
 
       it "renders start a thread link" do

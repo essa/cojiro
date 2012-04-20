@@ -139,7 +139,7 @@ describe CothreadsController do
         end
 
         it "returns a success message" do
-          flash[:success].should == "Cothread \"Co-working spaces in Tokyo\" deleted."
+          flash[:success].should == "Thread \"Co-working spaces in Tokyo\" deleted."
         end
 
       end
@@ -155,7 +155,9 @@ describe CothreadsController do
           response.should redirect_to homepage_path
         end
 
-        it "returns an error message"
+        it "returns an error message" do
+          flash[:error].should == "Thread \"Co-working spaces in Tokyo\" could not be deleted."
+        end
 
       end
 
