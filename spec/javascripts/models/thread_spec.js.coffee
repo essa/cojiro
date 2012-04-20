@@ -1,6 +1,8 @@
-# ref: http://blog.bandzarewicz.com/blog/2012/03/08/backbone-dot-js-tdd-with-jasmine-part-one-the-model/
-#
+# ref1: http://blog.bandzarewicz.com/blog/2012/03/08/backbone-dot-js-tdd-with-jasmine-part-one-the-model/
+# ref2: http://tinnedfruit.com/2011/03/25/testing-backbone-apps-with-jasmine-sinon-2.html
 describe 'CojiroApp.Models.Thread', ->
+  beforeEach -> I18n.locale = 'en'
+
   it 'is defined', -> expect(CojiroApp.Models.Thread).toBeDefined()
 
   it 'can be instantiated', ->
@@ -59,6 +61,20 @@ describe 'CojiroApp.Models.Thread', ->
         expect(@thread.getCreatedAt()).toEqual('2012-04-20T00:52:29Z')
         expect(stub).toHaveBeenCalledWith('created_at')
 
+    describe '#url', ->
+      it 'returns collection URL when id is not set', ->
+        expect(@thread.url()).toEqual('/en/threads')
+
+      it 'returns collection URL and id when id is set', ->
+        @thread.id = 66
+        expect(@thread.url()).toEqual('/en/threads/66')
+
+      it 'incorporates locale into the URL', ->
+        I18n.locale = 'ja'
+        expect(@thread.url()).toEqual('/ja/threads')
+        @thread.id = 66
+        expect(@thread.url()).toEqual('/ja/threads/66')
+
     describe '#save', ->
       beforeEach -> @server = sinon.fakeServer.create()
       afterEach -> @server.restore()
@@ -77,7 +93,6 @@ describe 'CojiroApp.Models.Thread', ->
         expect(params.thread.created_at).toEqual('2012-04-20T00:52:29Z')
 
       describe 'request', ->
-        beforeEach -> I18n.locale = 'en'
 
         describe 'on create', ->
           beforeEach ->
@@ -98,3 +113,12 @@ describe 'CojiroApp.Models.Thread', ->
           it 'is a PUT', -> expect(@request).toBePUT()
           it 'is async', -> expect(@request).toBeAsync()
           it 'has a valid URL', -> expect(@request).toHaveUrl('/en/threads/66')
+
+      describe 'validations', ->
+
+        it 'does not save if the title is blank', ->
+          eventSpy = sinon.spy()
+          @thread.bind('error', eventSpy)
+          @thread.save("title":"")
+          expect(eventSpy).toHaveBeenCalledOnce()
+          expect(eventSpy).toHaveBeenCalledWith(@thread,"cannot have an empty title")
