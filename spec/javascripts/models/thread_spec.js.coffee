@@ -75,6 +75,9 @@ describe 'CojiroApp.Models.Thread', ->
         @thread.id = 66
         expect(@thread.url()).toEqual('/ja/threads/66')
 
+  describe 'updating the record', ->
+    beforeEach -> @thread = new CojiroApp.Models.Thread()
+
     describe '#save', ->
       beforeEach -> @server = sinon.fakeServer.create()
       afterEach -> @server.restore()
@@ -122,3 +125,24 @@ describe 'CojiroApp.Models.Thread', ->
           @thread.save("title":"")
           expect(eventSpy).toHaveBeenCalledOnce()
           expect(eventSpy).toHaveBeenCalledWith(@thread,"cannot have an empty title")
+
+    describe 'fetching the record', ->
+      beforeEach ->
+        @fixture = @fixtures.Threads.valid
+        @server = sinon.fakeServer.create()
+        @server.respondWith(
+          "GET",
+          "/" + I18n.locale + "/threads",
+          @validResponse(@fixture))
+
+      afterEach -> @server.restore()
+
+      it "should parse the thread from the server", ->
+        @thread.fetch()
+        @server.respond()
+        expect(@thread.getTitle())
+          .toEqual(@fixture.title)
+        expect(@thread.getSummary())
+          .toEqual(@fixture.summary)
+        expect(@thread.getCreatedAt())
+          .toEqual(@fixture.created_at)
