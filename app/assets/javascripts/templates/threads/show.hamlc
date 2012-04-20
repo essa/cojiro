@@ -1,3 +1,12 @@
 // code for app/assets/javascripts/templates/hello.jst.hamlc
-%h1=@model.getTitle()
-%p=@model.getSummary()
+.row
+  .span12
+    %h2=@model.getTitle()
+.row
+  .statbar
+    %ul.nav.nav-pills
+      %li.byline
+        %span.date=@model.getCreatedAt()
+.row
+  .span6
+    %p=@model.getSummary()

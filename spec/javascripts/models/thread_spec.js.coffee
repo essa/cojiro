@@ -10,11 +10,14 @@ describe 'CojiroApp.Models.Thread', ->
   describe 'new instance default values', ->
     beforeEach -> @thread = new CojiroApp.Models.Thread()
 
-    it 'has default values for the .title attribute', ->
+    it 'has default value for the .title attribute', ->
       expect(@thread.get('title')).toEqual('')
 
-    it 'has default values for the .summary attribute', ->
+    it 'has default value for the .summary attribute', ->
       expect(@thread.get('summary')).toEqual('')
+
+    it 'has default value for the .created_at attribute', ->
+      expect(@thread.get('created_at')).toEqual('')
 
   describe 'getters', ->
     beforeEach -> @thread = new CojiroApp.Models.Thread()
@@ -47,17 +50,31 @@ describe 'CojiroApp.Models.Thread', ->
         expect(@thread.getSummary()).toEqual('Thread summary')
         expect(stub).toHaveBeenCalledWith('summary')
 
+    describe '#getCreatedAt', ->
+      it 'is defined', -> expect(@thread.getCreatedAt).toBeDefined()
+
+      it 'returns value for the created_at attribute', ->
+        stub = sinon.stub(@thread, 'get').returns('2012-04-20T00:52:29Z')
+
+        expect(@thread.getCreatedAt()).toEqual('2012-04-20T00:52:29Z')
+        expect(stub).toHaveBeenCalledWith('created_at')
+
     describe '#save', ->
       beforeEach -> @server = sinon.fakeServer.create()
       afterEach -> @server.restore()
 
       it 'sends valid data to the server', ->
-        @thread.save({ title: 'Co-working spaces in Tokyo' })
+        @thread.save
+          title: 'Co-working spaces in Tokyo',
+          summary: 'I\'m collecting blog posts on co-working spaces in Tokyo.'
+          created_at: '2012-04-20T00:52:29Z'
         request = @server.requests[0]
         params = JSON.parse(request.requestBody)
 
         expect(params.thread).toBeDefined()
         expect(params.thread.title).toEqual('Co-working spaces in Tokyo')
+        expect(params.thread.summary).toEqual('I\'m collecting blog posts on co-working spaces in Tokyo.')
+        expect(params.thread.created_at).toEqual('2012-04-20T00:52:29Z')
 
       describe 'request', ->
 
