@@ -61,6 +61,15 @@ describe 'CojiroApp.Models.Thread', ->
         expect(@thread.getCreatedAt()).toEqual('2012-04-20T00:52:29Z')
         expect(stub).toHaveBeenCalledWith('created_at')
 
+    describe '#getSourceLanguage', ->
+      it 'is defined', -> expect(@thread.getSourceLanguage).toBeDefined()
+
+      it 'returns value for the source_language attribute', ->
+        stub = sinon.stub(@thread, 'get').returns('ja')
+
+        expect(@thread.getSourceLanguage()).toEqual('ja')
+        expect(stub).toHaveBeenCalledWith('source_language')
+
     describe '#url', ->
       it 'returns collection URL when id is not set', ->
         expect(@thread.url()).toEqual('/en/threads')
@@ -87,6 +96,7 @@ describe 'CojiroApp.Models.Thread', ->
           title: 'Co-working spaces in Tokyo',
           summary: 'I\'m collecting blog posts on co-working spaces in Tokyo.'
           created_at: '2012-04-20T00:52:29Z'
+          source_language: 'en'
         request = @server.requests[0]
         params = JSON.parse(request.requestBody)
 
@@ -94,6 +104,7 @@ describe 'CojiroApp.Models.Thread', ->
         expect(params.thread.title).toEqual('Co-working spaces in Tokyo')
         expect(params.thread.summary).toEqual('I\'m collecting blog posts on co-working spaces in Tokyo.')
         expect(params.thread.created_at).toEqual('2012-04-20T00:52:29Z')
+        expect(params.thread.source_language).toEqual('en')
 
       describe 'request', ->
 
@@ -119,12 +130,12 @@ describe 'CojiroApp.Models.Thread', ->
 
       describe 'validations', ->
 
-        it 'does not save if the title is blank', ->
-          eventSpy = sinon.spy()
-          @thread.bind('error', eventSpy)
+        it 'does not save if title is blank', ->
+          spy = sinon.spy()
+          @thread.bind('error', spy)
           @thread.save("title":"")
-          expect(eventSpy).toHaveBeenCalledOnce()
-          expect(eventSpy).toHaveBeenCalledWith(@thread,"cannot have an empty title")
+          expect(spy).toHaveBeenCalledOnce()
+          expect(spy).toHaveBeenCalledWith(@thread,"cannot have an empty title")
 
     describe 'fetching the record', ->
       beforeEach ->
@@ -146,3 +157,5 @@ describe 'CojiroApp.Models.Thread', ->
           .toEqual(@fixture.summary)
         expect(@thread.getCreatedAt())
           .toEqual(@fixture.created_at)
+        expect(@thread.getSourceLanguage())
+          .toEqual(@fixture.source_language)

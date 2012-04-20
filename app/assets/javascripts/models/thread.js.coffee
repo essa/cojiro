@@ -15,6 +15,7 @@ class CojiroApp.Models.Thread extends Backbone.Model
   getTitle: -> @get('title')
   getSummary: -> @get('summary')
   getCreatedAt: -> @get('created_at')
+  getSourceLanguage: -> @get('source_language')
 
   validate: (attrs) ->
     if (!attrs.title) then "cannot have an empty title"
