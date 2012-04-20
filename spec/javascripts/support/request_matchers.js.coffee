@@ -6,4 +6,5 @@ beforeEach ->
     toHaveUrl: (expected) ->
       actual = @actual.url
       @message = -> "Expected request to have url " + expected + " but was " + actual
+      actual is expected
     toBeAsync: -> @actual.async

@@ -1,9 +1,9 @@
 class CojiroApp.Models.Thread extends Backbone.Model
   url: ->
     if @isNew()
-      '/threads'
+      '/' + I18n.locale + '/threads'
     else
-      '/threads/' + @getId()
+      '/' + I18n.locale + '/threads/' + @getId()
 
   defaults:
     title: ''

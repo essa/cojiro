@@ -77,6 +77,7 @@ describe 'CojiroApp.Models.Thread', ->
         expect(params.thread.created_at).toEqual('2012-04-20T00:52:29Z')
 
       describe 'request', ->
+        beforeEach -> I18n.locale = 'en'
 
         describe 'on create', ->
           beforeEach ->
@@ -86,7 +87,7 @@ describe 'CojiroApp.Models.Thread', ->
 
           it 'is a POST', -> expect(@request).toBePOST()
           it 'is async', -> expect(@request).toBeAsync()
-          it 'has a valid URL', -> expect(@request).toHaveUrl('/threads')
+          it 'has a valid URL', -> expect(@request).toHaveUrl('/en/threads')
 
         describe 'on update', ->
           beforeEach ->
@@ -96,4 +97,4 @@ describe 'CojiroApp.Models.Thread', ->
 
           it 'is a PUT', -> expect(@request).toBePUT()
           it 'is async', -> expect(@request).toBeAsync()
-          it 'has a valid URL', -> expect(@request).toHaveUrl('/threads/66')
+          it 'has a valid URL', -> expect(@request).toHaveUrl('/en/threads/66')
