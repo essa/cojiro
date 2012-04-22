@@ -70,6 +70,24 @@ describe 'CojiroApp.Models.Thread', ->
         expect(@thread.getSourceLanguage()).toEqual('ja')
         expect(stub).toHaveBeenCalledWith('source_language')
 
+    describe '#getUserName', ->
+      it 'is defined', -> expect(@thread.getUserName).toBeDefined()
+
+      it 'returns name attribute of user associated with thread', ->
+        stub = sinon.stub(@thread, 'get').returns({ "name": "csasaki" })
+
+        expect(@thread.getUserName()).toEqual('csasaki')
+        expect(stub).toHaveBeenCalledWith('user')
+
+    describe '#getUserFullname', ->
+      it 'is defined', -> expect(@thread.getUserFullname).toBeDefined()
+
+      it 'returns fullname attribute of user associated with thread', ->
+        stub = sinon.stub(@thread, 'get').returns({ "fullname": "Cojiro Sasaki" })
+
+        expect(@thread.getUserFullname()).toEqual('Cojiro Sasaki')
+        expect(stub).toHaveBeenCalledWith('user')
+
     describe '#url', ->
       it 'returns collection URL when id is not set', ->
         expect(@thread.url()).toEqual('/en/threads')

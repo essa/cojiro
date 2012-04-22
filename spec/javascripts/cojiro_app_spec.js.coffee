@@ -8,7 +8,11 @@ describe "CojiroApp", ->
     it "accepts JSON and instantiates collections from it", ->
       threadsJSON =
         "thread":
-          "title": "Co-working spaces in Tokyo","summary": "I'm collecting blog posts on co-working spaces in Tokyo."
+          "title": "Co-working spaces in Tokyo",
+          "summary": "I'm collecting blog posts on co-working spaces in Tokyo."
+          "user":
+            "name": "csasaki"
+            "fullname": "Cojiro Sasaki"
 
       CojiroApp.init(threadsJSON)
 

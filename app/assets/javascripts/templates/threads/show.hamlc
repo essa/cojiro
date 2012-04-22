@@ -7,6 +7,11 @@
     %ul.nav.nav-pills
       %li.byline
         %span.date=@model.getCreatedAt()
+      %li.byline
+        %span.name=@model.getUserFullname()
+        %br
+        %span.handle=@model.getUserName()
+
 .row
   .span6
     %p=@model.getSummary()
