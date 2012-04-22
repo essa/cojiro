@@ -24,3 +24,9 @@ describe "CojiroApp", ->
       CojiroApp.Routers.Threads = sinon.spy()
       CojiroApp.init({})
       expect(CojiroApp.Routers.Threads).toHaveBeenCalled()
+
+    it "starts Backbone.history", ->
+      Backbone.history =
+        start: sinon.spy()
+      CojiroApp.init({})
+      expect(Backbone.history.start).toHaveBeenCalled()
