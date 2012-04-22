@@ -1,7 +1,7 @@
 Given /^the following thread exists:$/ do |table|
   hash = table.rows_hash
   u = User.find_by_name(hash.delete("user"))
-  Factory(:cothread, u.nil? ? hash : hash.merge(:user => u))
+  FactoryGirl.create(:cothread, u.nil? ? hash : hash.merge(:user => u))
 end
 
 Given /^I am on the thread "([^"]*)"$/ do |title|
