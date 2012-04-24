@@ -154,6 +154,7 @@ describe 'CojiroApp.Models.Thread', ->
           @thread.save("title":"")
           expect(spy).toHaveBeenCalledOnce()
           expect(spy).toHaveBeenCalledWith(@thread,"cannot have an empty title")
+          @thread.unbind('error', spy)
 
     describe 'fetching the record', ->
       beforeEach ->
