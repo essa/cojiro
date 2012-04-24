@@ -13,10 +13,10 @@ describe User do
           "description" => "I like dicing blue chickens.",
           "location" => "Fukui" }
       }
-      @cothread = User.new_from_hash(hash)
+      @user = User.new_from_hash(hash)
     end
 
-    subject { @cothread }
+    subject { @user }
 
     its(:name) { should == "csasaki" }
     its(:fullname) { should == "Cojiro Sasaki" }
