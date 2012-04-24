@@ -69,7 +69,7 @@ We use:
 Contributing
 ------------
 
-We welcome feature suggestions, bug fixes and pull requests, as well as help with interface localization to new languages. We'll be posting more detailed instructions on how to help out to the wiki soon.
+We welcome feature suggestions, bug fixes and pull requests, as well as help with interface localization to new languages. For more information see the [wiki](https://github.com/netalab/cojiro/wiki).
 
 Copyright
 ---------
