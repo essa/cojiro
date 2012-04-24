@@ -20,4 +20,7 @@ class CojiroApp.Models.Thread extends Backbone.Model
   getUserFullname: -> @get('user').fullname
 
   validate: (attrs) ->
-    if (!attrs.title) then "cannot have an empty title"
+    errors = []
+    if (!attrs.title) then errors.push "cannot have an empty title"
+    if (!attrs.user) then errors.push "cannot have an empty user"
+    return errors unless errors.length is 0

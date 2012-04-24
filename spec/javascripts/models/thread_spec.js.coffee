@@ -115,6 +115,9 @@ describe 'CojiroApp.Models.Thread', ->
           summary: 'I\'m collecting blog posts on co-working spaces in Tokyo.'
           created_at: '2012-04-20T00:52:29Z'
           source_language: 'en'
+          user:
+            name: "csasaki"
+            fullname: "Cojiro Sasaki"
         request = @server.requests[0]
         params = JSON.parse(request.requestBody)
 
@@ -147,14 +150,25 @@ describe 'CojiroApp.Models.Thread', ->
           it 'has a valid URL', -> expect(@request).toHaveUrl('/en/threads/66')
 
       describe 'validations', ->
+        beforeEach ->
+          @spy = sinon.spy()
+          @thread.bind('error', @spy)
+          @data = @fixtures.Threads.valid
+
+        afterEach ->
+          @thread.unbind('error', @spy)
 
         it 'does not save if title is blank', ->
-          spy = sinon.spy()
-          @thread.bind('error', spy)
-          @thread.save("title":"")
-          expect(spy).toHaveBeenCalledOnce()
-          expect(spy).toHaveBeenCalledWith(@thread,"cannot have an empty title")
-          @thread.unbind('error', spy)
+          delete @data.title
+          @thread.save(@data)
+          expect(@spy).toHaveBeenCalledOnce()
+          expect(@spy).toHaveBeenCalledWith(@thread,["cannot have an empty title"])
+
+        it 'does not save if user is blank', ->
+          delete @data.user
+          @thread.save(@data)
+          expect(@spy).toHaveBeenCalledOnce()
+          expect(@spy).toHaveBeenCalledWith(@thread,["cannot have an empty user"])
 
     describe 'fetching the record', ->
       beforeEach ->

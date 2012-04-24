@@ -9,4 +9,6 @@ beforeEach ->
         "source_language":"en"
         "title":"Co-working spaces in Tokyo"
         "summary":"I'm collecting blog posts on co-working spaces in Tokyo."
-        "user_id":"8"
+        "user":
+          "name":"csasaki"
+          "fullname":"Cojiro Sasaki"
