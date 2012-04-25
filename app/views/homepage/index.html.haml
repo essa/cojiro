@@ -1,2 +1,14 @@
 - title (page_title = "home")
 %h1= page_title.capitalize
+
+%script#bootstrap{ type: "text/json" }
+  { "threads":
+  =@cothreads.to_json.html_safe
+  }
+
+=content_for :javascript do
+  %script{ type: "text/javascript" }
+    $(function () {
+    data = JSON.parse($('#bootstrap').text());
+    CojiroApp.init(data);
+    });

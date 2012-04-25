@@ -1,16 +1,16 @@
 # ref1: http://blog.bandzarewicz.com/blog/2012/03/08/backbone-dot-js-tdd-with-jasmine-part-one-the-model/
 # ref2: http://tinnedfruit.com/2011/03/25/testing-backbone-apps-with-jasmine-sinon-2.html
-describe 'CojiroApp.Models.Thread', ->
+describe 'App.Models.Thread', ->
   beforeEach -> I18n.locale = 'en'
 
-  it 'is defined', -> expect(CojiroApp.Models.Thread).toBeDefined()
+  it 'is defined', -> expect(App.Models.Thread).toBeDefined()
 
   it 'can be instantiated', ->
-    thread = new CojiroApp.Models.Thread
+    thread = new App.Models.Thread
     expect(thread).not.toBeNull()
 
   describe 'new instance default values', ->
-    beforeEach -> @thread = new CojiroApp.Models.Thread()
+    beforeEach -> @thread = new App.Models.Thread()
 
     it 'has default value for the .title attribute', ->
       expect(@thread.get('title')).toEqual('')
@@ -22,7 +22,7 @@ describe 'CojiroApp.Models.Thread', ->
       expect(@thread.get('created_at')).toEqual('')
 
   describe 'getters', ->
-    beforeEach -> @thread = new CojiroApp.Models.Thread()
+    beforeEach -> @thread = new App.Models.Thread()
 
     describe '#getId', ->
       it 'is defined', -> expect(@thread.getId).toBeDefined()
@@ -103,7 +103,7 @@ describe 'CojiroApp.Models.Thread', ->
         expect(@thread.url()).toEqual('/ja/threads/66')
 
   describe 'updating the record', ->
-    beforeEach -> @thread = new CojiroApp.Models.Thread()
+    beforeEach -> @thread = new App.Models.Thread()
 
     describe '#save', ->
       beforeEach -> @server = sinon.fakeServer.create()

@@ -1,6 +1,6 @@
-describe "CojiroApp.Views.ThreadsShow", ->
+describe "App.Views.Thread", ->
   it "renders the thread", ->
-    thread = new CojiroApp.Models.Thread()
+    thread = new App.Models.Thread()
     thread.set
       title: "Geisha bloggers",
       summary: "Looking for info on geisha bloggers."
@@ -8,7 +8,7 @@ describe "CojiroApp.Views.ThreadsShow", ->
         name: "csasaki"
         fullname: "Cojiro Sasaki"
 
-    view = new CojiroApp.Views.ThreadsShow(model: thread)
+    view = new App.Views.Thread(model: thread)
     $el = $(view.render().el)
 
     expect($el).toBe("#thread")

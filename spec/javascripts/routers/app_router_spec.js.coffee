@@ -1,6 +1,6 @@
-describe 'CojiroApp.Routers.Threads', ->
+describe 'App.Routers.AppRouter', ->
   beforeEach ->
-    @router = new CojiroApp.Routers.Threads()
+    @router = new App.Routers.AppRouter()
     @spy = sinon.spy()
     try
       Backbone.history.start
@@ -9,8 +9,8 @@ describe 'CojiroApp.Routers.Threads', ->
     catch e
     @router.navigate "elsewhere"
 
-  it "fires the show route with a blank hash", ->
-    @router.bind "route:show", @spy
+  it "fires the index route with a blank hash", ->
+    @router.bind "route:index", @spy
     @router.navigate "", true
     expect(@spy).toHaveBeenCalledOnce()
     expect(@spy).toHaveBeenCalledWith()

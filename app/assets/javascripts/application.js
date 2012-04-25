@@ -21,7 +21,7 @@
 //= require i18n
 //= require i18n/translations
 //
-//= require cojiro_app
+//= require app
 //
 //= require_tree ./models
 //= require_tree ./collections

@@ -1,4 +1,4 @@
-class CojiroApp.Views.ThreadsShow extends Backbone.View
+class App.Views.Thread extends Backbone.View
   id: 'thread'
 
   initialize: ->

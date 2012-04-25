@@ -1,4 +1,4 @@
-class CojiroApp.Models.Thread extends Backbone.Model
+class App.Models.Thread extends Backbone.Model
   url: ->
     if @isNew()
       '/' + I18n.locale + '/threads'
