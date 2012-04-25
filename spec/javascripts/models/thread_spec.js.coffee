@@ -159,14 +159,12 @@ describe 'CojiroApp.Models.Thread', ->
           @thread.unbind('error', @spy)
 
         it 'does not save if title is blank', ->
-          delete @data.title
-          @thread.save(@data)
+          @thread.save(_(@data).extend("title":""))
           expect(@spy).toHaveBeenCalledOnce()
           expect(@spy).toHaveBeenCalledWith(@thread,["cannot have an empty title"])
 
         it 'does not save if user is blank', ->
-          delete @data.user
-          @thread.save(@data)
+          @thread.save(_(@data).extend("user":""))
           expect(@spy).toHaveBeenCalledOnce()
           expect(@spy).toHaveBeenCalledWith(@thread,["cannot have an empty user"])
 
