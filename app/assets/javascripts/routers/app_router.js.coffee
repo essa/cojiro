@@ -1,7 +1,7 @@
-class App.Routers.AppRouter extends Backbone.Router
+App.AppRouter = App.Routers.AppRouter = Backbone.Router.extend
   routes:
     "" : "index"
 
   index: ->
-    view = new App.Views.ThreadList( collection: App.threads )
+    view = new App.ThreadListView( collection: App.threads )
     $('.content').html(view.render().el)

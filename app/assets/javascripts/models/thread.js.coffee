@@ -1,4 +1,4 @@
-class App.Models.Thread extends Backbone.Model
+App.Thread = App.Models.Thread = Backbone.Model.extend
   url: ->
     if @isNew()
       '/' + I18n.locale + '/threads'

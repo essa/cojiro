@@ -1,16 +1,19 @@
 # ref1: http://blog.bandzarewicz.com/blog/2012/03/08/backbone-dot-js-tdd-with-jasmine-part-one-the-model/
 # ref2: http://tinnedfruit.com/2011/03/25/testing-backbone-apps-with-jasmine-sinon-2.html
-describe 'App.Models.Thread', ->
+describe 'App.Thread', ->
   beforeEach -> I18n.locale = 'en'
 
-  it 'is defined', -> expect(App.Models.Thread).toBeDefined()
+  it 'is defined with alias', -> 
+    expect(App.Thread).toBeDefined()
+    expect(App.Models.Thread).toBeDefined()
+    expect(App.Thread).toEqual(App.Models.Thread)
 
   it 'can be instantiated', ->
-    thread = new App.Models.Thread
+    thread = new App.Thread
     expect(thread).not.toBeNull()
 
   describe 'new instance default values', ->
-    beforeEach -> @thread = new App.Models.Thread()
+    beforeEach -> @thread = new App.Thread()
 
     it 'has default value for the .title attribute', ->
       expect(@thread.get('title')).toEqual('')
@@ -22,7 +25,7 @@ describe 'App.Models.Thread', ->
       expect(@thread.get('created_at')).toEqual('')
 
   describe 'getters', ->
-    beforeEach -> @thread = new App.Models.Thread()
+    beforeEach -> @thread = new App.Thread()
 
     describe '#getId', ->
       it 'is defined', -> expect(@thread.getId).toBeDefined()
@@ -103,7 +106,7 @@ describe 'App.Models.Thread', ->
         expect(@thread.url()).toEqual('/ja/threads/66')
 
   describe 'updating the record', ->
-    beforeEach -> @thread = new App.Models.Thread()
+    beforeEach -> @thread = new App.Thread()
 
     describe '#save', ->
       beforeEach -> @server = sinon.fakeServer.create()

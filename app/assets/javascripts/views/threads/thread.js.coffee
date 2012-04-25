@@ -1,4 +1,4 @@
-class App.Views.Thread extends Backbone.View
+App.ThreadView = App.Views.Thread = Backbone.View.extend
   id: 'thread'
 
   initialize: ->

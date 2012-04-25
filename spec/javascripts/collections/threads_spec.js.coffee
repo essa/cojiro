@@ -1,23 +1,25 @@
-describe "App.Collections.Threads", ->
+describe "App.Threads", ->
 
-  it "is defined", ->
+  it "is defined with alias", ->
+    expect(App.Threads).toBeDefined()
     expect(App.Collections.Threads).toBeDefined()
+    expect(App.Threads).toEqual(App.Collections.Threads)
 
   it "can be instantiated", ->
-    collection = new App.Collections.Threads()
-    expect(App.Collections.Threads).not.toBeNull()
+    collection = new App.Threads()
+    expect(App.Threads).not.toBeNull()
 
-  it "contains instances of App.Models.Thread", ->
-    collection = new App.Collections.Threads()
-    expect(collection.model).toEqual(App.Models.Thread)
+  it "contains instances of App.Thread", ->
+    collection = new App.Threads()
+    expect(collection.model).toEqual(App.Thread)
 
   describe "when instantiated with model literal", ->
     beforeEach ->
-      @threadStub = sinon.stub(window.App.Models, 'Thread')
+      @threadStub = sinon.stub(window.App, 'Thread')
       @model = new Backbone.Model(id: 5, title: "Geisha bloggers")
 
       @threadStub.returns(@model)
-      @threads = new App.Collections.Threads()
+      @threads = new App.Threads()
       @threads.model = @threadStub
       @threads.add(id: 5, title: "Geisha bloggers")
 
@@ -31,7 +33,7 @@ describe "App.Collections.Threads", ->
       expect(@threads.get(5).get('id')).toEqual(5)
 
   describe "#url", ->
-    beforeEach -> @threads = new App.Collections.Threads()
+    beforeEach -> @threads = new App.Threads()
 
     it "is persisted at /en/threads for an English locale", ->
       I18n.locale = 'en'

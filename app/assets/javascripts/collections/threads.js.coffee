@@ -1,4 +1,4 @@
-class App.Collections.Threads extends Backbone.Collection
-  model: App.Models.Thread
+App.Threads = App.Collections.Threads = Backbone.Collection.extend
+  model: App.Thread
   url: ->
     '/' + I18n.locale + '/threads'

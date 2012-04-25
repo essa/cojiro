@@ -1,6 +1,6 @@
-describe "App.Views.Thread", ->
+describe "App.ThreadView", ->
   it "renders the thread", ->
-    thread = new App.Models.Thread()
+    thread = new App.Thread()
     thread.set
       title: "Geisha bloggers",
       summary: "Looking for info on geisha bloggers."
@@ -8,7 +8,7 @@ describe "App.Views.Thread", ->
         name: "csasaki"
         fullname: "Cojiro Sasaki"
 
-    view = new App.Views.Thread(model: thread)
+    view = new App.ThreadView(model: thread)
     $el = $(view.render().el)
 
     expect($el).toBe("#thread")

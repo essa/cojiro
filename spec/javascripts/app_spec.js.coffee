@@ -30,10 +30,10 @@ describe "App", ->
       expect(App.threads.models[1].getTitle()).toEqual("Geisha bloggers")
 
     it "instantiates an AppRouter", ->
-      sinon.spy(App.Routers, 'AppRouter')
+      sinon.spy(App, 'AppRouter')
       App.init({})
-      expect(App.Routers.AppRouter).toHaveBeenCalled()
-      App.Routers.AppRouter.restore()
+      expect(App.AppRouter).toHaveBeenCalled()
+      App.AppRouter.restore()
 
     it "starts Backbone.history", ->
       Backbone.history.started = null
