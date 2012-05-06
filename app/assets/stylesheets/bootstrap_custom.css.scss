@@ -107,6 +107,11 @@ $statbar-text: #777777;
     margin-bottom: 5px;
   }
 
+  .singlelang { // if the text is not in your interface locale
+  	font-style: italic;
+	color: darkgrey;
+  }
+
   p { // Favicon and source
     font-style: italic;
     line-height: 1.1;
@@ -138,21 +143,24 @@ $statbar-text: #777777;
     }
   }
 
-  .addneta { // For the last block "Add neta"
+  .actions { // Action block below the multimedia area
     background-color: $statbar-warmgrey;
+    size: 200%;
+    padding: 5px;
+    @include border-bottom-radius(4px);
+    vertical-align: middle;
     text-align: center;
-    margin: 1px;
+
     a {
-      font-size: 2em;
-      display: block;
-      height: 235px;
-      vertical-align: middle;
-    }
-    a:hover{
-      background-color: $statbar-grey;
       text-decoration: none;
+	  color: darkgrey;
+    }
+    a:hover {
+      text-decoration: none;
+      color: black;
     }
   }
+
 }
 
 .caption { // For neta with an image and a caption style
@@ -212,7 +220,7 @@ $statbar-text: #777777;
     }
 }
 
-/* Header fo comment area */
+/* Header for comment area */
 .commentheader {
   float: right;
   display: block;

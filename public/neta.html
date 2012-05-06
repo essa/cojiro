@@ -20,6 +20,8 @@
     <script type="text/javascript">
       $(document).ready(function() {
           $(function () {
+            $('a[rel="tooltip"]')
+            .tooltip({offset: 10, placement: 'top'})
             $('a[rel="popover"]')
             .popover({offset: 10, placement: 'top'})
             })
@@ -78,7 +80,7 @@
         </div>
         <div class="span4">
           <div class="actionbtn">
-            <a class="btn" href="#">Add/edit English</a>
+            <button type="submit" class="btn btn-primary" data-toggle="modal" href="#netaModal"><i class="icon-plus icon-white"></i> Add neta</button>
           </div>
         </div>                
       </div><!-- end row 1 -->
@@ -130,11 +132,44 @@
         <li class="span3">
         <div class="thumbnail">
           <div class="metadata">
+            <h4 class="singlelang"><a href="http://twitter.github.com/bootstrap/" target="_blank" rel="popover" data-original-title="@shioyama added just now">「突然バリバリ」窓ガラス散乱　突風、街破壊　茨城</a></h4>
+            <p><img src="http://twitter.github.com/bootstrap/assets/ico/favicon.ico"> on twitter.github.com</p>
+          </div>
+          <div class="text singlelang">家屋倒壊などの被害が集中したつくば市北条。無職長島俊さん（６３）の自宅は激しい音と揺れに襲われた。「突然、バリバリと音が響き、屋根が吹き飛ばされ、ガラスが割れた。外に出られなかった。去年の大震災のときより怖かった」</a></div>
+          <div class="actions">
+            <span class="stattext"><a href="http://twitter.github.com/bootstrap/" target="_blank">View page</a> / 
+            <a href="#editTranslateModal" data-toggle="modal">Add English</a></span>
+          </div>
+        </div>
+        </li>
+
+        <li class="span3">
+        <div class="thumbnail">
+          <div class="metadata">
+            <h4 class="singlelang">
+              <a href="http://www.youtube.com/watch?v=UfbpCjU-R38&feature=g-logo" target="_blank" rel="popover" data-original-title="@csasaki added 2 days ago" data-content="'Here's what a video would look like. I think this is a spectacular video.'">カップ焼きそばふざけんなよ</a></h4>
+            <p><img src="http://s.ytimg.com/yt/favicon-refresh-vfldLzJxy.ico" alt=""> newSASHIMAN on www.youtube.com</p> <! -- From embedly: Favicon, Provider Display, Author -->
+          </div>
+          <iframe width="210" src="http://www.youtube.com/embed/UfbpCjU-R38" frameborder="0" allowfullscreen></iframe>
+          <div class="actions">
+            <span class="stattext"><a href="http://twitter.github.com/bootstrap/" target="_blank">View page</a> / 
+            <a href="#editTranslateModal" data-toggle="modal">Add English</a></span>
+          </div>
+        </div>
+        </li>
+
+        <li class="span3">
+        <div class="thumbnail">
+          <div class="metadata">
             <h4>
               <a href="http://www.youtube.com/watch?feature=player_embedded&amp;v=HMIhroiZGk4" target="_blank" rel="popover" data-original-title="@csasaki added 2 days ago" data-content="'Here's what a video would look like. I think this is a spectacular video.'">Picture of Albert Einstein made with 999 Rubik Cubes</a></h4>
             <p><img src="http://s.ytimg.com/yt/favicon-refresh-vfldLzJxy.ico" alt=""> Edeshi on www.youtube.com</p> <! -- From embedly: Favicon, Provider Display, Author -->
           </div>
           <iframe width="210" src="http://www.youtube.com/embed/HMIhroiZGk4" frameborder="0" allowfullscreen></iframe>
+          <div class="actions">
+            <span class="stattext"><a href="http://twitter.github.com/bootstrap/" target="_blank">View page</a> / 
+            <a href="#editModal" data-toggle="modal">Edit neta</a></span>
+          </div>
         </div>
         </li>
 
@@ -150,6 +185,10 @@
             <img height="200" src="http://ripplet.org/en/wp-content/uploads/2012/04/img-308151955-212x300.jpg" alt="">
             <div class="overlay">Ahhh April, the season of cherry blossoms. It's the beginning of the school year, the beginning of the fiscal year... and for those that graduated school and found corporate jobs, it's the beginning of a new life.</div>
           </a>
+          <div class="actions">
+            <span class="stattext"><a href="http://twitter.github.com/bootstrap/" target="_blank">View page</a> / 
+            <a href="#editModal" data-toggle="modal">Edit neta</a></span>
+          </div>
         </div>
         </li>
 
@@ -161,6 +200,10 @@
           </div>
           <a href="http://twitpic.com/99u9f5" title="Muchas gracias a @CALACNN  y a todo el equipo de CNN en Españ... on Twitpic">
             <img src="http://twitpic.com/show/full/99u9f5" width="300" alt="Muchas gracias a @CALACNN  y a todo el equipo de CNN en Españ... on Twitpic"></a>
+          <div class="actions">
+            <span class="stattext"><a href="http://twitter.github.com/bootstrap/" target="_blank">View page</a> / 
+            <a href="#editModal" data-toggle="modal">Edit neta</a></span>
+          </div>
         </div>
         </li>
 
@@ -171,6 +214,10 @@
             <p><img src="http://twitter.github.com/bootstrap/assets/ico/favicon.ico" alt=""> on twitter.github.com</p>
           </div>
           <div class="text">Designed for everyone, everywhere. Need reasons to love Bootstrap? Look no further. HTML5 Built to support new HTML5 elements and syntax. CSS3 Progressively enhanced components for ultimate style. Open-source Built for and maintained by the community via GitHub. Built with Bootstrap. For even more sites built with Bootstrap, visit the unofficial Tumblr or browse the examples.</div>
+          <div class="actions">
+            <span class="stattext"><a href="http://twitter.github.com/bootstrap/" target="_blank">View page</a> / 
+            <a href="#editModal" data-toggle="modal">Edit neta</a></span>
+          </div>
         </div>
         </li>
 
@@ -181,6 +228,10 @@
             <p><img src="https://si0.twimg.com/a/1334333797/images/favicon.ico" alt=""> Tomomi Sasaki on twitter.com</p>
           </div>
           <div class="text">Oooh. Font Awesome: The iconic font designed for use with Twitter Bootstrap <a href=" http://t.co/Y9qbAt2m">http://t.co/Y9qbAt2m</a></div>
+          <div class="actions">
+            <span class="stattext"><a href="http://twitter.github.com/bootstrap/" target="_blank">View page</a> / 
+            <a href="#editModal" data-toggle="modal">Edit neta</a></span>
+          </div>
         </div>
         </li>
 
@@ -192,23 +243,9 @@
           </div>
           <div class="text">Worth reading: Our take on Derby vs. Meteor <a href="http://t.co/YWv3crYV">http://t.co/YWv3crYV</a> more on derbyjs: <a href="http://t.co/3dEreLog">http://t.co/3dEreLog</a>
           </div>
-        </div>
-        </li>
-
-        <li class="span3">
-        <div class="thumbnail">
-          <div class="metadata">
-            <h4><a href="http://twitter.github.com/bootstrap/" target="_blank" rel="popover" data-original-title="@shioyama added just now">Twitter Bootstrap</a></h4>
-            <p><img src="http://twitter.github.com/bootstrap/assets/ico/favicon.ico"> on twitter.github.com</p>
-          </div>
-          <div class="text">Designed for everyone, everywhere. Need reasons to love Bootstrap? Look no further. HTML5 Built to support new HTML5 elements and syntax. CSS3 Progressively enhanced components for ultimate style. Open-source Built for and maintained by the community via GitHub. Built with Bootstrap. For even more sites built with Bootstrap, visit the unofficial Tumblr or browse the examples.</div>
-        </div>
-        </li>
-
-        <li class="span3">
-        <div class="thumbnail">
-          <div class="addneta">
-            <a data-toggle="modal" href="#netaModal">+ Add a neta</a>
+          <div class="actions">
+            <span class="stattext"><a href="http://twitter.github.com/bootstrap/" target="_blank">View page</a> / 
+            <a href="#editModal" data-toggle="modal">Edit neta</a></span>
           </div>
         </div>
         </li>
@@ -218,11 +255,26 @@
       <div class="modal hide" id="netaModal"> <!-- Start #1 modal overlay for Add Neta -->
         <div class="modal-header">
           <a class="close" data-dismiss="modal">×</a>
-          <h3>Step 1: Enter the URL of your new <a href="#" rel="tooltip" title="Here is a definition of a neta, except the tooltip is not working">neta</a></h3>
+          <h3>Step 1: Enter the URL of your new <a href="#">neta</a></h3>
         </div>
+
         <div class="modal-body">
-          <form>
-            <input type="text" class="span6" placeholder="Enter URL">
+          <form class="form-horizontal">
+            <fieldset>
+              <div class="control-group"> <!-- URL -->
+                <label class="control-label" for="netaLang">URL</label>
+                <div class="controls">
+                  <input type="text" class="span4">
+                </div>
+              </div>
+              <div class="control-group"> <!-- comment -->
+                <label class="control-label" for="netaSummary">Note</label>  
+                <div class="controls">
+                  <textarea class="span4" id="netaComment" rows="2" name="netaComment"></textarea>  
+                  <p class="help-block">Tip: Share the context - why are you adding this?</p>
+                </div>
+              </div>
+           </fieldset>
           </form>
         </div>
         <div class="modal-footer">
@@ -257,7 +309,7 @@
                 <label class="control-label" for="netaSummary">Summary</label>  
                 <div class="controls">
                   <textarea class="span4" id="netaSummary" rows="3" name="netaSummary"></textarea>  
-                  <p class="help-block">Tip: aim for both context and brevity.</p>
+                  <p class="help-block">Tip: Aim for both context and brevity.</p>
                 </div>
               </div>
             </fieldset>
@@ -269,8 +321,167 @@
         </div>
       </div> <!-- End 2nd modal overlay-->
 
+      <div class="modal hide" id="editModal"> <!-- Start modal overlay for Edit Neta -->
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>Edit neta</h3>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+            <fieldset>
+              <div class="control-group"> <!-- language -->
+                <label class="control-label" for="netaLang">Language</label>
+                <div class="controls btn-group" data-toggle="buttons-radio" >
+                  <button class="btn" checked>English</button>
+                  <button class="btn">Japanese</button>
+                </div>
+                <input type="hidden" name="netaLang" value="0" />
+              </div>
+              <div class="control-group"> <!-- title -->
+                <label class="control-label" for="netaTitle">Title</label>
+                <div class="controls">
+                  <input type="text" class="span4" id="netaTitle" name="netaTitle" value="Twitter Bootstrap">
+                </div>
+              </div>
+              <div class="control-group"> <!-- summary -->
+                <label class="control-label" for="netaSummary">Summary</label>  
+                <div class="controls">
+                  <textarea class="span4" id="netaSummary" rows="3" name="netaSummary">Designed for everyone, everywhere. Need reasons to love Bootstrap? Look no further. HTML5 Built to support new HTML5 elements and syntax. CSS3 Progressively enhanced components for ultimate style. Open-source Built for and maintained by the community via GitHub. Built with Bootstrap. For even more sites built with Bootstrap, visit the unofficial Tumblr or browse the examples.</textarea>  
+                  <p class="help-block">Tip: Aim for both context and brevity.</p>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a href="#" data-dismiss="modal">Delete</a>
+          <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+          <a href="#" type="submit" class="btn btn-primary" data-dismiss="modal">Save</a>
+        </div>
+      </div> <!-- End Edit Neta overlay-->
+
+
+      <div class="modal hide" id="editTranslateModal"> <!-- Start modal overlay for Edit/translate Neta -->
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
+          <h3>Add English</h3>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+            <fieldset>
+              <div class="control-group"> <!-- title -->
+                <label class="control-label" for="netaTitle">Title</label>
+                <div class="controls">
+                「突然バリバリ」窓ガラス散乱　突風、街破壊　茨城
+                  <input type="text" class="span4" id="netaTitle" name="netaTitle" value="">
+                </div>
+              </div>
+              <div class="control-group"> <!-- summary -->
+                <label class="control-label" for="netaSummary">Summary</label>  
+                <div class="controls">
+                家屋倒壊などの被害が集中したつくば市北条。無職長島俊さん（６３）の自宅は激しい音と揺れに襲われた。「突然、バリバリと音が響き、屋根が吹き飛ばされ、ガラスが割れた。外に出られなかった。去年の大震災のときより怖かった」
+                  <textarea class="span4" id="netaSummary" rows="3" name="netaSummary"></textarea>  
+                  <p class="help-block">Tip: Aim for both context and brevity.</p>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a href="#" data-dismiss="modal">Delete</a>
+          <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+          <a href="#" type="submit" class="btn btn-primary" data-dismiss="modal">Save</a>
+        </div>
+      </div> <!-- End Edit/Translate Neta overlay-->
       <hr>
 
+
+  <!-- Header for comment area -->
+  <form class="form-horizontal commentheader">
+    <fieldset>
+        <label class="control-label" for="commentlang">View comments in</label>
+          <select id="commentlang" class="span2">
+            <option>English</option>
+            <option>Japanese</option>
+            <option>any language</option>
+          </select>
+        <a class="btn" href="#"><i class="icon-refresh"></i> Refresh</a>
+  </fieldset>
+</form> <!-- End header for comment area -->
+
+      <!-- First commenter -->
+      <div class="row comment">
+        <div class="metadata span3">
+          <a class="unstyled" href="#">
+            <img src="assets/mockup/csasaki.png">
+          </a>
+          <a href="#">
+            <span class="name">@csasaki</span>
+          </a>
+          <small>One week ago</small>
+          </div>
+        <div class="span9">
+          <p>Optional element for adding a user-facing citation, typically an author with title of work</p>
+        </div>
+        <div class="span9 offset3 append">
+          <p>I might be the only commenter on this thread.</p>
+        </div>
+        <div class="span9 offset3 append">
+          <p>In which case, it would show up like this. </p>
+        </div>
+        <div class="span9 offset3 append">
+          <p>We can avoid having the same avatar show up over and over again!! We can avoid having the same avatar show up over and over again!! We can avoid having the same avatar show up over and over again!!</p>
+        </div>
+      </div><!-- End of first commenter -->
+
+      <!-- Second commenter -->      
+      <div class="row comment">
+        <div class="metadata span3">
+          <a class="unstyled" href="#">
+            <img src="assets/mockup/csasaki.png">
+          </a>
+          <a href="#">
+            <span class="name">@musashi</span>
+          </a>
+          <small>Yesterday</small>
+          </div>
+        <div class="span9">
+          <p>Designed from scratch to be fully backwards compatible with Twitter Bootstrap 2.0. Optional element for adding a user-facing citation, typically an author with title of work</p>
+        </div>
+      </div><!-- End of second commenter -->
+
+      <!-- Third commenter -->      
+      <div class="row comment">
+        <div class="metadata span3">
+          <a class="unstyled" href="#">
+            <img src="assets/mockup/csasaki.png">
+          </a>
+          <a href="#">
+            <span class="name">@musashi</span>
+          </a>
+          <small>10 minutes ago</small>
+          </div>
+        <div class="span9">
+          <p>You can add a link, too. Why don't we all check this out? 
+          <a href="https://github.com/thomas-mcdonald/bootstrap-sass/issues/39">https://github.com/thomas-mcdonald/bootstrap-sass/issues/39</a>
+          </p>
+        </div>
+      </div><!-- End of third commenter -->
+
+      <!-- Comment box -->
+      <div class="offset3 span9">
+        <form class="commentbox well">
+          <h3>Join the conversation</h3>
+          <textarea class="span9" id="comment" rows="2" placeholder="Start typing here..."></textarea>
+          <span class="help-inline">Note: If your comment includes a link, please consider adding it as a neta.</span>
+          <span class="controls">
+            <button type="submit" class="btn btn-primary"><i class="icon-comment icon-white"></i> Add comment</button>
+          </span>
+      </div>
+      <!-- End comment box -->
+
+      <br clear="all">
+      <hr>
 
       <footer>
       <p>A <a href="https://github.com/netalab">netalab</a> masterpiece in the making</p>
