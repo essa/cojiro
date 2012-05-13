@@ -7,6 +7,55 @@ $statbar-light: #F5F5F5;
 $statbar-warmgrey: #EEEEEE;
 $statbar-grey: #E5E5E5;
 $statbar-text: #777777;
+$brightblue: #04B5F2; 
+$white: #FFFFFF;
+
+
+/* ----------------------------- */
+/* -------- Header/footer ------ */
+/* ----------------------------- */
+
+.navbar-inner {
+	border-top-color: $brightblue;
+	border-style: solid none none;
+	border-width: 4px medium medium;
+	background-image: none;
+}
+
+/* ----------------------------- */
+/* -------- Home --------------- */
+/* ----------------------------- */
+
+/* logged out big block */
+.hero {
+	margin: 20px 0px 40px 0px;
+	background-image: url("/assets/karen.png");
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	height: 360px;
+	
+	h1 {
+		padding: 50px 300px 15px 0px;
+		font-size: 300%;
+	}
+
+	p {
+		padding-right: 300px;
+	}
+
+}
+
+/* home */
+tbody > {
+.clickable {
+	cursor: pointer;
+}
+}
+
+/* ----------------------------- */
+/* -------- Thread ------------- */
+/* ----------------------------- */
+
 
 /* Statbar underneath the title */
 .statbar {
@@ -95,9 +144,7 @@ $statbar-text: #777777;
   text-transform: uppercase;
 }
 
-/* ----------------------------- */
 /* -------- Neta area ---------- */
-/* ----------------------------- */
 
 .thumbnail {
 
@@ -183,9 +230,7 @@ $statbar-text: #777777;
 }
 
 
-/* ----------------------------- */
 /* ------ Comment area --------- */
-/* ----------------------------- */
 
 /* Comment display */
 .comment {
