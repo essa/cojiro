@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>cojiro, from netalab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Just the ones that need to load first -->
+    <script src="assets/jquery.js"></script>
+    <script src="assets/bootstrap-tooltip.js"></script>
+    <script src="assets/bootstrap-popover.js"></script>
+    <script src="assets/jquery.masonry.js"></script>
+    <script src="assets/cothreads.js"></script>
+
+    <!-- cojiro javascript -->
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $(function () {
+            $('a[rel="tooltip"]')
+            .tooltip({offset: 10, placement: 'top'})
+            $('a[rel="popover"]')
+            .popover({offset: 10, placement: 'top'})
+            })
+          });
+    </script>
+
+	<script type="text/javascript">
+		jQuery( function($) {
+			$('tbody tr[data-href]').addClass('clickable').click( function() {
+				window.location = $(this).attr('data-href');
+			}).find('a').hover( function() {
+				$(this).parents('tr').unbind('click');
+			}, function() {
+				$(this).parents('tr').click( function() {
+					window.location = $(this).attr('data-href');
+				});
+			});
+		});
+	</script>
+
+    <!-- Le styles -->
+    <link href="/assets/bootstrap_custom.css?body=1" media="screen" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">cojiro</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+  <!-- Header for comment area -->
+  <form class="form-horizontal commentheader">
+    <fieldset>
+        <label class="control-label" for="commentlang">Show me</label>
+          <select id="commentlang" class="span3">
+            <option>everything</option>
+            <option>threads that I started</option>
+            <option>threads that I joined</option>
+            <option>everything (all languages)</option>
+          </select>
+        <a class="btn" href="#"><i class="icon-refresh"></i> Refresh</a>
+  </fieldset>
+</form> <!-- End header for comment area -->
+
+<table class="table table-striped">
+  <tbody>
+    <tr data-href="neta.html">
+      <td>Brazil Approves Racial Quotas in Higher Education <span class="label label-info">New</span></td>
+      <td>Started by @tzs / 5 participants / 18 neta / Updated 2 minutes ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Armenia: Chaos as Balloons Explode at Election Campaign Rally</td>
+      <td>Started by @shioyama / 5 participants / 18 neta / Updated 2 hours ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Best of the Blogs 2012: Winners Announced <span class="label label-info">New</span></td>
+      <td>Started by @shioyama / 5 participants / 8 neta / Updated 1 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @essa / 5 participants / 33 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @globalvoices / 5 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy </td>
+      <td>Started by @tzs / 25 participants / 25 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @globalvoices / 15 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @tzs / 5 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Best of the Blogs 2012: Winners Announced <span class="label label-info">New</span></td>
+      <td>Started by @shioyama / 5 participants / 8 neta / Updated 1 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @essa / 5 participants / 33 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @globalvoices / 5 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy </td>
+      <td>Started by @tzs / 25 participants / 25 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @globalvoices / 15 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @tzs / 5 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @globalvoices / 15 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @tzs / 5 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Best of the Blogs 2012: Winners Announced <span class="label label-info">New</span></td>
+      <td>Started by @shioyama / 5 participants / 8 neta / Updated 1 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @essa / 5 participants / 33 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @globalvoices / 5 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy </td>
+      <td>Started by @tzs / 25 participants / 25 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @globalvoices / 15 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+    <tr data-href="neta.html">
+      <td>Cuba: National Meeting of Bloggers Ends in Controversy</td>
+      <td>Started by @tzs / 5 participants / 18 neta / Updated 5 days ago</td>
+    </tr>
+  </tbody>
+</table>
+
+
+      <br clear="all">
+      <hr>
+
+      <footer>
+      <p>A <a href="https://github.com/netalab">netalab</a> masterpiece in the making</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/bootstrap-transition.js"></script>
+    <script src="assets/bootstrap-alert.js"></script>
+    <script src="assets/bootstrap-modal.js"></script>
+    <script src="assets/bootstrap-dropdown.js"></script>
+    <script src="assets/bootstrap-scrollspy.js"></script>
+    <script src="assets/bootstrap-tab.js"></script>
+    <script src="assets/bootstrap-button.js"></script>
+    <script src="assets/bootstrap-collapse.js"></script>
+    <script src="assets/bootstrap-carousel.js"></script>
+    <script src="assets/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>
