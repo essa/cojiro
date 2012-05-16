@@ -1,5 +1,5 @@
 App.ThreadListView = App.Views.ThreadList = Backbone.View.extend
-  id: 'threads'
+  id: 'threads_list'
 
   initialize: ->
 

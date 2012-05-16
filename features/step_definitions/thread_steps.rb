@@ -4,6 +4,13 @@ Given /^the following thread exists:$/ do |table|
   FactoryGirl.create(:cothread, u.nil? ? hash : hash.merge(:user => u))
 end
 
+Given /^the following threads exist:$/ do |table|
+  table.hashes.each do |hash|
+    u = User.find_by_name(hash.delete("user"))
+    FactoryGirl.create(:cothread, u.nil? ? hash : hash.merge(:user => u))
+  end
+end
+
 Given /^I am on the thread "([^"]*)"$/ do |title|
   cothread = Cothread.find_by_title(title)
   visit cothread_path(cothread)

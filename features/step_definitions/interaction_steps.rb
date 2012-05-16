@@ -18,8 +18,8 @@ Then /^I (should|should not) see the text:? "([^"]*)"$/ do |expectation, text|
   page.send(expectation.gsub(' ','_'),have_content(text))
 end
 
-Then /^I (should|should not) see the text:? "([^"]*)" in the thread$/ do |expectation, text|
-  within(:css, '#thread') do
+Then /^I (should|should not) see the text:? "([^"]*)" in the (thread|threads list)$/ do |expectation, text, class_tag|
+  within(:css, "##{class_tag.gsub(/ /,'_')}") do
     page.send(expectation.gsub(' ','_'),have_content(text))
   end
 end
