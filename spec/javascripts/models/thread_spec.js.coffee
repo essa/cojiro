@@ -25,7 +25,11 @@ describe 'App.Thread', ->
       expect(@thread.get('created_at')).toEqual('')
 
   describe 'getters', ->
-    beforeEach -> @thread = new App.Thread()
+    beforeEach ->
+      @thread = new App.Thread()
+      collection = url: -> '/' + I18n.locale + '/threads'
+      @thread.collection = collection
+
 
     describe '#getId', ->
       it 'is defined', -> expect(@thread.getId).toBeDefined()
@@ -106,7 +110,10 @@ describe 'App.Thread', ->
         expect(@thread.url()).toEqual('/ja/threads/66')
 
   describe 'updating the record', ->
-    beforeEach -> @thread = new App.Thread()
+    beforeEach ->
+      @thread = new App.Thread()
+      collection = url: -> '/' + I18n.locale + '/threads'
+      @thread.collection = collection
 
     describe '#save', ->
       beforeEach -> @server = sinon.fakeServer.create()

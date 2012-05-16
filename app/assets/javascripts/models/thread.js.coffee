@@ -1,10 +1,4 @@
 App.Thread = App.Models.Thread = Backbone.Model.extend
-  url: ->
-    if @isNew()
-      '/' + I18n.locale + '/threads'
-    else
-      '/' + I18n.locale + '/threads/' + @getId()
-
   defaults:
     title: ''
     summary: ''
