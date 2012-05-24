@@ -42,11 +42,17 @@ describe 'App.Routers.AppRouter', ->
         expect(spy).toHaveBeenCalledOnce()
         App.ThreadListView.restore()
 
-    describe "show route", ->
+    describe "thread show route", ->
 
       it "fires the show route with an :id hash", ->
         spy = sinon.spy()
         @router.bind "route:show", spy
-        @router.navigate "1", true
+        @router.navigate "threads/1", true
         expect(spy).toHaveBeenCalledOnce()
         expect(spy).toHaveBeenCalledWith("1")
+
+      it "instantiates a new ThreadView", ->
+        sinon.spy(App, 'ThreadView')
+        @router.navigate "threads/1", true
+        expect(App.ThreadView).toHaveBeenCalledOnce()
+        App.ThreadView.restore()
