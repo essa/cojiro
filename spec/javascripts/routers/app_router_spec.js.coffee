@@ -19,8 +19,25 @@ describe 'App.Routers.AppRouter', ->
       catch e
       @router.navigate "elsewhere"
 
-    it "fires the index route with a blank hash", ->
-      @router.bind "route:index", @spy
-      @router.navigate "", true
-      expect(@spy).toHaveBeenCalledOnce()
-      expect(@spy).toHaveBeenCalledWith()
+    describe "index route", ->
+
+      it "fires the index route with a blank hash", ->
+        @router.bind "route:index", @spy
+        @router.navigate "", true
+        expect(@spy).toHaveBeenCalledOnce()
+        expect(@spy).toHaveBeenCalledWith()
+
+      it "instantiates a new ThreadListView", ->
+        sinon.spy(App, 'ThreadListView')
+        @router.navigate "", true
+        expect(App.ThreadListView).toHaveBeenCalledOnce()
+        expect(App.ThreadListView).toHaveBeenCalledWith(collection: App.threads)
+        App.ThreadListView.restore()
+
+    describe "show route", ->
+
+      it "fires the show route with an :id hash", ->
+        @router.bind "route:show", @spy
+        @router.navigate "1", true
+        expect(@spy).toHaveBeenCalledOnce()
+        expect(@spy).toHaveBeenCalledWith("1")
