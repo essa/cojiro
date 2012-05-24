@@ -9,7 +9,7 @@ Feature: View latest threads
       | csasaki | Co-working spaces in Tokyo | I want to write an article about the increasing popularity of co-working spaces." |
     And my locale is "en"
 
-  @javascript @wip
+  @javascript
   Scenario: View latest threads
     Given I am on the homepage
     Then I should see the text "Co-working spaces in Tokyo" in the threads list
