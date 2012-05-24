@@ -11,7 +11,6 @@ describe 'App.Routers.AppRouter', ->
   describe "routing", ->
     beforeEach ->
       @router = new App.Routers.AppRouter()
-      @spy = sinon.spy()
       try
         Backbone.history.start
           silent: true,
@@ -22,10 +21,11 @@ describe 'App.Routers.AppRouter', ->
     describe "index route", ->
 
       it "fires the index route with a blank hash", ->
-        @router.bind "route:index", @spy
+        spy = sinon.spy()
+        @router.bind "route:index", spy
         @router.navigate "", true
-        expect(@spy).toHaveBeenCalledOnce()
-        expect(@spy).toHaveBeenCalledWith()
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWith()
 
       it "instantiates a new ThreadListView", ->
         sinon.spy(App, 'ThreadListView')
@@ -34,10 +34,19 @@ describe 'App.Routers.AppRouter', ->
         expect(App.ThreadListView).toHaveBeenCalledWith(collection: App.threads)
         App.ThreadListView.restore()
 
+      it "renders the view onto the page", ->
+        view = render: () -> el: $()
+        spy = sinon.spy(view, "render")
+        sinon.stub(App, 'ThreadListView').returns(view)
+        @router.navigate "", true
+        expect(spy).toHaveBeenCalledOnce()
+        App.ThreadListView.restore()
+
     describe "show route", ->
 
       it "fires the show route with an :id hash", ->
-        @router.bind "route:show", @spy
+        spy = sinon.spy()
+        @router.bind "route:show", spy
         @router.navigate "1", true
-        expect(@spy).toHaveBeenCalledOnce()
-        expect(@spy).toHaveBeenCalledWith("1")
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWith("1")
