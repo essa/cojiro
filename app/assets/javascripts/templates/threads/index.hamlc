@@ -12,7 +12,7 @@
 
 %table.table.table-striped
   %tbody
-    - @collection.each (model) ->
+    - @threads.each (thread) ->
       %tr
-        %td=model.getTitle()
-        %td Started by @#{model.getUserName()}
+        %td=thread.getTitle()
+        %td Started by @#{thread.getUserName()}

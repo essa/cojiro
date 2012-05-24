@@ -4,5 +4,5 @@ App.ThreadListView = App.Views.ThreadList = Backbone.View.extend
   initialize: ->
 
   render: ->
-    @$el.html(JST['threads/index'](collection: @collection))
+    @$el.html(JST['threads/index'](threads: @collection))
     @
