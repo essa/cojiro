@@ -24,7 +24,7 @@ describe HomepageController do
 
       before do
         Cothread.stub(:order).with("created_at DESC") do
-          double.tap do { |d| d.stub(:all) { [ mock_cothread ] } }
+          double.tap { |d| d.stub(:all) { [ mock_cothread ] } }
         end
       end
 
