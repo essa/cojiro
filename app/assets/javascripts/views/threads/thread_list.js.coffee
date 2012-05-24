@@ -4,5 +4,11 @@ App.ThreadListView = App.Views.ThreadList = Backbone.View.extend
   initialize: ->
 
   render: ->
-    @$el.html(JST['threads/index'](threads: @collection))
+    @$el.html(JST['threads/list'](threads: @collection))
+
+    self = @
+    @collection.each (thread) ->
+      threadListItemView = new App.ThreadListItemView(model: thread)
+      self.$('table').append(threadListItemView.render().el)
+
     @

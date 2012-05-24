@@ -12,7 +12,3 @@
 
 %table.table.table-striped
   %tbody
-    - @threads.each (thread) ->
-      %tr
-        %td=thread.getTitle()
-        %td Started by @#{thread.getUserName()}
