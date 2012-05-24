@@ -20,4 +20,8 @@ class User < ActiveRecord::Base
     Thread.current[:cojiro_current_user]
   end
 
+  def as_json(options = {})
+    super(options.merge(:only => [:id, :name, :fullname, :location, :profile]))
+  end
+
 end
