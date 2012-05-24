@@ -40,6 +40,10 @@ describe Cothread do
       @cothread_json = @cothread.to_json
     end
 
+    it "has an id" do
+      JSON(@cothread_json)["id"].should be
+    end
+
     it "has a title" do
       JSON(@cothread_json)["title"].should be
     end
@@ -63,6 +67,19 @@ describe Cothread do
       JSON(@cothread_json)["user"]["fullname"].should be
       JSON(@cothread_json)["user"]["location"].should be
       JSON(@cothread_json)["user"]["profile"].should be
+    end
+
+    it "does not include any other attributes" do
+      JSON(@cothread_json).keys.delete_if { |k|
+        [ "id",
+          "title",
+          "summary",
+          "created_at",
+          "updated_at",
+          "source_language",
+          "user"
+        ].include?(k)
+      }.should be_empty
     end
 
   end
