@@ -1,3 +1,26 @@
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "compass/css3/images";
+
+/* Colors variables */
+$statbar-light: #F5F5F5;
+$statbar-warmgrey: #EEEEEE;
+$statbar-grey: #E5E5E5;
+$statbar-text: #777777;
+$brightblue: #04B5F2;
+$white: #FFFFFF;
+
+/* ----------------------------- */
+/* -------- Header/footer ------ */
+/* ----------------------------- */
+
+.navbar-inner {
+	border-top-color: $brightblue;
+	border-style: solid none none;
+	border-width: 4px medium medium;
+	background-image: none;
+}
+
 /* ----------------------------- */
 /* -------- Home --------------- */
 /* ----------------------------- */
