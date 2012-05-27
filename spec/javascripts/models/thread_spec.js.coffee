@@ -1,7 +1,6 @@
 # ref1: http://blog.bandzarewicz.com/blog/2012/03/08/backbone-dot-js-tdd-with-jasmine-part-one-the-model/
 # ref2: http://tinnedfruit.com/2011/03/25/testing-backbone-apps-with-jasmine-sinon-2.html
 describe 'App.Thread', ->
-  beforeEach -> I18n.locale = 'en'
 
   it 'is defined with alias', -> 
     expect(App.Thread).toBeDefined()
@@ -106,7 +105,7 @@ describe 'App.Thread', ->
   describe 'updating the record', ->
     beforeEach ->
       @thread = new App.Thread()
-      collection = url: -> '/' + I18n.locale + '/threads'
+      collection = url: '/collection'
       @thread.collection = collection
 
     describe '#save', ->
@@ -141,7 +140,7 @@ describe 'App.Thread', ->
 
           it 'is a POST', -> expect(@request).toBePOST()
           it 'is async', -> expect(@request).toBeAsync()
-          it 'has a valid URL', -> expect(@request).toHaveUrl('/en/threads')
+          it 'has a valid URL', -> expect(@request).toHaveUrl('/collection')
 
         describe 'on update', ->
           beforeEach ->
@@ -151,7 +150,7 @@ describe 'App.Thread', ->
 
           it 'is a PUT', -> expect(@request).toBePUT()
           it 'is async', -> expect(@request).toBeAsync()
-          it 'has a valid URL', -> expect(@request).toHaveUrl('/en/threads/66')
+          it 'has a valid URL', -> expect(@request).toHaveUrl('/collection/66')
 
       describe 'validations', ->
         beforeEach ->
@@ -178,7 +177,7 @@ describe 'App.Thread', ->
         @server = sinon.fakeServer.create()
         @server.respondWith(
           "GET",
-          "/" + I18n.locale + "/threads",
+          "/collection",
           @validResponse(@fixture))
 
       afterEach -> @server.restore()
