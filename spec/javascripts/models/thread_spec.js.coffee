@@ -27,7 +27,7 @@ describe 'App.Thread', ->
   describe 'getters', ->
     beforeEach ->
       @thread = new App.Thread()
-      collection = url: -> '/' + I18n.locale + '/threads'
+      collection = url: '/collection'
       @thread.collection = collection
 
 
@@ -97,17 +97,11 @@ describe 'App.Thread', ->
 
     describe '#url', ->
       it 'returns collection URL when id is not set', ->
-        expect(@thread.url()).toEqual('/en/threads')
+        expect(@thread.url()).toEqual('/collection')
 
       it 'returns collection URL and id when id is set', ->
         @thread.id = 66
-        expect(@thread.url()).toEqual('/en/threads/66')
-
-      it 'incorporates locale into the URL', ->
-        I18n.locale = 'ja'
-        expect(@thread.url()).toEqual('/ja/threads')
-        @thread.id = 66
-        expect(@thread.url()).toEqual('/ja/threads/66')
+        expect(@thread.url()).toEqual('/collection/66')
 
   describe 'updating the record', ->
     beforeEach ->
