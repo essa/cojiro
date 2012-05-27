@@ -27,20 +27,20 @@ describe 'App.Routers.AppRouter', ->
         expect(spy).toHaveBeenCalledOnce()
         expect(spy).toHaveBeenCalledWith()
 
-      it "instantiates a new ThreadListView", ->
-        sinon.spy(App, 'ThreadListView')
+      it "instantiates a new HomepageView", ->
+        sinon.spy(App, 'HomepageView')
         @router.navigate "", true
-        expect(App.ThreadListView).toHaveBeenCalledOnce()
-        expect(App.ThreadListView).toHaveBeenCalledWith(collection: App.threads)
-        App.ThreadListView.restore()
+        expect(App.HomepageView).toHaveBeenCalledOnce()
+        expect(App.HomepageView).toHaveBeenCalledWith(collection: App.threads)
+        App.HomepageView.restore()
 
       it "renders the view onto the page", ->
         view = render: () -> el: $()
         spy = sinon.spy(view, "render")
-        sinon.stub(App, 'ThreadListView').returns(view)
+        sinon.stub(App, 'HomepageView').returns(view)
         @router.navigate "", true
         expect(spy).toHaveBeenCalledOnce()
-        App.ThreadListView.restore()
+        App.HomepageView.restore()
 
     describe "thread show route", ->
 

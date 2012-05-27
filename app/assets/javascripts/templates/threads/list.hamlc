@@ -1,14 +1,1 @@
-.hero
-  %h1 Curating content from one language to another
-  %p.lead Cojiro is a platform that connects people with complementary skill sets to identify, group and convey stories in one language to a broader audience in another language.
-    %a{ :href => "#" } Learn more.
-
-%h3 Recent threads
-  %small Please
-    %a{ :href => "#" } create an account
-    or
-    %a{ :href => "#" } log in
-    to contribute your expertise.
-
-%table.table.table-striped
-  %tbody
+%tbody

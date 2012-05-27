@@ -4,7 +4,7 @@ App.AppRouter = App.Routers.AppRouter = Backbone.Router.extend
     "threads/:id": "show"
 
   index: ->
-    view = new App.ThreadListView( collection: App.threads )
+    view = new App.HomepageView( collection: App.threads )
     $('.content').html(view.render().el)
 
   show: (id) ->
