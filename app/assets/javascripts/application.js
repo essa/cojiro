@@ -18,6 +18,8 @@
 //= require underscore
 //= require backbone
 //
+//= require backbone-support
+//
 //= require i18n
 //= require i18n/translations
 //
