@@ -42,3 +42,32 @@ describe 'App.Threads', ->
     it 'is persisted at /ja/threads for a Japanese locale', ->
       I18n.locale = 'ja'
       expect(@threads.url()).toEqual('/ja/threads')
+
+  describe 'interacting with the server', ->
+    beforeEach ->
+      @threads = new App.Threads()
+      I18n.locale = 'en'
+      @server = sinon.fakeServer.create()
+    afterEach -> @server.restore()
+
+    describe 'fetching and updating the collection', ->
+
+      it 'makes the correct request', ->
+        @threads.fetch()
+        expect(@server.requests.length).toEqual(1)
+        expect(@server.requests[0]).toBeGET()
+        expect(@server.requests[0]).toHaveUrl('/en/threads')
+
+    describe 'parsing response data', ->
+      beforeEach ->
+        @fixture = @fixtures.Threads.valid
+        @server.respondWith(
+          'GET',
+          '/en/threads',
+          @validResponse(@fixture))
+
+      it 'parses threads from the server', ->
+        @threads.fetch()
+        @server.respond()
+        expect(@threads.models.length).toEqual(@fixture.length)
+        expect(@threads.get(1).getTitle()).toEqual(@fixture[0].title)

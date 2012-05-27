@@ -1,6 +1,6 @@
 describe "App.ThreadListItemView", ->
   it "renders the list view of a thread", ->
-    thread = new App.Thread(@fixtures.Threads.valid)
+    thread = new App.Thread(@fixtures.Thread.valid)
     view = new App.ThreadListItemView(model: thread)
 
     $el = $(view.render().el)

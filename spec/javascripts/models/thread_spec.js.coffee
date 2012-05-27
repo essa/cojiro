@@ -80,7 +80,7 @@ describe 'App.Thread', ->
       it 'is defined', -> expect(@thread.getUserName).toBeDefined()
 
       it 'returns name attribute of user associated with thread', ->
-        stub = sinon.stub(@thread, 'get').returns({ "name": "csasaki" })
+        stub = sinon.stub(@thread, 'get').returns({ 'name': 'csasaki' })
 
         expect(@thread.getUserName()).toEqual('csasaki')
         expect(stub).toHaveBeenCalledWith('user')
@@ -89,7 +89,7 @@ describe 'App.Thread', ->
       it 'is defined', -> expect(@thread.getUserFullname).toBeDefined()
 
       it 'returns fullname attribute of user associated with thread', ->
-        stub = sinon.stub(@thread, 'get').returns({ "fullname": "Cojiro Sasaki" })
+        stub = sinon.stub(@thread, 'get').returns({ 'fullname': 'Cojiro Sasaki' })
 
         expect(@thread.getUserFullname()).toEqual('Cojiro Sasaki')
         expect(stub).toHaveBeenCalledWith('user')
@@ -102,15 +102,23 @@ describe 'App.Thread', ->
         @thread.id = 66
         expect(@thread.url()).toEqual('/collection/66')
 
-  describe 'updating the record', ->
+  describe 'interacting with the server', ->
     beforeEach ->
       @thread = new App.Thread()
       collection = url: '/collection'
       @thread.collection = collection
+      @server = sinon.fakeServer.create()
+    afterEach -> @server.restore()
 
-    describe '#save', ->
-      beforeEach -> @server = sinon.fakeServer.create()
-      afterEach -> @server.restore()
+    describe 'fetching the record', ->
+
+      it 'makes the correct request', ->
+        @thread.fetch()
+        expect(@server.requests.length).toEqual(1)
+        expect(@server.requests[0]).toBeGET()
+        expect(@server.requests[0]).toHaveUrl('/collection')
+
+    describe 'saving the record', ->
 
       it 'sends valid data to the server', ->
         @thread.save
@@ -119,8 +127,8 @@ describe 'App.Thread', ->
           created_at: '2012-04-20T00:52:29Z'
           source_language: 'en'
           user:
-            name: "csasaki"
-            fullname: "Cojiro Sasaki"
+            name: 'csasaki'
+            fullname: 'Cojiro Sasaki'
         request = @server.requests[0]
         params = JSON.parse(request.requestBody)
 
@@ -130,59 +138,54 @@ describe 'App.Thread', ->
         expect(params.thread.created_at).toEqual('2012-04-20T00:52:29Z')
         expect(params.thread.source_language).toEqual('en')
 
-      describe 'request', ->
+      describe 'on create', ->
+        beforeEach ->
+          @thread.id = null
+          @thread.save()
+          @request = @server.requests[0]
 
-        describe 'on create', ->
-          beforeEach ->
-            @thread.id = null
-            @thread.save()
-            @request = @server.requests[0]
+        it 'is a POST', -> expect(@request).toBePOST()
+        it 'is async', -> expect(@request).toBeAsync()
+        it 'has a valid URL', -> expect(@request).toHaveUrl('/collection')
 
-          it 'is a POST', -> expect(@request).toBePOST()
-          it 'is async', -> expect(@request).toBeAsync()
-          it 'has a valid URL', -> expect(@request).toHaveUrl('/collection')
+      describe 'on update', ->
+        beforeEach ->
+          @thread.id = 66
+          @thread.save()
+          @request = @server.requests[0]
 
-        describe 'on update', ->
-          beforeEach ->
-            @thread.id = 66
-            @thread.save()
-            @request = @server.requests[0]
-
-          it 'is a PUT', -> expect(@request).toBePUT()
-          it 'is async', -> expect(@request).toBeAsync()
-          it 'has a valid URL', -> expect(@request).toHaveUrl('/collection/66')
+        it 'is a PUT', -> expect(@request).toBePUT()
+        it 'is async', -> expect(@request).toBeAsync()
+        it 'has a valid URL', -> expect(@request).toHaveUrl('/collection/66')
 
       describe 'validations', ->
         beforeEach ->
           @spy = sinon.spy()
           @thread.bind('error', @spy)
-          @data = @fixtures.Threads.valid
+          @data = @fixtures.Thread.valid
 
         afterEach ->
           @thread.unbind('error', @spy)
 
         it 'does not save if title is blank', ->
-          @thread.save(_(@data).extend("title":""))
+          @thread.save(_(@data).extend('title':''))
           expect(@spy).toHaveBeenCalledOnce()
-          expect(@spy).toHaveBeenCalledWith(@thread,["cannot have an empty title"])
+          expect(@spy).toHaveBeenCalledWith(@thread,['cannot have an empty title'])
 
         it 'does not save if user is blank', ->
-          @thread.save(_(@data).extend("user":""))
+          @thread.save(_(@data).extend('user':''))
           expect(@spy).toHaveBeenCalledOnce()
-          expect(@spy).toHaveBeenCalledWith(@thread,["cannot have an empty user"])
+          expect(@spy).toHaveBeenCalledWith(@thread,['cannot have an empty user'])
 
-    describe 'fetching the record', ->
+    describe 'parsing response data', ->
       beforeEach ->
-        @fixture = @fixtures.Threads.valid
-        @server = sinon.fakeServer.create()
+        @fixture = @fixtures.Thread.valid
         @server.respondWith(
-          "GET",
-          "/collection",
+          'GET',
+          '/collection',
           @validResponse(@fixture))
 
-      afterEach -> @server.restore()
-
-      it "should parse the thread from the server", ->
+      it 'should parse the thread from the server', ->
         @thread.fetch()
         @server.respond()
         expect(@thread.getTitle())
