@@ -25,10 +25,13 @@ describe "App.ThreadListView", ->
       @thread2 = new Backbone.Model()
       @thread3 = new Backbone.Model()
       @view.collection = new Backbone.Collection([ @thread1, @thread2, @thread3 ])
-      @view.render()
+      @returnVal = @view.render()
 
     afterEach ->
       App.ThreadListItemView.restore()
+
+    it "returns the view object", ->
+      expect(@returnVal).toEqual(@view)
 
     it "creates a ThreadListItemView for each model", ->
       expect(@listItemViewStub).toHaveBeenCalledThrice()

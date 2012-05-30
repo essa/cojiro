@@ -2,15 +2,19 @@ describe "App.ThreadListItemView", ->
   beforeEach ->
     @thread = new App.Thread(@fixtures.Thread.valid)
     @view = new App.ThreadListItemView(model: @thread)
-    @$el = $(@view.render().el)
 
   describe "instantiation", ->
 
     it "creates a table row for a thread", ->
+      @$el = $(@view.render().el)
       expect(@$el).toBe("tr#thread-list-item")
 
   describe "rendering", ->
 
+    it "returns the view object", ->
+      expect(@view.render()).toEqual(@view)
+
     it "renders the list item view into the table row", ->
-      expect(@$el).toHaveText(/Co-working spaces in Tokyo/)
-      expect(@$el).toHaveText(/csasaki/)
+      @$el = $(@view.render().el)
+      expect(@$el.find('td')).toHaveText(/Co-working spaces in Tokyo/)
+      expect(@$el.find('td')).toHaveText(/csasaki/)
