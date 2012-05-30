@@ -32,3 +32,5 @@
 //= require_tree ./templates
 //
 //= require bootstrap
+//
+//= require pushstate_links

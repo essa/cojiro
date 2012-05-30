@@ -35,6 +35,13 @@ describe "App", ->
       expect(App.AppRouter).toHaveBeenCalled()
       App.AppRouter.restore()
 
+    it "assigns new router to window.app_router", ->
+      appRouter = new Backbone.Router()
+      sinon.stub(App, 'AppRouter').returns(appRouter)
+      App.init({})
+      expect(window.app_router).toEqual(appRouter)
+      App.AppRouter.restore()
+
     it "starts Backbone.history", ->
       Backbone.history.started = null
       Backbone.history.stop()
@@ -42,5 +49,6 @@ describe "App", ->
       App.init({})
 
       expect(Backbone.history.start).toHaveBeenCalled()
+      expect(Backbone.history.start).toHaveBeenCalledWith(pushstate: true)
 
       Backbone.history.start.restore()
