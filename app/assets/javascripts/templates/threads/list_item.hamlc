@@ -1,2 +1,3 @@
-%td=@model.getTitle()
+%td
+  %a{ :href => @model.url()}=@model.getTitle()
 %td Started by @#{@model.getUserName()}

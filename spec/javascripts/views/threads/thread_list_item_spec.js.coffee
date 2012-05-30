@@ -1,6 +1,7 @@
 describe "App.ThreadListItemView", ->
   beforeEach ->
     @thread = new App.Thread(@fixtures.Thread.valid)
+    @thread.collection = new App.Threads()
     @view = new App.ThreadListItemView(model: @thread)
 
   describe "instantiation", ->
@@ -18,3 +19,4 @@ describe "App.ThreadListItemView", ->
       @$el = $(@view.render().el)
       expect(@$el.find('td')).toHaveText(/Co-working spaces in Tokyo/)
       expect(@$el.find('td')).toHaveText(/csasaki/)
+      expect(@$el.find('td a')).toHaveAttr('href', '/en/threads/5')
