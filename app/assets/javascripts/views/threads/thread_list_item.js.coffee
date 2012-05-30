@@ -1,4 +1,4 @@
-App.ThreadListItemView = App.Views.ThreadListItem = Backbone.View.extend
+App.ThreadListItemView = App.Views.ThreadListItem = Support.CompositeView.extend
   tagName: 'tr'
   id: 'thread-list-item'
 

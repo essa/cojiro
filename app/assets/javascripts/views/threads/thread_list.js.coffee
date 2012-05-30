@@ -17,8 +17,10 @@ App.ThreadListView = App.Views.ThreadList = Support.CompositeView.extend
     listItemsContainer = @.$('tbody')
     listItemsContainer.html('')
 
+    self = @
     @collection.each (thread) ->
       threadListItemView = new App.ThreadListItemView(model: thread)
-      listItemsContainer.append(threadListItemView.render().el)
+      self.renderChild(threadListItemView)
+      listItemsContainer.append(threadListItemView.el)
 
     @
