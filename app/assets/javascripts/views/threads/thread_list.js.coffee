@@ -1,4 +1,4 @@
-App.ThreadListView = App.Views.ThreadList = Backbone.View.extend
+App.ThreadListView = App.Views.ThreadList = Support.CompositeView.extend
   id: 'threads_list'
   tagName: 'table'
   className: 'table table-striped'
@@ -6,11 +6,19 @@ App.ThreadListView = App.Views.ThreadList = Backbone.View.extend
   initialize: ->
 
   render: ->
+    @renderLayout()
+    @renderListItems()
+    @
+
+  renderLayout: ->
     @$el.html(JST['threads/list'])
 
-    self = @
+  renderListItems: ->
+    listItemsContainer = @.$('tbody')
+    listItemsContainer.html('')
+
     @collection.each (thread) ->
       threadListItemView = new App.ThreadListItemView(model: thread)
-      self.$('tbody').append(threadListItemView.render().el)
+      listItemsContainer.append(threadListItemView.render().el)
 
     @

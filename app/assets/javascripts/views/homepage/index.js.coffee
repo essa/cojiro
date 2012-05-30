@@ -1,12 +1,19 @@
-App.HomepageView = App.Views.Homepage = Backbone.View.extend
+App.HomepageView = App.Views.Homepage = Support.CompositeView.extend
   id: 'homepage'
 
   initialize: ->
-    _.bindAll @
-    @render()
+    _.bindAll @, "renderThreadList"
+    @collection.on("change", @renderThreadList)
 
   render: ->
-    @$el.html(JST['homepage/index'])
-    threadListView = new App.ThreadListView(collection: @collection)
-    @.$('#threads').html(threadListView.render().el)
+    @renderLayout()
+    @renderThreadList()
     @
+
+  renderLayout: ->
+    @$el.html(JST['homepage/index'])
+
+  renderThreadList: ->
+    threadListView = new App.ThreadListView(collection: @collection)
+    threadListContainer = @.$('#threads')
+    @renderChildInto(threadListView, threadListContainer)
