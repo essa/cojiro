@@ -8,4 +8,5 @@ App.AppRouter = App.Routers.AppRouter = Backbone.Router.extend
     $('.content').html(view.render().el)
 
   show: (locale, id) ->
-    view = new App.ThreadView( model: App.threads.models[id] )
+    view = new App.ThreadView( model: App.threads.get(id) )
+    $('.content').html(view.render().el)
