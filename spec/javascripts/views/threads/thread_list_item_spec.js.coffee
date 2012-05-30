@@ -4,11 +4,13 @@ describe "App.ThreadListItemView", ->
     @view = new App.ThreadListItemView(model: @thread)
     @$el = $(@view.render().el)
 
-  it "renders the list view of a thread", ->
-    expect(@$el).toBe("tr")
-    expect(@$el).toHaveText(/Co-working spaces in Tokyo/)
-    expect(@$el).toHaveText(/csasaki/)
+  describe "instantiation", ->
 
-  it "has a leave function", ->
-    expect(@view.leave).toBeDefined()
+    it "creates a table row for a thread", ->
+      expect(@$el).toBe("tr#thread-list-item")
 
+  describe "rendering", ->
+
+    it "renders the list item view into the table row", ->
+      expect(@$el).toHaveText(/Co-working spaces in Tokyo/)
+      expect(@$el).toHaveText(/csasaki/)
