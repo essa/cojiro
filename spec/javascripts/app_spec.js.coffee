@@ -49,6 +49,6 @@ describe "App", ->
       App.init({})
 
       expect(Backbone.history.start).toHaveBeenCalled()
-      expect(Backbone.history.start).toHaveBeenCalledWith(pushstate: true)
+      expect(Backbone.history.start).toHaveBeenCalledWith(pushState: true)
 
       Backbone.history.start.restore()

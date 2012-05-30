@@ -9,5 +9,5 @@ window.App =
 
     window.app_router = new App.AppRouter(collection: @threads)
     if (!Backbone.history.started)
-      Backbone.history.start(pushstate: true)
+      Backbone.history.start(pushState: true)
       Backbone.history.started = true
