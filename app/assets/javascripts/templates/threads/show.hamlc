@@ -1,16 +1,18 @@
 // code for app/assets/javascripts/templates/hello.jst.hamlc
 .row
-  .span12
+  .span8
     %h2=@model.getTitle()
-.row
-  .statbar
-    %ul.nav.nav-pills
-      %li.byline
-        %span.date=@model.getCreatedAt()
-      %li.byline
-        %span.name=@model.getUserFullname()
-        %br
-        %span.handle=@model.getUserName()
+  .span4
+    .actionbtn
+      %a.btn{ :href => '#'}Add/edit English
+.statbar
+  %ul.nav.nav-pills
+    %li.byline
+      %span.date=@model.getCreatedAt()
+    %li.byline
+      %span.name=@model.getUserFullname()
+      %br
+      %span.handle=@model.getUserName()
 
 .row
   .span6
