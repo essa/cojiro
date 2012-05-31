@@ -14,11 +14,20 @@ describe 'App.Routers.AppRouter', ->
       try
         Backbone.history.start
           silent: true,
-          pushState: false
+          pushState: true
       catch e
       @router.navigate "elsewhere"
 
+    afterEach ->
+      @router.navigate "jasmine"
+
     describe "index route", ->
+      beforeEach ->
+        @view = render: () => el: 'collection'
+        sinon.stub(App, 'HomepageView').returns(@view)
+
+      afterEach ->
+        App.HomepageView.restore()
 
       it "fires the index route with a blank hash", ->
         spy = sinon.spy()
@@ -28,23 +37,27 @@ describe 'App.Routers.AppRouter', ->
         expect(spy).toHaveBeenCalledWith()
 
       it "instantiates a new HomepageView", ->
-        sinon.spy(App, 'HomepageView')
         @router.navigate "", true
         expect(App.HomepageView).toHaveBeenCalledOnce()
         expect(App.HomepageView).toHaveBeenCalledWith(collection: App.threads)
-        App.HomepageView.restore()
 
       it "renders the view onto the page", ->
-        view = render: () -> el: $()
-        spy = sinon.spy(view, "render")
-        sinon.stub(App, 'HomepageView').returns(view)
+        spy = sinon.spy(@view, 'render')
         @router.navigate "", true
         expect(spy).toHaveBeenCalledOnce()
-        App.HomepageView.restore()
+        expect(spy).toHaveBeenCalledWith()
 
     describe "thread show route", ->
+      beforeEach ->
+        @view = render: () -> el: 'model'
+        sinon.stub(App, 'ThreadView').returns(@view)
+        sinon.stub(App.threads, 'get').returns('thread')
 
-      it "fires the show route with an :id hash", ->
+      afterEach ->
+        App.ThreadView.restore()
+        App.threads.get.restore()
+
+      it "fires the show route with a :locale and :id hash", ->
         spy = sinon.spy()
         @router.bind "route:show", spy
         @router.navigate "en/threads/1", true
@@ -52,7 +65,12 @@ describe 'App.Routers.AppRouter', ->
         expect(spy).toHaveBeenCalledWith("en", "1")
 
       it "instantiates a new ThreadView", ->
-        sinon.spy(App, 'ThreadView')
         @router.navigate "en/threads/1", true
         expect(App.ThreadView).toHaveBeenCalledOnce()
-        App.ThreadView.restore()
+        expect(App.ThreadView).toHaveBeenCalledWith(model: 'thread')
+
+      it "renders the view onto the page", ->
+        spy = sinon.spy(@view, "render")
+        @router.navigate 'en/threads/1', true
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWith()
