@@ -18,5 +18,5 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
     if (!attrs.title) then errors.push "cannot have an empty title"
     return errors unless errors.length is 0
 
-  toDateStr: (milliseconds) ->
-    new Date(milliseconds * 1000).toGMTString()
+  toDateStr: (seconds) ->
+    new Date(seconds * 1000).toGMTString()
