@@ -21,6 +21,23 @@ describe 'App.Routers.AppRouter', ->
     afterEach ->
       @router.navigate "jasmine"
 
+    describe "root route", ->
+      beforeEach ->
+        I18n.locale = 'en'
+
+      it "fires the root route with a blank hash", ->
+        spy = sinon.spy()
+        @router.bind "route:root", spy
+        @router.navigate "", true
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWith()
+
+      it "forwards to the index route with the current locale as argument", ->
+        spy = sinon.spy(@router, 'index')
+        @router.navigate "", true
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWith("en")
+
     describe "index route", ->
       beforeEach ->
         @view = render: () => el: 'collection'
@@ -29,17 +46,22 @@ describe 'App.Routers.AppRouter', ->
       afterEach ->
         App.HomepageView.restore()
 
-      it "fires the index route with a blank hash", ->
+      it "fires the index route with a locale only", ->
         spy = sinon.spy()
         @router.bind "route:index", spy
-        @router.navigate "", true
+        @router.navigate "en", true
         expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith()
+        expect(spy).toHaveBeenCalledWith("en")
 
       it "instantiates a new HomepageView", ->
-        @router.navigate "", true
+        @router.navigate "en", true
         expect(App.HomepageView).toHaveBeenCalledOnce()
         expect(App.HomepageView).toHaveBeenCalledWith(collection: App.threads)
+
+      it "sets the locale", ->
+        I18n.locale = 'de'
+        @router.navigate 'en', true
+        expect(I18n.locale).toEqual('en')
 
       it "renders the view onto the page", ->
         spy = sinon.spy(@view, 'render')
