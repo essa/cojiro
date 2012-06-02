@@ -4,8 +4,8 @@ class Cothread < ActiveRecord::Base
   translates :title, :summary
 
   #validations
-  validates :user, :presence => :true
-  validates :title, :presence => :true #, :if => :in_original_language?
+  validates :user, :presence => true
+  validates :title, :presence => true
   validates :source_language, :presence => :true
 
   #callbacks
