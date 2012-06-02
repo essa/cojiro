@@ -57,6 +57,12 @@ describe Cothread do
       JSON(@cothread_json)["updated_at"].should be
     end
 
+    # ref: http://www.dotnetguy.co.uk/post/2011/10/31/convert-dates-between-ruby-and-javascript
+    it "converts timestamps into integer format" do
+      JSON(@cothread_json)["created_at"].should == @cothread.created_at.to_i
+      JSON(@cothread_json)["updated_at"].should == @cothread.updated_at.to_i
+    end
+
     it "has a source language" do
       JSON(@cothread_json)["source_language"].should be
     end

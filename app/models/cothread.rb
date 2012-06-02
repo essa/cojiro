@@ -16,8 +16,10 @@ class Cothread < ActiveRecord::Base
 
   def as_json(options = {})
     super(options.merge(:only => [:id, :title, :summary, :created_at, :updated_at, :source_language],
-                        :include => [ :user ]))
-
+                        :include => [ :user ])).tap { |res|
+      res["created_at"] = created_at.to_i
+      res["updated_at"] = updated_at.to_i
+    }
   end
 
 #  def in_original_language?
