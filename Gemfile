@@ -44,6 +44,7 @@ end
 group :test do
   # ref: http://datacodescotch.blogspot.jp/2011/11/warning-cucumber-rails-required-outside.html 
   gem 'cucumber-rails', '~> 1.0', require: false
+  gem 'webmock'
 end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

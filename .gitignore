@@ -31,3 +31,6 @@
 
 # Ignore local rbenv version
 .rbenv-version
+
+# Ignore carrierwave uploads
+/public/uploads/
