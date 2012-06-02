@@ -64,7 +64,7 @@ describe 'App.Thread', ->
       it 'returns value for the created_at attribute in correct format', ->
         stub = sinon.stub(@thread, 'get').returns('1337829167')
 
-        expect(@thread.getCreatedAt()).toEqual('Thu, 24 May 2012 03:12:47 GMT')
+        expect(@thread.getCreatedAt()).toEqual('May 24, 2012')
         expect(stub).toHaveBeenCalledWith('created_at')
 
     describe '#getSourceLanguage', ->

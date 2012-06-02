@@ -19,4 +19,4 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
     return errors unless errors.length is 0
 
   toDateStr: (seconds) ->
-    new Date(seconds * 1000).toGMTString()
+    I18n.strftime(new Date(seconds * 1000), "%B %e, %Y")
