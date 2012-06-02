@@ -24,9 +24,8 @@ General features:
 * Sign-in via Twitter or Facebook, no need to remember new logins or passwords
 * Set language preferences to tailor presentation of language-specific content
 * Submit and index media sources (articles, tweets, videos, photos) in any supported language with a single click
-* Collaborate with users in other languages to organize sources (links) into multilingual discussion threads
+* Collaborate in real-time with users in other languages to organize sources (links) into multilingual discussion threads
 * Discuss content with users in other languages via multilingual threaded commenting
-* All changes recorded in revision history
 
 For bilinguals:
 
@@ -55,6 +54,7 @@ cojiro is built on the following gems and frameworks:
 * [sass](http://sass-lang.com/): for structuring stylesheets awesomely
 * [bootstrap](http://twitter.github.com/bootstrap/): for sensible css defaults
 * [backbone.js](http://documentcloud.github.com/backbone/): for rich client-side user interaction
+* [faye](http://faye.jcoglan.com/): for real-time interaction
 
 Testing
 -------
@@ -69,7 +69,7 @@ We use:
 Contributing
 ------------
 
-We welcome feature suggestions, bug fixes and pull requests, as well as help with interface localization to new languages. We'll be posting more detailed instructions on how to help out to the wiki soon.
+We welcome feature suggestions, bug fixes and pull requests, as well as help with interface localization to new languages. For more information see the [wiki](https://github.com/netalab/cojiro/wiki).
 
 Copyright
 ---------

@@ -32,6 +32,8 @@ gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_bootstrap_form_for.git', :branch => 'bootstrap-2.0'
+gem 'carrierwave'
+gem 'mini_magick'
 
 group :test, :development do
   gem 'rspec-rails'
