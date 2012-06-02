@@ -16,7 +16,6 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
   validate: (attrs) ->
     errors = []
     if (!attrs.title) then errors.push "cannot have an empty title"
-    if (!attrs.user) then errors.push "cannot have an empty user"
     return errors unless errors.length is 0
 
   toDateStr: (milliseconds) ->

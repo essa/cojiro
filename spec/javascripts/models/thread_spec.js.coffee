@@ -125,9 +125,6 @@ describe 'App.Thread', ->
           title: 'Co-working spaces in Tokyo',
           summary: 'I\'m collecting blog posts on co-working spaces in Tokyo.'
           source_language: 'en'
-          user:
-            name: 'csasaki'
-            fullname: 'Cojiro Sasaki'
         request = @server.requests[0]
         params = JSON.parse(request.requestBody)
 
@@ -169,11 +166,6 @@ describe 'App.Thread', ->
           @thread.save(_(@data).extend('title':''))
           expect(@spy).toHaveBeenCalledOnce()
           expect(@spy).toHaveBeenCalledWith(@thread,['cannot have an empty title'])
-
-        it 'does not save if user is blank', ->
-          @thread.save(_(@data).extend('user':''))
-          expect(@spy).toHaveBeenCalledOnce()
-          expect(@spy).toHaveBeenCalledWith(@thread,['cannot have an empty user'])
 
     describe 'parsing response data', ->
       beforeEach ->
