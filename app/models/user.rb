@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :cothreads
   has_many :authorizations
 
+  mount_uploader :avatar, AvatarUploader
+
   def self.new_from_hash(hash)
     new(:name => hash['info']['nickname'],
         :location => hash['info']['location'],
