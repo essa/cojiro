@@ -61,10 +61,10 @@ describe 'App.Thread', ->
     describe '#getCreatedAt', ->
       it 'is defined', -> expect(@thread.getCreatedAt).toBeDefined()
 
-      it 'returns value for the created_at attribute', ->
-        stub = sinon.stub(@thread, 'get').returns('2012-04-20T00:52:29Z')
+      it 'returns value for the created_at attribute in correct format', ->
+        stub = sinon.stub(@thread, 'get').returns('1337829167')
 
-        expect(@thread.getCreatedAt()).toEqual('2012-04-20T00:52:29Z')
+        expect(@thread.getCreatedAt()).toEqual('Thu, 24 May 2012 03:12:47 GMT')
         expect(stub).toHaveBeenCalledWith('created_at')
 
     describe '#getSourceLanguage', ->
@@ -124,7 +124,6 @@ describe 'App.Thread', ->
         @thread.save
           title: 'Co-working spaces in Tokyo',
           summary: 'I\'m collecting blog posts on co-working spaces in Tokyo.'
-          created_at: '2012-04-20T00:52:29Z'
           source_language: 'en'
           user:
             name: 'csasaki'
@@ -135,7 +134,6 @@ describe 'App.Thread', ->
         expect(params.thread).toBeDefined()
         expect(params.thread.title).toEqual('Co-working spaces in Tokyo')
         expect(params.thread.summary).toEqual('I\'m collecting blog posts on co-working spaces in Tokyo.')
-        expect(params.thread.created_at).toEqual('2012-04-20T00:52:29Z')
         expect(params.thread.source_language).toEqual('en')
 
       describe 'on create', ->
@@ -193,6 +191,6 @@ describe 'App.Thread', ->
         expect(@thread.getSummary())
           .toEqual(@fixture.summary)
         expect(@thread.getCreatedAt())
-          .toEqual(@fixture.created_at)
+          .toEqual(@thread.toDateStr(@fixture.created_at))
         expect(@thread.getSourceLanguage())
           .toEqual(@fixture.source_language)
