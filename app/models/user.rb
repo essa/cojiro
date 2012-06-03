@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
         :location => hash['info']['location'],
         :profile => hash['info']['description'],
         :fullname => hash['info']['name'],
-        :remote_avatar_url => hash['info']['image'])
+        :remote_avatar_url => hash['info']['image'].gsub('_normal', ''))
   end
 
   def self.current_user=(user)

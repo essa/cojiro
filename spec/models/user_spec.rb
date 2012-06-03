@@ -48,7 +48,7 @@ describe User do
         "nickname" => "csasaki",
         "description" => "I like dicing blue chickens.",
         "location" => "Fukui",
-        "image" => "http://a1.twimg.com/profile_images/1234567/csasaki_bigger.png" }
+        "image" => "http://a1.twimg.com/profile_images/1234567/csasaki_normal.png" }
     }
 
     subject { User.new_from_hash(hash) }
@@ -57,6 +57,10 @@ describe User do
     its(:fullname) { should == "Cojiro Sasaki" }
     its(:location) { should == "Fukui" }
     its(:profile) { should == "I like dicing blue chickens." }
+
+    it "removes '_normal' from filename in url to get image in original size" do
+      subject.remote_avatar_url.should == "http://a1.twimg.com/profile_images/1234567/csasaki.png"
+    end
 
   end
 

@@ -5,6 +5,6 @@ module CojiroRequestStubs
   end
 
   def load_request_stubs
-    stub_request(:get, "http://a1.twimg.com/profile_images/1234567/csasaki_bigger.png").to_return(:status => 200, :body => fixture("myavatar.png"), :headers => {})
+    stub_request(:get, "http://a1.twimg.com/profile_images/1234567/csasaki.png").to_return(:status => 200, :body => fixture("myavatar.png"), :headers => {})
   end
 end
