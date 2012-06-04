@@ -16,10 +16,10 @@ describe AvatarUploader do
     @uploader.remove!
   end
 
-  # rspec ovverrides uploads directory, so we can't test this.
-  # it "saves the avatar in the correct directory based on the user id" do
-  #   @uploader.store_dir.should == "uploads/avatars/#{@user.id}"
-  # end
+  # see spec_helper.rb for details on cache_dir and store_dir aliases
+  it "saves the avatar in the correct directory based on the user id" do
+    @uploader.store_dir_without_test_env.should == "uploads/avatars/#{@user.id}"
+  end
 
   it "saves the avatar using the original filename" do
     @uploader.filename.should == "400x500.png"

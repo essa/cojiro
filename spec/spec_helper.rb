@@ -59,13 +59,16 @@ Spork.prefork do
       CarrierWave::Uploader::Base.descendants.each do |klass|
         next if klass.anonymous?
         klass.class_eval do
-          def cache_dir
+          def cache_dir_with_test_env
             "#{Rails.root}/spec/support/uploads/tmp"
           end
 
-          def store_dir
+          def store_dir_with_test_env
             "#{Rails.root}/spec/support/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
           end
+
+          alias_method_chain :cache_dir, :test_env
+          alias_method_chain :store_dir, :test_env
         end
       end
     end
