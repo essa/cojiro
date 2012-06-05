@@ -7,14 +7,32 @@
       %a.btn{ :href => '#'}Add/edit English
 .statbar
   %ul.nav.nav-pills
-    %li.byline
+    %li
+      %a{ :href => '#' }
+        %span.stat x
+        %br
+        %span.stattext neta
+    %li
+      %a#typography
+        %span.stat x
+        %br
+        %span.stattext EN comments
+    %li
+      %a#typography
+        %span.stat x
+        %br
+        %span.stattext JA comments
+    %li.nosep.byline
       %span.date=@model.getCreatedAt()
-    %li.avatar
+      %br
+      %span.status created
+    %li.nosep.avatar
       %img{ :src => @model.getUserAvatarMiniUrl() }
-    %li.byline
+    %li.nosep.byline
       %span.name=@model.getUserFullname()
       %br
-      %span.handle=@model.getUserName()
+      %a.unstyled{ :href => '#' }
+        %span.handle="@#{@model.getUserName()}"
 
 .row
   .span6

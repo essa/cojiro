@@ -19,6 +19,6 @@ describe "App.ThreadView", ->
     expect(@$el).toHaveText(/Looking for info on geisha bloggers./)
 
   it "renders user info", ->
-    expect(@$el).toHaveText(/csasaki/)
+    expect(@$el).toHaveText(/@csasaki/)
     expect(@$el).toHaveText(/Cojiro Sasaki/)
     expect(@$el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')
