@@ -1,5 +1,5 @@
 describe "App.ThreadView", ->
-  it "renders the thread", ->
+  beforeEach ->
     thread = new App.Thread()
     thread.set
       title: "Geisha bloggers",
@@ -7,12 +7,18 @@ describe "App.ThreadView", ->
       user:
         name: "csasaki"
         fullname: "Cojiro Sasaki"
+        avatar_mini_url: "http://www.example.com/csasaki_mini.png"
 
     view = new App.ThreadView(model: thread)
-    $el = $(view.render().el)
+    @el = view.render().el
+    @$el = $(@el)
 
-    expect($el).toBe("#thread")
-    expect($el).toHaveText(/Geisha bloggers/)
-    expect($el).toHaveText(/Looking for info on geisha bloggers./)
-    expect($el).toHaveText(/csasaki/)
-    expect($el).toHaveText(/Cojiro Sasaki/)
+  it "renders the thread", ->
+    expect(@$el).toBe("#thread")
+    expect(@$el).toHaveText(/Geisha bloggers/)
+    expect(@$el).toHaveText(/Looking for info on geisha bloggers./)
+
+  it "renders user info", ->
+    expect(@$el).toHaveText(/csasaki/)
+    expect(@$el).toHaveText(/Cojiro Sasaki/)
+    expect(@$el).toContain('img[src="http://www.example.com/csasaki_mini.png"]')

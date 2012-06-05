@@ -73,6 +73,8 @@ describe Cothread do
       JSON(@cothread_json)["user"]["fullname"].should be
       JSON(@cothread_json)["user"]["location"].should be
       JSON(@cothread_json)["user"]["profile"].should be
+      JSON(@cothread_json)["user"]["avatar_url"].should be
+      JSON(@cothread_json)["user"]["avatar_mini_url"].should be
     end
 
     it "does not include any other attributes" do

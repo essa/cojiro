@@ -30,7 +30,12 @@ class User < ActiveRecord::Base
     Thread.current[:cojiro_current_user]
   end
 
-  def as_json(options = {})
+  # it's not ideal to be overriding serializable_hash instead of as_json,
+  # but it seems this is the easiest way to ensure that custom options are
+  # inherited in associations
+  #
+  # ref: https://github.com/rails/rails/pull/2200
+  def serializable_hash(options = {})
     super(options.merge(:only => [:id, :name, :fullname, :location, :profile], :methods => [ :avatar_url, :avatar_mini_url ]))
   end
 

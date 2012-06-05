@@ -12,6 +12,8 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
   getSourceLanguage: -> @get('source_language')
   getUserName: -> @get('user').name
   getUserFullname: -> @get('user').fullname
+  getUserAvatarUrl: -> @get('user').avatar_url
+  getUserAvatarMiniUrl: -> @get('user').avatar_mini_url
 
   validate: (attrs) ->
     errors = []

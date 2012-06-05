@@ -94,6 +94,24 @@ describe 'App.Thread', ->
         expect(@thread.getUserFullname()).toEqual('Cojiro Sasaki')
         expect(stub).toHaveBeenCalledWith('user')
 
+    describe '#getUserAvatarUrl', ->
+      it 'is defined', -> expect(@thread.getUserAvatarUrl).toBeDefined()
+
+      it 'returns URL of original version of user avatar associated with thread', ->
+        stub = sinon.stub(@thread, 'get').returns({ 'avatar_url': 'http://www.example.com/csasaki.png' })
+
+        expect(@thread.getUserAvatarUrl()).toEqual('http://www.example.com/csasaki.png')
+        expect(stub).toHaveBeenCalledWith('user')
+
+    describe '#getUserAvatarMiniUrl', ->
+      it 'is defined', -> expect(@thread.getUserAvatarMiniUrl).toBeDefined()
+
+      it 'returns URL of mini version of user avatar associated with thread', ->
+        stub = sinon.stub(@thread, 'get').returns({ 'avatar_mini_url': 'http://www.example.com/csasaki_mini.png' })
+
+        expect(@thread.getUserAvatarMiniUrl()).toEqual('http://www.example.com/csasaki_mini.png')
+        expect(stub).toHaveBeenCalledWith('user')
+
     describe '#url', ->
       it 'returns collection URL when id is not set', ->
         expect(@thread.url()).toEqual('/collection')

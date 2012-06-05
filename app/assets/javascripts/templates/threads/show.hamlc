@@ -9,6 +9,8 @@
   %ul.nav.nav-pills
     %li.byline
       %span.date=@model.getCreatedAt()
+    %li.avatar
+      %img{ :src => @model.getUserAvatarMiniUrl() }
     %li.byline
       %span.name=@model.getUserFullname()
       %br
