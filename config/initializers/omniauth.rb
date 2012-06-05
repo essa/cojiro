@@ -8,7 +8,7 @@ if (ENV["RAILS_ENV"] == 'test' || ENV["RAILS_ENV"] == 'development')
       OmniAuth.config.add_mock(:twitter,
                                { :provider => 'twitter',
                                  :uid => uid,
-                                 :info => { :name => name, :nickname => nickname }})
+                                 :info => { :name => name, :nickname => nickname, :image => "http://a1.twimg.com/profile_images/1234567/csasaki_normal.png" }})
     end
     def add_twitter_mock(uid, name, nickname)
       OmniAuthHelpers.add_twitter_mock(uid, name, nickname)

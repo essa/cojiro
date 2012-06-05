@@ -27,7 +27,7 @@ gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_bootstrap_form_for.git', :branch => 'bootstrap-2.0'
-gem 'carrierwave'
+gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
 gem 'mini_magick'
 
 group :test, :development do
@@ -44,6 +44,7 @@ end
 group :test do
   # ref: http://datacodescotch.blogspot.jp/2011/11/warning-cucumber-rails-required-outside.html 
   gem 'cucumber-rails', '~> 1.0', require: false
+  gem 'webmock'
 end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
