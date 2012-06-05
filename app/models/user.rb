@@ -31,7 +31,12 @@ class User < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options.merge(:only => [:id, :name, :fullname, :location, :profile], :methods => :avatar_url))
+    super(options.merge(:only => [:id, :name, :fullname, :location, :profile], :methods => [ :avatar_url, :avatar_mini_url ]))
+  end
+
+  # ref: https://groups.google.com/forum/?fromgroups#!topic/carrierwave/7geR0hdJp34
+  def avatar_mini_url
+    avatar.mini.url unless avatar.nil?
   end
 
 end

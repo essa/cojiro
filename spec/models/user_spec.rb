@@ -91,8 +91,12 @@ describe User do
       JSON(@user_json)["profile"].should be
     end
 
-    it "has an avatar url" do
+    it "has an avatar url (original size)" do
       JSON(@user_json)["avatar_url"].should be
+    end
+
+    it "has an avatar url (mini size)" do
+      JSON(@user_json)["avatar_mini_url"].should be
     end
 
     it "does not include any other attributes" do
@@ -102,7 +106,8 @@ describe User do
           "fullname",
           "location",
           "profile",
-          "avatar_url"
+          "avatar_url",
+          "avatar_mini_url"
         ].include?(k)
       }.should be_empty
     end
