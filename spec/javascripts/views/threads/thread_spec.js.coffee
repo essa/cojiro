@@ -7,7 +7,7 @@ describe "App.ThreadView", ->
       user:
         name: "csasaki"
         fullname: "Cojiro Sasaki"
-        avatar_mini_url: "http://www.example.com/csasaki_mini.png"
+        avatar_mini_url: "http://www.example.com/mini_csasaki.png"
 
     view = new App.ThreadView(model: thread)
     @el = view.render().el
@@ -21,4 +21,4 @@ describe "App.ThreadView", ->
   it "renders user info", ->
     expect(@$el).toHaveText(/csasaki/)
     expect(@$el).toHaveText(/Cojiro Sasaki/)
-    expect(@$el).toContain('img[src="http://www.example.com/csasaki_mini.png"]')
+    expect(@$el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')

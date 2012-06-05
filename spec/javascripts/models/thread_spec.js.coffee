@@ -107,9 +107,9 @@ describe 'App.Thread', ->
       it 'is defined', -> expect(@thread.getUserAvatarMiniUrl).toBeDefined()
 
       it 'returns URL of mini version of user avatar associated with thread', ->
-        stub = sinon.stub(@thread, 'get').returns({ 'avatar_mini_url': 'http://www.example.com/csasaki_mini.png' })
+        stub = sinon.stub(@thread, 'get').returns({ 'avatar_mini_url': 'http://www.example.com/mini_csasaki.png' })
 
-        expect(@thread.getUserAvatarMiniUrl()).toEqual('http://www.example.com/csasaki_mini.png')
+        expect(@thread.getUserAvatarMiniUrl()).toEqual('http://www.example.com/mini_csasaki.png')
         expect(stub).toHaveBeenCalledWith('user')
 
     describe '#url', ->
