@@ -91,6 +91,10 @@ describe User do
       JSON(@user_json)["profile"].should be
     end
 
+    it "has an avatar url" do
+      JSON(@user_json)["avatar_url"].should be
+    end
+
     it "does not include any other attributes" do
       JSON(@user_json).keys.delete_if { |k|
         [ "id",
@@ -98,6 +102,7 @@ describe User do
           "fullname",
           "location",
           "profile",
+          "avatar_url"
         ].include?(k)
       }.should be_empty
     end
