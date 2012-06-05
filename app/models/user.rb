@@ -1,5 +1,12 @@
+require 'open-uri'
+
 class User < ActiveRecord::Base
-  attr_accessible :name, :fullname, :location, :profile, :mysite
+  attr_accessible :name, :fullname, :location, :profile, :mysite, :remote_avatar_url
+
+  # validations
+  validates :name, :presence => true, :uniqueness => true
+  validates :fullname, :presence => true
+  validates :avatar, :presence => true
 
   # associations
   has_many :cothreads
@@ -11,7 +18,8 @@ class User < ActiveRecord::Base
     new(:name => hash['info']['nickname'],
         :location => hash['info']['location'],
         :profile => hash['info']['description'],
-        :fullname => hash['info']['name'])
+        :fullname => hash['info']['name'],
+        :remote_avatar_url => hash['info']['image'].gsub('_normal', ''))
   end
 
   def self.current_user=(user)

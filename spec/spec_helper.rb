@@ -12,12 +12,15 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'webmock/rspec'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   RSpec.configure do |config|
+    include CojiroRequestStubs
+
     # ## Mock Framework
     #
     # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -41,6 +44,34 @@ Spork.prefork do
 
     # for testing sign-in through Twitter, Facebook, etc.
     OmniAuth.config.test_mode = true
+
+    config.before(:each) do
+      load_request_stubs
+    end
+
+    config.after(:all) do
+      if Rails.env.test?
+        FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
+      end
+    end 
+
+    if defined?(CarrierWave)
+      CarrierWave::Uploader::Base.descendants.each do |klass|
+        next if klass.anonymous?
+        klass.class_eval do
+          def cache_dir_with_test_env
+            "#{Rails.root}/spec/support/uploads/tmp"
+          end
+
+          def store_dir_with_test_env
+            "#{Rails.root}/spec/support/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+          end
+
+          alias_method_chain :cache_dir, :test_env
+          alias_method_chain :store_dir, :test_env
+        end
+      end
+    end
 
   end
 end
