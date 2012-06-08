@@ -19,6 +19,8 @@
 //= require backbone
 //
 //= require backbone-support
+//= require backbone-forms/backbone-forms
+//= require backbone-forms/bootstrap
 //
 //= require i18n
 //= require i18n/translations
