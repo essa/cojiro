@@ -4,6 +4,12 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
     summary: ''
     created_at: ''
 
+  schema:
+    title:
+      type: 'Text'
+      validators: ['required']
+    summary: 'Text'
+
   toJSON: -> thread: @attributes
   getId: -> @id
   getTitle: -> @get('title')

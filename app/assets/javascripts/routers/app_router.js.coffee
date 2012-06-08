@@ -2,6 +2,7 @@ App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
   routes:
     "" : "root"
     ":locale" : "index"
+    ":locale/threads/new": "new"
     ":locale/threads/:id": "show"
 
   initialize: ->
@@ -18,3 +19,8 @@ App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
   show: (locale, id) ->
     view = new App.ThreadView( model: App.threads.get(id) )
     @swap(view)
+
+  new: (locale) ->
+    thread = new App.Thread()
+    form = new Backbone.Form(model: thread)
+    @swap(form)

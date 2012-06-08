@@ -96,3 +96,38 @@ describe 'App.Routers.AppRouter', ->
         @router.navigate 'en/threads/1', true
         expect(spy).toHaveBeenCalledOnce()
         expect(spy).toHaveBeenCalledWith()
+
+    describe "new thread route", ->
+      beforeEach ->
+        @model = new Backbone.Model()
+        @form =
+          render: () -> @
+        sinon.stub(App, 'Thread').returns(@model)
+        sinon.stub(Backbone, 'Form').returns(@form)
+
+      afterEach ->
+        App.Thread.restore()
+        Backbone.Form.restore()
+
+      it "fires the new route with a :locale", ->
+        spy = sinon.spy()
+        @router.bind "route:new", spy
+        @router.navigate "en/threads/new", true
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWith("en")
+
+      it "instantiates a new Thread", ->
+        @router.navigate "en/threads/new", true
+        expect(App.Thread).toHaveBeenCalledOnce()
+        expect(App.Thread).toHaveBeenCalledWith()
+
+      it "instantiates a new Form", ->
+        @router.navigate "en/threads/new", true
+        expect(Backbone.Form).toHaveBeenCalledOnce()
+        expect(Backbone.Form).toHaveBeenCalledWith(model: @model)
+
+      it "renders the form onto the page", ->
+        spy = sinon.spy(@form, 'render')
+        @router.navigate "en/threads/new", true
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWith()
