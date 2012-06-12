@@ -1,4 +1,5 @@
 describe 'App.Routers.AppRouter', ->
+
   it "is defined with alias", ->
     expect(App.AppRouter).toBeDefined()
     expect(App.Routers.AppRouter).toBeDefined()
@@ -119,7 +120,7 @@ describe 'App.Routers.AppRouter', ->
       it "instantiates a new Thread", ->
         @router.navigate "en/threads/new", true
         expect(App.Thread).toHaveBeenCalledOnce()
-        expect(App.Thread).toHaveBeenCalledWithExactly()
+        expect(App.Thread).toHaveBeenCalledWithExactly( {}, collection: App.threads )
 
       it "instantiates a new NewThreadView", ->
         @router.navigate "en/threads/new", true

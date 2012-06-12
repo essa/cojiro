@@ -21,6 +21,6 @@ App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
     @swap(view)
 
   new: (locale) ->
-    thread = new App.Thread()
+    thread = new App.Thread( {}, collection: App.threads )
     view = new App.NewThreadView( model: thread )
     @swap(view)
