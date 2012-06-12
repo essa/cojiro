@@ -79,18 +79,33 @@ describe CothreadsController do
           Cothread.stub(:new).with( { 'these' => 'params' } ) { cothread }
         end
 
-        before(:each) { post :create, :cothread => { 'these' => 'params' } }
+        context "respond with HTML" do
 
-        it "assigns newly created cothread as @cothread" do
-          assigns(:cothread).should be(@mock_cothread)
+          before(:each) { post :create, :cothread => { 'these' => 'params' }, :format => :html }
+
+          it "assigns newly created cothread as @cothread" do
+            assigns(:cothread).should be(@mock_cothread)
+          end
+
+          it "redirects to the cothread" do
+            response.should redirect_to(@mock_cothread)
+          end
+
+          it "displays a success message" do
+            flash[:success].should_not be_nil
+          end
+
         end
 
-        it "redirects to the cothread" do
-          response.should redirect_to(@mock_cothread)
-        end
+        context "respond with JSON" do
 
-        it "displays a success message" do
-          flash[:success].should_not be_nil
+          # on the client-side, 'thread' is used instead of 'cothread'
+          before(:each) { post :create, :thread => { 'these' => 'params' }, :format => :json }
+
+          it "assigns a newly created cothread as @cothread" do
+            assigns(:cothread).should be(@mock_cothread)
+          end
+
         end
 
       end

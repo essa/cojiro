@@ -12,7 +12,10 @@ class CothreadsController < ApplicationController
   end
 
   def create
-    @cothread = Cothread.new(params[:cothread])
+    respond_to do |format|
+      format.html { @cothread = Cothread.new(params[:cothread]) }
+      format.json { @cothread = Cothread.new(params[:thread]) }
+    end
     @cothread.user_id = current_user.id
     if @cothread.save
       flash[:success] = "New thread successfully created."
