@@ -35,13 +35,13 @@ describe 'App.Threads', ->
   describe '#url', ->
     beforeEach -> @threads = new App.Threads()
 
-    it 'is persisted at en/threads for an English locale', ->
+    it 'is persisted at /en/threads for an English locale', ->
       I18n.locale = 'en'
-      expect(@threads.url()).toEqual('en/threads')
+      expect(@threads.url()).toEqual('/en/threads')
 
-    it 'is persisted at ja/threads for a Japanese locale', ->
+    it 'is persisted at /ja/threads for a Japanese locale', ->
       I18n.locale = 'ja'
-      expect(@threads.url()).toEqual('ja/threads')
+      expect(@threads.url()).toEqual('/ja/threads')
 
   describe 'interacting with the server', ->
     beforeEach ->
@@ -56,14 +56,14 @@ describe 'App.Threads', ->
         @threads.fetch()
         expect(@server.requests.length).toEqual(1)
         expect(@server.requests[0]).toBeGET()
-        expect(@server.requests[0]).toHaveUrl('en/threads')
+        expect(@server.requests[0]).toHaveUrl('/en/threads')
 
     describe 'parsing response data', ->
       beforeEach ->
         @fixture = @fixtures.Threads.valid
         @server.respondWith(
           'GET',
-          'en/threads',
+          '/en/threads',
           @validResponse(@fixture))
 
       it 'parses threads from the server', ->
