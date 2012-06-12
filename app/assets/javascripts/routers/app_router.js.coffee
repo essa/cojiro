@@ -22,5 +22,5 @@ App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
 
   new: (locale) ->
     thread = new App.Thread()
-    form = new Backbone.Form(model: thread)
-    @swap(form)
+    view = new App.NewThreadView( model: thread )
+    @swap(view)

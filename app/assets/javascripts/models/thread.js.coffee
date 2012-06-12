@@ -8,7 +8,7 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
     title:
       type: 'Text'
       validators: ['required']
-    summary: 'Text'
+    summary: 'TextArea'
 
   toJSON: -> thread: @attributes
   getId: -> @id
