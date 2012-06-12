@@ -6,6 +6,7 @@ describe "App.NewThreadView", ->
     @$el = $(@el)
     @form =
       render: () -> {}
+      el: "<form></form>"
     sinon.stub(Backbone, 'Form').returns(@form)
 
   afterEach ->
@@ -15,7 +16,6 @@ describe "App.NewThreadView", ->
     @view.render()
     expect(@$el).toBe("#new_thread")
     expect(@$el).toHaveText(/Start a thread/)
-    expect(@$el).toContain("form")
 
   it "instantiates a new form", ->
     @view.render()
@@ -29,17 +29,8 @@ describe "App.NewThreadView", ->
     expect(spy).toHaveBeenCalledWith()
 
   it "renders the form onto the page", ->
-    formContainer =
-      append: () -> {}
-      html: () -> {}
-    stub = sinon.stub(@view, '$').returns(formContainer)
-    htmlSpy = sinon.spy(formContainer, 'html')
-    appendSpy = sinon.spy(formContainer, 'append')
+    spy = sinon.spy(@view.$el, 'append')
 
     @view.render()
-    expect(stub).toHaveBeenCalledOnce()
-    expect(stub).toHaveBeenCalledWith('form')
-    expect(htmlSpy).toHaveBeenCalledOnce()
-    expect(htmlSpy).toHaveBeenCalledWith('')
-    expect(appendSpy).toHaveBeenCalledOnce()
-    expect(appendSpy).toHaveBeenCalledWith(@form.el)
+    expect(spy).toHaveBeenCalledOnce()
+    expect(spy).toHaveBeenCalledWith("<form></form>")

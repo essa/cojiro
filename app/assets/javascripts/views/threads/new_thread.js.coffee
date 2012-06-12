@@ -1,6 +1,9 @@
 App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
   id: 'new_thread'
 
+  events:
+    "click .btn" : "submit"
+
   initialize: ->
     _.bindAll @
 
@@ -12,11 +15,13 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
     @$el.html(JST['threads/new'])
 
   renderForm: ->
-    formContainer = @.$('form')
-    formContainer.html('')
-
-    formView = new Backbone.Form(model: @model)
-    @renderChild(formView)
-    formContainer.append(formView.el)
+    @form = new Backbone.Form(model: @model)
+    @renderChild(@form)
+    @$el.append(@form.el)
+    @.$('fieldset').append(JST['threads/form_actions'])
 
     @
+
+  submit: (e) ->
+    e.preventDefault()
+    @form.commit()
