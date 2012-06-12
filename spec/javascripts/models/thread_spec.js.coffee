@@ -26,6 +26,19 @@ describe 'App.Thread', ->
       collection = url: '/collection'
       @thread.collection = collection
 
+    describe '#toJSON', ->
+      beforeEach ->
+        @thread.set(
+          'title': 'title'
+          'summary': 'summary'
+          'source_language': 'source_language'
+        )
+
+      it 'wraps JSON in thread object', ->
+        expect(@thread.toJSON().thread).toBeDefined()
+        expect(@thread.toJSON().thread.title).toEqual('title')
+        expect(@thread.toJSON().thread.summary).toEqual('summary')
+        expect(@thread.toJSON().thread.source_language).toEqual('source_language')
 
     describe '#getId', ->
       it 'is defined', -> expect(@thread.getId).toBeDefined()
