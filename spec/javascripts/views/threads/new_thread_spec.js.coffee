@@ -3,12 +3,15 @@ describe "App.NewThreadView", ->
     @model = new Backbone.Model
     collection = url: '/collection'
     @model.collection = collection
-    @model.url = '/en/threads/'
+    @model.save = () -> {}
+
     @view = new App.NewThreadView(model: @model)
     @el = @view.el
     @$el = $(@el)
+
     @form =
       render: () -> {}
+      commit: () -> null
       el: "<form></form>"
     sinon.stub(Backbone, 'Form').returns(@form)
 
@@ -39,23 +42,17 @@ describe "App.NewThreadView", ->
     expect(spy).toHaveBeenCalledOnce()
     expect(spy).toHaveBeenCalledWith("<form></form>")
 
-  it "submits the form", ->
+  it "saves the form data", ->
     @view.render()
-    @form.commit = () -> null
-    e = preventDefault: () -> {}
     formSpy = sinon.spy(@form, 'commit')
 
-    @view.submit(e)
+    @view.submit()
     expect(formSpy).toHaveBeenCalledOnce()
     expect(formSpy).toHaveBeenCalledWithExactly()
 
   it "saves the model if there are no errors", ->
     @view.render()
-    @form.commit = () -> null
-    @model.save = () -> {}
-    e = preventDefault: () -> {}
     modelSpy = sinon.spy(@model, 'save')
 
-    @view.submit(e)
+    @view.submit()
     expect(modelSpy).toHaveBeenCalledOnce()
-    expect(modelSpy).toHaveBeenCalledWithExactly()

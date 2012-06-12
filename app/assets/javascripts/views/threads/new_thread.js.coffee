@@ -2,7 +2,7 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
   id: 'new_thread'
 
   events:
-    "click .btn" : "submit"
+    "submit form" : "submit"
 
   initialize: ->
     _.bindAll @
@@ -22,8 +22,12 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
 
     @
 
-  submit: (e) ->
-    e.preventDefault()
+  submit: () ->
     errors = @form.commit()
     if !(errors?)
-      @model.save()
+      @model.save({},
+        success: (model, resp) ->
+          view = new App.ThreadView(model: model)
+          window.app_router.swap(view)
+      )
+    return false
