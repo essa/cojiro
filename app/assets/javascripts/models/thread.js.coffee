@@ -2,7 +2,6 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
   defaults:
     title: ''
     summary: ''
-    created_at: ''
 
   schema:
     title:

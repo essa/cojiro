@@ -20,9 +20,6 @@ describe 'App.Thread', ->
     it 'has default value for the .summary attribute', ->
       expect(@thread.get('summary')).toEqual('')
 
-    it 'has default value for the .created_at attribute', ->
-      expect(@thread.get('created_at')).toEqual('')
-
   describe 'getters', ->
     beforeEach ->
       @thread = new App.Thread()
