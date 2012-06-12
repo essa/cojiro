@@ -30,13 +30,13 @@ describe 'App.Routers.AppRouter', ->
         @router.bind "route:root", spy
         @router.navigate "", true
         expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith()
+        expect(spy).toHaveBeenCalledWithExactly()
 
       it "forwards to the index route with the current locale as argument", ->
         spy = sinon.spy(@router, 'index')
         @router.navigate "", true
         expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith("en")
+        expect(spy).toHaveBeenCalledWithExactly("en")
 
     describe "index route", ->
       beforeEach ->
@@ -51,12 +51,12 @@ describe 'App.Routers.AppRouter', ->
         @router.bind "route:index", spy
         @router.navigate "en", true
         expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith("en")
+        expect(spy).toHaveBeenCalledWithExactly("en")
 
       it "instantiates a new HomepageView", ->
         @router.navigate "en", true
         expect(App.HomepageView).toHaveBeenCalledOnce()
-        expect(App.HomepageView).toHaveBeenCalledWith(collection: App.threads)
+        expect(App.HomepageView).toHaveBeenCalledWithExactly(collection: App.threads)
 
       it "sets the locale", ->
         I18n.locale = 'de'
@@ -67,7 +67,7 @@ describe 'App.Routers.AppRouter', ->
         spy = sinon.spy(@view, 'render')
         @router.navigate "", true
         expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith()
+        expect(spy).toHaveBeenCalledWithExactly()
 
     describe "thread show route", ->
       beforeEach ->
@@ -84,18 +84,18 @@ describe 'App.Routers.AppRouter', ->
         @router.bind "route:show", spy
         @router.navigate "en/threads/1", true
         expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith("en", "1")
+        expect(spy).toHaveBeenCalledWithExactly("en", "1")
 
       it "instantiates a new ThreadView", ->
         @router.navigate "en/threads/1", true
         expect(App.ThreadView).toHaveBeenCalledOnce()
-        expect(App.ThreadView).toHaveBeenCalledWith(model: 'thread')
+        expect(App.ThreadView).toHaveBeenCalledWithExactly(model: 'thread')
 
       it "renders the view onto the page", ->
         spy = sinon.spy(@view, "render")
         @router.navigate 'en/threads/1', true
         expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith()
+        expect(spy).toHaveBeenCalledWithExactly()
 
     describe "new thread route", ->
       beforeEach ->
@@ -114,20 +114,20 @@ describe 'App.Routers.AppRouter', ->
         @router.bind "route:new", spy
         @router.navigate "en/threads/new", true
         expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith("en")
+        expect(spy).toHaveBeenCalledWithExactly("en")
 
       it "instantiates a new Thread", ->
         @router.navigate "en/threads/new", true
         expect(App.Thread).toHaveBeenCalledOnce()
-        expect(App.Thread).toHaveBeenCalledWith()
+        expect(App.Thread).toHaveBeenCalledWithExactly()
 
       it "instantiates a new NewThreadView", ->
         @router.navigate "en/threads/new", true
         expect(App.NewThreadView).toHaveBeenCalledOnce()
-        expect(App.NewThreadView).toHaveBeenCalledWith(model: @model)
+        expect(App.NewThreadView).toHaveBeenCalledWithExactly(model: @model)
 
       it "renders the view onto the page", ->
         spy = sinon.spy(@view, 'render')
         @router.navigate "en/threads/new", true
         expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith()
+        expect(spy).toHaveBeenCalledWithExactly()
