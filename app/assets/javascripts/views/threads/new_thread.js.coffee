@@ -24,4 +24,6 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
 
   submit: (e) ->
     e.preventDefault()
-    @form.commit()
+    errors = @form.commit()
+    if !(errors?)
+      @model.save()

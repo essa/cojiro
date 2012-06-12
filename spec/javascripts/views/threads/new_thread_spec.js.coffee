@@ -1,6 +1,9 @@
 describe "App.NewThreadView", ->
   beforeEach ->
-    @model = new Backbone.Model()
+    @model = new Backbone.Model
+    collection = url: '/collection'
+    @model.collection = collection
+    @model.url = '/en/threads/'
     @view = new App.NewThreadView(model: @model)
     @el = @view.el
     @$el = $(@el)
@@ -24,6 +27,7 @@ describe "App.NewThreadView", ->
 
   it "renders the form", ->
     spy = sinon.spy(@form, 'render')
+
     @view.render()
     expect(spy).toHaveBeenCalledOnce()
     expect(spy).toHaveBeenCalledWith()
@@ -34,3 +38,24 @@ describe "App.NewThreadView", ->
     @view.render()
     expect(spy).toHaveBeenCalledOnce()
     expect(spy).toHaveBeenCalledWith("<form></form>")
+
+  it "submits the form", ->
+    @view.render()
+    @form.commit = () -> null
+    e = preventDefault: () -> {}
+    formSpy = sinon.spy(@form, 'commit')
+
+    @view.submit(e)
+    expect(formSpy).toHaveBeenCalledOnce()
+    expect(formSpy).toHaveBeenCalledWithExactly()
+
+  it "saves the model if there are no errors", ->
+    @view.render()
+    @form.commit = () -> null
+    @model.save = () -> {}
+    e = preventDefault: () -> {}
+    modelSpy = sinon.spy(@model, 'save')
+
+    @view.submit(e)
+    expect(modelSpy).toHaveBeenCalledOnce()
+    expect(modelSpy).toHaveBeenCalledWithExactly()
