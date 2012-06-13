@@ -1,58 +1,70 @@
 describe "App.NewThreadView", ->
   beforeEach ->
-    @model = new Backbone.Model
+    @model = new App.Thread()
     collection = url: '/collection'
     @model.collection = collection
-    @model.save = () -> {}
-
     @view = new App.NewThreadView(model: @model)
-    @el = @view.el
-    @$el = $(@el)
+    @$el = $(@view.el)
 
-    @form =
-      render: () -> {}
-      commit: () -> null
-      el: "<form></form>"
-    sinon.stub(Backbone, 'Form').returns(@form)
+  describe "instantiation", ->
 
-  afterEach ->
-    Backbone.Form.restore()
+    it "creates the new thread element", ->
+      @view.render()
+      expect(@$el).toBe("#new_thread")
 
-  it "renders the new thread page", ->
-    @view.render()
-    expect(@$el).toBe("#new_thread")
-    expect(@$el).toHaveText(/Start a thread/)
+  describe "rendering", ->
+    beforeEach ->
+      @form =
+        render: () -> {}
+        el: "<form></form>"
+      sinon.stub(Backbone, 'Form').returns(@form)
 
-  it "instantiates a new form", ->
-    @view.render()
-    expect(Backbone.Form).toHaveBeenCalledOnce()
-    expect(Backbone.Form).toHaveBeenCalledWith(model: @model)
+    afterEach ->
+      Backbone.Form.restore()
 
-  it "renders the form", ->
-    spy = sinon.spy(@form, 'render')
+    it "renders the thread onto the page", ->
+      @view.render()
+      expect(@$el).toHaveText(/Start a thread/)
 
-    @view.render()
-    expect(spy).toHaveBeenCalledOnce()
-    expect(spy).toHaveBeenCalledWith()
+    it "creates a new form", ->
+      @view.render()
+      expect(Backbone.Form).toHaveBeenCalledOnce()
+      expect(Backbone.Form).toHaveBeenCalledWith(model: @model)
 
-  it "renders the form onto the page", ->
-    spy = sinon.spy(@view.$el, 'append')
+    it "renders the form", ->
+      spy = sinon.spy(@form, 'render')
 
-    @view.render()
-    expect(spy).toHaveBeenCalledOnce()
-    expect(spy).toHaveBeenCalledWith("<form></form>")
+      @view.render()
+      expect(spy).toHaveBeenCalledOnce()
+      expect(spy).toHaveBeenCalledWith()
 
-  it "saves the form data", ->
-    @view.render()
-    formSpy = sinon.spy(@form, 'commit')
+    it "renders the form onto the page", ->
+      spy = sinon.spy(@view.$el, 'append')
 
-    @view.submit()
-    expect(formSpy).toHaveBeenCalledOnce()
-    expect(formSpy).toHaveBeenCalledWithExactly()
+      @view.render()
+      expect(spy).toHaveBeenCalledOnce()
+      expect(spy).toHaveBeenCalledWith("<form></form>")
 
-  it "saves the model if there are no errors", ->
-    @view.render()
-    modelSpy = sinon.spy(@model, 'save')
+  describe "submitting the new thread", ->
+    beforeEach ->
+      $('.content').empty().append(@view.render().el)
+      @server = sinon.fakeServer.create()
 
-    @view.submit()
-    expect(modelSpy).toHaveBeenCalledOnce()
+    afterEach ->
+      @server.restore()
+
+    it "commits the form data", ->
+      @formSpy = sinon.spy(@view.form, 'commit')
+      @view.$('form').trigger('submit')
+
+      expect(@formSpy).toHaveBeenCalledOnce()
+      expect(@formSpy).toHaveBeenCalledWithExactly()
+
+    it "saves the model if there are no errors", ->
+      sinon.stub(@view.form, 'commit').returns(null)
+      @modelSpy = sinon.spy(@model, 'save')
+      @view.$('form').trigger('submit')
+
+      expect(@modelSpy).toHaveBeenCalledOnce()
+
+      @view.form.commit.restore()
