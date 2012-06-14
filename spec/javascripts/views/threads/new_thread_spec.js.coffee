@@ -1,7 +1,7 @@
 describe "App.NewThreadView", ->
   beforeEach ->
     @model = new App.Thread()
-    collection = url: '/collection'
+    collection = url: '/en/threads'
     @model.collection = collection
     @view = new App.NewThreadView(model: @model)
     @$el = $(@view.el)
@@ -54,17 +54,37 @@ describe "App.NewThreadView", ->
       @server.restore()
 
     it "commits the form data", ->
-      @formSpy = sinon.spy(@view.form, 'commit')
+      spy = sinon.spy(@view.form, 'commit')
       @view.$('form').trigger('submit')
 
-      expect(@formSpy).toHaveBeenCalledOnce()
-      expect(@formSpy).toHaveBeenCalledWithExactly()
+      expect(spy).toHaveBeenCalledOnce()
+      expect(spy).toHaveBeenCalledWithExactly()
 
     it "saves the model if there are no errors", ->
       sinon.stub(@view.form, 'commit').returns(null)
-      @modelSpy = sinon.spy(@model, 'save')
+      spy = sinon.spy(@model, 'save')
       @view.$('form').trigger('submit')
 
-      expect(@modelSpy).toHaveBeenCalledOnce()
+      expect(spy).toHaveBeenCalledOnce()
 
       @view.form.commit.restore()
+
+    it "renders the newly-created thread for valid form input", ->
+      sinon.spy(App, 'ThreadView')
+
+      @server.respondWith(
+        'POST',
+        '/en/threads',
+        [ 200, {'Content-Type': 'application/json'}, '{"id":123,"title":"a title","summary":"a summary"}']
+      )
+      @view.$('form input[name="title"]').val("a title")
+      @view.$('form textarea[name="summary"]').val("a summary")
+      #console.log(@view.form)
+      #console.log(@view.form.getValue())
+      #console.log(@view.form.commit())
+
+      @view.$('form').trigger('submit')
+      #console.log(@model)
+      expect(App.ThreadView).toHaveBeenCalledOnce()
+
+      App.ThreadView.restore()
