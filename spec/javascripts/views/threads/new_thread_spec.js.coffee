@@ -49,6 +49,11 @@ describe "App.NewThreadView", ->
     beforeEach ->
       $('.content').empty().append(@view.render().el)
       @server = sinon.fakeServer.create()
+      @server.respondWith(
+        'POST',
+        '/en/threads',
+        [ 200, {'Content-Type': 'application/json'},'{"created_at":1339766056,"id":123,"source_language":"en","summary":"a summary","title":"a title","updated_at":1339766056,"user":{"fullname":"Cojiro Sasaki","id":1,"location":"Tokyo","name":"csasaki","profile":"A profile.","avatar_url":"/uploads/avatars/1/60v5906zg8b8bvp3nd9z.png","avatar_mini_url":"/uploads/avatars/1/mini_60v5906zg8b8bvp3nd9z.png"}}']
+      )
 
     afterEach ->
       @server.restore()
@@ -60,7 +65,7 @@ describe "App.NewThreadView", ->
       expect(spy).toHaveBeenCalledOnce()
       expect(spy).toHaveBeenCalledWithExactly()
 
-    it "saves the model if there are no errors", ->
+    it "saves the model", ->
       sinon.stub(@view.form, 'commit').returns(null)
       spy = sinon.spy(@model, 'save')
       @view.$('form').trigger('submit')
@@ -69,22 +74,16 @@ describe "App.NewThreadView", ->
 
       @view.form.commit.restore()
 
-    it "renders the newly-created thread for valid form input", ->
+    it "creates a view for the newly-created thread", ->
       sinon.spy(App, 'ThreadView')
 
-      @server.respondWith(
-        'POST',
-        '/en/threads',
-        [ 200, {'Content-Type': 'application/json'}, '{"id":123,"title":"a title","summary":"a summary"}']
-      )
       @view.$('form input[name="title"]').val("a title")
       @view.$('form textarea[name="summary"]').val("a summary")
-      #console.log(@view.form)
-      #console.log(@view.form.getValue())
-      #console.log(@view.form.commit())
 
       @view.$('form').trigger('submit')
-      #console.log(@model)
+      @server.respond()
+
       expect(App.ThreadView).toHaveBeenCalledOnce()
+      expect(App.ThreadView).toHaveBeenCalledWith(model: @model)
 
       App.ThreadView.restore()
