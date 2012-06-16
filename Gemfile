@@ -46,6 +46,7 @@ group :test, :development do
   gem 'jasmine'
   gem 'jasminerice'
   gem 'debugger'
+  gem 'rake'
 end
 
 group :test do

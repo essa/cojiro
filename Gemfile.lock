@@ -2,6 +2,9 @@ GIT
   remote: git://github.com/jnicklas/carrierwave.git
   revision: 9793c7178fc3dcf2680739c80c2ffd06173d553e
   specs:
+    carrierwave (0.6.2)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
 
 GIT
   remote: git://github.com/stouset/twitter_bootstrap_form_for.git
@@ -97,9 +100,6 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    carrierwave (0.6.2)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
     childprocess (0.3.2)
     chunky_png (1.2.5)
     coffee-rails (3.2.2)
@@ -308,6 +308,7 @@ DEPENDENCIES
   omniauth
   omniauth-twitter
   rails (= 3.2.3)
+  rake
   rspec-rails
   sass-rails (~> 3.2.3)
   spork (~> 0.9.0.rc)
