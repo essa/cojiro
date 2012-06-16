@@ -6,6 +6,9 @@ describe "App.NewThreadView", ->
     @view = new App.NewThreadView(model: @model)
     @$el = $(@view.el)
 
+  afterEach ->
+    window.app_router.navigate "jasmine"
+
   describe "instantiation", ->
 
     it "creates the new thread element", ->
@@ -95,13 +98,20 @@ describe "App.NewThreadView", ->
     afterEach ->
       @server.restore()
 
-    it "creates a view for the newly-created thread", ->
-      sinon.spy(App, 'ThreadView')
+    it "adds the thread to the collection", ->
+      spy = sinon.spy(App.threads, 'add')
 
       @view.$('form').trigger('submit')
       @server.respond()
 
-      expect(App.ThreadView).toHaveBeenCalledOnce()
-      expect(App.ThreadView).toHaveBeenCalledWith(model: @model)
+      expect(spy).toHaveBeenCalledOnce()
+      expect(spy).toHaveBeenCalledWith(@model)
 
-      App.ThreadView.restore()
+    it "navigates to the new thread", ->
+      spy = sinon.spy(window.app_router, 'navigate')
+
+      @view.$('form').trigger('submit')
+      @server.respond()
+
+      expect(spy).toHaveBeenCalledOnce()
+      expect(spy).toHaveBeenCalledWith('/en/threads/123', trigger: true)

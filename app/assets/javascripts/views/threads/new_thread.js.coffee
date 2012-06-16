@@ -31,7 +31,7 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
     if !(errors?)
       @model.save({},
         success: (model, resp) ->
-          view = new App.ThreadView(model: model)
-          window.app_router.swap(view)
+          App.threads.add(model)
+          window.app_router.navigate(model.url(), trigger: true )
       )
     return false
