@@ -1,4 +1,5 @@
 Cojiro::Application.config.base_languages = [:ja, :en]
+I18n.locale ||= :en
 
 if (ENV["RAILS_ENV"] == 'test' || ENV["RAILS_ENV"] == 'development')
 
