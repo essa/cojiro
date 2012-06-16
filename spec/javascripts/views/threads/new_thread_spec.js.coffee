@@ -7,7 +7,7 @@ describe "App.NewThreadView", ->
     @$el = $(@view.el)
 
   afterEach ->
-    window.app_router.navigate "jasmine"
+    window.appRouter.navigate "jasmine"
 
   describe "instantiation", ->
 
@@ -108,7 +108,7 @@ describe "App.NewThreadView", ->
       expect(spy).toHaveBeenCalledWith(@model)
 
     it "navigates to the new thread", ->
-      spy = sinon.spy(window.app_router, 'navigate')
+      spy = sinon.spy(window.appRouter, 'navigate')
 
       @view.$('form').trigger('submit')
       @server.respond()

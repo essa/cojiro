@@ -35,11 +35,11 @@ describe "App", ->
       expect(App.AppRouter).toHaveBeenCalled()
       App.AppRouter.restore()
 
-    it "assigns new router to window.app_router", ->
+    it "assigns new router to window.appRouter", ->
       appRouter = new Backbone.Router()
       sinon.stub(App, 'AppRouter').returns(appRouter)
       App.init({})
-      expect(window.app_router).toEqual(appRouter)
+      expect(window.appRouter).toEqual(appRouter)
       App.AppRouter.restore()
 
     it "starts Backbone.history", ->
