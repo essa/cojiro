@@ -53,25 +53,16 @@ describe "App.NewThreadView", ->
       expect(spy).toHaveBeenCalledOnce()
       expect(spy).toHaveBeenCalledWith()
 
-    it "renders the form onto the page", ->
+    it "appends the form onto the page", ->
       spy = sinon.spy(@view.$el, 'append')
 
       @view.render()
       expect(spy).toHaveBeenCalledOnce()
       expect(spy).toHaveBeenCalledWith("<form></form>")
 
-  describe "submitting the new thread", ->
+  describe "submitting the form data", ->
     beforeEach ->
-      $('.content').empty().append(@view.render().el)
-      @server = sinon.fakeServer.create()
-      @server.respondWith(
-        'POST',
-        '/en/threads',
-        [ 200, {'Content-Type': 'application/json'},'{"created_at":1339766056,"id":123,"source_language":"en","summary":"a summary","title":"a title","updated_at":1339766056,"user":{"fullname":"Cojiro Sasaki","id":1,"location":"Tokyo","name":"csasaki","profile":"A profile.","avatar_url":"/uploads/avatars/1/60v5906zg8b8bvp3nd9z.png","avatar_mini_url":"/uploads/avatars/1/mini_60v5906zg8b8bvp3nd9z.png"}}']
-      )
-
-    afterEach ->
-      @server.restore()
+      @view.render()
 
     it "commits the form data", ->
       spy = sinon.spy(@view.form, 'commit')
@@ -89,11 +80,23 @@ describe "App.NewThreadView", ->
 
       @view.form.commit.restore()
 
-    it "creates a view for the newly-created thread", ->
-      sinon.spy(App, 'ThreadView')
-
+  describe "after a successful save", ->
+    beforeEach ->
+      @view.render()
+      @server = sinon.fakeServer.create()
+      @server.respondWith(
+        'POST',
+        '/en/threads',
+        [ 200, {'Content-Type': 'application/json'},'{"created_at":1339766056,"id":123,"source_language":"en","summary":"a summary","title":"a title","updated_at":1339766056,"user":{"fullname":"Cojiro Sasaki","id":1,"location":"Tokyo","name":"csasaki","profile":"A profile.","avatar_url":"/uploads/avatars/1/60v5906zg8b8bvp3nd9z.png","avatar_mini_url":"/uploads/avatars/1/mini_60v5906zg8b8bvp3nd9z.png"}}']
+      )
       @view.$('form input[name="title"]').val("a title")
       @view.$('form textarea[name="summary"]').val("a summary")
+
+    afterEach ->
+      @server.restore()
+
+    it "creates a view for the newly-created thread", ->
+      sinon.spy(App, 'ThreadView')
 
       @view.$('form').trigger('submit')
       @server.respond()
