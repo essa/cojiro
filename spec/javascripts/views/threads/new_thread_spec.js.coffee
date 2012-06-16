@@ -114,4 +114,4 @@ describe "App.NewThreadView", ->
       @server.respond()
 
       expect(spy).toHaveBeenCalledOnce()
-      expect(spy).toHaveBeenCalledWith('/en/threads/123', trigger: true)
+      expect(spy).toHaveBeenCalledWith('/en/threads/123', true)
