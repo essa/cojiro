@@ -12,6 +12,21 @@ describe "App.NewThreadView", ->
       @view.render()
       expect(@$el).toBe("#new_thread")
 
+    it "extends the form with leave functionality", ->
+      @view.render()
+      unbindSpy = sinon.spy(@view.form, 'unbind')
+      removeSpy = sinon.spy(@view.form, 'remove')
+      removeChildSpy = sinon.spy(@view, '_removeChild')
+
+      @view.leave()
+
+      expect(unbindSpy).toHaveBeenCalledOnce()
+      expect(unbindSpy).toHaveBeenCalledWithExactly()
+      expect(removeSpy).toHaveBeenCalledOnce()
+      expect(removeSpy).toHaveBeenCalledWithExactly()
+      expect(removeChildSpy).toHaveBeenCalledOnce()
+      expect(removeChildSpy).toHaveBeenCalledWith(@view.form)
+
   describe "rendering", ->
     beforeEach ->
       @form =
