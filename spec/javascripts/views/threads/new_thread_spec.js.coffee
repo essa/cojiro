@@ -9,7 +9,7 @@ describe "App.NewThreadView", ->
     @$el = $(@view.el)
 
   afterEach ->
-    window.appRouter.navigate "jasmine"
+    App.appRouter.navigate "jasmine"
 
   it "is defined with alias", ->
     expect(App.NewThreadView).toBeDefined()
@@ -115,7 +115,7 @@ describe "App.NewThreadView", ->
       expect(spy).toHaveBeenCalledWith(@model)
 
     it "navigates to the new thread", ->
-      spy = sinon.spy(window.appRouter, 'navigate')
+      spy = sinon.spy(App.appRouter, 'navigate')
 
       @view.$('form').trigger('submit')
       @server.respond()

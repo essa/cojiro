@@ -4,9 +4,9 @@ window.document.addEventListener('click', (e) ->
   if ( target.nodeName.toLowerCase() == 'a' )
     e.preventDefault()
     uri = target.getAttribute('href')
-    window.appRouter.navigate(uri, true)
+    App.appRouter.navigate(uri, true)
 )
 
 window.addEventListener('popstate', (e) ->
-  window.appRouter.navigate(location.pathname, true)
+  App.appRouter.navigate(location.pathname, true)
 )
