@@ -32,7 +32,8 @@ describe "App", ->
     it "instantiates an AppRouter", ->
       sinon.spy(App, 'AppRouter')
       App.init({})
-      expect(App.AppRouter).toHaveBeenCalled()
+      expect(App.AppRouter).toHaveBeenCalledOnce()
+      expect(App.AppRouter).toHaveBeenCalledWith(collection: App.threads)
       App.AppRouter.restore()
 
     it "assigns new router to window.appRouter", ->

@@ -5,13 +5,25 @@ describe 'App.Routers.AppRouter', ->
     expect(App.Routers.AppRouter).toBeDefined()
     expect(App.AppRouter).toEqual(App.Routers.AppRouter)
 
-  it "can be instantiated", ->
-    router = new App.AppRouter
-    expect(router).not.toBeNull()
+  describe "instantiation", ->
+
+    it "can be instantiated", ->
+      router = new App.AppRouter
+      expect(router).not.toBeNull()
+
+    it "assigns the router's element to $('.content')", ->
+      router = new App.AppRouter
+      expect(router.el).toEqual($('.content'))
+
+    it "assigns the router's collection from the options", ->
+      collection = new Object
+      router = new App.AppRouter(collection: collection)
+      expect(router.collection).toEqual(collection)
 
   describe "routing", ->
     beforeEach ->
-      @router = new App.Routers.AppRouter()
+      @collection = new Backbone.Collection()
+      @router = new App.Routers.AppRouter(collection: @collection)
       try
         Backbone.history.start
           silent: true,
@@ -57,7 +69,7 @@ describe 'App.Routers.AppRouter', ->
       it "instantiates a new HomepageView", ->
         @router.navigate "en", true
         expect(App.HomepageView).toHaveBeenCalledOnce()
-        expect(App.HomepageView).toHaveBeenCalledWithExactly(collection: App.threads)
+        expect(App.HomepageView).toHaveBeenCalledWithExactly(collection: @collection)
 
       it "sets the locale", ->
         I18n.locale = 'de'
@@ -74,11 +86,11 @@ describe 'App.Routers.AppRouter', ->
       beforeEach ->
         @view = render: () -> el: 'model'
         sinon.stub(App, 'ThreadView').returns(@view)
-        sinon.stub(App.threads, 'get').returns('thread')
+        sinon.stub(@collection, 'get').returns('thread')
 
       afterEach ->
         App.ThreadView.restore()
-        App.threads.get.restore()
+        @collection.get.restore()
 
       it "fires the show route with a :locale and :id hash", ->
         spy = sinon.spy()
@@ -120,12 +132,12 @@ describe 'App.Routers.AppRouter', ->
       it "instantiates a new Thread", ->
         @router.navigate "en/threads/new", true
         expect(App.Thread).toHaveBeenCalledOnce()
-        expect(App.Thread).toHaveBeenCalledWithExactly( {}, collection: App.threads )
+        expect(App.Thread).toHaveBeenCalledWithExactly({}, collection: @collection)
 
       it "instantiates a new NewThreadView", ->
         @router.navigate "en/threads/new", true
         expect(App.NewThreadView).toHaveBeenCalledOnce()
-        expect(App.NewThreadView).toHaveBeenCalledWithExactly(model: @model)
+        expect(App.NewThreadView).toHaveBeenCalledWithExactly(model: @model, collection: @collection)
 
       it "renders the view onto the page", ->
         spy = sinon.spy(@view, 'render')

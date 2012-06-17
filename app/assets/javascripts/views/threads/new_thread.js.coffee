@@ -29,9 +29,10 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
   submit: () ->
     errors = @form.commit()
     if !(errors?)
+      self = @
       @model.save({},
         success: (model, resp) ->
-          App.threads.add(model, at: 0)
+          self.collection.add(model, at: 0)
           window.appRouter.navigate(model.url(), true )
       )
     return false

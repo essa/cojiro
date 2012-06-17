@@ -1,13 +1,20 @@
 describe "App.NewThreadView", ->
   beforeEach ->
     @model = new App.Thread()
-    collection = url: '/en/threads'
-    @model.collection = collection
-    @view = new App.NewThreadView(model: @model)
+    @collection =
+      url: '/en/threads'
+      add: ->
+    @model.collection = @collection
+    @view = new App.NewThreadView(model: @model, collection: @collection)
     @$el = $(@view.el)
 
   afterEach ->
     window.appRouter.navigate "jasmine"
+
+  it "is defined with alias", ->
+    expect(App.NewThreadView).toBeDefined()
+    expect(App.Views.NewThread).toBeDefined()
+    expect(App.NewThreadView).toEqual(App.Views.NewThread)
 
   describe "instantiation", ->
 
@@ -99,7 +106,7 @@ describe "App.NewThreadView", ->
       @server.restore()
 
     it "adds the thread to the collection", ->
-      spy = sinon.spy(App.threads, 'add')
+      spy = sinon.spy(@collection, 'add')
 
       @view.$('form').trigger('submit')
       @server.respond()

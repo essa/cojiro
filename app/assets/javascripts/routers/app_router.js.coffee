@@ -5,22 +5,23 @@ App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
     ":locale/threads/new": "new"
     ":locale/threads/:id": "show"
 
-  initialize: ->
+  initialize: (options) ->
     @el = $('.content')
+    @collection = options.collection
 
   root: ->
     @index(I18n.locale)
 
   index: (locale) ->
     I18n.locale = locale
-    view = new App.HomepageView( collection: App.threads )
+    view = new App.HomepageView(collection: @collection)
     @swap(view)
 
   show: (locale, id) ->
-    view = new App.ThreadView( model: App.threads.get(id) )
+    view = new App.ThreadView(model: @collection.get(id))
     @swap(view)
 
   new: (locale) ->
-    thread = new App.Thread( {}, collection: App.threads )
-    view = new App.NewThreadView( model: thread )
+    thread = new App.Thread({}, collection: @collection)
+    view = new App.NewThreadView(model: thread, collection: @collection)
     @swap(view)
