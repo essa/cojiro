@@ -6,7 +6,10 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
   schema:
     title:
       type: 'Text'
-      validators: ['required']
+      validators: [
+        type: 'required',
+        message: "can\'t be blank"
+      ]
     summary: 'TextArea'
 
   toJSON: -> thread: @attributes
