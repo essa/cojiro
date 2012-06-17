@@ -13,12 +13,19 @@ describe "App.ThreadView", ->
     @el = view.render().el
     @$el = $(@el)
 
-  it "renders the thread", ->
-    expect(@$el).toBe("#thread")
-    expect(@$el).toHaveText(/Geisha bloggers/)
-    expect(@$el).toHaveText(/Looking for info on geisha bloggers./)
+  it "is defined with alias", ->
+    expect(App.ThreadView).toBeDefined()
+    expect(App.Views.Thread).toBeDefined()
+    expect(App.ThreadView).toEqual(App.Views.Thread)
 
-  it "renders user info", ->
-    expect(@$el).toHaveText(/@csasaki/)
-    expect(@$el).toHaveText(/Cojiro Sasaki/)
-    expect(@$el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')
+  describe "rendering", ->
+
+    it "renders the thread", ->
+      expect(@$el).toBe("#thread")
+      expect(@$el).toHaveText(/Geisha bloggers/)
+      expect(@$el).toHaveText(/Looking for info on geisha bloggers./)
+
+    it "renders user info", ->
+      expect(@$el).toHaveText(/@csasaki/)
+      expect(@$el).toHaveText(/Cojiro Sasaki/)
+      expect(@$el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')

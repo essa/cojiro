@@ -1,4 +1,4 @@
-describe 'App.Routers.AppRouter', ->
+describe 'App.AppRouter', ->
 
   it "is defined with alias", ->
     expect(App.AppRouter).toBeDefined()

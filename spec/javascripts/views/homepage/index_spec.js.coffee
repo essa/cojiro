@@ -3,6 +3,11 @@ describe "App.HomepageView", ->
     threads = new App.Threads(@fixtures.Threads.valid)
     @homepage_view = new App.HomepageView(collection: threads)
 
+  it "is defined with alias", ->
+    expect(App.HomepageView).toBeDefined()
+    expect(App.Views.Homepage).toBeDefined()
+    expect(App.HomepageView).toEqual(App.Views.Homepage)
+
   describe "rendering", ->
 
     it "instantiates a new ThreadListView", ->

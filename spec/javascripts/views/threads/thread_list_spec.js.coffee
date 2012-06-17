@@ -2,6 +2,11 @@ describe "App.ThreadListView", ->
   beforeEach ->
     @view = new App.ThreadListView(collection: new Backbone.Collection([]))
 
+  it "is defined with alias", ->
+    expect(App.ThreadListView).toBeDefined()
+    expect(App.Views.ThreadList).toBeDefined()
+    expect(App.ThreadListView).toEqual(App.Views.ThreadList)
+
   describe "instantiation", ->
     beforeEach ->
       @$el = $(@view.render().el)

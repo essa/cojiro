@@ -4,6 +4,11 @@ describe "App.ThreadListItemView", ->
     @thread.collection = new App.Threads()
     @view = new App.ThreadListItemView(model: @thread)
 
+  it "is defined with alias", ->
+    expect(App.ThreadListItemView).toBeDefined()
+    expect(App.Views.ThreadListItem).toBeDefined()
+    expect(App.ThreadListItemView).toEqual(App.Views.ThreadListItem)
+
   describe "instantiation", ->
 
     it "creates a table row for a thread", ->
