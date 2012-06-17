@@ -1,4 +1,4 @@
-App.ThreadView = App.Views.Thread = Backbone.View.extend
+App.ThreadView = App.Views.Thread = Support.CompositeView.extend
   id: 'thread'
 
   initialize: ->
