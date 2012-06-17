@@ -8,7 +8,7 @@ describe "App.HomepageView", ->
     expect(App.Views.Homepage).toBeDefined()
     expect(App.HomepageView).toEqual(App.Views.Homepage)
 
-  describe "rendering", ->
+  describe "instantiation", ->
 
     it "instantiates a new ThreadListView", ->
       sinon.spy(App, 'ThreadListView')
