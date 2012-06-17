@@ -99,11 +99,13 @@ describe "App.NewThreadView", ->
         '/en/threads',
         [ 200, {'Content-Type': 'application/json'},'{"created_at":1339766056,"id":123,"source_language":"en","summary":"a summary","title":"a title","updated_at":1339766056,"user":{"fullname":"Cojiro Sasaki","id":1,"location":"Tokyo","name":"csasaki","profile":"A profile.","avatar_url":"/uploads/avatars/1/60v5906zg8b8bvp3nd9z.png","avatar_mini_url":"/uploads/avatars/1/mini_60v5906zg8b8bvp3nd9z.png"}}']
       )
+      sinon.stub(App.appRouter, 'navigate')
       @view.$('form input[name="title"]').val("a title")
       @view.$('form textarea[name="summary"]').val("a summary")
 
     afterEach ->
       @server.restore()
+      App.appRouter.navigate.restore()
 
     it "adds the thread to the collection", ->
       spy = sinon.spy(@collection, 'add')
@@ -115,10 +117,8 @@ describe "App.NewThreadView", ->
       expect(spy).toHaveBeenCalledWith(@model)
 
     it "navigates to the new thread", ->
-      spy = sinon.spy(App.appRouter, 'navigate')
-
       @view.$('form').trigger('submit')
       @server.respond()
 
-      expect(spy).toHaveBeenCalledOnce()
-      expect(spy).toHaveBeenCalledWith('/en/threads/123', true)
+      expect(App.appRouter.navigate).toHaveBeenCalledOnce()
+      expect(App.appRouter.navigate).toHaveBeenCalledWith('/en/threads/123', true)
