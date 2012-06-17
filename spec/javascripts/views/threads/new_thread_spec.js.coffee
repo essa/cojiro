@@ -19,7 +19,6 @@ describe "App.NewThreadView", ->
   describe "instantiation", ->
 
     it "creates the new thread element", ->
-      @view.render()
       expect(@$el).toBe("#new_thread")
 
     it "extends the form with leave functionality", ->
