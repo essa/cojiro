@@ -10,6 +10,7 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
   render: ->
     @renderLayout()
     @renderForm()
+    @
 
   renderLayout: ->
     @$el.html(JST['threads/new'])
@@ -23,8 +24,6 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
     @renderChild(@form)
     @$el.append(@form.el)
     @.$('fieldset').append(JST['threads/form_actions'])
-
-    @
 
   submit: () ->
     errors = @form.commit()
