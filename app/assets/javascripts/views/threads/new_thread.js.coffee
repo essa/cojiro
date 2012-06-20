@@ -32,6 +32,15 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
       @model.save({},
         success: (model, resp) ->
           self.collection.add(model, at: 0)
+          App.flash =
+            name: "success"
+            msg: "Thread successfully created."
           App.appRouter.navigate(model.url(), true )
       )
+    else
+      @.$('.alert').remove()
+      @$el.prepend(JST['other/flash'](
+        name: "error"
+        msg: "There were errors in the information entered."
+      ))
     return false

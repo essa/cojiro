@@ -10,7 +10,7 @@ Feature: Create new thread
       | nickname | csasaki       |
     And my locale is "en"
 
-  @javascript @wip
+  @javascript
   Scenario: User successfully creates a new thread
     When I create the following thread:
       | Title   | Co-working spaces in Tokyo                                                         |
@@ -18,6 +18,7 @@ Feature: Create new thread
     Then I should see the new thread "Co-working spaces in Tokyo"
     And I should see a success message
 
+  @javascript
   Scenario Outline: User tries to create a thread with invalid input
     When I create the following thread:
       | Title   | <title>   |
