@@ -1,6 +1,9 @@
 class Cothread < ActiveRecord::Base
   attr_accessible :title, :summary, :source_language
 
+  #scopes
+  scope :recent, lambda { order("created_at DESC") }
+
   translates :title, :summary
 
   #validations

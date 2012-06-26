@@ -23,7 +23,7 @@ describe HomepageController do
     context "logged-out view" do
 
       before do
-        Cothread.stub(:order).with("created_at DESC") do
+        Cothread.stub(:recent) do
           double.tap { |d| d.stub(:all) { [ mock_cothread ] } }
         end
       end

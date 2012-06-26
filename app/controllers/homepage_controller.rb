@@ -7,6 +7,6 @@ class HomepageController < ApplicationController
   private
 
   def find_cothreads
-    @cothreads = Cothread.order("created_at DESC").all
+    @cothreads = Cothread.recent.all
   end
 end
