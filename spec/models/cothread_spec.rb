@@ -34,7 +34,7 @@ describe Cothread do
 
   end
 
-  describe "#as_json" do
+  describe "#to_json" do
     before do
       @cothread = FactoryGirl.create(:cothread)
       @cothread_json = @cothread.to_json

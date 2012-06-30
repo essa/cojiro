@@ -64,7 +64,7 @@ describe User do
 
   end
 
-  describe "#as_json" do
+  describe "#to_json" do
 
     before do
       @user = FactoryGirl.create(:user)
