@@ -47,6 +47,7 @@ group :test, :development do
   gem 'jasminerice'
   gem 'debugger'
   gem 'rake'
+  gem 'timecop'
 end
 
 group :test do
