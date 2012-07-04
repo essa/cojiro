@@ -9,30 +9,15 @@ describe HomepageController do
   end
 
   describe "GET index" do
-
-    it "returns success" do
-      get :index
-      response.should be_success
+    before do
+      Cothread.stub(:recent) do
+        double.tap { |d| d.stub(:all) { [ mock_cothread ] } }
+      end
     end
 
-    it "renders the index template" do
+    it "assigns cothreads to @cothreads" do
       get :index
-      response.should render_template("index")
-    end
-
-    context "logged-out view" do
-
-      before do
-        Cothread.stub(:recent) do
-          double.tap { |d| d.stub(:all) { [ mock_cothread ] } }
-        end
-      end
-
-      it "assigns cothreads to @cothreads" do
-        get :index
-        assigns(:cothreads).should eq( [ @mock_cothread ] )
-      end
-
+      assigns(:cothreads).should eq( [ @mock_cothread ] )
     end
 
   end

@@ -7,35 +7,43 @@ describe CothreadsController do
 
     before { controller.stub(:logged_in?) { false } }
 
-    it "redirects new, create and destroy requests to login page" do
-      requests = 
-        [
-          proc {  get :new },
-          proc {  post :create, :entry => {'these' => 'params'} },
-          proc {  delete :destroy, :id => "37" },
-      ]
-
-      requests.each do |r|
-        r.call
-        response.should redirect_to(homepage_path)
+    describe "GET index" do
+      before do
+        Cothread.stub(:recent) do
+          double.tap do |d|
+            d.stub(:all) { [ mock_cothread ] }
+          end
+        end
       end
+
+      it "assigns cothreads to @cothreads" do
+        begin
+          get :index
+          # ignore the fact that there's no template (JSON only)
+        rescue ActionView::MissingTemplate
+        end
+        assigns(:cothreads).should eq( [ @mock_cothread ] )
+      end
+
     end
 
     describe "GET show" do
 
-      before do
-        cothread = mock_cothread
-        Cothread.should_receive(:find).with("37").and_return { @cothread }
-      end
+      context "record found" do
+        before do
+          Cothread.should_receive(:find).with("37").and_return { mock_cothread }
+        end
 
-      before(:each) { get :show, :id => "37" }
+        before(:each) { get :show, :id => "37" }
 
-      it "assigns the requested cothread as @cothread" do
-        assigns(:cothread).should be(@cothread)
-      end
+        it "assigns the requested cothread as @cothread" do
+          assigns(:cothread).should be(@mock_cothread)
+        end
 
-      it "renders the show view" do
-        response.should render_template("show")
+        it "renders the show view" do
+          response.should render_template("show")
+        end
+
       end
 
     end
@@ -79,99 +87,11 @@ describe CothreadsController do
           Cothread.stub(:new).with( { 'these' => 'params' } ) { cothread }
         end
 
-        context "respond with HTML" do
+        # on the client-side, 'thread' is used instead of 'cothread'
+        before(:each) { post :create, :thread => { 'these' => 'params' } }
 
-          before(:each) { post :create, :cothread => { 'these' => 'params' }, :format => :html }
-
-          it "assigns newly created cothread as @cothread" do
-            assigns(:cothread).should be(@mock_cothread)
-          end
-
-          it "redirects to the cothread" do
-            response.should redirect_to(@mock_cothread)
-          end
-
-          it "displays a success message" do
-            flash[:success].should_not be_nil
-          end
-
-        end
-
-        context "respond with JSON" do
-
-          # on the client-side, 'thread' is used instead of 'cothread'
-          before(:each) { post :create, :thread => { 'these' => 'params' }, :format => :json }
-
-          it "assigns a newly created cothread as @cothread" do
-            assigns(:cothread).should be(@mock_cothread)
-          end
-
-        end
-
-      end
-
-      context "with invalid params" do
-
-        before do
-          cothread = mock_cothread
-          cothread.should_receive(:save).and_return { false }
-          Cothread.stub(:new).with( { 'these' => 'params' } ) { cothread }
-        end
-
-        before(:each) { post :create, :cothread => { 'these' => 'params' } }
-
-        it "assigns newly created cothread as @cothread" do
+        it "assigns a newly created cothread as @cothread" do
           assigns(:cothread).should be(@mock_cothread)
-        end
-
-        it "re-renders the new cothread page" do
-          response.should render_template("new")
-        end
-
-        it "displays an error message" do
-          flash[:error].should == "There were errors in the information entered."
-        end
-      end
-
-    end
-
-    describe "DELETE destroy" do
-
-      before do
-        cothread = mock_cothread(:title => "Co-working spaces in Tokyo")
-        Cothread.should_receive(:find).and_return(cothread)
-      end
-
-      context "with valid params" do
-
-        before do
-          @mock_cothread.should_receive(:destroy).and_return(true)
-          delete :destroy, :id => 37
-        end
-
-        it "redirects to the homepage" do
-          response.should redirect_to homepage_path
-        end
-
-        it "returns a success message" do
-          flash[:success].should == "Thread \"Co-working spaces in Tokyo\" deleted."
-        end
-
-      end
-
-      context "with invalid params" do
-
-        before do
-          @mock_cothread.should_receive(:destroy).and_return(false)
-          delete :destroy, :id => 37
-        end
-
-        it "redirects to the homepage" do
-          response.should redirect_to homepage_path
-        end
-
-        it "returns an error message" do
-          flash[:error].should == "Thread \"Co-working spaces in Tokyo\" could not be deleted."
         end
 
       end
@@ -179,4 +99,5 @@ describe CothreadsController do
     end
 
   end
+
 end
