@@ -5,10 +5,12 @@ window.App =
   Routers: {}
   init: ->
     @threads = new App.Threads()
-    @threads.fetch()
+    @threads.deferred = @threads.fetch()
+    self = @
 
-    App.appRouter = new App.AppRouter(collection: @threads)
+    @threads.deferred.done ->
+      App.appRouter = new App.AppRouter(collection: self.threads)
 
-    if (!Backbone.history.started)
-      Backbone.history.start(pushState: true)
-      Backbone.history.started = true
+      if (!Backbone.history.started)
+        Backbone.history.start(pushState: true)
+        Backbone.history.started = true

@@ -10,7 +10,7 @@ Feature: View a thread
       | nickname | csasaki       |
     And my locale is "en"
 
-  @javascript @wip
+  @javascript
   Scenario: View a thread
     Given the following thread exists:
       | user    | csasaki                                                                            |

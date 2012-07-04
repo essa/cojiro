@@ -8,12 +8,12 @@ describe "App", ->
     beforeEach ->
       @threads = new App.Threads(@fixtures.Threads.valid)
       sinon.stub(App, 'Threads').returns(@threads)
+      sinon.stub(@threads, 'fetch').returns($.Deferred().resolve())
 
     afterEach ->
       App.Threads.restore()
 
     it "fetches threads data", ->
-      sinon.spy(@threads, 'fetch')
       App.init()
       expect(@threads.fetch).toHaveBeenCalledOnce()
       expect(@threads.fetch).toHaveBeenCalledWithExactly()
