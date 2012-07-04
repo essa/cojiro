@@ -2,15 +2,3 @@
 %h1= page_title.capitalize
 
 #threads_list
-
-%script#bootstrap{ type: "text/json" }
-  { "threads":
-  =@cothreads.to_json.html_safe
-  }
-
-=content_for :javascript do
-  %script{ type: "text/javascript" }
-    $(function () {
-    data = JSON.parse($('#bootstrap').text());
-    App.init(data);
-    });

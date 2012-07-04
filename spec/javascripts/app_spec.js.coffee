@@ -5,33 +5,22 @@ describe "App", ->
   it "has a namespace for Routers", -> expect(App.Routers).toBeTruthy()
 
   describe "init()", ->
-    it "accepts JSON and instantiates model from it", ->
-      dataJSON =
-        "threads":
-          [
-            "title": "Co-working spaces in Tokyo",
-            "summary": "I'm collecting blog posts on co-working spaces in Tokyo."
-            "user":
-              "name": "csasaki"
-              "fullname": "Cojiro Sasaki"
-          ,
-            "title": "Geisha bloggers",
-            "summary": "Any geisha bloggers out there?"
-            "user":
-              "name": "csasaki"
-              "fullname": "Cojiro Sasaki"
-          ]
-      App.init(dataJSON)
+    beforeEach ->
+      @threads = new App.Threads(@fixtures.Threads.valid)
+      sinon.stub(App, 'Threads').returns(@threads)
 
-      expect(App.threads).not.toEqual(undefined)
-      expect(App.threads.length).toEqual(2)
-      expect(App.threads.models[0].getTitle()).toEqual("Co-working spaces in Tokyo")
-      expect(App.threads.models[0].getSummary()).toEqual("I'm collecting blog posts on co-working spaces in Tokyo.")
-      expect(App.threads.models[1].getTitle()).toEqual("Geisha bloggers")
+    afterEach ->
+      App.Threads.restore()
+
+    it "fetches threads data", ->
+      sinon.spy(@threads, 'fetch')
+      App.init()
+      expect(@threads.fetch).toHaveBeenCalledOnce()
+      expect(@threads.fetch).toHaveBeenCalledWithExactly()
 
     it "instantiates an AppRouter", ->
       sinon.spy(App, 'AppRouter')
-      App.init({})
+      App.init()
       expect(App.AppRouter).toHaveBeenCalledOnce()
       expect(App.AppRouter).toHaveBeenCalledWith(collection: App.threads)
       App.AppRouter.restore()
@@ -39,7 +28,7 @@ describe "App", ->
     it "assigns new router to App.appRouter", ->
       appRouter = new Backbone.Router()
       sinon.stub(App, 'AppRouter').returns(appRouter)
-      App.init({})
+      App.init()
       expect(App.appRouter).toEqual(appRouter)
       App.AppRouter.restore()
 
@@ -47,7 +36,7 @@ describe "App", ->
       Backbone.history.started = null
       Backbone.history.stop()
       sinon.spy(Backbone.history, 'start')
-      App.init({})
+      App.init()
 
       expect(Backbone.history.start).toHaveBeenCalled()
       expect(Backbone.history.start).toHaveBeenCalledWith(pushState: true)
