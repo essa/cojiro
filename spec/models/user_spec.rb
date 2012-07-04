@@ -7,8 +7,8 @@ describe User do
 
   describe "validation with factory" do
     before do
-      @user = FactoryGirl.create(:user)
       FactoryGirl.create(:user, :name => "alice")
+      @user = FactoryGirl.build(:user)
     end
 
     subject { @user }

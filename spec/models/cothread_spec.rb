@@ -7,12 +7,12 @@ describe Cothread do
 
   describe "validation with factory" do
     before do
-      @cothread = FactoryGirl.create(:cothread)
+      @cothread = FactoryGirl.build(:cothread)
     end
 
     subject { @cothread }
 
-    it "is valid when created by factory" do
+    it "has a valid factory" do
       should be_valid
     end
 
@@ -26,10 +26,17 @@ describe Cothread do
       should_not be_valid
     end
 
+  end
+
+  describe "default values" do
+    before do
+      @cothread = FactoryGirl.create(:cothread)
+    end
+
     it "sets default source language" do
-      subject.source_language = nil
-      subject.save
-      subject.source_language.should == :en
+      @cothread.source_language = nil
+      @cothread.save
+      @cothread.source_language.should == :en
     end
 
   end
