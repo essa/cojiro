@@ -7,7 +7,7 @@ describe User do
 
   describe "validation with factory" do
     before do
-      FactoryGirl.create(:user, :name => "alice")
+      FactoryGirl.create(:alice)
       @user = FactoryGirl.build(:user)
     end
 
@@ -67,7 +67,7 @@ describe User do
   describe "#to_json" do
 
     before do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create(:csasaki)
       @user_json = @user.to_json
     end
 

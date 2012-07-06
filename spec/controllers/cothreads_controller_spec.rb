@@ -2,96 +2,96 @@ require 'spec_helper'
 
 describe CothreadsController do
   include MockModels
+  let(:user) { FactoryGirl.create(:user) }
 
-  context "with anonymous user" do
+  context "HTML" do
+    before do
+      controller.stub(:logged_in?) { true }
+      controller.stub(:current_user) { user }
+    end
 
-    before { controller.stub(:logged_in?) { false } }
+    describe "GET new" do
 
-    describe "GET index" do
-      before do
-        Cothread.stub(:recent) do
-          double.tap do |d|
-            d.stub(:all) { [ mock_cothread ] }
-          end
-        end
-      end
-
-      it "assigns cothreads to @cothreads" do
-        begin
-          get :index
-          # ignore the fact that there's no template (JSON only)
-        rescue ActionView::MissingTemplate
-        end
-        assigns(:cothreads).should eq( [ @mock_cothread ] )
+      it "renders the new view" do
+        get :new, :format => :html
+        response.should render_template("new")
       end
 
     end
 
     describe "GET show" do
 
-      context "record found" do
-        before do
-          Cothread.should_receive(:find).with("37").and_return { mock_cothread }
-        end
+      it "finds the thread" do
+        Cothread.should_receive(:find).with("37").and_return(mock_cothread)
+        get :show, :id => "37", :format => :html
+      end
 
-        before(:each) { get :show, :id => "37" }
+      it "renders the show view if thread exists" do
+        Cothread.stub(:find).with("37") { mock_cothread }
+        get :show, :id => "37", :format => :html
+        response.should render_template("show")
+      end
 
-        it "assigns the requested cothread as @cothread" do
-          assigns(:cothread).should be(@mock_cothread)
-        end
-
-        it "renders the show view" do
-          response.should render_template("show")
-        end
-
+      it "displays an error if thread does not exist" do
+        lambda {
+          get :show, :id => "not-found", :format => :html
+        }.should raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
 
   end
 
-  context "with logged-in user" do
+  context "JSON" do
 
-    before do
-      controller.stub(:logged_in?) { true }
-      user = mock_user
-      controller.stub(:current_user) { user }
-    end
+    context "with anonymous user" do
+      before { controller.stub(:logged_in?) { false } }
 
-    describe "GET new" do
+      describe "GET index" do
 
-      before do
-        cothread = mock_cothread
-        Cothread.should_receive(:new).and_return { cothread }
-      end
-
-      before(:each) { get :new }
-
-      it "assigns newly created cothread as @cothread" do
-        assigns(:cothread).should be(@mock_cothread)
-      end
-
-      it "renders the new view" do
-        response.should render_template("new")
-      end
-
-    end
-
-    describe "POST create" do
-
-      context "with valid params" do
-
-        before do
-          cothread = mock_cothread
-          cothread.should_receive(:save).and_return { true }
-          Cothread.stub(:new).with( { 'these' => 'params' } ) { cothread }
+        it "assigns cothreads to @cothreads" do
+          cothread = FactoryGirl.create(:cothread)
+          get :index, :format => :json
+          assigns(:cothreads).should eq( [ cothread ] )
         end
 
-        # on the client-side, 'thread' is used instead of 'cothread'
-        before(:each) { post :create, :thread => { 'these' => 'params' } }
+      end
 
-        it "assigns a newly created cothread as @cothread" do
-          assigns(:cothread).should be(@mock_cothread)
+      describe "GET show" do
+
+        it "assigns the requested cothread as @cothread" do
+          cothread = FactoryGirl.create(:cothread)
+          get :show, :id => cothread.id, :format => :json
+          assigns(:cothread).should eq(cothread)
+        end
+
+      end
+
+    end
+
+    context "with logged-in user" do
+      before do
+        controller.stub(:logged_in?) { true }
+        controller.stub(:current_user) { user }
+      end
+
+      describe "POST create" do
+
+        context "with valid params" do
+
+          # on the client-side, 'thread' is used instead of 'cothread'
+          it "creates a new thread" do
+            expect {
+              post :create, thread: Factory.attributes_for(:cothread), :format => :json
+            }.to change(Cothread, :count).by(1)
+          end
+
+          it "returns the new thread" do
+            attr = Factory.attributes_for(:cothread)
+            post :create, thread: attr, :format => :json
+            JSON(response.body).should include(attr.stringify_keys)
+          end
+
         end
 
       end

@@ -32,11 +32,6 @@ Spork.prefork do
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-    config.include RSpec::Rails::RequestExampleGroup, :type => :request,
-      :example_group => {
-      :file_path => /spec\/api/
-    }
-
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false
     # instead of true.

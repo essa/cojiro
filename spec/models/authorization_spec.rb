@@ -13,7 +13,7 @@ describe Authorization do
       "provider" => "twitter",
       "uid" => "4138021",
       "info" => { "name" => "Cojiro Sasaki", 
-        "nickname"=>"csasaki", "image" => "http://a1.twimg.com/profile_images/1234567/csasaki_normal.png" }
+        "nickname"=>"csasaki", "image" => "http://example.com/csasaki_normal.png" }
     }
 
     subject { Authorization.create_from_hash!(hash) }

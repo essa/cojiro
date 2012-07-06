@@ -49,15 +49,15 @@ describe 'Cothreads API' do
     it "includes user information for threads" do
       @json[0]["user"].should include(
         "name" => "alice",
-        "fullname" => "Alice"
+        "fullname" => "Alice in Wonderland"
       )
       @json[1]["user"].should include(
         "name" => "bob",
-        "fullname" => "Bob"
+        "fullname" => "Bob the Builder"
       )
       @json[2]["user"].should include(
         "name" => "alice",
-        "fullname" => "Alice"
+        "fullname" => "Alice in Wonderland"
       )
     end
 
@@ -81,11 +81,17 @@ describe 'Cothreads API' do
         )
         @json["user"].should include(
           "name" => "alice",
-          "fullname" => "Alice"
+          "fullname" => "Alice in Wonderland"
         )
       end
     end
 
+    context 'record with id = <id> does not exist' do
+
+      it "returns not found error" do
+
+      end
+    end
   end
 
 end

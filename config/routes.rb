@@ -7,7 +7,7 @@ Cojiro::Application.routes.draw do
   match '/logout', :to => 'sessions#destroy', :as => 'logout', :defaults => { :locale => nil }
 
   scope '/:locale', :locale => /#{Rails.application.config.base_languages.join("|")}/ do
-    resources :cothreads, :path => :threads
+    resources :cothreads, :except => :edit, :path => :threads
   end
 
   root :to => 'homepage#index'
