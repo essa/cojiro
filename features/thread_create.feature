@@ -15,6 +15,7 @@ Feature: Create new thread
     When I create the following thread:
       | Title   | Co-working spaces in Tokyo                                                         |
       | Summary | I want to write an an article about the increased popularity of co-working spaces. |
+    And I wait for the AJAX call to finish
     Then I should see the new thread "Co-working spaces in Tokyo"
     And I should see a success message
 

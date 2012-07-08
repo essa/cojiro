@@ -2,6 +2,13 @@ When /^I click on "([^"]*)"$/ do |link_text|
   click_on(link_text)
 end
 
+# ref: http://pivotallabs.com/users/mgehard/blog/articles/1671-waiting-for-jquery-ajax-calls-to-finish-in-cucumber
+And /^I wait for the AJAX call to finish$/ do
+  wait_until do
+    page.evaluate_script('$.active') == 0
+  end
+end
+
 Then /^I should see an? (error|success|notice) message(?:: "(.*)")?$/ do |msg_type,message|
   page.should have_css(".#{msg_type.gsub('notice','message')}", :text => message)
 end
