@@ -5,13 +5,13 @@ describe 'Cothreads API' do
     @alice = FactoryGirl.create(:alice)
     @bob = FactoryGirl.create(:bob)
 
-    Timecop.freeze(Time.local(2002,7,20,12,20)) do
+    Timecop.freeze(Time.utc(2002,7,20,12,20)) do
       @cothread1 = FactoryGirl.create(:cothread, :title => "An old post", :summary => "summary 1", :source_language => "ja", :user => @alice)
     end
-    Timecop.freeze(Time.local(2012,7,20,12,20)) do
+    Timecop.freeze(Time.utc(2012,7,20,12,20)) do
       @cothread2 = FactoryGirl.create(:cothread, :title => "A very recent post", :summary => "summary 3", :source_language => "ja", :user => @alice)
     end
-    Timecop.freeze(Time.local(2005,7,20,12,20)) do
+    Timecop.freeze(Time.utc(2005,7,20,12,20)) do
       @cothread3 = FactoryGirl.create(:cothread, :title => "A somewhat recent post", :summary => "summary 2", :source_language => "en", :user => @bob)
     end
   end
@@ -27,22 +27,22 @@ describe 'Cothreads API' do
         "title" => "A very recent post",
         "summary" => "summary 3",
         "source_language" => "ja",
-        "created_at" => 1342754400,
-        "updated_at" => 1342754400,
+        "created_at" => 1342786800,
+        "updated_at" => 1342786800,
       )
       @json[1].should include(
         "title" => "A somewhat recent post",
         "summary" => "summary 2",
         "source_language" => "en",
-        "created_at" => 1121829600,
-        "updated_at" => 1121829600
+        "created_at" => 1121862000,
+        "updated_at" => 1121862000
       )
       @json[2].should include(
         "title" => "An old post",
         "summary" => "summary 1",
         "source_language" => "ja",
-        "created_at" => 1027135200,
-        "updated_at" => 1027135200
+        "created_at" => 1027167600,
+        "updated_at" => 1027167600
       )
     end
 
@@ -76,8 +76,8 @@ describe 'Cothreads API' do
           "title" => "An old post",
           "summary" => "summary 1",
           "source_language" => "ja",
-          "created_at" => 1027135200,
-          "updated_at" => 1027135200
+          "created_at" => 1027167600,
+          "updated_at" => 1027167600
         )
         @json["user"].should include(
           "name" => "alice",
