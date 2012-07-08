@@ -4,13 +4,12 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - mysql -e 'create database cojiro_test;'
 script: "bundle exec rake travis"
-gemfile:
-  - Gemfile.ci
 rvm:
   - 1.9.2
   - 1.9.3
 env:
-  - RAILS_ENV=test
+  - CI=true
+bundler_args: --without development
 branches:
   only:
     - develop

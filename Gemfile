@@ -45,7 +45,7 @@ group :test, :development do
   gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
   gem 'jasmine'
   gem 'jasminerice'
-  gem 'debugger'
+  gem 'debugger' unless ENV['CI']
   gem 'rake'
   gem 'timecop'
 end
