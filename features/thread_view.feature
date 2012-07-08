@@ -16,8 +16,22 @@ Feature: View a thread
       | user    | csasaki                                                                            |
       | title   | Co-working spaces in Tokyo                                                         |
       | summary | I want to write an article about the increased popularity of co-working spaces. |
-    And I am on the page for the thread "Co-working spaces in Tokyo"
+    When I go to the page for the thread
     Then I should see the text "Co-working spaces in Tokyo" in the thread
     And I should see the text "I want to write an article about the increased popularity of co-working spaces." in the thread
     And I should see the text "csasaki" in the thread
     And I should see the text "Cojiro Sasaki" in the thread
+
+  @javascript
+  Scenario: View a thread translation
+    Given the following thread exists:
+      | user    | csasaki                                                                            |
+      | title   | Co-working spaces in Tokyo                                                         |
+      | summary | I want to write an article about the increased popularity of co-working spaces. |
+    And it has the following translations to "ja":
+      | title   | 東京のコワーキングスペース |
+      | summary | 最近のコワーキングスペースの人気さについて記事を書きたいと思います。|
+    When I switch my locale to "ja"
+    And I go to the page for the thread
+    Then I should see the text "東京のコワーキングスペース" in the thread
+    And I should see the text "最近のコワーキングスペースの人気さについて記事を書きたいと思います。" in the thread

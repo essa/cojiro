@@ -1,7 +1,7 @@
 Given /^the following thread exists:$/ do |table|
   hash = table.rows_hash
   u = User.find_by_name(hash.delete("user"))
-  FactoryGirl.create(:cothread, u.nil? ? hash : hash.merge(:user => u))
+  @cothread = @translatable = FactoryGirl.create(:cothread, u.nil? ? hash : hash.merge(:user => u))
 end
 
 Given /^the following threads exist:$/ do |table|
@@ -12,8 +12,8 @@ Given /^the following threads exist:$/ do |table|
 end
 
 Given /^I am on the thread "([^"]*)"$/ do |title|
-  cothread = Cothread.find_by_title(title)
-  visit cothread_path(cothread)
+  @cothread = Cothread.find_by_title(title)
+  visit cothread_path(@cothread)
 end
 
 When /^I create the following thread:$/ do |table|
@@ -35,9 +35,9 @@ When /^I delete the thread "([^"]*)"$/ do |title|
 end
 
 Then /^I should see the new thread "([^"]*)"$/ do |title|
-  cothread = Cothread.find_by_title(title)
-  page.should have_content(cothread.title)
-  page.should have_content(cothread.summary)
+  @cothread = Cothread.find_by_title(title)
+  page.should have_content(@cothread.title)
+  page.should have_content(@cothread.summary)
 end
 
 Then /^I should see the new thread page$/ do

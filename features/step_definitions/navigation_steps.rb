@@ -11,10 +11,14 @@ Given /^I am on the page for the thread "(.+)"$/ do |title|
   visit cothread_path(cothread)
 end
 
-When /^I go to the (.+)$/ do |page_name|
-  visit eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")
+When /^I go to the page for the thread$/ do
+  visit cothread_path(@cothread)
 end
 
-Then /^I should see the homepage$/ do
-  page.should have_css('title', :text => "cojiro: home")
-end
+#When /^I go to the ()$/ do |page_name|
+#  visit eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")
+#end
+
+#Then /^I should see the homepage$/ do
+#  page.should have_css('title', :text => "cojiro: home")
+#end
