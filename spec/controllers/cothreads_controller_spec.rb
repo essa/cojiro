@@ -82,12 +82,12 @@ describe CothreadsController do
           # on the client-side, 'thread' is used instead of 'cothread'
           it "creates a new thread" do
             expect {
-              post :create, thread: Factory.attributes_for(:cothread), :format => :json
+              post :create, thread: FactoryGirl.attributes_for(:cothread), :format => :json
             }.to change(Cothread, :count).by(1)
           end
 
           it "returns the new thread" do
-            attr = Factory.attributes_for(:cothread)
+            attr = FactoryGirl.attributes_for(:cothread)
             post :create, thread: attr, :format => :json
             JSON(response.body).should include(attr.stringify_keys)
           end
