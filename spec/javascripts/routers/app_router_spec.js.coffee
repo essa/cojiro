@@ -71,11 +71,6 @@ describe 'App.AppRouter', ->
         expect(App.HomepageView).toHaveBeenCalledOnce()
         expect(App.HomepageView).toHaveBeenCalledWithExactly(collection: @collection)
 
-      it "sets the locale", ->
-        I18n.locale = 'de'
-        @router.navigate 'en', true
-        expect(I18n.locale).toEqual('en')
-
       it "renders the view onto the page", ->
         spy = sinon.spy(@view, 'render')
         @router.navigate "", true

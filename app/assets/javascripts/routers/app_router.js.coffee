@@ -13,7 +13,6 @@ App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
     @index(I18n.locale)
 
   index: (locale) ->
-    I18n.locale = locale
     view = new App.HomepageView(collection: @collection)
     @swap(view)
 
