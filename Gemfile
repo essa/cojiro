@@ -48,6 +48,7 @@ group :test, :development do
   gem 'debugger' unless ENV['CI']
   gem 'rake'
   gem 'timecop'
+  gem 'chronic'
 end
 
 group :test do
