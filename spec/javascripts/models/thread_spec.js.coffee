@@ -72,10 +72,14 @@ describe 'App.Thread', ->
       it 'is defined', -> expect(@thread.getCreatedAt).toBeDefined()
 
       it 'returns value for the created_at attribute in correct format', ->
-        stub = sinon.stub(@thread, 'get').returns('Sun, 08 Jul 2012 00:11:54 UTC +00:00')
+        stub = sinon.stub(@thread, 'get').returns('2012-07-08T12:20:00Z')
 
-        expect(@thread.getCreatedAt()).toEqual('Sun, 08 Jul 2012 00:11:54 UTC +00:00')
+        expect(@thread.getCreatedAt()).toEqual('July 8, 2012')
         expect(stub).toHaveBeenCalledWith('created_at')
+
+      it 'is undefined if created_at attribute is undefined', ->
+        stub = sinon.stub(@thread, 'get').returns(undefined)
+        expect(@thread.getCreatedAt()).toEqual(undefined)
 
     describe '#getSourceLanguage', ->
       it 'is defined', -> expect(@thread.getSourceLanguage).toBeDefined()

@@ -1,24 +1,24 @@
 describe "App.ThreadView", ->
-  beforeEach ->
-    thread = new App.Thread()
-    thread.set
-      title: "Geisha bloggers",
-      summary: "Looking for info on geisha bloggers."
-      user:
-        name: "csasaki"
-        fullname: "Cojiro Sasaki"
-        avatar_mini_url: "http://www.example.com/mini_csasaki.png"
-
-    view = new App.ThreadView(model: thread)
-    @el = view.render().el
-    @$el = $(@el)
-
   it "is defined with alias", ->
     expect(App.ThreadView).toBeDefined()
     expect(App.Views.Thread).toBeDefined()
     expect(App.ThreadView).toEqual(App.Views.Thread)
 
   describe "rendering", ->
+    beforeEach ->
+      thread = new App.Thread()
+      console.log(thread)
+      thread.set
+        title: "Geisha bloggers",
+        summary: "Looking for info on geisha bloggers."
+        user:
+          name: "csasaki"
+          fullname: "Cojiro Sasaki"
+          avatar_mini_url: "http://www.example.com/mini_csasaki.png"
+
+      view = new App.ThreadView(model: thread)
+      @el = view.render().el
+      @$el = $(@el)
 
     it "renders the thread", ->
       expect(@$el).toBe("#thread")

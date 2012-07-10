@@ -29,4 +29,4 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
     return errors unless errors.length is 0
 
   toDateStr: (datetime) ->
-    I18n.l("date.formats.long", datetime)
+    I18n.l("date.formats.long", datetime) unless datetime is undefined
