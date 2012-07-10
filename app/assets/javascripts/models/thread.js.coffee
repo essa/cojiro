@@ -28,5 +28,5 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
     if (!attrs.title) then errors.push "cannot have an empty title"
     return errors unless errors.length is 0
 
-  toDateStr: (seconds) ->
-    I18n.strftime(new Date(seconds * 1000), "%B %e, %Y")
+  toDateStr: (datetime) ->
+    I18n.l("date.formats.long", datetime)

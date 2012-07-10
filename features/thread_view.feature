@@ -24,7 +24,7 @@ Feature: View a thread
     And I should see the text "Cojiro Sasaki" in the thread
     And I should see the text "July 8, 2012" in the thread
 
-  @javascript @wip
+  @javascript
   Scenario: View a thread translation
     Given the date is "July 8, 2012 at 5pm"
     And the following thread exists:
@@ -38,4 +38,4 @@ Feature: View a thread
     And I go to the page for the thread
     Then I should see the text "東京のコワーキングスペース" in the thread
     And I should see the text "最近のコワーキングスペースの人気さについて記事を書きたいと思います。" in the thread
-    And I should see the text "2011年7月8日"
+    And I should see the text "2012年7月8日"

@@ -27,22 +27,22 @@ describe 'Cothreads API' do
         "title" => "A very recent post",
         "summary" => "summary 3",
         "source_language" => "ja",
-        "created_at" => 1342786800,
-        "updated_at" => 1342786800,
+        "created_at" => "2012-07-20T12:20:00Z",
+        "updated_at" => "2012-07-20T12:20:00Z",
       )
       @json[1].should include(
         "title" => "A somewhat recent post",
         "summary" => "summary 2",
         "source_language" => "en",
-        "created_at" => 1121862000,
-        "updated_at" => 1121862000
+        "created_at" => "2005-07-20T12:20:00Z",
+        "updated_at" => "2005-07-20T12:20:00Z"
       )
       @json[2].should include(
         "title" => "An old post",
         "summary" => "summary 1",
         "source_language" => "ja",
-        "created_at" => 1027167600,
-        "updated_at" => 1027167600
+        "created_at" => "2002-07-20T12:20:00Z",
+        "updated_at" => "2002-07-20T12:20:00Z"
       )
     end
 
@@ -76,8 +76,8 @@ describe 'Cothreads API' do
           "title" => "An old post",
           "summary" => "summary 1",
           "source_language" => "ja",
-          "created_at" => 1027167600,
-          "updated_at" => 1027167600
+          "created_at" => "2002-07-20T12:20:00Z",
+          "updated_at" => "2002-07-20T12:20:00Z"
         )
         @json["user"].should include(
           "name" => "alice",

@@ -43,7 +43,9 @@ describe Cothread do
 
   describe "#to_json" do
     before do
-      @cothread = FactoryGirl.create(:cothread, user: FactoryGirl.create(:csasaki))
+      Timecop.freeze(Time.utc(2002,7,20,12,20)) do
+        @cothread = FactoryGirl.create(:cothread, user: FactoryGirl.create(:csasaki))
+      end
       @cothread_json = @cothread.to_json
     end
 
@@ -60,14 +62,8 @@ describe Cothread do
     end
 
     it "has created_at and updated_at timestamps" do
-      JSON(@cothread_json)["created_at"].should be
-      JSON(@cothread_json)["updated_at"].should be
-    end
-
-    # ref: http://www.dotnetguy.co.uk/post/2011/10/31/convert-dates-between-ruby-and-javascript
-    it "converts timestamps into integer format" do
-      JSON(@cothread_json)["created_at"].should == @cothread.created_at.to_i
-      JSON(@cothread_json)["updated_at"].should == @cothread.updated_at.to_i
+      JSON(@cothread_json)["created_at"].should == "2002-07-20T12:20:00Z"
+      JSON(@cothread_json)["updated_at"].should == "2002-07-20T12:20:00Z"
     end
 
     it "has a source language" do
