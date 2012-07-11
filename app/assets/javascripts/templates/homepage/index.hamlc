@@ -1,14 +1,10 @@
 %section.hero
-  %h1 Curating content from one language to another
-  %p.lead Cojiro is a platform that connects people with complementary skill sets to identify, group and convey stories in one language to a broader audience in another language.
-    %a{ :href => "#" } Learn more.
+  %h1=I18n.t("templates.homepage.catchphrase")
+  %p.lead
+    =I18n.t("templates.homepage.lead_html", url: "#")
 
 %section.latest
-  %h3 Recent threads
-    %small Please
-      %a{ :href => "#" } create an account
-      or
-      %a{ :href => "#" } log in
-      to contribute your expertise.
+  %h3=I18n.t("templates.homepage.recent_threads")
+    %small=I18n.t("templates.homepage.invite_message_html", new_account_url: "#", login_url: "#")
 
   #threads

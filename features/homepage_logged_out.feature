@@ -1,4 +1,4 @@
-Feature: View latest threads
+Feature: Homepage for logged-out users
   As a casual reader
   I want to see the latest threads
   So that I find topics that are of interest to me
