@@ -11,8 +11,9 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
-  require 'rspec/autorun'
   require 'webmock/rspec'
+  require 'capybara/rspec'
+  require 'capybara/rails'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -44,6 +45,9 @@ Spork.prefork do
 
     # for testing sign-in through Twitter, Facebook, etc.
     OmniAuth.config.test_mode = true
+
+    # needed to avoid conflicts with capyabara for tests where :js => true
+    WebMock.disable_net_connect!(:allow_localhost => true)
 
     config.before(:each) do
       load_request_stubs
