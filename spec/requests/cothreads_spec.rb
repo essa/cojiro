@@ -88,9 +88,7 @@ describe 'Cothreads API' do
 
     context 'record with id = <id> does not exist' do
 
-      it "returns not found error" do
-
-      end
+      it "returns not found error"
     end
   end
 
