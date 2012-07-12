@@ -36,3 +36,4 @@
 //= require bootstrap
 //
 //= require pushstate_links
+//= require mixins

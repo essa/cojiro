@@ -3,14 +3,17 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
     title: ''
     summary: ''
 
-  schema:
+  schema: ->
     title:
+      title: _(I18n.t("attributes.thread.title")).capitalize()
       type: 'Text'
       validators: [
         type: 'required',
-        message: "can\'t be blank"
+        message: I18n.t("errors.messages.blank")
       ]
-    summary: 'TextArea'
+    summary:
+      type: 'TextArea'
+      title: _(I18n.t("attributes.thread.summary")).capitalize()
 
   toJSON: -> thread: @attributes
   getId: -> @id

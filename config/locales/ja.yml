@@ -5,6 +5,19 @@ ja:
       lead_html: 日本語の説明文章 <a href='%{url}'>詳しくはこちらへ</a>
       recent_threads: 最新のスレッド
       invite_message_html: <a href='%{new_account_url}'>アカウントを登録する</a>または<a href='%{login_url}'>ログイン</a>してください
+    threads:
+      new:
+        start_a_thread: スレッドを立てる
+
+  forms:
+    new_thread:
+      create_thread: 登録する
+      cancel: キャンセル
+
+  attributes:
+    thread:
+      title: タイトル
+      summary: サマリ
 
   date:
     abbr_day_names:
