@@ -36,7 +36,7 @@ Spork.prefork do
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false
     # instead of true.
-    config.use_transactional_fixtures = true
+    config.use_transactional_fixtures = false
 
     # If true, the base class of anonymous controllers will be inferred
     # automatically. This will be the default behavior in future versions of
@@ -51,6 +51,26 @@ Spork.prefork do
 
     config.before(:each) do
       load_request_stubs
+    end
+
+    # ref: http://highgroove.com/articles/2012/04/06/sane-rspec-config-for-clean,-and-slightly-faster,-specs.html
+    config.before :suite do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    # Request specs cannot use a transaction because Capybara runs in a
+    # separate thread with a different database connection.
+    config.before type: :request do
+      DatabaseCleaner.strategy = :truncation
+    end
+
+    config.before do
+      DatabaseCleaner.start
+    end
+
+    config.after do
+      DatabaseCleaner.clean
     end
 
     config.after(:all) do
