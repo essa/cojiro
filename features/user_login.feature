@@ -8,6 +8,7 @@ Feature: Login to cojiro
       | name     | Cojiro Sasaki |
       | uid      | 12345         |
       | nickname | csasaki       |
+    And my locale is "en"
     And I am on the homepage
     When I click on "Sign in through Twitter"
     Then I should see a link to "csasaki"
