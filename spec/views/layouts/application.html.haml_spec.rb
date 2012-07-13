@@ -10,6 +10,9 @@ describe 'layouts/application' do
     @twitter_sign_in =
       { :en => "Sign in through Twitter",
         :ja => "Twitterでサインインする" }
+    @logout =
+      { :en => "Logout",
+        :ja => "ログアウト" }
   end
 
   context "logged-out user" do
@@ -21,6 +24,11 @@ describe 'layouts/application' do
       it "does not render start a thread link" do
         render
         rendered.should_not have_link(@start_a_thread[locale])
+      end
+
+      it "does not render a logout link" do
+        render
+        rendered.should_not have_link(@logout[locale])
       end
 
       it "renders twitter sign-in link" do
@@ -50,6 +58,11 @@ describe 'layouts/application' do
         it "renders start a thread link" do
           render
           rendered.should have_link(@start_a_thread[locale])
+        end
+
+        it "renders start a logout link" do
+          render
+          rendered.should have_link(@logout[locale])
         end
 
         it "does not render twitter sign-in link" do

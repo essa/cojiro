@@ -22,6 +22,7 @@ en:
   layout:
     start_a_thread: Start a thread
     twitter_sign_in: Sign in through Twitter
+    logout: Logout
 
   date:
     abbr_day_names:

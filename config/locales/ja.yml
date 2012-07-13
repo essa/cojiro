@@ -17,6 +17,7 @@ ja:
   layout:
     start_a_thread: スレッドを立てる
     twitter_sign_in: Twitterでサインインする
+    logout: ログアウト
 
   attributes:
     thread:
