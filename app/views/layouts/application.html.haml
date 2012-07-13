@@ -17,7 +17,7 @@
           %ul.nav
             - if logged_in?
               %li
-                = link_to "Start a thread", new_cothread_path
+                = link_to I18n.t("layout.start_a_thread"), new_cothread_path
           %ul.nav.secondary-nav.pull-right
             - if logged_in?
               %li#profile-menu.dropdown
@@ -27,7 +27,7 @@
                 %ul.dropdown-menu
                   %li= link_to "Logout", logout_path
             - else
-              %li= link_to "Sign in through Twitter", '/auth/twitter'
+              %li= link_to I18n.t("layout.twitter_sign_in"), '/auth/twitter'
     .container
       .content
         - flash.each do |name, msg|

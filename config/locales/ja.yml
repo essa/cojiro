@@ -14,6 +14,10 @@ ja:
       create_thread: 登録する
       cancel: キャンセル
 
+  layout:
+    start_a_thread: スレッドを立てる
+    twitter_sign_in: Twitterでサインインする
+
   attributes:
     thread:
       title: タイトル
