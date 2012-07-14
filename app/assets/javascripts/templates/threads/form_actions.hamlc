@@ -1,5 +1,5 @@
 .form-actions
   %button.btn.btn-primary
-    =I18n.t("forms.new_thread.create_thread")
+    =I18n.t("templates.threads.form_actions.create_thread")
   .btn
-    =I18n.t("forms.new_thread.cancel")
+    =I18n.t("templates.threads.form_actions.cancel")

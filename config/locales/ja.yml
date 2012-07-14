@@ -1,18 +1,17 @@
 ja:
   templates:
     homepage:
-      catchphrase: 日本語のキャッチコピー
-      lead_html: 日本語の説明文章 <a href='%{url}'>詳しくはこちらへ</a>
-      recent_threads: 最新のスレッド
-      invite_message_html: <a href='%{new_account_url}'>アカウントを登録する</a>または<a href='%{login_url}'>ログイン</a>してください
+      index:
+        catchphrase: 日本語のキャッチコピー
+        lead_html: 日本語の説明文章 <a href='%{url}'>詳しくはこちらへ</a>
+        recent_threads: 最新のスレッド
+        invite_message_html: <a href='%{new_account_url}'>アカウントを登録する</a>または<a href='%{login_url}'>ログイン</a>してください
     threads:
       new:
         start_a_thread: スレッドを立てる
-
-  forms:
-    new_thread:
-      create_thread: 登録する
-      cancel: キャンセル
+      form_actions:
+        create_thread: 登録する
+        cancel: キャンセル
 
   layout:
     start_a_thread: スレッドを立てる
