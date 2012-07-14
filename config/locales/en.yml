@@ -12,6 +12,8 @@ en:
       form_actions:
         create_thread: Create thread
         cancel: Cancel
+      list_item:
+        started_by: Started by @%{username}
 
   attributes:
     thread:

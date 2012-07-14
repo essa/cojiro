@@ -1,3 +1,3 @@
 %td
   %a{ :href => @model.url()}=@model.getTitle()
-%td Started by @#{@model.getUserName()}
+%td=I18n.t('templates.threads.list_item.started_by', username: @model.getUserName())

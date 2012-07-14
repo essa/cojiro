@@ -2,6 +2,10 @@
 require 'spec_helper'
 
 describe 'Homepage', :js => true do
+  before do
+    FactoryGirl.create(:cothread,
+                       user: FactoryGirl.create(:alice))
+  end
 
   context 'logged-out' do
 
@@ -23,6 +27,7 @@ describe 'Homepage', :js => true do
           page.should have_content "Please create an account or log in to contribute your expertise."
           page.should have_link "create an account"
           page.should have_link "log in"
+          page.should have_content "Started by @alice"
         end
       end
 
@@ -46,6 +51,7 @@ describe 'Homepage', :js => true do
           page.should have_content 'アカウントを登録するまたはログインしてください'
           page.should have_link 'アカウントを登録する'
           page.should have_link 'ログイン'
+          page.should have_content "aliceが登録した"
         end
       end
 

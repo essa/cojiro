@@ -12,6 +12,8 @@ ja:
       form_actions:
         create_thread: 登録する
         cancel: キャンセル
+      list_item:
+        started_by: "@%{username}が登録した"
 
   layout:
     start_a_thread: スレッドを立てる
