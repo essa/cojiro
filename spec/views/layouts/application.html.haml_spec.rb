@@ -19,7 +19,9 @@ describe 'layouts/application' do
     before { view.stub(:logged_in?) { false } }
 
     shared_examples_for "logged-out user homepage" do |locale|
-      before { I18n.locale = locale }
+      around(:each) do |example|
+        I18n.with_locale(locale) { example.run }
+      end
 
       it "does not render start a thread link" do
         render
@@ -53,7 +55,9 @@ describe 'layouts/application' do
       end
 
       shared_examples_for "logged-in user homepage" do |locale|
-        before { I18n.locale = locale }
+        around(:each) do |example|
+          I18n.with_locale(locale) { example.run }
+        end
 
         it "renders start a thread link" do
           render
