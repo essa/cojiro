@@ -1,4 +1,7 @@
 en:
+  en: English
+  ja: Japanese
+
   templates:
     homepage:
       index:
@@ -14,6 +17,12 @@ en:
         cancel: Cancel
       list_item:
         started_by: Started by @%{username}
+      show:
+        neta: neta
+        created: created
+        comments_in: "%{lang} comments"
+        edit: edit
+        add_in: add %{lang}
 
   attributes:
     thread:

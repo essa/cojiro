@@ -1,31 +1,36 @@
-// code for app/assets/javascripts/templates/hello.jst.hamlc
+:coffeescript
+  edit_button = (title) ->
+    if title
+    then I18n.t("templates.threads.show.edit")
+    else I18n.t("templates.threads.show.add_in", lang: I18n.t(I18n.locale))
 .row
   .span8
     %h2=@model.getTitle()
   .span4
     .actionbtn
-      %a.btn{ :href => '#'}Add/edit English
+      %a.btn{ :href => '#'}=edit_button(@model.getTitle())
 .statbar
   %ul.nav.nav-pills
     %li
       %a{ :href => '#' }
         %span.stat x
         %br
-        %span.stattext neta
+        %span.stattext=I18n.t("templates.threads.show.neta")
     %li
       %a#typography
         %span.stat x
         %br
-        %span.stattext EN comments
+        %span.stattext=I18n.t("templates.threads.show.comments_in", lang: "en")
     %li
       %a#typography
         %span.stat x
         %br
-        %span.stattext JA comments
+        %span.stattext=I18n.t("templates.threads.show.comments_in", lang: "ja")
+
     %li.nosep.byline
       %span.date=@model.getCreatedAt()
       %br
-      %span.status created
+      %span.status=I18n.t("templates.threads.show.created")
     %li.nosep.avatar
       %img{ :src => @model.getUserAvatarMiniUrl() }
     %li.nosep.byline

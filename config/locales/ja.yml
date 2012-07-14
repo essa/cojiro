@@ -1,4 +1,7 @@
 ja:
+  en: 英語
+  ja: 日本語
+
   templates:
     homepage:
       index:
@@ -14,6 +17,12 @@ ja:
         cancel: キャンセル
       list_item:
         started_by: "@%{username}が登録した"
+      show:
+        neta: ネタ
+        created: に登録した
+        comments_in: "%{lang}のコメント"
+        edit: 編集する
+        add_in: "%{lang}を追加する"
 
   layout:
     start_a_thread: スレッドを立てる
