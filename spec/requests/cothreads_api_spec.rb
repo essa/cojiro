@@ -6,13 +6,13 @@ describe 'Cothreads API' do
     @bob = FactoryGirl.create(:bob)
 
     Timecop.freeze(Time.utc(2002,7,20,12,20)) do
-      @cothread1 = FactoryGirl.create(:cothread, :title => "An old post", :summary => "summary 1", :source_language => "ja", :user => @alice)
+      @cothread1 = FactoryGirl.create(:cothread, :title => "An old post", :summary => "summary 1", :source_locale => "ja", :user => @alice)
     end
     Timecop.freeze(Time.utc(2012,7,20,12,20)) do
-      @cothread2 = FactoryGirl.create(:cothread, :title => "A very recent post", :summary => "summary 3", :source_language => "ja", :user => @alice)
+      @cothread2 = FactoryGirl.create(:cothread, :title => "A very recent post", :summary => "summary 3", :source_locale => "ja", :user => @alice)
     end
     Timecop.freeze(Time.utc(2005,7,20,12,20)) do
-      @cothread3 = FactoryGirl.create(:cothread, :title => "A somewhat recent post", :summary => "summary 2", :source_language => "en", :user => @bob)
+      @cothread3 = FactoryGirl.create(:cothread, :title => "A somewhat recent post", :summary => "summary 2", :source_locale => "en", :user => @bob)
     end
   end
 
@@ -26,21 +26,21 @@ describe 'Cothreads API' do
       @json[0].should include(
         "title" => "A very recent post",
         "summary" => "summary 3",
-        "source_language" => "ja",
+        "source_locale" => "ja",
         "created_at" => "2012-07-20T12:20:00Z",
         "updated_at" => "2012-07-20T12:20:00Z",
       )
       @json[1].should include(
         "title" => "A somewhat recent post",
         "summary" => "summary 2",
-        "source_language" => "en",
+        "source_locale" => "en",
         "created_at" => "2005-07-20T12:20:00Z",
         "updated_at" => "2005-07-20T12:20:00Z"
       )
       @json[2].should include(
         "title" => "An old post",
         "summary" => "summary 1",
-        "source_language" => "ja",
+        "source_locale" => "ja",
         "created_at" => "2002-07-20T12:20:00Z",
         "updated_at" => "2002-07-20T12:20:00Z"
       )
@@ -75,7 +75,7 @@ describe 'Cothreads API' do
         @json.should include(
           "title" => "An old post",
           "summary" => "summary 1",
-          "source_language" => "ja",
+          "source_locale" => "ja",
           "created_at" => "2002-07-20T12:20:00Z",
           "updated_at" => "2002-07-20T12:20:00Z"
         )

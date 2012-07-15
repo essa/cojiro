@@ -6,7 +6,7 @@ beforeEach ->
       valid:
         "created_at":"1337829167"
         "id":5
-        "source_language":"en"
+        "source_locale":"en"
         "title":"Co-working spaces in Tokyo"
         "summary":"I'm collecting blog posts on co-working spaces in Tokyo."
         "user":
@@ -18,7 +18,7 @@ beforeEach ->
         {
           id: 1
           created_at: "1337829500"
-          source_language: "en"
+          source_locale: "en"
           title: "Co-working spaces in Tokyo"
           summary: "I'm collecting blog posts on co-working spaces in Tokyo."
           user:
@@ -28,7 +28,7 @@ beforeEach ->
         {
           id: 2
           created_at: "1337829777"
-          source_language: "en"
+          source_locale: "en"
           title: "Geisha bloggers"
           summary: "Anyone know any geisha bloggers?"
           user:

@@ -41,9 +41,9 @@ describe Cothread do
     end
 
     it "sets default source language" do
-      @cothread.source_language = nil
+      @cothread.source_locale = nil
       @cothread.save
-      @cothread.source_language.should == "en"
+      @cothread.source_locale.should == "en"
     end
 
   end
@@ -57,10 +57,10 @@ describe Cothread do
 
     shared_examples_for "attribute with locale methods" do |attr_name|
 
-      it "has #{attr_name}_in_source_language method" do
+      it "has #{attr_name}_in_source_locale method" do
         I18n.with_locale(:ja) do
           @cothread.send(attr_name).should == nil
-          @cothread.send("#{attr_name}_in_source_language").should == "a #{attr_name} in English"
+          @cothread.send("#{attr_name}_in_source_locale").should == "a #{attr_name} in English"
         end
       end
 
@@ -92,16 +92,16 @@ describe Cothread do
       JSON(@cothread_json)["title"].should be
     end
 
-    it "has a title_in_source_language" do
-      JSON(@cothread_json)["title_in_source_language"].should be
+    it "has a title_in_source_locale" do
+      JSON(@cothread_json)["title_in_source_locale"].should be
     end
 
     it "has a summary" do
       JSON(@cothread_json)["summary"].should be
     end
 
-    it "has a summary_in_source_language" do
-      JSON(@cothread_json)["summary_in_source_language"].should be
+    it "has a summary_in_source_locale" do
+      JSON(@cothread_json)["summary_in_source_locale"].should be
     end
 
     it "has created_at and updated_at timestamps" do
@@ -110,7 +110,7 @@ describe Cothread do
     end
 
     it "has a source language" do
-      JSON(@cothread_json)["source_language"].should be
+      JSON(@cothread_json)["source_locale"].should be
     end
 
     it "includes user" do
@@ -127,12 +127,12 @@ describe Cothread do
       JSON(@cothread_json).keys.delete_if { |k|
         [ "id",
           "title",
-          "title_in_source_language",
+          "title_in_source_locale",
           "summary",
-          "summary_in_source_language",
+          "summary_in_source_locale",
           "created_at",
           "updated_at",
-          "source_language",
+          "source_locale",
           "user"
         ].include?(k)
       }.should be_empty

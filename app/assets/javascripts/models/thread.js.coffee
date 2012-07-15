@@ -16,17 +16,17 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
       title: _(I18n.t("attributes.thread.summary")).capitalize()
 
   toJSON: -> thread: @attributes
-  getAttrInSourceLanguage: (attr_name) -> @get("#{attr_name}_in_source_language")
-  getAttrAsHtml: (attr_name) -> @get(attr_name) || ('<em>' + @getAttrInSourceLanguage(attr_name) + '</em>')
+  getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")
+  getAttrAsHtml: (attr_name) -> @get(attr_name) || ('<em>' + @getAttrInSourceLocale(attr_name) + '</em>')
   getId: -> @id
   getTitle: -> @get('title')
-  getTitleInSourceLanguage: -> @getAttrInSourceLanguage('title')
+  getTitleInSourceLocale: -> @getAttrInSourceLocale('title')
   getTitleAsHtml: -> @getAttrAsHtml('title')
   getSummary: -> @get('summary')
-  getSummaryInSourceLanguage: -> @getAttrInSourceLanguage('summary')
+  getSummaryInSourceLocale: -> @getAttrInSourceLocale('summary')
   getSummaryAsHtml: -> @getAttrAsHtml('summary')
   getCreatedAt: -> @toDateStr(@get('created_at'))
-  getSourceLanguage: -> @get('source_language')
+  getSourceLocale: -> @get('source_locale')
   getUserName: -> @get('user').name
   getUserFullname: -> @get('user').fullname
   getUserAvatarUrl: -> @get('user').avatar_url

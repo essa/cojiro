@@ -31,14 +31,14 @@ describe 'App.Thread', ->
         @thread.set(
           'title': 'title'
           'summary': 'summary'
-          'source_language': 'source_language'
+          'source_locale': 'source_locale'
         )
 
       it 'wraps JSON in thread object', ->
         expect(@thread.toJSON().thread).toBeDefined()
         expect(@thread.toJSON().thread.title).toEqual('title')
         expect(@thread.toJSON().thread.summary).toEqual('summary')
-        expect(@thread.toJSON().thread.source_language).toEqual('source_language')
+        expect(@thread.toJSON().thread.source_locale).toEqual('source_locale')
 
     describe '#getId', ->
       it 'is defined', -> expect(@thread.getId).toBeDefined()
@@ -50,14 +50,14 @@ describe 'App.Thread', ->
         @thread.id = 66;
         expect(@thread.getId()).toEqual(66)
 
-    describe '#getAttrInSourceLanguage', ->
-      it 'is defined', -> expect(@thread.getAttrInSourceLanguage).toBeDefined()
+    describe '#getAttrInSourceLocale', ->
+      it 'is defined', -> expect(@thread.getAttrInSourceLocale).toBeDefined()
 
-      it 'returns value for the attr_in_source_language helper method', ->
+      it 'returns value for the attr_in_source_locale helper method', ->
         stub = sinon.stub(@thread, 'get').returns('Attribute in source language')
 
-        expect(@thread.getAttrInSourceLanguage('attribute')).toEqual('Attribute in source language')
-        expect(stub).toHaveBeenCalledWith('attribute_in_source_language')
+        expect(@thread.getAttrInSourceLocale('attribute')).toEqual('Attribute in source language')
+        expect(stub).toHaveBeenCalledWith('attribute_in_source_locale')
 
     describe '#getAttrAsHtml', ->
       it 'is defined', -> expect(@thread.getAttrAsHtml).toBeDefined()
@@ -68,16 +68,16 @@ describe 'App.Thread', ->
 
         expect(@thread.getAttrAsHtml('attribute')).toEqual('Attribute')
         expect(stub).toHaveBeenCalledWith('attribute')
-        expect(stub).not.toHaveBeenCalledWith('attribute_in_source_language')
+        expect(stub).not.toHaveBeenCalledWith('attribute_in_source_locale')
 
-      it 'returns value for attribute_in_source_language in italics if attribute is undefined', ->
+      it 'returns value for attribute_in_source_locale in italics if attribute is undefined', ->
         stub = sinon.stub(@thread, 'get')
         stub.withArgs('attribute').returns(undefined)
-        stub.withArgs('attribute_in_source_language').returns('Attribute in source language')
+        stub.withArgs('attribute_in_source_locale').returns('Attribute in source language')
 
         expect(@thread.getAttrAsHtml('attribute')).toEqual('<em>Attribute in source language</em>')
         expect(stub).toHaveBeenCalledWith('attribute')
-        expect(stub).toHaveBeenCalledWith('attribute_in_source_language')
+        expect(stub).toHaveBeenCalledWith('attribute_in_source_locale')
 
     describe '#getTitle', ->
       it 'is defined', -> expect(@thread.getTitle).toBeDefined()
@@ -110,14 +110,14 @@ describe 'App.Thread', ->
         stub = sinon.stub(@thread, 'get').returns(undefined)
         expect(@thread.getCreatedAt()).toEqual(undefined)
 
-    describe '#getSourceLanguage', ->
-      it 'is defined', -> expect(@thread.getSourceLanguage).toBeDefined()
+    describe '#getSourceLocale', ->
+      it 'is defined', -> expect(@thread.getSourceLocale).toBeDefined()
 
-      it 'returns value for the source_language attribute', ->
+      it 'returns value for the source_locale attribute', ->
         stub = sinon.stub(@thread, 'get').returns('ja')
 
-        expect(@thread.getSourceLanguage()).toEqual('ja')
-        expect(stub).toHaveBeenCalledWith('source_language')
+        expect(@thread.getSourceLocale()).toEqual('ja')
+        expect(stub).toHaveBeenCalledWith('source_locale')
 
     describe '#getUserName', ->
       it 'is defined', -> expect(@thread.getUserName).toBeDefined()
@@ -185,14 +185,14 @@ describe 'App.Thread', ->
         @thread.save
           title: 'Co-working spaces in Tokyo',
           summary: 'I\'m collecting blog posts on co-working spaces in Tokyo.'
-          source_language: 'en'
+          source_locale: 'en'
         request = @server.requests[0]
         params = JSON.parse(request.requestBody)
 
         expect(params.thread).toBeDefined()
         expect(params.thread.title).toEqual('Co-working spaces in Tokyo')
         expect(params.thread.summary).toEqual('I\'m collecting blog posts on co-working spaces in Tokyo.')
-        expect(params.thread.source_language).toEqual('en')
+        expect(params.thread.source_locale).toEqual('en')
 
       describe 'on create', ->
         beforeEach ->
@@ -245,5 +245,5 @@ describe 'App.Thread', ->
           .toEqual(@fixture.summary)
         expect(@thread.getCreatedAt())
           .toEqual(@thread.toDateStr(@fixture.created_at))
-        expect(@thread.getSourceLanguage())
-          .toEqual(@fixture.source_language)
+        expect(@thread.getSourceLocale())
+          .toEqual(@fixture.source_locale)
