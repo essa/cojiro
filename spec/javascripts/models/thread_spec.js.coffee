@@ -50,6 +50,35 @@ describe 'App.Thread', ->
         @thread.id = 66;
         expect(@thread.getId()).toEqual(66)
 
+    describe '#getAttrInSourceLanguage', ->
+      it 'is defined', -> expect(@thread.getAttrInSourceLanguage).toBeDefined()
+
+      it 'returns value for the attr_in_source_language helper method', ->
+        stub = sinon.stub(@thread, 'get').returns('Attribute in source language')
+
+        expect(@thread.getAttrInSourceLanguage('attribute')).toEqual('Attribute in source language')
+        expect(stub).toHaveBeenCalledWith('attribute_in_source_language')
+
+    describe '#getAttrAsHtml', ->
+      it 'is defined', -> expect(@thread.getAttrAsHtml).toBeDefined()
+
+      it 'returns value for attribute if attribute is defined', ->
+        stub = sinon.stub(@thread, 'get')
+        stub.withArgs('attribute').returns('Attribute')
+
+        expect(@thread.getAttrAsHtml('attribute')).toEqual('Attribute')
+        expect(stub).toHaveBeenCalledWith('attribute')
+        expect(stub).not.toHaveBeenCalledWith('attribute_in_source_language')
+
+      it 'returns value for attribute_in_source_language in italics if attribute is undefined', ->
+        stub = sinon.stub(@thread, 'get')
+        stub.withArgs('attribute').returns(undefined)
+        stub.withArgs('attribute_in_source_language').returns('Attribute in source language')
+
+        expect(@thread.getAttrAsHtml('attribute')).toEqual('<em>Attribute in source language</em>')
+        expect(stub).toHaveBeenCalledWith('attribute')
+        expect(stub).toHaveBeenCalledWith('attribute_in_source_language')
+
     describe '#getTitle', ->
       it 'is defined', -> expect(@thread.getTitle).toBeDefined()
 
@@ -59,15 +88,6 @@ describe 'App.Thread', ->
         expect(@thread.getTitle()).toEqual('Thread title')
         expect(stub).toHaveBeenCalledWith('title')
 
-    describe '#getTitleInSourceLanguage', ->
-      it 'is defined', -> expect(@thread.getTitleInSourceLanguage).toBeDefined()
-
-      it 'returns value for the title_in_source_language helper method', ->
-        stub = sinon.stub(@thread, 'get').returns('Thread title in source language')
-
-        expect(@thread.getTitleInSourceLanguage()).toEqual('Thread title in source language')
-        expect(stub).toHaveBeenCalledWith('title_in_source_language')
-
     describe '#getSummary', ->
       it 'is defined', -> expect(@thread.getSummary).toBeDefined()
 
@@ -76,15 +96,6 @@ describe 'App.Thread', ->
 
         expect(@thread.getSummary()).toEqual('Thread summary')
         expect(stub).toHaveBeenCalledWith('summary')
-
-    describe '#getSummaryInSourceLanguage', ->
-      it 'is defined', -> expect(@thread.getSummaryInSourceLanguage).toBeDefined()
-
-      it 'returns value for the summary_in_source_language helper method', ->
-        stub = sinon.stub(@thread, 'get').returns('Thread summary in source language')
-
-        expect(@thread.getSummaryInSourceLanguage()).toEqual('Thread summary in source language')
-        expect(stub).toHaveBeenCalledWith('summary_in_source_language')
 
     describe '#getCreatedAt', ->
       it 'is defined', -> expect(@thread.getCreatedAt).toBeDefined()
