@@ -16,9 +16,12 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
       title: _(I18n.t("attributes.thread.summary")).capitalize()
 
   toJSON: -> thread: @attributes
+  getAttrInSourceLanguage: (attr_name) -> @get("#{attr_name}_in_source_language")
   getId: -> @id
   getTitle: -> @get('title')
+  getTitleInSourceLanguage: -> @getAttrInSourceLanguage('title')
   getSummary: -> @get('summary')
+  getSummaryInSourceLanguage: -> @getAttrInSourceLanguage('summary')
   getCreatedAt: -> @toDateStr(@get('created_at'))
   getSourceLanguage: -> @get('source_language')
   getUserName: -> @get('user').name
