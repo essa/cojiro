@@ -48,6 +48,34 @@ describe Cothread do
 
   end
 
+  describe "locale helper methods" do
+    before do
+      @cothread = FactoryGirl.create(:cothread,
+                                     :title => "a title in English",
+                                     :summary => "a summary in English")
+    end
+
+    shared_examples_for "attribute with locale methods" do |attr_name|
+
+      it "has #{attr_name}_in_source_language method" do
+        I18n.with_locale(:ja) do
+          @cothread.send(attr_name).should == nil
+          @cothread.send("#{attr_name}_in_source_language").should == "a #{attr_name} in English"
+        end
+      end
+
+    end
+
+    describe "title" do
+      it_behaves_like "attribute with locale methods", "title"
+    end
+
+    describe "summary" do
+      it_behaves_like "attribute with locale methods", "summary"
+    end
+
+  end
+
   describe "#to_json" do
     before do
       Timecop.freeze(Time.utc(2002,7,20,12,20)) do
@@ -64,8 +92,16 @@ describe Cothread do
       JSON(@cothread_json)["title"].should be
     end
 
+    it "has a title_in_source_language" do
+      JSON(@cothread_json)["title_in_source_language"].should be
+    end
+
     it "has a summary" do
       JSON(@cothread_json)["summary"].should be
+    end
+
+    it "has a summary_in_source_language" do
+      JSON(@cothread_json)["summary_in_source_language"].should be
     end
 
     it "has created_at and updated_at timestamps" do
@@ -91,7 +127,9 @@ describe Cothread do
       JSON(@cothread_json).keys.delete_if { |k|
         [ "id",
           "title",
+          "title_in_source_language",
           "summary",
+          "summary_in_source_language",
           "created_at",
           "updated_at",
           "source_language",

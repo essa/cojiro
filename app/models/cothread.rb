@@ -23,7 +23,15 @@ class Cothread < ActiveRecord::Base
 
   def as_json(options = {})
     super(options.merge(:only => [:id, :title, :summary, :created_at, :updated_at, :source_language],
-                        :include => [ :user ]))
+                        :include => [ :user ],
+                        :methods => [ :title_in_source_language, :summary_in_source_language ]))
+  end
+
+  # define locale helper methods for translated attributes
+  translated_attribute_names.each do |attr|
+    define_method("#{attr}_in_source_language") do
+      read_attribute attr, { :locale => source_language }
+    end
   end
 
   private
