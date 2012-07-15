@@ -5,7 +5,7 @@
     else I18n.t("templates.threads.show.add_in", lang: I18n.t(I18n.locale))
 .row
   .span8
-    %h2=@model.getTitle()
+    %h2=@model.getTitleAsHtml()
   .span4
     .actionbtn
       %a.btn{ :href => '#'}=edit_button(@model.getTitle())
@@ -41,4 +41,4 @@
 
 .row
   .span6
-    %p=@model.getSummary()
+    %p=@model.getSummaryAsHtml()

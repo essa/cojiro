@@ -7,9 +7,15 @@ Feature: Homepage for logged-out users
     Given the following threads exist:
       | user    | title                      | summary                                                                           |
       | csasaki | Co-working spaces in Tokyo | I want to write an article about the increasing popularity of co-working spaces." |
-    And my locale is "en"
 
   @javascript
   Scenario: View latest threads
-    Given I am on the homepage
+    Given my locale is "en"
+    And I am on the homepage
     Then I should see the text "Co-working spaces in Tokyo" in the threads list
+
+  @javascript
+  Scenario: View latest threads in another language
+    Given my locale is "ja"
+    And I am on the homepage
+    Then I should see the untranslated text "Co-working spaces in Tokyo" in italics in the threads list

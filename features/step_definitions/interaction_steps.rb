@@ -30,3 +30,9 @@ Then /^I (should|should not) see the text:? "([^"]*)" in the (thread|threads lis
     page.send(expectation.gsub(' ','_'),have_content(text))
   end
 end
+
+Then /^I should see the untranslated text "([^"]*)" in italics in the (thread|threads list)$/ do |text, class_tag|
+  within(:css, "##{class_tag.gsub(/ /,'_')}") do
+    page.should have_xpath('//em', :text => text)
+  end
+end
