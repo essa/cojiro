@@ -16,9 +16,16 @@ describe Cothread do
       should be_valid
     end
 
-    it "is invalid without a title" do
+    it "is invalid without a title in source locale" do
       subject.title = ""
       should_not be_valid
+    end
+
+    it "is valid without a title in other locale" do
+      Globalize.with_locale(:ja) do
+        subject.title = ""
+        should be_valid
+      end
     end
 
     it "is invalid without a user" do
@@ -36,7 +43,7 @@ describe Cothread do
     it "sets default source language" do
       @cothread.source_language = nil
       @cothread.save
-      @cothread.source_language.should == :en
+      @cothread.source_language.should == "en"
     end
 
   end

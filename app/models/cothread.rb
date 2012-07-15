@@ -8,7 +8,7 @@ class Cothread < ActiveRecord::Base
 
   #validations
   validates :user, :presence => true
-  validates :title, :presence => true
+  validates :title, :presence => true, :if => :in_source_language?
   validates :source_language, :presence => :true
 
   #callbacks
@@ -17,19 +17,19 @@ class Cothread < ActiveRecord::Base
   #associations
   belongs_to :user
 
+  def in_source_language?
+    (source_language == Globalize.locale.to_s) or (source_language == nil)
+  end
+
   def as_json(options = {})
     super(options.merge(:only => [:id, :title, :summary, :created_at, :updated_at, :source_language],
                         :include => [ :user ]))
   end
 
-#  def in_original_language?
-#    (self.original_language == Globalize.locale.to_s) || (self.original_language == nil)
-#  end
-
   private
 
   def default_values
-    self.source_language ||= I18n.locale
+    self.source_language ||= I18n.locale.to_s
   end
 
 end
