@@ -31,8 +31,8 @@ Then /^I (should|should not) see the text:? "([^"]*)" in the (thread|threads lis
   end
 end
 
-Then /^I should see the untranslated text "([^"]*)" in italics in the (thread|threads list)$/ do |text, class_tag|
+Then /^I should see the untranslated text "([^"]*)" in the (thread|threads list)$/ do |text, class_tag|
   within(:css, "##{class_tag.gsub(/ /,'_')}") do
-    page.should have_xpath('//em', :text => text)
+    page.should have_xpath('//span[./@class = "untranslated"]', :text => text)
   end
 end

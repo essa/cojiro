@@ -18,5 +18,5 @@ Feature: Translate a thread
   Scenario: Find untranslated attributes of a thread
     When I switch my locale to "ja"
     And I go to the thread with English title "Co-working spaces in Tokyo"
-    Then I should see the untranslated text "Co-working spaces in Tokyo" in italics in the thread
-    And I should see the untranslated text "I want to write an article about the increased popularity of co-working spaces." in italics in the thread
+    Then I should see the untranslated text "Co-working spaces in Tokyo" in the thread
+    And I should see the untranslated text "I want to write an article about the increased popularity of co-working spaces." in the thread

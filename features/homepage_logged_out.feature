@@ -18,4 +18,4 @@ Feature: Homepage for logged-out users
   Scenario: View latest threads in another language
     Given my locale is "ja"
     And I am on the homepage
-    Then I should see the untranslated text "Co-working spaces in Tokyo" in italics in the threads list
+    Then I should see the untranslated text "Co-working spaces in Tokyo" in the threads list
