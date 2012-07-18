@@ -70,12 +70,12 @@ describe 'App.Thread', ->
         expect(stub).toHaveBeenCalledWith('attribute')
         expect(stub).not.toHaveBeenCalledWith('attribute_in_source_locale')
 
-      it 'returns value for attribute_in_source_locale in italics if attribute is undefined', ->
+      it 'returns value for attribute_in_source_locale in span tag if attribute is undefined', ->
         stub = sinon.stub(@thread, 'get')
         stub.withArgs('attribute').returns(undefined)
         stub.withArgs('attribute_in_source_locale').returns('Attribute in source language')
 
-        expect(@thread.getAttrAsHtml('attribute')).toEqual('<em>Attribute in source language</em>')
+        expect(@thread.getAttrAsHtml('attribute')).toEqual('<span class="untranslated">Attribute in source language</span>')
         expect(stub).toHaveBeenCalledWith('attribute')
         expect(stub).toHaveBeenCalledWith('attribute_in_source_locale')
 
