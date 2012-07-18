@@ -24,6 +24,11 @@ en:
         edit: edit
         add_in: add %{lang}
 
+  views:
+    threads:
+      new_thread:
+        thread_created: "Thread successfully created."
+
   attributes:
     thread:
       title: title

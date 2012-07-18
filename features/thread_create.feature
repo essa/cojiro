@@ -17,7 +17,7 @@ Feature: Create new thread
       | Summary | I want to write an an article about the increased popularity of co-working spaces. |
     And I wait for the AJAX call to finish
     Then I should see the new thread "Co-working spaces in Tokyo"
-    And I should see a success message
+    And I should see a success message: "Thread successfully created."
 
   @javascript
   Scenario Outline: User tries to create a thread with invalid input

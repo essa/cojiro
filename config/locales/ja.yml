@@ -24,15 +24,20 @@ ja:
         edit: 編集する
         add_in: "%{lang}を追加する"
 
-  layout:
-    start_a_thread: スレッドを立てる
-    twitter_sign_in: Twitterでサインインする
-    logout: ログアウト
+  views:
+    threads:
+      new_thread:
+        thread_created: "スレッドは作成されました。"
 
   attributes:
     thread:
       title: タイトル
       summary: サマリ
+
+  layout:
+    start_a_thread: スレッドを立てる
+    twitter_sign_in: Twitterでサインインする
+    logout: ログアウト
 
   date:
     abbr_day_names:

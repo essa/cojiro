@@ -34,7 +34,7 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
           self.collection.add(model, at: 0)
           App.flash =
             name: "success"
-            msg: "Thread successfully created."
+            msg: I18n.t("views.threads.new_thread.thread_created")
           App.appRouter.navigate(model.url(), true )
       )
     else

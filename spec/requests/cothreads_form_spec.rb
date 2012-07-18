@@ -10,9 +10,16 @@ describe 'New Cothread', :js => true do
   end
 
   context 'English locale' do
+    before do
+      visit '/en/threads/new'
+    end
 
     it "displays form text in English" do
-      visit '/en/threads/new'
+
+      # page title
+      within :css, 'h1' do
+        page.should have_content "Start a thread"
+      end
 
       # labels
       within :css, 'form' do
@@ -24,7 +31,9 @@ describe 'New Cothread', :js => true do
         page.should have_content "Cancel"
       end
 
-      # validation messages
+    end
+
+    it "displays validation messages in English" do
       within :css, '.form-actions' do
         find('button').click
       end
@@ -34,14 +43,24 @@ describe 'New Cothread', :js => true do
       within :css, '#flash_error' do
         page.should have_content "There were problems with the following fields:"
       end
-
     end
+
+    it "displays success message in English" do
+      fill_in 'title', :with => "abc"
+      within :css, '.form-actions' do
+        find('button').click
+      end
+      page.should have_content "Thread successfully created."
+    end
+
   end
 
   context 'Japanese locale' do
+    before do
+      visit '/ja/threads/new'
+    end
 
     it "displays form text in Japanese" do
-      visit '/ja/threads/new'
 
       # page title
       within :css, 'h1' do
@@ -58,7 +77,9 @@ describe 'New Cothread', :js => true do
         page.should have_content "キャンセル"
       end
 
-      # validation messages
+    end
+
+    it "displays validation messages in Japanese" do
       within :css, '.form-actions' do
         find('button').click
       end
@@ -68,7 +89,14 @@ describe 'New Cothread', :js => true do
       within :css, '#flash_error' do
         page.should have_content "次の項目を確認してください。"
       end
+    end
 
+    it "displays success message in Japanese" do
+      fill_in 'title', :with => "abc"
+      within :css, '.form-actions' do
+        find('button').click
+      end
+      page.should have_content "スレッドが作成されました。"
     end
 
   end
