@@ -17,14 +17,12 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
 
   toJSON: -> thread: @attributes
   getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")
-  getAttrAsHtml: (attr_name) -> @get(attr_name) || ('<span class="untranslated">' + @getAttrInSourceLocale(attr_name) + '</span>')
+  getAttrWithSource: (attr_name) ->
+    current: @get(attr_name),
+    source: @getAttrInSourceLocale(attr_name)
   getId: -> @id
   getTitle: -> @get('title')
-  getTitleInSourceLocale: -> @getAttrInSourceLocale('title')
-  getTitleAsHtml: -> @getAttrAsHtml('title')
   getSummary: -> @get('summary')
-  getSummaryInSourceLocale: -> @getAttrInSourceLocale('summary')
-  getSummaryAsHtml: -> @getAttrAsHtml('summary')
   getCreatedAt: -> @toDateStr(@get('created_at'))
   getSourceLocale: -> @get('source_locale')
   getUserName: -> @get('user').name

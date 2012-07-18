@@ -39,9 +39,6 @@ module Cojiro
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # Need to disable escaping of HTML by haml_coffee_assets to get links working in localized strings
-    config.hamlcoffee.escapeHtml = false
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 

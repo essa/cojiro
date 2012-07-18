@@ -59,23 +59,17 @@ describe 'App.Thread', ->
         expect(@thread.getAttrInSourceLocale('attribute')).toEqual('Attribute in source language')
         expect(stub).toHaveBeenCalledWith('attribute_in_source_locale')
 
-    describe '#getAttrAsHtml', ->
-      it 'is defined', -> expect(@thread.getAttrAsHtml).toBeDefined()
+    describe '#getAttrWithSource', ->
+      it 'is defined', -> expect(@thread.getAttrWithSource).toBeDefined()
 
-      it 'returns value for attribute if attribute is defined', ->
+      it 'returns hash with attribute in current and source locales', ->
         stub = sinon.stub(@thread, 'get')
-        stub.withArgs('attribute').returns('Attribute')
+        stub.withArgs('attribute').returns('Attribute in current locale')
+        stub.withArgs('attribute_in_source_locale').returns('Attribute in source locale')
 
-        expect(@thread.getAttrAsHtml('attribute')).toEqual('Attribute')
-        expect(stub).toHaveBeenCalledWith('attribute')
-        expect(stub).not.toHaveBeenCalledWith('attribute_in_source_locale')
-
-      it 'returns value for attribute_in_source_locale in span tag if attribute is undefined', ->
-        stub = sinon.stub(@thread, 'get')
-        stub.withArgs('attribute').returns(undefined)
-        stub.withArgs('attribute_in_source_locale').returns('Attribute in source language')
-
-        expect(@thread.getAttrAsHtml('attribute')).toEqual('<span class="untranslated">Attribute in source language</span>')
+        expect(@thread.getAttrWithSource('attribute')).toEqual
+          current: 'Attribute in current locale',
+          source: 'Attribute in source locale'
         expect(stub).toHaveBeenCalledWith('attribute')
         expect(stub).toHaveBeenCalledWith('attribute_in_source_locale')
 

@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //
 //= require hamlcoffee
+//= require hamlcoffee_globals
 //
 //= require underscore
 //= require backbone
