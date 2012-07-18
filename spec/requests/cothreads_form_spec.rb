@@ -31,6 +31,9 @@ describe 'New Cothread', :js => true do
       within :css, 'form' do
         page.should have_content "can't be blank"
       end
+      within :css, '#flash_error' do
+        page.should have_content "There were problems with the following fields:"
+      end
 
     end
   end
@@ -61,6 +64,9 @@ describe 'New Cothread', :js => true do
       end
       within :css, 'form' do
         page.should have_content "を入力してください。"
+      end
+      within :css, '#flash_error' do
+        page.should have_content "次の項目を確認してください。"
       end
 
     end

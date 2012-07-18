@@ -41,6 +41,6 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
       @.$('.alert').remove()
       @$el.prepend(JST['other/flash'](
         name: "error"
-        msg: "There were errors in the information entered."
+        msg: I18n.t("errors.template.body")
       ))
     return false

@@ -25,7 +25,7 @@ Feature: Create new thread
       | Title   | <title>   |
       | Summary | <summary> |
     Then I should see the new thread page
-    And I should see an error message: "There were errors in the information entered."
+    And I should see an error message: "There were problems with the following fields:"
     And I should see an error message: "<message>"
 
     Examples:
