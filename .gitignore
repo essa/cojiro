@@ -34,3 +34,6 @@
 
 # Ignore carrierwave uploads
 /public/uploads/
+
+# Ignore ctags
+tags
