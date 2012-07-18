@@ -17,9 +17,6 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
 
   toJSON: -> thread: @attributes
   getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")
-  getAttrWithSource: (attr_name) ->
-    current: @get(attr_name),
-    source: @getAttrInSourceLocale(attr_name)
   getId: -> @id
   getTitle: -> @get('title')
   getSummary: -> @get('summary')

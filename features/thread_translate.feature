@@ -15,6 +15,12 @@ Feature: Translate a thread
       | summary | I want to write an article about the increased popularity of co-working spaces. |
 
   @javascript
+  Scenario: View translated attributes of a thread
+    When I go to the thread with English title "Co-working spaces in Tokyo"
+    Then I should see the translated text "Co-working spaces in Tokyo" in the thread
+    And I should see the translated text "I want to write an article about the increased popularity of co-working spaces." in the thread
+
+  @javascript
   Scenario: Find untranslated attributes of a thread
     When I switch my locale to "ja"
     And I go to the thread with English title "Co-working spaces in Tokyo"

@@ -5,7 +5,8 @@ describe 'Cothread page', :js => true do
   before do
     I18n.with_locale(:en) do
       @thread = FactoryGirl.create(:cothread,
-                                   user: FactoryGirl.create(:alice))
+                                   user: FactoryGirl.create(:alice),
+                                   title: "a title in English")
     end
   end
 
@@ -16,6 +17,9 @@ describe 'Cothread page', :js => true do
 
     it "displays nav text" do
       visit cothread_path(@thread)
+      within :css, 'h2' do
+        page.should have_xpath('//span[./@class="translated"]', :text => "a title in English")
+      end
       within :css, 'div#thread' do
         page.should have_content "edit"
       end
@@ -36,6 +40,9 @@ describe 'Cothread page', :js => true do
 
     it "displays nav text" do
       visit cothread_path(@thread)
+      within :css, 'h2' do
+        page.should have_xpath('//span[./@class="untranslated"]', :text => "a title in English")
+      end
       within :css, 'div#thread' do
         page.should have_content "日本語を追加"
       end

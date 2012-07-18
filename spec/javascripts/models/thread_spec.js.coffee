@@ -59,20 +59,6 @@ describe 'App.Thread', ->
         expect(@thread.getAttrInSourceLocale('attribute')).toEqual('Attribute in source language')
         expect(stub).toHaveBeenCalledWith('attribute_in_source_locale')
 
-    describe '#getAttrWithSource', ->
-      it 'is defined', -> expect(@thread.getAttrWithSource).toBeDefined()
-
-      it 'returns hash with attribute in current and source locales', ->
-        stub = sinon.stub(@thread, 'get')
-        stub.withArgs('attribute').returns('Attribute in current locale')
-        stub.withArgs('attribute_in_source_locale').returns('Attribute in source locale')
-
-        expect(@thread.getAttrWithSource('attribute')).toEqual
-          current: 'Attribute in current locale',
-          source: 'Attribute in source locale'
-        expect(stub).toHaveBeenCalledWith('attribute')
-        expect(stub).toHaveBeenCalledWith('attribute_in_source_locale')
-
     describe '#getTitle', ->
       it 'is defined', -> expect(@thread.getTitle).toBeDefined()
 

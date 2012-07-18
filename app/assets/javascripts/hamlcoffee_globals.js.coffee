@@ -1,6 +1,9 @@
 HAML.globals = ->
   renderTranslatedAttr: (model, attr_name) ->
-    model.get(attr_name) || ('<span class="untranslated">' + model.getAttrInSourceLocale(attr_name) + '</span>')
+    if (current = model.get(attr_name))
+      '<span class="translated">' + current + '</span>'
+    else
+      '<span class="untranslated">' + model.getAttrInSourceLocale(attr_name) + '</span>'
   edit_button: (text) ->
     if text
     then I18n.t("templates.threads.show.edit")
