@@ -96,7 +96,7 @@ describe 'New Cothread', :js => true do
       within :css, '.form-actions' do
         find('button').click
       end
-      page.should have_content "スレッドが作成されました。"
+      page.should have_content "スレッドは作成されました。"
     end
 
   end
