@@ -1,3 +1,3 @@
 %td
-  %a{ :href => @model.url()}!=@renderTranslatedAttr(@model, 'title')
+  %a{ :href => @model.url()}!=JST['shared/_translatable_attribute'](model: @model, attr_name: 'title')
 %td=I18n.t('templates.threads.list_item.started_by', username: @model.getUserName())

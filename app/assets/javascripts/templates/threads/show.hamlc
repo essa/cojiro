@@ -1,6 +1,6 @@
 .row
   .span8
-    %h2!=@renderTranslatedAttr(@model, 'title')
+    %h2!=JST['shared/_translatable_attribute'](model: @model, attr_name: 'title')
   .span4
     .actionbtn
       %a.btn{ :href => '#'}=@edit_button(@model.getTitle())
@@ -36,4 +36,4 @@
 
 .row
   .span6
-    %p!=@renderTranslatedAttr(@model, 'summary')
+    %p!=JST['shared/_translatable_attribute'](model: @model, attr_name: 'summary')
