@@ -141,4 +141,10 @@ tbody > {
 span.untranslated {
   font-style: italic;
 }
+
+form.in-place-form, fieldset.in-place-form {
+  display: inline-block;
+  margin: 0;
+}
+
 @import "bootstrap";

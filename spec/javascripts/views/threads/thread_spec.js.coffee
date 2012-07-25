@@ -60,7 +60,7 @@ describe "App.ThreadView", ->
         @$titleEditButton.trigger('click')
 
         expect(Backbone.Form).toHaveBeenCalledOnce()
-        expect(Backbone.Form).toHaveBeenCalledWith(model: @thread, fields: [ "title" ])
+        expect(Backbone.Form).toHaveBeenCalledWith(model: @thread, fields: [ "title" ], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField')
         expect(form.render).toHaveBeenCalled()
         expect(form.render).toHaveBeenCalledWithExactly()
 

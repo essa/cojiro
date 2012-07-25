@@ -18,5 +18,5 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     $el = $(e.currentTarget)
     attr = $el.prev().attr('data-attribute')
     $el.html(I18n.t('templates.threads.show.save'))
-    form = new Backbone.Form(model: @model, fields: [attr] ).render()
+    form = new Backbone.Form(model: @model, fields: [attr], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField').render()
     $el.prev().html(form.el)

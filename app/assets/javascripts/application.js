@@ -21,7 +21,7 @@
 //
 //= require backbone-support
 //= require backbone-forms/backbone-forms
-//= require backbone-forms/bootstrap
+//= require backbone_form_templates
 //
 //= require i18n
 //= require i18n/translations
