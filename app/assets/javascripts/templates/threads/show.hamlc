@@ -1,9 +1,8 @@
 .row
-  .span8
-    %h2!=JST['shared/_translatable_attribute'](model: @model, attr_name: 'title')
-  .span4
-    .actionbtn
-      %a.btn{ :href => '#'}=@edit_button(@model.getTitle())
+  .span12
+    %h2
+      !=JST['shared/_translatable_attribute'](model: @model, attr_name: 'title')
+      !=JST['shared/_edit_add_button'](text: @model.get('title'))
 .statbar
   %ul.nav.nav-pills
     %li

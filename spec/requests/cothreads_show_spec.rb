@@ -18,10 +18,8 @@ describe 'Cothread page', :js => true do
     it "displays nav text" do
       visit cothread_path(@thread)
       within :css, 'h2' do
-        page.should have_xpath('//span[./@class="translated"]', :text => "a title in English")
-      end
-      within :css, 'div#thread' do
-        page.should have_content "edit"
+        page.should have_xpath('//span[./@class="translated"][./@data-attribute="title"]', :text => "a title in English")
+        page.should have_xpath('//button[contains(@class,"edit-button")]', :text => "edit")
       end
       within :css, 'ul.nav.nav-pills' do
         page.should have_content "neta"
@@ -41,10 +39,8 @@ describe 'Cothread page', :js => true do
     it "displays nav text" do
       visit cothread_path(@thread)
       within :css, 'h2' do
-        page.should have_xpath('//span[./@class="untranslated"]', :text => "a title in English")
-      end
-      within :css, 'div#thread' do
-        page.should have_content "日本語を追加"
+        page.should have_xpath('//span[./@class="untranslated"][./@data-attribute="title"]', :text => "a title in English")
+        page.should have_xpath('//button[contains(@class,"edit-button")]', :text => "日本語を追加する")
       end
       within :css, 'ul.nav.nav-pills' do
         page.should have_content "ネタ"
