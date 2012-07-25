@@ -39,7 +39,7 @@ describe "App.NewThreadView", ->
   describe "rendering", ->
     beforeEach ->
       @form =
-        render: () -> {}
+        render: -> {}
         el: "<form></form>"
       sinon.stub(Backbone, 'Form').returns(@form)
 

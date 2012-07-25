@@ -23,6 +23,7 @@ en:
         comments_in: "%{lang} comments"
         edit: edit
         add_in: add %{lang}
+        save: save
 
   views:
     threads:

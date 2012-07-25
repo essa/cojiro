@@ -29,6 +29,15 @@ describe 'Cothread page', :js => true do
       end
     end
 
+    it "has editable fields" do
+      visit cothread_path(@thread)
+      within :css, 'h2' do
+        click_button "edit"
+        page.should have_xpath('//input[./@type="text"][./@name="title"]')
+        page.should have_xpath('//button[contains(@class,"edit-button")]', :text => "save")
+      end
+    end
+
   end
 
   context 'Japanese locale' do
@@ -47,6 +56,15 @@ describe 'Cothread page', :js => true do
         page.should have_content "enのコメント"
         page.should have_content "jaのコメント"
         page.should have_content "に登録した"
+      end
+    end
+
+    it "has editable fields" do
+      visit cothread_path(@thread)
+      within :css, 'h2' do
+        click_button "日本語を追加する"
+        page.should have_xpath('//input[./@type="text"][./@name="title"]')
+        page.should have_xpath('//button[contains(@class,"edit-button")]', :text => "保存する")
       end
     end
 

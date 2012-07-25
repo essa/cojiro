@@ -23,6 +23,7 @@ ja:
         comments_in: "%{lang}のコメント"
         edit: 編集する
         add_in: "%{lang}を追加する"
+        save: 保存する
 
   views:
     threads:
