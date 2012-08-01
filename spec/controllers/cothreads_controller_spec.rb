@@ -96,6 +96,26 @@ describe CothreadsController do
 
       end
 
+      describe "PUT update" do
+
+        before do
+          @cothread = FactoryGirl.create(:cothread, title: "a title")
+        end
+
+        context "with valid params" do
+
+          it "locates the requested @cothread" do
+            put :update, id: @cothread.id, thread: Factory.attributes_for(:cothread), format: :json
+            assigns(:cothread).should eq(@cothread)
+          end
+
+          it "updates the thread" do
+            put :update, id: @cothread.id, thread: Factory.attributes_for(:cothread, title: "a new title"), format: :json
+            assigns(:cothread).title.should eq("a new title")
+          end
+        end
+      end
+
     end
 
   end
