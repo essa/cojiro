@@ -3,6 +3,7 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
 
   events:
     "click button.edit-button": "showEditableField"
+    "click button.save-button": "saveEditableField"
 
   initialize: ->
     _.bindAll @
@@ -24,3 +25,10 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     @forms ||= new Object()
     @forms[attr] = form = new Backbone.Form(model: @model, fields: [attr], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField').render()
     $editable.html(form.el)
+
+  saveEditableField: (e) ->
+    $el = $(e.currentTarget)
+    $editable = $el.prev()
+    attr = $editable.attr('data-attribute')
+    @forms[attr].commit()
+    @model.save()

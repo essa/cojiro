@@ -35,6 +35,10 @@ describe "App.ThreadView", ->
   describe "editable fields", ->
     beforeEach ->
       @thread = new App.Thread(@fixtures.Thread.valid)
+      @collection =
+        url: '/en/threads'
+        add: ->
+      @thread.collection = @collection
 
     describe "when title edit button handler is fired", ->
       beforeEach ->
@@ -56,7 +60,7 @@ describe "App.ThreadView", ->
         expect(@$titleEditButton).not.toHaveClass('edit-button')
         expect(@$titleEditButton).toHaveText('Save')
 
-      it 'creates a new backbone form for the "title" field and renders it', ->
+      it 'creates a new backbone form for the "title" field, assigns it to @forms["title"] and renders it', ->
         form =
           render: -> @
           el: "<form></form>"
@@ -66,6 +70,7 @@ describe "App.ThreadView", ->
 
         expect(Backbone.Form).toHaveBeenCalledOnce()
         expect(Backbone.Form).toHaveBeenCalledWith(model: @thread, fields: [ "title" ], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField')
+        expect(@view.forms['title']).toEqual(form)
         expect(form.render).toHaveBeenCalled()
         expect(form.render).toHaveBeenCalledWithExactly()
 
@@ -74,3 +79,35 @@ describe "App.ThreadView", ->
       it 'renders the input field', ->
         @$titleEditButton.trigger('click')
         expect(@$titleEditButton.prev()).toContain('input[name="title"]')
+
+    describe "when title save button is fired", ->
+      beforeEach ->
+        @saveEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'saveEditableField')
+        @view = new App.ThreadView(model: @thread)
+        @view.render()
+        @$titleEditButton = @view.$('span[data-attribute="title"] ~ button.edit-button')
+        @$titleEditButton.trigger('click')
+        sinon.stub(@thread, 'save').returns(null)
+
+      afterEach ->
+        App.ThreadView.prototype.saveEditableField.restore()
+        @thread.save.restore()
+
+      it 'calls saveEditableField', ->
+        @$titleEditButton.trigger('click')
+        expect(@saveEditableFieldSpy).toHaveBeenCalledOnce()
+
+      it 'commits the form for the edited field', ->
+        spy = sinon.spy(@view.forms['title'], 'commit')
+        @$titleEditButton.trigger('click')
+
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWithExactly()
+
+      it 'saves the model', ->
+        sinon.stub(@view.forms['title'], 'commit').returns(null)
+        @$titleEditButton.trigger('click')
+
+        expect(@thread.save).toHaveBeenCalledOnce()
+
+        @view.forms['title'].commit.restore()
