@@ -21,9 +21,9 @@ en:
         neta: neta
         created: created
         comments_in: "%{lang} comments"
-        edit: edit
-        add_in: add %{lang}
-        save: save
+        edit: Edit
+        add_in: Add %{lang}
+        save: Save
 
   views:
     threads:

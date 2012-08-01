@@ -30,30 +30,35 @@ describe "App.ThreadView", ->
       expect(@$el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')
 
     it 'renders edit/add button', ->
-      expect(@$el).toContain('button.edit-button:contains("edit")')
+      expect(@$el).toContain('button.edit-button:contains("Edit")')
 
   describe "editable fields", ->
     beforeEach ->
-      @editableFieldSpy = sinon.spy(App.ThreadView.prototype, 'showEditableField')
       @thread = new App.Thread(@fixtures.Thread.valid)
-      @view = new App.ThreadView(model: @thread)
-      @el = @view.render().el
-      @$el = $(@el)
-
-    afterEach ->
-      App.ThreadView.prototype.showEditableField.restore()
 
     describe "when title edit button handler is fired", ->
       beforeEach ->
+        @showEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'showEditableField')
+        @view = new App.ThreadView(model: @thread)
+        @view.render()
         @$titleEditButton = @view.$('span[data-attribute="title"] ~ button.edit-button')
+
+      afterEach ->
+        App.ThreadView.prototype.showEditableField.restore()
 
       it 'calls showEditableField', ->
         @$titleEditButton.trigger('click')
-        expect(@editableFieldSpy).toHaveBeenCalledOnce()
+        expect(@showEditableFieldSpy).toHaveBeenCalledOnce()
+
+      it 'changes the edit button into a save button', ->
+        @$titleEditButton.trigger('click')
+        expect(@$titleEditButton).toHaveClass('save-button')
+        expect(@$titleEditButton).not.toHaveClass('edit-button')
+        expect(@$titleEditButton).toHaveText('Save')
 
       it 'creates a new backbone form for the "title" field and renders it', ->
         form =
-          render: -> {}
+          render: -> @
           el: "<form></form>"
         sinon.stub(Backbone, 'Form').returns(form)
         sinon.spy(form, 'render')
@@ -65,10 +70,6 @@ describe "App.ThreadView", ->
         expect(form.render).toHaveBeenCalledWithExactly()
 
         Backbone.Form.restore()
-
-      it 'changes the button text to "save"', ->
-        @$titleEditButton.trigger('click')
-        expect(@$titleEditButton).toHaveText('save')
 
       it 'renders the input field', ->
         @$titleEditButton.trigger('click')

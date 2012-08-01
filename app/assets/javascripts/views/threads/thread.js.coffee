@@ -16,7 +16,11 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
 
   showEditableField: (e) ->
     $el = $(e.currentTarget)
-    attr = $el.prev().attr('data-attribute')
+    $el.addClass('save-button')
+    $el.removeClass('edit-button')
     $el.html(I18n.t('templates.threads.show.save'))
-    form = new Backbone.Form(model: @model, fields: [attr], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField').render()
-    $el.prev().html(form.el)
+    $editable = $el.prev()
+    attr = $editable.attr('data-attribute')
+    @forms ||= new Object()
+    @forms[attr] = form = new Backbone.Form(model: @model, fields: [attr], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField').render()
+    $editable.html(form.el)

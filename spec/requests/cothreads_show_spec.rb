@@ -19,7 +19,7 @@ describe 'Cothread page', :js => true do
       visit cothread_path(@thread)
       within :css, 'h2' do
         page.should have_xpath('//span[./@class="translated"][./@data-attribute="title"]', :text => "a title in English")
-        page.should have_xpath('//button[contains(@class,"edit-button")]', :text => "edit")
+        page.should have_xpath('//button[contains(@class,"edit-button")]', :text => "Edit")
       end
       within :css, 'ul.nav.nav-pills' do
         page.should have_content "neta"
@@ -32,9 +32,9 @@ describe 'Cothread page', :js => true do
     it "has editable fields" do
       visit cothread_path(@thread)
       within :css, 'h2' do
-        click_button "edit"
+        click_button "Edit"
         page.should have_xpath('//input[./@type="text"][./@name="title"]')
-        page.should have_xpath('//button[contains(@class,"edit-button")]', :text => "save")
+        page.should have_xpath('//button[contains(@class,"save-button")]', :text => "Save")
       end
     end
 
@@ -64,7 +64,7 @@ describe 'Cothread page', :js => true do
       within :css, 'h2' do
         click_button "日本語を追加する"
         page.should have_xpath('//input[./@type="text"][./@name="title"]')
-        page.should have_xpath('//button[contains(@class,"edit-button")]', :text => "保存する")
+        page.should have_xpath('//button[contains(@class,"save-button")]', :text => "保存する")
       end
     end
 
