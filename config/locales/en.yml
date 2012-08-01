@@ -23,12 +23,13 @@ en:
         comments_in: "%{lang} comments"
         edit: Edit
         add_in: Add %{lang}
-        save: Save
 
   views:
     threads:
       new_thread:
         thread_created: "Thread successfully created."
+      thread:
+        save: Save
 
   attributes:
     thread:

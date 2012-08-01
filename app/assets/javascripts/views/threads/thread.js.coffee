@@ -34,7 +34,7 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
   convertToSaveButton: ($el) ->
     $el.addClass('save-button')
     $el.removeClass('edit-button')
-    $el.html(I18n.t('templates.threads.show.save'))
+    $el.html(I18n.t('views.threads.thread.save'))
 
   findEditableField: ($el) -> $el.prev()
   getAttributeName: ($el) -> $el.attr('data-attribute')
