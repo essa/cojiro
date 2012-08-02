@@ -34,7 +34,7 @@ describe "App.ThreadView", ->
 
   describe "editable fields", ->
     beforeEach ->
-      @thread = new App.Thread(@fixtures.Thread.valid)
+      @thread = new App.Thread(_(@fixtures.Thread.valid).extend(id: "123"))
       @collection =
         url: '/en/threads'
         add: ->
@@ -111,3 +111,27 @@ describe "App.ThreadView", ->
         expect(@thread.save).toHaveBeenCalledOnce()
 
         @view.forms['title'].commit.restore()
+
+    describe "after a successful save", ->
+      beforeEach ->
+        @view = new App.ThreadView(model: @thread)
+        @view.render()
+        @$titleEditButton = @view.$('span[data-attribute="title"] ~ button.edit-button')
+        @$titleEditButton.trigger('click')
+        @server = sinon.fakeServer.create()
+        @server.respondWith(
+          'PUT',
+          '/en/threads/123',
+          [ 200, {'Content-Type': 'application/json'}, JSON.stringify(@fixtures.Thread.valid) ]
+        )
+
+      afterEach ->
+        @server.restore()
+
+      it "changes the save button back to an edit button", ->
+        @$titleEditButton.trigger('click')
+        @server.respond()
+
+        expect(@$titleEditButton).toHaveClass('edit-button')
+        expect(@$titleEditButton).not.toHaveClass('save-button')
+        expect(@$titleEditButton).toHaveText('Edit')

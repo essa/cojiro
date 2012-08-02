@@ -29,12 +29,21 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     $editableField = @findEditableField($button)
     attr = @getAttributeName($editableField)
     @forms[attr].commit()
-    @model.save()
+    self = @
+    @model.save({},
+      success: (model, resp) ->
+        self.convertToEditButton($button)
+    )
 
   convertToSaveButton: ($el) ->
     $el.addClass('save-button')
     $el.removeClass('edit-button')
     $el.html(I18n.t('views.threads.thread.save'))
+
+  convertToEditButton: ($el) ->
+    $el.addClass('edit-button')
+    $el.removeClass('save-button')
+    $el.html(I18n.t('views.threads.thread.edit'))
 
   findEditableField: ($el) -> $el.prev()
   getAttributeName: ($el) -> $el.attr('data-attribute')

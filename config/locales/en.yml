@@ -30,6 +30,7 @@ en:
         thread_created: "Thread successfully created."
       thread:
         save: Save
+        edit: Edit
 
   attributes:
     thread:
