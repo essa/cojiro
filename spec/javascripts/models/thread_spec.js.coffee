@@ -218,6 +218,10 @@ describe 'App.Thread', ->
           expect(@spy).toHaveBeenCalledOnce()
           expect(@spy).toHaveBeenCalledWith(@thread,['cannot have an empty title'])
 
+        it 'does save if title is null (not included)', ->
+          @thread.save(_(@data).extend('title': null))
+          expect(@spy).not.toHaveBeenCalled()
+
     describe 'parsing response data', ->
       beforeEach ->
         @fixture = @fixtures.Thread.valid
