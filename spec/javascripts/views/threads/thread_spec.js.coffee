@@ -117,12 +117,13 @@ describe "App.ThreadView", ->
         @view = new App.ThreadView(model: @thread)
         @view.render()
         @$titleEditButton = @view.$('span[data-attribute="title"] ~ button.edit-button')
+        @$editableField = @view.$('span[data-attribute="title"]')
         @$titleEditButton.trigger('click')
         @server = sinon.fakeServer.create()
         @server.respondWith(
           'PUT',
           '/en/threads/123',
-          [ 200, {'Content-Type': 'application/json'}, JSON.stringify(@fixtures.Thread.valid) ]
+          [ 204, {'Content-Type': 'application/json'}, "" ]
         )
 
       afterEach ->
@@ -135,3 +136,10 @@ describe "App.ThreadView", ->
         expect(@$titleEditButton).toHaveClass('edit-button')
         expect(@$titleEditButton).not.toHaveClass('save-button')
         expect(@$titleEditButton).toHaveText('Edit')
+
+      it "changes the input field to text with the new attribute value", ->
+        @view.$('input[name="title"]').val("abcdefg")
+        @$titleEditButton.trigger('click')
+        @server.respond()
+
+        expect(@$editableField).toHaveText("abcdefg")
