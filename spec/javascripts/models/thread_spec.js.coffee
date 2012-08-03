@@ -32,6 +32,10 @@ describe 'App.Thread', ->
           'title': 'title'
           'summary': 'summary'
           'source_locale': 'source_locale'
+          'created_at': "2010-07-20T12:20:00Z"
+          'updated_at': "2010-07-20T12:20:00Z"
+          'user':
+            'name': 'csasaki'
         )
 
       it 'wraps JSON in thread object', ->
@@ -39,6 +43,12 @@ describe 'App.Thread', ->
         expect(@thread.toJSON().thread.title).toEqual('title')
         expect(@thread.toJSON().thread.summary).toEqual('summary')
         expect(@thread.toJSON().thread.source_locale).toEqual('source_locale')
+
+      it 'does not include protected attributes', ->
+        console.log(@thread.toJSON())
+        expect(@thread.toJSON().thread.user).not.toBeDefined()
+        expect(@thread.toJSON().thread.created_at).not.toBeDefined()
+        expect(@thread.toJSON().thread.updated_at).not.toBeDefined()
 
     describe '#getId', ->
       it 'is defined', -> expect(@thread.getId).toBeDefined()

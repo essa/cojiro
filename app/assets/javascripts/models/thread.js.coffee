@@ -15,7 +15,13 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
       type: 'TextArea'
       title: _(I18n.t("attributes.thread.summary")).capitalize()
 
-  toJSON: -> thread: @attributes
+  # http://stackoverflow.com/questions/5306089/only-update-certain-model-attributes-using-backbone-js
+  toJSON: () ->
+    thread:
+      title: @get('title')
+      summary: @get('summary')
+      source_locale: @get('source_locale')
+
   getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")
   getId: -> @id
   getTitle: -> @get('title')
