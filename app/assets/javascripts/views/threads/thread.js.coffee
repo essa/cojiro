@@ -4,6 +4,7 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
   events:
     "click button.edit-button": "showEditableField"
     "click button.save-button": "saveEditableField"
+    "submit form.in-place-form": "submitEditableFieldForm"
 
   initialize: ->
     _.bindAll @
@@ -23,6 +24,12 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     @forms = @createForms()
     @forms[attr] = form = @createFormFor(attr)
     $editableField.html(form.render().el)
+
+  submitEditableFieldForm: (e) ->
+    e.preventDefault()
+    $form = $(e.currentTarget)
+    $button = $form.closest('span').next()
+    $button.trigger('click')
 
   saveEditableField: (e) ->
     $button = $(e.currentTarget)
