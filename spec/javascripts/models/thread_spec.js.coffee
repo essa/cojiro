@@ -45,7 +45,6 @@ describe 'App.Thread', ->
         expect(@thread.toJSON().thread.source_locale).toEqual('source_locale')
 
       it 'does not include protected attributes', ->
-        console.log(@thread.toJSON())
         expect(@thread.toJSON().thread.user).not.toBeDefined()
         expect(@thread.toJSON().thread.created_at).not.toBeDefined()
         expect(@thread.toJSON().thread.updated_at).not.toBeDefined()
