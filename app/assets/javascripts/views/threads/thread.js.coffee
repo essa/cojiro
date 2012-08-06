@@ -41,7 +41,7 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     @model.save({},
       success: (model, resp) ->
         self.convertToEditButton($button)
-        self.leave()
+        self.forms[attr].leave()
         $editableField.html(model.get(attr))
     )
 
