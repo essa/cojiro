@@ -66,7 +66,7 @@ describe "App.ThreadView", ->
             expect(@$editButton).not.toHaveClass('edit-button')
             expect(@$editButton).toHaveText('Save')
 
-          it "creates a new backbone form for the \"#{context.attr}\" field, assigns it to @forms[\"#{context.attr}\"] and renders it", ->
+          it "creates a new backbone form for the \"#{context.attr}\" field, assigns it to @forms[\"#{context.attr}\"] and renders it as a child", ->
             form =
               render: -> @
               el: "<form></form>"
@@ -79,6 +79,7 @@ describe "App.ThreadView", ->
             expect(@view.forms[@attr]).toEqual(form)
             expect(form.render).toHaveBeenCalled()
             expect(form.render).toHaveBeenCalledWithExactly()
+            expect(@view.children.last()).toEqual(form)
 
             Backbone.Form.restore()
 
@@ -125,10 +126,12 @@ describe "App.ThreadView", ->
             @view.render()
             @$editButton = @view.$("span[data-attribute='#{@attr}'] ~ button.edit-button")
             @$editButton.trigger('click')
+            sinon.stub(@thread, 'save').returns(null)
             @$form = @view.$("span[data-attribute='#{@attr}'] form")
 
           afterEach ->
             App.ThreadView.prototype.submitEditableFieldForm.restore()
+            @thread.save.restore()
 
           it 'calls submitEditableFieldForm', ->
             @$form.submit()
@@ -170,6 +173,14 @@ describe "App.ThreadView", ->
             expect(@$editButton).toHaveClass('edit-button')
             expect(@$editButton).not.toHaveClass('save-button')
             expect(@$editButton).toHaveText('Edit')
+
+          it "calls leave on the field form", ->
+            formLeaveSpy = sinon.spy(@view.forms[@attr], 'leave')
+            @$editButton.trigger('click')
+            @server.respond()
+
+            expect(formLeaveSpy).toHaveBeenCalledOnce()
+            expect(formLeaveSpy).toHaveBeenCalledWithExactly()
 
           it "changes the input field to text with the new attribute value", ->
             @view.$("#{@type}[name='#{@attr}']").val("abcdefg")

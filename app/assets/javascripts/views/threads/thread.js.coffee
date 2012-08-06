@@ -23,7 +23,8 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     attr = @getAttributeName($editableField)
     @forms = @createForms()
     @forms[attr] = form = @createFormFor(attr)
-    $editableField.html(form.render().el)
+    @renderChild(form)
+    $editableField.html(form.el)
 
   submitEditableFieldForm: (e) ->
     e.preventDefault()
@@ -40,6 +41,7 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     @model.save({},
       success: (model, resp) ->
         self.convertToEditButton($button)
+        self.leave()
         $editableField.html(model.get(attr))
     )
 
@@ -56,4 +58,4 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
   findEditableField: ($el) -> $el.prev()
   getAttributeName: ($el) -> $el.attr('data-attribute')
   createForms: (forms) -> forms || new Object()
-  createFormFor: (attr) -> new Backbone.Form(model: @model, fields: [attr], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField')
+  createFormFor: (attr) -> new Backbone.CompositeForm(model: @model, fields: [attr], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField')

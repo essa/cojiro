@@ -16,11 +16,7 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
     @$el.html(JST['threads/new'])
 
   renderForm: ->
-    @form = new Backbone.Form(model: @model)
-    @form.leave = () ->
-      @unbind()
-      @remove()
-      @parent._removeChild(@)
+    @form = new Backbone.CompositeForm(model: @model)
     @renderChild(@form)
     @$el.append(@form.el)
     @.$('fieldset').append(JST['threads/form_actions'])
