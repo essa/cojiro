@@ -169,7 +169,6 @@ describe "App.ThreadView", ->
             @view = new App.ThreadView(model: @thread)
             @view.render()
             @$editButton = @view.$("span[data-attribute='#{@attr}'] ~ button.edit-button")
-            @$editableField = @view.$("span[data-attribute='#{@attr}']")
             @$editButton.trigger('click')
             @server = sinon.fakeServer.create()
             @server.respondWith(
@@ -194,6 +193,7 @@ describe "App.ThreadView", ->
             @$editButton.trigger('click')
             @server.respond()
 
+            @$editableField = @view.$("span[data-attribute='#{@attr}']")
             expect(@$editableField).toHaveText("abcdefg")
 
     describe "title", ->
