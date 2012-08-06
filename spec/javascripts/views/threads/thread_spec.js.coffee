@@ -33,113 +33,131 @@ describe "App.ThreadView", ->
       expect(@$el).toContain('button.edit-button:contains("Edit")')
 
   describe "editable fields", ->
-    beforeEach ->
-      @thread = new App.Thread(_(@fixtures.Thread.valid).extend(id: "123"))
-      @collection =
-        url: '/en/threads'
-        add: ->
-      @thread.collection = @collection
 
-    describe "when title edit button handler is fired", ->
-      beforeEach ->
-        @showEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'showEditableField')
-        @view = new App.ThreadView(model: @thread)
-        @view.render()
-        @$titleEditButton = @view.$('span[data-attribute="title"] ~ button.edit-button')
+    sharedExamplesForEditableFields = (context) ->
 
-      afterEach ->
-        App.ThreadView.prototype.showEditableField.restore()
+      describe "shared behaviour for editable fields", ->
+        beforeEach ->
+          @attr = context.attr
+          @type = context.type || 'input'
+          @thread = new App.Thread(_(@fixtures.Thread.valid).extend(id: "123"))
+          @collection =
+            url: '/en/threads'
+            add: ->
+          @thread.collection = @collection
 
-      it 'calls showEditableField', ->
-        @$titleEditButton.trigger('click')
-        expect(@showEditableFieldSpy).toHaveBeenCalledOnce()
+        describe "when edit button handler is fired", ->
+          beforeEach ->
+            @showEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'showEditableField')
+            @view = new App.ThreadView(model: @thread)
+            @view.render()
+            @$editButton = @view.$("span[data-attribute='#{@attr}'] ~ button.edit-button")
 
-      it 'changes the edit button into a save button', ->
-        @$titleEditButton.trigger('click')
-        expect(@$titleEditButton).toHaveClass('save-button')
-        expect(@$titleEditButton).not.toHaveClass('edit-button')
-        expect(@$titleEditButton).toHaveText('Save')
+          afterEach ->
+            App.ThreadView.prototype.showEditableField.restore()
 
-      it 'creates a new backbone form for the "title" field, assigns it to @forms["title"] and renders it', ->
-        form =
-          render: -> @
-          el: "<form></form>"
-        sinon.stub(Backbone, 'Form').returns(form)
-        sinon.spy(form, 'render')
-        @$titleEditButton.trigger('click')
+          it 'calls showEditableField', ->
+            @$editButton.trigger('click')
+            expect(@showEditableFieldSpy).toHaveBeenCalledOnce()
 
-        expect(Backbone.Form).toHaveBeenCalledOnce()
-        expect(Backbone.Form).toHaveBeenCalledWith(model: @thread, fields: [ "title" ], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField')
-        expect(@view.forms['title']).toEqual(form)
-        expect(form.render).toHaveBeenCalled()
-        expect(form.render).toHaveBeenCalledWithExactly()
+          it 'changes the edit button into a save button', ->
+            @$editButton.trigger('click')
+            expect(@$editButton).toHaveClass('save-button')
+            expect(@$editButton).not.toHaveClass('edit-button')
+            expect(@$editButton).toHaveText('Save')
 
-        Backbone.Form.restore()
+          it "creates a new backbone form for the \"#{context.attr}\" field, assigns it to @forms[\"#{context.attr}\"] and renders it", ->
+            form =
+              render: -> @
+              el: "<form></form>"
+            sinon.stub(Backbone, 'Form').returns(form)
+            sinon.spy(form, 'render')
+            @$editButton.trigger('click')
 
-      it 'renders the input field', ->
-        @$titleEditButton.trigger('click')
-        expect(@$titleEditButton.prev()).toContain('input[name="title"]')
+            expect(Backbone.Form).toHaveBeenCalledOnce()
+            expect(Backbone.Form).toHaveBeenCalledWith(model: @thread, fields: [ @attr ], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField')
+            expect(@view.forms[@attr]).toEqual(form)
+            expect(form.render).toHaveBeenCalled()
+            expect(form.render).toHaveBeenCalledWithExactly()
 
-    describe "when title save button is fired", ->
-      beforeEach ->
-        @saveEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'saveEditableField')
-        @view = new App.ThreadView(model: @thread)
-        @view.render()
-        @$titleEditButton = @view.$('span[data-attribute="title"] ~ button.edit-button')
-        @$titleEditButton.trigger('click')
-        sinon.stub(@thread, 'save').returns(null)
+            Backbone.Form.restore()
 
-      afterEach ->
-        App.ThreadView.prototype.saveEditableField.restore()
-        @thread.save.restore()
+          it 'renders the form field', ->
+            @$editButton.trigger('click')
+            expect(@$editButton.prev()).toContain("#{@type}[name='#{@attr}']")
 
-      it 'calls saveEditableField', ->
-        @$titleEditButton.trigger('click')
-        expect(@saveEditableFieldSpy).toHaveBeenCalledOnce()
+        describe "when save button is fired", ->
+          beforeEach ->
+            @saveEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'saveEditableField')
+            @view = new App.ThreadView(model: @thread)
+            @view.render()
+            @$editButton = @view.$("span[data-attribute='#{@attr}'] ~ button.edit-button")
+            @$editButton.trigger('click')
+            sinon.stub(@thread, 'save').returns(null)
 
-      it 'commits the form for the edited field', ->
-        spy = sinon.spy(@view.forms['title'], 'commit')
-        @$titleEditButton.trigger('click')
+          afterEach ->
+            App.ThreadView.prototype.saveEditableField.restore()
+            @thread.save.restore()
 
-        expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWithExactly()
+          it 'calls saveEditableField', ->
+            @$editButton.trigger('click')
+            expect(@saveEditableFieldSpy).toHaveBeenCalledOnce()
 
-      it 'saves the model', ->
-        sinon.stub(@view.forms['title'], 'commit').returns(null)
-        @$titleEditButton.trigger('click')
+          it 'commits the form for the edited field', ->
+            spy = sinon.spy(@view.forms[@attr], 'commit')
+            @$editButton.trigger('click')
 
-        expect(@thread.save).toHaveBeenCalledOnce()
+            expect(spy).toHaveBeenCalledOnce()
+            expect(spy).toHaveBeenCalledWithExactly()
 
-        @view.forms['title'].commit.restore()
+          it 'saves the model', ->
+            sinon.stub(@view.forms[@attr], 'commit').returns(null)
+            @$editButton.trigger('click')
 
-    describe "after a successful save", ->
-      beforeEach ->
-        @view = new App.ThreadView(model: @thread)
-        @view.render()
-        @$titleEditButton = @view.$('span[data-attribute="title"] ~ button.edit-button')
-        @$editableField = @view.$('span[data-attribute="title"]')
-        @$titleEditButton.trigger('click')
-        @server = sinon.fakeServer.create()
-        @server.respondWith(
-          'PUT',
-          '/en/threads/123',
-          [ 204, {'Content-Type': 'application/json'}, "" ]
-        )
+            expect(@thread.save).toHaveBeenCalledOnce()
 
-      afterEach ->
-        @server.restore()
+            @view.forms[@attr].commit.restore()
 
-      it "changes the save button back to an edit button", ->
-        @$titleEditButton.trigger('click')
-        @server.respond()
+        describe "after a successful save", ->
+          beforeEach ->
+            @view = new App.ThreadView(model: @thread)
+            @view.render()
+            @$editButton = @view.$("span[data-attribute='#{@attr}'] ~ button.edit-button")
+            @$editableField = @view.$("span[data-attribute='#{@attr}']")
+            @$editButton.trigger('click')
+            @server = sinon.fakeServer.create()
+            @server.respondWith(
+              'PUT',
+              '/en/threads/123',
+              [ 204, {'Content-Type': 'application/json'}, "" ]
+            )
 
-        expect(@$titleEditButton).toHaveClass('edit-button')
-        expect(@$titleEditButton).not.toHaveClass('save-button')
-        expect(@$titleEditButton).toHaveText('Edit')
+          afterEach ->
+            @server.restore()
 
-      it "changes the input field to text with the new attribute value", ->
-        @view.$('input[name="title"]').val("abcdefg")
-        @$titleEditButton.trigger('click')
-        @server.respond()
+          it "changes the save button back to an edit button", ->
+            @$editButton.trigger('click')
+            @server.respond()
 
-        expect(@$editableField).toHaveText("abcdefg")
+            expect(@$editButton).toHaveClass('edit-button')
+            expect(@$editButton).not.toHaveClass('save-button')
+            expect(@$editButton).toHaveText('Edit')
+
+          it "changes the input field to text with the new attribute value", ->
+            @view.$("#{@type}[name='#{@attr}']").val("abcdefg")
+            @$editButton.trigger('click')
+            @server.respond()
+
+            expect(@$editableField).toHaveText("abcdefg")
+
+    describe "title", ->
+      sharedContext =
+        attr: 'title'
+        type: 'input'
+      sharedExamplesForEditableFields(sharedContext)
+
+    describe "summary", ->
+      sharedContext =
+        attr: 'summary'
+        type: 'textarea'
+      sharedExamplesForEditableFields(sharedContext)
