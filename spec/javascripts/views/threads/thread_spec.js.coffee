@@ -118,6 +118,34 @@ describe "App.ThreadView", ->
 
             @view.forms[@attr].commit.restore()
 
+        describe "when editable field is submitted (e.g. by hitting enter while in form field)", ->
+          beforeEach ->
+            @submitEditableFieldFormSpy = sinon.spy(App.ThreadView.prototype, 'submitEditableFieldForm')
+            @view = new App.ThreadView(model: @thread)
+            @view.render()
+            @$editButton = @view.$("span[data-attribute='#{@attr}'] ~ button.edit-button")
+            @$editButton.trigger('click')
+            @$form = @view.$("span[data-attribute='#{@attr}'] form")
+
+          afterEach ->
+            App.ThreadView.prototype.submitEditableFieldForm.restore()
+
+          it 'calls submitEditableFieldForm', ->
+            @$form.submit()
+            expect(@submitEditableFieldFormSpy).toHaveBeenCalledOnce()
+
+          it 'prevents default form submission', ->
+            spyEvent = spyOnEvent(@$form, 'submit')
+            @$form.submit()
+            expect('submit').toHaveBeenPreventedOn(@$form)
+            expect(spyEvent).toHaveBeenPrevented()
+
+          it 'triggers click event on save button', ->
+            spyEvent = spyOnEvent(@$editButton, 'click')
+            @$form.submit()
+            expect('click').toHaveBeenTriggeredOn(@$editButton)
+            expect(spyEvent).toHaveBeenTriggered()
+
         describe "after a successful save", ->
           beforeEach ->
             @view = new App.ThreadView(model: @thread)
