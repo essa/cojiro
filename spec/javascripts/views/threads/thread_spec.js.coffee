@@ -66,10 +66,25 @@ describe "App.ThreadView", ->
             expect(@$editButton).not.toHaveClass('edit-button')
             expect(@$editButton).toHaveText('Save')
 
-          it "creates a new backbone form for the \"#{context.attr}\" field, assigns it to @forms[\"#{context.attr}\"] and renders it as a child", ->
+          it "uses exiting form if @forms[\"#{context.attr}\"] already exists", ->
             form =
               render: -> @
-              el: "<form></form>"
+            @view.forms = {}
+            @view.forms[@attr] = form
+            sinon.spy(Backbone, 'Form')
+            sinon.spy(form, 'render')
+            @$editButton.trigger('click')
+
+            expect(Backbone.Form).not.toHaveBeenCalled()
+            expect(form.render).toHaveBeenCalled()
+            expect(form.render).toHaveBeenCalled()
+            expect(form.render).toHaveBeenCalledWithExactly()
+
+            Backbone.Form.restore()
+
+          it "creates a new backbone form, assigns it to @forms[\"#{context.attr}\"] and renders it as a child if form has not yet been created", ->
+            form =
+              render: -> @
             sinon.stub(Backbone, 'Form').returns(form)
             sinon.spy(form, 'render')
             @$editButton.trigger('click')
@@ -173,14 +188,6 @@ describe "App.ThreadView", ->
             expect(@$editButton).toHaveClass('edit-button')
             expect(@$editButton).not.toHaveClass('save-button')
             expect(@$editButton).toHaveText('Edit')
-
-          it "calls leave on the field form", ->
-            formLeaveSpy = sinon.spy(@view.forms[@attr], 'leave')
-            @$editButton.trigger('click')
-            @server.respond()
-
-            expect(formLeaveSpy).toHaveBeenCalledOnce()
-            expect(formLeaveSpy).toHaveBeenCalledWithExactly()
 
           it "changes the input field to text with the new attribute value", ->
             @view.$("#{@type}[name='#{@attr}']").val("abcdefg")
