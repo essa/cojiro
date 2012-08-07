@@ -192,13 +192,14 @@ describe "App.ThreadView", ->
             else
               expect(@$editButton).toHaveText('Add English')
 
-          it "changes the input field to text with the new attribute value", ->
+          it "changes the input field to text with the new attribute value and \"translated\" class", ->
             @view.$("#{@type}[name='#{@attr}']").val("abcdefg")
             @$editButton.trigger('click')
             @server.respond()
 
             @$editableField = @view.$("span[data-attribute='#{@attr}']")
             expect(@$editableField).toHaveText("abcdefg")
+            expect(@$editableField).toHaveClass("translated")
 
     describe "title", ->
       sharedContext =
