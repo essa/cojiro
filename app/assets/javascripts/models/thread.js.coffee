@@ -35,7 +35,10 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
 
   validate: (attrs) ->
     errors = []
-    if (attrs.title == "") then errors.push "cannot have an empty title"
+    if (attrs.title is "") and (attrs.source_locale is I18n.locale)
+      errors.push "cannot have an empty title in the source locale"
+    if (attrs.source_locale is "")
+      errors.push "cannot have an empty source locale"
     return errors unless errors.length is 0
 
   toDateStr: (datetime) ->
