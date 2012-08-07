@@ -216,7 +216,7 @@ describe 'App.Thread', ->
           I18n.locale = 'en'
           @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
           expect(@spy).toHaveBeenCalledOnce()
-          expect(@spy).toHaveBeenCalledWith(@thread,['cannot have an empty title in the source locale'])
+          expect(@spy).toHaveBeenCalledWith(@thread,{'title':'cannot have an empty title in the source locale'})
 
         it 'does save if title is blank and we are not in the source locale', ->
           I18n.locale = 'ja'
@@ -229,7 +229,9 @@ describe 'App.Thread', ->
 
         it 'does not save if the source locale is blank', ->
           @thread.save(_(@data).extend('source_locale': ""))
-          expect(@spy).toHaveBeenCalled()
+          expect(@spy).toHaveBeenCalledOnce()
+          expect(@spy).toHaveBeenCalledWith(@thread,{'source_locale':'cannot have an empty source locale'})
+
 
     describe 'parsing response data', ->
       beforeEach ->
