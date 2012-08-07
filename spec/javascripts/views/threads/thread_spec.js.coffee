@@ -40,7 +40,7 @@ describe "App.ThreadView", ->
         beforeEach ->
           @attr = context.attr
           @type = context.type || 'input'
-          @thread = new App.Thread(_(@fixtures.Thread.valid).extend(id: "123"))
+          @thread = new App.Thread(_(context.thread || @fixtures.Thread.valid).extend(id: "123"))
           @collection =
             url: '/en/threads'
             add: ->
@@ -180,13 +180,17 @@ describe "App.ThreadView", ->
           afterEach ->
             @server.restore()
 
-          it "changes the save button back to an edit button", ->
+          it "changes the save button back to an edit button if field has content, and to an add button otherwise", ->
             @$editButton.trigger('click')
             @server.respond()
 
+            @$editButton = @view.$("span[data-attribute='#{@attr}'] ~ button.edit-button")
             expect(@$editButton).toHaveClass('edit-button')
             expect(@$editButton).not.toHaveClass('save-button')
-            expect(@$editButton).toHaveText('Edit')
+            if @thread.get(@attr)
+              expect(@$editButton).toHaveText('Edit')
+            else
+              expect(@$editButton).toHaveText('Add English')
 
           it "changes the input field to text with the new attribute value", ->
             @view.$("#{@type}[name='#{@attr}']").val("abcdefg")
@@ -200,10 +204,26 @@ describe "App.ThreadView", ->
       sharedContext =
         attr: 'title'
         type: 'input'
-      sharedExamplesForEditableFields(sharedContext)
+
+      describe "for a thread in my locale", ->
+        sharedExamplesForEditableFields(sharedContext)
+
+      describe "for a thread in another locale", ->
+        beforeEach ->
+          sharedContext.thread = @fixtures.Thread.valid_in_ja
+
+        sharedExamplesForEditableFields(sharedContext)
 
     describe "summary", ->
       sharedContext =
         attr: 'summary'
         type: 'textarea'
-      sharedExamplesForEditableFields(sharedContext)
+
+      describe "for a thread in my locale", ->
+        sharedExamplesForEditableFields(sharedContext)
+
+      describe "for a thread in another locale", ->
+        beforeEach ->
+          sharedContext.thread = @fixtures.Thread.valid_in_ja
+
+        sharedExamplesForEditableFields(sharedContext)

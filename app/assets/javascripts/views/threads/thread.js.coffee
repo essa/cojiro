@@ -52,7 +52,8 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
   convertToEditButton: ($el) ->
     $el.addClass('edit-button')
     $el.removeClass('save-button')
-    $el.html(I18n.t('views.threads.thread.edit'))
+    attr = @getAttributeName(@findEditableField($el))
+    $el.replaceWith(JST['shared/_edit_add_button'](text: @model.get(attr)))
 
   findEditableField: ($el) -> $el.prev()
   getAttributeName: ($el) -> $el.attr('data-attribute')
