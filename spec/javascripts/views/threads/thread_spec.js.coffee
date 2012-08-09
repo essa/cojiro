@@ -35,9 +35,16 @@ describe "App.ThreadView", ->
   describe "editable fields", ->
 
     sharedExamplesForEditableFields = (context) ->
+
+      # selectors for editable field elements
       fieldSelector = (attr) -> "span[data-attribute='#{attr}']"
       editButtonSelector = (attr) -> fieldSelector(attr) + ' ~ button.edit-button'
       formSelector = (attr) -> fieldSelector(attr) + ' form'
+
+      # for finding editable field elements in the view
+      findField = (view, attr) -> view.$(fieldSelector(attr))
+      findEditButton = (view, attr) -> view.$(editButtonSelector(attr))
+      findForm = (view, attr) -> view.$(formSelector(attr))
 
       describe "shared behaviour for editable fields", ->
         beforeEach ->
@@ -54,7 +61,7 @@ describe "App.ThreadView", ->
             @showEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'showEditableField')
             @view = new App.ThreadView(model: @thread)
             @view.render()
-            @$editButton = @view.$(editButtonSelector(@attr))
+            @$editButton = findEditButton(@view, @attr)
 
           afterEach ->
             App.ThreadView.prototype.showEditableField.restore()
@@ -110,7 +117,7 @@ describe "App.ThreadView", ->
             @saveEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'saveEditableField')
             @view = new App.ThreadView(model: @thread)
             @view.render()
-            @$editButton = @view.$(editButtonSelector(@attr))
+            @$editButton = findEditButton(@view, @attr)
             @$editButton.trigger('click')
             sinon.stub(@thread, 'save').returns(null)
 
@@ -142,10 +149,10 @@ describe "App.ThreadView", ->
             @submitEditableFieldFormSpy = sinon.spy(App.ThreadView.prototype, 'submitEditableFieldForm')
             @view = new App.ThreadView(model: @thread)
             @view.render()
-            @$editButton = @view.$(editButtonSelector(@attr))
+            @$editButton = findEditButton(@view, @attr)
             @$editButton.trigger('click')
             sinon.stub(@thread, 'save').returns(null)
-            @$form = @view.$(formSelector(@attr))
+            @$form = findForm(@view, @attr)
 
           afterEach ->
             App.ThreadView.prototype.submitEditableFieldForm.restore()
@@ -171,8 +178,8 @@ describe "App.ThreadView", ->
           beforeEach ->
             @view = new App.ThreadView(model: @thread)
             @view.render()
-            @$editButton = @view.$(editButtonSelector(@attr))
-            @originalText = @view.$(fieldSelector(@attr)).text()
+            @$editButton = findEditButton(@view, @attr)
+            @originalText = findField(@view, @attr).text()
             @$editButton.trigger('click')
             @server = sinon.fakeServer.create()
             @server.respondWith(
@@ -188,7 +195,7 @@ describe "App.ThreadView", ->
             @$editButton.trigger('click')
             @server.respond()
 
-            @$editButton = @view.$(editButtonSelector(@attr))
+            @$editButton = findEditButton(@view, @attr)
             expect(@$editButton).toHaveClass('edit-button')
             expect(@$editButton).not.toHaveClass('save-button')
             if @thread.get(@attr)
@@ -201,7 +208,7 @@ describe "App.ThreadView", ->
             @$editButton.trigger('click')
             @server.respond()
 
-            @$editableField = @view.$(fieldSelector(@attr))
+            @$editableField = findField(@view, @attr)
             expect(@$editableField).toHaveText("abcdefg")
             expect(@$editableField).toHaveClass("translated")
 
@@ -209,7 +216,7 @@ describe "App.ThreadView", ->
             @$editButton.trigger('click')
             @server.respond()
 
-            @$editableField = @view.$(fieldSelector(@attr))
+            @$editableField = findField(@view, @attr)
             expect(@$editableField).toHaveText(@originalText)
             expect(@$editableField).not.toContain('form')
 
