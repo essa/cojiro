@@ -78,7 +78,7 @@ describe "App.ThreadView", ->
             expect(@$editButton).not.toHaveClass('edit-button')
             expect(@$editButton).toHaveText('Save')
 
-          it "uses exiting form if @forms[\"#{context.attr}\"] already exists", ->
+          it "uses existing form if @forms[\"#{context.attr}\"] already exists", ->
             form =
               render: -> @
             @view.forms = {}
