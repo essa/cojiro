@@ -19,7 +19,7 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
   showEditableField: (e) ->
     $button = $(e.currentTarget)
     @convertToSaveButton($button)
-    $editableField = @findEditableField($button)
+    $editableField = @findEditableFieldFromButton($button)
     attr = @getAttributeName($editableField)
     @forms ||= {}
     form = (@forms[attr] ||= @createFormFor(attr))
@@ -29,12 +29,12 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
   submitEditableFieldForm: (e) ->
     e.preventDefault()
     $form = $(e.currentTarget)
-    $button = $form.closest('span').next()
+    $button = @findButtonFromForm($form)
     $button.trigger('click')
 
   saveEditableField: (e) ->
     $button = $(e.currentTarget)
-    $editableField = @findEditableField($button)
+    $editableField = @findEditableFieldFromButton($button)
     attr = @getAttributeName($editableField)
     @forms[attr].commit()
     self = @
@@ -52,9 +52,10 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
   convertToEditButton: ($el) ->
     $el.addClass('edit-button')
     $el.removeClass('save-button')
-    attr = @getAttributeName(@findEditableField($el))
+    attr = @getAttributeName(@findEditableFieldFromButton($el))
     $el.replaceWith(JST['shared/_edit_add_button'](text: @model.get(attr)))
 
-  findEditableField: ($el) -> $el.prev()
+  findEditableFieldFromButton: ($el) -> $el.prev()
+  findButtonFromForm: ($el) -> $el.closest('span').next()
   getAttributeName: ($el) -> $el.attr('data-attribute')
   createFormFor: (attr) -> new Backbone.CompositeForm(model: @model, fields: [attr], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField')
