@@ -89,7 +89,6 @@ describe "App.ThreadView", ->
 
             expect(Backbone.Form).not.toHaveBeenCalled()
             expect(form.render).toHaveBeenCalled()
-            expect(form.render).toHaveBeenCalled()
             expect(form.render).toHaveBeenCalledWithExactly()
 
             Backbone.Form.restore()
