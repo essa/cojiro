@@ -179,7 +179,8 @@ describe "App.ThreadView", ->
             @view = new App.ThreadView(model: @thread)
             @view.render()
             @$editButton = findEditButton(@view, @attr)
-            @originalText = findField(@view, @attr).text()
+            @originalButtonText = @$editButton.text().trim()
+            @originalFieldText = findField(@view, @attr).text().trim()
             @$editButton.trigger('click')
             @server = sinon.fakeServer.create()
             @server.respondWith(
@@ -191,17 +192,14 @@ describe "App.ThreadView", ->
           afterEach ->
             @server.restore()
 
-          it "changes the save button back to an edit button if field has content, and to an add button otherwise", ->
+          it "changes the button text back to its original value (\"Edit\" or \"Add Engish\")", ->
             @$editButton.trigger('click')
             @server.respond()
 
             @$editButton = findEditButton(@view, @attr)
             expect(@$editButton).toHaveClass('edit-button')
             expect(@$editButton).not.toHaveClass('save-button')
-            if @thread.get(@attr)
-              expect(@$editButton).toHaveText('Edit')
-            else
-              expect(@$editButton).toHaveText('Add English')
+            expect(@$editButton).toHaveText(@originalButtonText)
 
           it "if value is changed, replaces form with text with new attribute value and \"translated\" class", ->
             @view.$("#{@type}[name='#{@attr}']").val("abcdefg")
@@ -217,7 +215,7 @@ describe "App.ThreadView", ->
             @server.respond()
 
             @$editableField = findField(@view, @attr)
-            expect(@$editableField).toHaveText(@originalText)
+            expect(@$editableField).toHaveText(@originalFieldText)
             expect(@$editableField).not.toContain('form')
 
     describe "title", ->
