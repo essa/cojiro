@@ -169,6 +169,7 @@ describe "App.ThreadView", ->
             @view = new App.ThreadView(model: @thread)
             @view.render()
             @$editButton = @view.$("span[data-attribute='#{@attr}'] ~ button.edit-button")
+            @originalText = @view.$("span[data-attribute='#{@attr}']").text()
             @$editButton.trigger('click')
             @server = sinon.fakeServer.create()
             @server.respondWith(
@@ -192,7 +193,7 @@ describe "App.ThreadView", ->
             else
               expect(@$editButton).toHaveText('Add English')
 
-          it "changes the input field to text with the new attribute value and \"translated\" class", ->
+          it "if value is changed, replaces form with text with new attribute value and \"translated\" class", ->
             @view.$("#{@type}[name='#{@attr}']").val("abcdefg")
             @$editButton.trigger('click')
             @server.respond()
@@ -200,6 +201,14 @@ describe "App.ThreadView", ->
             @$editableField = @view.$("span[data-attribute='#{@attr}']")
             expect(@$editableField).toHaveText("abcdefg")
             expect(@$editableField).toHaveClass("translated")
+
+          it "if value is unchanged, replaces form with original text", ->
+            @$editButton.trigger('click')
+            @server.respond()
+
+            @$editableField = @view.$("span[data-attribute='#{@attr}']")
+            expect(@$editableField).toHaveText(@originalText)
+            expect(@$editableField).not.toContain('form')
 
     describe "title", ->
       sharedContext =
