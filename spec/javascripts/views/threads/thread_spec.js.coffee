@@ -51,20 +51,22 @@ describe "App.ThreadView", ->
           @attr = context.attr
           @type = context.type || 'input'
           @thread = new App.Thread(_(context.thread || @fixtures.Thread.valid).extend(id: "123"))
-          @collection =
+          @thread.collection =
             url: '/en/threads'
             add: ->
-          @thread.collection = @collection
+          @showEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'showEditableField')
+          @submitEditableFieldFormSpy = sinon.spy(App.ThreadView.prototype, 'submitEditableFieldForm')
+          @saveEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'saveEditableField')
+          @view = new App.ThreadView(model: @thread)
+          @view.render()
+          @$editButton = findEditButton(@view, @attr)
+
+        afterEach ->
+          App.ThreadView.prototype.showEditableField.restore()
+          App.ThreadView.prototype.submitEditableFieldForm.restore()
+          App.ThreadView.prototype.saveEditableField.restore()
 
         describe "when edit button handler is fired", ->
-          beforeEach ->
-            @showEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'showEditableField')
-            @view = new App.ThreadView(model: @thread)
-            @view.render()
-            @$editButton = findEditButton(@view, @attr)
-
-          afterEach ->
-            App.ThreadView.prototype.showEditableField.restore()
 
           it 'calls showEditableField', ->
             @$editButton.trigger('click')
@@ -114,15 +116,10 @@ describe "App.ThreadView", ->
 
         describe "when save button is fired", ->
           beforeEach ->
-            @saveEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'saveEditableField')
-            @view = new App.ThreadView(model: @thread)
-            @view.render()
-            @$editButton = findEditButton(@view, @attr)
             @$editButton.trigger('click')
             sinon.stub(@thread, 'save').returns(null)
 
           afterEach ->
-            App.ThreadView.prototype.saveEditableField.restore()
             @thread.save.restore()
 
           it 'calls saveEditableField', ->
@@ -146,16 +143,11 @@ describe "App.ThreadView", ->
 
         describe "when editable field is submitted (e.g. by hitting enter while in form field)", ->
           beforeEach ->
-            @submitEditableFieldFormSpy = sinon.spy(App.ThreadView.prototype, 'submitEditableFieldForm')
-            @view = new App.ThreadView(model: @thread)
-            @view.render()
-            @$editButton = findEditButton(@view, @attr)
             @$editButton.trigger('click')
             sinon.stub(@thread, 'save').returns(null)
             @$form = findForm(@view, @attr)
 
           afterEach ->
-            App.ThreadView.prototype.submitEditableFieldForm.restore()
             @thread.save.restore()
 
           it 'calls submitEditableFieldForm', ->
@@ -176,9 +168,6 @@ describe "App.ThreadView", ->
 
         describe "after a successful save", ->
           beforeEach ->
-            @view = new App.ThreadView(model: @thread)
-            @view.render()
-            @$editButton = findEditButton(@view, @attr)
             @originalButtonText = @$editButton.text().trim()
             @originalFieldText = findField(@view, @attr).text().trim()
             @$editButton.trigger('click')
