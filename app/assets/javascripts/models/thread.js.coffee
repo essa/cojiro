@@ -34,9 +34,14 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
   getUserAvatarMiniUrl: -> @get('user').avatar_mini_url
 
   validate: (attrs) ->
-    errors = []
-    if (attrs.title == "") then errors.push "cannot have an empty title"
-    return errors unless errors.length is 0
+    errors = {}
+
+    if (attrs.title is "") and (attrs.source_locale is I18n.locale)
+      errors.title = "cannot have an empty title in the source locale"
+    if (attrs.source_locale is "")
+      errors.source_locale = "cannot have an empty source locale"
+
+    if !_.isEmpty(errors) then return errors
 
   toDateStr: (datetime) ->
     I18n.l("date.formats.long", datetime) unless datetime is undefined

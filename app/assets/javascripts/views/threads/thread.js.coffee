@@ -41,7 +41,7 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     @model.save({},
       success: (model, resp) ->
         self.convertToEditButton($button)
-        $editableField.replaceWith(JST['shared/_translatable_attribute'](model: self.model, attr_name: attr))
+        $editableField.replaceWith(JST['shared/_translatable_attribute'](model: model, attr_name: attr))
     )
 
   convertToSaveButton: ($el) ->
@@ -52,7 +52,8 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
   convertToEditButton: ($el) ->
     $el.addClass('edit-button')
     $el.removeClass('save-button')
-    $el.html(I18n.t('views.threads.thread.edit'))
+    attr = @getAttributeName(@findEditableField($el))
+    $el.replaceWith(JST['shared/_edit_add_button'](text: @model.get(attr)))
 
   findEditableField: ($el) -> $el.prev()
   getAttributeName: ($el) -> $el.attr('data-attribute')

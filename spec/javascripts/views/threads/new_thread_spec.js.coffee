@@ -82,10 +82,10 @@ describe "App.NewThreadView", ->
 
     it "saves the model", ->
       sinon.stub(@view.form, 'commit').returns(null)
-      spy = sinon.spy(@model, 'save')
+      sinon.stub(@model, 'save')
       @view.$('form').trigger('submit')
 
-      expect(spy).toHaveBeenCalledOnce()
+      expect(@model.save).toHaveBeenCalledOnce()
 
       @view.form.commit.restore()
 

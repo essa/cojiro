@@ -212,14 +212,26 @@ describe 'App.Thread', ->
         afterEach ->
           @thread.unbind('error', @spy)
 
-        it 'does not save if title is blank', ->
-          @thread.save(_(@data).extend('title':''))
+        it 'does not save if title is blank and we are in the source locale', ->
+          I18n.locale = 'en'
+          @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
           expect(@spy).toHaveBeenCalledOnce()
-          expect(@spy).toHaveBeenCalledWith(@thread,['cannot have an empty title'])
+          expect(@spy).toHaveBeenCalledWith(@thread,{'title':'cannot have an empty title in the source locale'})
+
+        it 'does save if title is blank and we are not in the source locale', ->
+          I18n.locale = 'ja'
+          @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
+          expect(@spy).not.toHaveBeenCalled()
 
         it 'does save if title is null (not included)', ->
           @thread.save(_(@data).extend('title': null))
           expect(@spy).not.toHaveBeenCalled()
+
+        it 'does not save if the source locale is blank', ->
+          @thread.save(_(@data).extend('source_locale': ""))
+          expect(@spy).toHaveBeenCalledOnce()
+          expect(@spy).toHaveBeenCalledWith(@thread,{'source_locale':'cannot have an empty source locale'})
+
 
     describe 'parsing response data', ->
       beforeEach ->
