@@ -30,7 +30,7 @@ ja:
         thread_created: "スレッドは作成されました。"
       thread:
         save: 保存する
-        edit: 編集する
+        cancel: キャンセル
 
   attributes:
     thread:

@@ -5,6 +5,7 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     "click button.edit-button": "showEditableField"
     "click button.save-button": "saveEditableField"
     "submit form.in-place-form": "submitEditableFieldForm"
+    "click button.cancel-button": "revertEditableField"
 
   initialize: ->
     _.bindAll @
@@ -19,6 +20,7 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
   showEditableField: (e) ->
     $button = $(e.currentTarget)
     @convertToSaveButton($button)
+    @insertCancelButtonAfter($button)
     $editableField = @findEditableFieldFromButton($button)
     attr = @getAttributeName($editableField)
     @forms ||= {}
@@ -40,14 +42,27 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     self = @
     @model.save({},
       success: (model, resp) ->
+        self.removeCancelButtonAfter($button)
         self.convertToEditButton($button)
         $editableField.replaceWith(JST['shared/_translatable_attribute'](model: model, attr_name: attr))
     )
+
+  revertEditableField: (e) ->
+    $button = $(e.currentTarget)
+    $editableField = $button.prev().prev()
+    $editButton = $button.prev()
+    attr = @getAttributeName($editableField)
+    $button.remove()
+    @convertToEditButton($editButton)
+    $editableField.replaceWith(JST['shared/_translatable_attribute'](model: @model, attr_name: attr))
 
   convertToSaveButton: ($el) ->
     $el.addClass('save-button')
     $el.removeClass('edit-button')
     $el.html(I18n.t('views.threads.thread.save'))
+
+  insertCancelButtonAfter: ($el) -> $el.after("<button class='cancel-button btn btn-mini'>#{I18n.t('views.threads.thread.cancel')}</button>")
+  removeCancelButtonAfter: ($el) -> $el.next().remove()
 
   convertToEditButton: ($el) ->
     $el.addClass('edit-button')

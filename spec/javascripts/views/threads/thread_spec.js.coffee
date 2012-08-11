@@ -38,12 +38,15 @@ describe "App.ThreadView", ->
 
       # selectors for editable field elements
       fieldSelector = (attr) -> "span[data-attribute='#{attr}']"
-      editButtonSelector = (attr) -> fieldSelector(attr) + ' ~ button.edit-button'
+      editButtonSelector = (attr) -> fieldSelector(attr) + " ~ button.edit-button"
+      saveButtonSelector = (attr) -> fieldSelector(attr) + " ~ button.save-button"
+      cancelButtonSelector = (attr) -> fieldSelector(attr) + ' ~ button ~ button.cancel-button'
       formSelector = (attr) -> fieldSelector(attr) + ' form'
 
       # for finding editable field elements in the view
       findField = (view, attr) -> view.$(fieldSelector(attr))
       findEditButton = (view, attr) -> view.$(editButtonSelector(attr))
+      findCancelButton = (view, attr) -> view.$(cancelButtonSelector(attr))
       findForm = (view, attr) -> view.$(formSelector(attr))
 
       describe "shared behaviour for editable fields", ->
@@ -57,6 +60,7 @@ describe "App.ThreadView", ->
           @showEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'showEditableField')
           @submitEditableFieldFormSpy = sinon.spy(App.ThreadView.prototype, 'submitEditableFieldForm')
           @saveEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'saveEditableField')
+          @revertEditableFieldSpy = sinon.spy(App.ThreadView.prototype, 'revertEditableField')
           @view = new App.ThreadView(model: @thread)
           @view.render()
           @$editButton = findEditButton(@view, @attr)
@@ -65,6 +69,7 @@ describe "App.ThreadView", ->
           App.ThreadView.prototype.showEditableField.restore()
           App.ThreadView.prototype.submitEditableFieldForm.restore()
           App.ThreadView.prototype.saveEditableField.restore()
+          App.ThreadView.prototype.revertEditableField.restore()
 
         describe "when edit button handler is fired", ->
 
@@ -77,6 +82,13 @@ describe "App.ThreadView", ->
             expect(@$editButton).toHaveClass('save-button')
             expect(@$editButton).not.toHaveClass('edit-button')
             expect(@$editButton).toHaveText('Save')
+
+          it 'inserts a cancel button after the save button', ->
+            @$editButton.trigger('click')
+            $cancelButton = findCancelButton(@view, @attr)
+            expect($cancelButton).toBe('button')
+            expect($cancelButton).toHaveClass('cancel-button')
+            expect($cancelButton).toHaveText('Cancel')
 
           it "uses existing form if @forms[\"#{context.attr}\"] already exists", ->
             form =
@@ -165,6 +177,30 @@ describe "App.ThreadView", ->
             expect('click').toHaveBeenTriggeredOn(@$editButton)
             expect(spyEvent).toHaveBeenTriggered()
 
+        describe "when cancel button is fired", ->
+          beforeEach ->
+            @originalFieldText = findField(@view, @attr).text().trim()
+            @$editButton.trigger('click')
+            @$cancelButton = findCancelButton(@view, @attr)
+
+          it 'calls revertEditableField', ->
+            @$cancelButton.trigger('click')
+            expect(@revertEditableFieldSpy).toHaveBeenCalledOnce()
+
+          it 'removes save and cancel buttons', ->
+            @$cancelButton.trigger('click')
+
+            expect(@view.$('button.cancel-button').length).toEqual(0)
+            expect(@view.$('button.save-button').length).toEqual(0)
+
+          it 'replaces form with original text', ->
+            @view.$("#{@type}[name='#{@attr}']").val("abcdefg")
+            @$cancelButton.trigger('click')
+
+            @$editableField = findField(@view, @attr)
+            expect(@$editableField).not.toContain('form')
+            expect(@$editableField).toHaveText(@originalFieldText)
+
         describe "after a successful save", ->
           beforeEach ->
             @originalButtonText = @$editButton.text().trim()
@@ -188,6 +224,13 @@ describe "App.ThreadView", ->
             expect(@$editButton).toHaveClass('edit-button')
             expect(@$editButton).not.toHaveClass('save-button')
             expect(@$editButton).toHaveText(@originalButtonText)
+
+          it "removes the cancel button", ->
+            $cancelButton = findCancelButton(@view, @attr)
+            @$editButton.trigger('click')
+            @server.respond()
+
+            expect($('button.cancel-button').length).toEqual(0)
 
           it "if value is changed, replaces form with text with new attribute value and \"translated\" class", ->
             @view.$("#{@type}[name='#{@attr}']").val("abcdefg")
