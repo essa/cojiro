@@ -1,4 +1,4 @@
 -if (current = @model.get(@attr_name))
-  %span.translated{ 'data-attribute': @attr_name }=current
+  %span.editable-field.translated=current
 -else
-  %span.untranslated{ 'data-attribute': @attr_name }=@model.getAttrInSourceLocale(@attr_name)
+  %span.editable-field.untranslated=@model.getAttrInSourceLocale(@attr_name)

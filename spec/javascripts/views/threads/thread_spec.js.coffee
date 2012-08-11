@@ -37,13 +37,15 @@ describe "App.ThreadView", ->
     sharedExamplesForEditableFields = (context) ->
 
       # selectors for editable field elements
-      fieldSelector = (attr) -> "span[data-attribute='#{attr}']"
-      editButtonSelector = (attr) -> fieldSelector(attr) + " ~ button.edit-button"
-      saveButtonSelector = (attr) -> fieldSelector(attr) + " ~ button.save-button"
-      cancelButtonSelector = (attr) -> fieldSelector(attr) + ' ~ button ~ button.cancel-button'
+      parentSelector = (attr) -> "div.editable-field-parent[data-attribute='#{attr}']"
+      fieldSelector = (attr) -> parentSelector(attr) + " span"
+      editButtonSelector = (attr) -> parentSelector(attr) + " button.edit-button"
+      saveButtonSelector = (attr) -> parentSelector(attr) + " button.save-button"
+      cancelButtonSelector = (attr) -> parentSelector(attr) + ' button ~ button.cancel-button'
       formSelector = (attr) -> fieldSelector(attr) + ' form'
 
       # for finding editable field elements in the view
+      findParent = (view, attr) -> view.$(parentSelector(attr))
       findField = (view, attr) -> view.$(fieldSelector(attr))
       findEditButton = (view, attr) -> view.$(editButtonSelector(attr))
       findCancelButton = (view, attr) -> view.$(cancelButtonSelector(attr))

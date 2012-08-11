@@ -147,4 +147,12 @@ form.in-place-form, fieldset.in-place-form {
   margin: 0;
 }
 
+div.editable-field {
+  display: inline;
+}
+
+button.cancel-button {
+  margin-left: 5px;
+}
+
 @import "bootstrap";

@@ -21,56 +21,50 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     $button = $(e.currentTarget)
     @convertToSaveButton($button)
     @insertCancelButtonAfter($button)
-    $editableField = @findEditableFieldFromButton($button)
-    attr = @getAttributeName($editableField)
-    @forms ||= {}
-    form = (@forms[attr] ||= @createFormFor(attr))
-    @renderChild(form)
-    $editableField.html(form.el)
+    $parent = @findParent($button)
+    attr = @getAttributeName($parent)
+    form = @createAndRenderFormFor(attr)
+    @insertFormIntoEditableField($parent, form)
 
   submitEditableFieldForm: (e) ->
     e.preventDefault()
     $form = $(e.currentTarget)
-    $button = @findButtonFromForm($form)
+    $button = @findSaveButton($form)
     $button.trigger('click')
 
   saveEditableField: (e) ->
     $button = $(e.currentTarget)
-    $editableField = @findEditableFieldFromButton($button)
-    attr = @getAttributeName($editableField)
+    $parent = @findParent($button)
+    attr = @getAttributeName($parent)
     @forms[attr].commit()
     self = @
     @model.save({},
       success: (model, resp) ->
-        self.removeCancelButtonAfter($button)
-        self.convertToEditButton($button)
-        $editableField.replaceWith(JST['shared/_translatable_attribute'](model: model, attr_name: attr))
+        $parent.replaceWith(JST['shared/_editable_field'](model: model, attr_name: attr))
     )
 
   revertEditableField: (e) ->
     $button = $(e.currentTarget)
-    $editableField = $button.prev().prev()
-    $editButton = $button.prev()
-    attr = @getAttributeName($editableField)
-    $button.remove()
-    @convertToEditButton($editButton)
-    $editableField.replaceWith(JST['shared/_translatable_attribute'](model: @model, attr_name: attr))
+    $parent = @findParent($button)
+    attr = @getAttributeName($parent)
+    $parent.replaceWith(JST['shared/_editable_field'](model: @model, attr_name: attr))
 
   convertToSaveButton: ($el) ->
     $el.addClass('save-button')
     $el.removeClass('edit-button')
     $el.html(I18n.t('views.threads.thread.save'))
 
+  insertFormIntoEditableField: ($el, form) -> @findEditableField($el).html(form.el)
   insertCancelButtonAfter: ($el) -> $el.after("<button class='cancel-button btn btn-mini'>#{I18n.t('views.threads.thread.cancel')}</button>")
   removeCancelButtonAfter: ($el) -> $el.next().remove()
-
-  convertToEditButton: ($el) ->
-    $el.addClass('edit-button')
-    $el.removeClass('save-button')
-    attr = @getAttributeName(@findEditableFieldFromButton($el))
-    $el.replaceWith(JST['shared/_edit_add_button'](text: @model.get(attr)))
-
-  findEditableFieldFromButton: ($el) -> $el.prev()
-  findButtonFromForm: ($el) -> $el.closest('span').next()
+  findParent: ($el) -> $el.closest('.editable-field-parent')
+  findEditableField: ($el) -> @findParent($el).find('span.editable-field')
+  findSaveButton: ($el) -> @findParent($el).find('button.save-button')
   getAttributeName: ($el) -> $el.attr('data-attribute')
   createFormFor: (attr) -> new Backbone.CompositeForm(model: @model, fields: [attr], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField')
+  createAndRenderFormFor: (attr) ->
+    @forms ||= {}
+    form = (@forms[attr] ||= @createFormFor(attr))
+    @renderChild(form)
+    return form
+  renderEditableField: ($el, attr) -> @findParent($el).replaceWith(JST['shared/_editable_field'](model: @model, attr_name: attr))

@@ -33,12 +33,12 @@ end
 
 Then /^I should see the translated text "([^"]*)" in the (thread|threads list)$/ do |text, class_tag|
   within(:css, "##{class_tag.gsub(/ /,'_')}") do
-    page.should have_xpath('//span[./@class = "translated"]', :text => text)
+    page.should have_xpath('//span[contains(@class,"translated")]', :text => text)
   end
 end
 
 Then /^I should see the untranslated text "([^"]*)" in the (thread|threads list)$/ do |text, class_tag|
   within(:css, "##{class_tag.gsub(/ /,'_')}") do
-    page.should have_xpath('//span[./@class = "untranslated"]', :text => text)
+    page.should have_xpath('//span[contains(@class,"untranslated")]', :text => text)
   end
 end
