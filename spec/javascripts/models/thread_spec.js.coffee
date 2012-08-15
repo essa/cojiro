@@ -12,13 +12,18 @@ describe 'App.Thread', ->
     expect(thread).not.toBeNull()
 
   describe 'new instance default values', ->
-    beforeEach -> @thread = new App.Thread()
+    beforeEach ->
+      I18n.locale = 'ja'
+      @thread = new App.Thread()
 
     it 'has default value for the .title attribute', ->
       expect(@thread.get('title')).toEqual('')
 
     it 'has default value for the .summary attribute', ->
       expect(@thread.get('summary')).toEqual('')
+
+    it 'has default value for the .source_locale attribute', ->
+      expect(@thread.get('source_locale')).toEqual('ja')
 
   describe 'getters', ->
     beforeEach ->
@@ -32,6 +37,10 @@ describe 'App.Thread', ->
           'title': 'title'
           'summary': 'summary'
           'source_locale': 'source_locale'
+          'created_at': "2010-07-20T12:20:00Z"
+          'updated_at': "2010-07-20T12:20:00Z"
+          'user':
+            'name': 'csasaki'
         )
 
       it 'wraps JSON in thread object', ->
@@ -39,6 +48,11 @@ describe 'App.Thread', ->
         expect(@thread.toJSON().thread.title).toEqual('title')
         expect(@thread.toJSON().thread.summary).toEqual('summary')
         expect(@thread.toJSON().thread.source_locale).toEqual('source_locale')
+
+      it 'does not include protected attributes', ->
+        expect(@thread.toJSON().thread.user).not.toBeDefined()
+        expect(@thread.toJSON().thread.created_at).not.toBeDefined()
+        expect(@thread.toJSON().thread.updated_at).not.toBeDefined()
 
     describe '#getId', ->
       it 'is defined', -> expect(@thread.getId).toBeDefined()
@@ -203,10 +217,34 @@ describe 'App.Thread', ->
         afterEach ->
           @thread.unbind('error', @spy)
 
-        it 'does not save if title is blank', ->
-          @thread.save(_(@data).extend('title':''))
+        it 'does not save if title is blank and we are in the source locale', ->
+          I18n.locale = 'en'
+          @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
           expect(@spy).toHaveBeenCalledOnce()
-          expect(@spy).toHaveBeenCalledWith(@thread,['cannot have an empty title'])
+          expect(@spy).toHaveBeenCalledWith(@thread,{'title':"can't be blank"})
+
+        it 'does not save if title is blank and the source locale is missing', ->
+          @thread.save(_(@data).extend('title':'', 'source_locale': null))
+          expect(@spy).toHaveBeenCalledOnce()
+          expect(@spy).toHaveBeenCalledWith(@thread,{'title':"can't be blank"})
+
+        it 'does save if title is blank and we are not in the source locale', ->
+          I18n.locale = 'ja'
+          @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
+          expect(@spy).not.toHaveBeenCalled()
+
+        it 'does save if title is null (not included)', ->
+          @thread.save(_(@data).extend('title': null))
+          expect(@spy).not.toHaveBeenCalled()
+
+        it 'does not save if the source locale is null or blank', ->
+          @thread.save(_(@data).extend('source_locale': ""))
+          expect(@spy).toHaveBeenCalledOnce()
+          expect(@spy).toHaveBeenCalledWith(@thread,{'source_locale':"can't be blank"})
+
+          @thread.save(_(@data).extend('source_locale': null))
+          expect(@spy).toHaveBeenCalledOnce()
+          expect(@spy).toHaveBeenCalledWith(@thread,{'source_locale':"can't be blank"})
 
     describe 'parsing response data', ->
       beforeEach ->

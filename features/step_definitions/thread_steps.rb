@@ -38,3 +38,13 @@ end
 Then /^I should see the new thread page$/ do
   page.should have_css("form", :id => "new_cothread")
 end
+
+Then /^the title of the thread should be "([^"]*)"$/ do |val|
+  @cothread.reload
+  @cothread.title.should == val
+end
+
+Then /^the summary of the thread should be "([^"]*)"$/ do |val|
+  @cothread.reload
+  @cothread.summary.should == val
+end

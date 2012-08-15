@@ -28,6 +28,9 @@ ja:
     threads:
       new_thread:
         thread_created: "スレッドは作成されました。"
+      thread:
+        save: 保存する
+        cancel: キャンセル
 
   attributes:
     thread:

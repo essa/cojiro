@@ -21,13 +21,16 @@ en:
         neta: neta
         created: created
         comments_in: "%{lang} comments"
-        edit: edit
-        add_in: add %{lang}
+        edit: Edit
+        add_in: Add %{lang}
 
   views:
     threads:
       new_thread:
         thread_created: "Thread successfully created."
+      thread:
+        save: Save
+        cancel: Cancel
 
   attributes:
     thread:

@@ -23,6 +23,11 @@ class CothreadsController < ApplicationController
     respond_with(@cothread)
   end
 
+  def update
+    @cothread.update_attributes(params[:thread])
+    respond_with(@cothread)
+  end
+
   private
 
   def find_cothread

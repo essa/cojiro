@@ -1,21 +1,24 @@
 App.Thread = App.Models.Thread = Backbone.Model.extend
-  defaults:
+  defaults: ->
     title: ''
     summary: ''
+    source_locale: I18n.locale
 
   schema: ->
     title:
       title: _(I18n.t("attributes.thread.title")).capitalize()
       type: 'Text'
-      validators: [
-        type: 'required',
-        message: I18n.t("errors.messages.blank")
-      ]
     summary:
       type: 'TextArea'
       title: _(I18n.t("attributes.thread.summary")).capitalize()
 
-  toJSON: -> thread: @attributes
+  # http://stackoverflow.com/questions/5306089/only-update-certain-model-attributes-using-backbone-js
+  toJSON: () ->
+    thread:
+      title: @get('title')
+      summary: @get('summary')
+      source_locale: @get('source_locale')
+
   getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")
   getId: -> @id
   getTitle: -> @get('title')
@@ -28,9 +31,14 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
   getUserAvatarMiniUrl: -> @get('user').avatar_mini_url
 
   validate: (attrs) ->
-    errors = []
-    if (!attrs.title) then errors.push "cannot have an empty title"
-    return errors unless errors.length is 0
+    errors = {}
+
+    if (attrs.title is "") and (!attrs.source_locale? or attrs.source_locale is I18n.locale)
+      errors.title = I18n.t('errors.messages.blank')
+    if (attrs.source_locale is "")
+      errors.source_locale = I18n.t('errors.messages.blank')
+
+    if !_.isEmpty(errors) then return errors
 
   toDateStr: (datetime) ->
     I18n.l("date.formats.long", datetime) unless datetime is undefined

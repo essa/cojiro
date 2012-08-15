@@ -39,7 +39,7 @@ describe "App.NewThreadView", ->
   describe "rendering", ->
     beforeEach ->
       @form =
-        render: () -> {}
+        render: -> {}
         el: "<form></form>"
       sinon.stub(Backbone, 'Form').returns(@form)
 
@@ -82,10 +82,10 @@ describe "App.NewThreadView", ->
 
     it "saves the model", ->
       sinon.stub(@view.form, 'commit').returns(null)
-      spy = sinon.spy(@model, 'save')
+      sinon.stub(@model, 'save')
       @view.$('form').trigger('submit')
 
-      expect(spy).toHaveBeenCalledOnce()
+      expect(@model.save).toHaveBeenCalledOnce()
 
       @view.form.commit.restore()
 
@@ -96,7 +96,7 @@ describe "App.NewThreadView", ->
       @server.respondWith(
         'POST',
         '/en/threads',
-        [ 200, {'Content-Type': 'application/json'},'{"created_at":1339766056,"id":123,"source_locale":"en","summary":"a summary","title":"a title","updated_at":1339766056,"user":{"fullname":"Cojiro Sasaki","id":1,"location":"Tokyo","name":"csasaki","profile":"A profile.","avatar_url":"/uploads/avatars/1/60v5906zg8b8bvp3nd9z.png","avatar_mini_url":"/uploads/avatars/1/mini_60v5906zg8b8bvp3nd9z.png"}}']
+        [ 200, {'Content-Type': 'application/json'}, JSON.stringify(_(@fixtures.Thread.valid).extend(id: "123")) ]
       )
       sinon.stub(App.appRouter, 'navigate')
       @view.$('form input[name="title"]').val("a title")

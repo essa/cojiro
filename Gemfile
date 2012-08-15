@@ -49,6 +49,7 @@ group :test, :development do
   gem 'rake'
   gem 'timecop'
   gem 'chronic'
+  gem 'launchy'
 end
 
 group :test do
