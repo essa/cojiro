@@ -14,10 +14,25 @@ Feature: Edit thread
       | title   | Co-working spaces in Tokyo                                                         |
       | summary | I want to write an an article about the increased popularity of co-working spaces. |
 
-  @javascript @wip
-  Scenario: User successfully edits thread title
-    When I go to the thread "Co-working spaces in Tokyo"
-    And I click on the edit button next to "Co-working spaces in Tokyo"
-    And I enter "Co-working spaces in Tokyo, Japan"
-    Then I should see the text "Co-working spaces in Tokyo, Japan"
-    And the title of the thread should be "Co-working spaces in Tokyo, Japan"
+  @javascript
+  Scenario: Edit thread title
+    When I go to the thread with English title "Co-working spaces in Tokyo"
+    And I click on the edit button next to the "title" field
+    And I enter the text "Tokyo's co-working spaces" into the "title" field
+    And I click the save button next to the "title" field
+    Then I should see the translated text "Tokyo's co-working spaces" in the thread
+    And the title of the thread should be "Tokyo's co-working spaces"
+
+  @javascript
+  Scenario: Edit thread title and summary together
+    When I go to the thread with English title "Co-working spaces in Tokyo"
+    And I click on the edit button next to the "title" field
+    And I click on the edit button next to the "summary" field
+    And I enter the text "Tokyo's co-working spaces" into the "title" field
+    And I enter the text "a new summary" into the "summary" field
+    And I click the save button next to the "title" field
+    And I click the save button next to the "summary" field
+    Then I should see the translated text "Tokyo's co-working spaces" in the thread
+    And I should see the translated text "a new summary" in the thread
+    And the title of the thread should be "Tokyo's co-working spaces"
+    And the summary of the thread should be "a new summary"
