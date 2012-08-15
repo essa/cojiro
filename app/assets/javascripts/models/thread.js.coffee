@@ -1,16 +1,13 @@
 App.Thread = App.Models.Thread = Backbone.Model.extend
-  defaults:
+  defaults: ->
     title: ''
     summary: ''
+    source_locale: I18n.locale
 
   schema: ->
     title:
       title: _(I18n.t("attributes.thread.title")).capitalize()
       type: 'Text'
-      validators: [
-        type: 'required',
-        message: I18n.t("errors.messages.blank")
-      ]
     summary:
       type: 'TextArea'
       title: _(I18n.t("attributes.thread.summary")).capitalize()
@@ -36,10 +33,10 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
   validate: (attrs) ->
     errors = {}
 
-    if (attrs.title is "") and (attrs.source_locale is I18n.locale)
-      errors.title = "cannot have an empty title in the source locale"
+    if (attrs.title is "") and (!attrs.source_locale? or attrs.source_locale is I18n.locale)
+      errors.title = I18n.t('errors.messages.blank')
     if (attrs.source_locale is "")
-      errors.source_locale = "cannot have an empty source locale"
+      errors.source_locale = I18n.t('errors.messages.blank')
 
     if !_.isEmpty(errors) then return errors
 
