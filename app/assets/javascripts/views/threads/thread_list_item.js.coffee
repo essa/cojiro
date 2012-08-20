@@ -1,4 +1,4 @@
-App.ThreadListItemView = App.Views.ThreadListItem = Support.CompositeView.extend
+class App.ThreadListItemView extends Support.CompositeView
   tagName: 'tr'
   id: 'thread-list-item'
 
@@ -7,3 +7,5 @@ App.ThreadListItemView = App.Views.ThreadListItem = Support.CompositeView.extend
   render: ->
     @$el.html(JST['threads/list_item']( model: @model ))
     @
+
+App.Views.ThreadListItem = App.ThreadListItemView

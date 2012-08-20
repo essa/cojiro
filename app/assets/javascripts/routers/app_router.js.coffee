@@ -1,4 +1,4 @@
-App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
+class App.AppRouter extends Support.SwappingRouter
   routes:
     "" : "root"
     ":locale" : "index"
@@ -24,3 +24,5 @@ App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
     thread = new App.Thread({}, collection: @collection)
     view = new App.NewThreadView(model: thread, collection: @collection)
     @swap(view)
+
+App.Routers.AppRouter = App.AppRouter

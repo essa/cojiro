@@ -1,8 +1,7 @@
-App.HomepageView = App.Views.Homepage = Support.CompositeView.extend
+class App.HomepageView extends Support.CompositeView
   id: 'homepage'
 
   initialize: ->
-    _.bindAll @, "renderThreadList"
     @collection.on("change", @renderThreadList)
 
   render: ->
@@ -13,7 +12,9 @@ App.HomepageView = App.Views.Homepage = Support.CompositeView.extend
   renderLayout: ->
     @$el.html(JST['homepage/index'])
 
-  renderThreadList: ->
+  renderThreadList: =>
     threadListView = new App.ThreadListView(collection: @collection)
     threadListContainer = @.$('#threads')
     @renderChildInto(threadListView, threadListContainer)
+
+App.Views.Homepage = App.HomepageView
