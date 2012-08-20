@@ -42,3 +42,7 @@ Then /^I should see the untranslated text "([^"]*)" in the (thread|threads list)
     page.should have_xpath('//span[contains(@class,"untranslated")]', :text => text)
   end
 end
+
+Then /^show me the page$/ do
+  save_and_open_page
+end
