@@ -48,7 +48,7 @@ describe 'Cothread page', :js => true do
     it "displays nav text" do
       visit cothread_path(@thread)
       within :css, 'h2' do
-        page.should have_xpath('//div[contains(@data-attribute,"title")]/span[contains(@class,"translated")]', :text => "a title in English")
+        page.should have_xpath('//div[contains(@data-attribute,"title")]/span[contains(@class,"untranslated")]', :text => "a title in English")
         page.should have_xpath('//button[contains(@class,"edit-button")]', :text => "日本語を追加する")
       end
       within :css, 'ul.nav.nav-pills' do
