@@ -1,3 +1,5 @@
+require File.join(Rails.root, "spec", "support", "url_options_patch.rb")
+
 # for testing sign-in through Twitter, Facebook, etc.
 OmniAuth.config.test_mode = true
 
