@@ -6,6 +6,8 @@ class App.AppRouter extends Support.SwappingRouter
     ":locale/threads/:id": "show"
 
   initialize: (options) ->
+    @navbar = new App.NavbarView()
+    $('#navbar').html(@navbar.render().$el)
     @el = $('.content')
     @collection = options.collection
 

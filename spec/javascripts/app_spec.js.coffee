@@ -13,6 +13,11 @@ describe "App", ->
     afterEach ->
       App.Threads.restore()
 
+    it "sets the current user", ->
+      @currentUser = @fixtures.User.valid
+      App.init(@currentUser)
+      expect(App.currentUser).toBe(@currentUser)
+
     it "fetches threads data", ->
       App.init()
       expect(@threads.fetch).toHaveBeenCalledOnce()

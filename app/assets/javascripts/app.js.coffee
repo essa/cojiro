@@ -1,9 +1,10 @@
-window.App = 
+window.App =
   Models: {}
   Collections: {}
   Views: {}
   Routers: {}
-  init: ->
+  init: (currentUser) ->
+    @currentUser = currentUser
     @threads = new App.Threads()
     @threads.deferred = @threads.fetch()
     self = @

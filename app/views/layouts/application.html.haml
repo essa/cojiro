@@ -10,30 +10,13 @@
       I18n.locale = "#{I18n.locale}";
     = csrf_meta_tags
   %body{ :style => "padding-top: 40px" }
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          = link_to "cojiro", homepage_path, :class => "brand"
-          %ul.nav
-            - if logged_in?
-              %li
-                = link_to I18n.t("layout.start_a_thread"), new_cothread_path
-          %ul.nav.secondary-nav.pull-right
-            - if logged_in?
-              %li#profile-menu.dropdown
-                = link_to "#profile-menu", :class => 'dropdown-toggle', :'data-toggle' => 'dropdown' do
-                  = "@" + @current_user.name
-                  %b.caret
-                %ul.dropdown-menu
-                  %li= link_to I18n.t("layout.logout"), logout_path
-            - else
-              %li= link_to I18n.t("layout.twitter_sign_in"), "/auth/twitter?locale=#{I18n.locale}"
+    #navbar
     .container
       .content
         - flash.each do |name, msg|
           = content_tag :div, '<a class="close" href="#">×</a>'.html_safe + msg, :class => "alert alert-#{name} #{name}", :id => "flash_#{name}", :'data-dismiss' => 'alert' if msg.is_a?(String)
         = yield
-    %script{ type: "text/javascript" }
+    :javascript
       $(function () {
-      App.init();
+        App.init(#{@current_user.to_json});
       });
