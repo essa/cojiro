@@ -9,7 +9,7 @@
     %ul.nav.secondary-nav.pull-right
       - if @isLoggedIn
         %li#profile-menu.dropdown
-          %a.dropdown-toggle{ data-toggle: 'dropdown' }
+          %a.dropdown-toggle{ href: "#profile-menu", data-toggle: 'dropdown' }
             ="@#{@currentUser.name}"
             %b.caret
           %ul.dropdown-menu
