@@ -15,3 +15,13 @@ window.App =
       if (!Backbone.history.started)
         Backbone.history.start(pushState: true)
         Backbone.history.started = true
+
+# ref: https://github.com/tbranyen/backbone-boilerplate/blob/master/app/main.js
+$(document).on('click', 'a:not([data-bypass])', (evt) ->
+  href = $(@).attr('href')
+  protocol = @protocol + '//'
+
+  if (href.slice(protocol.length) != protocol)
+    evt.preventDefault()
+    App.appRouter.navigate(href, true)
+)
