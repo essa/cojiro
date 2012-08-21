@@ -8,7 +8,7 @@ Feature: Homepage for logged-out users
       | user    | title                      | summary                                                                           |
       | csasaki | Co-working spaces in Tokyo | I want to write an article about the increasing popularity of co-working spaces." |
 
-  @javascript
+  @javascript @wip
   Scenario: View latest threads
     Given my locale is "en"
     And I am on the homepage

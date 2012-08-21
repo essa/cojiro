@@ -113,6 +113,12 @@ describe CothreadsController do
             put :update, id: @cothread.id, thread: Factory.attributes_for(:cothread, title: "a new title"), format: :json
             assigns(:cothread).title.should eq("a new title")
           end
+
+          it "returns the new thread" do
+            attr = Factory.attributes_for(:cothread, title: "a new title")
+            put :update, id: @cothread.id, thread: attr, format: :json
+            JSON(response.body).should include(attr.stringify_keys)
+          end
         end
       end
 
