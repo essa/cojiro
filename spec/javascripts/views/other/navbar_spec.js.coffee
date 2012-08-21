@@ -31,13 +31,13 @@ describe "App.NavbarView", ->
             @$el = @navbarView.render().$el
 
           it "does not render start a thread link", ->
-            expect(@$el).not.toHaveText(new RegExp(@startAThread, "g"))
+            expect(@$el).not.toHaveText(new RegExp(@startAThread))
 
           it "does not render a logout link", ->
-            expect(@$el).not.toHaveText(new RegExp(@logout, "g"))
+            expect(@$el).not.toHaveText(new RegExp(@logout))
 
           it "renders twitter sign-in link", ->
-            expect(@$el).toHaveText(new RegExp(@twitterSignIn, "g"))
+            expect(@$el).toHaveText(new RegExp(@twitterSignIn))
 
         describe "logged-in user", ->
           beforeEach ->
@@ -45,13 +45,13 @@ describe "App.NavbarView", ->
             @$el = @navbarView.render().$el
 
           it "renders start a thread link", ->
-            expect(@$el).toHaveText(new RegExp(@startAThread, "g"))
+            expect(@$el).toHaveText(new RegExp(@startAThread))
 
           it "renders logout link", ->
-            expect(@$el).toHaveText(new RegExp(@logout, "g"))
+            expect(@$el).toHaveText(new RegExp(@logout))
 
           it "does not render twitter sign-in link", ->
-            expect(@$el).not.toHaveText(new RegExp(@twitterSignIn, "g"))
+            expect(@$el).not.toHaveText(new RegExp(@twitterSignIn))
 
     describe "English locale", ->
       sharedExamplesForNavbar(
