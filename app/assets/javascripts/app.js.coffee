@@ -16,9 +16,6 @@ window.App =
         Backbone.history.start(pushState: true)
         Backbone.history.started = true
 
-      # add time in distance to any time tags with the "timeago" class
-      $('time.timeago').timeago()
-
 # ref: https://github.com/tbranyen/backbone-boilerplate/blob/master/app/main.js
 $(document).on('click', 'a:not([data-bypass])', (evt) ->
   href = $(@).attr('href')
