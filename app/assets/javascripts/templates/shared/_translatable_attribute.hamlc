@@ -1,4 +1,4 @@
 -if (current = @model.get(@attr_name))
-  %span.editable-field.translated=current
+  %span.translated{ :class => @editable_field_class_name }=current
 -else
-  %span.editable-field.untranslated=@model.getAttrInSourceLocale(@attr_name)
+  %span.untranslated{ :class => @editable_field_class_name }=@model.getAttrInSourceLocale(@attr_name)

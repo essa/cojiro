@@ -14,31 +14,43 @@ describe "App.ThreadView", ->
           name: "csasaki"
           fullname: "Cojiro Sasaki"
           avatar_mini_url: "http://www.example.com/mini_csasaki.png"
-
-      view = new App.ThreadView(model: thread)
-      @el = view.render().el
-      @$el = $(@el)
+      @view = new App.ThreadView(model: thread)
 
     it "renders the thread", ->
-      expect(@$el).toBe("#thread")
-      expect(@$el).toHaveText(/Geisha bloggers/)
-      expect(@$el).toHaveText(/Looking for info on geisha bloggers./)
+      $el = @view.render().$el
+      expect($el).toBe("#thread")
+      expect($el).toHaveText(/Geisha bloggers/)
+      expect($el).toHaveText(/Looking for info on geisha bloggers./)
 
     it "renders user info", ->
-      expect(@$el).toHaveText(/@csasaki/)
-      expect(@$el).toHaveText(/Cojiro Sasaki/)
-      expect(@$el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')
+      $el = @view.render().$el
+      expect($el).toHaveText(/@csasaki/)
+      expect($el).toHaveText(/Cojiro Sasaki/)
+      expect($el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')
 
-    it 'renders edit/add button', ->
-      expect(@$el).toContain('button.edit-button:contains("Edit")')
+    describe "logged-in user", ->
+      beforeEach ->
+        App.currentUser = @fixtures.User.valid
+
+      it 'renders edit/add buttons', ->
+        $el = @view.render().$el
+        expect($el).toContain('button.edit-button:contains("Edit")')
+
+    describe "logged-out user", ->
+      beforeEach ->
+        App.currentUser = null
+
+      it 'does not render edit/add buttons', ->
+        $el = @view.render().$el
+        expect($el).not.toContain('button.edit-button:contains("Edit")')
 
   describe "editable fields", ->
 
     sharedExamplesForEditableFields = (context) ->
 
       # selectors for editable field elements
-      parentSelector = (attr) -> "div.editable-field-parent[data-attribute='#{attr}']"
-      fieldSelector = (attr) -> parentSelector(attr) + " span"
+      parentSelector = (attr) -> ".editable-field-parent[data-attribute='#{attr}']"
+      fieldSelector = (attr) -> parentSelector(attr) + " .editable-field"
       editButtonSelector = (attr) -> parentSelector(attr) + " button.edit-button"
       saveButtonSelector = (attr) -> parentSelector(attr) + " button.save-button"
       cancelButtonSelector = (attr) -> parentSelector(attr) + ' button ~ button.cancel-button'
@@ -53,6 +65,7 @@ describe "App.ThreadView", ->
 
       describe "shared behaviour for editable fields", ->
         beforeEach ->
+          App.currentUser = @fixtures.User.valid
           @attr = context.attr
           @type = context.type || 'input'
           @thread = new App.Thread(_(context.thread || @fixtures.Thread.valid).extend(id: "123"))

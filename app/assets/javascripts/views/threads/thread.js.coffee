@@ -58,7 +58,7 @@ class App.ThreadView extends Support.CompositeView
   insertCancelButtonAfter: ($el) -> $el.after("<button class='cancel-button btn btn-mini'>#{I18n.t('views.threads.thread.cancel')}</button>")
   removeCancelButtonAfter: ($el) -> $el.next().remove()
   findParent: ($el) -> $el.closest('.editable-field-parent')
-  findEditableField: ($el) -> @findParent($el).find('span.editable-field')
+  findEditableField: ($el) -> @findParent($el).find('.editable-field')
   findSaveButton: ($el) -> @findParent($el).find('button.save-button')
   getAttributeName: ($el) -> $el.attr('data-attribute')
   createFormFor: (attr) -> new Backbone.CompositeForm(model: @model, fields: [attr], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField')
