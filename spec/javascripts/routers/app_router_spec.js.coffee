@@ -11,9 +11,9 @@ describe 'App.AppRouter', ->
       router = new App.AppRouter
       expect(router).not.toBeNull()
 
-    it "assigns the router's element to $('.content')", ->
+    it "assigns the router's element to $('#content')", ->
       router = new App.AppRouter
-      expect(router.el).toEqual($('.content'))
+      expect(router.el).toEqual($('#content'))
 
     it "assigns the router's collection from the options", ->
       collection = new Object

@@ -13,7 +13,7 @@
   %body{ :style => "padding-top: 40px" }
     #navbar
     .container
-      .content
+      #content.content
         - flash.each do |name, msg|
           = content_tag :div, '<a class="close" href="#">×</a>'.html_safe + msg, :class => "alert alert-#{name} #{name}", :id => "flash_#{name}", :'data-dismiss' => 'alert' if msg.is_a?(String)
         = yield

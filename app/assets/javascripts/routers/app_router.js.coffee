@@ -8,7 +8,7 @@ class App.AppRouter extends Support.SwappingRouter
   initialize: (options) ->
     @navbar = new App.NavbarView()
     $('#navbar').html(@navbar.render().$el)
-    @el = $('.content')
+    @el = $('#content')
     @collection = options.collection
 
   root: ->
