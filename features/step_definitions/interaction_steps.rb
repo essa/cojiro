@@ -3,7 +3,7 @@ When /^I click on "([^"]*)"$/ do |link_text|
 end
 
 # ref: http://pivotallabs.com/users/mgehard/blog/articles/1671-waiting-for-jquery-ajax-calls-to-finish-in-cucumber
-And /^I wait for the AJAX call to finish$/ do
+When /^I wait for the AJAX call to finish$/ do
   wait_until do
     page.evaluate_script('$.active') == 0
   end
