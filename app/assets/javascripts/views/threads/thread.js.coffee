@@ -1,4 +1,4 @@
-App.ThreadView = App.Views.Thread = Support.CompositeView.extend
+class App.ThreadView extends Support.CompositeView
   id: 'thread'
 
   events:
@@ -68,3 +68,5 @@ App.ThreadView = App.Views.Thread = Support.CompositeView.extend
     @renderChild(form)
     return form
   renderEditableField: ($el, attr) -> @findParent($el).replaceWith(JST['shared/_editable_field'](model: @model, attr_name: attr))
+
+App.Views.Thread = App.ThreadView

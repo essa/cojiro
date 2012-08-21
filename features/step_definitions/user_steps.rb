@@ -13,7 +13,7 @@ Given /^I am logged in through Twitter as the following user:$/ do |table|
   visit homepage_path
   click_link "Sign in through Twitter"
   # give time for sign-in
-  sleep 3
+  sleep 0.5
 end
 
 Then /^the following user should exist:$/ do |table|

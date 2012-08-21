@@ -47,3 +47,12 @@ beforeEach ->
             fullname: "Cojiro Sasaki"
         }
       ]
+
+    User:
+      valid:
+        name: "csasaki"
+        fullname: "Cojiro Sasaki"
+        location: "Tokyo"
+        profile: "I like dicing blue chickens."
+        avatar_url: "http://www.example.com/csasaki.png"
+        avatar_mini_url: "http://www.example.com/csasaki_mini.png"

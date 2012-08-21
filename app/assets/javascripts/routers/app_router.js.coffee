@@ -1,4 +1,4 @@
-App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
+class App.AppRouter extends Support.SwappingRouter
   routes:
     "" : "root"
     ":locale" : "index"
@@ -6,7 +6,9 @@ App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
     ":locale/threads/:id": "show"
 
   initialize: (options) ->
-    @el = $('.content')
+    @navbar = new App.NavbarView()
+    $('#navbar').html(@navbar.render().$el)
+    @el = $('#content')
     @collection = options.collection
 
   root: ->
@@ -24,3 +26,5 @@ App.AppRouter = App.Routers.AppRouter = Support.SwappingRouter.extend
     thread = new App.Thread({}, collection: @collection)
     view = new App.NewThreadView(model: thread, collection: @collection)
     @swap(view)
+
+App.Routers.AppRouter = App.AppRouter

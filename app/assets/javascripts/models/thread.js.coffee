@@ -1,4 +1,4 @@
-App.Thread = App.Models.Thread = Backbone.Model.extend
+class App.Thread extends Backbone.Model
   defaults: ->
     title: ''
     summary: ''
@@ -42,3 +42,5 @@ App.Thread = App.Models.Thread = Backbone.Model.extend
 
   toDateStr: (datetime) ->
     I18n.l("date.formats.long", datetime) unless datetime is undefined
+
+App.Models.Thread = App.Thread

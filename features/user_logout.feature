@@ -3,6 +3,7 @@ Feature: Logout of cojiro
   I want to logout of my account
   So that I can do something else
 
+  @javascript
   Scenario: Successful logout
     Given I am logged in through Twitter as the following user:
       | name     | Cojiro Sasaki |

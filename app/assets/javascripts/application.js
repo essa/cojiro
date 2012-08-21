@@ -36,7 +36,8 @@
 //= require_tree ./routers
 //= require_tree ./templates
 //
-//= require bootstrap
+//= require bootstrap-alert
+//= require bootstrap-button
+//= require bootstrap-dropdown
 //
 //= require mixins
-//= require pushstate_links

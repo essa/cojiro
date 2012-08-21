@@ -1,4 +1,4 @@
-App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
+class App.NewThreadView extends Support.CompositeView
   id: 'new_thread'
 
   events:
@@ -40,3 +40,5 @@ App.NewThreadView = App.Views.NewThread = Support.CompositeView.extend
         msg: I18n.t("errors.template.body")
       ))
     return false
+
+App.Views.NewThread = App.NewThreadView
