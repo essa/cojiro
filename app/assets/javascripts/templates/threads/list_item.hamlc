@@ -1,3 +1,5 @@
 %td
-  %a{ :href => @model.url()}!=JST['shared/_translatable_attribute'](model: @model, attr_name: 'title')
+  %a{ :href => @model.url()}
+    !=JST['shared/_translatable_attribute'](model: @model, attr_name: 'title')
 %td=I18n.t('templates.threads.list_item.started_by', username: @model.getUserName())
+  !="/ #{I18n.t('templates.threads.list_item.updated_ago', timeago: @model.get('created_at'))}"

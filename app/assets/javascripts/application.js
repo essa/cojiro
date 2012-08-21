@@ -26,6 +26,9 @@
 //= require i18n
 //= require i18n/translations
 //
+//= require jquery.timeago
+//= require jquery.timeago.locales
+//
 //= require app
 //
 //= require composite_form
