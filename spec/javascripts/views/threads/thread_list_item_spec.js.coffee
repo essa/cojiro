@@ -14,6 +14,7 @@ describe "App.ThreadListItemView", ->
     it "creates a table row for a thread", ->
       $el = $(@view.render().el)
       expect($el).toBe("tr#thread-list-item")
+      expect($el).toHaveAttr('data-href', '/en/threads/5')
 
   describe "rendering", ->
 
@@ -24,7 +25,6 @@ describe "App.ThreadListItemView", ->
       $el = $(@view.render().el)
       expect($el.find('td')).toHaveText(/Co-working spaces in Tokyo/)
       expect($el.find('td')).toHaveText(/csasaki/)
-      expect($el.find('td a')).toHaveAttr('href', '/en/threads/5')
 
     it "renders the update timestamp", ->
       @thread.set('updated_at', "2012-08-22T00:06:21Z")
