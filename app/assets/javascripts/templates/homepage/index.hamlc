@@ -1,7 +1,8 @@
-%section.hero
-  %h1=I18n.t("templates.homepage.index.catchphrase")
-  %p.lead
-    !=I18n.t("templates.homepage.index.lead_html", url: "#")
+- if !(@isLoggedIn)
+  %section.hero
+    %h1=I18n.t("templates.homepage.index.catchphrase")
+    %p.lead
+      !=I18n.t("templates.homepage.index.lead_html", url: "#")
 
 %section.latest
   %h3=I18n.t("templates.homepage.index.recent_threads")
