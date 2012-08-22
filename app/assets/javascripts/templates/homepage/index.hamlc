@@ -6,6 +6,7 @@
 
 %section.latest
   %h3=I18n.t("templates.homepage.index.recent_threads")
-    %small!=I18n.t("templates.homepage.index.invite_message_html", new_account_url: "#", login_url: "#")
+    - if !(@isLoggedIn)
+      %small!=I18n.t("templates.homepage.index.invite_message_html", new_account_url: "#", login_url: "#")
 
   #threads
