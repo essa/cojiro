@@ -1,6 +1,6 @@
 describe "App.ThreadListView", ->
   beforeEach ->
-    @view = new App.ThreadListView(collection: new Backbone.Collection([]))
+    @view = new App.ThreadListView()
 
   it "is defined with alias", ->
     expect(App.ThreadListView).toBeDefined()
@@ -9,6 +9,7 @@ describe "App.ThreadListView", ->
 
   describe "instantiation", ->
     beforeEach ->
+      @view.collection = new Backbone.Collection()
       @$el = $(@view.render().el)
 
     it "creates a table element for a threads list", ->
