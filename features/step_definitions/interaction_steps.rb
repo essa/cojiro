@@ -43,10 +43,10 @@ Then /^I should see the untranslated text "([^"]*)" in the (thread|threads list)
   end
 end
 
-Then /^I should see a note that the thread "([^"]*)" was just updated$/ do |title|
+Then /^I should see a note "([^"]*)" next to the thread "([^"]*)" in the threads list$/ do |text, title|
   within(:css, "#threads_list") do
     row = find(:xpath, "//tr[./td[contains(.,\"#{title}\")]]")
-    row.should have_content(/Updated \d seconds ago./)
+    row.should have_content(text)
   end
 end
 
