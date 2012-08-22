@@ -12,10 +12,7 @@
  *= require_tree .
 */
 
-.content {
-  background-color: #FFFFFF;
-  border-radius: 0 0 6px 6px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  margin: 0 -20px;
-  padding: 20px;
+body {
+  padding-bottom: 40px;
+  padding-top: 60px;
 }
