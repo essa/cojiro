@@ -1,0 +1,20 @@
+Feature: Homepage for logged-in useres
+  As a cojiro user
+  I want to see the latest threads
+  So that I can find threads to contribute to
+
+  Background:
+    Given I am logged in through Twitter as the following user:
+      | name     | Cojiro Sasaki |
+      | uid      | 12345         |
+      | nickname | csasaki       |
+    And my locale is "en"
+    And the following threads exist:
+      | user    | title                      | summary                                                                           |
+      | csasaki | Co-working spaces in Tokyo | I want to write an article about the increasing popularity of co-working spaces." |
+
+  @javascript
+  Scenario: View threads that I started
+
+  @javascript
+  Scenario: View threads that I joined
