@@ -1,0 +1,3 @@
+- if (Date.now() - new Date(@timestamp)) < 86400000 # in milliseconds, = one day
+  %span.label.label-info
+    =I18n.t('templates.shared.new_label.new')

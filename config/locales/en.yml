@@ -24,6 +24,9 @@ en:
         comments_in: "%{lang} comments"
         edit: Edit
         add_in: Add %{lang}
+    shared:
+      new_label:
+        new: New
 
   views:
     threads:

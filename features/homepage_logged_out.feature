@@ -14,7 +14,7 @@ Feature: Homepage for logged-out users
     And I am on the homepage
     Then I should see the text "Co-working spaces in Tokyo" in the threads list
     And I should see a note "Updated less than a minute ago" next to the thread "Co-working spaces in Tokyo" in the threads list
-    #And I should see a "New" tag next to the thread "Co-working spaces in Tokyo"
+    And I should see a "New" tag next to the thread "Co-working spaces in Tokyo" in the threads list
 
   @javascript
   Scenario: View latest threads in another language

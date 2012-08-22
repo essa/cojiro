@@ -50,6 +50,13 @@ Then /^I should see a note "([^"]*)" next to the thread "([^"]*)" in the threads
   end
 end
 
+Then /^I should see a "([^"]*)" tag next to the thread "([^"]*)" in the threads list$/ do |tag_text, title|
+  within(:css, "#threads_list") do
+    row = find(:xpath, "//tr[./td[contains(.,\"#{title}\")]]")
+    row.should have_selector('span.label.label-info', :text => tag_text)
+  end
+end
+
 Then /^I should see a "new" tag next to the thread "([^"]*)"$/ do |title|
   within(:css, "#threads_list") do
     row = find(:xpath, "//tr[./td[contains(.,\"#{title}\")]]")

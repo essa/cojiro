@@ -24,6 +24,9 @@ ja:
         comments_in: "%{lang}のコメント"
         edit: 編集する
         add_in: "%{lang}を追加する"
+    shared:
+      new_label:
+        new: New
 
   views:
     threads:
