@@ -54,3 +54,23 @@ describe "App.ThreadListView", ->
     it "has list item views as children (for cleanup)", ->
       expect(@view.children).toBeDefined()
       expect(@view.children.size()).toEqual(3)
+
+  describe "dynamic jquery timeago tag", ->
+    beforeEach ->
+      @clock = sinon.useFakeTimers()
+      @thread = new App.Thread(_(@fixtures.Thread.valid).extend(updated_at: new Date().toJSON()))
+      @threads = new App.Threads([@thread])
+      @view.collection = @threads
+      @view.render()
+
+    afterEach ->
+      @clock.restore()
+
+    it "fills in time tag field on new models", ->
+      expect(@view.$('time.timeago')[0]).toHaveText('less than a minute ago')
+
+    it "updates time tag as time passes", ->
+      @clock.tick(60000)
+      expect(@view.$('time.timeago')[0]).toHaveText('about a minute ago')
+      @clock.tick(3600000)
+      expect(@view.$('time.timeago')[0]).toHaveText('about an hour ago')
