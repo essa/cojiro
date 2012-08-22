@@ -8,8 +8,7 @@ class App.ThreadListView extends Support.CompositeView
   render: ->
     @renderLayout()
     @renderListItems()
-    # add time in distance to any time tags with the "timeago" class
-    @.$('time.timeago').timeago()
+    @initTimeago()
     @
 
   renderLayout: ->
@@ -26,5 +25,8 @@ class App.ThreadListView extends Support.CompositeView
       listItemsContainer.append(threadListItemView.el)
 
     @
+
+  initTimeago: ->
+    @.$('time.timeago').timeago()
 
 App.Views.ThreadList = App.ThreadListView
