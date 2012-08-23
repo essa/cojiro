@@ -2,7 +2,7 @@ class Cothread < ActiveRecord::Base
   attr_accessible :title, :summary, :source_locale
 
   #scopes
-  scope :recent, lambda { order("created_at DESC") }
+  scope :recent, order("cothreads.created_at DESC")
 
   translates :title, :summary
 

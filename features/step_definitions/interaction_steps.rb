@@ -43,6 +43,28 @@ Then /^I should see the untranslated text "([^"]*)" in the (thread|threads list)
   end
 end
 
+Then /^I should see a note "([^"]*)" next to the thread "([^"]*)" in the threads list$/ do |text, title|
+  within(:css, "#threads_list") do
+    row = find(:xpath, "//tr[./td[contains(.,\"#{title}\")]]")
+    row.should have_content(text)
+  end
+end
+
+Then /^I should see a "([^"]*)" tag next to the thread "([^"]*)" in the threads list$/ do |tag_text, title|
+  within(:css, "#threads_list") do
+    row = find(:xpath, "//tr[./td[contains(.,\"#{title}\")]]")
+    row.should have_selector('span.label.label-info', :text => tag_text)
+  end
+end
+
+Then /^I should see a "new" tag next to the thread "([^"]*)"$/ do |title|
+  within(:css, "#threads_list") do
+    row = find(:xpath, "//tr[./td[contains(.,\"#{title}\")]]")
+    row.should have_selector('span.label.label-info', :text => title)
+  end
+end
+
+
 Then /^show me the page$/ do
   save_and_open_page
 end

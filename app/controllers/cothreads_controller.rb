@@ -5,7 +5,7 @@ class CothreadsController < ApplicationController
   respond_to :html, :only => [ :show, :new ]
 
   def index
-    @cothreads = Cothread.recent.all
+    @cothreads = Cothread.with_translations(base_languages).recent.all
     respond_with(@cothreads)
   end
 
@@ -25,7 +25,9 @@ class CothreadsController < ApplicationController
 
   def update
     @cothread.update_attributes(params[:thread])
-    respond_with(@cothread)
+    respond_with @cothread do |format|
+      format.json { render :json => @cothread.to_json, :status => :accepted }
+    end
   end
 
   private

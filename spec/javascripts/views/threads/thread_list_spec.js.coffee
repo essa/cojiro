@@ -1,6 +1,6 @@
 describe "App.ThreadListView", ->
   beforeEach ->
-    @view = new App.ThreadListView(collection: new Backbone.Collection([]))
+    @view = new App.ThreadListView()
 
   it "is defined with alias", ->
     expect(App.ThreadListView).toBeDefined()
@@ -9,6 +9,7 @@ describe "App.ThreadListView", ->
 
   describe "instantiation", ->
     beforeEach ->
+      @view.collection = new Backbone.Collection()
       @$el = $(@view.render().el)
 
     it "creates a table element for a threads list", ->
@@ -53,3 +54,23 @@ describe "App.ThreadListView", ->
     it "has list item views as children (for cleanup)", ->
       expect(@view.children).toBeDefined()
       expect(@view.children.size()).toEqual(3)
+
+  describe "dynamic jquery timeago tag", ->
+    beforeEach ->
+      @clock = sinon.useFakeTimers()
+      @thread = new App.Thread(_(@fixtures.Thread.valid).extend(updated_at: new Date().toJSON()))
+      @threads = new App.Threads([@thread])
+      @view.collection = @threads
+      @view.render()
+
+    afterEach ->
+      @clock.restore()
+
+    it "fills in time tag field on new models", ->
+      expect(@view.$('time.timeago')[0]).toHaveText('less than a minute ago')
+
+    it "updates time tag as time passes", ->
+      @clock.tick(60000)
+      expect(@view.$('time.timeago')[0]).toHaveText('about a minute ago')
+      @clock.tick(3600000)
+      expect(@view.$('time.timeago')[0]).toHaveText('about an hour ago')

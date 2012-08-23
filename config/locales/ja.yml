@@ -17,12 +17,16 @@ ja:
         cancel: キャンセル
       list_item:
         started_by: "@%{username}が登録した"
+        updated_ago: "<time class='timeago' datetime='%{timeago}'></time> 更新しました"
       show:
         neta: ネタ
         created: に登録した
         comments_in: "%{lang}のコメント"
         edit: 編集する
         add_in: "%{lang}を追加する"
+    shared:
+      new_label:
+        new: New
 
   views:
     threads:
@@ -31,6 +35,25 @@ ja:
       thread:
         save: 保存する
         cancel: キャンセル
+
+  jquery:
+    timeago:
+      prefixAgo: ""
+      prefixFromNow: "今から"
+      suffixAgo: "前"
+      suffixFromNow: "後"
+      seconds: "ほんの数秒"
+      minute: "約一分"
+      minutes: "%d 分"
+      hour: "大体一時間"
+      hours: "大体 %d 時間位"
+      day: "一日"
+      days: "%d 日ほど"
+      month: "大体一ヶ月"
+      months: "%d ヶ月ほど"
+      year: "丁度一年（虎舞流ｗ）"
+      years: "%d 年"
+      wordSeparator: ""
 
   attributes:
     thread:

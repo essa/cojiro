@@ -4,13 +4,13 @@
     %title
       = "cojiro: " + yield_or_default(:title, "conversations across languages") 
     = stylesheet_link_tag :application
-    %base{ :href => homepage_path }
+    %base{ :href => root_url.gsub(/\?.*/,""), :locale => nil }
     = javascript_include_tag :application
     %script{type:"text/javascript"}
       I18n.defaultLocale = "#{I18n.default_locale}";
       I18n.locale = "#{I18n.locale}";
     = csrf_meta_tags
-  %body{ :style => "padding-top: 40px" }
+  %body
     #navbar
     .container
       #content.content

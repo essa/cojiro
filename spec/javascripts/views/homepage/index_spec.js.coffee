@@ -25,7 +25,33 @@ describe "App.HomepageView", ->
       $el = $(@homepageView.render().el)
       expect($el).toBe("#homepage")
       expect($el).toHaveText(/Cojiro/)
-      expect($el).toHaveText(/Learn more/)
+
+    describe "logged-out user", ->
+      beforeEach ->
+        App.currentUser = null
+
+      it "renders the cojiro blurb", ->
+        $el = $(@homepageView.render().el)
+        expect($el).toHaveText(/Cojiro is a platform that connects people/)
+        expect($el).toHaveText(/Learn more/)
+
+      it "renders message", ->
+        $el = $(@homepageView.render().el)
+        expect($el).toHaveText(/create an account/)
+
+
+    describe "logged-out user", ->
+      beforeEach ->
+        App.currentUser = @fixtures.User.valid
+
+      it "does not render cojiro blurb", ->
+        $el = $(@homepageView.render().el)
+        expect($el).not.toHaveText(/Cojiro is a platform that connects people/)
+        expect($el).not.toHaveText(/Learn more/)
+
+      it "does not render message", ->
+        $el = $(@homepageView.render().el)
+        expect($el).not.toHaveText(/create an account/)
 
     it "renders the thread list view onto the page", ->
       view = render: () -> el: $()
