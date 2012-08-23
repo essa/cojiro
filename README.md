@@ -64,7 +64,7 @@ We use:
 * [rspec](http://rspec.info/) for unit tests
 * [cucumber](http://cukes.info/) for acceptance tests
 * [capybara](https://github.com/jnicklas/capybara) and [capybara-webkit](https://github.com/thoughtbot/capybara-webkit) for simulating the browser
-* [jasmine](http://pivotal.github.com/jasmine/) for javascript tests
+* [jasmine](http://pivotal.github.com/jasmine/) and [sinon](http://sinonjs.org/) for javascript tests
 
 Contributing
 ------------
