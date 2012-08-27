@@ -12,7 +12,7 @@ describe "App.ThreadListItemView", ->
   describe "instantiation", ->
 
     it "creates a table row for a thread", ->
-      $el = $(@view.render().el)
+      $el = @view.$el
       expect($el).toBe("tr#thread-list-item")
       expect($el).toHaveAttr('data-href', '/en/threads/5')
 

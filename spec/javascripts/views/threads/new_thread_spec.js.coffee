@@ -6,7 +6,7 @@ describe "App.NewThreadView", ->
       add: ->
     @model.collection = @collection
     @view = new App.NewThreadView(model: @model, collection: @collection)
-    @$el = $(@view.el)
+    @$el = @view.$el
 
   afterEach ->
     App.appRouter.navigate "jasmine"
