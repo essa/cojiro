@@ -71,3 +71,24 @@ describe 'App.Threads', ->
         @server.respond()
         expect(@threads.models.length).toEqual(@fixture.length)
         expect(@threads.get(1).getTitle()).toEqual(@fixture[0].title)
+
+  describe "byUser()", ->
+    beforeEach ->
+      Backbone.Model.prototype.getUserName = ->
+      @thread1 = new Backbone.Model()
+      @thread2 = new Backbone.Model()
+      @thread3 = new Backbone.Model()
+      sinon.stub(@thread1, 'getUserName').returns("csasaki")
+      sinon.stub(@thread2, 'getUserName').returns("csasaki")
+      sinon.stub(@thread3, 'getUserName').returns("otheruser")
+      @threads = new App.Threads([@thread1, @thread2, @thread3])
+
+    afterEach ->
+      Backbone.Model.prototype.getUserName = undefined
+
+    it 'returns a threads collection', ->
+      expect(@threads.byUser("csasaki") instanceof App.Threads).toBeTruthy()
+
+    it 'selects all users with name "username"', ->
+      expect(@threads.byUser("csasaki").length).toEqual(2)
+      expect(@threads.byUser("otheruser").length).toEqual(1)
