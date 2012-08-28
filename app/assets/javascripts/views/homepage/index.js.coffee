@@ -3,7 +3,7 @@ class App.HomepageView extends Support.CompositeView
 
   initialize: ->
     @filteredCollection = @collection
-    @collection.on("change", @renderThreadList)
+    @collection.bind("change", @renderThreadList)
 
   render: ->
     @renderLayout()
