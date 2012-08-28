@@ -16,6 +16,12 @@ Given /^I am logged in through Twitter as the following user:$/ do |table|
   sleep 0.5
 end
 
+Given /^the following users exist:$/ do |table|
+  table.hashes.each do |hash|
+    FactoryGirl.create(:user, hash)
+  end
+end
+
 Then /^the following user should exist:$/ do |table|
   (name = table.rows_hash.delete('name')).should be
   (user = User.find_by_name(name)).should be
