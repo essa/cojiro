@@ -12,7 +12,7 @@ describe "App.ThreadListItemView", ->
   describe "instantiation", ->
 
     it "creates a table row for a thread", ->
-      $el = $(@view.render().el)
+      $el = @view.$el
       expect($el).toBe("tr#thread-list-item")
       expect($el).toHaveAttr('data-href', '/en/threads/5')
 
@@ -22,7 +22,7 @@ describe "App.ThreadListItemView", ->
       expect(@view.render()).toEqual(@view)
 
     it "renders the list item view into the table row", ->
-      $el = $(@view.render().el)
+      $el = @view.render().$el
       expect($el.find('td')).toHaveText(/Co-working spaces in Tokyo/)
       expect($el.find('td')).toHaveText(/csasaki/)
 

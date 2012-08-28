@@ -10,7 +10,7 @@ describe "App.ThreadListView", ->
   describe "instantiation", ->
     beforeEach ->
       @view.collection = new Backbone.Collection()
-      @$el = $(@view.render().el)
+      @$el = @view.$el
 
     it "creates a table element for a threads list", ->
       expect(@$el).toBe("table#threads_list")

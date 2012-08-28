@@ -1,7 +1,17 @@
 describe "App.HomepageView", ->
   beforeEach ->
-    threads = new App.Threads(@fixtures.Threads.valid)
-    @homepageView = new App.HomepageView(collection: threads)
+    @thread1 = new Backbone.Model
+    @thread2 = new Backbone.Model
+    @thread3 = new Backbone.Model
+    @threads = new App.Threads([@thread1, @thread2, @thread3])
+    @threadListView = new Backbone.View
+    @threadFilterView = new Backbone.View
+    sinon.stub(App, 'ThreadListView').returns(@threadListView)
+    sinon.stub(App, 'ThreadFilterView').returns(@threadFilterView)
+
+  afterEach ->
+    App.ThreadListView.restore()
+    App.ThreadFilterView.restore()
 
   it "is defined with alias", ->
     expect(App.HomepageView).toBeDefined()
@@ -9,54 +19,126 @@ describe "App.HomepageView", ->
     expect(App.HomepageView).toEqual(App.Views.Homepage)
 
   describe "instantiation", ->
+    beforeEach ->
+      @renderThreadListSpy = sinon.stub(App.HomepageView.prototype, 'renderThreadList')
+      @view = new App.HomepageView(collection: @threads)
 
-    it "instantiates a new ThreadListView", ->
-      sinon.spy(App, 'ThreadListView')
-      $el = $(@homepageView.render().el)
-      expect(App.ThreadListView).toHaveBeenCalledOnce()
-      App.ThreadListView.restore()
+    afterEach ->
+      @renderThreadListSpy.restore()
+
+    it "assigns collection to filteredCollection", ->
+      expect(@view.filteredCollection).toBe(@view.collection)
+
+    it "binds change event on collection to 'renderThreadList'", ->
+      @view.collection.trigger("change")
+      expect(@renderThreadListSpy).toHaveBeenCalledOnce()
 
   describe "rendering", ->
+    beforeEach ->
+      @view = new App.HomepageView(collection: @threads)
 
     it "returns the view object", ->
-      expect(@homepageView.render()).toEqual(@homepageView)
+      expect(@view.render()).toEqual(@view)
+
+    describe "logged-out user", ->
+
+      it "does not create a ThreadFilterView", ->
+        @view.render()
+        expect(App.ThreadFilterView).not.toHaveBeenCalled()
+
+    describe "logged-in user", ->
+      beforeEach ->
+        App.currentUser = @fixtures.User.valid
+
+      afterEach ->
+        App.currentUser = null
+
+      it "creates a new ThreadFilterView", ->
+        @view.render()
+        expect(App.ThreadFilterView).toHaveBeenCalledOnce()
+        expect(App.ThreadFilterView).toHaveBeenCalledWithExactly()
+
+      it "renders new threadFilterView", ->
+        spy = sinon.spy(@threadFilterView, 'render')
+        @view.render()
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWithExactly()
+
+    describe "thread list", ->
+
+      it "creates a new ThreadListView", ->
+        @view.render()
+        expect(App.ThreadListView).toHaveBeenCalledOnce()
+        expect(App.ThreadListView).toHaveBeenCalledWithExactly(collection: @view.filteredCollection)
+
+      it "renders new threadListView onto the page", ->
+        spy = sinon.spy(@threadListView, 'render')
+        @view.render()
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWithExactly()
+
+  describe "Template", ->
+    beforeEach ->
+      @view = new App.HomepageView(collection: @threads)
 
     it "renders the default homepage", ->
-      $el = $(@homepageView.render().el)
+      $el = @view.render().$el
       expect($el).toBe("#homepage")
       expect($el).toHaveText(/Cojiro/)
 
     describe "logged-out user", ->
       beforeEach ->
-        App.currentUser = null
+        @$el = @view.render().$el
 
       it "renders the cojiro blurb", ->
-        $el = $(@homepageView.render().el)
-        expect($el).toHaveText(/Cojiro is a platform that connects people/)
-        expect($el).toHaveText(/Learn more/)
+        expect(@$el).toHaveText(/Cojiro is a platform that connects people/)
+        expect(@$el).toHaveText(/Learn more/)
 
       it "renders message", ->
-        $el = $(@homepageView.render().el)
-        expect($el).toHaveText(/create an account/)
+        expect(@$el).toHaveText(/create an account/)
 
+      it "does not render thread filter", ->
+        expect(@$el).not.toContain('form#thread-filter')
 
-    describe "logged-out user", ->
+    describe "logged-in user", ->
       beforeEach ->
         App.currentUser = @fixtures.User.valid
+        @$el = @view.render().$el
+
+      afterEach ->
+        App.currentUser = null
 
       it "does not render cojiro blurb", ->
-        $el = $(@homepageView.render().el)
-        expect($el).not.toHaveText(/Cojiro is a platform that connects people/)
-        expect($el).not.toHaveText(/Learn more/)
+        expect(@$el).not.toHaveText(/Cojiro is a platform that connects people/)
+        expect(@$el).not.toHaveText(/Learn more/)
 
       it "does not render message", ->
-        $el = $(@homepageView.render().el)
-        expect($el).not.toHaveText(/create an account/)
+        expect(@$el).not.toHaveText(/create an account/)
 
-    it "renders the thread list view onto the page", ->
-      view = render: () -> el: $()
-      spy = sinon.spy(view, 'render')
-      sinon.stub(App, 'ThreadListView').returns(view)
-      $el = $(@homepageView.render().el)
-      expect(spy).toHaveBeenCalledOnce()
-      App.ThreadListView.restore()
+  describe "when filter is selected", ->
+    beforeEach ->
+      App.currentUser = _(@fixtures.User.valid).extend(name: "auser")
+      @filterThreadsSpy = sinon.spy(App.HomepageView.prototype, 'filterThreads')
+      @filteredCollection = new App.Threads
+      sinon.stub(@threads, 'byUser').returns(@filteredCollection)
+      @view = new App.HomepageView(collection: @threads)
+      @view.render()
+
+    afterEach ->
+      App.currentUser = null
+      @filterThreadsSpy.restore()
+      @threads.byUser.restore()
+
+    it "calls filterThreads", ->
+      @view.threadFilterView.trigger("changed", "mine")
+      expect(@filterThreadsSpy).toHaveBeenCalledOnce()
+      expect(@filterThreadsSpy).toHaveBeenCalledWith("mine")
+
+    it "filters threads by user", ->
+      @view.threadFilterView.trigger("changed", "mine")
+      expect(@threads.byUser).toHaveBeenCalledOnce()
+      expect(@threads.byUser).toHaveBeenCalledWith("auser")
+
+    it "assigns result of filter to filteredCollection", ->
+      @view.threadFilterView.trigger("changed", "mine")
+      expect(@view.filteredCollection).toEqual(@filteredCollection)
