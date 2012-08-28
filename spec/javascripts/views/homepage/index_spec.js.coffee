@@ -1,6 +1,17 @@
 describe "App.HomepageView", ->
   beforeEach ->
-    @threads = new App.Threads(@fixtures.Threads.valid)
+    @thread1 = new Backbone.Model
+    @thread2 = new Backbone.Model
+    @thread3 = new Backbone.Model
+    @threads = new App.Threads([@thread1, @thread2, @thread3])
+    @threadListView = new Backbone.View
+    @threadFilterView = new Backbone.View
+    sinon.stub(App, 'ThreadListView').returns(@threadListView)
+    sinon.stub(App, 'ThreadFilterView').returns(@threadFilterView)
+
+  afterEach ->
+    App.ThreadListView.restore()
+    App.ThreadFilterView.restore()
 
   it "is defined with alias", ->
     expect(App.HomepageView).toBeDefined()
@@ -9,7 +20,7 @@ describe "App.HomepageView", ->
 
   describe "instantiation", ->
     beforeEach ->
-      @renderThreadListSpy = sinon.spy(App.HomepageView.prototype, 'renderThreadList')
+      @renderThreadListSpy = sinon.stub(App.HomepageView.prototype, 'renderThreadList')
       @view = new App.HomepageView(collection: @threads)
 
     afterEach ->
@@ -30,11 +41,6 @@ describe "App.HomepageView", ->
       expect(@view.render()).toEqual(@view)
 
     describe "logged-out user", ->
-      beforeEach ->
-        sinon.spy(App, 'ThreadFilterView')
-
-      afterEach ->
-        App.ThreadFilterView.restore()
 
       it "does not create a ThreadFilterView", ->
         @view.render()
@@ -43,12 +49,9 @@ describe "App.HomepageView", ->
     describe "logged-in user", ->
       beforeEach ->
         App.currentUser = @fixtures.User.valid
-        @threadFilterViewStub = new Backbone.View
-        sinon.stub(App, 'ThreadFilterView').returns(@threadFilterViewStub)
 
       afterEach ->
         App.currentUser = null
-        App.ThreadFilterView.restore()
 
       it "creates a new ThreadFilterView", ->
         @view.render()
@@ -56,18 +59,12 @@ describe "App.HomepageView", ->
         expect(App.ThreadFilterView).toHaveBeenCalledWithExactly()
 
       it "renders new threadFilterView", ->
-        spy = sinon.spy(@threadFilterViewStub, 'render')
+        spy = sinon.spy(@threadFilterView, 'render')
         @view.render()
         expect(spy).toHaveBeenCalledOnce()
         expect(spy).toHaveBeenCalledWithExactly()
 
     describe "thread list", ->
-      beforeEach ->
-        @threadListViewStub = new Backbone.View
-        sinon.stub(App, 'ThreadListView').returns(@threadListViewStub)
-
-      afterEach ->
-        App.ThreadListView.restore()
 
       it "creates a new ThreadListView", ->
         @view.render()
@@ -75,7 +72,7 @@ describe "App.HomepageView", ->
         expect(App.ThreadListView).toHaveBeenCalledWithExactly(collection: @view.filteredCollection)
 
       it "renders new threadListView onto the page", ->
-        spy = sinon.spy(@threadListViewStub, 'render')
+        spy = sinon.spy(@threadListView, 'render')
         @view.render()
         expect(spy).toHaveBeenCalledOnce()
         expect(spy).toHaveBeenCalledWithExactly()
@@ -118,21 +115,30 @@ describe "App.HomepageView", ->
       it "does not render message", ->
         expect(@$el).not.toHaveText(/create an account/)
 
-      it "renders thread filter", ->
-        expect(@$el).toContain('form#thread-filter')
-
   describe "when filter is selected", ->
     beforeEach ->
-      App.currentUser = @fixtures.User.valid
+      App.currentUser = _(@fixtures.User.valid).extend(name: "auser")
       @filterThreadsSpy = sinon.spy(App.HomepageView.prototype, 'filterThreads')
+      @filteredCollection = new App.Threads
+      sinon.stub(@threads, 'byUser').returns(@filteredCollection)
       @view = new App.HomepageView(collection: @threads)
       @view.render()
 
     afterEach ->
       App.currentUser = null
       @filterThreadsSpy.restore()
+      @threads.byUser.restore()
 
     it "calls filterThreads", ->
       @view.threadFilterView.trigger("changed", "mine")
       expect(@filterThreadsSpy).toHaveBeenCalledOnce()
       expect(@filterThreadsSpy).toHaveBeenCalledWith("mine")
+
+    it "filters threads by user", ->
+      @view.threadFilterView.trigger("changed", "mine")
+      expect(@threads.byUser).toHaveBeenCalledOnce()
+      expect(@threads.byUser).toHaveBeenCalledWith("auser")
+
+    it "assigns result of filter to filteredCollection", ->
+      @view.threadFilterView.trigger("changed", "mine")
+      expect(@view.filteredCollection).toEqual(@filteredCollection)
