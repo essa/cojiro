@@ -6,14 +6,16 @@ describe "App.HomepageView", ->
     @threads = new App.Threads([@thread1, @thread2, @thread3])
     @threadListView = new Backbone.View
     @threadFilterView = new Backbone.View
+    @threadFilterView.render = ->
+      @el = document.createElement('form')
+      @el.setAttribute('id', 'thread-filter')
+      @
     sinon.stub(App, 'ThreadListView').returns(@threadListView)
     sinon.stub(App, 'ThreadFilterView').returns(@threadFilterView)
-    sinon.stub(@threadFilterView, 'render').returns('<form id="thread-filter"></form>')
 
   afterEach ->
     App.ThreadListView.restore()
     App.ThreadFilterView.restore()
-    @threadFilterView.render.restore()
 
   it "is defined with alias", ->
     expect(App.HomepageView).toBeDefined()
@@ -61,9 +63,11 @@ describe "App.HomepageView", ->
         expect(App.ThreadFilterView).toHaveBeenCalledWithExactly()
 
       it "renders new threadFilterView", ->
+        spy = sinon.spy(@threadFilterView, 'render')
         @view.render()
-        expect(@threadFilterView.render).toHaveBeenCalledOnce()
-        expect(@threadFilterView.render).toHaveBeenCalledWithExactly()
+        expect(spy).toHaveBeenCalledOnce()
+        expect(spy).toHaveBeenCalledWithExactly()
+        spy.restore()
 
     describe "thread list", ->
 
@@ -99,8 +103,8 @@ describe "App.HomepageView", ->
       it "renders message", ->
         expect(@$el).toHaveText(/create an account/)
 
-#      it "does not render thread filter", ->
-#        expect(@$el).not.toContain('form#thread-filter')
+      it "does not render thread filter", ->
+        expect(@$el).not.toContain('form#thread-filter')
 
     describe "logged-in user", ->
       beforeEach ->
@@ -116,6 +120,9 @@ describe "App.HomepageView", ->
 
       it "does not render message", ->
         expect(@$el).not.toHaveText(/create an account/)
+
+      it "renders thread filter", ->
+        expect(@$el).toContain('form#thread-filter')
 
   describe "when filter is selected", ->
     beforeEach ->
