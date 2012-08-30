@@ -3,9 +3,14 @@ describe "App.HomepageView", ->
     @thread1 = new Backbone.Model
     @thread2 = new Backbone.Model
     @thread3 = new Backbone.Model
-    @threads = new App.Threads([@thread1, @thread2, @thread3])
+    @threads = new Backbone.Collection([@thread1, @thread2, @thread3])
+    @threads.byUser = ->
     @threadListView = new Backbone.View
     @threadFilterView = new Backbone.View
+    @threadFilterView.render = ->
+      @el = document.createElement('form')
+      @el.setAttribute('id', 'thread-filter')
+      @
     sinon.stub(App, 'ThreadListView').returns(@threadListView)
     sinon.stub(App, 'ThreadFilterView').returns(@threadFilterView)
 
@@ -63,6 +68,7 @@ describe "App.HomepageView", ->
         @view.render()
         expect(spy).toHaveBeenCalledOnce()
         expect(spy).toHaveBeenCalledWithExactly()
+        spy.restore()
 
     describe "thread list", ->
 
@@ -76,6 +82,7 @@ describe "App.HomepageView", ->
         @view.render()
         expect(spy).toHaveBeenCalledOnce()
         expect(spy).toHaveBeenCalledWithExactly()
+        spy.restore()
 
   describe "Template", ->
     beforeEach ->
@@ -114,6 +121,9 @@ describe "App.HomepageView", ->
 
       it "does not render message", ->
         expect(@$el).not.toHaveText(/create an account/)
+
+      it "renders thread filter", ->
+        expect(@$el).toContain('form#thread-filter')
 
   describe "when filter is selected", ->
     beforeEach ->
