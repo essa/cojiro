@@ -21,30 +21,16 @@ describe "App.NewThreadView", ->
     it "creates the new thread element", ->
       expect(@$el).toBe("#new_thread")
 
-    it "extends the form with leave functionality", ->
-      @view.render()
-      unbindSpy = sinon.spy(@view.form, 'unbind')
-      removeSpy = sinon.spy(@view.form, 'remove')
-      removeChildSpy = sinon.spy(@view, '_removeChild')
-
-      @view.leave()
-
-      expect(unbindSpy).toHaveBeenCalledOnce()
-      expect(unbindSpy).toHaveBeenCalledWithExactly()
-      expect(removeSpy).toHaveBeenCalledOnce()
-      expect(removeSpy).toHaveBeenCalledWithExactly()
-      expect(removeChildSpy).toHaveBeenCalledOnce()
-      expect(removeChildSpy).toHaveBeenCalledWith(@view.form)
-
   describe "rendering", ->
     beforeEach ->
-      @form =
-        render: -> {}
-        el: "<form></form>"
-      sinon.stub(Backbone, 'Form').returns(@form)
+      @form = new Backbone.View
+      @form.render = ->
+        @el = document.createElement('form')
+        @el.setAttribute('id', 'new_thread')
+      sinon.stub(Backbone, 'CompositeForm').returns(@form)
 
     afterEach ->
-      Backbone.Form.restore()
+      Backbone.CompositeForm.restore()
 
     it "renders the thread onto the page", ->
       @view.render()
@@ -52,8 +38,8 @@ describe "App.NewThreadView", ->
 
     it "creates a new form", ->
       @view.render()
-      expect(Backbone.Form).toHaveBeenCalledOnce()
-      expect(Backbone.Form).toHaveBeenCalledWith(model: @model)
+      expect(Backbone.CompositeForm).toHaveBeenCalledOnce()
+      expect(Backbone.CompositeForm).toHaveBeenCalledWith(model: @model)
 
     it "renders the form", ->
       spy = sinon.spy(@form, 'render')
@@ -63,11 +49,8 @@ describe "App.NewThreadView", ->
       expect(spy).toHaveBeenCalledWith()
 
     it "appends the form onto the page", ->
-      spy = sinon.spy(@view.$el, 'append')
-
       @view.render()
-      expect(spy).toHaveBeenCalledOnce()
-      expect(spy).toHaveBeenCalledWith("<form></form>")
+      expect(@view.$el).toContain('form#new_thread')
 
   describe "submitting the form data", ->
     beforeEach ->
