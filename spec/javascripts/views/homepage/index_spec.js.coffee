@@ -3,7 +3,8 @@ describe "App.HomepageView", ->
     @thread1 = new Backbone.Model
     @thread2 = new Backbone.Model
     @thread3 = new Backbone.Model
-    @threads = new App.Threads([@thread1, @thread2, @thread3])
+    @threads = new Backbone.Collection([@thread1, @thread2, @thread3])
+    @threads.byUser = ->
     @threadListView = new Backbone.View
     @threadFilterView = new Backbone.View
     @threadFilterView.render = ->
