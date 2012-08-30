@@ -31,6 +31,11 @@ describe "App.HomepageView", ->
     afterEach ->
       @renderThreadListSpy.restore()
 
+    it "creates a homepage element", ->
+      $el = @view.$el
+      expect($el).toBe('div')
+      expect($el).toHaveId('homepage')
+
     it "assigns collection to filteredCollection", ->
       expect(@view.filteredCollection).toBe(@view.collection)
 
@@ -87,11 +92,6 @@ describe "App.HomepageView", ->
   describe "Template", ->
     beforeEach ->
       @view = new App.HomepageView(collection: @threads)
-
-    it "renders the default homepage", ->
-      $el = @view.render().$el
-      expect($el).toBe("#homepage")
-      expect($el).toHaveText(/Cojiro/)
 
     describe "logged-out user", ->
       beforeEach ->
