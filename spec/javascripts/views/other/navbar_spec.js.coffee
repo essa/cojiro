@@ -4,16 +4,28 @@ describe "App.NavbarView", ->
     expect(App.Views.Navbar).toBeDefined()
     expect(App.NavbarView).toEqual(App.Views.Navbar)
 
+  describe "instantiation", ->
+    beforeEach ->
+      @view = new App.NavbarView()
+
+    it "creates a navbar", ->
+      $el = @view.$el
+      expect($el).toBe('div')
+      expect($el).toHaveClass('navbar navbar-fixed-top')
+
   describe "rendering", ->
     beforeEach ->
-      @navbarView = new App.NavbarView()
+      @view = new App.NavbarView()
 
     it "returns the view object", ->
-      expect(@navbarView.render()).toEqual(@navbarView)
+      expect(@view.render()).toEqual(@view)
 
-    it "renders the navbar", ->
-      $el = $(@navbarView.render().el)
-      expect($el).toBe(".navbar")
+  describe "Template", ->
+    beforeEach ->
+      @view = new App.NavbarView()
+
+    it "renders the site name", ->
+      $el = @view.render().$el
       expect($el).toHaveText(/cojiro/)
 
     sharedExamplesForNavbar = (context) ->
@@ -28,7 +40,7 @@ describe "App.NavbarView", ->
         describe "logged-out user", ->
           beforeEach ->
             App.currentUser = null
-            @$el = @navbarView.render().$el
+            @$el = @view.render().$el
 
           it "does not render start a thread link", ->
             expect(@$el).not.toHaveText(new RegExp(@startAThread))
@@ -42,7 +54,7 @@ describe "App.NavbarView", ->
         describe "logged-in user", ->
           beforeEach ->
             App.currentUser = @fixtures.User.valid
-            @$el = @navbarView.render().$el
+            @$el = @view.render().$el
 
           it "renders start a thread link", ->
             expect(@$el).toHaveText(new RegExp(@startAThread))
