@@ -5,7 +5,6 @@ class App.NewThreadView extends Support.CompositeView
     "submit form" : "submit"
 
   initialize: ->
-    _.bindAll @
 
   render: ->
     @renderLayout()
