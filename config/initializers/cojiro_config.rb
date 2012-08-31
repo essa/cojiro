@@ -1,2 +1,2 @@
-Cojiro::Application.config.base_languages = [:ja, :en]
+I18n.available_locales = [:ja, :en]
 I18n.locale ||= :en

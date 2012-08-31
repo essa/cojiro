@@ -3,10 +3,10 @@ Cojiro::Application.routes.draw do
   # first created -> highest priority.
 
   match '/auth/:provider/callback' => 'sessions#callback'
-  match '/:locale/', :locale => /#{Rails.application.config.base_languages.join("|")}/, :to => 'homepage#index', :as => 'homepage'
+  match '/:locale/', :locale => /#{I18n.available_locales.join('|')}/, :to => 'homepage#index', :as => 'homepage'
   match '/logout', :to => 'sessions#destroy', :as => 'logout'
 
-  scope '/:locale', :locale => /#{Rails.application.config.base_languages.join("|")}/ do
+  scope '/:locale', :locale => /#{I18n.available_locales.join('|')}/ do
     resources :cothreads, :except => :edit, :path => :threads
   end
 

@@ -5,7 +5,7 @@ class CothreadsController < ApplicationController
   respond_to :html, :only => [ :show, :new ]
 
   def index
-    @cothreads = Cothread.with_translations(base_languages).recent.all
+    @cothreads = Cothread.with_translations(available_locales).recent.all
     respond_with(@cothreads)
   end
 

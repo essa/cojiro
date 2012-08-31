@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     User.current_user = @current_user = User.find_by_name(session[:user]) if session[:user]
   end
 
-  def base_languages
-    Rails.application.config.base_languages
+  def available_locales
+    I18n.available_locales
   end
 end
