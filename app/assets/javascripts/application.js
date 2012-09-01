@@ -30,6 +30,7 @@
 //= require jquery.timeago.locales
 //
 //= require app
+//= require base_view
 //
 //= require_tree ./mixins
 //
