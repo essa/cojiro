@@ -1,10 +1,9 @@
-class App.NewThreadView extends Support.CompositeView
+class App.NewThreadView extends App.BaseView
   id: 'new_thread'
 
-  events:
-    "submit form" : "submit"
-
-  initialize: ->
+  buildEvents: () ->
+    _(super).extend
+      "submit form" : "submit"
 
   render: ->
     @renderLayout()

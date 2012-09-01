@@ -1,4 +1,4 @@
-class App.ThreadListView extends Support.CompositeView
+class App.ThreadListView extends App.BaseView
   id: 'threads_list'
   tagName: 'table'
   className: 'table table-striped'

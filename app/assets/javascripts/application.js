@@ -31,7 +31,7 @@
 //
 //= require app
 //
-//= require composite_form
+//= require_tree ./mixins
 //
 //= require_tree ./models
 //= require_tree ./collections

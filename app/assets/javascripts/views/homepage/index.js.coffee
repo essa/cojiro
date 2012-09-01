@@ -1,4 +1,4 @@
-class App.HomepageView extends Support.CompositeView
+class App.HomepageView extends App.BaseView
   id: 'homepage'
 
   initialize: ->
