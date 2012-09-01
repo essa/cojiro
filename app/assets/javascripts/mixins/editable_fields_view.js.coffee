@@ -42,10 +42,10 @@ class App.EditableFieldsView extends App.BaseView
   convertToSaveButton: ($el) ->
     $el.addClass('save-button')
     $el.removeClass('edit-button')
-    $el.html(I18n.t('views.threads.thread.save'))
+    $el.html(I18n.t('views.mixins.editable_fields.save'))
 
   insertFormIntoEditableField: ($el, form) -> @findEditableField($el).html(form.el)
-  insertCancelButtonAfter: ($el) -> $el.after("<button class='cancel-button btn btn-mini'>#{I18n.t('views.threads.thread.cancel')}</button>")
+  insertCancelButtonAfter: ($el) -> $el.after("<button class='cancel-button btn btn-mini'>#{I18n.t('views.mixins.editable_fields.cancel')}</button>")
   removeCancelButtonAfter: ($el) -> $el.next().remove()
   findParent: ($el) -> $el.closest('.editable-field-parent')
   findEditableField: ($el) -> @findParent($el).find('.editable-field')
