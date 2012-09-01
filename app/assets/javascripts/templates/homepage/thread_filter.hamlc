@@ -4,6 +4,3 @@
   %select#commentlang.span3
     %option{ value: "all"} everything
     %option{ value: "mine" } threads that I started
-  %a.btn{ href: "#" }
-    %i.icon-refresh
-    Refresh
