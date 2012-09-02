@@ -19,7 +19,9 @@ $white: #FFFFFF;
 	border-top-color: $brightblue;
 	border-style: solid none none;
 	border-width: 4px medium medium;
-	background-image: none;
+	background-color: $white;
+	padding-top: 15px;
+	height: 60px;
 }
 
 /* ----------------------------- */
