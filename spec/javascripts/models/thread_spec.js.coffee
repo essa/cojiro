@@ -2,7 +2,7 @@
 # ref2: http://tinnedfruit.com/2011/03/25/testing-backbone-apps-with-jasmine-sinon-2.html
 describe 'App.Thread', ->
 
-  it 'is defined with alias', -> 
+  it 'is defined with alias', ->
     expect(App.Thread).toBeDefined()
     expect(App.Models.Thread).toBeDefined()
     expect(App.Thread).toEqual(App.Models.Thread)
