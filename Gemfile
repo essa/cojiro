@@ -58,6 +58,8 @@ group :test do
   # ref: http://datacodescotch.blogspot.jp/2011/11/warning-cucumber-rails-required-outside.html 
   gem 'cucumber-rails', '~> 1.0', require: false
   gem 'webmock'
+  gem 'guard', '>= 1.3.2'
+  gem 'rb-inotify', '~> 0.8.8'
   gem 'guard-spork'
   gem 'guard-rspec'
   gem 'guard-cucumber'
