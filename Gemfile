@@ -64,7 +64,10 @@ group :test do
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'guard-jasmine'
+  gem 'guard-rails'
+  gem 'guard-livereload'
 end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
