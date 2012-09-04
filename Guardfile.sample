@@ -1,19 +1,26 @@
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
+# A sample Guardfile for cojiro BDD
+# see https://github.com/netalab/cojiro/wiki/StartingDevelopment
+# for detail
+#
+# invoke this by 
+#   $ Xvfb :99 -ac&
+#   $ DISPLAY=:99 rbenv exec bundle exec guard   
 
-guard 'rails' do
-  watch('Gemfile.lock')
-  watch(%r{^(config|lib)/.*})
-end
+# Uncomment this if you want to start debugging server with guard
+# guard 'rails' do
+#   watch('Gemfile.lock')
+#   watch(%r{^(config|lib)/.*})
+# end
 
-guard 'livereload' do
-  watch(%r{app/views/.+\.(erb|haml|slim)})
-  watch(%r{app/helpers/.+\.rb})
-  watch(%r{public/.+\.(css|js|html)})
-  watch(%r{config/locales/.+\.yml})
-  # Rails Assets Pipeline
-  watch(%r{(app|vendor)/assets/\w+/(.+\.(css|js|html)).*})  { |m| "/assets/#{m[2]}" }
-end
+# Uncomment this if you use livereload extention
+# guard 'livereload' do
+#   watch(%r{app/views/.+\.(erb|haml|slim)})
+#   watch(%r{app/helpers/.+\.rb})
+#   watch(%r{public/.+\.(css|js|html)})
+#   watch(%r{config/locales/.+\.yml})
+#   # Rails Assets Pipeline
+#   watch(%r{(app|vendor)/assets/\w+/(.+\.(css|js|html)).*})  { |m| "/assets/#{m[2]}" }
+# end
 
 guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' } do
   watch('config/application.rb')

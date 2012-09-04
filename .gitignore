@@ -39,3 +39,6 @@
 
 # Ignore ctags
 tags
+
+# Ignore Guardfile because it may be different by environment.
+Guardfile
