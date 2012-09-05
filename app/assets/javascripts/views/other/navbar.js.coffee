@@ -1,4 +1,4 @@
-class App.NavbarView extends Support.CompositeView
+class App.NavbarView extends App.BaseView
   className: 'navbar navbar-fixed-top'
 
   initialize: ->

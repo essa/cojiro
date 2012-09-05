@@ -1,4 +1,4 @@
-class App.ThreadListItemView extends Support.CompositeView
+class App.ThreadListItemView extends App.BaseView
   tagName: 'tr'
   id: 'thread-list-item'
   className: 'clickable'
