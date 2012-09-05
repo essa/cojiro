@@ -1,4 +1,4 @@
-class App.EditableFieldsModel extends App.BaseModel
+class App.TranslatableFieldsModel extends App.BaseModel
 
   getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")
   getSourceLocale: -> @get('source_locale')

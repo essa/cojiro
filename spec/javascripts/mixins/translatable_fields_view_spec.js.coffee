@@ -1,28 +1,28 @@
-describe "App.EditableFieldsView", ->
+describe "App.TranslatableFieldsView", ->
 
-  sharedExamplesForEditableFields = (context) ->
+  sharedExamplesForTranslatableFields = (context) ->
 
-    # selectors for editable field elements
-    parentSelector = (attr) -> ".editable-field-parent[data-attribute='#{attr}']"
-    fieldSelector = (attr) -> parentSelector(attr) + " .editable-field"
+    # selectors for translatable field elements
+    parentSelector = (attr) -> ".translatable-field-parent[data-attribute='#{attr}']"
+    fieldSelector = (attr) -> parentSelector(attr) + " .translatable-field"
     editButtonSelector = (attr) -> parentSelector(attr) + " button.edit-button"
     saveButtonSelector = (attr) -> parentSelector(attr) + " button.save-button"
     cancelButtonSelector = (attr) -> parentSelector(attr) + ' button ~ button.cancel-button'
     formSelector = (attr) -> fieldSelector(attr) + ' form'
 
-    # for finding editable field elements in the view
+    # for finding translatable field elements in the view
     findParent = (view, attr) -> view.$(parentSelector(attr))
     findField = (view, attr) -> view.$(fieldSelector(attr))
     findEditButton = (view, attr) -> view.$(editButtonSelector(attr))
     findCancelButton = (view, attr) -> view.$(cancelButtonSelector(attr))
     findForm = (view, attr) -> view.$(formSelector(attr))
 
-    describe "shared behaviour for editable fields", ->
+    describe "shared behaviour for translatable fields", ->
       beforeEach ->
         App.currentUser = @fixtures.User.valid
         @attr = context.attr
         @type = context.type || 'input'
-        @model = new App.EditableFieldsModel
+        @model = new App.TranslatableFieldsModel
         _(@model).extend
           id: "123"
           schema: ->
@@ -33,28 +33,28 @@ describe "App.EditableFieldsView", ->
         @model.collection = new Backbone.Collection
         @model.collection.url = -> '/en/models'
 
-        @showEditableFieldSpy = sinon.spy(App.EditableFieldsView.prototype, 'showEditableField')
-        @submitEditableFieldFormSpy = sinon.spy(App.EditableFieldsView.prototype, 'submitEditableFieldForm')
-        @saveEditableFieldSpy = sinon.spy(App.EditableFieldsView.prototype, 'saveEditableField')
-        @revertEditableFieldSpy = sinon.spy(App.EditableFieldsView.prototype, 'revertEditableField')
-        @view = new App.EditableFieldsView(model: @model)
+        @showTranslatableFieldSpy = sinon.spy(App.TranslatableFieldsView.prototype, 'showTranslatableField')
+        @submitTranslatableFieldFormSpy = sinon.spy(App.TranslatableFieldsView.prototype, 'submitTranslatableFieldForm')
+        @saveTranslatableFieldSpy = sinon.spy(App.TranslatableFieldsView.prototype, 'saveTranslatableField')
+        @revertTranslatableFieldSpy = sinon.spy(App.TranslatableFieldsView.prototype, 'revertTranslatableField')
+        @view = new App.TranslatableFieldsView(model: @model)
         @view.render = ->
-          @$el.append(JST['shared/_editable_field'](model: @model, attr_name: context.attr))
+          @$el.append(JST['shared/_translatable_field'](model: @model, attr_name: context.attr))
         @view.render()
         @$editButton = findEditButton(@view, @attr)
 
       afterEach ->
         App.currentUser = null
-        App.EditableFieldsView.prototype.showEditableField.restore()
-        App.EditableFieldsView.prototype.submitEditableFieldForm.restore()
-        App.EditableFieldsView.prototype.saveEditableField.restore()
-        App.EditableFieldsView.prototype.revertEditableField.restore()
+        App.TranslatableFieldsView.prototype.showTranslatableField.restore()
+        App.TranslatableFieldsView.prototype.submitTranslatableFieldForm.restore()
+        App.TranslatableFieldsView.prototype.saveTranslatableField.restore()
+        App.TranslatableFieldsView.prototype.revertTranslatableField.restore()
 
       describe "when edit button handler is fired", ->
 
-        it 'calls showEditableField', ->
+        it 'calls showTranslatableField', ->
           @$editButton.trigger('click')
-          expect(@showEditableFieldSpy).toHaveBeenCalledOnce()
+          expect(@showTranslatableFieldSpy).toHaveBeenCalledOnce()
 
         it 'changes the edit button into a save button', ->
           @$editButton.trigger('click')
@@ -112,9 +112,9 @@ describe "App.EditableFieldsView", ->
         afterEach ->
           @model.save.restore()
 
-        it 'calls saveEditableField', ->
+        it 'calls saveTranslatableField', ->
           @$editButton.trigger('click')
-          expect(@saveEditableFieldSpy).toHaveBeenCalledOnce()
+          expect(@saveTranslatableFieldSpy).toHaveBeenCalledOnce()
 
         it 'commits the form for the edited field', ->
           spy = sinon.spy(@view.forms[@attr], 'commit')
@@ -131,7 +131,7 @@ describe "App.EditableFieldsView", ->
 
           @view.forms[@attr].commit.restore()
 
-      describe "when editable field is submitted (e.g. by hitting enter while in form field)", ->
+      describe "when translatable field is submitted (e.g. by hitting enter while in form field)", ->
         beforeEach ->
           @$editButton.trigger('click')
           sinon.stub(@model, 'save').returns(null)
@@ -140,9 +140,9 @@ describe "App.EditableFieldsView", ->
         afterEach ->
           @model.save.restore()
 
-        it 'calls submitEditableFieldForm', ->
+        it 'calls submitTranslatableFieldForm', ->
           @$form.submit()
-          expect(@submitEditableFieldFormSpy).toHaveBeenCalledOnce()
+          expect(@submitTranslatableFieldFormSpy).toHaveBeenCalledOnce()
 
         it 'prevents default form submission', ->
           spyEvent = spyOnEvent(@$form, 'submit')
@@ -162,9 +162,9 @@ describe "App.EditableFieldsView", ->
           @$editButton.trigger('click')
           @$cancelButton = findCancelButton(@view, @attr)
 
-        it 'calls revertEditableField', ->
+        it 'calls revertTranslatableField', ->
           @$cancelButton.trigger('click')
-          expect(@revertEditableFieldSpy).toHaveBeenCalledOnce()
+          expect(@revertTranslatableFieldSpy).toHaveBeenCalledOnce()
 
         it 'removes save and cancel buttons', ->
           @$cancelButton.trigger('click')
@@ -176,9 +176,9 @@ describe "App.EditableFieldsView", ->
           @view.$("#{@type}[name='#{@attr}']").val("abcdefg")
           @$cancelButton.trigger('click')
 
-          @$editableField = findField(@view, @attr)
-          expect(@$editableField).not.toContain('form')
-          expect(@$editableField).toHaveText(@originalFieldText)
+          @$translatableField = findField(@view, @attr)
+          expect(@$translatableField).not.toContain('form')
+          expect(@$translatableField).toHaveText(@originalFieldText)
 
       describe "after a successful save", ->
         beforeEach ->
@@ -216,17 +216,17 @@ describe "App.EditableFieldsView", ->
           @$editButton.trigger('click')
           @server.respond()
 
-          @$editableField = findField(@view, @attr)
-          expect(@$editableField).toHaveText("abcdefg")
-          expect(@$editableField).toHaveClass("translated")
+          @$translatableField = findField(@view, @attr)
+          expect(@$translatableField).toHaveText("abcdefg")
+          expect(@$translatableField).toHaveClass("translated")
 
         it "if value is unchanged, replaces form with original text", ->
           @$editButton.trigger('click')
           @server.respond()
 
-          @$editableField = findField(@view, @attr)
-          expect(@$editableField).toHaveText(@originalFieldText)
-          expect(@$editableField).not.toContain('form')
+          @$translatableField = findField(@view, @attr)
+          expect(@$translatableField).toHaveText(@originalFieldText)
+          expect(@$translatableField).not.toContain('form')
 
   model_in_my_locale =
     title: "Co-working spaces in Tokyo"
@@ -243,11 +243,11 @@ describe "App.EditableFieldsView", ->
 
     describe "for a model in my locale", ->
       beforeEach -> sharedContext.model = model_in_my_locale
-      sharedExamplesForEditableFields(sharedContext)
+      sharedExamplesForTranslatableFields(sharedContext)
 
     describe "for a model in another locale", ->
       beforeEach -> sharedContext.model = model_in_another_locale
-      sharedExamplesForEditableFields(sharedContext)
+      sharedExamplesForTranslatableFields(sharedContext)
 
   describe "textarea", ->
     sharedContext =
@@ -256,8 +256,8 @@ describe "App.EditableFieldsView", ->
 
     describe "for a model in my locale", ->
       beforeEach -> sharedContext.model = model_in_my_locale
-      sharedExamplesForEditableFields(sharedContext)
+      sharedExamplesForTranslatableFields(sharedContext)
 
     describe "for a model in another locale", ->
       beforeEach -> sharedContext.model = model_in_another_locale
-      sharedExamplesForEditableFields(sharedContext)
+      sharedExamplesForTranslatableFields(sharedContext)

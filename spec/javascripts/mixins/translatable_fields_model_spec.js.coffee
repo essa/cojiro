@@ -1,8 +1,8 @@
-describe "App.EditableFieldsModel", ->
+describe "App.TranslatableFieldsModel", ->
 
   describe 'getters', ->
     beforeEach ->
-      @model = new App.EditableFieldsModel
+      @model = new App.TranslatableFieldsModel
       @model.collection = url: '/collection'
 
     describe '#getAttrInSourceLocale', ->

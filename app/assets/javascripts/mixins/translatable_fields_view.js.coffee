@@ -1,28 +1,28 @@
-class App.EditableFieldsView extends App.BaseView
+class App.TranslatableFieldsView extends App.BaseView
   
   buildEvents: () ->
     _(super).extend
-      "click button.edit-button": "showEditableField"
-      "click button.save-button": "saveEditableField"
-      "submit form.in-place-form": "submitEditableFieldForm"
-      "click button.cancel-button": "revertEditableField"
+      "click button.edit-button": "showTranslatableField"
+      "click button.save-button": "saveTranslatableField"
+      "submit form.in-place-form": "submitTranslatableFieldForm"
+      "click button.cancel-button": "revertTranslatableField"
 
-  showEditableField: (e) ->
+  showTranslatableField: (e) ->
     $button = $(e.currentTarget)
     @convertToSaveButton($button)
     @insertCancelButtonAfter($button)
     $parent = @findParent($button)
     attr = @getAttributeName($parent)
     form = @createAndRenderFormFor(attr)
-    @insertFormIntoEditableField($parent, form)
+    @insertFormIntoTranslatableField($parent, form)
 
-  submitEditableFieldForm: (e) ->
+  submitTranslatableFieldForm: (e) ->
     e.preventDefault()
     $form = $(e.currentTarget)
     $button = @findSaveButton($form)
     $button.trigger('click')
 
-  saveEditableField: (e) ->
+  saveTranslatableField: (e) ->
     $button = $(e.currentTarget)
     $parent = @findParent($button)
     attr = @getAttributeName($parent)
@@ -30,25 +30,25 @@ class App.EditableFieldsView extends App.BaseView
     self = @
     @model.save({},
       success: (model, resp) ->
-        $parent.replaceWith(JST['shared/_editable_field'](model: model, attr_name: attr))
+        $parent.replaceWith(JST['shared/_translatable_field'](model: model, attr_name: attr))
     )
 
-  revertEditableField: (e) ->
+  revertTranslatableField: (e) ->
     $button = $(e.currentTarget)
     $parent = @findParent($button)
     attr = @getAttributeName($parent)
-    $parent.replaceWith(JST['shared/_editable_field'](model: @model, attr_name: attr))
+    $parent.replaceWith(JST['shared/_translatable_field'](model: @model, attr_name: attr))
 
   convertToSaveButton: ($el) ->
     $el.addClass('save-button')
     $el.removeClass('edit-button')
-    $el.html(I18n.t('views.mixins.editable_fields.save'))
+    $el.html(I18n.t('views.mixins.translatable_fields.save'))
 
-  insertFormIntoEditableField: ($el, form) -> @findEditableField($el).html(form.el)
-  insertCancelButtonAfter: ($el) -> $el.after("<button class='cancel-button btn btn-mini'>#{I18n.t('views.mixins.editable_fields.cancel')}</button>")
+  insertFormIntoTranslatableField: ($el, form) -> @findTranslatableField($el).html(form.el)
+  insertCancelButtonAfter: ($el) -> $el.after("<button class='cancel-button btn btn-mini'>#{I18n.t('views.mixins.translatable_fields.cancel')}</button>")
   removeCancelButtonAfter: ($el) -> $el.next().remove()
-  findParent: ($el) -> $el.closest('.editable-field-parent')
-  findEditableField: ($el) -> @findParent($el).find('.editable-field')
+  findParent: ($el) -> $el.closest('.translatable-field-parent')
+  findTranslatableField: ($el) -> @findParent($el).find('.translatable-field')
   findSaveButton: ($el) -> @findParent($el).find('button.save-button')
   getAttributeName: ($el) -> $el.attr('data-attribute')
   createFormFor: (attr) -> new Backbone.CompositeForm(model: @model, fields: [attr], template: 'inPlaceForm', fieldsetTemplate: 'inPlaceFieldset', fieldTemplate: 'inPlaceField')
@@ -57,4 +57,4 @@ class App.EditableFieldsView extends App.BaseView
     form = (@forms[attr] ||= @createFormFor(attr))
     @renderChild(form)
     return form
-  renderEditableField: ($el, attr) -> @findParent($el).replaceWith(JST['shared/_editable_field'](model: @model, attr_name: attr))
+  renderTranslatableField: ($el, attr) -> @findParent($el).replaceWith(JST['shared/_translatable_field'](model: @model, attr_name: attr))

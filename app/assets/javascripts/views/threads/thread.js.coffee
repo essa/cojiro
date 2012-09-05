@@ -1,4 +1,4 @@
-class App.ThreadView extends App.EditableFieldsView
+class App.ThreadView extends App.TranslatableFieldsView
   id: 'thread'
 
   initialize: ->

@@ -1,4 +1,4 @@
-class App.Thread extends App.EditableFieldsModel
+class App.Thread extends App.TranslatableFieldsModel
   defaults: ->
     title: ''
     summary: ''
