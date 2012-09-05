@@ -30,8 +30,8 @@
 //= require jquery.timeago.locales
 //
 //= require app
-//= require base_view
 //
+//= require_tree ./base_classes
 //= require_tree ./mixins
 //
 //= require_tree ./models
