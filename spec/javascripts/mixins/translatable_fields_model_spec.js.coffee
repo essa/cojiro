@@ -28,11 +28,12 @@ describe "App.TranslatableFieldsModel", ->
         @spy = sinon.spy()
         @model.bind('error', @spy)
 
-      it 'does not save if the source locale is null or blank', ->
+      it 'does not save if the source locale is blank', ->
         @model.save('source_locale': "")
         expect(@spy).toHaveBeenCalledOnce()
         expect(@spy).toHaveBeenCalledWith(@model,{'source_locale':"can't be blank"})
 
+      it 'does not save if the source locale is null', ->
         @model.save('source_locale': null)
         expect(@spy).toHaveBeenCalledOnce()
         expect(@spy).toHaveBeenCalledWith(@model,{'source_locale':"can't be blank"})

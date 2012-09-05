@@ -208,7 +208,8 @@ describe 'App.Thread', ->
         it 'does not save if title is blank and the source locale is missing', ->
           @thread.save(_(@data).extend('title':'', 'source_locale': null))
           expect(@spy).toHaveBeenCalledOnce()
-          expect(@spy).toHaveBeenCalledWith(@thread,{'title':"can't be blank"})
+          expect(@spy).toHaveBeenCalledWith(@thread,
+            {'title':"can't be blank", 'source_locale':"can't be blank"})
 
         it 'does save if title is blank and we are not in the source locale', ->
           I18n.locale = 'ja'
