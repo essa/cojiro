@@ -64,15 +64,6 @@ describe 'App.Thread', ->
         @thread.id = 66;
         expect(@thread.getId()).toEqual(66)
 
-    describe '#getAttrInSourceLocale', ->
-      it 'is defined', -> expect(@thread.getAttrInSourceLocale).toBeDefined()
-
-      it 'returns value for the attr_in_source_locale helper method', ->
-        stub = sinon.stub(@thread, 'get').returns('Attribute in source language')
-
-        expect(@thread.getAttrInSourceLocale('attribute')).toEqual('Attribute in source language')
-        expect(stub).toHaveBeenCalledWith('attribute_in_source_locale')
-
     describe '#getTitle', ->
       it 'is defined', -> expect(@thread.getTitle).toBeDefined()
 
@@ -103,15 +94,6 @@ describe 'App.Thread', ->
       it 'is undefined if created_at attribute is undefined', ->
         stub = sinon.stub(@thread, 'get').returns(undefined)
         expect(@thread.getCreatedAt()).toEqual(undefined)
-
-    describe '#getSourceLocale', ->
-      it 'is defined', -> expect(@thread.getSourceLocale).toBeDefined()
-
-      it 'returns value for the source_locale attribute', ->
-        stub = sinon.stub(@thread, 'get').returns('ja')
-
-        expect(@thread.getSourceLocale()).toEqual('ja')
-        expect(stub).toHaveBeenCalledWith('source_locale')
 
     describe '#getUserName', ->
       it 'is defined', -> expect(@thread.getUserName).toBeDefined()
@@ -236,15 +218,6 @@ describe 'App.Thread', ->
         it 'does save if title is null (not included)', ->
           @thread.save(_(@data).extend('title': null))
           expect(@spy).not.toHaveBeenCalled()
-
-        it 'does not save if the source locale is null or blank', ->
-          @thread.save(_(@data).extend('source_locale': ""))
-          expect(@spy).toHaveBeenCalledOnce()
-          expect(@spy).toHaveBeenCalledWith(@thread,{'source_locale':"can't be blank"})
-
-          @thread.save(_(@data).extend('source_locale': null))
-          expect(@spy).toHaveBeenCalledOnce()
-          expect(@spy).toHaveBeenCalledWith(@thread,{'source_locale':"can't be blank"})
 
     describe 'parsing response data', ->
       beforeEach ->
