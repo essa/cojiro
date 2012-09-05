@@ -85,6 +85,7 @@ Spork.prefork do
     end 
 
     if defined?(CarrierWave)
+      AvatarUploader # load AvatarUploader class 
       CarrierWave::Uploader::Base.descendants.each do |klass|
         next if klass.anonymous?
         klass.class_eval do
