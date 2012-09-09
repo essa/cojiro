@@ -71,6 +71,18 @@ Contributing
 
 We welcome feature suggestions, bug fixes and pull requests, as well as help with interface localization to new languages. For more information see the [wiki](https://github.com/netalab/cojiro/wiki).
 
+Supporters
+------------
+
+Cojiro is sponsored by a grant from the [Omidyar Network](http://www.omidyar.com/), as a recipient of the [Global Voices Innovation Award](http://www.globalvoicesonline.org). 
+
+Cojiro also receives support from Tokyo-based creative agency [AQ](http://www.aqworks.com) and system development company [Brain Co,.Ltd.](http://www.brain-tokyo.jp/).
+
+[![Global Voices](http://ripplet.org/cojiro/gv.jpg)](http://www.globalvoicesonline.org)
+[![Omidyar Network](http://ripplet.org/cojiro/omidyar.jpg)](http://www.omidyar.com/)
+[![AQ](http://ripplet.org/cojiro/aq.jpg)](http://www.aqworks.com)
+[![Brain](http://ripplet.org/cojiro/brain.jpg)](http://www.brain-tokyo.jp/)
+
 Copyright
 ---------
 
