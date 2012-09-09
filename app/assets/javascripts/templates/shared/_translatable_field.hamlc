@@ -1,0 +1,6 @@
+- if @isLoggedIn
+  %span.translatable-field-parent{ 'data-attribute': @attr_name }
+    !=JST['shared/_translatable_attribute'](model: @model, attr_name: @attr_name, translatable_field_class_name: 'translatable-field')
+    !=JST['shared/_edit_add_button'](text: @model.get(@attr_name))
+- else
+  !=JST['shared/_translatable_attribute'](model: @model, attr_name: @attr_name)

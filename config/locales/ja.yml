@@ -32,7 +32,8 @@ ja:
     threads:
       new_thread:
         thread_created: "スレッドは作成されました。"
-      thread:
+    mixins:
+      translatable_fields:
         save: 保存する
         cancel: キャンセル
 

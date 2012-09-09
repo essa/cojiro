@@ -1,7 +1,7 @@
 .row
   .span12
     %h2
-      !=JST['shared/_editable_field'](model: @model, attr_name: 'title')
+      !=JST['shared/_translatable_field'](model: @model, attr_name: 'title')
 .statbar
   %ul.nav.nav-pills
     %li
@@ -35,4 +35,4 @@
 .row
   .span6
     %p
-      !=JST['shared/_editable_field'](model: @model, attr_name: 'summary')
+      !=JST['shared/_translatable_field'](model: @model, attr_name: 'summary')

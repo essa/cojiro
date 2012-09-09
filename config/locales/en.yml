@@ -32,7 +32,8 @@ en:
     threads:
       new_thread:
         thread_created: "Thread successfully created."
-      thread:
+    mixins:
+      translatable_fields:
         save: Save
         cancel: Cancel
 

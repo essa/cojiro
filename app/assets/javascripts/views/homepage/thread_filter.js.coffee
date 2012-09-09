@@ -1,10 +1,11 @@
-class App.ThreadFilterView extends Support.CompositeView
+class App.ThreadFilterView extends App.BaseView
   className: 'commentheader form-horizontal'
   tagName: 'form'
   id: 'thread-filter'
 
-  events:
-    "change select": "selectFilter"
+  buildEvents: () ->
+    _(super).extend
+      "change select": "selectFilter"
 
   render: =>
     @$el.html(JST['homepage/thread_filter'])
