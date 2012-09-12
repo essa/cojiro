@@ -4,9 +4,9 @@ set :repository,  "git://github.com/essa/cojiro.git"
 set :scm, :git
 set :branch,      'feature/deploy'
 
-role :web, "dev1.brainosr.net"                          # Your HTTP server, Apache/etc
-role :app, "dev1.brainosr.net"                          # This may be the same as your `Web` server
-role :db,  "dev1.brainosr.net", :primary => true # This is where Rails migrations will run
+role :web, "localhost"                          # Your HTTP server, Apache/etc
+role :app, "localhost"                          # This may be the same as your `Web` server
+role :db,  "localhost", :primary => true # This is where Rails migrations will run
 
 set :public_children, []
 
