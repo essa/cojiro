@@ -1,6 +1,6 @@
 worker_processes 4
 
-listen 3000, :tcp_nopush => true
+listen 6000, :tcp_nopush => true
 
 timeout 30
 

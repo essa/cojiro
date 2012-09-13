@@ -1,4 +1,6 @@
 
+require "bundler/capistrano"
+
 set :application, "cojiro"
 set :repository,  "git://github.com/essa/cojiro.git"
 set :rails_env, "production"
@@ -13,27 +15,15 @@ role :db,  "localhost", :primary => true # This is where Rails migrations will r
 #set :public_children, []
 
 set :default_environment, {
-  'PATH' => "/home/admin/.rbenv/shims:/home/admin/.rbenv/bin:$PATH"
+  'PATH' => "/home/admin/.rbenv/shims:/home/admin/.rbenv/bin:/home/admin/.nave/installed/bin/:$PATH"
 }
 
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+# It should be [:development, :test],but it did not work saying guard/jasmine/task not found
+set :bundle_without,  []
 
 set :config_files, %w(database.yml)
 
-after "deploy:update_code", :role => [:app] do
+after "deploy:finalize_update", :role => [:app] do
   config_files.each do |file|
     run "cp #{shared_path}/config/#{file} #{release_path}/config/#{file}"
   end
