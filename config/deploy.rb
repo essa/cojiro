@@ -14,8 +14,11 @@ role :db,  "localhost", :primary => true # This is where Rails migrations will r
 
 #set :public_children, []
 
+load File::join(ENV['HOME'], ".twitter_secret")
 set :default_environment, {
-  'PATH' => "/home/admin/.rbenv/shims:/home/admin/.rbenv/bin:/home/admin/.nave/installed/bin/:$PATH"
+  'PATH' => "/home/admin/.rbenv/shims:/home/admin/.rbenv/bin:/home/admin/.nave/installed/bin/:$PATH",
+  'TWITTER_KEY' =>  TWITTER_KEY,
+  'TWITTER_SECRET' => TWITTER_SECRET,
 }
 
 # It should be [:development, :test],but it did not work saying guard/jasmine/task not found
