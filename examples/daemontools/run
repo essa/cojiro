@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+# script for daemontools
+# ref: http://blog.riywo.com/2012/04/18/054141
+#
+# mkdir /service/cojiro-unicorn
+# cd /service/cojiro-unicorn
+# mkdir env
+# echo "production"          > env/RAILS_ENV
+# echo "/home/user/cojiro" > env/RAILS_ROOT
+# echo "/home/user/.rbenv"  > env/RBENV_ROOT
+# echo "riywo"               > env/USER
+# echo 'xxxxx'               > env/TWITTER_KEY
+# echo 'xxxxx'               > env/TWITTER_SECRET
+
+exec 2>&1 \
+envdir ./env \
+sh -c '
+    PATH="$RBENV_ROOT/bin:$PATH"
+    echo $PATH
+    eval "$(rbenv init -)"
+
+    echo $RAILS_ROOT
+    cd $RAILS_ROOT
+
+    exec setuidgid $USER \
+    bundle exec unicorn_rails -c ./config/unicorn.rb -E $RAILS_ENV
+'
+
