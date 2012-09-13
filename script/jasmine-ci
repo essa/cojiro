@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+require "socket"
+
+def wait_for_open_connection(host, port)
+  100.times do
+    begin
+      TCPSocket.new(host, port).close
+      return
+    rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH
+      sleep 3
+      puts 'waiting server port...'
+    end
+  end
+  raise "faild starting server"
+end
+
+def with_server(port)
+  pid = fork do 
+    exec('script/rails', 'server', "-p#{port}" , "-edevelopment", '-b127.0.0.1')
+  end 
+  wait_for_open_connection("127.0.0.1", port)
+  puts "server stated"
+  yield
+ensure
+  Process.kill('SIGSTOP', pid)
+  sleep 3
+  Process.kill('SIGKILL', pid)
+end
+
+
+port = ARGV[1] || 3000
+url = "http://127.0.0.1:#{port}/jasmine"
+script = '/usr/local/phantomjs-1.6.0-linux-i686-dynamic/examples/run-jasmine.js'
+puts "Run Jasmine with phatomjs at #{ url }"
+result = with_server(port) { `phantomjs #{ script } #{ url }` }
+puts result
+if result =~ /0 failures/
+  puts 'all specs passed'
+else
+  puts 'Error detected!!'
+  exit 1
+end
