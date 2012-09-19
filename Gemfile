@@ -79,3 +79,6 @@ gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
+
+# Load require.js
+gem 'requirejs-rails'
