@@ -4,11 +4,15 @@
     %title
       = "cojiro: " + yield_or_default(:title, "conversations across languages") 
     = stylesheet_link_tag :application
+    = requirejs_include_tag "application"
     %base{ :href => root_url.gsub(/\?.*/,""), :locale => nil }
-    = javascript_include_tag :application
-    %script{type:"text/javascript"}
-      I18n.defaultLocale = "#{I18n.default_locale}";
-      I18n.locale = "#{I18n.locale}";
+    :javascript
+      define('config', function() {
+      return {
+      default_locale: "#{I18n.default_locale}",
+      locale: "#{I18n.locale}",
+      current_user: #{@current_user.to_json} };
+      });
     = csrf_meta_tags
   %body
     #navbar
@@ -17,7 +21,3 @@
         - flash.each do |name, msg|
           = content_tag :div, '<a class="close" href="#">×</a>'.html_safe + msg, :class => "alert alert-#{name} #{name}", :id => "flash_#{name}", :'data-dismiss' => 'alert' if msg.is_a?(String)
         = yield
-    :javascript
-      $(function () {
-        App.init(#{@current_user.to_json});
-      });

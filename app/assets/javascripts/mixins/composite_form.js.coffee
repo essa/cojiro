@@ -1,11 +1,18 @@
-Backbone.CompositeForm = (options) ->
-  Backbone.Form.apply(@, [options])
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'backbone-forms'
+], ($, _, Backbone) ->
 
-_.extend Backbone.CompositeForm.prototype, Backbone.Form.prototype,
+  Backbone.CompositeForm = (options) ->
+    Backbone.Form.apply(@, [options])
 
-  leave: () ->
-    @unbind()
-    @remove()
-    @parent._removeChild(@)
+  _.extend Backbone.CompositeForm.prototype, Backbone.Form.prototype,
 
-Backbone.CompositeForm.extend = Backbone.Form.extend
+    leave: () ->
+      @unbind()
+      @remove()
+      @parent._removeChild(@)
+
+  Backbone.CompositeForm.extend = Backbone.Form.extend

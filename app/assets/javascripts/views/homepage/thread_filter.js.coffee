@@ -1,18 +1,25 @@
-class App.ThreadFilterView extends App.BaseView
-  className: 'commentheader form-horizontal'
-  tagName: 'form'
-  id: 'thread-filter'
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'mixins/base_view',
+  'hamlcoffee',
+  'hamlcoffee_globals'
+], ($, _, Backbone, BaseView) ->
 
-  buildEvents: () ->
-    _(super).extend
-      "change select": "selectFilter"
+  class ThreadFilterView extends BaseView
+    className: 'commentheader form-horizontal'
+    tagName: 'form'
+    id: 'thread-filter'
 
-  render: =>
-    @$el.html(JST['homepage/thread_filter'])
-    @
+    buildEvents: () ->
+      _(super).extend
+        "change select": "selectFilter"
 
-  selectFilter: (e) =>
-    val = $(e.currentTarget).val()
-    @trigger("changed", val)
+    render: =>
+      @$el.html(JST['homepage/thread_filter'])
+      @
 
-App.Views.ThreadFilter = App.ThreadFilterView
+    selectFilter: (e) =>
+      val = $(e.currentTarget).val()
+      @trigger("changed", val)

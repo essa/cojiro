@@ -1,10 +1,18 @@
-class App.NavbarView extends App.BaseView
-  className: 'navbar navbar-fixed-top'
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'mixins/base_view',
+  'hamlcoffee',
+  'hamlcoffee_globals',
+  'templates/other/navbar'
+], ($, _, Backbone, BaseView) ->
 
-  initialize: ->
+  class NavbarView extends BaseView
+    className: 'navbar navbar-fixed-top'
 
-  render: ->
-    @$el.html(JST['other/navbar'])
-    @
+    initialize: ->
 
-App.Views.Navbar = App.NavbarView
+    render: ->
+      @$el.html(JST['other/navbar'])
+      @

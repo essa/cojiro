@@ -1,9 +1,16 @@
-class App.Threads extends Backbone.Collection
-  model: App.Thread
-  url: ->
-    '/' + I18n.locale + '/threads'
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'models/thread'
+], ($, _, Backbone, Thread) ->
 
-  byUser: (username) ->
-    new @constructor(@select((thread) -> (thread.getUserName() == username )))
+  class Threads extends Backbone.Collection
+    model: Thread
+    url: ->
+      '/' + I18n.locale + '/threads'
 
-App.Collections.Threads = App.Threads
+    byUser: (username) ->
+      new @constructor(@select((thread) -> (thread.getUserName() == username )))
+
+  return Threads

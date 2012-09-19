@@ -1,38 +1,47 @@
-class App.HomepageView extends App.BaseView
-  id: 'homepage'
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'mixins/base_view',
+  'views/threads/thread_list',
+  'views/homepage/thread_filter',
+  'globals',
+  'templates/homepage/index'
+], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals) ->
 
-  initialize: ->
-    @filteredCollection = @collection
-    @collection.bind("change", @renderThreadList)
+  class HomepageView extends BaseView
+    id: 'homepage'
 
-  render: ->
-    @renderLayout()
-    if App.currentUser?
-      @renderThreadFilter()
-    @renderThreadList()
-    @
+    initialize: ->
+      @filteredCollection = @collection
+      @collection.bind("change", @renderThreadList)
 
-  renderLayout: ->
-    @$el.html(JST['homepage/index'])
+    render: ->
+      @renderLayout()
+      if globals.currentUser?
+        @renderThreadFilter()
+      @renderThreadList()
+      @
 
-  renderThreadList: =>
-    @threadListView = new App.ThreadListView(collection: @filteredCollection)
-    threadListContainer = @.$('#threads')
-    @renderChildInto(@threadListView, threadListContainer)
+    renderLayout: ->
+      @$el.html(JST['homepage/index'])
 
-  renderThreadFilter: =>
-    @threadFilterView = new App.ThreadFilterView
-    @threadFilterView.bind("changed", @filterThreads)
-    threadFilterContainer = @.$('#content-header')
-    @renderChildInto(@threadFilterView, threadFilterContainer)
+    renderThreadList: =>
+      @threadListView = new ThreadListView(collection: @filteredCollection)
+      threadListContainer = @.$('#threads')
+      @renderChildInto(@threadListView, threadListContainer)
 
-  filterThreads: (scope) =>
-    switch(scope)
-      when "all"
-        @filteredCollection = @collection
-        @renderThreadList()
-      when "mine"
-        @filteredCollection = @collection.byUser(App.currentUser.name)
-        @renderThreadList()
+    renderThreadFilter: =>
+      @threadFilterView = new ThreadFilterView
+      @threadFilterView.bind("changed", @filterThreads)
+      threadFilterContainer = @.$('#content-header')
+      @renderChildInto(@threadFilterView, threadFilterContainer)
 
-App.Views.Homepage = App.HomepageView
+    filterThreads: (scope) =>
+      switch(scope)
+        when "all"
+          @filteredCollection = @collection
+          @renderThreadList()
+        when "mine"
+          @filteredCollection = @collection.byUser(globals.currentUser.name)
+          @renderThreadList()

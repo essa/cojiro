@@ -1,0 +1,8 @@
+shim:
+  'i18n':
+    exports: 'I18n'
+  'backbone-support': [ 'backbone' ]
+  'backbone_forms': [ 'backbone' ]
+  'hamlcoffee':
+    exports: 'HAML'
+  'jquery.timeago': [ 'jquery' ]

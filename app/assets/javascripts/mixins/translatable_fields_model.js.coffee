@@ -1,12 +1,18 @@
-class App.TranslatableFieldsModel extends App.BaseModel
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'mixins/base_model'
+], ($, _, Backbone, BaseModel) ->
+  class TranslatableFieldsModel extends BaseModel
 
-  getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")
-  getSourceLocale: -> @get('source_locale')
+    getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")
+    getSourceLocale: -> @get('source_locale')
 
-  validate: (attrs) ->
-    errors = super(attrs) || {}
+    validate: (attrs) ->
+      errors = super(attrs) || {}
 
-    if (attrs.source_locale is '' or attrs.source_locale is null)
-      errors.source_locale = I18n.t('errors.messages.blank')
+      if (attrs.source_locale is '' or attrs.source_locale is null)
+        errors.source_locale = I18n.t('errors.messages.blank')
 
-    return !_.isEmpty(errors) && errors
+      return !_.isEmpty(errors) && errors

@@ -1,32 +1,40 @@
-class App.ThreadListView extends App.BaseView
-  id: 'threads_list'
-  tagName: 'table'
-  className: 'table table-striped'
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'mixins/base_view',
+  'views/threads/thread_list_item',
+  'templates/threads/list',
+  'jquery.timeago'
+], ($, _, Backbone, BaseView, ThreadListItemView) ->
 
-  initialize: ->
+  class ThreadListView extends BaseView
+    id: 'threads_list'
+    tagName: 'table'
+    className: 'table table-striped'
 
-  render: ->
-    @renderLayout()
-    @renderListItems()
-    @initTimeago()
-    @
+    initialize: ->
 
-  renderLayout: ->
-    @$el.html(JST['threads/list'])
+    render: ->
+      @renderLayout()
+      @renderListItems()
+      @initTimeago()
+      @
 
-  renderListItems: ->
-    listItemsContainer = @.$('tbody')
-    listItemsContainer.html('')
+    renderLayout: ->
+      @$el.html(JST['threads/list'])
 
-    self = @
-    @collection.each (thread) ->
-      threadListItemView = new App.ThreadListItemView(model: thread)
-      self.renderChild(threadListItemView)
-      listItemsContainer.append(threadListItemView.el)
+    renderListItems: ->
+      listItemsContainer = @.$('tbody')
+      listItemsContainer.html('')
 
-    @
+      self = @
+      @collection.each (thread) ->
+        threadListItemView = new ThreadListItemView(model: thread)
+        self.renderChild(threadListItemView)
+        listItemsContainer.append(threadListItemView.el)
 
-  initTimeago: ->
-    @.$('time.timeago').timeago()
+      @
 
-App.Views.ThreadList = App.ThreadListView
+    initTimeago: ->
+      @.$('time.timeago').timeago()

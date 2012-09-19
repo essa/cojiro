@@ -1,42 +1,48 @@
-class App.NewThreadView extends App.BaseView
-  id: 'new_thread'
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'mixins/base_view',
+  'mixins/composite_form'
+], ($, _, Backbone, BaseView) ->
 
-  buildEvents: () ->
-    _(super).extend
-      "submit form" : "submit"
+  class NewThreadView extends BaseView
+    id: 'new_thread'
 
-  render: ->
-    @renderLayout()
-    @renderForm()
-    @
+    buildEvents: () ->
+      _(super).extend
+        "submit form" : "submit"
 
-  renderLayout: ->
-    @$el.html(JST['threads/new'])
+    render: ->
+      @renderLayout()
+      @renderForm()
+      @
 
-  renderForm: ->
-    @form = new Backbone.CompositeForm(model: @model)
-    @renderChild(@form)
-    @$el.append(@form.el)
-    @.$('fieldset').append(JST['threads/form_actions'])
+    renderLayout: ->
+      @$el.html(JST['threads/new'])
 
-  submit: () ->
-    errors = @form.commit()
-    if !(errors?)
-      self = @
-      @model.save({},
-        success: (model, resp) ->
-          self.collection.add(model, at: 0)
-          App.flash =
-            name: "success"
-            msg: I18n.t("views.threads.new_thread.thread_created")
-          App.appRouter.navigate(model.url(), true )
-      )
-    else
-      @.$('.alert').remove()
-      @$el.prepend(JST['other/flash'](
-        name: "error"
-        msg: I18n.t("errors.template.body")
-      ))
-    return false
+    renderForm: ->
+      @form = new Backbone.CompositeForm(model: @model)
+      @renderChild(@form)
+      @$el.append(@form.el)
+      @.$('fieldset').append(JST['threads/form_actions'])
 
-App.Views.NewThread = App.NewThreadView
+    submit: () ->
+      errors = @form.commit()
+      if !(errors?)
+        self = @
+        @model.save({},
+          success: (model, resp) ->
+            self.collection.add(model, at: 0)
+            App.flash =
+              name: "success"
+              msg: I18n.t("views.threads.new_thread.thread_created")
+            App.appRouter.navigate(model.url(), true )
+        )
+      else
+        @.$('.alert').remove()
+        @$el.prepend(JST['other/flash'](
+          name: "error"
+          msg: I18n.t("errors.template.body")
+        ))
+      return false
