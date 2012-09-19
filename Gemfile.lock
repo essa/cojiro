@@ -7,15 +7,6 @@ GIT
       activesupport (>= 3.2.0)
 
 GIT
-  remote: git://github.com/stouset/twitter_bootstrap_form_for.git
-  revision: a1ed21787872a1469d0e57a632f5442e3106d334
-  branch: bootstrap-2.0
-  specs:
-    twitter_bootstrap_form_for (2.0.1.0.rc1)
-      actionpack (~> 3)
-      railties (~> 3)
-
-GIT
   remote: git://github.com/svenfuchs/globalize3.git
   revision: 0e1f8dd995353ee54f4fc5849f93c5becb003cc1
   specs:
@@ -362,7 +353,6 @@ DEPENDENCIES
   spork (~> 0.9.0.rc)
   sqlite3
   timecop
-  twitter_bootstrap_form_for!
   uglifier (>= 1.0.3)
   unicorn
   webmock
