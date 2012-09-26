@@ -1,8 +1,7 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone'
-], ($, _, Backbone) ->
+  'jquery-rails',
+  'backbone',
+], ($, Backbone) ->
   
   class BaseModel extends Backbone.Model
 

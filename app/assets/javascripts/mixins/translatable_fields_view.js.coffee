@@ -2,7 +2,10 @@ define [
   'jquery',
   'underscore',
   'backbone',
-  'mixins/base_view'
+  'mixins/base_view',
+  'templates/shared/_edit_add_button',
+  'templates/shared/_translatable_attribute',
+  'templates/shared/_translatable_field'
 ], ($, _, Backbone, BaseView) ->
 
   class TranslatableFieldsView extends BaseView

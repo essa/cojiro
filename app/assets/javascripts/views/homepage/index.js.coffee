@@ -18,7 +18,7 @@ define [
 
     render: ->
       @renderLayout()
-      if globals.currentUser?
+      if globals.current_user?
         @renderThreadFilter()
       @renderThreadList()
       @

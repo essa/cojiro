@@ -4,7 +4,8 @@ define [
   'backbone',
   'mixins/base_view',
   'hamlcoffee',
-  'hamlcoffee_globals'
+  'hamlcoffee_globals',
+  'templates/homepage/thread_filter'
 ], ($, _, Backbone, BaseView) ->
 
   class ThreadFilterView extends BaseView

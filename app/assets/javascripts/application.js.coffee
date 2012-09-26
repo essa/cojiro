@@ -4,7 +4,8 @@ require [
   'backbone',
   'app',
   'i18n',
-  'i18n/translations'
+  'i18n/translations',
+  'config'
 ], ($, _, Backbone, App, I18n) ->
 
   $ ->

@@ -1,4 +1,10 @@
-(->
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'backbone-forms'
+], ($, _, Backbone) ->
+
   Form = Backbone.Form
   Form.setTemplates
     form: "<form class=\"form-horizontal\">{{fieldsets}}</form>"
@@ -16,4 +22,3 @@
     inPlaceField: "<span class=\"input-small\">{{editor}}</span>"
   ,
     error: "error"
-)()

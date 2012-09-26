@@ -2,8 +2,12 @@ define [
   'jquery',
   'underscore',
   'backbone',
-  'mixins/translatable_fields_view'
-], ($, _, Backbone, TranslatableFieldsView) ->
+  'mixins/translatable_fields_view',
+  'globals',
+  'templates/threads/show',
+  'templates/other/flash',
+  'mixins'
+], ($, _, Backbone, TranslatableFieldsView, globals) ->
 
   class ThreadView extends TranslatableFieldsView
     id: 'thread'
@@ -13,7 +17,7 @@ define [
 
     render: ->
       @$el.html(JST['threads/show'](model: @model))
-      if App.flash?
-        @$el.prepend(JST['other/flash'](App.flash))
-        App.flash = null
+      if globals.flash?
+        @$el.prepend(JST['other/flash'](globals.flash))
+        globals.flash = null
       @

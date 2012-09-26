@@ -11,7 +11,7 @@ define [
   I18n.locale = globals.locale
 
   init: () ->
-    @currentUser = globals.currentUser
+    @currentUser = globals.current_user
     @threads = new Threads()
     @threads.deferred = @threads.fetch()
     self = @

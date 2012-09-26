@@ -1,10 +1,9 @@
 define [
-  'jquery',
   'underscore',
   'backbone',
   'i18n',
   'mixins/translatable_fields_model'
-], ($, _, Backbone, I18n, TranslatableFieldsModel) ->
+], (_, Backbone, I18n, TranslatableFieldsModel) ->
 
   class Thread extends TranslatableFieldsModel
     defaults: ->

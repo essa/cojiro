@@ -1,10 +1,8 @@
 # ref: http://fiznool.com/post/29347337512/backbone-js-view-inheritance
 define [
-  'jquery',
-  'underscore',
   'backbone',
   'backbone-support'
-], ($, _, Backbone) ->
+], (Backbone) ->
 
   class BaseView extends Support.CompositeView
 

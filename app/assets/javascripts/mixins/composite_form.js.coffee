@@ -1,9 +1,9 @@
 define [
-  'jquery',
   'underscore',
   'backbone',
-  'backbone-forms'
-], ($, _, Backbone) ->
+  'backbone-forms',
+  'backbone_form_templates'
+], (_, Backbone) ->
 
   Backbone.CompositeForm = (options) ->
     Backbone.Form.apply(@, [options])

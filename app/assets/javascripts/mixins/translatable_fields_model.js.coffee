@@ -1,9 +1,9 @@
 define [
-  'jquery',
   'underscore',
   'backbone',
-  'mixins/base_model'
-], ($, _, Backbone, BaseModel) ->
+  'mixins/base_model',
+  'i18n'
+], (_, Backbone, BaseModel, I18n) ->
   class TranslatableFieldsModel extends BaseModel
 
     getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")

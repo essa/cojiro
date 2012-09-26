@@ -3,8 +3,13 @@ define [
   'underscore',
   'backbone',
   'mixins/base_view',
-  'mixins/composite_form'
-], ($, _, Backbone, BaseView) ->
+  'app',
+  'globals',
+  'mixins/composite_form',
+  'templates/threads/new',
+  'templates/threads/form_actions',
+  'templates/other/flash'
+], ($, _, Backbone, BaseView, App, globals) ->
 
   class NewThreadView extends BaseView
     id: 'new_thread'
@@ -34,7 +39,7 @@ define [
         @model.save({},
           success: (model, resp) ->
             self.collection.add(model, at: 0)
-            App.flash =
+            globals.flash =
               name: "success"
               msg: I18n.t("views.threads.new_thread.thread_created")
             App.appRouter.navigate(model.url(), true )
