@@ -6,3 +6,4 @@ shim:
   'hamlcoffee':
     exports: 'HAML'
   'jquery.timeago': [ 'jquery' ]
+  'jquery_ujs': [ 'jquery' ]
