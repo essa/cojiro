@@ -1,16 +1,15 @@
-describe 'App.Threads', ->
-
-  it 'is defined with alias', ->
-    expect(App.Threads).toBeDefined()
-    expect(App.Collections.Threads).toBeDefined()
-    expect(App.Threads).toEqual(App.Collections.Threads)
+require [
+  'collections/threads'
+], (Threads, sinon) ->
+  
+  describe 'Threads', ->
 
   it 'can be instantiated', ->
-    collection = new App.Threads()
-    expect(App.Threads).not.toBeNull()
+    collection = new Threads()
+    expect(Threads).not.toBeNull()
 
   it 'contains instances of App.Thread', ->
-    collection = new App.Threads()
+    collection = new Threads()
     expect(collection.model).toEqual(App.Thread)
 
   describe 'when instantiated with model literal', ->
@@ -19,7 +18,7 @@ describe 'App.Threads', ->
       @model = new Backbone.Model(id: 5, title: 'Geisha bloggers')
 
       @threadStub.returns(@model)
-      @threads = new App.Threads()
+      @threads = new Threads()
       @threads.model = @threadStub
       @threads.add(id: 5, title: 'Geisha bloggers')
 
@@ -33,7 +32,7 @@ describe 'App.Threads', ->
       expect(@threads.get(5).get('id')).toEqual(5)
 
   describe '#url', ->
-    beforeEach -> @threads = new App.Threads()
+    beforeEach -> @threads = new Threads()
 
     it 'is persisted at /en/threads for an English locale', ->
       I18n.locale = 'en'
@@ -45,7 +44,7 @@ describe 'App.Threads', ->
 
   describe 'interacting with the server', ->
     beforeEach ->
-      @threads = new App.Threads()
+      @threads = new Threads()
       I18n.locale = 'en'
       @server = sinon.fakeServer.create()
     afterEach -> @server.restore()
@@ -81,13 +80,13 @@ describe 'App.Threads', ->
       sinon.stub(@thread1, 'getUserName').returns("csasaki")
       sinon.stub(@thread2, 'getUserName').returns("csasaki")
       sinon.stub(@thread3, 'getUserName').returns("otheruser")
-      @threads = new App.Threads([@thread1, @thread2, @thread3])
+      @threads = new Threads([@thread1, @thread2, @thread3])
 
     afterEach ->
       Backbone.Model.prototype.getUserName = undefined
 
     it 'returns a threads collection', ->
-      expect(@threads.byUser("csasaki") instanceof App.Threads).toBeTruthy()
+      expect(@threads.byUser("csasaki") instanceof Threads).toBeTruthy()
 
     it 'selects all users with name "username"', ->
       expect(@threads.byUser("csasaki").length).toEqual(2)
