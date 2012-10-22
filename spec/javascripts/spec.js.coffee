@@ -1,6 +1,7 @@
+#=require sinon
+#=require jasmine-sinon
 require [
-  'helpers/config',
-  'support/fixtures',
-  'application',
-  'spec/app_spec',
+  'support/fixtures'
+  'support/create_context'
+  'spec/app_spec'
 ]
