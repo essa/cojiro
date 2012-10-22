@@ -1,4 +1,4 @@
-define 'config', () -> 
+define () -> 
   {
     default_locale: 'en',
     locale: 'en',
