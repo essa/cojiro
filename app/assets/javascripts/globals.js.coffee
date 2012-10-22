@@ -2,7 +2,6 @@
 define [
   'config',
   'underscore'
-], (config) ->
+], (config, _) ->
   globals = {}
   _.extend(globals, config)
-  return globals

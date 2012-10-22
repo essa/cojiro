@@ -1,12 +1,12 @@
 require [
-  'jquery',
-  'underscore',
-  'backbone',
-  'app',
-  'i18n',
-  'i18n/translations',
+  'jquery'
+  'underscore'
+  'backbone'
+  'app'
+  'i18n'
+  'i18n/translations'
   'config'
-], ($, _, Backbone, App, I18n) ->
+], ($, _, Backbone, App) ->
 
   $ ->
     App.init()
