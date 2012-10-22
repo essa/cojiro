@@ -7,9 +7,6 @@ define [
   'collections/threads',
 ], ($, _, Backbone, globals, AppRouter, Threads) ->
 
-  I18n.default_locale = globals.default_locale
-  I18n.locale = globals.locale
-
   init: () ->
     @currentUser = globals.current_user
     @threads = new Threads()
