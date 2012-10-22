@@ -1,50 +1,63 @@
-require [
-  "app",
-  "collections/threads"
-], (App, Threads) ->
+define (require) ->
+  createContext = require('support/create_context')
 
-  describe "App", ->
+  Backbone = require('backbone')
+  # need to do this bc we don't have any routes defined on the router.
+  Backbone.history = new Backbone.History
 
-    describe "init()", ->
-      beforeEach ->
-        @threads = new Threads(@fixtures.Threads.valid)
-        sinon.stub(App, 'Threads').returns(@threads)
-        sinon.stub(@threads, 'fetch').returns($.Deferred().resolve())
+  appRouter = {}
+  Router = sinon.stub().returns(appRouter)
 
-      afterEach ->
-        Threads.restore()
+  threads = fetch: -> $.Deferred().resolve()
+  Threads = () -> threads
 
-      it "sets the current user", ->
-        @currentUser = @fixtures.User.valid
-        App.init(@currentUser)
-        expect(App.currentUser).toBe(@currentUser)
+  stubs =
+    "collections/threads": Threads
+    "routers/app_router": Router
+    "backbone": Backbone
+    "globals" :
+      locale: "en"
+      default_locale: "en"
+      current_user: "a user"
 
-      it "fetches threads data", ->
-        App.init()
-        expect(@threads.fetch).toHaveBeenCalledOnce()
-        expect(@threads.fetch).toHaveBeenCalledWithExactly()
+  createContext(stubs) [
+    "app"
+  ], (App) ->
 
-      it "instantiates an AppRouter", ->
-        sinon.spy(App, 'AppRouter')
-        App.init()
-        expect(App.AppRouter).toHaveBeenCalledOnce()
-        expect(App.AppRouter).toHaveBeenCalledWith(collection: App.threads)
-        App.AppRouter.restore()
+    describe "App", ->
 
-      it "assigns new router to App.appRouter", ->
-        appRouter = new Backbone.Router()
-        sinon.stub(App, 'AppRouter').returns(appRouter)
-        App.init()
-        expect(App.appRouter).toEqual(appRouter)
-        App.AppRouter.restore()
+      describe "init()", ->
+        beforeEach ->
+          sinon.spy(threads, 'fetch')
 
-      it "starts Backbone.history", ->
-        Backbone.history.started = null
-        Backbone.history.stop()
-        sinon.spy(Backbone.history, 'start')
-        App.init()
+        afterEach ->
+          threads.fetch.restore()
 
-        expect(Backbone.history.start).toHaveBeenCalled()
-        expect(Backbone.history.start).toHaveBeenCalledWith(pushState: true)
+        it "sets the current user from the global settings", ->
+          App.init()
+          expect(App.currentUser).toBe("a user")
 
-        Backbone.history.start.restore()
+        it "fetches threads data", ->
+          App.init()
+          expect(threads.fetch).toHaveBeenCalledOnce()
+          expect(threads.fetch).toHaveBeenCalledWithExactly()
+
+        it "instantiates an AppRouter", ->
+          App.init()
+          expect(Router.calledWithNew()).toBeTruthy()
+          expect(Router).toHaveBeenCalledWith(collection: App.threads)
+
+        it "assigns new router to appRouter", ->
+          App.init()
+          expect(App.appRouter).toBe(appRouter)
+
+        it "starts Backbone.history", ->
+          Backbone.history.started = null
+          Backbone.history.stop()
+          sinon.spy(Backbone.history, 'start')
+          App.init()
+
+          expect(Backbone.history.start).toHaveBeenCalled()
+          expect(Backbone.history.start).toHaveBeenCalledWith(pushState: true)
+
+          Backbone.history.start.restore()
