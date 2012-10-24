@@ -1,6 +1,4 @@
 define (require) ->
-  createContext = require('support/create_context')
-
   Backbone = require('backbone')
   # need to do this bc we don't have any routes defined on the router.
   Backbone.history = new Backbone.History
