@@ -1,11 +1,10 @@
 define [
   'jquery'
-  'underscore'
   'backbone'
   'globals'
   'routers/app_router'
   'collections/threads'
-], ($, _, Backbone, globals, AppRouter, Threads) ->
+], ($, Backbone, globals, AppRouter, Threads) ->
 
   init: () ->
     @currentUser = globals.current_user
