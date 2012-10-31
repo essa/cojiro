@@ -80,4 +80,4 @@ gem 'unicorn'
 gem 'capistrano'
 
 # Load require.js
-gem 'requirejs-rails'
+gem 'requirejs-rails', :git => 'https://github.com/jwhitley/requirejs-rails.git'
