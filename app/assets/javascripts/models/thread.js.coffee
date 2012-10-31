@@ -1,7 +1,7 @@
 define [
-  'underscore',
-  'backbone',
-  'i18n',
+  'underscore'
+  'backbone'
+  'i18n'
   'mixins/translatable_fields_model'
 ], (_, Backbone, I18n, TranslatableFieldsModel) ->
 
