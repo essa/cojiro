@@ -18,7 +18,7 @@ define (require) ->
       default_locale: "en"
       current_user: "a user"
 
-  createContext(stubs) [
+  context(stubs) [
     "app"
   ], (App) ->
 

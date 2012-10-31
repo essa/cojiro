@@ -1,5 +1,5 @@
 # http://stackoverflow.com/questions/11439540/how-can-i-mock-dependencies-for-unit-testing-in-requirejs
-window.createContext = (stubs) ->
+window.context = (stubs) ->
 
   map = {}
 
