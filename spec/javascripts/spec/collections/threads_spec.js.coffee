@@ -17,7 +17,7 @@ define (require) ->
         collection = new Threads()
         expect(Threads).not.toBeNull()
 
-      it 'contains instances of App.Thread', ->
+      it 'contains instances of Thread', ->
         collection = new Threads()
         expect(collection.model).toEqual(Thread)
 
