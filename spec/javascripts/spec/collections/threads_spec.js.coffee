@@ -1,93 +1,99 @@
-require [
-  'collections/threads'
-], (Threads, sinon) ->
-  
-  describe 'Threads', ->
+define (require) ->
 
-  it 'can be instantiated', ->
-    collection = new Threads()
-    expect(Threads).not.toBeNull()
+  Backbone = require('backbone')
+  globals = require('globals')
 
-  it 'contains instances of App.Thread', ->
-    collection = new Threads()
-    expect(collection.model).toEqual(App.Thread)
+  model = new Backbone.Model(id: 5, title: 'Geisha bloggers')
+  Thread = sinon.stub().returns(model)
 
-  describe 'when instantiated with model literal', ->
-    beforeEach ->
-      @threadStub = sinon.stub(window.App, 'Thread')
-      @model = new Backbone.Model(id: 5, title: 'Geisha bloggers')
+  context(
+    "models/thread": Thread
+    "backbone": Backbone
+    "globals": globals
+  ) ['collections/threads'], (Threads) ->
 
-      @threadStub.returns(@model)
-      @threads = new Threads()
-      @threads.model = @threadStub
-      @threads.add(id: 5, title: 'Geisha bloggers')
+    describe 'Threads (with stubbed Thread model)', ->
 
-    afterEach ->
-      @threadStub.restore()
+      it 'can be instantiated', ->
+        collection = new Threads()
+        expect(Threads).not.toBeNull()
 
-    it 'adds a new model', ->
-      expect(@threads.length).toEqual(1)
+      it 'contains instances of App.Thread', ->
+        collection = new Threads()
+        expect(collection.model).toEqual(Thread)
 
-    it 'finds a model by id', ->
-      expect(@threads.get(5).get('id')).toEqual(5)
+      describe 'when instantiated with model literal', ->
+        beforeEach ->
+          @threads = new Threads()
+          @threads.add(id: 5, title: 'Geisha bloggers')
 
-  describe '#url', ->
-    beforeEach -> @threads = new Threads()
+        it 'adds a new model', ->
+          expect(@threads.length).toEqual(1)
 
-    it 'is persisted at /en/threads for an English locale', ->
-      I18n.locale = 'en'
-      expect(@threads.url()).toEqual('/en/threads')
+        it 'finds a model by id', ->
+          expect(@threads.get(5).get('id')).toEqual(5)
 
-    it 'is persisted at /ja/threads for a Japanese locale', ->
-      I18n.locale = 'ja'
-      expect(@threads.url()).toEqual('/ja/threads')
+      describe '#url', ->
+        beforeEach -> @threads = new Threads()
 
-  describe 'interacting with the server', ->
-    beforeEach ->
-      @threads = new Threads()
-      I18n.locale = 'en'
-      @server = sinon.fakeServer.create()
-    afterEach -> @server.restore()
+        it 'is persisted at /en/threads for an English locale', ->
+          globals.locale = 'en'
+          expect(@threads.url()).toEqual('/en/threads')
 
-    describe 'fetching and updating the collection', ->
+        it 'is persisted at /ja/threads for a Japanese locale', ->
+          globals.locale = 'ja'
+          expect(@threads.url()).toEqual('/ja/threads')
 
-      it 'makes the correct request', ->
-        @threads.fetch()
-        expect(@server.requests.length).toEqual(1)
-        expect(@server.requests[0]).toBeGET()
-        expect(@server.requests[0]).toHaveUrl('/en/threads')
+      describe "byUser()", ->
+        beforeEach ->
+          Backbone.Model.prototype.getUserName = ->
+          @thread1 = new Backbone.Model()
+          @thread2 = new Backbone.Model()
+          @thread3 = new Backbone.Model()
+          sinon.stub(@thread1, 'getUserName').returns("csasaki")
+          sinon.stub(@thread2, 'getUserName').returns("csasaki")
+          sinon.stub(@thread3, 'getUserName').returns("otheruser")
+          @threads = new Threads([@thread1, @thread2, @thread3])
 
-    describe 'parsing response data', ->
-      beforeEach ->
-        @fixture = @fixtures.Threads.valid
-        @server.respondWith(
-          'GET',
-          '/en/threads',
-          @validResponse(@fixture))
+        afterEach ->
+          Backbone.Model.prototype.getUserName = undefined
 
-      it 'parses threads from the server', ->
-        @threads.fetch()
-        @server.respond()
-        expect(@threads.models.length).toEqual(@fixture.length)
-        expect(@threads.get(1).getTitle()).toEqual(@fixture[0].title)
+        it 'returns a threads collection', ->
+          expect(@threads.byUser("csasaki") instanceof Threads).toBeTruthy()
 
-  describe "byUser()", ->
-    beforeEach ->
-      Backbone.Model.prototype.getUserName = ->
-      @thread1 = new Backbone.Model()
-      @thread2 = new Backbone.Model()
-      @thread3 = new Backbone.Model()
-      sinon.stub(@thread1, 'getUserName').returns("csasaki")
-      sinon.stub(@thread2, 'getUserName').returns("csasaki")
-      sinon.stub(@thread3, 'getUserName').returns("otheruser")
-      @threads = new Threads([@thread1, @thread2, @thread3])
+        it 'selects all users with name "username"', ->
+          expect(@threads.byUser("csasaki").length).toEqual(2)
+          expect(@threads.byUser("otheruser").length).toEqual(1)
 
-    afterEach ->
-      Backbone.Model.prototype.getUserName = undefined
+  context("globals": globals) ['collections/threads'], (Threads) ->
 
-    it 'returns a threads collection', ->
-      expect(@threads.byUser("csasaki") instanceof Threads).toBeTruthy()
+    describe 'Threads (with real Thread model)', ->
 
-    it 'selects all users with name "username"', ->
-      expect(@threads.byUser("csasaki").length).toEqual(2)
-      expect(@threads.byUser("otheruser").length).toEqual(1)
+      describe 'interacting with the server', ->
+        beforeEach ->
+          @threads = new Threads()
+          globals.locale = 'en'
+          @server = sinon.fakeServer.create()
+        afterEach -> @server.restore()
+
+        describe 'fetching and updating the collection', ->
+
+          it 'makes the correct request', ->
+            @threads.fetch()
+            expect(@server.requests.length).toEqual(1)
+            expect(@server.requests[0]).toBeGET()
+            expect(@server.requests[0]).toHaveUrl('/en/threads')
+
+        describe 'parsing response data', ->
+          beforeEach ->
+            @fixture = @fixtures.Threads.valid
+            @server.respondWith(
+              'GET',
+              '/en/threads',
+              @validResponse(@fixture))
+
+          it 'parses threads from the server', ->
+            @threads.fetch()
+            @server.respond()
+            expect(@threads.models.length).toEqual(@fixture.length)
+            expect(@threads.get(1).getTitle()).toEqual(@fixture[0].title)

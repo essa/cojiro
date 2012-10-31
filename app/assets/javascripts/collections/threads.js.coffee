@@ -1,14 +1,15 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
+  'jquery'
+  'underscore'
+  'backbone'
   'models/thread'
-], ($, _, Backbone, Thread) ->
+  'globals'
+], ($, _, Backbone, Thread, globals) ->
 
   class Threads extends Backbone.Collection
     model: Thread
     url: ->
-      '/' + I18n.locale + '/threads'
+      '/' + globals.locale + '/threads'
 
     byUser: (username) ->
       new @constructor(@select((thread) -> (thread.getUserName() == username )))
