@@ -6,3 +6,9 @@ shim:
     exports: 'HAML'
   'jquery.timeago': [ 'jquery' ]
   'jquery_ujs': [ 'jquery' ]
+
+map:
+  '*':
+    'i18n': 'i18n-init'
+  'i18n-init':
+    'i18n': 'i18n'

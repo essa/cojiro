@@ -1,7 +1,7 @@
 define (require) ->
 
   Backbone = require('backbone')
-  globals = require('globals')
+  I18n = require('i18n')
 
   model = new Backbone.Model(id: 5, title: 'Geisha bloggers')
   Thread = sinon.stub().returns(model)
@@ -9,7 +9,7 @@ define (require) ->
   context(
     "models/thread": Thread
     "backbone": Backbone
-    "globals": globals
+    "i18n": I18n
   ) ['collections/threads'], (Threads) ->
 
     describe 'Threads (with stubbed Thread model)', ->
@@ -37,11 +37,11 @@ define (require) ->
         beforeEach -> @threads = new Threads()
 
         it 'is persisted at /en/threads for an English locale', ->
-          globals.locale = 'en'
+          I18n.locale = 'en'
           expect(@threads.url()).toEqual('/en/threads')
 
         it 'is persisted at /ja/threads for a Japanese locale', ->
-          globals.locale = 'ja'
+          I18n.locale = 'ja'
           expect(@threads.url()).toEqual('/ja/threads')
 
       describe "byUser()", ->
@@ -65,14 +65,14 @@ define (require) ->
           expect(@threads.byUser("csasaki").length).toEqual(2)
           expect(@threads.byUser("otheruser").length).toEqual(1)
 
-  context("globals": globals) ['collections/threads'], (Threads) ->
+  context("i18n": I18n) ['collections/threads'], (Threads) ->
 
     describe 'Threads (with real Thread model)', ->
 
       describe 'interacting with the server', ->
         beforeEach ->
           @threads = new Threads()
-          globals.locale = 'en'
+          I18n.locale = 'en'
           @server = sinon.fakeServer.create()
         afterEach -> @server.restore()
 

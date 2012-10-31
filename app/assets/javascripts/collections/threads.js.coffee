@@ -3,13 +3,13 @@ define [
   'underscore'
   'backbone'
   'models/thread'
-  'globals'
-], ($, _, Backbone, Thread, globals) ->
+  'i18n'
+], ($, _, Backbone, Thread, I18n) ->
 
   class Threads extends Backbone.Collection
     model: Thread
     url: ->
-      '/' + globals.locale + '/threads'
+      '/' + I18n.locale + '/threads'
 
     byUser: (username) ->
       new @constructor(@select((thread) -> (thread.getUserName() == username )))
