@@ -9,7 +9,6 @@ define (require) ->
   context(
     "models/thread": Thread
     "backbone": Backbone
-    "i18n": I18n
   ) ['collections/threads'], (Threads) ->
 
     describe 'Threads (with stubbed Thread model)', ->
