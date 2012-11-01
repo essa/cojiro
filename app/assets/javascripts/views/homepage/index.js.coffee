@@ -1,13 +1,15 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
-  'mixins/base_view',
-  'views/threads/thread_list',
-  'views/homepage/thread_filter',
-  'globals',
+  'jquery'
+  'underscore'
+  'backbone'
+  'mixins/base_view'
+  'views/threads/thread_list'
+  'views/homepage/thread_filter'
+  'globals'
+  'i18n'
+  'hamlcoffee'
   'templates/homepage/index'
-], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals) ->
+], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals, I18n, hc, index) ->
 
   class HomepageView extends BaseView
     id: 'homepage'
@@ -24,7 +26,7 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(JST['homepage/index'])
+      @$el.html(index())
 
     renderThreadList: =>
       @threadListView = new ThreadListView(collection: @filteredCollection)

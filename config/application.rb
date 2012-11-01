@@ -61,5 +61,11 @@ module Cojiro
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # ref: https://github.com/netzpirat/haml_coffee_assets_amd
+    if defined? ::HamlCoffeeAssets
+      config.hamlcoffee.placement = 'amd'
+    end
+
   end
 end

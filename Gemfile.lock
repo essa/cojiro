@@ -31,10 +31,10 @@ GIT
 
 GIT
   remote: https://github.com/netzpirat/haml_coffee_assets.git
-  revision: 14515a39de5810d4a0bbaa6e327283bfb2878230
+  revision: 358f72485b6bad179c662261752af5ee409ee050
   specs:
-    haml_coffee_assets (1.1.0)
-      execjs (>= 1.2.9)
+    haml_coffee_assets (1.6.2)
+      coffee-script (>= 1.0.0)
       sprockets (>= 2.0.3)
       tilt (>= 1.3.3)
 

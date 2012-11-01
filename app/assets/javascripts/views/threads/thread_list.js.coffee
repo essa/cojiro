@@ -1,12 +1,13 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
-  'mixins/base_view',
-  'views/threads/thread_list_item',
-  'templates/threads/list',
+  'jquery'
+  'underscore'
+  'backbone'
+  'mixins/base_view'
+  'views/threads/thread_list_item'
+  'hamlcoffee'
+  'templates/threads/list'
   'jquery.timeago'
-], ($, _, Backbone, BaseView, ThreadListItemView) ->
+], ($, _, Backbone, BaseView, ThreadListItemView, hc, threadsList) ->
 
   class ThreadListView extends BaseView
     id: 'threads_list'
@@ -22,7 +23,7 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(JST['threads/list'])
+      @$el.html(threadsList())
 
     renderListItems: ->
       listItemsContainer = @.$('tbody')

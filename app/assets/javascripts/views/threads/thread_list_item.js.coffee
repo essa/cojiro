@@ -1,12 +1,13 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
-  'mixins/base_view',
-  'templates/threads/list_item',
-  'templates/shared/_translatable_attribute',
+  'jquery'
+  'underscore'
+  'backbone'
+  'mixins/base_view'
+  'hamlcoffee'
+  'templates/threads/list_item'
+  'templates/shared/_translatable_attribute'
   'templates/shared/_new_label'
-], ($, _, Backbone, BaseView) ->
+], ($, _, Backbone, BaseView, hc, threadsListItem) ->
 
   class ThreadListItemView extends BaseView
     tagName: 'tr'
@@ -17,5 +18,5 @@ define [
       @$el.attr('data-href': @model.url())
 
     render: ->
-      @$el.html(JST['threads/list_item']( model: @model ))
+      @$el.html(threadsListItem( model: @model ))
       @

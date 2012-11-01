@@ -4,9 +4,9 @@ define [
   'backbone',
   'mixins/base_view',
   'hamlcoffee',
-  'hamlcoffee_globals',
   'templates/other/navbar'
-], ($, _, Backbone, BaseView) ->
+  'hamlcoffee_globals',
+], ($, _, Backbone, BaseView, hc, navbar) ->
 
   class NavbarView extends BaseView
     className: 'navbar navbar-fixed-top'
@@ -14,5 +14,5 @@ define [
     initialize: ->
 
     render: ->
-      @$el.html(JST['other/navbar'])
+      @$el.html(navbar())
       @
