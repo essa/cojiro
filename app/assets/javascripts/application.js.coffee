@@ -4,7 +4,6 @@ require [
   'backbone'
   'app'
   'i18n'
-  'config'
 ], ($, _, Backbone, App) ->
 
   $ ->

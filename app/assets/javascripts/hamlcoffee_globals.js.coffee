@@ -1,5 +1,5 @@
 define [
-  'globals',
+  'globals'
   'hamlcoffee'
 ], (globals) ->
   HAML.globals = ->
