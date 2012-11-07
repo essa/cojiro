@@ -9,7 +9,10 @@ map:
   '*':
     'i18n': 'i18n-init'
     'jquery.timeago': 'jquery.timeago.locales'
+    'backbone-forms': 'backbone-forms-init'
   'i18n-init':
     'i18n': 'i18n'
   'jquery.timeago.locales':
     'jquery.timeago': 'jquery.timeago'
+  'backbone-forms-init':
+    'backbone-forms': 'backbone-forms'

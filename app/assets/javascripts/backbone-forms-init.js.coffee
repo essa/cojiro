@@ -1,12 +1,23 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
+  'backbone'
   'backbone-forms'
-], ($, _, Backbone) ->
+], (Backbone) ->
 
-  Form = Backbone.Form
-  Form.setTemplates
+  # cleans up using backbone-support approach
+  Backbone.CompositeForm = (options) ->
+    Backbone.Form.apply(@, [options])
+
+  _.extend Backbone.CompositeForm.prototype, Backbone.Form.prototype,
+
+    leave: () ->
+      @unbind()
+      @remove()
+      @parent._removeChild(@)
+
+  Backbone.CompositeForm.extend = Backbone.Form.extend
+
+  # define custom form template
+  Backbone.Form.setTemplates
     form: "<form class=\"form-horizontal\">{{fieldsets}}</form>"
     fieldset: "<fieldset><legend>{{legend}}</legend>{{fields}}</fieldset>"
     field: "<div class=\"control-group\"><label class=\"control-label\" for=\"{{id}}\">{{title}}</label>        <div class=\"controls\"><div class=\"input-xlarge\">{{editor}}</div><div class=\"help-block\">{{help}}</div></div></div>"
@@ -22,3 +33,5 @@ define [
     inPlaceField: "<span class=\"input-small\">{{editor}}</span>"
   ,
     error: "error"
+
+  return Backbone.CompositeForm 

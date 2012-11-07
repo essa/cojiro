@@ -1,15 +1,14 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
-  'mixins/base_view',
-  'app',
-  'globals',
-  'mixins/composite_form',
-  'templates/threads/new',
-  'templates/threads/form_actions',
-  'templates/other/flash'
-], ($, _, Backbone, BaseView, App, globals) ->
+  'jquery'
+  'underscore'
+  'backbone'
+  'backbone-forms'
+  'mixins/base_view'
+  'app'
+  'globals'
+  'templates/threads/new'
+  'templates/threads/form_actions'
+], ($, _, Backbone, Form, BaseView, App, globals, newThread, formActions) ->
 
   class NewThreadView extends BaseView
     id: 'new_thread'
@@ -24,13 +23,13 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(JST['threads/new'])
+      @$el.html(newThread())
 
     renderForm: ->
-      @form = new Backbone.CompositeForm(model: @model)
+      @form = new Form(model: @model)
       @renderChild(@form)
       @$el.append(@form.el)
-      @.$('fieldset').append(JST['threads/form_actions'])
+      @.$('fieldset').append(formActions())
 
     submit: () ->
       errors = @form.commit()
