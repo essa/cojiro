@@ -2,8 +2,6 @@ shim:
   'i18n':
     exports: 'I18n'
   'backbone-support': [ 'backbone' ]
-  'hamlcoffee':
-    exports: 'HAML'
   'jquery.timeago': [ 'jquery' ]
   'jquery_ujs': [ 'jquery' ]
 

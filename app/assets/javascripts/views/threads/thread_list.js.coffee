@@ -4,10 +4,9 @@ define [
   'backbone'
   'mixins/base_view'
   'views/threads/thread_list_item'
-  'hamlcoffee'
   'templates/threads/list'
   'jquery.timeago'
-], ($, _, Backbone, BaseView, ThreadListItemView, hc, threadsList) ->
+], ($, _, Backbone, BaseView, ThreadListItemView, threadsList) ->
 
   class ThreadListView extends BaseView
     id: 'threads_list'

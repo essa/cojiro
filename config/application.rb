@@ -65,6 +65,7 @@ module Cojiro
     # ref: https://github.com/netzpirat/haml_coffee_assets_amd
     if defined? ::HamlCoffeeAssets
       config.hamlcoffee.placement = 'amd'
+      config.hamlcoffee.dependencies = { '_' => 'underscore', :hc => 'hamlcoffee_amd', :helpers => 'hamlcoffee_helpers' }
     end
 
   end

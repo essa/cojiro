@@ -7,9 +7,8 @@ define [
   'views/homepage/thread_filter'
   'globals'
   'i18n'
-  'hamlcoffee'
   'templates/homepage/index'
-], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals, I18n, hc, index) ->
+], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals, I18n, index) ->
 
   class HomepageView extends BaseView
     id: 'homepage'

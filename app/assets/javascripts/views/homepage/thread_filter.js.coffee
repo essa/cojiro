@@ -3,10 +3,8 @@ define [
   'underscore',
   'backbone',
   'mixins/base_view',
-  'hamlcoffee',
   'templates/homepage/thread_filter'
-  'hamlcoffee_globals',
-], ($, _, Backbone, BaseView, hc, threadFilter) ->
+], ($, _, Backbone, BaseView, threadFilter) ->
 
   class ThreadFilterView extends BaseView
     className: 'commentheader form-horizontal'

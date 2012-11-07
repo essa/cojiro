@@ -3,11 +3,10 @@ define [
   'underscore'
   'backbone'
   'mixins/base_view'
-  'hamlcoffee'
   'templates/threads/list_item'
   'templates/shared/_translatable_attribute'
   'templates/shared/_new_label'
-], ($, _, Backbone, BaseView, hc, threadsListItem) ->
+], ($, _, Backbone, BaseView, threadsListItem) ->
 
   class ThreadListItemView extends BaseView
     tagName: 'tr'

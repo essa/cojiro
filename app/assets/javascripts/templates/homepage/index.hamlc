@@ -1,4 +1,4 @@
-- if !(@isLoggedIn)
+- if !helpers.isLoggedIn
   %section.hero
     %h1=I18n.t("templates.homepage.index.catchphrase")
     %p.lead
@@ -6,7 +6,7 @@
 
 %section.latest
   #content-header
-    - if !@isLoggedIn
+    - if !helpers.isLoggedIn
       %h3=I18n.t("templates.homepage.index.recent_threads")
         %small!=I18n.t("templates.homepage.index.invite_message_html", new_account_url: "#", login_url: "#")
 
