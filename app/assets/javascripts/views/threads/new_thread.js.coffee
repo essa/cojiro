@@ -8,7 +8,8 @@ define [
   'globals'
   'templates/threads/new'
   'templates/threads/form_actions'
-], ($, _, Backbone, Form, BaseView, App, globals, newThread, formActions) ->
+  'templates/other/flash'
+], ($, _, Backbone, Form, BaseView, App, globals, newThreadTemplate, formActionsTemplate, flashTemplate) ->
 
   class NewThreadView extends BaseView
     id: 'new_thread'
@@ -23,13 +24,13 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(newThread())
+      @$el.html(newThreadTemplate())
 
     renderForm: ->
       @form = new Form(model: @model)
       @renderChild(@form)
       @$el.append(@form.el)
-      @.$('fieldset').append(formActions())
+      @.$('fieldset').append(formActionsTemplate())
 
     submit: () ->
       errors = @form.commit()
@@ -45,7 +46,7 @@ define [
         )
       else
         @.$('.alert').remove()
-        @$el.prepend(JST['other/flash'](
+        @$el.prepend(flashTemplate(
           name: "error"
           msg: I18n.t("errors.template.body")
         ))

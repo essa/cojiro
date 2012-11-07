@@ -6,7 +6,7 @@ define [
   'globals',
   'templates/threads/show',
   'templates/other/flash'
-], ($, _, Backbone, TranslatableFieldsView, globals) ->
+], ($, _, Backbone, TranslatableFieldsView, globals, showThreadTemplate, flashTemplate) ->
 
   class ThreadView extends TranslatableFieldsView
     id: 'thread'
@@ -15,8 +15,8 @@ define [
       super
 
     render: ->
-      @$el.html(JST['threads/show'](model: @model))
+      @$el.html(showThreadTemplate(model: @model))
       if globals.flash?
-        @$el.prepend(JST['other/flash'](globals.flash))
+        @$el.prepend(flashTemplate(globals.flash))
         globals.flash = null
       @

@@ -1,7 +1,8 @@
+- require 'templates/shared/_translatable_field'
 .row
   .span12
     %h2
-      !=JST['shared/_translatable_field'](model: @model, attr_name: 'title')
+      !=_translatable_field(model: @model, attr_name: 'title')
 .statbar
   %ul.nav.nav-pills
     %li
@@ -35,4 +36,4 @@
 .row
   .span6
     %p
-      !=JST['shared/_translatable_field'](model: @model, attr_name: 'summary')
+      !=_translatable_field(model: @model, attr_name: 'summary')

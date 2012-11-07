@@ -3,10 +3,8 @@ define [
   'underscore',
   'backbone',
   'mixins/base_view',
-  'templates/shared/_edit_add_button',
-  'templates/shared/_translatable_attribute',
   'templates/shared/_translatable_field'
-], ($, _, Backbone, BaseView) ->
+], ($, _, Backbone, BaseView, translatabeFieldTemplate) ->
 
   class TranslatableFieldsView extends BaseView
     
@@ -40,14 +38,14 @@ define [
       self = @
       @model.save({},
         success: (model, resp) ->
-          $parent.replaceWith(JST['shared/_translatable_field'](model: model, attr_name: attr))
+          $parent.replaceWith(translatableFieldTemplate(model: model, attr_name: attr))
       )
 
     revertTranslatableField: (e) ->
       $button = $(e.currentTarget)
       $parent = @findParent($button)
       attr = @getAttributeName($parent)
-      $parent.replaceWith(JST['shared/_translatable_field'](model: @model, attr_name: attr))
+      $parent.replaceWith(translatableFieldTemplate(@model, attr_name: attr))
 
     convertToSaveButton: ($el) ->
       $el.addClass('save-button')
@@ -67,4 +65,4 @@ define [
       form = (@forms[attr] ||= @createFormFor(attr))
       @renderChild(form)
       return form
-    renderTranslatableField: ($el, attr) -> @findParent($el).replaceWith(JST['shared/_translatable_field'](model: @model, attr_name: attr))
+    renderTranslatableField: ($el, attr) -> @findParent($el).replaceWith(translatableFieldTemplate(@model, attr_name: attr))

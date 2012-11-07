@@ -8,7 +8,7 @@ define [
   'globals'
   'i18n'
   'templates/homepage/index'
-], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals, I18n, index) ->
+], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals, I18n, indexTemplate) ->
 
   class HomepageView extends BaseView
     id: 'homepage'
@@ -25,7 +25,7 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(index())
+      @$el.html(indexTemplate())
 
     renderThreadList: =>
       @threadListView = new ThreadListView(collection: @filteredCollection)

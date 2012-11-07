@@ -6,7 +6,7 @@ define [
   'templates/threads/list_item'
   'templates/shared/_translatable_attribute'
   'templates/shared/_new_label'
-], ($, _, Backbone, BaseView, threadsListItem) ->
+], ($, _, Backbone, BaseView, threadsListItemTemplate) ->
 
   class ThreadListItemView extends BaseView
     tagName: 'tr'
@@ -17,5 +17,5 @@ define [
       @$el.attr('data-href': @model.url())
 
     render: ->
-      @$el.html(threadsListItem( model: @model ))
+      @$el.html(threadsListItemTemplate( model: @model ))
       @

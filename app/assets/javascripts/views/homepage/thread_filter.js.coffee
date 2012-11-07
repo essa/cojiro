@@ -4,7 +4,7 @@ define [
   'backbone',
   'mixins/base_view',
   'templates/homepage/thread_filter'
-], ($, _, Backbone, BaseView, threadFilter) ->
+], ($, _, Backbone, BaseView, threadFilterTemplate) ->
 
   class ThreadFilterView extends BaseView
     className: 'commentheader form-horizontal'
@@ -16,7 +16,7 @@ define [
         "change select": "selectFilter"
 
     render: =>
-      @$el.html(threadFilter())
+      @$el.html(threadFilterTemplate())
       @
 
     selectFilter: (e) =>

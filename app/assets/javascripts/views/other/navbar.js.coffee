@@ -4,7 +4,7 @@ define [
   'backbone',
   'mixins/base_view',
   'templates/other/navbar'
-], ($, _, Backbone, BaseView, navbar) ->
+], ($, _, Backbone, BaseView, navbarTemplate) ->
 
   class NavbarView extends BaseView
     className: 'navbar navbar-fixed-top'
@@ -12,5 +12,5 @@ define [
     initialize: ->
 
     render: ->
-      @$el.html(navbar())
+      @$el.html(navbarTemplate())
       @
