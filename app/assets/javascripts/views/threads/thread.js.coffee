@@ -5,8 +5,7 @@ define [
   'mixins/translatable_fields_view',
   'globals',
   'templates/threads/show',
-  'templates/other/flash',
-  'mixins'
+  'templates/other/flash'
 ], ($, _, Backbone, TranslatableFieldsView, globals) ->
 
   class ThreadView extends TranslatableFieldsView

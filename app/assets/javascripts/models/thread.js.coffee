@@ -3,6 +3,7 @@ define [
   'backbone'
   'i18n'
   'mixins/translatable_fields_model'
+  'underscore_mixins'
 ], (_, Backbone, I18n, TranslatableFieldsModel) ->
 
   class Thread extends TranslatableFieldsModel
