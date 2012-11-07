@@ -18,7 +18,7 @@ define (require) ->
         @thread = new Thread
 
       afterEach ->
-        I18n.locale = I18n.default_locale
+        I18n.locale = I18n.defaultLocale
 
       it 'has default value for the .title attribute', ->
         expect(@thread.get('title')).toEqual('')
@@ -95,7 +95,7 @@ define (require) ->
 
           expect(@thread.getCreatedAt()).toEqual('July 8, 2012')
           expect(stub).toHaveBeenCalledWith('created_at')
-          I18n.locale = I18n.default_locale
+          I18n.locale = I18n.defaultLocale
 
         it 'is undefined if created_at attribute is undefined', ->
           stub = sinon.stub(@thread, 'get').returns(undefined)
@@ -210,7 +210,7 @@ define (require) ->
             @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
             expect(@spy).toHaveBeenCalledOnce()
             expect(@spy).toHaveBeenCalledWith(@thread,{'title':"can't be blank"})
-            I18n.locale = I18n.default_locale
+            I18n.locale = I18n.defaultLocale
 
           it 'does not save if title is blank and the source locale is missing', ->
             @thread.save(_(@data).extend('title':'', 'source_locale': null))
@@ -222,7 +222,7 @@ define (require) ->
             I18n.locale = 'ja'
             @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
             expect(@spy).not.toHaveBeenCalled()
-            I18n.locale = I18n.default_locale
+            I18n.locale = I18n.defaultLocale
 
           it 'does save if title is null (not included)', ->
             @thread.save(_(@data).extend('title': null))

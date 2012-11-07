@@ -19,7 +19,7 @@ define [
 
     render: ->
       @renderLayout()
-      if globals.current_user?
+      if globals.currentUser?
         @renderThreadFilter()
       @renderThreadList()
       @
@@ -44,5 +44,5 @@ define [
           @filteredCollection = @collection
           @renderThreadList()
         when "mine"
-          @filteredCollection = @collection.byUser(globals.current_user.name)
+          @filteredCollection = @collection.byUser(globals.currentUser.name)
           @renderThreadList()

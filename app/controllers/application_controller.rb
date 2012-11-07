@@ -36,11 +36,10 @@ class ApplicationController < ActionController::Base
   def set_requirejs_config
     config = {
       globals: {
-        :current_user => @current_user
+        :currentUser => @current_user
       },
       :'adapters/i18n-adapter' => {
-        :locale => I18n.locale,
-        :default_locale => I18n.default_locale
+        :locale => I18n.locale
       }
     }
     Requirejs::Rails::Engine.config.requirejs.run_config.merge!({ :config => config })

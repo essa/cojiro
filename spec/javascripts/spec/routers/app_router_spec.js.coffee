@@ -30,7 +30,7 @@ define (require) ->
     describe 'AppRouter', ->
 
       afterEach ->
-        I18n.locale = I18n.default_locale
+        I18n.locale = I18n.defaultLocale
 
       describe "instantiation", ->
 

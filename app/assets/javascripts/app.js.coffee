@@ -7,7 +7,7 @@ define [
 ], ($, Backbone, globals, AppRouter, Threads) ->
 
   init: () ->
-    @currentUser = globals.current_user
+    @currentUser = globals.currentUser
     @threads = new Threads()
     @threads.deferred = @threads.fetch()
     self = @

@@ -15,8 +15,7 @@ define (require) ->
     "backbone": Backbone
     "globals" :
       locale: "en"
-      default_locale: "en"
-      current_user: "a user"
+      currentUser: "a user"
 
   context(stubs) [
     "app"
