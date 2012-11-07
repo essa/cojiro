@@ -4,7 +4,7 @@ define [
   'backbone',
   'mixins/base_view',
   'templates/shared/_translatable_field'
-], ($, _, Backbone, BaseView, translatabeFieldTemplate) ->
+], ($, _, Backbone, BaseView, translatableFieldTemplate) ->
 
   class TranslatableFieldsView extends BaseView
     
