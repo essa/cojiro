@@ -7,12 +7,17 @@ shim:
 
 map:
   '*':
-    'i18n': 'i18n-init'
-    'jquery.timeago': 'jquery.timeago.locales'
-    'backbone-forms': 'backbone-forms-init'
-  'i18n-init':
+    'i18n': 'adapters/i18n-adapter'
+    'jquery.timeago': 'adapters/jquery.timeago-adapter'
+    'backbone-forms': 'adapters/backbone-forms-adapter'
+    'jquery': 'adapters/jquery-adapter'
+  'adapters/i18n-adapter':
     'i18n': 'i18n'
-  'jquery.timeago.locales':
+  'adapters/jquery.timeago-adapter':
     'jquery.timeago': 'jquery.timeago'
-  'backbone-forms-init':
+  'adapters/backbone-forms-adapter':
     'backbone-forms': 'backbone-forms'
+  'adapters/jquery-adapter':
+    'jquery': 'jquery'
+  'jquery_ujs':
+    'jquery': 'jquery'

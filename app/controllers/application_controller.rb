@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
       globals: {
         :current_user => @current_user
       },
-      :'i18n-init' => {
+      :'adapters/i18n-adapter' => {
         :locale => I18n.locale,
         :default_locale => I18n.default_locale
       }
