@@ -3,5 +3,5 @@ define [
 ], (globals) ->
   return {
     currentUser: globals.currentUser
-    isLoggedIn: globals.currentUser
+    isLoggedIn: globals.currentUser?
   }
