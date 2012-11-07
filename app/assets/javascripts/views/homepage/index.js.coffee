@@ -44,5 +44,5 @@ define [
           @filteredCollection = @collection
           @renderThreadList()
         when "mine"
-          @filteredCollection = @collection.byUser(globals.currentUser.name)
+          @filteredCollection = @collection.byUser(globals.current_user.name)
           @renderThreadList()
