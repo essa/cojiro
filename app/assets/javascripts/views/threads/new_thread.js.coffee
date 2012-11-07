@@ -38,6 +38,7 @@ define [
         self = @
         @model.save({},
           success: (model, resp) ->
+            App = require('app')
             self.collection.add(model, at: 0)
             globals.flash =
               name: "success"
