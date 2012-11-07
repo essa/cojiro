@@ -2,15 +2,15 @@
   .container
     %a.brand{ href: I18n.locale }cojiro
     %ul.nav
-      - if helpers.isLoggedIn
+      - if helpers.isLoggedIn()
         %li
           %a{ href: "#{I18n.locale}/threads/new" }
             =I18n.t("layout.start_a_thread")
     %ul.nav.secondary-nav.pull-right
-      - if helpers.isLoggedIn
+      - if helpers.isLoggedIn()
         %li#profile-menu.dropdown
           %a.dropdown-toggle{ href: "#profile-menu", data-toggle: 'dropdown' }
-            ="@#{helpers.currentUser.name}"
+            ="@#{helpers.currentUser().name}"
             %b.caret
           %ul.dropdown-menu
             %li
