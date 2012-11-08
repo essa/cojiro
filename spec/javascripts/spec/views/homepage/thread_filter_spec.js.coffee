@@ -2,7 +2,7 @@ define (require) ->
 
   ThreadFilterView = require('views/homepage/thread_filter')
 
-  describe "App.ThreadFilterView", ->
+  describe "ThreadFilterView", ->
     beforeEach ->
       @selectFilterSpy = sinon.spy(ThreadFilterView.prototype, 'selectFilter')
       @view = new ThreadFilterView
