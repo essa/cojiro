@@ -1,5 +1,6 @@
+- require 'i18n'
 %button.edit-button.btn.btn-mini
   -if @text
-    =I18n.t("templates.threads.show.edit")
+    =i18n.t("templates.threads.show.edit")
   -else
-    =I18n.t("templates.threads.show.add_in", lang: I18n.t(I18n.locale))
+    =i18n.t("templates.threads.show.add_in", lang: i18n.t(i18n.locale))

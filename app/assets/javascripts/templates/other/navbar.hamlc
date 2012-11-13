@@ -1,11 +1,12 @@
+- require 'i18n'
 .navbar-inner
   .container
-    %a.brand{ href: I18n.locale }cojiro
+    %a.brand{ href: i18n.locale }cojiro
     %ul.nav
       - if helpers.isLoggedIn()
         %li
-          %a{ href: "#{I18n.locale}/threads/new" }
-            =I18n.t("layout.start_a_thread")
+          %a{ href: "#{i18n.locale}/threads/new" }
+            =i18n.t("layout.start_a_thread")
     %ul.nav.secondary-nav.pull-right
       - if helpers.isLoggedIn()
         %li#profile-menu.dropdown
@@ -14,8 +15,8 @@
             %b.caret
           %ul.dropdown-menu
             %li
-              %a{ href: "/logout?locale=#{I18n.locale}", data-bypass: "true" }
-                =I18n.t("layout.logout")
+              %a{ href: "/logout?locale=#{i18n.locale}", data-bypass: "true" }
+                =i18n.t("layout.logout")
       - else
         %li
-          %a{ href: "/auth/twitter?locale=#{I18n.locale}", data-bypass: "true" }=I18n.t("layout.twitter_sign_in")
+          %a{ href: "/auth/twitter?locale=#{i18n.locale}", data-bypass: "true" }=i18n.t("layout.twitter_sign_in")

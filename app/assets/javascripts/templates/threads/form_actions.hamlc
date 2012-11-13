@@ -1,5 +1,6 @@
+- require 'i18n'
 .form-actions
   %button.btn.btn-primary
-    =I18n.t("templates.threads.form_actions.create_thread")
+    =i18n.t("templates.threads.form_actions.create_thread")
   .btn
-    =I18n.t("templates.threads.form_actions.cancel")
+    =i18n.t("templates.threads.form_actions.cancel")
