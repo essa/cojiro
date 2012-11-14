@@ -7,8 +7,7 @@ window.context = (stubs) ->
   stubs = _.extend(stubs, "jquery": jQuery)
 
   _.each stubs, (value, key) ->
-    stubname = 'stub' + key
-    map[key] = stubname
+    map[key] = 'stub' + key
 
   # copy over whatever global map existed in cfg
   _.each cfg['map']['*'], (value, key) ->
@@ -24,7 +23,6 @@ window.context = (stubs) ->
   context = require.config(options)
 
   _.each stubs, (value, key) ->
-    stubname = 'stub' + key
-    define(stubname, () -> value)
+    define('stub' + key, () -> value)
 
   return context
