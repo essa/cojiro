@@ -17,7 +17,6 @@ define (require) ->
   I18n = require('i18n')
 
   context(
-    'jquery': jQuery
     'views/threads/thread_list': ThreadListView
     'views/homepage/thread_filter': ThreadFilterView
     'globals': globals

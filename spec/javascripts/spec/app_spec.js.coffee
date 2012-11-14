@@ -10,7 +10,6 @@ define (require) ->
   Threads = () -> threads
 
   stubs =
-    "jquery": jQuery
     "collections/threads": Threads
     "routers/app_router": Router
     "backbone": Backbone

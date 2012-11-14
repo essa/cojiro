@@ -7,7 +7,6 @@ define (require) ->
   Thread = sinon.stub().returns(model)
 
   context(
-    "jquery": jQuery
     "models/thread": Thread
     "backbone": Backbone
   ) ['collections/threads'], (Threads) ->

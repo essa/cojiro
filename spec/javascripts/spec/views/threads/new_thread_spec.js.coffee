@@ -17,7 +17,6 @@ define (require) ->
   App.appRouter = navigate: ->
 
   context(
-    "jquery": jQuery
     "backbone": Backbone
     "backbone-forms": Form
     "app": App
@@ -62,7 +61,6 @@ define (require) ->
           I18n.locale = I18n.defaultLocale
 
   context(
-    "jquery": jQuery
     "backbone": Backbone
     "models/thread": Thread
   ) ["views/threads/new_thread"], (NewThreadView) ->

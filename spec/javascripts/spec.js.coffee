@@ -1,4 +1,6 @@
+#=require jquery
+#=require jquery_ujs
+#=require underscore
 #=require sinon
 #=require jasmine-sinon
-#=require underscore
 #=require_tree ./helpers/

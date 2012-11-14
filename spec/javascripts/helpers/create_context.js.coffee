@@ -3,6 +3,9 @@ window.context = (stubs) ->
   
   map = {}
 
+  # force modules to use same jQuery object
+  stubs = _.extend(stubs, "jquery": jQuery)
+
   _.each stubs, (value, key) ->
     stubname = 'stub' + key
     map[key] = stubname
