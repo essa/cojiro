@@ -7,6 +7,7 @@ define (require) ->
   Thread = sinon.stub().returns(model)
 
   context(
+    "jquery": jQuery
     "models/thread": Thread
     "backbone": Backbone
   ) ['collections/threads'], (Threads) ->
@@ -64,7 +65,7 @@ define (require) ->
           expect(@threads.byUser("csasaki").length).toEqual(2)
           expect(@threads.byUser("otheruser").length).toEqual(1)
 
-  context("i18n": I18n) ['collections/threads'], (Threads) ->
+  context("jquery": jQuery, "i18n": I18n) ['collections/threads'], (Threads) ->
 
     describe 'Threads (with real Thread model)', ->
 

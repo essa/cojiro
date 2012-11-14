@@ -9,7 +9,8 @@ define [
   'templates/threads/new'
   'templates/threads/form_actions'
   'templates/other/flash'
-], ($, _, Backbone, Form, BaseView, App, globals, newThreadTemplate, formActionsTemplate, flashTemplate) ->
+  'i18n'
+], ($, _, Backbone, Form, BaseView, App, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
 
   class NewThreadView extends BaseView
     id: 'new_thread'

@@ -1,7 +1,6 @@
 define (require) ->
 
   Backbone = require('backbone')
-  I18n = require('i18n')
 
   homepageView = render: () => {}
   HomepageView = sinon.stub().returns(homepageView)
@@ -19,6 +18,7 @@ define (require) ->
   NavbarView = sinon.stub().returns(navbarView)
 
   context(
+    "jquery": jQuery
     "backbone": Backbone
     "views/homepage/index": HomepageView
     "views/threads/thread": ThreadView

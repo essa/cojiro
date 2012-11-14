@@ -1,112 +1,131 @@
-describe "App.NewThreadView", ->
+define (require) ->
 
-  it "is defined with alias", ->
-    expect(App.NewThreadView).toBeDefined()
-    expect(App.Views.NewThread).toBeDefined()
-    expect(App.NewThreadView).toEqual(App.Views.NewThread)
+  Backbone = require('backbone')
 
-  describe "with stubbed Backbone.Form constructor", ->
-    beforeEach ->
-      @model = new Backbone.Model
-      @view = new App.NewThreadView(model: @model)
-      @$el = @view.$el
-      @form = new Backbone.View
-      @form.render = ->
-        @el = document.createElement('form')
-        @el.setAttribute('id', 'new_thread')
-      sinon.stub(Backbone, 'CompositeForm').returns(@form)
+  form = new Backbone.View
+  form.render = ->
+    @el = document.createElement('form')
+    @el.setAttribute('id', 'new_thread')
+  Form = sinon.stub().returns(form)
+  I18n = require('i18n')
 
-    afterEach ->
-      App.appRouter.navigate "jasmine"
-      Backbone.CompositeForm.restore()
+  Thread = require('models/thread')
 
-    describe "instantiation", ->
+  # need to make sure 'app' is loaded
+  # when called with 'require'
+  App = require('app')
+  App.appRouter = navigate: ->
 
-      it "creates the new thread element", ->
-        expect(@$el).toBe("#new_thread")
+  context(
+    "jquery": jQuery
+    "backbone": Backbone
+    "backbone-forms": Form
+    "app": App
+    "i18n": I18n
+  ) ["views/threads/new_thread"], (NewThreadView) ->
 
-    describe "rendering", ->
-
-      it "creates a new form", ->
-        @view.render()
-        expect(Backbone.CompositeForm).toHaveBeenCalledOnce()
-        expect(Backbone.CompositeForm).toHaveBeenCalledWith(model: @model)
-
-      it "renders the form", ->
-        spy = sinon.spy(@form, 'render')
-
-        @view.render()
-        expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith()
-
-      it "puts the new form on the page", ->
-        @view.render()
-        expect(@view.$el).toContain('form#new_thread')
-
-    describe "Template", ->
-
-      it "renders the new thread form title", ->
-        @view.render()
-        expect(@$el).toHaveText(/Start a thread/)
-
-  describe "with actual Backbone.Form constructor", ->
-    beforeEach ->
-      @collection = new Backbone.Collection
-      @collection.url = '/en/threads'
-      @model = new App.Thread
-      @model.collection = @collection
-      @view = new App.NewThreadView(model: @model, collection: @collection)
-      @$el = @view.$el
-
-    describe "submitting the form data", ->
+    describe "NewThreadView (with stubbed Backbone.Form constructor)", ->
       beforeEach ->
-        @view.render()
+        @model = new Backbone.Model
+        @view = new NewThreadView(model: @model)
+        @$el = @view.$el
 
-      it "commits the form data", ->
-        spy = sinon.spy(@view.form, 'commit')
-        @view.$('form').trigger('submit')
+      describe "instantiation", ->
 
-        expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWithExactly()
+        it "creates the new thread element", ->
+          expect(@$el).toBe("#new_thread")
 
-      it "saves the model", ->
-        sinon.stub(@view.form, 'commit').returns(null)
-        sinon.stub(@model, 'save')
-        @view.$('form').trigger('submit')
+      describe "rendering", ->
 
-        expect(@model.save).toHaveBeenCalledOnce()
+        it "creates a new form", ->
+          @view.render()
+          expect(Form.calledWithNew()).toBeTruthy()
+          expect(Form).toHaveBeenCalledWith(model: @model)
 
-        @view.form.commit.restore()
+        it "renders the form", ->
+          spy = sinon.spy(form, 'render')
 
-    describe "after a successful save", ->
+          @view.render()
+          expect(spy).toHaveBeenCalledOnce()
+          expect(spy).toHaveBeenCalledWith()
+
+        it "puts the new form on the page", ->
+          @view.render()
+          expect(@view.$el).toContain('form#new_thread')
+
+      describe "Template", ->
+
+        it "renders the new thread form title", ->
+          I18n.locale = 'en'
+          @view.render()
+          expect(@$el).toHaveText(/Start a thread/)
+          I18n.locale = I18n.defaultLocale
+
+  context(
+    "jquery": jQuery
+    "backbone": Backbone
+    "models/thread": Thread
+  ) ["views/threads/new_thread"], (NewThreadView) ->
+
+    describe "NewThreadView (with actual Backbone.Form constructor)", ->
+
       beforeEach ->
-        @view.render()
-        @server = sinon.fakeServer.create()
-        @server.respondWith(
-          'POST',
-          '/en/threads',
-          [ 200, {'Content-Type': 'application/json'}, JSON.stringify(_(@fixtures.Thread.valid).extend(id: "123")) ]
-        )
-        sinon.stub(App.appRouter, 'navigate')
-        @view.$('form input[name="title"]').val("a title")
-        @view.$('form textarea[name="summary"]').val("a summary")
+        @collection = new Backbone.Collection
+        @collection.url = '/en/threads'
+        @model = new Thread
+        @model.collection = @collection
+        @view = new NewThreadView(model: @model, collection: @collection)
+        @$el = @view.$el
 
-      afterEach ->
-        @server.restore()
-        App.appRouter.navigate.restore()
+      describe "submitting the form data", ->
+        beforeEach ->
+          @view.render()
 
-      it "adds the thread to the collection", ->
-        spy = sinon.spy(@collection, 'add')
+        it "commits the form data", ->
+          spy = sinon.spy(@view.form, 'commit')
+          @view.$('form').trigger('submit')
 
-        @view.$('form').trigger('submit')
-        @server.respond()
+          expect(spy).toHaveBeenCalledOnce()
+          expect(spy).toHaveBeenCalledWithExactly()
 
-        expect(spy).toHaveBeenCalledOnce()
-        expect(spy).toHaveBeenCalledWith(@model)
+        it "saves the model", ->
+          sinon.stub(@view.form, 'commit').returns(null)
+          sinon.stub(@model, 'save')
+          @view.$('form').trigger('submit')
 
-      it "navigates to the new thread", ->
-        @view.$('form').trigger('submit')
-        @server.respond()
+          expect(@model.save).toHaveBeenCalledOnce()
 
-        expect(App.appRouter.navigate).toHaveBeenCalledOnce()
-        expect(App.appRouter.navigate).toHaveBeenCalledWith('/en/threads/123', true)
+          @view.form.commit.restore()
+
+      describe "after a successful save", ->
+        beforeEach ->
+          @view.render()
+          @server = sinon.fakeServer.create()
+          @server.respondWith(
+            'POST',
+            '/en/threads',
+            [ 200, {'Content-Type': 'application/json'}, JSON.stringify(_(@fixtures.Thread.valid).extend(id: "123")) ]
+          )
+          sinon.stub(App.appRouter, 'navigate')
+          @view.$('form input[name="title"]').val("a title")
+          @view.$('form textarea[name="summary"]').val("a summary")
+
+        afterEach ->
+          @server.restore()
+          App.appRouter.navigate.restore()
+
+        it "adds the thread to the collection", ->
+          spy = sinon.spy(@collection, 'add')
+
+          @view.$('form').trigger('submit')
+          @server.respond()
+
+          expect(spy).toHaveBeenCalledOnce()
+          expect(spy).toHaveBeenCalledWith(@model)
+
+        it "navigates to the new thread", ->
+          @view.$('form').trigger('submit')
+          @server.respond()
+
+          expect(App.appRouter.navigate).toHaveBeenCalledOnce()
+          expect(App.appRouter.navigate).toHaveBeenCalledWith('/en/threads/123', true)

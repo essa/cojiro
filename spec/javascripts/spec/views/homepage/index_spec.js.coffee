@@ -14,20 +14,28 @@ define (require) ->
     @
   ThreadFilterView = sinon.stub().returns(threadFilterView)
 
+  I18n = require('i18n')
+
   context(
+    'jquery': jQuery
     'views/threads/thread_list': ThreadListView
     'views/homepage/thread_filter': ThreadFilterView
     'globals': globals
+    'i18n': I18n
   ) ['views/homepage/index'], (HomepageView) ->
 
     describe "HomepageView", ->
       beforeEach ->
+        I18n.locale = 'en'
         @thread1 = new Backbone.Model
         @thread2 = new Backbone.Model
         @thread3 = new Backbone.Model
         @threads = new Backbone.Collection([@thread1, @thread2, @thread3])
         @threads.byUser = ->
         globals.currentUser = null
+
+      afterEach ->
+        I18n.locale = I18n.defaultLocale
 
       describe "instantiation", ->
         beforeEach ->
