@@ -1,76 +1,97 @@
-describe "App.ThreadListView", ->
-  beforeEach ->
-    @view = new App.ThreadListView()
+define (require) ->
 
-  it "is defined with alias", ->
-    expect(App.ThreadListView).toBeDefined()
-    expect(App.Views.ThreadList).toBeDefined()
-    expect(App.ThreadListView).toEqual(App.Views.ThreadList)
+  Backbone = require('backbone')
+  Thread = require('models/thread')
+  Threads = require('collections/threads')
 
-  describe "instantiation", ->
-    beforeEach ->
-      @view.collection = new Backbone.Collection()
-      @$el = @view.$el
+  # make sure dependencies are loaded before stubbing, for unstubbed tests
+  require('views/threads/thread_list_item')
 
-    it "creates a table element for a threads list", ->
-      expect(@$el).toBe("table#threads_list")
+  listItemView = new Backbone.View()
+  listItemView.render = () ->
+    @el = document.createElement('tr')
+    @
+  ThreadListItemView = sinon.stub().returns(listItemView)
 
-    it "has bootstrap classes", ->
-      expect(@$el).toHaveClass("table")
-      expect(@$el).toHaveClass("table-striped")
+  context(
+    'models/thread': Thread
+    'collections/threads': Threads
+    "views/threads/thread_list_item": ThreadListItemView
+  ) ['views/threads/thread_list'], (ThreadListView) ->
 
-  describe "rendering", ->
-    beforeEach ->
-      @listItemView = new Backbone.View()
-      @listItemView.render = () ->
-        @el = document.createElement('tr')
-        @
-      sinon.spy(@listItemView,"render")
-      @listItemViewStub = sinon.stub(App, "ThreadListItemView").returns(@listItemView)
-      @thread1 = new Backbone.Model()
-      @thread2 = new Backbone.Model()
-      @thread3 = new Backbone.Model()
-      @view.collection = new Backbone.Collection([ @thread1, @thread2, @thread3 ])
-      @returnVal = @view.render()
+    describe "ThreadListView (with stubbed ThreadListItemView)", ->
+      beforeEach ->
+        @view = new ThreadListView()
 
-    afterEach ->
-      App.ThreadListItemView.restore()
+      describe "instantiation", ->
+        beforeEach ->
+          @view.collection = new Backbone.Collection()
+          @$el = @view.$el
 
-    it "returns the view object", ->
-      expect(@returnVal).toEqual(@view)
+        it "creates a table element for a threads list", ->
+          expect(@$el).toBe("table#threads_list")
 
-    it "creates a ThreadListItemView for each model", ->
-      expect(@listItemViewStub).toHaveBeenCalledThrice()
-      expect(@listItemViewStub).toHaveBeenCalledWith(model: @thread1)
-      expect(@listItemViewStub).toHaveBeenCalledWith(model: @thread2)
-      expect(@listItemViewStub).toHaveBeenCalledWith(model: @thread3)
+        it "has bootstrap classes", ->
+          expect(@$el).toHaveClass("table")
+          expect(@$el).toHaveClass("table-striped")
 
-    it "renders each ThreadListItemView", ->
-      expect(@listItemView.render).toHaveBeenCalledThrice()
+      describe "rendering", ->
+        beforeEach ->
+          sinon.spy(listItemView, "render")
+          @thread1 = new Backbone.Model()
+          @thread2 = new Backbone.Model()
+          @thread3 = new Backbone.Model()
+          @view.collection = new Backbone.Collection([ @thread1, @thread2, @thread3 ])
+          @returnVal = @view.render()
 
-    it "appends list items to the list", ->
-      expect(@view.$('tbody').children().length).toEqual(3)
+        afterEach ->
+          listItemView.render.restore()
 
-    it "has list item views as children (for cleanup)", ->
-      expect(@view.children).toBeDefined()
-      expect(@view.children.size()).toEqual(3)
+        it "returns the view object", ->
+          expect(@returnVal).toEqual(@view)
 
-  describe "dynamic jquery timeago tag", ->
-    beforeEach ->
-      @clock = sinon.useFakeTimers()
-      @thread = new App.Thread(_(@fixtures.Thread.valid).extend(updated_at: new Date().toJSON()))
-      @threads = new App.Threads([@thread])
-      @view.collection = @threads
-      @view.render()
+        it "creates a ThreadListItemView for each model", ->
+          expect(ThreadListItemView.alwaysCalledWithNew()).toBeTruthy()
+          expect(ThreadListItemView).toHaveBeenCalledWith(model: @thread1)
+          expect(ThreadListItemView).toHaveBeenCalledWith(model: @thread2)
+          expect(ThreadListItemView).toHaveBeenCalledWith(model: @thread3)
 
-    afterEach ->
-      @clock.restore()
+        it "renders each ThreadListItemView", ->
+          expect(listItemView.render).toHaveBeenCalledThrice()
 
-    it "fills in time tag field on new models", ->
-      expect(@view.$('time.timeago')[0]).toHaveText('less than a minute ago')
+        it "appends list items to the list", ->
+          expect(@view.$('tbody').children().length).toEqual(3)
 
-    it "updates time tag as time passes", ->
-      @clock.tick(60000)
-      expect(@view.$('time.timeago')[0]).toHaveText('about a minute ago')
-      @clock.tick(3600000)
-      expect(@view.$('time.timeago')[0]).toHaveText('about an hour ago')
+        it "has list item views as children (for cleanup)", ->
+          expect(@view.children).toBeDefined()
+          expect(@view.children.size()).toEqual(3)
+
+  context(
+    'models/thread': Thread
+    'collections/threads': Threads
+  ) ['views/threads/thread_list'], (ThreadListView) ->
+
+    describe "with actual ThreadListItemView", ->
+
+      beforeEach ->
+        @view = new ThreadListView()
+
+      describe "dynamic jquery timeago tag", ->
+        beforeEach ->
+          @clock = sinon.useFakeTimers()
+          @thread = new Thread(_(@fixtures.Thread.valid).extend(updated_at: new Date().toJSON()))
+          @threads = new Threads([@thread])
+          @view.collection = @threads
+          @view.render()
+
+        afterEach ->
+          @clock.restore()
+
+        it "fills in time tag field on new models", ->
+          expect(@view.$('time.timeago')[0]).toHaveText('less than a minute ago')
+
+        it "updates time tag as time passes", ->
+          @clock.tick(60000)
+          expect(@view.$('time.timeago')[0]).toHaveText('about a minute ago')
+          @clock.tick(3600000)
+          expect(@view.$('time.timeago')[0]).toHaveText('about an hour ago')
