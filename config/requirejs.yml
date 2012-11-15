@@ -1,7 +1,9 @@
 shim:
   'i18n':
     exports: 'I18n'
-  'backbone-support': [ 'backbone' ]
+  'backbone-support':
+    exports: 'Support'
+    deps: [ 'backbone' ]
   'jquery.timeago': [ 'jquery' ]
   'jquery_ujs': [ 'jquery' ]
 

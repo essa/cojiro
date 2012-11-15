@@ -1,7 +1,7 @@
-require [
-  "backbone",
-  "mixins/base_model"
-], (Backbone, BaseModel) ->
+define (require) -> 
+
+  Backbone = require('backbone')
+  BaseModel = require('mixins/base_model')
 
   describe "BaseModel", ->
     beforeEach ->

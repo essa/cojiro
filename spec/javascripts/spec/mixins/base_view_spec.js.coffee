@@ -1,10 +1,10 @@
-require [
-  'backbone',
-  'backbone-support',
-  'mixins/base_view'
-], (Backbone, Support, BaseView) ->
+define (require) ->
 
-  describe "App.BaseView", ->
+  Backbone = require('backbone')
+  Support = require('backbone-support')
+  BaseView = require('mixins/base_view')
+
+  describe "BaseView", ->
     beforeEach ->
       @baseView = new BaseView
 
