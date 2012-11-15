@@ -3,7 +3,8 @@ define [
   'underscore',
   'backbone',
   'mixins/base_view',
-  'templates/shared/_translatable_field'
+  'templates/shared/_translatable_field',
+  'backbone-forms',
 ], ($, _, Backbone, BaseView, translatableFieldTemplate) ->
 
   class TranslatableFieldsView extends BaseView
@@ -45,7 +46,7 @@ define [
       $button = $(e.currentTarget)
       $parent = @findParent($button)
       attr = @getAttributeName($parent)
-      $parent.replaceWith(translatableFieldTemplate(@model, attr_name: attr))
+      $parent.replaceWith(translatableFieldTemplate(model: @model, attr_name: attr))
 
     convertToSaveButton: ($el) ->
       $el.addClass('save-button')
@@ -65,4 +66,4 @@ define [
       form = (@forms[attr] ||= @createFormFor(attr))
       @renderChild(form)
       return form
-    renderTranslatableField: ($el, attr) -> @findParent($el).replaceWith(translatableFieldTemplate(@model, attr_name: attr))
+    renderTranslatableField: ($el, attr) -> @findParent($el).replaceWith(translatableFieldTemplate(model: @model, attr_name: attr))
