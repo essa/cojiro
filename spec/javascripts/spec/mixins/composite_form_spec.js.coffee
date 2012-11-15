@@ -1,4 +1,9 @@
-describe "Backbone.CompositeForm", ->
+define (require) ->
+
+  Backbone = require('backbone')
+  require('backbone-forms')
+  
+  describe "Backbone.CompositeForm", ->
   beforeEach ->
     User = Backbone.Model.extend(schema: {})
     user = new User()
