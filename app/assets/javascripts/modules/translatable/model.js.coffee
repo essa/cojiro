@@ -1,10 +1,10 @@
 define [
   'underscore',
   'backbone',
-  'mixins/base_model',
+  'modules/base',
   'i18n'
-], (_, Backbone, BaseModel, I18n) ->
-  class TranslatableFieldsModel extends BaseModel
+], (_, Backbone, Base, I18n) ->
+  class TranslatableModel extends Base.Model
 
     getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")
     getSourceLocale: -> @get('source_locale')

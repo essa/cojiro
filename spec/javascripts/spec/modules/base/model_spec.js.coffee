@@ -1,7 +1,7 @@
 define (require) -> 
 
   Backbone = require('backbone')
-  BaseModel = require('mixins/base_model')
+  BaseModel = require('modules/base/model')
 
   describe "BaseModel", ->
     beforeEach ->

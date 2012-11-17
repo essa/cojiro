@@ -1,12 +1,16 @@
 define (require) ->
 
-  TranslatableFieldsModel = require('mixins/translatable_fields_model')
+  TranslatableModel = require('modules/translatable/model')
+  I18n = require('i18n')
 
-  describe "TranslatableFieldsModel", ->
+  describe "TranslatableModel", ->
+
+    beforeEach ->
+      I18n.locale = 'en'
 
     describe 'getters', ->
       beforeEach ->
-        @model = new TranslatableFieldsModel
+        @model = new TranslatableModel
         @model.collection = url: '/collection'
 
       describe '#getAttrInSourceLocale', ->

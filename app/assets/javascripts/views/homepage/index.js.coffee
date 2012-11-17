@@ -2,15 +2,15 @@ define [
   'jquery'
   'underscore'
   'backbone'
-  'mixins/base_view'
+  'modules/base'
   'views/threads/thread_list'
   'views/homepage/thread_filter'
   'globals'
   'i18n'
   'templates/homepage/index'
-], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals, I18n, indexTemplate) ->
+], ($, _, Backbone, Base, ThreadListView, ThreadFilterView, globals, I18n, indexTemplate) ->
 
-  class HomepageView extends BaseView
+  class HomepageView extends Base.View
     id: 'homepage'
 
     initialize: ->

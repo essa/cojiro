@@ -2,7 +2,7 @@ define (require) ->
 
   Backbone = require('backbone')
   Support = require('backbone-support')
-  BaseView = require('mixins/base_view')
+  BaseView = require('modules/base/view')
 
   describe "BaseView", ->
     beforeEach ->

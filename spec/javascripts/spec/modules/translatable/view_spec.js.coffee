@@ -1,13 +1,20 @@
 define (require) ->
 
   Backbone = require('backbone')
-  TranslatableFieldsView = require('mixins/translatable_fields_view')
-  TranslatableFieldsModel = require('mixins/translatable_fields_model')
-  translatableFieldTemplate = require('templates/shared/_translatable_field')
+  TranslatableView = require('modules/translatable/view')
+  TranslatableModel = require('modules/translatable/model')
+  translatableFieldTemplate = require('modules/translatable/templates/_translatable_field')
   globals = require('globals')
   require('jquery')
+  I18n = require('i18n')
 
-  describe "TranslatableFieldsView", ->
+  describe "TranslatableView", ->
+    
+    beforeEach ->
+      I18n.locale = 'en'
+
+    afterEach ->
+      I18n.locale = I18n.defaultLocale
 
     sharedExamplesForTranslatableFields = (context) ->
 
@@ -31,7 +38,7 @@ define (require) ->
           globals.currentUser = @fixtures.User.valid
           @attr = context.attr
           @type = context.type || 'input'
-          @model = new TranslatableFieldsModel
+          @model = new TranslatableModel
           _(@model).extend
             id: "123"
             schema: ->
@@ -42,11 +49,11 @@ define (require) ->
           @model.collection = new Backbone.Collection
           @model.collection.url = -> '/en/models'
 
-          @showTranslatableFieldSpy = sinon.spy(TranslatableFieldsView.prototype, 'showTranslatableField')
-          @submitTranslatableFieldFormSpy = sinon.spy(TranslatableFieldsView.prototype, 'submitTranslatableFieldForm')
-          @saveTranslatableFieldSpy = sinon.spy(TranslatableFieldsView.prototype, 'saveTranslatableField')
-          @revertTranslatableFieldSpy = sinon.spy(TranslatableFieldsView.prototype, 'revertTranslatableField')
-          @view = new TranslatableFieldsView(model: @model)
+          @showTranslatableFieldSpy = sinon.spy(TranslatableView.prototype, 'showTranslatableField')
+          @submitTranslatableFieldFormSpy = sinon.spy(TranslatableView.prototype, 'submitTranslatableFieldForm')
+          @saveTranslatableFieldSpy = sinon.spy(TranslatableView.prototype, 'saveTranslatableField')
+          @revertTranslatableFieldSpy = sinon.spy(TranslatableView.prototype, 'revertTranslatableField')
+          @view = new TranslatableView(model: @model)
           @view.render = ->
             @$el.append(translatableFieldTemplate(model: @model, attr_name: context.attr))
           @view.render()
@@ -54,10 +61,10 @@ define (require) ->
 
         afterEach ->
           globals.currentUser = null
-          TranslatableFieldsView.prototype.showTranslatableField.restore()
-          TranslatableFieldsView.prototype.submitTranslatableFieldForm.restore()
-          TranslatableFieldsView.prototype.saveTranslatableField.restore()
-          TranslatableFieldsView.prototype.revertTranslatableField.restore()
+          TranslatableView.prototype.showTranslatableField.restore()
+          TranslatableView.prototype.submitTranslatableFieldForm.restore()
+          TranslatableView.prototype.saveTranslatableField.restore()
+          TranslatableView.prototype.revertTranslatableField.restore()
 
         describe "when edit button handler is fired", ->
 

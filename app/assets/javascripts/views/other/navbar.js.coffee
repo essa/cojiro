@@ -2,11 +2,11 @@ define [
   'jquery',
   'underscore',
   'backbone',
-  'mixins/base_view',
+  'modules/base',
   'templates/other/navbar'
-], ($, _, Backbone, BaseView, navbarTemplate) ->
+], ($, _, Backbone, Base, navbarTemplate) ->
 
-  class NavbarView extends BaseView
+  class NavbarView extends Base.View
     className: 'navbar navbar-fixed-top'
 
     initialize: ->

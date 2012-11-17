@@ -2,13 +2,13 @@ define [
   'jquery',
   'underscore',
   'backbone',
-  'mixins/base_view',
-  'templates/shared/_translatable_field',
+  'modules/base',
+  'modules/translatable/templates/_translatable_field',
   'backbone-forms',
-], ($, _, Backbone, BaseView, translatableFieldTemplate) ->
+], ($, _, Backbone, Base, translatableFieldTemplate) ->
 
-  class TranslatableFieldsView extends BaseView
-    
+  class TranslatableView extends Base.View
+
     buildEvents: () ->
       _(super).extend
         "click button.edit-button": "showTranslatableField"

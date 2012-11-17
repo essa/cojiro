@@ -2,11 +2,11 @@ define [
   'underscore'
   'backbone'
   'i18n'
-  'mixins/translatable_fields_model'
+  'modules/translatable'
   'underscore_mixins'
-], (_, Backbone, I18n, TranslatableFieldsModel) ->
+], (_, Backbone, I18n, Translatable) ->
 
-  class Thread extends TranslatableFieldsModel
+  class Thread extends Translatable.Model
     defaults: ->
       title: ''
       summary: ''

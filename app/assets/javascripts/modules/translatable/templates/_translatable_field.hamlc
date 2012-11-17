@@ -1,8 +1,8 @@
-- require 'templates/shared/_translatable_attribute'
-- require 'templates/shared/_edit_add_button'
+- require 'modules/translatable/templates/_translatable_attribute'
+- require 'modules/translatable/templates/_edit_button'
 - if helpers.isLoggedIn()
   %span.translatable-field-parent{ 'data-attribute': @attr_name }
     != _translatable_attribute(model: @model, attr_name: @attr_name, translatable_field_class_name: 'translatable-field')
-    != _edit_add_button(text: @model.get(@attr_name))
+    != _edit_button(text: @model.get(@attr_name))
 - else
   != _translatable_attribute(model: @model, attr_name: @attr_name)

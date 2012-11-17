@@ -2,13 +2,13 @@ define [
   'jquery',
   'underscore',
   'backbone',
-  'mixins/translatable_fields_view',
+  'modules/translatable',
   'globals',
   'templates/threads/show',
   'templates/other/flash'
-], ($, _, Backbone, TranslatableFieldsView, globals, showThreadTemplate, flashTemplate) ->
+], ($, _, Backbone, Translatable, globals, showThreadTemplate, flashTemplate) ->
 
-  class ThreadView extends TranslatableFieldsView
+  class ThreadView extends Translatable.View
     id: 'thread'
 
     initialize: ->

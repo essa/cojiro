@@ -1,5 +1,5 @@
 - require 'i18n'
-- require 'templates/shared/_translatable_field'
+- require 'modules/translatable/templates/_translatable_field'
 .row
   .span12
     %h2

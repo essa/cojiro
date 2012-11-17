@@ -2,13 +2,11 @@ define [
   'jquery'
   'underscore'
   'backbone'
-  'mixins/base_view'
+  'modules/base'
   'templates/threads/list_item'
-  'templates/shared/_translatable_attribute'
-  'templates/shared/_new_label'
-], ($, _, Backbone, BaseView, threadsListItemTemplate) ->
+], ($, _, Backbone, Base, threadsListItemTemplate) ->
 
-  class ThreadListItemView extends BaseView
+  class ThreadListItemView extends Base.View
     tagName: 'tr'
     id: 'thread-list-item'
     className: 'clickable'
