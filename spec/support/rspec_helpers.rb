@@ -11,5 +11,10 @@ module MockModels
 end
 
 module Helpers
-  # TODO: add helpers for destroy
+
+  def twitter_sign_in
+    visit '/auth/twitter'
+    wait_until { page.has_css? '#navbar' }
+  end
+
 end

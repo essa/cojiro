@@ -6,7 +6,7 @@ describe 'New Cothread', :js => true do
     OmniAuthHelpers::add_twitter_mock('12345',
                                       "Cojiro Sasaki",
                                       "csasaki")
-    visit '/auth/twitter'
+    twitter_sign_in
   end
 
   context 'English locale' do

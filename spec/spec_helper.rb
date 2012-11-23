@@ -26,6 +26,7 @@ Spork.prefork do
 
   RSpec.configure do |config|
     include CojiroRequestStubs
+    include Helpers
 
     # ## Mock Framework
     #
