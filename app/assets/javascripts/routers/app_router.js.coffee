@@ -8,7 +8,7 @@ define [
   'views/threads/new_thread',
   'models/thread',
   'backbone-support'
-], ($, _, Backbone, NavbarView, HomepageView, ThreadView, NewThreadView, Thread) ->
+], ($, _, Backbone, NavbarView, HomepageView, ThreadView, NewThreadView, Thread, Support) ->
 
   class AppRouter extends Support.SwappingRouter
     routes:
