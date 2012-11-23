@@ -4,8 +4,9 @@ define [
   'backbone',
   'modules/base',
   'modules/translatable/templates/_translatable_field',
-  'backbone-forms',
-], ($, _, Backbone, Base, translatableFieldTemplate) ->
+  'i18n',
+  'backbone-forms'
+], ($, _, Backbone, Base, translatableFieldTemplate, I18n) ->
 
   class TranslatableView extends Base.View
 
