@@ -21,6 +21,9 @@ Spork.prefork do
 
   Capybara.javascript_driver = :webkit
 
+  # need to set this high to allow for time to load assets in request specs
+  Capybara.default_wait_time = 15
+
   # to speed up tests: http://blog.plataformatec.com.br/2011/12/three-tips-to-improve-the-performance-of-your-test-suite/
   Rails.logger.level = 4
 
