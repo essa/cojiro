@@ -3,7 +3,7 @@ shim:
     exports: 'I18n'
   'backbone-support':
     exports: 'Support'
-    deps: [ 'backbone' ]
+    deps: [ 'jquery', 'underscore', 'backbone' ]
   'jquery.timeago': [ 'jquery' ]
   'jquery_ujs': [ 'jquery' ]
 
