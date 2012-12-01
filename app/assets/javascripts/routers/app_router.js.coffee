@@ -37,5 +37,5 @@ define [
 
     new: (locale) ->
       thread = new Thread({}, collection: @collection)
-      view = new NewThreadView(model: thread, collection: @collection)
+      view = new NewThreadView(model: thread, collection: @collection, router: @)
       @swap(view)

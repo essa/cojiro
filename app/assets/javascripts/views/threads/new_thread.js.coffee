@@ -4,13 +4,12 @@ define [
   'backbone'
   'backbone-forms'
   'modules/base'
-  'app'
   'globals'
   'templates/threads/new'
   'templates/threads/form_actions'
   'templates/other/flash'
   'i18n'
-], ($, _, Backbone, Form, Base, App, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
+], ($, _, Backbone, Form, Base, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
 
   class NewThreadView extends Base.View
     id: 'new_thread'
@@ -18,6 +17,10 @@ define [
     buildEvents: () ->
       _(super).extend
         "submit form" : "submit"
+
+    initialize: (options) ->
+      @router = @options.router
+      super
 
     render: ->
       @renderLayout()
@@ -39,12 +42,12 @@ define [
         self = @
         @model.save({},
           success: (model, resp) ->
-            App = require('app')
+            I18n = require('i18n')
             self.collection.add(model, at: 0)
             globals.flash =
               name: "success"
               msg: I18n.t("views.threads.new_thread.thread_created")
-            App.appRouter.navigate(model.url(), true )
+            self.router.navigate(model.url(), true )
         )
       else
         @.$('.alert').remove()

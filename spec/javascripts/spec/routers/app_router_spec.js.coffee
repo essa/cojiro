@@ -138,7 +138,7 @@ define (require) ->
           it "instantiates a new NewThreadView", ->
             @router.navigate "en/threads/new", true
             expect(NewThreadView.calledWithNew()).toBeTruthy()
-            expect(NewThreadView).toHaveBeenCalledWithExactly(model: model, collection: @collection)
+            expect(NewThreadView).toHaveBeenCalledWithExactly(model: model, collection: @collection, router: @router)
 
           it "renders the view onto the page", ->
             spy = sinon.spy(newThreadView, 'render')

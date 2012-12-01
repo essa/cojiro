@@ -11,22 +11,18 @@ define (require) ->
 
   Thread = require('models/thread')
 
-  # need to make sure 'app' is loaded
-  # when called with 'require'
-  App = require('app')
-  App.appRouter = navigate: ->
+  router = navigate: ->
 
   context(
     "backbone": Backbone
     "backbone-forms": Form
-    "app": App
     "i18n": I18n
   ) ["views/threads/new_thread"], (NewThreadView) ->
 
     describe "NewThreadView (with stubbed Backbone.Form constructor)", ->
       beforeEach ->
         @model = new Backbone.Model
-        @view = new NewThreadView(model: @model)
+        @view = new NewThreadView(model: @model, router: router)
         @$el = @view.$el
 
       describe "instantiation", ->
@@ -72,7 +68,7 @@ define (require) ->
         @collection.url = '/en/threads'
         @model = new Thread
         @model.collection = @collection
-        @view = new NewThreadView(model: @model, collection: @collection)
+        @view = new NewThreadView(model: @model, collection: @collection, router: router)
         @$el = @view.$el
 
       describe "submitting the form data", ->
@@ -104,13 +100,13 @@ define (require) ->
             '/en/threads',
             [ 200, {'Content-Type': 'application/json'}, JSON.stringify(_(@fixtures.Thread.valid).extend(id: "123")) ]
           )
-          sinon.stub(App.appRouter, 'navigate')
+          sinon.stub(router, 'navigate')
           @view.$('form input[name="title"]').val("a title")
           @view.$('form textarea[name="summary"]').val("a summary")
 
         afterEach ->
           @server.restore()
-          App.appRouter.navigate.restore()
+          router.navigate.restore()
 
         it "adds the thread to the collection", ->
           spy = sinon.spy(@collection, 'add')
@@ -125,5 +121,5 @@ define (require) ->
           @view.$('form').trigger('submit')
           @server.respond()
 
-          expect(App.appRouter.navigate).toHaveBeenCalledOnce()
-          expect(App.appRouter.navigate).toHaveBeenCalledWith('/en/threads/123', true)
+          expect(router.navigate).toHaveBeenCalledOnce()
+          expect(router.navigate).toHaveBeenCalledWith('/en/threads/123', true)
