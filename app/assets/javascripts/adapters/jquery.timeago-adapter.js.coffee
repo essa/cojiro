@@ -1,4 +1,4 @@
-define ['jquery', 'i18n', 'jquery.timeago'], ($, I18n) ->
+define ['jquery', 'underscore', 'i18n', 'jquery.timeago'], ($, _, I18n) ->
   $ ->
     strings = {}
     _([
