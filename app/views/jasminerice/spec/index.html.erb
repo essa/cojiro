@@ -7,7 +7,7 @@
   </script>
   <%= requirejs_include_tag %>
   <script>
-    require([<%= spec_files.map { |f| "'#{f.sub(/\.js$/,'')}'" }.join(',') %>]);
+    require(['application', <%= spec_files.map { |f| "'#{f.sub(/\.js$/,'')}'" }.join(',') %>]);
   </script>
   <%= javascript_include_tag "jasminerice", "spec" %>
   <%= csrf_meta_tags %>
