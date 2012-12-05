@@ -2,6 +2,7 @@ define (require) ->
 
   Backbone = require('backbone')
   require('backbone-forms')
+  Support = require('backbone-support')
   
   describe "Backbone.CompositeForm", ->
   beforeEach ->

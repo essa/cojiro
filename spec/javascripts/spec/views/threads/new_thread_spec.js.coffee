@@ -1,13 +1,13 @@
 define (require) ->
 
   Backbone = require('backbone')
+  I18n = require('i18n')
 
   form = new Backbone.View
   form.render = ->
     @el = document.createElement('form')
     @el.setAttribute('id', 'new_thread')
   Form = sinon.stub().returns(form)
-  I18n = require('i18n')
 
   Thread = require('models/thread')
 

@@ -1,6 +1,7 @@
 define (require) ->
 
   Backbone = require('backbone')
+  I18n = require('i18n')
 
   homepageView = render: () => {}
   HomepageView = sinon.stub().returns(homepageView)
@@ -26,6 +27,8 @@ define (require) ->
   ) ["routers/app_router"], (AppRouter) ->
 
     describe 'AppRouter', ->
+      beforeEach ->
+        I18n.locale = 'en'
 
       afterEach ->
         I18n.locale = I18n.defaultLocale

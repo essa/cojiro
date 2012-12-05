@@ -1,6 +1,7 @@
 define (require) ->
 
   Backbone = require('backbone')
+  I18n = require('i18n')
 
   globals = require('globals')
 
@@ -13,8 +14,6 @@ define (require) ->
     @el.setAttribute('id', 'thread-filter')
     @
   ThreadFilterView = sinon.stub().returns(threadFilterView)
-
-  I18n = require('i18n')
 
   context(
     'views/threads/thread_list': ThreadListView

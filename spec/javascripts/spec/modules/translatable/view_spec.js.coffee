@@ -1,12 +1,13 @@
 define (require) ->
 
   Backbone = require('backbone')
+  I18n = require('i18n')
+
   TranslatableView = require('modules/translatable/view')
   TranslatableModel = require('modules/translatable/model')
   translatableFieldTemplate = require('modules/translatable/templates/_translatable_field')
   globals = require('globals')
   require('jquery')
-  I18n = require('i18n')
 
   describe "TranslatableView", ->
     
