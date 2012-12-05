@@ -1,6 +1,9 @@
 shim:
   'i18n':
     exports: 'I18n'
+  'backbone':
+    exports: 'Backbone'
+    deps: [ 'jquery', 'underscore']
   'backbone-support':
     exports: 'Support'
     deps: [ 'jquery', 'underscore', 'backbone' ]
