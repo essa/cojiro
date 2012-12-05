@@ -5,7 +5,6 @@
   <script>
     window.cfg = <%= Requirejs::Rails::Engine.config.requirejs.run_config.to_json.html_safe %>;
   </script>
-  <% RequirejsHelper._priority = spec_files.map { |s| s.sub(/\.js$/,'') } %>
   <%= requirejs_include_tag %>
   <script>
     require([<%= spec_files.map { |f| "'#{f.sub(/\.js$/,'')}'" }.join(',') %>]);
