@@ -3,8 +3,8 @@ window.context = (stubs) ->
   
   map = {}
 
-  # force modules to use same jQuery object
-  stubs = _.extend(stubs, "jquery": jQuery)
+  # force modules to use same jQuery, Backbone and I18n objects
+  stubs = _.extend(stubs, "jquery": jQuery, "backbone": Backbone, "i18n": I18n)
 
   _.each stubs, (value, key) ->
     map[key] = 'stub' + key

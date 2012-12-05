@@ -20,7 +20,6 @@ define (require) ->
     'views/threads/thread_list': ThreadListView
     'views/homepage/thread_filter': ThreadFilterView
     'globals': globals
-    'i18n': I18n
   ) ['views/homepage/index'], (HomepageView) ->
 
     describe "HomepageView", ->

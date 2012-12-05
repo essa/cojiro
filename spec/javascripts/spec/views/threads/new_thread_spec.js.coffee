@@ -14,9 +14,7 @@ define (require) ->
   router = navigate: ->
 
   context(
-    "backbone": Backbone
     "backbone-forms": Form
-    "i18n": I18n
   ) ["views/threads/new_thread"], (NewThreadView) ->
 
     describe "NewThreadView (with stubbed Backbone.Form constructor)", ->

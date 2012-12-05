@@ -18,7 +18,6 @@ define (require) ->
   NavbarView = sinon.stub().returns(navbarView)
 
   context(
-    "backbone": Backbone
     "views/homepage/index": HomepageView
     "views/threads/thread": ThreadView
     "views/threads/new_thread": NewThreadView
