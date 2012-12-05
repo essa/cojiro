@@ -8,7 +8,7 @@ define (require) ->
   threadView = render: () => {}
   ThreadView = sinon.stub().returns(threadView)
 
-  model = new Backbone.Model
+  model = {}
   Thread = sinon.stub().returns(model)
 
   newThreadView = render: () -> {}
