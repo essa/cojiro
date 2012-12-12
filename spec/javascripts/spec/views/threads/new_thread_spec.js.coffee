@@ -55,7 +55,6 @@ define (require) ->
           I18n.locale = I18n.defaultLocale
 
   context(
-    "backbone": Backbone
     "models/thread": Thread
   ) ["views/threads/new_thread"], (NewThreadView) ->
 
