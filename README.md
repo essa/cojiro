@@ -54,6 +54,7 @@ cojiro is built on the following gems and frameworks:
 * [sass](http://sass-lang.com/): for structuring stylesheets awesomely
 * [bootstrap](http://twitter.github.com/bootstrap/): for sensible css defaults
 * [backbone.js](http://documentcloud.github.com/backbone/): for rich client-side user interaction
+* [require.js](http://requirejs.org/): for organizing client-side code
 * [faye](http://faye.jcoglan.com/): for real-time interaction
 
 Testing
