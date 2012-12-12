@@ -1,13 +1,19 @@
-class App.ThreadListItemView extends App.BaseView
-  tagName: 'tr'
-  id: 'thread-list-item'
-  className: 'clickable'
+define [
+  'jquery'
+  'underscore'
+  'backbone'
+  'modules/base'
+  'templates/threads/list_item'
+], ($, _, Backbone, Base, threadsListItemTemplate) ->
 
-  initialize: ->
-    @$el.attr('data-href': @model.url())
+  class ThreadListItemView extends Base.View
+    tagName: 'tr'
+    id: 'thread-list-item'
+    className: 'clickable'
 
-  render: ->
-    @$el.html(JST['threads/list_item']( model: @model ))
-    @
+    initialize: ->
+      @$el.attr('data-href': @model.url())
 
-App.Views.ThreadListItem = App.ThreadListItemView
+    render: ->
+      @$el.html(threadsListItemTemplate( model: @model ))
+      @

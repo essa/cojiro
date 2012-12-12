@@ -1,6 +1,6 @@
-//= require_tree ./
-//= require sinon
-//= require jasmine-sinon
-//= require jasmine-jquery
-//= require helpers/spec_helper
-//= require application
+#=require jquery
+#=require jquery_ujs
+#=require underscore
+#=require sinon
+#=require jasmine-sinon
+#=require_tree ./helpers/

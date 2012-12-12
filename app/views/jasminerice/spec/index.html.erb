@@ -1,0 +1,17 @@
+<!doctype html>
+<head>
+  <title>Jasmine(Rice) Spec Runner</title>
+  <%= stylesheet_link_tag "jasmine", "spec" %>
+  <script>
+    window.cfg = <%= Requirejs::Rails::Engine.config.requirejs.run_config.to_json.html_safe %>;
+  </script>
+  <%= requirejs_include_tag 'application' %>
+  <script>
+    require([<%= spec_files.map { |f| "'#{f.sub(/\.js$/,'')}'" }.join(',') %>]);
+  </script>
+  <%= javascript_include_tag "jasminerice", "spec" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+</body>
+</html>

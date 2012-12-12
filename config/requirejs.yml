@@ -1,0 +1,28 @@
+shim:
+  'i18n':
+    exports: 'I18n'
+  'backbone':
+    exports: 'Backbone'
+    deps: [ 'jquery', 'underscore']
+  'backbone-support':
+    exports: 'Support'
+    deps: [ 'jquery', 'underscore', 'backbone' ]
+  'jquery.timeago': [ 'jquery' ]
+  'jquery_ujs': [ 'jquery' ]
+
+map:
+  '*':
+    'i18n': 'adapters/i18n-adapter'
+    'jquery.timeago': 'adapters/jquery.timeago-adapter'
+    'backbone-forms': 'adapters/backbone-forms-adapter'
+    'jquery': 'adapters/jquery-adapter'
+  'adapters/i18n-adapter':
+    'i18n': 'i18n'
+  'adapters/jquery.timeago-adapter':
+    'jquery.timeago': 'jquery.timeago'
+  'adapters/backbone-forms-adapter':
+    'backbone-forms': 'backbone-forms'
+  'adapters/jquery-adapter':
+    'jquery': 'jquery'
+  'jquery_ujs':
+    'jquery': 'jquery'

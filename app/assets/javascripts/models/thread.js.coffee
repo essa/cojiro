@@ -1,42 +1,50 @@
-class App.Thread extends App.TranslatableFieldsModel
-  defaults: ->
-    title: ''
-    summary: ''
-    source_locale: I18n.locale
+define [
+  'underscore'
+  'backbone'
+  'i18n'
+  'modules/translatable'
+  'underscore_mixins'
+], (_, Backbone, I18n, Translatable) ->
 
-  schema: ->
-    title:
-      title: _(I18n.t("attributes.thread.title")).capitalize()
-      type: 'Text'
-    summary:
-      type: 'TextArea'
-      title: _(I18n.t("attributes.thread.summary")).capitalize()
+  class Thread extends Translatable.Model
+    defaults: ->
+      title: ''
+      summary: ''
+      source_locale: I18n.locale
 
-  # http://stackoverflow.com/questions/5306089/only-update-certain-model-attributes-using-backbone-js
-  toJSON: () ->
-    thread:
-      title: @get('title')
-      summary: @get('summary')
-      source_locale: @get('source_locale')
+    schema: ->
+      title:
+        title: _(I18n.t("attributes.thread.title")).capitalize()
+        type: 'Text'
+      summary:
+        type: 'TextArea'
+        title: _(I18n.t("attributes.thread.summary")).capitalize()
 
-  getId: -> @id
-  getTitle: -> @get('title')
-  getSummary: -> @get('summary')
-  getCreatedAt: -> @toDateStr(@get('created_at'))
-  getUserName: -> @get('user').name
-  getUserFullname: -> @get('user').fullname
-  getUserAvatarUrl: -> @get('user').avatar_url
-  getUserAvatarMiniUrl: -> @get('user').avatar_mini_url
+    # http://stackoverflow.com/questions/5306089/only-update-certain-model-attributes-using-backbone-js
+    toJSON: () ->
+      thread:
+        title: @get('title')
+        summary: @get('summary')
+        source_locale: @get('source_locale')
 
-  validate: (attrs) ->
-    errors = super(attrs) || {}
+    getId: -> @id
+    getTitle: -> @get('title')
+    getSummary: -> @get('summary')
+    getCreatedAt: -> @toDateStr(@get('created_at'))
+    getUserName: -> @get('user').name
+    getUserFullname: -> @get('user').fullname
+    getUserAvatarUrl: -> @get('user').avatar_url
+    getUserAvatarMiniUrl: -> @get('user').avatar_mini_url
 
-    if (attrs.title is "") and (!attrs.source_locale? or attrs.source_locale is I18n.locale)
-      errors.title = I18n.t('errors.messages.blank')
+    validate: (attrs) ->
+      errors = super(attrs) || {}
 
-    return !_.isEmpty(errors) && errors
+      if (attrs.title is "") and (!attrs.source_locale? or attrs.source_locale is I18n.locale)
+        errors.title = I18n.t('errors.messages.blank')
 
-  toDateStr: (datetime) ->
-    I18n.l("date.formats.long", datetime) unless datetime is undefined
+      return !_.isEmpty(errors) && errors
 
-App.Models.Thread = App.Thread
+    toDateStr: (datetime) ->
+      I18n.l("date.formats.long", datetime) unless datetime is undefined
+
+  return Thread

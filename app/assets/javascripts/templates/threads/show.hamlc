@@ -1,29 +1,31 @@
+- require 'i18n'
+- require 'modules/translatable/templates/_translatable_field'
 .row
   .span12
     %h2
-      !=JST['shared/_translatable_field'](model: @model, attr_name: 'title')
+      !=_translatable_field(model: @model, attr_name: 'title')
 .statbar
   %ul.nav.nav-pills
     %li
       %a{ :href => '#' }
         %span.stat x
         %br
-        %span.stattext=I18n.t("templates.threads.show.neta")
+        %span.stattext=i18n.t("templates.threads.show.neta")
     %li
       %a#typography
         %span.stat x
         %br
-        %span.stattext=I18n.t("templates.threads.show.comments_in", lang: "en")
+        %span.stattext=i18n.t("templates.threads.show.comments_in", lang: "en")
     %li
       %a#typography
         %span.stat x
         %br
-        %span.stattext=I18n.t("templates.threads.show.comments_in", lang: "ja")
+        %span.stattext=i18n.t("templates.threads.show.comments_in", lang: "ja")
 
     %li.nosep.byline
       %span.date=@model.getCreatedAt()
       %br
-      %span.status=I18n.t("templates.threads.show.created")
+      %span.status=i18n.t("templates.threads.show.created")
     %li.nosep.avatar
       %img{ :src => @model.getUserAvatarMiniUrl() }
     %li.nosep.byline
@@ -35,4 +37,4 @@
 .row
   .span6
     %p
-      !=JST['shared/_translatable_field'](model: @model, attr_name: 'summary')
+      !=_translatable_field(model: @model, attr_name: 'summary')

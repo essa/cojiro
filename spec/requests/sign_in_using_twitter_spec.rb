@@ -9,7 +9,7 @@ describe "Twitter sign-in" do
       OmniAuthHelpers::add_twitter_mock('12345',
                                         "Cojiro Sasaki",
                                         "csasaki")
-      visit '/auth/twitter'
+      twitter_sign_in
     end
 
     it "saves all the information provided by Twitter" do

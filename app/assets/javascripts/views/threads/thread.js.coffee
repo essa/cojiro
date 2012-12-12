@@ -1,14 +1,22 @@
-class App.ThreadView extends App.TranslatableFieldsView
-  id: 'thread'
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'modules/translatable',
+  'globals',
+  'templates/threads/show',
+  'templates/other/flash'
+], ($, _, Backbone, Translatable, globals, showThreadTemplate, flashTemplate) ->
 
-  initialize: ->
-    super
+  class ThreadView extends Translatable.View
+    id: 'thread'
 
-  render: ->
-    @$el.html(JST['threads/show'](model: @model))
-    if App.flash?
-      @$el.prepend(JST['other/flash'](App.flash))
-      App.flash = null
-    @
+    initialize: ->
+      super
 
-App.Views.Thread = App.ThreadView
+    render: ->
+      @$el.html(showThreadTemplate(model: @model))
+      if globals.flash?
+        @$el.prepend(flashTemplate(globals.flash))
+        globals.flash = null
+      @

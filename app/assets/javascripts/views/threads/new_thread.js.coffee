@@ -1,42 +1,58 @@
-class App.NewThreadView extends App.BaseView
-  id: 'new_thread'
+define [
+  'jquery'
+  'underscore'
+  'backbone'
+  'backbone-forms'
+  'modules/base'
+  'globals'
+  'templates/threads/new'
+  'templates/threads/form_actions'
+  'templates/other/flash'
+  'i18n'
+], ($, _, Backbone, Form, Base, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
 
-  buildEvents: () ->
-    _(super).extend
-      "submit form" : "submit"
+  class NewThreadView extends Base.View
+    id: 'new_thread'
 
-  render: ->
-    @renderLayout()
-    @renderForm()
-    @
+    buildEvents: () ->
+      _(super).extend
+        "submit form" : "submit"
 
-  renderLayout: ->
-    @$el.html(JST['threads/new'])
+    initialize: (options) ->
+      @router = @options.router
+      super
 
-  renderForm: ->
-    @form = new Backbone.CompositeForm(model: @model)
-    @renderChild(@form)
-    @$el.append(@form.el)
-    @.$('fieldset').append(JST['threads/form_actions'])
+    render: ->
+      @renderLayout()
+      @renderForm()
+      @
 
-  submit: () ->
-    errors = @form.commit()
-    if !(errors?)
-      self = @
-      @model.save({},
-        success: (model, resp) ->
-          self.collection.add(model, at: 0)
-          App.flash =
-            name: "success"
-            msg: I18n.t("views.threads.new_thread.thread_created")
-          App.appRouter.navigate(model.url(), true )
-      )
-    else
-      @.$('.alert').remove()
-      @$el.prepend(JST['other/flash'](
-        name: "error"
-        msg: I18n.t("errors.template.body")
-      ))
-    return false
+    renderLayout: ->
+      @$el.html(newThreadTemplate())
 
-App.Views.NewThread = App.NewThreadView
+    renderForm: ->
+      @form = new Form(model: @model)
+      @renderChild(@form)
+      @$el.append(@form.el)
+      @.$('fieldset').append(formActionsTemplate())
+
+    submit: () ->
+      errors = @form.commit()
+      if !(errors?)
+        self = @
+        @model.save({},
+          success: (model, resp) ->
+            I18n = require('i18n')
+            self.collection.add(model, at: 0)
+            globals.flash =
+              name: "success"
+              msg: I18n.t("views.threads.new_thread.thread_created")
+            self.router.navigate(model.url(), true )
+        )
+      else
+        @.$('.alert').remove()
+        @$el.prepend(flashTemplate(
+          name: "error"
+          msg: I18n.t("errors.template.body")
+        ))
+      return false

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :initialize_user, :set_locale
+  before_filter :initialize_user, :set_locale, :set_requirejs_config
 
   helper_method :logged_in?
 
@@ -31,6 +31,18 @@ class ApplicationController < ActionController::Base
   # setup user info on each page
   def initialize_user
     User.current_user = @current_user = User.find_by_name(session[:user]) if session[:user]
+  end
+
+  def set_requirejs_config
+    config = {
+      globals: {
+        :currentUser => @current_user
+      },
+      :'adapters/i18n-adapter' => {
+        :locale => I18n.locale
+      }
+    }
+    Requirejs::Rails::Engine.config.requirejs.run_config.merge!({ :config => config })
   end
 
   def available_locales

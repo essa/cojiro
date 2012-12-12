@@ -1,30 +1,41 @@
-class App.AppRouter extends Support.SwappingRouter
-  routes:
-    "" : "root"
-    ":locale" : "index"
-    ":locale/threads/new": "new"
-    ":locale/threads/:id": "show"
+define [
+  'jquery',
+  'underscore',
+  'backbone',
+  'views/other/navbar',
+  'views/homepage/index',
+  'views/threads/thread',
+  'views/threads/new_thread',
+  'models/thread',
+  'backbone-support',
+  'i18n'
+], ($, _, Backbone, NavbarView, HomepageView, ThreadView, NewThreadView, Thread, Support, I18n) ->
 
-  initialize: (options) ->
-    @navbar = new App.NavbarView()
-    $('#navbar').html(@navbar.render().$el)
-    @el = $('#content')
-    @collection = options.collection
+  class AppRouter extends Support.SwappingRouter
+    routes:
+      "" : "root"
+      ":locale" : "index"
+      ":locale/threads/new": "new"
+      ":locale/threads/:id": "show"
 
-  root: ->
-    @index(I18n.locale)
+    initialize: (options) ->
+      @navbar = new NavbarView()
+      $('#navbar').html(@navbar.render().$el)
+      @el = $('#content')
+      @collection = options.collection
 
-  index: (locale) ->
-    view = new App.HomepageView(collection: @collection)
-    @swap(view)
+    root: ->
+      @index(I18n.locale)
 
-  show: (locale, id) ->
-    view = new App.ThreadView(model: @collection.get(id))
-    @swap(view)
+    index: (locale) ->
+      view = new HomepageView(collection: @collection)
+      @swap(view)
 
-  new: (locale) ->
-    thread = new App.Thread({}, collection: @collection)
-    view = new App.NewThreadView(model: thread, collection: @collection)
-    @swap(view)
+    show: (locale, id) ->
+      view = new ThreadView(model: @collection.get(id))
+      @swap(view)
 
-App.Routers.AppRouter = App.AppRouter
+    new: (locale) ->
+      thread = new Thread({}, collection: @collection)
+      view = new NewThreadView(model: thread, collection: @collection, router: @)
+      @swap(view)

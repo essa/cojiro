@@ -12,8 +12,8 @@ Given /^I am logged in through Twitter as the following user:$/ do |table|
                    table.rows_hash[:nickname])
   visit homepage_path
   click_link "Sign in through Twitter"
-  # give time for sign-in
-  sleep 0.5
+  # wait for page to load, see: http://stackoverflow.com/questions/6047124/waitforelement-with-cucumber-selenium
+  page.should have_css('#content')
 end
 
 Given /^the following users exist:$/ do |table|
