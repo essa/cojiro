@@ -105,17 +105,17 @@ describe CothreadsController do
         context "with valid params" do
 
           it "locates the requested @cothread" do
-            put :update, id: @cothread.id, thread: Factory.attributes_for(:cothread), format: :json
+            put :update, id: @cothread.id, thread: FactoryGirl.attributes_for(:cothread), format: :json
             assigns(:cothread).should eq(@cothread)
           end
 
           it "updates the thread" do
-            put :update, id: @cothread.id, thread: Factory.attributes_for(:cothread, title: "a new title"), format: :json
+            put :update, id: @cothread.id, thread: FactoryGirl.attributes_for(:cothread, title: "a new title"), format: :json
             assigns(:cothread).title.should eq("a new title")
           end
 
           it "returns the new thread" do
-            attr = Factory.attributes_for(:cothread, title: "a new title")
+            attr = FactoryGirl.attributes_for(:cothread, title: "a new title")
             put :update, id: @cothread.id, thread: attr, format: :json
             JSON(response.body).should include(attr.stringify_keys)
           end

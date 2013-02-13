@@ -6,7 +6,7 @@ describe AvatarUploader do
 
   before do
     AvatarUploader.enable_processing = true
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     @uploader = AvatarUploader.new(@user, :avatar)
     @uploader.store!(File.open(fixture_path + '/' + '400x500.png'))
   end

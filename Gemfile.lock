@@ -38,7 +38,7 @@ GIT
       json
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (3.2.12)
       actionpack (= 3.2.12)
@@ -130,10 +130,10 @@ GEM
     eventmachine (0.12.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    factory_girl (2.5.0)
-      activesupport
-    factory_girl_rails (1.6.0)
-      factory_girl (~> 2.5.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
     ffi (1.0.11)
     fssm (0.2.8.1)
