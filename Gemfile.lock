@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/svenfuchs/globalize3.git
-  revision: 0e1f8dd995353ee54f4fc5849f93c5becb003cc1
+  revision: 9a4895b5410a28aedfd774b22e06fa946d9e1191
   specs:
-    globalize3 (0.2.0)
+    globalize3 (0.3.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       paper_trail (~> 2)
@@ -222,8 +222,9 @@ GEM
       omniauth (~> 1.0)
     omniauth-twitter (0.0.7)
       omniauth-oauth (~> 1.0)
-    paper_trail (2.6.0)
-      rails (~> 3)
+    paper_trail (2.7.0)
+      activerecord (~> 3.0)
+      railties (~> 3.0)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
