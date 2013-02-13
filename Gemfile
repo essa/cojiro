@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -33,7 +33,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
 gem 'mini_magick'
-gem 'journey', '1.0.3' # ref: https://github.com/rails/journey/issues/42
+gem 'journey', '1.0.4' # ref: https://github.com/rails/journey/issues/42
 
 group :test, :development do
   gem 'rspec-rails'

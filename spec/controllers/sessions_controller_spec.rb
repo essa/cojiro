@@ -38,17 +38,17 @@ describe SessionsController do
     end
 
     it "assigns @auth" do
-      get :callback
+      get :callback, :provider => "twitter"
       assigns(:auth).should be(@mock_authorization)
     end
 
     it "sets user session cookie" do
-      get :callback
+      get :callback, :provider => "twitter"
       session[:user].should == "csasaki"
     end
 
     it "redirects to the homepage" do
-      get :callback
+      get :callback, :provider => "twitter"
       response.should redirect_to(homepage_path)
     end
 
