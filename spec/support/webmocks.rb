@@ -1,12 +1,7 @@
+require_relative 'fixture_helpers'
+
 module CojiroRequestStubs
-
-  def fixture_path
-    File.join(Rails.root, "spec", "fixtures")
-  end
-
-  def fixture(file)
-    File.open(File.expand_path(fixture_path + '/' + file))
-  end
+  include FixtureHelpers
 
   def load_request_stubs
     stub_request(:get, "http://example.com/user.png").to_return(:status => 200, :body => fixture("user.png"), :headers => {})
