@@ -1,4 +1,4 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+# ref: http://blog.spoolz.com/2012/07/09/small-revelation-factorygirl-build_stubbed-associations-and-let/
 
 FactoryGirl.define do
   sequence(:title) { |n| "title #{n}" }
@@ -7,6 +7,7 @@ FactoryGirl.define do
   factory :cothread do
     title { FactoryGirl.generate(:title) }
     summary { FactoryGirl.generate(:summary) }
-    user
+    after(:build) { |c| c.user ||= FactoryGirl.create(:alice) }
+    after(:stub) { |c| c.user ||= FactoryGirl.build_stubbed(:alice) }
   end
 end
