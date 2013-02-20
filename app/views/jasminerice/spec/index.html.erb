@@ -9,7 +9,7 @@
   <script>
     require([<%= spec_files.map { |f| "'#{f.sub(/\.js$/,'')}'" }.join(',').html_safe %>]);
   </script>
-  <%= javascript_include_tag "jasminerice", "spec" %>
+  <%= javascript_include_tag "jasminerice", "spec", :debug => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
