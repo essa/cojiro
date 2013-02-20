@@ -43,7 +43,6 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
-  gem 'jasmine'
   gem 'jasminerice'
   gem 'debugger' unless ENV['CI']
   gem 'rake'
