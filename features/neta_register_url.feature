@@ -15,7 +15,7 @@ Feature: Register a new URL
       | title   | Co-working spaces in Tokyo                                                         |
       | summary | I want to write an an article about the increased popularity of co-working spaces. |
     And I am on the thread "Co-working spaces in Tokyo"
-    When I click on the "Add new neta" link
+    When I click on "Add new neta"
     And I enter the link "http://happymonster.co/2011/08/22/coworking-in-tokyo-shanghai-and-hong-kong/" into the dialog box
     Then I should see the text: "Coworking in Tokyo, Shanghai, and Hong Kong | HappyMonster"
     And I should see the text: "Well, that was awesome. Below are my brief reports on the spaces I visited, along with a few thoughts along the way."

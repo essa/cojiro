@@ -1,40 +1,34 @@
 - require 'i18n'
 - require 'modules/translatable/templates/_translatable_field'
 .row
-  .span12
-    %h2
-      !=_translatable_field(model: @model, attr_name: 'title')
-.statbar
-  %ul.nav.nav-pills
-    %li
-      %a{ :href => '#' }
-        %span.stat x
+  .statbar
+    %ul.nav.nav-pills
+      %li
+        %a{ :href => '#' }
+          %span.stat x
+          %br
+          %span.stattext=i18n.t("templates.threads.show.neta")
+      %li.nosep.byline
+        %span.date=@model.getCreatedAt()
         %br
-        %span.stattext=i18n.t("templates.threads.show.neta")
-    %li
-      %a#typography
-        %span.stat x
+        %span.status=i18n.t("templates.threads.show.started")
+      %li.nosep.avatar
+        %img{ :src => @model.getUserAvatarMiniUrl() }
+      %li.byline
+        %span.name=@model.getUserFullname()
         %br
-        %span.stattext=i18n.t("templates.threads.show.comments_in", lang: "en")
-    %li
-      %a#typography
-        %span.stat x
+        %a.unstyled{ :href => '#' }
+          %span.handle="@#{@model.getUserName()}"
+      %li.nosep.byline
+        %span.date=@model.getUpdatedAt()
         %br
-        %span.stattext=i18n.t("templates.threads.show.comments_in", lang: "ja")
-
-    %li.nosep.byline
-      %span.date=@model.getCreatedAt()
-      %br
-      %span.status=i18n.t("templates.threads.show.created")
-    %li.nosep.avatar
-      %img{ :src => @model.getUserAvatarMiniUrl() }
-    %li.nosep.byline
-      %span.name=@model.getUserFullname()
-      %br
-      %a.unstyled{ :href => '#' }
-        %span.handle="@#{@model.getUserName()}"
+        %span.status=i18n.t("templates.threads.show.updated")
 
 .row
+  .span12
+    %h1
+      !=_translatable_field(model: @model, attr_name: 'title')
+.row
   .span6
-    %p
+    %h2
       !=_translatable_field(model: @model, attr_name: 'summary')

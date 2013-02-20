@@ -31,6 +31,7 @@ define [
     getTitle: -> @get('title')
     getSummary: -> @get('summary')
     getCreatedAt: -> @toDateStr(@get('created_at'))
+    getUpdatedAt: -> @toDateStr(@get('updated_at'))
     getUserName: -> @get('user').name
     getUserFullname: -> @get('user').fullname
     getUserAvatarUrl: -> @get('user').avatar_url

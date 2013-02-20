@@ -20,7 +20,8 @@ ja:
         updated_ago: "<time class='timeago' datetime='%{timeago}'></time> 更新しました"
       show:
         neta: ネタ
-        created: に登録した
+        started: に登録した
+        updated: last updated
         comments_in: "%{lang}のコメント"
         edit: 編集する
         add_in: "%{lang}を追加する"

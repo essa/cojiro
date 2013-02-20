@@ -245,5 +245,7 @@ define (require) ->
             .toEqual(@fixture.summary)
           expect(@thread.getCreatedAt())
             .toEqual(@thread.toDateStr(@fixture.created_at))
+          expect(@thread.getUpdatedAt())
+            .toEqual(@thread.toDateStr(@fixture.updated_at))
           expect(@thread.getSourceLocale())
             .toEqual(@fixture.source_locale)

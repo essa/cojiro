@@ -19,9 +19,9 @@ en:
         started_by: Started by @%{username}
         updated_ago: "Updated <time class='timeago' datetime='%{timeago}'></time>"
       show:
-        neta: neta
-        created: created
-        comments_in: "%{lang} comments"
+        neta: links
+        started: started
+        updated: last updated
         edit: Edit
         add_in: Add %{lang}
     shared:
