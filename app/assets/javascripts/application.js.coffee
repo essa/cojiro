@@ -7,7 +7,8 @@ require [
 ], ($, _, Backbone, App) ->
 
   $ ->
-    App.init()
+    # check for locale stops init from being called in tests
+    App.init() unless I18n.locale is undefined
 
   # ref: https://github.com/tbranyen/backbone-boilerplate/blob/master/app/main.js
   $(document).on('click', 'a:not([data-bypass]),.clickable:not([data-bypass])', (evt) ->
