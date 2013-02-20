@@ -5,7 +5,9 @@ gem 'rails', '3.2.12'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+group :production do
+  gem 'mysql2'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -29,41 +31,41 @@ gem 'jquery-rails'
 gem 'haml', ">= 3.1.alpha.50"
 gem 'haml-rails'
 gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
-gem 'omniauth'
-gem 'omniauth-twitter'
+gem 'omniauth', :require => false
+gem 'omniauth-twitter', :require => false
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
-gem 'mini_magick'
+gem 'mini_magick', :require => false
 gem 'journey', '1.0.4' # ref: https://github.com/rails/journey/issues/42
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'cucumber', '>= 1.1.6'
-  gem 'spork', '~> 0.9.0.rc'
-  gem 'database_cleaner'
+  gem 'cucumber', '>= 1.1.6', :require => false
+  gem 'spork', '~> 0.9.0.rc', :require => false
+  gem 'database_cleaner', :require => false
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
+  gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git', :require => false
   gem 'jasminerice'
-  gem 'debugger' unless ENV['CI']
-  gem 'rake'
-  gem 'timecop'
-  gem 'chronic'
-  gem 'launchy'
+  gem 'debugger', :require => false unless ENV['CI']
+  gem 'rake', :require => false
+  gem 'timecop', :require => false
+  gem 'chronic', :require => false
+  gem 'launchy', :require => false
   gem 'sqlite3'
 end
 
 group :test do
   # ref: http://datacodescotch.blogspot.jp/2011/11/warning-cucumber-rails-required-outside.html 
-  gem 'cucumber-rails', '~> 1.0', require: false
-  gem 'webmock'
-  gem 'guard', '>= 1.3.2'
-  gem 'rb-inotify', '~> 0.8.8'
-  gem 'guard-spork'
-  gem 'guard-rspec'
-  gem 'guard-cucumber'
-  gem 'guard-jasmine'
-  gem 'guard-rails'
-  gem 'guard-livereload'
+  gem 'cucumber-rails', '~> 1.0', :require => false
+  gem 'webmock', :require => false
+  gem 'guard', '>= 1.3.2', :require => false
+  gem 'rb-inotify', '~> 0.8.8', :require => false
+  gem 'guard-spork', :require => false
+  gem 'guard-rspec', :require => false
+  gem 'guard-cucumber', :require => false
+  gem 'guard-jasmine', :require => false
+  gem 'guard-rails', :require => false
+  gem 'guard-livereload', :require => false
 end
 
 # To use ActiveModel has_secure_password
@@ -73,10 +75,10 @@ end
 # gem 'jbuilder'
 
 # Use unicorn as the web server
-gem 'unicorn'
+gem 'unicorn', :require => false
 
 # Deploy with Capistrano
-gem 'capistrano'
+gem 'capistrano', :require => false
 
 # Load require.js
 gem 'requirejs-rails', :git => 'https://github.com/jwhitley/requirejs-rails.git'
