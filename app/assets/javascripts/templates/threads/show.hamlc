@@ -8,18 +8,20 @@
           %span.stat x
           %br
           %span.stattext=i18n.t("templates.threads.show.neta")
-      %li.nosep.byline
+      %li.sep
+      %li
         %span.date=@model.getCreatedAt()
         %br
         %span.status=i18n.t("templates.threads.show.started")
-      %li.nosep.avatar
+      %li.avatar
         %img{ :src => @model.getUserAvatarMiniUrl() }
       %li.byline
         %span.name=@model.getUserFullname()
         %br
         %a.unstyled{ :href => '#' }
           %span.handle="@#{@model.getUserName()}"
-      %li.nosep.byline
+      %li.sep
+      %li
         %span.date=@model.getUpdatedAt()
         %br
         %span.status=i18n.t("templates.threads.show.updated")
@@ -29,6 +31,6 @@
     %h1
       !=_translatable_field(model: @model, attr_name: 'title')
 .row
-  .span6
+  .span12
     %h2
       !=_translatable_field(model: @model, attr_name: 'summary')

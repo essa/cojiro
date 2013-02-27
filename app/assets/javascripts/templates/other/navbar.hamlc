@@ -1,8 +1,9 @@
 - require 'i18n'
 .navbar-inner
   .container
-    %a.brand{ href: i18n.locale }cojiro
     %ul.nav
+      %li
+        %a{ href: "#" }Home
       - if helpers.isLoggedIn()
         %li
           %a{ href: "#{i18n.locale}/threads/new" }

@@ -1,9 +1,8 @@
 - require 'i18n'
 - if !helpers.isLoggedIn()
-  %section.hero
+  %section.hero-unit
     %h1=i18n.t("templates.homepage.index.catchphrase")
-    %p.lead
-      !=i18n.t("templates.homepage.index.lead_html", url: "#")
+    !=i18n.t("templates.homepage.index.lead_html", url: "#")
 
 %section.latest
   #content-header

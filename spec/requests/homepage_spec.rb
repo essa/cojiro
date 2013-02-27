@@ -13,7 +13,7 @@ describe 'Homepage', :js => true do
 
       it "displays intro text" do
         visit '/en'
-        within :css, '#homepage .hero' do
+        within :css, '#homepage .hero-unit' do
           page.should have_content "Curating content from one language to another"
           page.should have_content "Cojiro is a platform that connects people with complementary skill sets to identify, group and convey stories in one language to a broader audience in another language."
           page.should have_link "Learn more."
@@ -37,7 +37,7 @@ describe 'Homepage', :js => true do
 
       it "displays intro text in Japanese locale" do
         visit '/ja'
-        within :css, '#homepage .hero' do
+        within :css, '#homepage .hero-unit' do
           page.should have_content "日本語のキャッチコピー"
           page.should have_content "日本語の説明文章"
           page.should have_link "詳しくはこちらへ"

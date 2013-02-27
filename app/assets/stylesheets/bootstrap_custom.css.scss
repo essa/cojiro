@@ -3,22 +3,40 @@
 @import "compass/css3/images";
 
 /* Colors variables */
-$statbar-light: #F5F5F5;
-$statbar-warmgrey: #EEEEEE;
-$statbar-grey: #E5E5E5;
-$statbar-text: #777777;
-$brightblue: #04B5F2;
 $white: #FFFFFF;
+$cojiroBlue: #04B5F2;
+$cojiroLightBlue: lighten($cojiroBlue, 40%);
+$cojiroGray: #aaa;
+
+$statbarBackground: $cojiroLightBlue;
+$statbarBackgroundLight: #E5E5E5;
+$statbarText: #777777;
 
 /* ----------------------------- */
 /* -------- Header/footer ------ */
 /* ----------------------------- */
 
+$heroUnitBackground: $white;
+
+$navbarBackground: lighten($cojiroLightBlue, 50%);
+$navbarBackgroundHighlight: $white;
+$navbarBorder: $cojiroLightBlue;
+
 .navbar-inner {
-	border-top-color: $brightblue;
-	border-style: solid none none;
-	border-width: 4px medium medium;
-	background-image: none;
+  @include box-shadow(0 0 1px 0px $cojiroGray !important);
+  border-bottom: 4px solid $cojiroGray !important;
+//  background-image: none !important;
+}
+
+.hero-unit {
+  padding-top: 20px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  padding-bottom: 10px !important;
+
+  h1 {
+    margin-bottom: 20px !important;
+  }
 }
 
 /* ----------------------------- */
@@ -26,21 +44,8 @@ $white: #FFFFFF;
 /* ----------------------------- */
 
 /* logged out big block */
-.hero {
-  margin: 20px 0px 40px 0px;
-  background-image: url("/assets/karen.png");
-  background-repeat: no-repeat;
-  background-position: right bottom;
-  height: 360px;
+.hero-unit {
 
-  h1 {
-    padding: 50px 300px 15px 0px;
-    font-size: 300%;
-  }
-
-  p {
-    padding-right: 300px;
-  }
 
 }
 
@@ -62,27 +67,45 @@ tbody > {
   width: 100%;
   margin-top: 20px;
   margin-bottom: 10px;
-  background-color: $statbar-warmgrey; /* Old browsers */
-  @include background(linear-gradient(top, $statbar-light 0%, $statbar-warmgrey 100%));
+  background-color: $statbarBackground; /* Old browsers */
+  @include background(linear-gradient(top, $statbarBackground 0%, $statbarBackground 100%));
   @include border-radius(6px);
+  border: 2px solid $cojiroBlue;
+
+  .nav {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+ul.nav-pills {
+  height: 50px;
 }
 
 /* reproduce .navpills link formatting for non-link list items */
 .nav-pills > {
   li {
-    border-right: 2px solid white;
-    display: block;
-  }
-  li.nosep { border-right: 0 }
-  li.byline {
+    //border-right: 2px solid white;
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-right: 2px;
+    padding-bottom: 8px;
+    padding-top: 8px;
     padding-left: 12px;
     padding-right: 12px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-right: 2px;
     line-height: 14px;
+  }
+  li > a {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  li.sep {
+    border-radius: 0px;
+    padding: 0 !important;
+    margin-top: 0;
+    height: 100%;
+    border-right: 2px solid $cojiroBlue;
   }
   li.avatar {
     padding-top: 8px;
@@ -95,7 +118,6 @@ tbody > {
 
 .stat, .date {
   font-weight: bold;
-  font-size: 130%;
   color: black
 }
 
@@ -111,7 +133,7 @@ tbody > {
 .stattext, .status {
   text-transform: uppercase;
   font-size: 90%;
-  color: $statbar-text;
+  color: $statbarText;
 }
 
 /* Fixed subnav on scroll, but only for 980px and up (sorry IE!) */
@@ -156,155 +178,7 @@ tbody > {
   }
 }
 
-/* -------- Neta area ---------- */
-
-.thumbnail {
-
-  h4 { // Title
-    font-family: Georgia,"Times New Roman",Times,serif;
-    color: darkgrey;
-    margin-bottom: 5px;
-  }
-
-  .singlelang { // if the text is not in your interface locale
-   font-style: italic;
-color: darkgrey;
-  }
-
-  p { // Favicon and source
-    font-style: italic;
-    line-height: 1.1;
-    
-    img {
-      vertical-align: middle;
-      margin: 5px 0px;
-    }
-  }
-
-  .text {
-    line-height: 1.4;
-    padding: 10px;
-  }
-
-  .metadata { // Metadata block above the multimedia area
-    background-color: $statbar-warmgrey;
-    size: 200%;
-    padding: 10px 5px 5px 5px;
-    @include border-top-radius(4px);
-
-    a {
-      text-decoration: none;
-      color: black;
-    }
-    a:hover {
-      text-decoration: none;
-      color: black;
-    }
-  }
-
-  .actions { // Action block below the multimedia area
-    background-color: $statbar-warmgrey;
-    size: 200%;
-    padding: 5px;
-    @include border-bottom-radius(4px);
-    vertical-align: middle;
-    text-align: center;
-
-    a {
-      text-decoration: none;
-color: darkgrey;
-    }
-    a:hover {
-      text-decoration: none;
-      color: black;
-    }
-  }
-
-}
-
-.caption { // For neta with an image and a caption style
-  position: relative;
-
-  .overlay {
-    background-color: rgba(0, 0, 0, 0.75);
-    display: block;
-    color: white;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: auto;
-    padding: 10px;
-    size: 90%;
-    line-height: 1.4;
-    position: absolute;
-    @include border-bottom-radius(4px);
-  }
-}
-
-
-/* ------ Comment area --------- */
-
-/* Comment display */
-.comment {
-
-  margin-top: 5px;
-  border-top: solid thin $statbar-grey;
-  padding-top: 5px;
-  display: table;
-  height: 30px;
-
-  .append {
-    border-top: solid thin $statbar-warmgrey;
-    padding-top: 5px;
-  }
-
-  p {
-    padding-bottom: 5px;
-  }
-
-  img {
-    vertical-align: middle;
-  }
-
-  .metadata > a {
-      text-decoration: none;
-    }
-
-  small {
-    color: $statbar-text;
-    font-style: italic;
-    font-size: 80%;
-    }
-}
-
-/* Header for comment area */
-.commentheader {
-  float: right;
-  display: block;
-
-  .control-label {
-    font-size: 115%;
-    padding-right: 5px;
-  }
-}
-
-/* Comment box at the very bottom */
-.commentbox{
-  margin-top: 10px;
-  float: right;
-
-  textarea {
-    resize: vertical;
-    clear: both;
-  }
-
-  .controls {
-    float: right;
-  }
-
-}
-
-/* editable fields */
+/* Editable fields */
 
 span.untranslated {
   font-style: italic;

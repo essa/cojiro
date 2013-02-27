@@ -26,10 +26,6 @@ define (require) ->
       beforeEach ->
         @view = new NavbarView
 
-      it "renders the site name", ->
-        $el = @view.render().$el
-        expect($el).toHaveText(/cojiro/)
-
       sharedExamplesForNavbar = (context) ->
 
         describe "shared behaviour for navbar", ->
