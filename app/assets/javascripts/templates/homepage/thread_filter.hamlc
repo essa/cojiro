@@ -1,6 +1,6 @@
 %fieldset
-  %label.control-label{ for: "commentlang" }
+  %label.control-label{ for: "thread-filter" }
     Show me:
-  %select#commentlang.span3
+  %select#thread-filter.span3
     %option{ value: "all"} everything
     %option{ value: "mine" } threads that I started

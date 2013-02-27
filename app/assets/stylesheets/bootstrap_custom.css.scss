@@ -7,20 +7,21 @@ $white: #FFFFFF;
 $cojiroBlue: #04B5F2;
 $cojiroLightBlue: lighten($cojiroBlue, 40%);
 $cojiroGray: #aaa;
+$cojiroLightGray: #eee;
 
 $statbarBackground: $cojiroLightBlue;
 $statbarBackgroundLight: #E5E5E5;
 $statbarText: #777777;
-
-/* ----------------------------- */
-/* -------- Header/footer ------ */
-/* ----------------------------- */
 
 $heroUnitBackground: $white;
 
 $navbarBackground: lighten($cojiroLightBlue, 50%);
 $navbarBackgroundHighlight: $white;
 $navbarBorder: $cojiroLightBlue;
+
+@import "bootstrap";
+
+/* Navbar */
 
 .navbar-inner {
   @include box-shadow(0 0 1px 0px $cojiroGray !important);
@@ -39,9 +40,8 @@ $navbarBorder: $cojiroLightBlue;
   }
 }
 
-/* ----------------------------- */
-/* -------- Home --------------- */
-/* ----------------------------- */
+
+/* Home */
 
 /* fix to get thread list to appear below top-right form */
 
@@ -49,16 +49,26 @@ $navbarBorder: $cojiroLightBlue;
   clear: both;
 }
 
-/* home */
 tbody > {
   .clickable {
     cursor: pointer;
   }
 }
 
+#thread-filter {
+  display: block;
+  float: right;
+  margin-left: 10px;
+}
+
+/* Thread show page */
+
 /* Statbar underneath the title */
+
 .statbar {
-  width: 100%;
+  width: 97%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 20px;
   margin-bottom: 10px;
   background-color: $statbarBackground; /* Old browsers */
@@ -130,7 +140,7 @@ ul.nav-pills {
   color: $statbarText;
 }
 
-/* -------- Thread area -------- */
+/* Thread area */
 #thread {
   h1 {
     font-size: 500%;
@@ -141,6 +151,73 @@ ul.nav-pills {
   }
   h2 {
     font-weight: normal;
+    margin-bottom: 40px;
+  }
+  // based on bootstrap "thumbnail/thumbnails" classes
+  .netas {
+    margin-left: -$gridGutterWidth;
+    list-style: none;
+    @include clearfix();
+  }
+  .netas > li {
+    float: left;
+    margin-bottom: $baseLineHeight;
+    margin-left: $gridGutterWidth;
+  }
+  .neta {
+    @include makeColumn(3,0);
+  }
+  .neta-inner {
+    display: block;
+    line-height: $baseLineHeight;
+    @include border-radius(4px);
+    @include box-shadow(#{0 1px 3px rgba(0,0,0,.055)});
+    @include transition(all .2s ease-in-out);
+    background: $cojiroLightGray;
+
+    .link {
+      min-height: 20px;
+      border-bottom: 2px solid white;
+      padding: 10px;
+      .lang {
+        padding: 2px;
+        font-size: $baseFontSize * 0.8;
+        text-transform: uppercase;
+        background: darken($cojiroLightGray, 20%);
+        color: $white;
+      }
+      a {
+        color: $black;
+        font-size: $baseFontSize;
+      }
+    }
+
+    .description {
+      padding: 10px;
+    }
+
+    h3 {
+      font-size: $baseFontSize * 1.4;
+      line-height: $baseLineHeight * 1.4;
+    }
+
+  }
+  // Add a hover state for linked versions only
+  a.neta:hover {
+    border-color: $linkColor;
+    @include box-shadow(#{0 1px 4px rgba(0,105,214,.25)});
+  }
+
+  // Images and captions
+  .neta > img {
+    display: block;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .neta .caption {
+    padding: 9px;
+    color: $gray;
   }
 }
 
@@ -162,5 +239,3 @@ div.editable-field {
 button.cancel-button {
   margin-left: 5px;
 }
-
-@import "bootstrap";
