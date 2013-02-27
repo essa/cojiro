@@ -11,7 +11,7 @@ describe 'Homepage', :js => true do
 
     context 'English locale' do
 
-      it "displays intro text" do
+      pending "displays intro text" do
         visit '/en'
         within :css, '#homepage .hero-unit' do
           page.should have_content "Curating content from one language to another"
@@ -20,7 +20,7 @@ describe 'Homepage', :js => true do
         end
       end
 
-      it "displays recent threads" do
+      pending "displays recent threads" do
         visit '/en'
         within :css, '#homepage .latest' do
           page.should have_content "Recent threads"
@@ -35,7 +35,7 @@ describe 'Homepage', :js => true do
 
     context 'Japanese locale' do
 
-      it "displays intro text in Japanese locale" do
+      pending "displays intro text in Japanese locale" do
         visit '/ja'
         within :css, '#homepage .hero-unit' do
           page.should have_content "日本語のキャッチコピー"
@@ -44,7 +44,7 @@ describe 'Homepage', :js => true do
         end
       end
 
-      it "displays recent threads" do
+      pending "displays recent threads" do
         visit '/ja'
         within :css, '#homepage .latest' do
           page.should have_content '最新のスレッド'

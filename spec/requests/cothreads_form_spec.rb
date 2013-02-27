@@ -15,7 +15,7 @@ describe 'New Cothread', :js => true do
       page.should have_css('#content')
     end
 
-    it "displays form text in English" do
+    pending "displays form text in English" do
 
       # page title
       within :css, 'h1' do
@@ -34,7 +34,7 @@ describe 'New Cothread', :js => true do
 
     end
 
-    it "displays validation messages in English" do
+    pending "displays validation messages in English" do
       within :css, '.form-actions' do
         find('button').click
       end
@@ -46,7 +46,7 @@ describe 'New Cothread', :js => true do
       end
     end
 
-    it "displays success message in English" do
+    pending "displays success message in English" do
       fill_in 'title', :with => "abc"
       within :css, '.form-actions' do
         find('button').click
@@ -61,7 +61,7 @@ describe 'New Cothread', :js => true do
       visit '/ja/threads/new'
     end
 
-    it "displays form text in Japanese" do
+    pending "displays form text in Japanese" do
 
       # page title
       within :css, 'h1' do
@@ -80,7 +80,7 @@ describe 'New Cothread', :js => true do
 
     end
 
-    it "displays validation messages in Japanese" do
+    pending "displays validation messages in Japanese" do
       within :css, '.form-actions' do
         find('button').click
       end
@@ -92,7 +92,7 @@ describe 'New Cothread', :js => true do
       end
     end
 
-    it "displays success message in Japanese" do
+    pending "displays success message in Japanese" do
       fill_in 'title', :with => "abc"
       within :css, '.form-actions' do
         find('button').click

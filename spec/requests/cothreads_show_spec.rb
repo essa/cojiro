@@ -19,7 +19,7 @@ describe 'Cothread page', :js => true do
       I18n.with_locale(:en) { example.run }
     end
 
-    it "displays nav text" do
+    pending "displays nav text" do
       visit cothread_path(@thread)
       within :css, 'h1' do
         page.should have_xpath('//span[contains(@data-attribute,"title")]/span[contains(@class,"translated")]', :text => "a title in English")
@@ -31,7 +31,7 @@ describe 'Cothread page', :js => true do
       end
     end
 
-    it "has editable fields" do
+    pending "has editable fields" do
       visit cothread_path(@thread)
       within :css, 'h1' do
         click_button "Edit"
@@ -47,7 +47,7 @@ describe 'Cothread page', :js => true do
       I18n.with_locale(:ja) { example.run }
     end
 
-    it "displays nav text" do
+    pending "displays nav text" do
       visit cothread_path(@thread)
       within :css, 'h1' do
         page.should have_xpath('//span[contains(@data-attribute,"title")]/span[contains(@class,"untranslated")]', :text => "a title in English")
@@ -59,7 +59,7 @@ describe 'Cothread page', :js => true do
       end
     end
 
-    it "has editable fields" do
+    pending "has editable fields" do
       visit cothread_path(@thread)
       within :css, 'h1' do
         click_button "日本語を追加する"
