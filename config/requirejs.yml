@@ -9,6 +9,7 @@ shim:
     deps: [ 'jquery', 'underscore', 'backbone' ]
   'jquery.timeago': [ 'jquery' ]
   'jquery_ujs': [ 'jquery' ]
+  'bootstrap-dropdown': [ 'jquery' ]
 
 map:
   '*':
