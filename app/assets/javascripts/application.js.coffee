@@ -5,6 +5,8 @@ require [
   'app'
   'i18n'
   'bootstrap-dropdown'
+  'bootstrap-button'
+  'bootstrap-alert'
 ], ($, _, Backbone, App) ->
 
   $ ->

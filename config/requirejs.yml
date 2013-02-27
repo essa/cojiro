@@ -10,6 +10,8 @@ shim:
   'jquery.timeago': [ 'jquery' ]
   'jquery_ujs': [ 'jquery' ]
   'bootstrap-dropdown': [ 'jquery' ]
+  'bootstrap-button': [ 'jquery' ]
+  'bootstrap-alert': [ 'jquery' ]
 
 map:
   '*':
