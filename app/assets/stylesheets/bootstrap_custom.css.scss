@@ -13,6 +13,11 @@ $statbarBackground: $cojiroLightBlue;
 $statbarBackgroundLight: #E5E5E5;
 $statbarText: #777777;
 
+$netaLinkHeight: 22px;
+$netaDescriptionHeight: 228px;
+// 22px for border and padding
+$netaHeight: $netaLinkHeight + $netaDescriptionHeight + 52px;
+
 $heroUnitBackground: $white;
 
 $navbarBackground: lighten($cojiroLightBlue, 50%);
@@ -160,34 +165,70 @@ ul.nav-pills {
   .neta {
     @include makeColumn(3,0);
     margin-left: 20px;
+    margin-bottom: 20px;
   }
   .neta-inner {
     display: block;
+    overflow: hidden;
+    height: $netaHeight;
     line-height: $baseLineHeight;
-    @include border-radius(4px);
+    @include border-radius(8px);
     @include box-shadow(#{0 1px 3px rgba(0,0,0,.055)});
     @include transition(all .2s ease-in-out);
     background: $cojiroLightGray;
+    a {
+      text-decoration: none;
+      color: $black;
+    }
+    a:hover {
+      background: $cojiroGray;
+    }
+    a.description:hover {
+      border-bottom: 10px solid $cojiroGray;
+    }
 
     .link {
-      min-height: 20px;
+      display: block;
+      overflow: hidden;
+      height: $netaLinkHeight;
       border-bottom: 2px solid white;
       padding: 10px;
-      .lang {
+      span.lang {
         padding: 2px;
         font-size: $baseFontSize * 0.8;
         text-transform: uppercase;
         background: darken($cojiroLightGray, 20%);
         color: $white;
       }
-      a {
-        color: $black;
+      span.url {
         font-size: $baseFontSize;
       }
     }
 
     .description {
+      display: block;
+      height: $netaDescriptionHeight;
+      border-bottom: 5px solid $cojiroLightGray;
+    }
+    .description, .add-neta {
+      overflow: hidden;
       padding: 10px;
+      margin-bottom: 15px;
+    }
+    .add-neta {
+      text-align: center;
+      height: $netaHeight/2 + 50px;
+      padding-top: $netaHeight/2 - 50px;
+      display: block;
+      text-decoration: none;
+    }
+
+    .add-neta-button {
+      background-image: url('plus-mark.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 80px;
+      width: 100%;
     }
 
     h3 {
