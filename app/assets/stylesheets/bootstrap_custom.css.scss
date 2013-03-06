@@ -155,17 +155,11 @@ ul.nav-pills {
   }
   // based on bootstrap "thumbnail/thumbnails" classes
   .netas {
-    margin-left: -$gridGutterWidth;
-    list-style: none;
-    @include clearfix();
-  }
-  .netas > li {
-    float: left;
-    margin-bottom: $baseLineHeight;
-    margin-left: $gridGutterWidth;
+    @include makeRow();
   }
   .neta {
     @include makeColumn(3,0);
+    margin-left: 20px;
   }
   .neta-inner {
     display: block;
