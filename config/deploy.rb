@@ -2,11 +2,11 @@
 require "bundler/capistrano"
 
 set :application, "cojiro"
-set :repository,  "git://github.com/essa/cojiro.git"
+set :repository,  "git://github.com/netalab/cojiro.git"
 set :rails_env, "production"
 
 set :scm, :git
-set :branch,      'feature/deploy'
+set :branch,      'master'
 
 role :web, "localhost"                          # Your HTTP server, Apache/etc
 role :app, "localhost"                          # This may be the same as your `Web` server
