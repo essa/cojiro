@@ -7,7 +7,7 @@ shim:
   'backbone-support':
     exports: 'Support'
     deps: [ 'jquery', 'underscore', 'backbone' ]
-  'timeago': [ 'jquery' ]
+  'jquery.timeago': [ 'jquery' ]
   'jquery_ujs': [ 'jquery' ]
   'bootstrap-dropdown': [ 'jquery' ]
   'bootstrap-button': [ 'jquery' ]
