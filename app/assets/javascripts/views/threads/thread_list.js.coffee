@@ -5,7 +5,7 @@ define [
   'modules/base'
   'views/threads/thread_list_item'
   'templates/threads/list'
-  'jquery.timeago'
+  'timeago'
 ], ($, _, Backbone, Base, ThreadListItemView, threadsListTemplate) ->
 
   class ThreadListView extends Base.View
