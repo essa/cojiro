@@ -22,7 +22,7 @@ Spork.prefork do
   Capybara.javascript_driver = :webkit
 
   # need to set this high to allow for time to load assets in request specs
-  Capybara.default_wait_time = 15
+  Capybara.default_wait_time = 30
 
 end
  
