@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
         :locale => I18n.locale
       }
     }
+    config.merge!({ :urlArgs => "bust=#{Time.now.to_i}" }) if Rails.env == "development"
     Requirejs::Rails::Engine.config.requirejs.run_config.merge!({ :config => config })
   end
 
