@@ -36,31 +36,11 @@
     %h2
       !=_translatable_field(model: @model, attr_name: 'summary')
 .netas
-  .neta
-    .neta-inner
-      %a.link{ :href => "lindaraftree.com" }
-        %span.lang en
-        %span.url lindaraftree.com
-      %a.description{ :href => "#" }
-        %h3 A piece of capoeira in Cameroon
-        %p Capoeira is 'the Brazilian martial art of dance fighting' if you believe Dustin Hoffman's character in the movie Meet the Parents. That's one way of putting it, I suppose. But the old masters of capoeira describe it a bit differently...  Capoeira is everything the mouth eats.
-  .neta
-    .neta-inner
-      %a.link{ :href => "#" }
-        %span.lang ja
-        %span.url youtube.com
-      %a.description{ :href => "#" }
-        %h3 カポエィラPV CAPOEIRA TEMPO JAPÃO 2005(カポエイラ・カポエラ)
-  .neta
-    .neta-inner
-      %a.link{ :href => "#" }
-        %span.lang en
-        %span.url example.com
-      %a.description{ :href => "#" } 
-        %h3 some link
-        %p caption
-  .neta
-    .neta-inner
-      %a.add-neta{ :href => "#" }
-        Add a link
-        .add-neta-button
+  - if helpers.isLoggedIn()
+    .neta
+      .neta-inner
+        %a.add-neta{ :role => "button" }
+          Add a link
+          .add-neta-button
+
+#add-neta-modal.modal.hide.fade

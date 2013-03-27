@@ -182,6 +182,7 @@ ul.nav-pills {
     }
     a:hover {
       background: $cojiroGray;
+      cursor: pointer;
     }
     a.description:hover {
       border-bottom: 10px solid $cojiroGray;
@@ -254,6 +255,12 @@ ul.nav-pills {
     padding: 9px;
     color: $gray;
   }
+}
+
+/* -------- Add neta dialog ----- */
+
+#add-neta-modal form {
+  text-align: center;
 }
 
 /* -------- Editable fields ----- */

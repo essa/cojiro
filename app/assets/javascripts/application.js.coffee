@@ -7,6 +7,7 @@ require [
   'bootstrap-dropdown'
   'bootstrap-button'
   'bootstrap-alert'
+  'bootstrap-modal'
 ], ($, _, Backbone, App) ->
 
   $ ->

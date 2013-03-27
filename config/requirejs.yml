@@ -12,6 +12,7 @@ shim:
   'bootstrap-dropdown': [ 'jquery' ]
   'bootstrap-button': [ 'jquery' ]
   'bootstrap-alert': [ 'jquery' ]
+  'bootstrap-modal': [ 'jquery' ]
 
 map:
   '*':
