@@ -8,6 +8,10 @@ When /^I select "([^"]*)" from the drop-down list$/ do |option|
   select(option)
 end
 
+When /^I enter the link "([^"]*)" into the dialog box$/ do |link|
+  fill_in("url", :with => link)
+end
+
 # ref: http://pivotallabs.com/users/mgehard/blog/articles/1671-waiting-for-jquery-ajax-calls-to-finish-in-cucumber
 When /^I wait for the AJAX call to finish$/ do
   wait_until do
