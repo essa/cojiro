@@ -3,7 +3,8 @@
   .container
     %ul.nav
       %li
-        %a{ href: "#" }Home
+        %a{ href: "#" }
+          =i18n.t("layout.home")
       - if helpers.isLoggedIn()
         %li
           %a{ href: "#{i18n.locale}/threads/new" }

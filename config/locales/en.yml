@@ -65,6 +65,7 @@ en:
       summary: summary
 
   layout:
+    home: Home
     start_a_thread: Start a thread
     twitter_sign_in: Sign in through Twitter
     logout: Logout
