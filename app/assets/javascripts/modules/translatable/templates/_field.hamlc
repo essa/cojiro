@@ -1,0 +1,11 @@
+- require 'i18n'
+- if (current = @model.get(@field))
+  %span.translated=current
+- else
+  %span.untranslated=@model.getAttrInSourceLocale(@field)
+- if @editable
+  %button.edit-button.btn.btn-mini
+    - if current
+      = i18n.t("templates.threads.show.edit")
+    - else
+      = i18n.t("templates.threads.show.add_in", lang: i18n.t(i18n.locale))

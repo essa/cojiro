@@ -1,9 +1,9 @@
 define [
   'modules/translatable/model'
-  'modules/translatable/view'
-], (Model, View) ->
+  'modules/translatable/field'
+], (Model, Field) ->
 
   class Translatable
 
     Translatable.Model = Model
-    Translatable.View = View
+    Translatable.Field = Field

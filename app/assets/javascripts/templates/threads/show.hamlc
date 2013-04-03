@@ -1,5 +1,4 @@
 - require 'i18n'
-- require 'modules/translatable/templates/_translatable_field'
 .row
   .span12
     .statbar
@@ -29,12 +28,10 @@
 
 .row
   .span12
-    %h1
-      !=_translatable_field(model: @model, attr_name: 'title')
+    %h1#title
 .row
   .span12
-    %h2
-      !=_translatable_field(model: @model, attr_name: 'summary')
+    %h2#summary
 .links
   - if helpers.isLoggedIn()
     .link

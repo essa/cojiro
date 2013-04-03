@@ -1,4 +1,0 @@
--if (current = @model.get(@attr_name))
-  %span.translated{ :class => @translatable_field_class_name }=current
--else
-  %span.untranslated{ :class => @translatable_field_class_name }=@model.getAttrInSourceLocale(@attr_name)

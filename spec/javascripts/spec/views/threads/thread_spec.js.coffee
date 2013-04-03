@@ -6,25 +6,25 @@ define (require) ->
 
   describe "ThreadView", ->
     beforeEach ->
-      thread = new Thread()
-      thread.set
+      @thread = new Thread()
+      @thread.set
         title: "Geisha bloggers",
         summary: "Looking for info on geisha bloggers."
         user:
           name: "csasaki"
           fullname: "Cojiro Sasaki"
           avatar_mini_url: "http://www.example.com/mini_csasaki.png"
-      @view = new ThreadView(model: thread)
 
     describe "rendering", ->
-
       it "renders the thread", ->
+        @view = new ThreadView(model: @thread)
         $el = @view.render().$el
         expect($el).toBe("#thread")
         expect($el).toHaveText(/Geisha bloggers/)
         expect($el).toHaveText(/Looking for info on geisha bloggers./)
 
       it "renders user info", ->
+        @view = new ThreadView(model: @thread)
         $el = @view.render().$el
         expect($el).toHaveText(/@csasaki/)
         expect($el).toHaveText(/Cojiro Sasaki/)
@@ -33,6 +33,7 @@ define (require) ->
       describe "logged-in user", ->
         beforeEach ->
           globals.currentUser = @fixtures.User.valid
+          @view = new ThreadView(model: @thread)
 
         it 'renders edit/add buttons', ->
           $el = @view.render().$el
@@ -45,6 +46,7 @@ define (require) ->
       describe "logged-out user", ->
         beforeEach ->
           globals.currentUser = null
+          @view = new ThreadView(model: @thread)
 
         it 'does not render edit/add buttons', ->
           $el = @view.render().$el
@@ -57,6 +59,7 @@ define (require) ->
     describe "add a link modal", ->
       beforeEach ->
         globals.currentUser = @fixtures.User.valid
+        @view = new ThreadView(model: @thread)
         $('body').append(@view.render().el)
         $('#add-link-modal').hide()
 

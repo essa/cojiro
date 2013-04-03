@@ -1,0 +1,12 @@
+- require 'i18n'
+%form.in-place-form.form-inline
+  %fieldset.in-place-form
+    %span.input-small
+      - if (@schema.type == "Text")
+        %input{ :name => @field, :type => "text", :class => "field" }
+      - else if (@schema.type == "TextArea")
+        %textarea{ :name => @field, :type => "text", :class => "field" }
+%button.save-button.btn.btn-mini
+  = i18n.t('views.mixins.translatable_fields.save')
+%button.cancel-button.btn.btn-mini
+  = i18n.t('views.mixins.translatable_fields.cancel')
