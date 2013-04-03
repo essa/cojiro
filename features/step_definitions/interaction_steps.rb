@@ -1,7 +1,10 @@
-When /^I click on "([^"]*)"$/ do |link_text|
+When /^I click (?:on |)"([^"]*)"$/ do |link_text|
   # ref: https://github.com/jnicklas/capybara/issues/379
-  find("a", :text => /#{link_text}/).click
-  #click_on(link_text)
+  begin
+    find("a", :text => /#{link_text}/).click
+  rescue Capybara::ElementNotFound
+    click_on(link_text)
+  end
 end
 
 When /^I select "([^"]*)" from the drop-down list$/ do |option|

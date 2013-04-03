@@ -19,7 +19,7 @@ Feature: Register a new URL
   Scenario: Invalid URL
     When I click on "Add a link"
     And I enter the link "httpppppp://www.youtube.com" into the dialog box
-    And I click "Go"
+    And I click "Go!"
     Then I should see an error message: "Invalid URL"
     And I should still be on "Add a link" modal dialog
 
@@ -27,7 +27,7 @@ Feature: Register a new URL
   Scenario: Blank data for 404 URL
     When I click on "Add a link"
     And I enter the link "http://google.com/404.html" into the dialog box
-    And I click "Go"
+    And I click "Go!"
     Then the "Language" dropdown should be blank
     And the "Media" dropdown should be blank
     And the "Title" field should be blank
