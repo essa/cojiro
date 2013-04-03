@@ -19,11 +19,13 @@ en:
         started_by: Started by @%{username}
         updated_ago: "Updated <time class='timeago' datetime='%{timeago}'></time>"
       show:
-        neta: links
+        links: links
         started: started
         updated: last updated
         edit: Edit
         add_in: Add %{lang}
+        add_a_link: Add a link
+        enter_a_url: Enter a URL...
     shared:
       new_label:
         new: New

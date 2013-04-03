@@ -6,20 +6,20 @@ define [
   'globals',
   'templates/threads/show',
   'templates/other/flash'
-  'views/threads/add_neta_modal'
+  'views/threads/add_link_modal'
   'bootstrap-modal'
-], ($, _, Backbone, Translatable, globals, showThreadTemplate, flashTemplate, AddNetaModal) ->
+], ($, _, Backbone, Translatable, globals, showThreadTemplate, flashTemplate, AddLinkModal) ->
 
   class ThreadView extends Translatable.View
     id: 'thread'
 
     buildEvents: () ->
       _(super).extend
-        "click .add-neta": "showAddNetaModal"
+        "click .add-link": "showAddLinkModal"
 
     initialize: ->
       super
-      @addNetaModalView = new AddNetaModal
+      @addLinkModalView = new AddLinkModal
 
     render: ->
       @$el.html(showThreadTemplate(model: @model))
@@ -29,12 +29,12 @@ define [
       @
 
     renderModals: ->
-      @addNetaModalView.render()
-      @$('#add-neta-modal').html(@addNetaModalView.el)
+      @addLinkModalView.render()
+      @$('#add-link-modal').html(@addLinkModalView.el)
 
     renderFlash: ->
       @$el.prepend(flashTemplate(globals.flash))
       globals.flash = null
 
-    showAddNetaModal: ->
-      @$('#add-neta-modal').modal()
+    showAddLinkModal: ->
+      @$('#add-link-modal').modal()

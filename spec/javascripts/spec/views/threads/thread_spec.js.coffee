@@ -40,7 +40,7 @@ define (require) ->
 
         it 'renders add link button', ->
           $el = @view.render().$el
-          expect($el).toContain('a.add-neta:contains("Add a link")')
+          expect($el).toContain('a.add-link:contains("Add a link")')
 
       describe "logged-out user", ->
         beforeEach ->
@@ -52,16 +52,16 @@ define (require) ->
 
         it 'does not render add link button', ->
           $el = @view.render().$el
-          expect($el).not.toContain('a.add-neta:contains("Add a link")')
+          expect($el).not.toContain('a.add-link:contains("Add a link")')
 
-    describe "add a neta modal", ->
+    describe "add a link modal", ->
       beforeEach ->
         globals.currentUser = @fixtures.User.valid
         $('body').append(@view.render().el)
-        $('#add-neta-modal').hide()
+        $('#add-link-modal').hide()
 
       it "calls showAd when user clicks on the 'add link' button", ->
         # ensure that modal is initially hidden -- bootstrap will do this
         expect($('.modal')).not.toBeVisible()
-        $('a.add-neta').trigger('click')
+        $('a.add-link').trigger('click')
         expect($('.modal')).toBeVisible()

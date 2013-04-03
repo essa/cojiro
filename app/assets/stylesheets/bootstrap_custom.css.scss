@@ -13,10 +13,10 @@ $statbarBackground: $cojiroLightBlue;
 $statbarBackgroundLight: #E5E5E5;
 $statbarText: #777777;
 
-$netaLinkHeight: 22px;
-$netaDescriptionHeight: 228px;
+$linkUrlHeight: 22px;
+$linkDescriptionHeight: 228px;
 // 22px for border and padding
-$netaHeight: $netaLinkHeight + $netaDescriptionHeight + 52px;
+$linkHeight: $linkUrlHeight + $linkDescriptionHeight + 52px;
 
 $heroUnitBackground: $white;
 
@@ -153,24 +153,30 @@ ul.nav-pills {
     margin-bottom: 30px;
     line-height: 80px;
     margin-right: 20px;
+    input, textarea {
+      width: 100%;
+    }
   }
   h2 {
     font-weight: normal;
     margin-bottom: 40px;
+    input, textarea {
+      width: 100%;
+    }
   }
   // based on bootstrap "thumbnail/thumbnails" classes
-  .netas {
+  .links {
     @include makeRow();
   }
-  .neta {
+  .link {
     @include makeColumn(3,0);
     margin-left: 20px;
     margin-bottom: 20px;
   }
-  .neta-inner {
+  .link-inner {
     display: block;
     overflow: hidden;
-    height: $netaHeight;
+    height: $linkHeight;
     line-height: $baseLineHeight;
     @include border-radius(8px);
     @include box-shadow(#{0 1px 3px rgba(0,0,0,.055)});
@@ -191,7 +197,7 @@ ul.nav-pills {
     .link {
       display: block;
       overflow: hidden;
-      height: $netaLinkHeight;
+      height: $linkUrlHeight;
       border-bottom: 2px solid white;
       padding: 10px;
       span.lang {
@@ -208,23 +214,23 @@ ul.nav-pills {
 
     .description {
       display: block;
-      height: $netaDescriptionHeight;
+      height: $linkDescriptionHeight;
       border-bottom: 5px solid $cojiroLightGray;
     }
-    .description, .add-neta {
+    .description, .add-link {
       overflow: hidden;
       padding: 10px;
       margin-bottom: 15px;
     }
-    .add-neta {
+    .add-link {
       text-align: center;
-      height: $netaHeight/2 + 50px;
-      padding-top: $netaHeight/2 - 50px;
+      height: $linkHeight/2 + 50px;
+      padding-top: $linkHeight/2 - 50px;
       display: block;
       text-decoration: none;
     }
 
-    .add-neta-button {
+    .add-link-button {
       background-image: url('plus-mark.png');
       background-repeat: no-repeat;
       background-position: center;
@@ -239,27 +245,27 @@ ul.nav-pills {
 
   }
   // Add a hover state for linked versions only
-  a.neta:hover {
+  a.link:hover {
     border-color: $linkColor;
     @include box-shadow(#{0 1px 4px rgba(0,105,214,.25)});
   }
 
   // Images and captions
-  .neta > img {
+  .link > img {
     display: block;
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
-  .neta .caption {
+  .link .caption {
     padding: 9px;
     color: $gray;
   }
 }
 
-/* -------- Add neta dialog ----- */
+/* -------- Add link dialog ----- */
 
-#add-neta-modal form {
+#add-link-modal form {
   text-align: center;
 }
 

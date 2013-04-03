@@ -1,14 +1,14 @@
 define (require) ->
 
-  AddNetaModalView = require('views/threads/add_neta_modal')
+  AddLinkModalView = require('views/threads/add_link_modal')
 
-  describe "AddNetaModalView", ->
+  describe "AddLinkModalView", ->
     beforeEach ->
       I18n.locale = 'en'
 
     describe "rendering", ->
       beforeEach ->
-        @view = new AddNetaModalView
+        @view = new AddLinkModalView
 
       afterEach ->
         I18n.locale = I18n.defaultLocale

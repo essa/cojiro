@@ -8,7 +8,7 @@
           %a{ :href => '#' }
             %span.stat x
             %br
-            %span.stattext=i18n.t("templates.threads.show.neta")
+            %span.stattext=i18n.t("templates.threads.show.links")
         %li.sep
         %li
           %span.date=@model.getCreatedAt()
@@ -35,12 +35,12 @@
   .span12
     %h2
       !=_translatable_field(model: @model, attr_name: 'summary')
-.netas
+.links
   - if helpers.isLoggedIn()
-    .neta
-      .neta-inner
-        %a.add-neta{ :role => "button" }
-          Add a link
-          .add-neta-button
+    .link
+      .link-inner
+        %a.add-link{ :role => "button" }
+          =i18n.t("templates.threads.show.add_a_link")
+          .add-link-button
 
-#add-neta-modal.modal.hide.fade
+#add-link-modal.modal.hide.fade
