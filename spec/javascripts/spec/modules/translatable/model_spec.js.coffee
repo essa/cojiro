@@ -26,6 +26,7 @@ define (require) ->
           'GET',
           '/collection',
           @validResponse(
+            "source_locale": "en"
             "title":
               "en": "Title in English"
               "ja": "Title in Japanese"
@@ -43,6 +44,7 @@ define (require) ->
         expect(@model.get("title").in("ja")).toEqual("Title in Japanese")
         expect(@model.get("summary").in("fr")).toEqual("Summary in French")
         expect(@model.get("summary").in("cn")).toEqual("Summary in Chinese")
+        expect(@model.get("source_locale")).toEqual("en")
 
     describe 'getters', ->
       beforeEach ->
