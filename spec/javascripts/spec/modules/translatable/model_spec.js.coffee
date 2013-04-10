@@ -1,12 +1,51 @@
 define (require) ->
 
   TranslatableModel = require('modules/translatable/model')
+  TranslatableAttribute = require('modules/translatable/attribute')
   I18n = require('i18n')
 
   describe "TranslatableModel", ->
 
     beforeEach ->
       I18n.locale = 'en'
+
+    describe 'initialization', ->
+
+      beforeEach ->
+        @model = new TranslatableModel({}, { "translatableAttributes": ["title", "summary"] })
+
+      it 'creates translatable attribute objects for each attribute', ->
+        expect(@model.get("title") instanceof TranslatableAttribute).toBeTruthy()
+        expect(@model.get("summary") instanceof TranslatableAttribute).toBeTruthy()
+
+    describe 'parsing', ->
+
+      beforeEach ->
+        @model = new TranslatableModel({}, { "translatableAttributes": ["title", "summary"] })
+        collection = url: '/collection'
+        @model.collection = collection
+        @server = sinon.fakeServer.create()
+        @server.respondWith(
+          'GET',
+          '/collection',
+          @validResponse({
+            "title":
+              "en": "Title in English"
+              "ja": "Title in Japanese"
+            "summary":
+              "fr": "Summary in French"
+              "cn": "Summary in Chinese"
+          })
+        )
+      afterEach -> @server.restore()
+
+      it 'parses localized data', ->
+        @model.fetch()
+        @server.respond()
+        expect(@model.get("title").get("en")).toEqual("Title in English")
+        expect(@model.get("title").get("ja")).toEqual("Title in Japanese")
+        expect(@model.get("summary").get("fr")).toEqual("Summary in French")
+        expect(@model.get("summary").get("cn")).toEqual("Summary in Chinese")
 
     describe 'getters', ->
       beforeEach ->
