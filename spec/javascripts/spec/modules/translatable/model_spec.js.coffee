@@ -84,6 +84,25 @@ define (require) ->
           expect(@model.getSourceLocale()).toEqual('ja')
           expect(stub).toHaveBeenCalledWith('source_locale')
 
+    describe "setters", ->
+      describe "#setAttr", ->
+        it 'is defined', -> expect(@model.setAttr).toBeDefined()
+
+        it 'sets translated attribute in current locale', ->
+          sinon.spy(@model, 'set')
+          @model.setAttr('title', 'A new title in English')
+          expect(@model.get('title').in('en')).toEqual('A new title in English')
+          expect(@model.set).toHaveBeenCalledOnce
+    
+      describe "#setAttrInLocale", ->
+        it 'is defined', -> expect(@model.setAttrInLocale).toBeDefined()
+
+        it 'sets translated attribute in given locale', ->
+          sinon.spy(@model, 'set')
+          @model.setAttrInLocale('title', 'ja', 'A new title in Japanese')
+          expect(@model.get('title').in('ja')).toEqual('A new title in Japanese')
+          expect(@model.set).toHaveBeenCalledOnce
+
     describe "validations", ->
       beforeEach ->
         @spy = sinon.spy()

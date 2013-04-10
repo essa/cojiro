@@ -7,3 +7,5 @@ define [
   class TranslatableAttribute extends Base.Model
 
     in: (attr) -> @get(attr)
+
+    validate: (attrs) -> false

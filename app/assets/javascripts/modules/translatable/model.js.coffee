@@ -7,9 +7,6 @@ define [
 ], (_, Backbone, Base, TranslatableAttribute, I18n) ->
   class TranslatableModel extends Base.Model
 
-    getAttrInSourceLocale: (attr_name) -> @get("#{attr_name}_in_source_locale")
-    getSourceLocale: -> @get('source_locale')
-
     initialize: (attributes, options) ->
       if @translatableAttributes = (options? && options.translatableAttributes) || []
         self = this
@@ -22,6 +19,17 @@ define [
           value = response[key]
           response[key] = new TranslatableAttribute(value, parse: true)
       return response
+
+    getAttrInLocale: (attr_name, locale) -> @get(attr_name).get(locale)
+    getAttr: (attr_name) -> @getAttrInLocale(attr_name, I18n.locale)
+    getAttrInSourceLocale: (attr_name) -> @getAttrInLocale(attr_name, @getSourceLocale())
+    getSourceLocale: -> @get('source_locale')
+
+    setAttrInLocale: (attr_name, locale, value) ->
+      attr = @get(attr_name)
+      attr.set(locale, value)
+      @set(attr_name, attr)
+    setAttr: (attr_name, value) -> @setAttrInLocale(attr_name, I18n.locale, value)
 
     validate: (attrs) ->
       errors = super(attrs) || {}
