@@ -19,9 +19,12 @@ define (require) ->
         expect(@model.get("title") instanceof TranslatableAttribute).toBeTruthy()
         expect(@model.get("summary") instanceof TranslatableAttribute).toBeTruthy()
 
-    describe 'parsing', ->
+    describe 'interacting with the server', ->
       beforeEach ->
         @server = sinon.fakeServer.create()
+      afterEach -> @server.restore()
+
+      it 'parses localized data from the server', ->
         @server.respondWith(
           'GET',
           '/collection',
@@ -35,9 +38,6 @@ define (require) ->
               "cn": "Summary in Chinese"
           )
         )
-      afterEach -> @server.restore()
-
-      it 'parses localized data', ->
         @model.fetch()
         @server.respond()
         expect(@model.get("title").in("en")).toEqual("Title in English")
@@ -45,6 +45,21 @@ define (require) ->
         expect(@model.get("summary").in("fr")).toEqual("Summary in French")
         expect(@model.get("summary").in("cn")).toEqual("Summary in Chinese")
         expect(@model.get("source_locale")).toEqual("en")
+
+      it 'saves localized data to the server', ->
+        @model.setAttr("title", "Title in English")
+        @model.setAttr("summary", "Summary in English")
+        @model.setAttrInLocale("title", "fr", "Title in French")
+        @model.setAttrInLocale("summary", "fr", "Summary in French")
+        @model.save()
+        request = @server.requests[0]
+        expect(request).toBePOST()
+        params = JSON.parse(request.requestBody)
+
+        expect(params.title.en).toEqual("Title in English")
+        expect(params.title.fr).toEqual("Title in French")
+        expect(params.summary.en).toEqual("Summary in English")
+        expect(params.summary.fr).toEqual("Summary in French")
 
     describe 'getters', ->
       beforeEach ->
