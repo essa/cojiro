@@ -93,7 +93,7 @@ define (require) ->
           @model.setAttr('title', 'A new title in English')
           expect(@model.get('title').in('en')).toEqual('A new title in English')
           expect(@model.set).toHaveBeenCalledOnce
-    
+
       describe "#setAttrInLocale", ->
         it 'is defined', -> expect(@model.setAttrInLocale).toBeDefined()
 
@@ -102,6 +102,12 @@ define (require) ->
           @model.setAttrInLocale('title', 'ja', 'A new title in Japanese')
           expect(@model.get('title').in('ja')).toEqual('A new title in Japanese')
           expect(@model.set).toHaveBeenCalledOnce
+
+        it 'leaves values of attribute in other locales', ->
+          @model.setAttrInLocale('title', 'ja', 'A new title in Japanese')
+          @model.setAttrInLocale('title', 'en', 'A new title in English')
+          expect(@model.get('title').in('ja')).toEqual('A new title in Japanese')
+          expect(@model.get('title').in('en')).toEqual('A new title in English')
 
     describe "validations", ->
       beforeEach ->
