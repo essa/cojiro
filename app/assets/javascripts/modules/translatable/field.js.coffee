@@ -28,7 +28,7 @@ define [
       @schema = () -> @model.schema()[@field]
 
     render: ->
-      fieldVal = @model.get(@field)
+      fieldVal = @model.getAttr(@field)
       @renderField(fieldVal)
       @renderButton(fieldVal) if @editable
 
@@ -47,14 +47,14 @@ define [
 
     showForm: (e) ->
       @$el.html(formTemplate(model: @model, field: @field, schema: @schema()))
-      @$('.field').val(@model.get(@field))
+      @$('.field').val(@model.getAttr(@field))
 
     submitForm: (e) ->
       e.preventDefault()
       @$('button.save-button').trigger('click')
 
     saveField: (e) ->
-      @model.set(@field, @$('.field').val())
+      @model.setAttr(@field, @$('.field').val())
       self = @
       @model.save {},
         success: (model, resp) ->

@@ -24,7 +24,7 @@ define (require) ->
           globals.currentUser = @fixtures.User.valid
           @field = context.field
           @type = context.type || 'input'
-          @model = new TranslatableModel
+          @model = new TranslatableModel({}, { "translatableAttributes": ["title", "summary"] })
           _(@model).extend
             id: "123"
             schema: ->
@@ -32,7 +32,7 @@ define (require) ->
                 type: 'Text'
               summary:
                 type: 'TextArea'
-          @model.set(context.model)
+          @model.set(@model.parse(context.model))
           @model.collection = new Backbone.Collection
           @model.collection.url = -> '/en/models'
 
@@ -57,13 +57,13 @@ define (require) ->
 
         describe "before edit button handler is fired", ->
           it 'has field value wrapped in correct tag', ->
-            if @model.get(@field) is undefined
-              expect(@view.$('span.untranslated')).toHaveText(@model.get(@field + "_in_source_locale"))
+            if @model.getAttr(@field) is undefined
+              expect(@view.$('span.untranslated')).toHaveText(@model.getAttrInSourceLocale(@field))
             else
-              expect(@view.$('span.translated')).toHaveText(@model.get(@field))
+              expect(@view.$('span.translated')).toHaveText(@model.getAttr(@field))
 
           it 'has correct edit/save button text', ->
-            if @model.get(@field) is undefined
+            if @model.getAttr(@field) is undefined
               expect(@view.$('button.edit-button')).toHaveText("Add English")
             else
               expect(@view.$('button.edit-button')).toHaveText("Edit")
@@ -92,7 +92,7 @@ define (require) ->
         describe "when save button is fired", ->
           beforeEach ->
             @$editButton.trigger('click')
-            sinon.stub(@model, 'set').returns(null)
+            sinon.stub(@model, 'setAttr').returns(null)
             sinon.stub(@model, 'save').returns(null)
 
           afterEach ->
@@ -105,8 +105,8 @@ define (require) ->
           it 'sets the field', ->
             @view.$(@type).val("abcdef")
             @view.$(@saveButtonSelector).trigger('click')
-            expect(@model.set).toHaveBeenCalledOnce()
-            expect(@model.set).toHaveBeenCalledWith(@field, "abcdef")
+            expect(@model.setAttr).toHaveBeenCalledOnce()
+            expect(@model.setAttr).toHaveBeenCalledWith(@field, "abcdef")
 
           it 'saves the model', ->
             @view.$(@type).val("a new value")
@@ -195,13 +195,17 @@ define (require) ->
 
     model_in_my_locale =
       source_locale: 'en'
-      title: "Co-working spaces in Tokyo"
-      summary: "a summary"
+      title:
+        en: "Co-working spaces in Tokyo"
+      summary:
+        en: "a summary"
 
     model_in_another_locale =
       source_locale: 'ja'
-      title_in_source_locale: "東京のコワーキングスペース"
-      summary_in_source_locale: "東京のコワーキングスペースについてブログを書こうかと思います。"
+      title:
+        ja: "東京のコワーキングスペース"
+      summary:
+        ja: "東京のコワーキングスペースについてブログを書こうかと思います。"
 
     describe "text input", ->
       sharedContext =
