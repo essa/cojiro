@@ -42,10 +42,10 @@ define (require) ->
       it 'parses localized data', ->
         @model.fetch()
         @server.respond()
-        expect(@model.get("title").get("en")).toEqual("Title in English")
-        expect(@model.get("title").get("ja")).toEqual("Title in Japanese")
-        expect(@model.get("summary").get("fr")).toEqual("Summary in French")
-        expect(@model.get("summary").get("cn")).toEqual("Summary in Chinese")
+        expect(@model.get("title").in("en")).toEqual("Title in English")
+        expect(@model.get("title").in("ja")).toEqual("Title in Japanese")
+        expect(@model.get("summary").in("fr")).toEqual("Summary in French")
+        expect(@model.get("summary").in("cn")).toEqual("Summary in Chinese")
 
     describe 'getters', ->
       beforeEach ->
