@@ -5,3 +5,5 @@ define [
   'i18n'
 ], (_, Backbone, Base, I18n) ->
   class TranslatableAttribute extends Base.Model
+
+    in: (attr) -> @get(attr)
