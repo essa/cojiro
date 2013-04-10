@@ -28,7 +28,22 @@ define [
       @schema = () -> @model.schema()[@field]
 
     render: ->
-      @$el.html(fieldTemplate(model: @model, field: @field, editable: @editable))
+      fieldVal = @model.get(@field)
+      @renderField(fieldVal)
+      @renderButton(fieldVal) if @editable
+
+    renderField: (fieldVal) ->
+      if fieldVal
+        fieldText = fieldVal
+        status = "translated"
+      else
+        fieldText = @model.getAttrInSourceLocale(@field)
+        status = "untranslated"
+      @$el.html(_.template('<span class="<%= status %>"><%= fieldText %></span>', status: status, fieldText: fieldText))
+
+    renderButton: (fieldVal) ->
+      button_text = if !!fieldVal then I18n.t("templates.threads.show.edit") else I18n.t("templates.threads.show.add_in", lang: I18n.t(I18n.locale))
+      @$el.append(_.template('<button class="edit-button btn btn-mini"><%= button_text %></button>', button_text: button_text))
 
     showForm: (e) ->
       @$el.html(formTemplate(model: @model, field: @field, schema: @schema()))
