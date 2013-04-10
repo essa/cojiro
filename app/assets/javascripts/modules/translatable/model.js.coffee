@@ -14,7 +14,7 @@ define [
           self.set(attr, new TranslatableAttribute)
 
     parse: (response) ->
-      if @translatableAttributes?
+      if response? && @translatableAttributes?
         for key in @translatableAttributes
           value = response[key]
           response[key] = new TranslatableAttribute(value, parse: true)

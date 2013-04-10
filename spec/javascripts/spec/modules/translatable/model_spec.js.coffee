@@ -126,6 +126,10 @@ define (require) ->
           expect(@model.get('title').in('ja')).toEqual('A new title in Japanese')
           expect(@model.get('title').in('en')).toEqual('A new title in English')
 
+    describe '#parse', ->
+      it 'returns null for null response', ->
+        expect(@model.parse(null)).toEqual(null)
+
     describe "validations", ->
       beforeEach ->
         @spy = sinon.spy()
