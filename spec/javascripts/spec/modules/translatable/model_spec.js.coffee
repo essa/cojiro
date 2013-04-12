@@ -22,6 +22,10 @@ define (require) ->
         expect(@model.get("title") instanceof TranslatableAttribute).toBeTruthy()
         expect(@model.get("summary") instanceof TranslatableAttribute).toBeTruthy()
 
+      it 'sets initial value of translatable attributes if passed in', ->
+        @newModel = new MyModel(source_locale: "ja", title : { en: "title in English" })
+        expect(@newModel.get('title').in('en')).toEqual('title in English')
+
     describe 'interacting with the server', ->
       beforeEach ->
         @server = sinon.fakeServer.create()

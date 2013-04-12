@@ -13,7 +13,7 @@ define [
       if _.isArray(@translatableAttributes)
         self = this
         _.each @translatableAttributes, (attr) ->
-          self.set(attr, new TranslatableAttribute)
+          self.set(attr, new TranslatableAttribute(attributes[attr]))
 
     parse: (response) ->
       if response? && @translatableAttributes?
