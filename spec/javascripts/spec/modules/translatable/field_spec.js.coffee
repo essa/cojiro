@@ -5,6 +5,7 @@ define (require) ->
 
   TranslatableField = require('modules/translatable/field')
   TranslatableModel = require('modules/translatable/model')
+  MyModel = TranslatableModel.extend(translatableAttributes: ["title", "summary"])
   translatableFieldTemplate = require('modules/translatable/templates/_field')
   globals = require('globals')
   require('jquery')
@@ -24,7 +25,7 @@ define (require) ->
           globals.currentUser = @fixtures.User.valid
           @field = context.field
           @type = context.type || 'input'
-          @model = new TranslatableModel({}, { "translatableAttributes": ["title", "summary"] })
+          @model = new MyModel
           _(@model).extend
             id: "123"
             schema: ->
