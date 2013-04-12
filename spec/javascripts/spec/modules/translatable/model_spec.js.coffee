@@ -3,16 +3,19 @@ define (require) ->
   TranslatableModel = require('modules/translatable/model')
   TranslatableAttribute = require('modules/translatable/attribute')
   I18n = require('i18n')
+  MyModel = TranslatableModel.extend( translatableAttributes: ["title", "summary"] )
 
   describe "TranslatableModel", ->
 
     beforeEach ->
       I18n.locale = 'en'
-      @model = new TranslatableModel(
-        { "source_locale": "ja" },
-        "translatableAttributes": ["title", "summary"]
-      )
+      @model = new MyModel(source_locale: "ja")
       @model.collection = url: '/collection'
+
+    describe 'defaults', ->
+      it 'sets translatedAttributes to empty array', ->
+        @model = new TranslatableModel
+        expect(@model.translatableAttributes).toEqual([])
 
     describe 'initialization', ->
       it 'creates translatable attribute objects for each attribute', ->

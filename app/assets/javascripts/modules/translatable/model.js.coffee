@@ -7,8 +7,10 @@ define [
 ], (_, Backbone, Base, TranslatableAttribute, I18n) ->
   class TranslatableModel extends Base.Model
 
+    translatableAttributes: []
+
     initialize: (attributes, options) ->
-      if @translatableAttributes = (options? && options.translatableAttributes) || []
+      if _.isArray(@translatableAttributes)
         self = this
         _.each @translatableAttributes, (attr) ->
           self.set(attr, new TranslatableAttribute)
