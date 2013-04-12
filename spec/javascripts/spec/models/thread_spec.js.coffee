@@ -5,6 +5,7 @@ define (require) ->
 
   I18n = require('i18n')
   Thread = require('models/thread')
+  TranslatableAttribute = require('modules/translatable/attribute')
 
   describe 'Thread', ->
 
@@ -12,22 +13,20 @@ define (require) ->
       thread = new Thread
       expect(thread).not.toBeNull()
 
-    describe 'new instance default values', ->
+    describe 'new instance', ->
       beforeEach ->
         I18n.locale = 'ja'
-        @thread = new Thread
 
       afterEach ->
         I18n.locale = I18n.defaultLocale
 
-      it 'has default value for the .title attribute', ->
-        expect(@thread.get('title')).toEqual('')
-
-      it 'has default value for the .summary attribute', ->
-        expect(@thread.get('summary')).toEqual('')
-
       it 'has default value for the .source_locale attribute', ->
+        @thread = new Thread
         expect(@thread.get('source_locale')).toEqual('ja')
+
+      it 'sets attributes passed in to constructor', ->
+        @thread = new Thread(title: { en: "Title in English" })
+        expect(@thread.get('title').in('en')).toEqual("Title in English")
 
     describe 'getters', ->
       beforeEach ->
@@ -38,8 +37,11 @@ define (require) ->
       describe '#toJSON', ->
         beforeEach ->
           @thread.set(
-            'title': 'title'
-            'summary': 'summary'
+            'title':
+              'en': 'title in English'
+            'summary':
+              'en': 'summary in English'
+              'ja': 'summary in Japanese'
             'source_locale': 'source_locale'
             'created_at': "2010-07-20T12:20:00Z"
             'updated_at': "2010-07-20T12:20:00Z"
@@ -49,8 +51,13 @@ define (require) ->
 
         it 'wraps JSON in thread object', ->
           expect(@thread.toJSON().thread).toBeDefined()
-          expect(@thread.toJSON().thread.title).toEqual('title')
-          expect(@thread.toJSON().thread.summary).toEqual('summary')
+          expect(@thread.toJSON().thread.title).toEqual(
+            'en': 'title in English'
+          )
+          expect(@thread.toJSON().thread.summary).toEqual(
+            'en': 'summary in English'
+            'ja': 'summary in Japanese'
+          )
           expect(@thread.toJSON().thread.source_locale).toEqual('source_locale')
 
         it 'does not include protected attributes', ->
@@ -65,26 +72,41 @@ define (require) ->
           expect(@thread.getId()).toBeUndefined()
 
         it "otherwise returns model's id", ->
-          @thread.id = 66;
+          @thread.id = 66
           expect(@thread.getId()).toEqual(66)
 
       describe '#getTitle', ->
         it 'is defined', -> expect(@thread.getTitle).toBeDefined()
 
-        it 'returns value for the title attribute', ->
-          stub = sinon.stub(@thread, 'get').returns('Thread title')
-
-          expect(@thread.getTitle()).toEqual('Thread title')
+        it 'returns value for the title attribute in current locale', ->
+          stub = sinon.stub(@thread, 'get').returns(
+            new TranslatableAttribute(
+              en: 'Thread title in English'
+              ja: 'Thread title in Japanese'
+            )
+          )
+          I18n.locale = 'ja'
+          expect(@thread.getTitle()).toEqual('Thread title in Japanese')
           expect(stub).toHaveBeenCalledWith('title')
+          I18n.locale = 'en'
+          expect(@thread.getTitle()).toEqual('Thread title in English')
 
       describe '#getSummary', ->
         it 'is defined', -> expect(@thread.getSummary).toBeDefined()
 
         it 'returns value for the summary attribute', ->
-          stub = sinon.stub(@thread, 'get').returns('Thread summary')
+          stub = sinon.stub(@thread, 'get').returns(
+            new TranslatableAttribute(
+              en: 'Thread summary in English'
+              ja: 'Thread summary in Japanese'
+            )
+          )
 
-          expect(@thread.getSummary()).toEqual('Thread summary')
-          expect(stub).toHaveBeenCalledWith('summary')
+          I18n.locale = 'ja'
+          expect(@thread.getTitle()).toEqual('Thread summary in Japanese')
+          expect(stub).toHaveBeenCalledWith('title')
+          I18n.locale = 'en'
+          expect(@thread.getTitle()).toEqual('Thread summary in English')
 
       describe '#getCreatedAt', ->
         it 'is defined', -> expect(@thread.getCreatedAt).toBeDefined()
@@ -240,9 +262,9 @@ define (require) ->
           @thread.fetch()
           @server.respond()
           expect(@thread.getTitle())
-            .toEqual(@fixture.title)
+            .toEqual(@fixture.title['en'])
           expect(@thread.getSummary())
-            .toEqual(@fixture.summary)
+            .toEqual(@fixture.summary['en'])
           expect(@thread.getCreatedAt())
             .toEqual(@thread.toDateStr(@fixture.created_at))
           expect(@thread.getUpdatedAt())

@@ -7,9 +7,10 @@ define [
 ], (_, Backbone, I18n, Translatable) ->
 
   class Thread extends Translatable.Model
+    translatableAttributes:
+      [ "title", "summary" ]
+
     defaults: ->
-      title: ''
-      summary: ''
       source_locale: I18n.locale
 
     schema: ->
@@ -28,8 +29,8 @@ define [
         source_locale: @get('source_locale')
 
     getId: -> @id
-    getTitle: -> @get('title')
-    getSummary: -> @get('summary')
+    getTitle: -> @getAttr('title')
+    getSummary: -> @getAttr('summary')
     getCreatedAt: -> @toDateStr(@get('created_at'))
     getUpdatedAt: -> @toDateStr(@get('updated_at'))
     getUserName: -> @get('user').name
