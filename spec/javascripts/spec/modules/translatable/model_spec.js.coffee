@@ -23,8 +23,11 @@ define (require) ->
         expect(@model.get("summary") instanceof TranslatableAttribute).toBeTruthy()
 
       it 'sets initial value of translatable attributes if passed in', ->
-        @newModel = new MyModel(source_locale: "ja", title : { en: "title in English" })
+        @newModel = new MyModel(source_locale: "ja", title: { en: "title in English" })
         expect(@newModel.get('title').in('en')).toEqual('title in English')
+
+      it 'handles undefined value for attributes', ->
+        expect(-> new MyModel).not.toThrow()
 
     describe 'interacting with the server', ->
       beforeEach ->
