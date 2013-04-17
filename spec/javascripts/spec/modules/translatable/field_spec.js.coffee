@@ -33,7 +33,7 @@ define (require) ->
                 type: 'Text'
               summary:
                 type: 'TextArea'
-          @model.set(@model.parse(context.model))
+          @model.set(context.model)
           @model.collection = new Backbone.Collection
           @model.collection.url = -> '/en/models'
 

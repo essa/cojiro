@@ -19,8 +19,8 @@ define [
     parse: (response) ->
       if response? && @translatableAttributes?
         for key in @translatableAttributes
-          value = response[key]
-          response[key] = new TranslatableAttribute(value, parse: true)
+          if value = response[key]
+            response[key] = new TranslatableAttribute(value, parse: true)
       return response
 
     getAttrInLocale: (attr_name, locale) -> @get(attr_name).get(locale)

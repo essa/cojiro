@@ -154,6 +154,9 @@ define (require) ->
       it 'returns null for null response', ->
         expect(@model.parse(null)).toEqual(null)
 
+      it 'only overwrites translated attributes if they are in the response', ->
+        expect(@model.parse({ "foo" : "bar"})).toEqual({ "foo": "bar" })
+
     describe "validations", ->
       beforeEach ->
         @spy = sinon.spy()
