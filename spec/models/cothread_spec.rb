@@ -49,6 +49,16 @@ describe Cothread do
 
   end
 
+  describe "#in_every_locale" do
+    it "returns attribute translations as JSON" do
+      @cothread = FactoryGirl.create(:cothread)
+      Globalize.with_locale(:fr) { @cothread.title = "a title in French" }
+      @cothread.save!
+      @cothread.in_every_locale("title").should ==
+        { "en" => @cothread.title, "fr" => "a title in French" }
+    end
+  end
+
   describe "locale helper methods" do
     before do
       @cothread = FactoryGirl.create(:cothread,
@@ -80,7 +90,12 @@ describe Cothread do
   describe "#to_json" do
     before do
       Timecop.freeze(Time.utc(2002,7,20,12,20)) do
-        @cothread = FactoryGirl.create(:cothread, user: FactoryGirl.create(:csasaki))
+        @cothread = FactoryGirl.build(:cothread, user: FactoryGirl.create(:csasaki))
+        Globalize.with_locale(:fr) do
+          @cothread.title = "title in French"
+          @cothread.summary = "summary in French"
+        end
+        @cothread.save
       end
       @cothread_json = @cothread.to_json
     end
@@ -89,20 +104,14 @@ describe Cothread do
       JSON(@cothread_json)["id"].should be
     end
 
-    it "has a title" do
-      JSON(@cothread_json)["title"].should be
+    it "has titles in all locales" do
+      JSON(@cothread_json)["title"].should ==
+        { "en" => @cothread.title, "fr" => "title in French" }
     end
 
-    it "has a title_in_source_locale" do
-      JSON(@cothread_json)["title_in_source_locale"].should be
-    end
-
-    it "has a summary" do
-      JSON(@cothread_json)["summary"].should be
-    end
-
-    it "has a summary_in_source_locale" do
-      JSON(@cothread_json)["summary_in_source_locale"].should be
+    it "has summaries in all locales" do
+      JSON(@cothread_json)["summary"].should ==
+        { "en" => @cothread.summary, "fr" => "summary in French" }
     end
 
     it "has created_at and updated_at timestamps" do
@@ -110,7 +119,7 @@ describe Cothread do
       JSON(@cothread_json)["updated_at"].should == "2002-07-20T12:20:00Z"
     end
 
-    it "has a source language" do
+    it "has a source locale" do
       JSON(@cothread_json)["source_locale"].should be
     end
 

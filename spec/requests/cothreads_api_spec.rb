@@ -25,22 +25,22 @@ describe 'Cothreads API' do
 
     it "returns a list of cothreads in reverse chronological order" do
       @json[0].should include(
-        "title" => "A very recent post",
-        "summary" => "summary 3",
+        "title" => { "en" => "A very recent post" },
+        "summary" => { "en" => "summary 3" },
         "source_locale" => "ja",
         "created_at" => "2012-07-20T12:20:00Z",
         "updated_at" => "2012-07-20T12:20:00Z",
       )
       @json[1].should include(
-        "title" => "A somewhat recent post",
-        "summary" => "summary 2",
+        "title" => { "en" => "A somewhat recent post" },
+        "summary" => { "en" => "summary 2" },
         "source_locale" => "en",
         "created_at" => "2005-07-20T12:20:00Z",
         "updated_at" => "2005-07-20T12:20:00Z"
       )
       @json[2].should include(
-        "title" => "An old post",
-        "summary" => "summary 1",
+        "title" => { "en" => "An old post" },
+        "summary" => { "en" => "summary 1" },
         "source_locale" => "ja",
         "created_at" => "2002-07-20T12:20:00Z",
         "updated_at" => "2002-07-20T12:20:00Z"
@@ -74,8 +74,8 @@ describe 'Cothreads API' do
 
       it "returns the cothread with id = <id>" do
         @json.should include(
-          "title" => "An old post",
-          "summary" => "summary 1",
+          "title" => { "en" => "An old post" },
+          "summary" => { "en" => "summary 1" },
           "source_locale" => "ja",
           "created_at" => "2002-07-20T12:20:00Z",
           "updated_at" => "2002-07-20T12:20:00Z"
