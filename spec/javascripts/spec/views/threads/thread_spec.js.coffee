@@ -65,12 +65,19 @@ define (require) ->
 
     describe "add a link modal", ->
       beforeEach ->
+        sandbox = document.createElement('div')
+        sandbox.setAttribute('id', 'sandbox')
+        $('body').append(sandbox)
         globals.currentUser = @fixtures.User.valid
         @view = new ThreadView(model: @thread)
-        $('body').append(@view.render().el)
+        $('#sandbox').append(@view.render().el)
         $('#add-link-modal').hide()
 
-      it "calls showAd when user clicks on the 'add link' button", ->
+      afterEach ->
+        $('#sandbox').remove()
+        $('body').removeClass()
+
+      it "calls showAddLinkModel when user clicks on the 'add link' button", ->
         # ensure that modal is initially hidden -- bootstrap will do this
         expect($('.modal')).not.toBeVisible()
         $('a.add-link').trigger('click')
