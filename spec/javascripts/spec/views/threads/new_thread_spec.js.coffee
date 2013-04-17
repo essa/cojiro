@@ -74,6 +74,7 @@ define (require) ->
 
         it "commits the form data", ->
           spy = sinon.spy(@view.form, 'commit')
+          sinon.stub(@model, 'save')
           @view.$('form').trigger('submit')
 
           expect(spy).toHaveBeenCalledOnce()
