@@ -29,8 +29,9 @@ define [
     getSourceLocale: -> @get('source_locale')
 
     set: (attributes, options) ->
-      attributes = @parse(attributes)
-      super(attributes, options)
+      parsed_attributes = JSON.parse(JSON.stringify(attributes))
+      parsed_attributes = @parse(parsed_attributes)
+      super(parsed_attributes, options)
 
     setAttrInLocale: (attr_name, locale, value) ->
       attr = @get(attr_name)

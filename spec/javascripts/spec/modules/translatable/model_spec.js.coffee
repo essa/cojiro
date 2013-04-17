@@ -113,6 +113,11 @@ define (require) ->
 
     describe "setters", ->
       describe "#set", ->
+        it 'duplicates attributes object before parsing', ->
+          attributes = { 'title': { 'en': 'title passed in' } }
+          @model.set(attributes)
+          expect(attributes).toEqual( { 'title' : { 'en': 'title passed in' } } )
+
         it 'overrides default to create translatable attributes', ->
           @model.set('title': { 'en': 'title passed in as nested attribute' } )
           expect(@model.get('title').in('en')).toEqual('title passed in as nested attribute')
