@@ -8,10 +8,10 @@ beforeEach ->
         "updated_at":"2010-09-10T10:20:00Z"
         "id":5
         "source_locale":"en"
-        "title":"Co-working spaces in Tokyo"
-        "title_in_source_locale":"Co-working spaces in Tokyo"
-        "summary":"I'm collecting blog posts on co-working spaces in Tokyo."
-        "summary_in_source_locale":"I'm collecting blog posts on co-working spaces in Tokyo."
+        "title":
+          "en": "Co-working spaces in Tokyo"
+        "summary":
+          "en": "I'm collecting blog posts on co-working spaces in Tokyo."
         "user":
           "name":"csasaki"
           "fullname":"Cojiro Sasaki"
@@ -20,8 +20,10 @@ beforeEach ->
         "updated_at":"2010-09-10T10:20:00Z"
         "id":5
         "source_locale":"ja"
-        "title_in_source_locale":"東京のコワーキングスペース"
-        "summary_in_source_locale":"東京のコワーキングスペースについてブログを書こうかと思います。"
+        "title":
+          ja: "東京のコワーキングスペース"
+        "summary":
+          ja: "東京のコワーキングスペースについてブログを書こうかと思います。"
         "user":
           "name":"csasaki"
           "fullname":"Cojiro Sasaki"
@@ -33,8 +35,10 @@ beforeEach ->
           created_at: "2012-06-08T12:20:00Z"
           updated_at: "2012-09-10T10:20:00Z"
           source_locale: "en"
-          title: "Co-working spaces in Tokyo"
-          summary: "I'm collecting blog posts on co-working spaces in Tokyo."
+          title:
+            en: "Co-working spaces in Tokyo"
+          summary:
+            en: "I'm collecting blog posts on co-working spaces in Tokyo."
           user:
             name: "csasaki"
             fullname: "Cojiro Sasaki"
@@ -44,8 +48,10 @@ beforeEach ->
           created_at: "2012-07-08T12:20:00Z"
           updated_at: "2012-11-01T10:20:00Z"
           source_locale: "en"
-          title: "Geisha bloggers"
-          summary: "Anyone know any geisha bloggers?"
+          title:
+            en: "Geisha bloggers"
+          summary:
+            en: "Anyone know any geisha bloggers?"
           user:
             name: "csasaki"
             fullname: "Cojiro Sasaki"

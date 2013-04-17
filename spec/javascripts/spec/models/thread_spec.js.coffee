@@ -187,15 +187,17 @@ define (require) ->
 
         it 'sends valid data to the server', ->
           @thread.save
-            title: 'Co-working spaces in Tokyo',
-            summary: 'I\'m collecting blog posts on co-working spaces in Tokyo.'
+            title:
+              en: 'Co-working spaces in Tokyo',
+            summary:
+              en: 'I\'m collecting blog posts on co-working spaces in Tokyo.'
             source_locale: 'en'
           request = @server.requests[0]
           params = JSON.parse(request.requestBody)
 
           expect(params.thread).toBeDefined()
-          expect(params.thread.title).toEqual('Co-working spaces in Tokyo')
-          expect(params.thread.summary).toEqual('I\'m collecting blog posts on co-working spaces in Tokyo.')
+          expect(params.thread.title).toEqual('en': 'Co-working spaces in Tokyo')
+          expect(params.thread.summary).toEqual('en': 'I\'m collecting blog posts on co-working spaces in Tokyo.')
           expect(params.thread.source_locale).toEqual('en')
 
         describe 'on create', ->
@@ -227,27 +229,27 @@ define (require) ->
           afterEach ->
             @thread.unbind('error', @spy)
 
-          it 'does not save if title is blank and we are in the source locale', ->
+          it 'does not save if title is blank in the source locale', ->
             I18n.locale = 'en'
-            @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
+            @thread.save(_(@data).extend('title': { 'en': ''}, 'source_locale': 'en'))
             expect(@spy).toHaveBeenCalledOnce()
             expect(@spy).toHaveBeenCalledWith(@thread,{'title':"can't be blank"})
             I18n.locale = I18n.defaultLocale
 
-          it 'does not save if title is blank and the source locale is missing', ->
-            @thread.save(_(@data).extend('title':'', 'source_locale': null))
+          it 'does not save if source locale is missing', ->
+            @thread.save(_(@data).extend('source_locale': null))
             expect(@spy).toHaveBeenCalledOnce()
             expect(@spy).toHaveBeenCalledWith(@thread,
-              {'title':"can't be blank", 'source_locale':"can't be blank"})
+              {'source_locale':"can't be blank"})
 
-          it 'does save if title is blank and we are not in the source locale', ->
+          it 'does save if title is blank in another locale', ->
             I18n.locale = 'ja'
-            @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
+            @thread.save(_(@data).extend('title': {'en': 'some title', 'ja': ''}, 'source_locale': 'en'))
             expect(@spy).not.toHaveBeenCalled()
             I18n.locale = I18n.defaultLocale
 
-          it 'does save if title is null (not included)', ->
-            @thread.save(_(@data).extend('title': null))
+          it 'does save if title in source locale is null (not included)', ->
+            @thread.save(_(@data).extend('title': { 'en': null }, 'source_locale': 'en'))
             expect(@spy).not.toHaveBeenCalled()
 
       describe 'parsing response data', ->

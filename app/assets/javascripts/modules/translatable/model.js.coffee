@@ -1,10 +1,11 @@
 define [
+  'jquery',
   'underscore',
   'backbone',
   'modules/base',
   'modules/translatable/attribute',
   'i18n'
-], (_, Backbone, Base, TranslatableAttribute, I18n) ->
+], ($, _, Backbone, Base, TranslatableAttribute, I18n) ->
   class TranslatableModel extends Base.Model
 
     translatableAttributes: []
@@ -26,6 +27,10 @@ define [
     getAttr: (attr_name) -> @getAttrInLocale(attr_name, I18n.locale)
     getAttrInSourceLocale: (attr_name) -> @getAttrInLocale(attr_name, @getSourceLocale())
     getSourceLocale: -> @get('source_locale')
+
+    set: (attributes, options) ->
+      attributes = @parse(attributes)
+      super(attributes, options)
 
     setAttrInLocale: (attr_name, locale, value) ->
       attr = @get(attr_name)

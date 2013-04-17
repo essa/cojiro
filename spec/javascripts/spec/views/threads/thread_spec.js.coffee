@@ -3,17 +3,24 @@ define (require) ->
   Thread = require('models/thread')
   ThreadView = require('views/threads/thread')
   globals = require('globals')
+  I18n = require('i18n')
 
   describe "ThreadView", ->
     beforeEach ->
+      I18n.locale = 'en'
       @thread = new Thread()
       @thread.set
-        title: "Geisha bloggers",
-        summary: "Looking for info on geisha bloggers."
+        title:
+          en: "Geisha bloggers"
+        summary:
+          en: "Looking for info on geisha bloggers."
         user:
           name: "csasaki"
           fullname: "Cojiro Sasaki"
           avatar_mini_url: "http://www.example.com/mini_csasaki.png"
+
+    afterEach ->
+      I18n.locale = I18n.defaultLocale
 
     describe "rendering", ->
       it "renders the thread", ->

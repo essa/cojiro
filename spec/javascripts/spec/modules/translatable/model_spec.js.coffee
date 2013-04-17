@@ -112,6 +112,15 @@ define (require) ->
           expect(stub).toHaveBeenCalledWith('source_locale')
 
     describe "setters", ->
+      describe "#set", ->
+        it 'overrides default to create translatable attributes', ->
+          @model.set('title': { 'en': 'title passed in as nested attribute' } )
+          expect(@model.get('title').in('en')).toEqual('title passed in as nested attribute')
+
+        it 'passes in other attributes unchanged', ->
+          @model.set('nested_attribute': { 'nested': 'value' })
+          expect(@model.get('nested_attribute')).toEqual({ 'nested': 'value' })
+
       describe "#setAttr", ->
         it 'is defined', -> expect(@model.setAttr).toBeDefined()
 

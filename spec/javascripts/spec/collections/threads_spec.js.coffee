@@ -94,4 +94,4 @@ define (require) ->
             @threads.fetch()
             @server.respond()
             expect(@threads.models.length).toEqual(@fixture.length)
-            expect(@threads.get(1).getTitle()).toEqual(@fixture[0].title)
+            expect(@threads.get(1).getTitle()).toEqual(@fixture[0].title['en'])

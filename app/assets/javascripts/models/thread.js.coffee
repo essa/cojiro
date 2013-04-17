@@ -24,8 +24,8 @@ define [
     # http://stackoverflow.com/questions/5306089/only-update-certain-model-attributes-using-backbone-js
     toJSON: () ->
       thread:
-        title: @get('title')
-        summary: @get('summary')
+        title: @get('title').toJSON()
+        summary: @get('summary').toJSON()
         source_locale: @get('source_locale')
 
     getId: -> @id
@@ -41,8 +41,9 @@ define [
     validate: (attrs) ->
       errors = super(attrs) || {}
 
-      if (attrs.title is "") and (!attrs.source_locale? or attrs.source_locale is I18n.locale)
-        errors.title = I18n.t('errors.messages.blank')
+      if (source_locale = attrs.source_locale)
+        if attrs.title? and (attrs.title.in(source_locale) is "")
+          errors.title = I18n.t('errors.messages.blank')
 
       return !_.isEmpty(errors) && errors
 
