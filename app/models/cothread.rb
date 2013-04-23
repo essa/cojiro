@@ -48,13 +48,9 @@ class Cothread < ActiveRecord::Base
     json = super(options.merge(:only => [:id, :created_at, :updated_at, :source_locale],
                                :include => [ :user ]))
     translated_attribute_names.each do |attr|
-      json.merge!(attr => in_every_locale(attr))
+      json.merge!(attr => send("#{attr}_translations"))
     end
     json
-  end
-
-  def in_every_locale(translated_attribute)
-    translations.inject({}) { |h, new| h.merge(new.locale.to_s => new.send(translated_attribute)) }
   end
 
   # define locale helper methods for translated attributes

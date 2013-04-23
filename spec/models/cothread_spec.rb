@@ -49,16 +49,6 @@ describe Cothread do
 
   end
 
-  describe "#in_every_locale" do
-    it "returns attribute translations as JSON" do
-      @cothread = FactoryGirl.create(:cothread)
-      Globalize.with_locale(:fr) { @cothread.title = "a title in French" }
-      @cothread.save!
-      @cothread.in_every_locale("title").should ==
-        { "en" => @cothread.title, "fr" => "a title in French" }
-    end
-  end
-
   describe ".new_from_json" do
     before do
       attr = { "title" =>  { "en" => "a title in English",
