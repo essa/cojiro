@@ -3,21 +3,19 @@ define (require) ->
   Backbone = require('backbone')
   I18n = require('i18n')
 
-  form = new Backbone.View
-  form.render = ->
-    @el = document.createElement('form')
-    @el.setAttribute('id', 'new_thread')
-  Form = sinon.stub().returns(form)
-
   Thread = require('models/thread')
+  NewThreadView = require('views/threads/new_thread')
 
   router = navigate: ->
 
-  context(
-    "backbone-forms": Form
-  ) ["views/threads/new_thread"], (NewThreadView) ->
+  describe "NewThreadView", ->
+    beforeEach ->
+      @submitFormSpy = sinon.spy(NewThreadView.prototype, 'submitForm')
 
-    describe "NewThreadView (with stubbed Backbone.Form constructor)", ->
+    afterEach ->
+      NewThreadView.prototype.submitForm.restore()
+
+    describe "with stubbed Thread model", ->
       beforeEach ->
         @model = new Backbone.Model
         @view = new NewThreadView(model: @model, router: router)
@@ -28,24 +26,6 @@ define (require) ->
         it "creates the new thread element", ->
           expect(@$el).toBe("#new_thread")
 
-      describe "rendering", ->
-
-        it "creates a new form", ->
-          @view.render()
-          expect(Form.calledWithNew()).toBeTruthy()
-          expect(Form).toHaveBeenCalledWith(model: @model)
-
-        it "renders the form", ->
-          spy = sinon.spy(form, 'render')
-
-          @view.render()
-          expect(spy).toHaveBeenCalledOnce()
-          expect(spy).toHaveBeenCalledWith()
-
-        it "puts the new form on the page", ->
-          @view.render()
-          expect(@view.$el).toContain('form#new_thread')
-
       describe "Template", ->
 
         it "renders the new thread form title", ->
@@ -54,11 +34,7 @@ define (require) ->
           expect(@$el).toHaveText(/Start a thread/)
           I18n.locale = I18n.defaultLocale
 
-  context(
-    "models/thread": Thread
-  ) ["views/threads/new_thread"], (NewThreadView) ->
-
-    describe "NewThreadView (with actual Backbone.Form constructor)", ->
+    describe "NewThreadView (with actual Thread model)", ->
 
       beforeEach ->
         @collection = new Backbone.Collection
@@ -71,23 +47,35 @@ define (require) ->
       describe "submitting the form data", ->
         beforeEach ->
           @view.render()
+          @$form = @view.$('form')
 
-        it "commits the form data", ->
-          spy = sinon.spy(@view.form, 'commit')
+        it 'calls submitForm', ->
+          @$form.submit()
+          expect(@submitFormSpy).toHaveBeenCalledOnce()
+
+        it 'prevents default form submission', ->
+          spyEvent = spyOnEvent(@$form, 'submit')
+          @$form.submit()
+          expect('submit').toHaveBeenPreventedOn(@$form)
+          expect(spyEvent).toHaveBeenPrevented()
+
+        it 'sets title and summary values', ->
+          @view.$("input#title").val("a title")
+          @view.$("textarea#summary").val("a summary")
           sinon.stub(@model, 'save')
-          @view.$('form').trigger('submit')
+          @$form.trigger('submit')
 
-          expect(spy).toHaveBeenCalledOnce()
-          expect(spy).toHaveBeenCalledWithExactly()
+          expect(@model.getAttr('title')).toEqual("a title")
+          expect(@model.getAttr('summary')).toEqual("a summary")
 
         it "saves the model", ->
-          sinon.stub(@view.form, 'commit').returns(null)
+          sinon.stub(@model, 'set').returns(null)
           sinon.stub(@model, 'save')
           @view.$('form').trigger('submit')
 
           expect(@model.save).toHaveBeenCalledOnce()
 
-          @view.form.commit.restore()
+          @model.set.restore()
 
       describe "after a successful save", ->
         beforeEach ->

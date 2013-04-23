@@ -2,21 +2,20 @@ define [
   'jquery'
   'underscore'
   'backbone'
-  'backbone-forms'
   'modules/base'
   'globals'
   'templates/threads/new'
   'templates/threads/form_actions'
   'templates/other/flash'
   'i18n'
-], ($, _, Backbone, Form, Base, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
+], ($, _, Backbone, Base, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
 
   class NewThreadView extends Base.View
     id: 'new_thread'
 
     buildEvents: () ->
       _(super).extend
-        "submit form" : "submit"
+        "submit form" : "submitForm"
 
     initialize: (options) ->
       @router = @options.router
@@ -24,20 +23,19 @@ define [
 
     render: ->
       @renderLayout()
-      @renderForm()
       @
 
     renderLayout: ->
       @$el.html(newThreadTemplate())
 
-    renderForm: ->
-      @form = new Form(model: @model)
-      @renderChild(@form)
-      @$el.append(@form.el)
-      @.$('fieldset').append(formActionsTemplate())
+    getValue: (field) ->
+      @.$("#" + field).val()
 
-    submit: () ->
-      errors = @form.commit()
+    submitForm: () ->
+      @model.setAttr("title", @getValue("title"))
+      @model.setAttr("summary", @getValue("summary"))
+      # TODO: render errors in form
+      errors = null
       if !(errors?)
         self = @
         @model.save({},
