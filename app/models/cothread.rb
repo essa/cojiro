@@ -17,6 +17,29 @@ class Cothread < ActiveRecord::Base
   #associations
   belongs_to :user
 
+  class << self
+    def new_from_json(attributes)
+      translated_keys = attributes.keys & translated_attribute_names.map(&:to_s)
+      new_cothread = new(attributes.except(*translated_keys))
+      translated_keys.each do |key|
+        new_cothread.send("#{key}_translations=", attributes[key])
+      end
+      new_cothread
+    end
+  end
+
+  def set_from_json(attributes)
+    if attributes && attributes.keys
+      translated_keys = attributes.keys & translated_attribute_names.map(&:to_s)
+      untranslated_keys = attributes.keys - translated_keys
+      translated_keys.each do |key|
+        attributes[key] && send("#{key}_translations=", attributes[key])
+      end
+      untranslated_keys.each { |key| send("#{key}=", attributes[key]) }
+    end
+    self
+  end
+
   def in_source_locale?
     (source_locale == Globalize.locale.to_s) or (source_locale == nil)
   end

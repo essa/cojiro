@@ -59,6 +59,46 @@ describe Cothread do
     end
   end
 
+  describe ".new_from_json" do
+    before do
+      attr = { "title" =>  { "en" => "a title in English",
+                             "ja" =>  "a title in Japanese" } }
+      @cothread = Cothread.new_from_json(attr)
+    end
+
+    it "assigns translated attributes defined as JSON objects" do
+      Globalize.with_locale(:en) { @cothread.title.should == "a title in English" }
+      Globalize.with_locale(:ja) { @cothread.title.should == "a title in Japanese" }
+    end
+  end
+
+  describe "#set_from_json" do
+    before do
+      @attr = { "title" => { "fr" => "a new title in French" } }
+      @cothread = FactoryGirl.build(:cothread)
+    end
+
+    it "replaces translated attributes with values in JSON object" do
+      Globalize.with_locale(:fr) { @cothread.title = "a title in French" }
+      @cothread.set_from_json(@attr)
+      Globalize.with_locale(:fr) { @cothread.title.should == "a new title in French" }
+    end
+
+    it "assigns non-translated attributes with values in JSON object" do
+      @attr.merge!("user_id" => "37")
+      @cothread.set_from_json(@attr)
+      @cothread.user_id.should == 37
+    end
+
+    it "ignores nil attributes" do
+      expect { @cothread.set_from_json(nil) }.not_to raise_error
+    end
+
+    it "does not assign nil-valued translated attributes" do
+      expect { @cothread.set_from_json("summary" => nil) }.not_to raise_error
+    end
+  end
+
   describe "locale helper methods" do
     before do
       @cothread = FactoryGirl.create(:cothread,
