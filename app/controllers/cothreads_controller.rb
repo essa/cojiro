@@ -17,15 +17,14 @@ class CothreadsController < ApplicationController
   end
 
   def create
-    @cothread = Cothread.new_from_json(params[:thread])
+    @cothread = Cothread.new(params[:thread])
     @cothread.user_id = current_user.id
     @cothread.save
     respond_with(@cothread)
   end
 
   def update
-    @cothread.set_from_json(params[:thread])
-    @cothread.save
+    @cothread.update_attributes(params[:thread])
     respond_with @cothread do |format|
       format.json { render :json => @cothread.to_json, :status => :accepted }
     end
