@@ -4,7 +4,7 @@ define [
   'backbone',
   'modules/base',
   'modules/translatable/templates/_in-place-field',
-  'modules/translatable/templates/_form',
+  'modules/translatable/templates/_in-place-field-form',
   'i18n'
 ], ($, _, Backbone, Base, fieldTemplate, formTemplate, I18n) ->
 
