@@ -3,14 +3,14 @@ define (require) ->
   Backbone = require('backbone')
   I18n = require('i18n')
 
-  TranslatableField = require('modules/translatable/field')
-  TranslatableModel = require('modules/translatable/model')
-  MyModel = TranslatableModel.extend(translatableAttributes: ["title", "summary"])
-  translatableFieldTemplate = require('modules/translatable/templates/_field')
+  InPlaceField = require('modules/translatable/in-place-field')
+  Model = require('modules/translatable/model')
+  MyModel = Model.extend(translatableAttributes: ["title", "summary"])
+  translatableFieldTemplate = require('modules/translatable/templates/_in-place-field')
   globals = require('globals')
   require('jquery')
 
-  describe "TranslatableField", ->
+  describe "Translatable.InPlaceField", ->
 
     beforeEach ->
       I18n.locale = 'en'
@@ -18,7 +18,7 @@ define (require) ->
     afterEach ->
       I18n.locale = I18n.defaultLocale
 
-    sharedExamplesForTranslatableFields = (context) ->
+    sharedExamplesForInPlaceFields = (context) ->
 
       describe "shared behaviour for translatable fields", ->
         beforeEach ->
@@ -37,11 +37,11 @@ define (require) ->
           @model.collection = new Backbone.Collection
           @model.collection.url = -> '/en/models'
 
-          @showFormSpy = sinon.spy(TranslatableField.prototype, 'showForm')
-          @submitFormSpy = sinon.spy(TranslatableField.prototype, 'submitForm')
-          @saveFieldSpy = sinon.spy(TranslatableField.prototype, 'saveField')
-          @renderSpy = sinon.spy(TranslatableField.prototype, 'render')
-          @view = new TranslatableField(model: @model, field: @field, editable: true)
+          @showFormSpy = sinon.spy(InPlaceField.prototype, 'showForm')
+          @submitFormSpy = sinon.spy(InPlaceField.prototype, 'submitForm')
+          @saveFieldSpy = sinon.spy(InPlaceField.prototype, 'saveField')
+          @renderSpy = sinon.spy(InPlaceField.prototype, 'render')
+          @view = new InPlaceField(model: @model, field: @field, editable: true)
           @view.render()
           @editButtonSelector = '.edit-button'
           @saveButtonSelector = '.save-button'
@@ -51,10 +51,10 @@ define (require) ->
 
         afterEach ->
           globals.currentUser = null
-          TranslatableField.prototype.showForm.restore()
-          TranslatableField.prototype.submitForm.restore()
-          TranslatableField.prototype.saveField.restore()
-          TranslatableField.prototype.render.restore()
+          InPlaceField.prototype.showForm.restore()
+          InPlaceField.prototype.submitForm.restore()
+          InPlaceField.prototype.saveField.restore()
+          InPlaceField.prototype.render.restore()
 
         describe "before edit button handler is fired", ->
           it 'has field value wrapped in correct tag', ->
@@ -215,11 +215,11 @@ define (require) ->
 
       describe "for a model in my locale", ->
         beforeEach -> sharedContext.model = model_in_my_locale
-        sharedExamplesForTranslatableFields(sharedContext)
+        sharedExamplesForInPlaceFields(sharedContext)
 
       describe "for a model in another locale", ->
         beforeEach -> sharedContext.model = model_in_another_locale
-        sharedExamplesForTranslatableFields(sharedContext)
+        sharedExamplesForInPlaceFields(sharedContext)
 
     describe "textarea", ->
       sharedContext =
@@ -228,8 +228,8 @@ define (require) ->
 
       describe "for a model in my locale", ->
         beforeEach -> sharedContext.model = model_in_my_locale
-        sharedExamplesForTranslatableFields(sharedContext)
+        sharedExamplesForInPlaceFields(sharedContext)
 
       describe "for a model in another locale", ->
         beforeEach -> sharedContext.model = model_in_another_locale
-        sharedExamplesForTranslatableFields(sharedContext)
+        sharedExamplesForInPlaceFields(sharedContext)

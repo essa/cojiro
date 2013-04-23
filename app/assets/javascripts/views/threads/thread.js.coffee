@@ -21,8 +21,8 @@ define [
     initialize: ->
       super
       @addLinkModalView = new AddLinkModal
-      @titleField = new Translatable.Field(model: @model, field: "title", editable: globals.currentUser?)
-      @summaryField = new Translatable.Field(model: @model, field: "summary", editable: globals.currentUser?)
+      @titleField = new Translatable.InPlaceField(model: @model, field: "title", editable: globals.currentUser?)
+      @summaryField = new Translatable.InPlaceField(model: @model, field: "summary", editable: globals.currentUser?)
 
     render: ->
       @$el.html(showThreadTemplate(model: @model))

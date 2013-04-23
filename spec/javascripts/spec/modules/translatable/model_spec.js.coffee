@@ -1,11 +1,11 @@
 define (require) ->
 
-  TranslatableModel = require('modules/translatable/model')
-  TranslatableAttribute = require('modules/translatable/attribute')
+  Model = require('modules/translatable/model')
+  Attribute = require('modules/translatable/attribute')
   I18n = require('i18n')
-  MyModel = TranslatableModel.extend( translatableAttributes: ["title", "summary"] )
+  MyModel = Model.extend( translatableAttributes: ["title", "summary"] )
 
-  describe "TranslatableModel", ->
+  describe "Translatable.Model", ->
 
     beforeEach ->
       I18n.locale = 'en'
@@ -14,13 +14,13 @@ define (require) ->
 
     describe 'defaults', ->
       it 'sets translatedAttributes to empty array', ->
-        @model = new TranslatableModel
+        @model = new Model
         expect(@model.translatableAttributes).toEqual([])
 
     describe 'initialization', ->
       it 'creates translatable attribute objects for each attribute', ->
-        expect(@model.get("title") instanceof TranslatableAttribute).toBeTruthy()
-        expect(@model.get("summary") instanceof TranslatableAttribute).toBeTruthy()
+        expect(@model.get("title") instanceof Attribute).toBeTruthy()
+        expect(@model.get("summary") instanceof Attribute).toBeTruthy()
 
       it 'sets initial value of translatable attributes if passed in', ->
         @newModel = new MyModel(source_locale: "ja", title: { en: "title in English" })
