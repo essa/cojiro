@@ -29,7 +29,7 @@ define (require) ->
       beforeEach ->
         @view = new Form(model: @model)
 
-      it "creates a translatable form", ->
+      it "creates a form", ->
         $el = @view.$el
         expect($el).toBe('form')
 
@@ -41,3 +41,15 @@ define (require) ->
 
       it "throws error if model is not a backbone model", ->
         expect(-> new Form(model: "foo")).toThrow("Translatable.Form's model must be a Backbone.Model.")
+
+    describe "rendering", ->
+      beforeEach ->
+        @view = new Form(model: @model)
+
+      it "renders form html", ->
+        sinon.stub(@view, 'html').returns('some html')
+        @view.render()
+        expect(@view.$el).toHaveHtml('some html')
+
+      it "returns view", ->
+        expect(@view.render()).toBe(@view)

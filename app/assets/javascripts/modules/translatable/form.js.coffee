@@ -27,3 +27,9 @@ define [
         throw new Error('Translatable.Form needs a model to work with.')
       if !(@model instanceof Backbone.Model)
         throw new Error("Translatable.Form's model must be a Backbone.Model.")
+
+    render: ->
+      @$el.html(@html())
+      @
+
+    html: ->
