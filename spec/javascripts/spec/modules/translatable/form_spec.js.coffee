@@ -27,7 +27,6 @@ define (require) ->
 
     describe "instantiation", ->
       beforeEach ->
-        MyForm = _(Form).extend(options: template: "a template")
         @view = new Form(model: @model)
 
       it "creates a translatable form", ->
