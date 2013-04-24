@@ -3,10 +3,6 @@ require 'spec_helper'
 describe CothreadsController do
   include MockModels
   let(:user) { FactoryGirl.create(:user) }
-  let(:translated_attributes) do
-    { "title" => { "en" => "a title in English", "ja" => "a title in Japanese" },
-      "summary" => { "en" => "a summary in English", "ja" => "a summary in Japanese" } }
-  end
 
   context "HTML" do
     before do
@@ -85,13 +81,14 @@ describe CothreadsController do
           # on the client-side, 'thread' is used instead of 'cothread'
           it "creates a new thread" do
             expect {
-              post :create, thread: FactoryGirl.attributes_for(:cothread, translated_attributes), :format => :json
+              post :create, thread: FactoryGirl.attributes_for(:cothread), :format => :json
             }.to change(Cothread, :count).by(1)
           end
 
           it "returns the new thread" do
-            post :create, thread: FactoryGirl.attributes_for(:cothread, translated_attributes), :format => :json
-            JSON(response.body).should include(translated_attributes)
+            attr = FactoryGirl.attributes_for(:cothread)
+            post :create, thread: attr, :format => :json
+            JSON(response.body).should include(attr.stringify_keys)
           end
 
         end
@@ -107,32 +104,22 @@ describe CothreadsController do
         context "with valid params" do
 
           it "locates the requested @cothread" do
-            put :update,
-              id: @cothread.id,
-              thread: FactoryGirl.attributes_for(:cothread, translated_attributes),
-              format: :json
+            put :update, id: @cothread.id, thread: FactoryGirl.attributes_for(:cothread), format: :json
             assigns(:cothread).should eq(@cothread)
           end
 
           it "updates the thread" do
-            put :update,
-              id: @cothread.id,
-              thread: FactoryGirl.attributes_for(:cothread, { "summary" => nil, "title" => { "en" => "a new title" }}),
-              format: :json
+            put :update, id: @cothread.id, thread: FactoryGirl.attributes_for(:cothread, title: { "en" =>  "a new title" }), format: :json
             assigns(:cothread).title.should eq("a new title")
           end
 
           it "returns the new thread" do
-            attr = FactoryGirl.attributes_for(:cothread, { "title" => { "en" => "a new title" }})
-            attr.delete(:summary)
+            attr = FactoryGirl.attributes_for(:cothread, title: { "en" => "a new title" })
             put :update, id: @cothread.id, thread: attr, format: :json
             JSON(response.body).should include(attr.stringify_keys)
           end
         end
       end
-
     end
-
   end
-
 end
