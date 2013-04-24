@@ -12,7 +12,7 @@ define [
 
     initialize: (attributes, options) ->
       if _.isArray(@translatableAttributes)
-        self = this
+        self = @
         _.each @translatableAttributes, (attr) ->
           self.set(attr, new TranslatableAttribute(_.isObject(attributes) && attributes[attr]))
 
