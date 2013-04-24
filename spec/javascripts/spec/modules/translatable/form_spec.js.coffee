@@ -42,6 +42,15 @@ define (require) ->
       it "throws error if model is not a backbone model", ->
         expect(-> new Form(model: "foo")).toThrow("Translatable.Form's model must be a Backbone.Model.")
 
+      it "throws error if model has no schema", ->
+        expect(-> new Form(model: new Backbone.Model)).toThrow("Translatable.Form's model must have a schema.")
+
+      it "throws error if model has a schema that is not a function", ->
+        expect(-> new Form(model: _(new Backbone.Model).extend(schema: "foo"))).toThrow("Translatable.Form's model schema must be a function.")
+
+      it "does not raise any error if passed a backbone model with a schema", ->
+        expect(-> new Form(model: _(new Backbone.Model).extend(schema: ->))).not.toThrow()
+
     describe "rendering", ->
       beforeEach ->
         @view = new Form(model: @model)
