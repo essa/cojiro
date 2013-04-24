@@ -37,3 +37,22 @@ define [
       @
 
     html: ->
+      @options.template(items: @getItems())
+
+    getItems: ->
+      self = @
+      schema = @model.schema()
+      keys = _(schema).keys()
+
+      _(keys).map (key) ->
+        type = schema[key]['type']
+        value = self.model.get(key)
+        {
+          type: type
+          html: self.getHtml(key, value, type)
+          label: key
+          value: value
+          cid: self.cid
+        }
+
+     getHtml: ->

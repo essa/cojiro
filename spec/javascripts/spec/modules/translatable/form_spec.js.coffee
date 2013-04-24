@@ -17,11 +17,7 @@ define (require) ->
       @model = new MyModel
       _(@model).extend
         id: "123"
-        schema: ->
-          title:
-            type: 'Text'
-          summary:
-            type: 'TextArea'
+        schema: -> {}
         @model.collection = new Backbone.Collection
         @model.collection.url = -> '/en/models'
 
@@ -62,3 +58,33 @@ define (require) ->
 
       it "returns view", ->
         expect(@view.render()).toBe(@view)
+
+    describe "#html", ->
+      beforeEach ->
+        @view = new Form(model: @model)
+
+      it "calls getItems with schema keys", ->
+        sinon.stub(@view, 'getItems').returns(null)
+        @view.html()
+        expect(@view.getItems).toHaveBeenCalledOnce()
+
+      it "inserts items into template", ->
+        sinon.stub(@view, 'getItems').returns("items")
+        template = sinon.stub()
+        @view.options.template = template
+        @view.html()
+        expect(template).toHaveBeenCalledOnce()
+        expect(template).toHaveBeenCalledWith(items: "items")
+
+    describe "#getItems", ->
+      it "maps elements to items", ->
+        _(@model).extend(
+          schema: -> attribute1: type: 'Text'
+        )
+        sinon.stub(@model, 'get').withArgs('attribute1').returns("a value")
+        @view = new Form(model: @model)
+        @view.cid = '123'
+        sinon.stub(@view, 'getHtml').returns('html')
+        expect(@view.getItems()).toEqual([
+          { type: 'Text', html: 'html', label: 'attribute1', value: 'a value', cid: '123' }
+        ])
