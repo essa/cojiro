@@ -63,10 +63,11 @@ define (require) ->
       beforeEach ->
         @view = new Form(model: @model)
 
-      it "calls getItems with schema keys", ->
-        sinon.stub(@view, 'getItems').returns(null)
+      it "calls getItems", ->
+        sinon.stub(@view, 'getItems')
         @view.html()
         expect(@view.getItems).toHaveBeenCalledOnce()
+        expect(@view.getItems).toHaveBeenCalledWithExactly()
 
       it "inserts items into template", ->
         sinon.stub(@view, 'getItems').returns("items")
@@ -74,17 +75,30 @@ define (require) ->
         @view.options.template = template
         @view.html()
         expect(template).toHaveBeenCalledOnce()
-        expect(template).toHaveBeenCalledWith(items: "items")
+        expect(template).toHaveBeenCalledWithExactly(items: "items")
 
     describe "#getItems", ->
-      it "maps elements to items", ->
+      beforeEach ->
         _(@model).extend(
-          schema: -> attribute1: type: 'Text'
+          schema: ->
+            attribute1: type: 'Text'
+            attribute2: type: 'TextArea'
         )
-        sinon.stub(@model, 'get').withArgs('attribute1').returns("a value")
+        sinon.stub(@model, 'get', (arg) ->
+          switch arg
+            when 'attribute1' then 'value 1'
+            when 'attribute2' then 'value 2'
+        )
         @view = new Form(model: @model)
         @view.cid = '123'
         sinon.stub(@view, 'getHtml').returns('html')
+
+      it "maps elements to items", ->
         expect(@view.getItems()).toEqual([
-          { type: 'Text', html: 'html', label: 'attribute1', value: 'a value', cid: '123' }
+          { type: 'Text', html: 'html', label: 'attribute1', value: 'value 1', cid: '123' }
+          { type: 'TextArea', html: 'html', label: 'attribute2', value: 'value 2', cid: '123' }
         ])
+
+      it "calls getHtml on each schema item", ->
+        @view.getItems()
+        expect(@view.getHtml).toHaveBeenCalledTwice()
