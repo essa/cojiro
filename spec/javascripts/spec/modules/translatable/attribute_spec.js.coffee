@@ -1,11 +1,11 @@
 define (require) ->
 
-  TranslatableAttribute = require('modules/translatable/attribute')
+  Attribute = require('modules/translatable/attribute')
   I18n = require('i18n')
 
-  describe "TranslatableAttribute", ->
+  describe "Translatable.Attribute", ->
     beforeEach ->
-      @attribute = new TranslatableAttribute
+      @attribute = new Attribute
 
     it "aliases 'get' to 'in'", ->
       stub = sinon.stub(@attribute, "get").returns("Attribute in English")
