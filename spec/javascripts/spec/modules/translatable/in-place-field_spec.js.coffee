@@ -7,7 +7,6 @@ define (require) ->
   Model = require('modules/translatable/model')
   MyModel = Model.extend(translatableAttributes: ["title", "summary"])
   translatableFieldTemplate = require('modules/translatable/templates/_in-place-field')
-  globals = require('globals')
   require('jquery')
 
   describe "Translatable.InPlaceField", ->
@@ -22,7 +21,6 @@ define (require) ->
 
       describe "shared behaviour for translatable fields", ->
         beforeEach ->
-          globals.currentUser = @fixtures.User.valid
           @field = context.field
           @type = context.type || 'input'
           @model = new MyModel
@@ -50,7 +48,6 @@ define (require) ->
           @originalFieldText = @view.$el.text().trim()
 
         afterEach ->
-          globals.currentUser = null
           InPlaceField.prototype.showForm.restore()
           InPlaceField.prototype.submitForm.restore()
           InPlaceField.prototype.saveField.restore()
