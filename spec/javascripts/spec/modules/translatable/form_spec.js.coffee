@@ -102,3 +102,5 @@ define (require) ->
       it "calls getHtml on each schema item", ->
         @view.getItems()
         expect(@view.getHtml).toHaveBeenCalledTwice()
+        expect(@view.getHtml).toHaveBeenCalledWith('attribute1', 'value 1', 'Text')
+        expect(@view.getHtml).toHaveBeenCalledWith('attribute2', 'value 2', 'TextArea')
