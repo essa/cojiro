@@ -3,6 +3,7 @@ define (require) ->
   Backbone = require('backbone')
   Form = require('modules/translatable/form')
   Model = require('modules/translatable/model')
+  Attribute = require('modules/translatable/attribute')
   MyModel = Model.extend(translatableAttributes: ["title", "summary"])
 
   describe "Translatable.Form", ->
@@ -78,45 +79,83 @@ define (require) ->
         expect(template).toHaveBeenCalledWithExactly(items: "items")
 
     describe "#getItems", ->
-      beforeEach ->
-        sinon.stub(@model, 'get', (arg) ->
-          switch arg
-            when 'attribute1' then 'value 1'
-            when 'attribute2' then 'value 2'
-        )
-        @view = new Form(model: @model)
-        @view.cid = '123'
-        sinon.stub(@view, 'getHtml').returns('html')
 
-      it "maps elements to items", ->
-        _(@model).extend
-          schema: ->
-            attribute1: type: 'Text'
-            attribute2: type: 'TextArea'
-        expect(@view.getItems()).toEqual([
-          { type: 'Text', html: 'html', label: 'attribute1', value: 'value 1', cid: '123' }
-          { type: 'TextArea', html: 'html', label: 'attribute2', value: 'value 2', cid: '123' }
-        ])
+      describe "untranslated attributes", ->
+        beforeEach ->
+          sinon.stub(@model, 'get', (arg) ->
+            switch arg
+              when 'attribute1' then 'value 1'
+              when 'attribute2' then 'value 2'
+          )
+          @view = new Form(model: @model)
+          @view.cid = '123'
+          sinon.stub(@view, 'getHtml').returns('html')
 
-      it "assigns label if title is defined in schema", ->
-        _(@model).extend
-          schema: ->
-            attribute1:
-              title: 'Attribute 1'
-              type: 'Text'
-            attribute2: type: 'TextArea'
-        expect(@view.getItems()[0]['label']).toEqual('Attribute 1')
-        expect(@view.getItems()[1]['label']).toEqual('attribute2')
+        it "maps elements to items", ->
+          _(@model).extend
+            schema: ->
+              attribute1: type: 'Text'
+              attribute2: type: 'TextArea'
+          expect(@view.getItems()).toEqual([
+            { type: 'Text', html: 'html', label: 'attribute1', value: 'value 1', cid: '123', translated: false }
+            { type: 'TextArea', html: 'html', label: 'attribute2', value: 'value 2', cid: '123', translated: false }
+          ])
 
-      it "calls getHtml on each schema item", ->
-        _(@model).extend
-          schema: ->
-            attribute1: type: 'Text'
-            attribute2: type: 'TextArea'
-        @view.getItems()
-        expect(@view.getHtml).toHaveBeenCalledTwice()
-        expect(@view.getHtml).toHaveBeenCalledWith('attribute1', 'value 1', 'Text')
-        expect(@view.getHtml).toHaveBeenCalledWith('attribute2', 'value 2', 'TextArea')
+        it "assigns label if title is defined in schema", ->
+          _(@model).extend
+            schema: ->
+              attribute1:
+                title: 'Attribute 1'
+                type: 'Text'
+              attribute2: type: 'TextArea'
+          items = @view.getItems()
+          expect(items[0]['label']).toEqual('Attribute 1')
+          expect(items[1]['label']).toEqual('attribute2')
+
+        it "calls getHtml on each schema item", ->
+          _(@model).extend
+            schema: ->
+              attribute1: type: 'Text'
+              attribute2: type: 'TextArea'
+          @view.getItems()
+          expect(@view.getHtml).toHaveBeenCalledTwice()
+          expect(@view.getHtml).toHaveBeenCalledWith('attribute1', 'value 1', 'Text')
+          expect(@view.getHtml).toHaveBeenCalledWith('attribute2', 'value 2', 'TextArea')
+
+      describe "translated attributes", ->
+        beforeEach ->
+          @view = new Form(model: @model)
+          @view.cid = '123'
+          _(@model).extend
+            schema: ->
+              title:
+                type: 'Text'
+                title: 'Title'
+          sinon.stub(@view, 'getHtml').returns('html')
+          sinon.stub(@model, 'get', (arg) -> new Attribute(en: "title in English", ja: "title in Japanese"))
+
+        it "sets translated to true", ->
+          expect(@view.getItems()[0]['translated']).toBeTruthy()
+
+        it "maps translated attributes to nested items", ->
+          expect(@view.getItems()).toEqual([
+            type: 'Text'
+            html:
+              en: 'html'
+              ja: 'html'
+            label: 'Title'
+            value:
+              en: 'title in English'
+              ja: 'title in Japanese'
+            cid: '123'
+            translated: true
+          ])
+
+        it "calls getHtml on each translation of schema items", ->
+          @view.getItems()
+          expect(@view.getHtml).toHaveBeenCalledTwice()
+          expect(@view.getHtml).toHaveBeenCalledWith('title-en', 'title in English', 'Text')
+          expect(@view.getHtml).toHaveBeenCalledWith('title-ja', 'title in Japanese', 'Text')
 
     describe "#getHtml", ->
       beforeEach ->

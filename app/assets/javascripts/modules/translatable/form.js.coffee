@@ -42,18 +42,28 @@ define [
     getItems: ->
       self = @
       schema = @model.schema()
+      translatableAttributes = @model.translatableAttributes
       keys = _(schema).keys()
 
       _(keys).map (key) ->
         type = schema[key]['type']
         label = schema[key]['title'] || key
         value = self.model.get(key)
+
+        if translated = translatableAttributes && (key in translatableAttributes)
+          value = value.toJSON()
+          html = {}
+          _(value).each (val, lang) ->
+            html[lang] = self.getHtml(key + '-' + lang, val, type)
+        else
+          html = self.getHtml(key, value, type)
         {
           type: type
-          html: self.getHtml(key, value, type)
+          html: html
           label: label
           value: value
           cid: self.cid
+          translated: translated
         }
 
      getHtml: (key, value, type) ->
