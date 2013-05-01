@@ -11,25 +11,29 @@ define [
 
     options:
       template:
-        _.template([
-          '<% _.each(items, function(item) { %>',
-          ' <div class="clearfix">',
-          '   <% if (item.translated == true) { %>',
-          '     <% _.each(item.html, function(html, locale) { %>',
-          '       <div class="input">',
-          '         <label><%= locale %></label>',
-          '         <%= html %>',
-          '       </div>',
-          '     <% }); %>',
-          '   <% } else { %>',
-          '     <label for="input-<%= item.cid %>-<%= item.label %>"><%= item.label %></label>',
-          '     <div class="input">',
-          '       <%= item.html %>',
-          '     </div>',
-          '   <% }; %>',
-          ' </div>',
-          '<% }); %>'
-        ].join('\n'))
+        _.template '
+          <% _.each(items, function(item) { %>
+            <div class="clearfix">
+              <% if (item.translated == true) { %>
+                <% _.each(item.html, function(html, locale) { %>
+                  <div class="input">
+                    <label>
+                      <%= locale %>
+                    </label>
+                    <%= html %>
+                  </div>
+                <% }); %>
+              <% } else { %>
+                <label for="input-<%= item.cid %>-<%= item.label %>">
+                  <%= item.label %>
+                </label>
+                <div class="input">
+                  <%= item.html %>
+                </div>
+              <% }; %>
+            </div>
+          <% }); %>
+        '
 
     initialize: ->
       if !@model
