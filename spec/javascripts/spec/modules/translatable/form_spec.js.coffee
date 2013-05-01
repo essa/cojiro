@@ -98,8 +98,8 @@ define (require) ->
               attribute1: type: 'Text'
               attribute2: type: 'TextArea'
           expect(@view.getItems()).toEqual([
-            { type: 'Text', html: 'html', label: 'attribute1', value: 'value 1', cid: '123', translated: false }
-            { type: 'TextArea', html: 'html', label: 'attribute2', value: 'value 2', cid: '123', translated: false }
+            { html: 'html', label: 'attribute1', translated: false }
+            { html: 'html', label: 'attribute2', translated: false }
           ])
 
         it "assigns label if title is defined in schema", ->
@@ -140,15 +140,10 @@ define (require) ->
 
         it "maps translated attributes to items", ->
           expect(@view.getItems()).toEqual([
-            type: 'Text'
             html:
               en: 'html'
               ja: 'html'
             label: 'Title'
-            value:
-              en: 'title in English'
-              ja: 'title in Japanese'
-            cid: '123'
             translated: true
           ])
 

@@ -67,11 +67,8 @@ define [
         else
           html = self.getHtml(key, value, type)
         {
-          type: type
           html: html
           label: label
-          value: value
-          cid: self.cid
           translated: translated
         }
 
