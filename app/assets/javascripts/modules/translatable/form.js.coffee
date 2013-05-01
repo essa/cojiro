@@ -78,12 +78,12 @@ define [
      getHtml: (key, value, type) ->
        pattern = switch(type)
          when 'Text'
-           '<input class="xlarge" id="input-:cid-:label" name="input-:cid-:label" size="30" type="text" value=":value" />'
+           '<input class="xlarge" id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" />'
          when 'TextArea'
-           '<textarea class="xlarge" id="input-:cid-:label" name="input-:cid-:label" size="30" type="text" value=":value" />'
+           '<textarea class="xlarge" id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" />'
        return pattern && pattern
            .replace(/:cid/g, @cid)
-           .replace(/:label/g, key)
+           .replace(/:key/g, key)
            .replace(/:value/g, value)
 
      serialize: =>
