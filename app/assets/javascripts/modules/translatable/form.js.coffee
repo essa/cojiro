@@ -46,11 +46,12 @@ define [
 
       _(keys).map (key) ->
         type = schema[key]['type']
+        label = schema[key]['title'] || key
         value = self.model.get(key)
         {
           type: type
           html: self.getHtml(key, value, type)
-          label: key
+          label: label
           value: value
           cid: self.cid
         }

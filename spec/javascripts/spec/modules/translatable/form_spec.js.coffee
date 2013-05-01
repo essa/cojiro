@@ -79,11 +79,6 @@ define (require) ->
 
     describe "#getItems", ->
       beforeEach ->
-        _(@model).extend(
-          schema: ->
-            attribute1: type: 'Text'
-            attribute2: type: 'TextArea'
-        )
         sinon.stub(@model, 'get', (arg) ->
           switch arg
             when 'attribute1' then 'value 1'
@@ -94,12 +89,30 @@ define (require) ->
         sinon.stub(@view, 'getHtml').returns('html')
 
       it "maps elements to items", ->
+        _(@model).extend
+          schema: ->
+            attribute1: type: 'Text'
+            attribute2: type: 'TextArea'
         expect(@view.getItems()).toEqual([
           { type: 'Text', html: 'html', label: 'attribute1', value: 'value 1', cid: '123' }
           { type: 'TextArea', html: 'html', label: 'attribute2', value: 'value 2', cid: '123' }
         ])
 
+      it "assigns label if title is defined in schema", ->
+        _(@model).extend
+          schema: ->
+            attribute1:
+              title: 'Attribute 1'
+              type: 'Text'
+            attribute2: type: 'TextArea'
+        expect(@view.getItems()[0]['label']).toEqual('Attribute 1')
+        expect(@view.getItems()[1]['label']).toEqual('attribute2')
+
       it "calls getHtml on each schema item", ->
+        _(@model).extend
+          schema: ->
+            attribute1: type: 'Text'
+            attribute2: type: 'TextArea'
         @view.getItems()
         expect(@view.getHtml).toHaveBeenCalledTwice()
         expect(@view.getHtml).toHaveBeenCalledWith('attribute1', 'value 1', 'Text')
