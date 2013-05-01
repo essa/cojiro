@@ -1,6 +1,7 @@
 define (require) ->
 
   Backbone = require('backbone')
+  I18n = require('i18n')
   Form = require('modules/translatable/form')
   Model = require('modules/translatable/model')
   Attribute = require('modules/translatable/attribute')
