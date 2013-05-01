@@ -62,6 +62,24 @@ define [
          when 'TextArea'
            '<textarea class="xlarge" id="input-:cid-:label" name="input-:cid-:label" size="30" type="text" value=":value" />'
        return pattern && pattern
-           .replace(/:cid/g, this.cid)
+           .replace(/:cid/g, @cid)
            .replace(/:label/g, key)
            .replace(/:value/g, value)
+
+     serialize: =>
+       form = if @tagName == 'form' then @$el else @$el.find('form')
+       throw new Error('Serialize must operate on a form element.') unless form.length
+       cid = @cid
+       self = @
+       o = {}
+       _(form.serializeArray()).each (a, i) ->
+         name = a.name.replace('input-' + cid + '-', '')
+         o[name] = self.value(a.value)
+       return o
+
+     value: (val) ->
+       switch(val)
+         when 'true' then true
+         when 'false' then false
+         when 'null' then null
+         else val

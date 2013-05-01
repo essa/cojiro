@@ -115,3 +115,26 @@ define (require) ->
 
       it "creates correct html for TextArea type", ->
         expect(@view.getHtml("attribute", "value", "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
+
+    describe "#serialize", ->
+      beforeEach ->
+        _(@model).extend(
+          schema: ->
+            attribute1: type: 'Text'
+            attribute2: type: 'TextArea'
+        )
+
+      it "throws error if no form tag is found", ->
+        @view = new Form(tagName: 'div', model: @model)
+        @view.tagName = 'div'
+        expect(@view.serialize).toThrow("Serialize must operate on a form element.")
+
+      it "serializes form data", ->
+        @view = new Form(model: @model)
+        @view.cid = '123'
+        @view.render()
+        @view.$el.find('input#input-123-attribute1').val('a new value')
+        expect(@view.serialize()).toEqual(
+          'attribute1': 'a new value'
+          'attribute2': ''
+        )
