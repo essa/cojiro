@@ -138,7 +138,7 @@ define (require) ->
         it "sets translated to true", ->
           expect(@view.getItems()[0]['translated']).toBeTruthy()
 
-        it "maps translated attributes to nested items", ->
+        it "maps translated attributes to items", ->
           expect(@view.getItems()).toEqual([
             type: 'Text'
             html:
@@ -170,24 +170,50 @@ define (require) ->
         expect(@view.getHtml("attribute", "value", "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
 
     describe "#serialize", ->
-      beforeEach ->
-        _(@model).extend(
-          schema: ->
-            attribute1: type: 'Text'
-            attribute2: type: 'TextArea'
-        )
-
       it "throws error if no form tag is found", ->
         @view = new Form(tagName: 'div', model: @model)
         @view.tagName = 'div'
         expect(@view.serialize).toThrow("Serialize must operate on a form element.")
 
-      it "serializes form data", ->
-        @view = new Form(model: @model)
-        @view.cid = '123'
-        @view.render()
-        @view.$el.find('input#input-123-attribute1').val('a new value')
-        expect(@view.serialize()).toEqual(
-          'attribute1': 'a new value'
-          'attribute2': ''
-        )
+      describe "untranslated data", ->
+        beforeEach ->
+          _(@model).extend(
+            schema: ->
+              attribute1: type: 'Text'
+              attribute2: type: 'TextArea'
+          )
+
+        it "serializes form data", ->
+          @view = new Form(model: @model)
+          @view.cid = '123'
+          @view.render()
+          @view.$el.find('input#input-123-attribute1').val('a new value')
+          @view.$el.find('textarea#input-123-attribute2').val('another new value')
+          expect(@view.serialize()).toEqual(
+            attribute1: 'a new value'
+            attribute2: 'another new value'
+          )
+
+      describe "translated data", ->
+        beforeEach ->
+          _(@model).extend(
+            schema: ->
+              title: type: 'Text'
+              summary: type: 'TextArea'
+          )
+          sinon.stub(@model, 'get', (arg) -> new Attribute(en: "", ja: ""))
+
+        it "serializes translated form data", ->
+          @view = new Form(model: @model)
+          @view.cid = '123'
+          @view.render()
+          @view.$el.find('input#input-123-title-en').val('a value in English')
+          @view.$el.find('input#input-123-title-ja').val('a value in Japanese')
+          expect(@view.serialize()).toEqual(
+            title:
+              en: 'a value in English'
+              ja: 'a value in Japanese'
+            summary:
+              en: ''
+              ja: ''
+          )

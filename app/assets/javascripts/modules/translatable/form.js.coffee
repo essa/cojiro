@@ -14,10 +14,19 @@ define [
         _.template([
           '<% _.each(items, function(item) { %>',
           ' <div class="clearfix">',
-          '   <label for="input-<%= item.cid %>-<%= item.label %>"><%= item.label %></label>',
-          '   <div class="input">',
-          '     <%= item.html %>',
-          '   </div>',
+          '   <% if (item.translated == true) { %>',
+          '     <% _.each(item.html, function(html, locale) { %>',
+          '       <div class="input">',
+          '         <label><%= locale %></label>',
+          '         <%= html %>',
+          '       </div>',
+          '     <% }); %>',
+          '   <% } else { %>',
+          '     <label for="input-<%= item.cid %>-<%= item.label %>"><%= item.label %></label>',
+          '     <div class="input">',
+          '       <%= item.html %>',
+          '     </div>',
+          '   <% }; %>',
           ' </div>',
           '<% }); %>'
         ].join('\n'))
@@ -85,7 +94,12 @@ define [
        o = {}
        _(form.serializeArray()).each (a, i) ->
          name = a.name.replace('input-' + cid + '-', '')
-         o[name] = self.value(a.value)
+         [attribute, locale] = name.split('-')
+         if locale
+           o[attribute] ||= {}
+           o[attribute][locale] = self.value(a.value)
+         else
+           o[name] = self.value(a.value)
        return o
 
      value: (val) ->
