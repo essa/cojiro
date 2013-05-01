@@ -63,7 +63,7 @@ define [
           value = value.toJSON()
           html = {}
           _(value).each (val, lang) ->
-            html[lang] = self.getHtml(key + '-' + lang, val, type)
+            html[lang] = self.getHtml(key, val, type, lang)
         else
           html = self.getHtml(key, value, type)
         {
@@ -75,16 +75,18 @@ define [
           translated: translated
         }
 
-     getHtml: (key, value, type) ->
+     getHtml: (key, value, type, lang = "") ->
+       key = (key + '-' + lang) if lang
        pattern = switch(type)
          when 'Text'
-           '<input class="xlarge" id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" />'
+           '<input class="xlarge" id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>'
          when 'TextArea'
-           '<textarea class="xlarge" id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" />'
+           '<textarea class="xlarge" id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>'
        return pattern && pattern
            .replace(/:cid/g, @cid)
            .replace(/:key/g, key)
            .replace(/:value/g, value)
+           .replace(/:lang/g, lang && ('lang="' + lang + '"'))
 
      serialize: =>
        form = if @tagName == 'form' then @$el else @$el.find('form')

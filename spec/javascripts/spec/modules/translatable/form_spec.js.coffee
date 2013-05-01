@@ -155,19 +155,24 @@ define (require) ->
         it "calls getHtml on each translation of schema items", ->
           @view.getItems()
           expect(@view.getHtml).toHaveBeenCalledTwice()
-          expect(@view.getHtml).toHaveBeenCalledWith('title-en', 'title in English', 'Text')
-          expect(@view.getHtml).toHaveBeenCalledWith('title-ja', 'title in Japanese', 'Text')
+          expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in English', 'Text', 'en')
+          expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', 'ja')
 
     describe "#getHtml", ->
       beforeEach ->
         @view = new Form(model: @model)
         @view.cid = '123'
 
-      it "creates correct html for Text type", ->
-        expect(@view.getHtml("attribute", "value", "Text")).toEqual('<input class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
+      describe "untranslated attributes", ->
+        it "creates correct html for Text type", ->
+          expect(@view.getHtml("attribute", "value", "Text")).toEqual('<input class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
 
-      it "creates correct html for TextArea type", ->
-        expect(@view.getHtml("attribute", "value", "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
+        it "creates correct html for TextArea type", ->
+          expect(@view.getHtml("attribute", "value", "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
+
+      describe "translated attributes", ->
+        it "adds lang tag and appends lang to attribute name", ->
+          expect(@view.getHtml("attribute", "value", "Text", "en")).toEqual('<input class="xlarge" id="input-123-attribute-en" name="input-123-attribute-en" size="30" type="text" value="value" lang="en"/>')
 
     describe "#serialize", ->
       it "throws error if no form tag is found", ->
