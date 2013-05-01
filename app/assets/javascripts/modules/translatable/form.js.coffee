@@ -55,4 +55,13 @@ define [
           cid: self.cid
         }
 
-     getHtml: ->
+     getHtml: (key, value, type) ->
+       pattern = switch(type)
+         when 'Text'
+           '<input class="xlarge" id="input-:cid-:label" name="input-:cid-:label" size="30" type="text" value=":value" />'
+         when 'TextArea'
+           '<textarea class="xlarge" id="input-:cid-:label" name="input-:cid-:label" size="30" type="text" value=":value" />'
+       return pattern && pattern
+           .replace(/:cid/g, this.cid)
+           .replace(/:label/g, key)
+           .replace(/:value/g, value)

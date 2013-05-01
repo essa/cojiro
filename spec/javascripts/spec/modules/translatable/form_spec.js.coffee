@@ -104,3 +104,14 @@ define (require) ->
         expect(@view.getHtml).toHaveBeenCalledTwice()
         expect(@view.getHtml).toHaveBeenCalledWith('attribute1', 'value 1', 'Text')
         expect(@view.getHtml).toHaveBeenCalledWith('attribute2', 'value 2', 'TextArea')
+
+    describe "#getHtml", ->
+      beforeEach ->
+        @view = new Form(model: @model)
+        @view.cid = '123'
+
+      it "creates correct html for Text type", ->
+        expect(@view.getHtml("attribute", "value", "Text")).toEqual('<input class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
+
+      it "creates correct html for TextArea type", ->
+        expect(@view.getHtml("attribute", "value", "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
