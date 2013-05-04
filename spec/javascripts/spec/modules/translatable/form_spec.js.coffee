@@ -20,8 +20,6 @@ define (require) ->
       _(@model).extend
         id: "123"
         schema: -> {}
-        @model.collection = new Backbone.Collection
-        @model.collection.url = -> '/en/models'
 
     describe "instantiation", ->
       beforeEach ->
@@ -168,6 +166,39 @@ define (require) ->
       describe "translated attributes", ->
         it "adds lang tag and appends lang to attribute name", ->
           expect(@view.getHtml("attribute", "value", "Text", "en")).toEqual('<input class="xlarge" id="input-123-attribute-en" name="input-123-attribute-en" size="30" type="text" value="value" lang="en"/>')
+
+    describe "template (output)", ->
+      beforeEach ->
+        _(@model).extend(
+          schema: ->
+            attribute: type: 'Text'
+            title: type: 'Text'
+            summary: type: 'TextArea'
+        )
+        @model.set
+          attribute: 'some attribute'
+          title:
+            en: 'Title in English'
+            ja: 'Title in Japanese'
+          summary:
+            en: 'Summary in English'
+            fr: 'Summary in French'
+        @view = new Form(model: @model)
+        @view.cid = '123'
+
+      it "renders untranslated attributes", ->
+        @view.render()
+        expect(@view.$el).toContain('div.input input.xlarge#input-123-attribute[name="input-123-attribute"][type="text"][value="some attribute"]')
+
+      it "renders translated attributes", ->
+        @view.render()
+        # English
+        expect(@view.$el).toContain('div.input input.xlarge#input-123-title-en[name="input-123-title-en"][type="text"][value="Title in English"]')
+        expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-en[name="input-123-summary-en"][type="text"][value="Summary in English"]')
+        # Japanese
+        expect(@view.$el).toContain('div.input input.xlarge#input-123-title-ja[name="input-123-title-ja"][type="text"][value="Title in Japanese"]')
+        # French
+        expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-fr[name="input-123-summary-fr"][type="text"][value="Summary in French"]')
 
     describe "#serialize", ->
       it "throws error if no form tag is found", ->
