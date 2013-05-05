@@ -228,7 +228,7 @@ define (require) ->
               label: 'Title'
             summary:
               type: 'TextArea'
-              label: 'Summary'
+              label: (locale) -> 'Summary (' + locale + ')'
         )
         @model.set
           attribute: 'some attribute'
@@ -265,6 +265,14 @@ define (require) ->
           # French
           expect(@view.$el).not.toContain('div.input input.xlarge#input-123-title-fr[name="input-123-title-fr"][type="text"][value="Title in French"]')
           expect(@view.$el).not.toContain('div.input textarea.xlarge#input-123-summary-fr[name="input-123-summary-fr"][type="text"][value="Summary in French"]')
+
+        it "renders label if label is a value", ->
+          @view.render()
+          expect(@view.$el).toContain('label[for="input-123-title-en"]:contains("Title")')
+
+        it "calls function with locale as argument if label is a function", ->
+          @view.render()
+          expect(@view.$el).toContain('label[for="input-123-summary-en"]:contains("Summary (en)")')
 
     describe "#serialize", ->
       it "throws error if no form tag is found", ->

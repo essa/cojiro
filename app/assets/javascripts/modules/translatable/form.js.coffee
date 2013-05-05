@@ -17,8 +17,8 @@ define [
               <% if (item.translated == true) { %>
                 <% _.each(item.html, function(html, locale) { %>
                   <div class="input">
-                    <label>
-                      <%= locale %>
+                    <label for="input-<%= item.cid %>-<%= item.key %>-<%= locale %>">
+                      <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
                     <%= html %>
                   </div>
