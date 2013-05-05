@@ -47,10 +47,10 @@ define (require) ->
       it "does not throw any error if passed a backbone model with a schema", ->
         expect(-> new Form(model: _(new Backbone.Model).extend(schema: ->))).not.toThrow()
 
-      it "throws error if locales is not an array", ->
+      it "throws error if locales option is not an array", ->
         expect(-> new Form(model: _(new Backbone.Model).extend(schema: ->), locales: "foo")).toThrow("Translatable.Form's locales must be an array of locale strings.")
 
-      it "does not throw any error if passed array of locale strings", ->
+      it "does not throw any error if locales option is an array", ->
         expect(-> new Form(model: _(new Backbone.Model).extend(schema: ->), locales: ["foo"])).not.toThrow()
 
     describe "rendering", ->
