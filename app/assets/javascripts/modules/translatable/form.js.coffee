@@ -44,6 +44,8 @@ define [
         throw new Error("Translatable.Form's model must have a schema.")
       if !(@model.schema instanceof Function)
         throw new Error("Translatable.Form's model schema must be a function.")
+      if (@locales = @options.locales) && !(@locales instanceof Array)
+        throw new Error("Translatable.Form's locales must be an array of locale strings.")
 
     render: ->
       @$el.html(@html())
@@ -57,6 +59,7 @@ define [
       schema = @model.schema()
       translatableAttributes = @model.translatableAttributes
       keys = _(schema).keys()
+      locales = @locales || [I18n.locale]
 
       _(keys).map (key) ->
         type = schema[key]['type']
@@ -66,8 +69,8 @@ define [
         if translated = translatableAttributes && (key in translatableAttributes)
           value = value.toJSON()
           html = {}
-          _(value).each (val, lang) ->
-            html[lang] = self.getHtml(key, val, type, lang)
+          _(locales).each (locale) ->
+            html[locale] = self.getHtml(key, value[locale], type, locale)
         else
           html = self.getHtml(key, value, type)
         {

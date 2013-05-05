@@ -44,8 +44,14 @@ define (require) ->
       it "throws error if model has a schema that is not a function", ->
         expect(-> new Form(model: _(new Backbone.Model).extend(schema: "foo"))).toThrow("Translatable.Form's model schema must be a function.")
 
-      it "does not raise any error if passed a backbone model with a schema", ->
+      it "does not throw any error if passed a backbone model with a schema", ->
         expect(-> new Form(model: _(new Backbone.Model).extend(schema: ->))).not.toThrow()
+
+      it "throws error if locales is not an array", ->
+        expect(-> new Form(model: _(new Backbone.Model).extend(schema: ->), locales: "foo")).toThrow("Translatable.Form's locales must be an array of locale strings.")
+
+      it "does not throw any error if passed array of locale strings", ->
+        expect(-> new Form(model: _(new Backbone.Model).extend(schema: ->), locales: ["foo"])).not.toThrow()
 
     describe "rendering", ->
       beforeEach ->
@@ -123,34 +129,65 @@ define (require) ->
 
       describe "translated attributes", ->
         beforeEach ->
-          @view = new Form(model: @model)
-          @view.cid = '123'
           _(@model).extend
             schema: ->
               title:
                 type: 'Text'
                 title: 'Title'
-          sinon.stub(@view, 'getHtml').returns('html')
-          sinon.stub(@model, 'get', (arg) -> new Attribute(en: "title in English", ja: "title in Japanese"))
+          @model.set(
+            title:
+              en: "title in English"
+              ja: "title in Japanese"
+          )
 
-        it "sets translated to true", ->
-          expect(@view.getItems()[0]['translated']).toBeTruthy()
+        describe "with locales option unset, in Japanese locale", ->
+          beforeEach ->
+            @view = new Form(model: @model)
+            @view.cid = '123'
+            sinon.stub(@view, 'getHtml').returns('html')
+            I18n.locale = "ja"
 
-        it "maps translated attributes to items", ->
-          expect(@view.getItems()).toEqual([
-            html:
-              en: 'html'
-              ja: 'html'
-            label: 'Title'
-            translated: true
-            cid: '123'
-          ])
+          it "sets translated to true", ->
+            expect(@view.getItems()[0]['translated']).toBeTruthy()
 
-        it "calls getHtml on each translation of schema items", ->
-          @view.getItems()
-          expect(@view.getHtml).toHaveBeenCalledTwice()
-          expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in English', 'Text', 'en')
-          expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', 'ja')
+          it "maps translated attributes to items with Japanese value only", ->
+            expect(@view.getItems()).toEqual([
+              html:
+                ja: 'html'
+              label: 'Title'
+              translated: true
+              cid: '123'
+            ])
+
+          it "calls getHtml on translation of schema item in Japanese only", ->
+            @view.getItems()
+            expect(@view.getHtml).toHaveBeenCalledOnce()
+            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', 'ja')
+
+        describe "with locales option set", ->
+          beforeEach ->
+            @view = new Form(model: @model, locales: ["en", "ja"])
+            @view.cid = '123'
+            sinon.stub(@view, 'getHtml').returns('html')
+
+          it "sets translated to true", ->
+            expect(@view.getItems()[0]['translated']).toBeTruthy()
+
+          it "maps translated attributes to items with values for selected locales", ->
+            expect(@view.getItems()).toEqual([
+              html:
+                en: 'html'
+                ja: 'html'
+              label: 'Title'
+              translated: true
+              cid: '123'
+            ])
+
+          it "calls getHtml on each translation of schema items", ->
+            @view.getItems()
+            expect(@view.getHtml).toHaveBeenCalledTwice()
+            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in English', 'Text', 'en')
+            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', 'ja')
 
     describe "#getHtml", ->
       beforeEach ->
@@ -190,7 +227,7 @@ define (require) ->
           summary:
             en: 'Summary in English'
             fr: 'Summary in French'
-        @view = new Form(model: @model)
+        @view = new Form(model: @model, locales: ["en", "ja", "fr"])
         @view.cid = '123'
 
       describe "untranslated attributes", ->
@@ -253,7 +290,7 @@ define (require) ->
               title: type: 'Text'
               summary: type: 'TextArea'
           )
-          @view = new Form(model: @model)
+          @view = new Form(model: @model, locales: ["en", "ja"])
           @view.cid = '123'
 
         it "serializes translated form data", ->
@@ -273,7 +310,7 @@ define (require) ->
               ja: ''
           )
 
-        it "handles empty fields", ->
+        it "handles unset attributes", ->
           @model.set(
             title: new Attribute(en: 'a value in English')
           )
@@ -281,4 +318,8 @@ define (require) ->
           expect(@view.serialize()).toEqual({
             title:
               en: 'a value in English'
+              ja: ''
+            summary:
+              en: ''
+              ja: ''
           })
