@@ -74,6 +74,7 @@ define [
           html: html
           label: label
           translated: translated
+          cid: self.cid
         }
 
      getHtml: (key, value, type, lang = "") ->

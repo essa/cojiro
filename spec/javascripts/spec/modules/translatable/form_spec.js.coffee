@@ -96,8 +96,8 @@ define (require) ->
               attribute1: type: 'Text'
               attribute2: type: 'TextArea'
           expect(@view.getItems()).toEqual([
-            { html: 'html', label: 'attribute1', translated: false }
-            { html: 'html', label: 'attribute2', translated: false }
+            { html: 'html', label: 'attribute1', translated: false, cid: '123' }
+            { html: 'html', label: 'attribute2', translated: false, cid: '123' }
           ])
 
         it "assigns label if title is defined in schema", ->
@@ -143,6 +143,7 @@ define (require) ->
               ja: 'html'
             label: 'Title'
             translated: true
+            cid: '123'
           ])
 
         it "calls getHtml on each translation of schema items", ->
@@ -167,7 +168,7 @@ define (require) ->
         it "adds lang tag and appends lang to attribute name", ->
           expect(@view.getHtml("attribute", "value", "Text", "en")).toEqual('<input class="xlarge" id="input-123-attribute-en" name="input-123-attribute-en" size="30" type="text" value="value" lang="en"/>')
 
-    describe "template (output)", ->
+    describe "default template (output)", ->
       beforeEach ->
         _(@model).extend(
           schema: ->
@@ -186,19 +187,27 @@ define (require) ->
         @view = new Form(model: @model)
         @view.cid = '123'
 
-      it "renders untranslated attributes", ->
-        @view.render()
-        expect(@view.$el).toContain('div.input input.xlarge#input-123-attribute[name="input-123-attribute"][type="text"][value="some attribute"]')
+      describe "untranslated attributes", ->
 
-      it "renders translated attributes", ->
-        @view.render()
-        # English
-        expect(@view.$el).toContain('div.input input.xlarge#input-123-title-en[name="input-123-title-en"][type="text"][value="Title in English"]')
-        expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-en[name="input-123-summary-en"][type="text"][value="Summary in English"]')
-        # Japanese
-        expect(@view.$el).toContain('div.input input.xlarge#input-123-title-ja[name="input-123-title-ja"][type="text"][value="Title in Japanese"]')
-        # French
-        expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-fr[name="input-123-summary-fr"][type="text"][value="Summary in French"]')
+        it "renders fields", ->
+          @view.render()
+          expect(@view.$el).toContain('div.input input.xlarge#input-123-attribute[name="input-123-attribute"][type="text"][value="some attribute"]')
+
+        it "renders labels", ->
+          @view.render()
+          expect(@view.$el).toContain('label[for="input-123-attribute"]:contains("attribute")')
+
+      describe "translated attributes", ->
+
+        it "renders fields for attribute translations", ->
+          @view.render()
+          # English
+          expect(@view.$el).toContain('div.input input.xlarge#input-123-title-en[name="input-123-title-en"][type="text"][value="Title in English"]')
+          expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-en[name="input-123-summary-en"][type="text"][value="Summary in English"]')
+          # Japanese
+          expect(@view.$el).toContain('div.input input.xlarge#input-123-title-ja[name="input-123-title-ja"][type="text"][value="Title in Japanese"]')
+          # French
+          expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-fr[name="input-123-summary-fr"][type="text"][value="Summary in French"]')
 
     describe "#serialize", ->
       it "throws error if no form tag is found", ->
@@ -213,11 +222,11 @@ define (require) ->
               attribute1: type: 'Text'
               attribute2: type: 'TextArea'
           )
-
-        it "serializes form data", ->
           @view = new Form(model: @model)
           @view.cid = '123'
           @view.render()
+
+        it "serializes form data", ->
           @view.$el.find('input#input-123-attribute1').val('a new value')
           @view.$el.find('textarea#input-123-attribute2').val('another new value')
           expect(@view.serialize()).toEqual(
