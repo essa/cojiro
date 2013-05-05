@@ -221,10 +221,11 @@ define (require) ->
           title:
             en: 'Title in English'
             ja: 'Title in Japanese'
+            fr: 'Title in French'
           summary:
             en: 'Summary in English'
             fr: 'Summary in French'
-        @view = new Form(model: @model, locales: ["en", "ja", "fr"])
+        @view = new Form(model: @model, locales: ["en", "ja"])
         @view.cid = '123'
 
       describe "untranslated attributes", ->
@@ -239,15 +240,17 @@ define (require) ->
 
       describe "translated attributes", ->
 
-        it "renders fields for attribute translations", ->
+        it "renders fields for attribute translations specified in locales option", ->
           @view.render()
           # English
           expect(@view.$el).toContain('div.input input.xlarge#input-123-title-en[name="input-123-title-en"][type="text"][value="Title in English"]')
           expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-en[name="input-123-summary-en"][type="text"][value="Summary in English"]')
           # Japanese
           expect(@view.$el).toContain('div.input input.xlarge#input-123-title-ja[name="input-123-title-ja"][type="text"][value="Title in Japanese"]')
+          expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-ja[name="input-123-summary-ja"][type="text"][value=""]')
           # French
-          expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-fr[name="input-123-summary-fr"][type="text"][value="Summary in French"]')
+          expect(@view.$el).not.toContain('div.input input.xlarge#input-123-title-fr[name="input-123-title-fr"][type="text"][value="Title in French"]')
+          expect(@view.$el).not.toContain('div.input textarea.xlarge#input-123-summary-fr[name="input-123-summary-fr"][type="text"][value="Summary in French"]')
 
     describe "#serialize", ->
       it "throws error if no form tag is found", ->
