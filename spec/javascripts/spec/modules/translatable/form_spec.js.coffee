@@ -41,8 +41,14 @@ define (require) ->
       it "throws error if model has no schema", ->
         expect(-> new Form(model: new Backbone.Model)).toThrow("Translatable.Form's model must have a schema.")
 
-      it "throws error if model has a schema that is not a function", ->
-        expect(-> new Form(model: _(new Backbone.Model).extend(schema: "foo"))).toThrow("Translatable.Form's model schema must be a function.")
+      it "assigns model schema to return value of schema function", ->
+        schema = -> "foo"
+        form = new Form(model: _(new Backbone.Model).extend(schema: schema))
+        expect(form.schema()).toEqual("foo")
+
+      it "assigns model schema to a function if it is a value", ->
+        form = new Form(model: _(new Backbone.Model).extend(schema: "foo"))
+        expect(form.schema()).toEqual("foo")
 
       it "does not throw any error if passed a backbone model with a schema", ->
         expect(-> new Form(model: _(new Backbone.Model).extend(schema: ->))).not.toThrow()
