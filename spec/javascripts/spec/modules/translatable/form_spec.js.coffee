@@ -87,11 +87,8 @@ define (require) ->
 
       describe "untranslated attributes", ->
         beforeEach ->
-          sinon.stub(@model, 'get', (arg) ->
-            switch arg
-              when 'attribute1' then 'value 1'
-              when 'attribute2' then 'value 2'
-          )
+          @model.set('attribute1', 'value 1')
+          @model.set('attribute2', 'value 2')
           @view = new Form(model: @model)
           @view.cid = '123'
           sinon.stub(@view, 'getHtml').returns('html')
