@@ -240,6 +240,12 @@ define (require) ->
             attribute2: 'another new value'
           )
 
+        it "handles empty fields", ->
+          expect(@view.serialize()).toEqual(
+            attribute1: ''
+            attribute2: ''
+          )
+
       describe "translated data", ->
         beforeEach ->
           _(@model).extend(
@@ -247,11 +253,14 @@ define (require) ->
               title: type: 'Text'
               summary: type: 'TextArea'
           )
-          sinon.stub(@model, 'get', (arg) -> new Attribute(en: "", ja: ""))
-
-        it "serializes translated form data", ->
           @view = new Form(model: @model)
           @view.cid = '123'
+
+        it "serializes translated form data", ->
+          @model.set(
+            title: new Attribute(en: "", ja: "")
+            summary: new Attribute(en: "", ja: "")
+          )
           @view.render()
           @view.$el.find('input#input-123-title-en').val('a value in English')
           @view.$el.find('input#input-123-title-ja').val('a value in Japanese')
@@ -263,3 +272,13 @@ define (require) ->
               en: ''
               ja: ''
           )
+
+        it "handles empty fields", ->
+          @model.set(
+            title: new Attribute(en: 'a value in English')
+          )
+          @view.render()
+          expect(@view.serialize()).toEqual({
+            title:
+              en: 'a value in English'
+          })
