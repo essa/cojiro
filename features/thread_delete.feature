@@ -12,8 +12,25 @@ Feature: Delete a thread
     And my locale is "en"
     And the following thread exists:
       | user    | csasaki                                                                            |
-      | title   | Co-working spaces in Tokyo                                                         |
-      | summary | I want to write an an article about the increased popularity of co-working spaces. |
-    When I delete the thread "Co-working spaces in Tokyo"
+      | Title   | Capoeira in Japan and around the world |
+      | Summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a 
+particularly vibrant community in Japan. |
+    When I click on the edit button next to the "title and summary" field
+    And I click the delete link
     Then I should see the homepage
-    And I should see a success message: "Thread "Co-working spaces in Tokyo" deleted."
+    And I should see a success message: "Thread "Capoeira in Japan and around the world" deleted."
+
+  @javascript @wip
+  Scenario: User cannot delete a thread they didn't create deletes a thread
+    Given I am logged in through Twitter as the following user:
+      | name     | Tomomi Sasaki |
+      | uid      | 12345         |
+      | nickname | tsasaki       |
+    And my locale is "en"
+    And the following thread exists:
+      | user    | csasaki                                                                            |
+      | Title   | Capoeira in Japan and around the world |
+      | Summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a 
+particularly vibrant community in Japan. |
+    When I click on the edit button next to the "title and summary" field
+    Then I should not see the text "delete"
