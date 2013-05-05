@@ -87,7 +87,7 @@ define [
        return pattern && pattern
            .replace(/:cid/g, @cid)
            .replace(/:key/g, key)
-           .replace(/:value/g, value)
+           .replace(/:value/g, value || "")
            .replace(/:lang/g, lang && ('lang="' + lang + '"'))
 
      serialize: =>

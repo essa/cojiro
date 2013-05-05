@@ -164,6 +164,12 @@ define (require) ->
         it "creates correct html for TextArea type", ->
           expect(@view.getHtml("attribute", "value", "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
 
+        it "creates correct html for attributes with undefined value", ->
+          expect(@view.getHtml("attribute", undefined, "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="" />')
+
+        it "creates correct html for attributes with null value", ->
+          expect(@view.getHtml("attribute", null, "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="" />')
+
       describe "translated attributes", ->
         it "adds lang tag and appends lang to attribute name", ->
           expect(@view.getHtml("attribute", "value", "Text", "en")).toEqual('<input class="xlarge" id="input-123-attribute-en" name="input-123-attribute-en" size="30" type="text" value="value" lang="en"/>')
