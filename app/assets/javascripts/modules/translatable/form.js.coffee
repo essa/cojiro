@@ -24,7 +24,7 @@ define [
                   </div>
                 <% }); %>
               <% } else { %>
-                <label for="input-<%= item.cid %>-<%= item.label %>">
+                <label for="input-<%= item.cid %>-<%= item.key %>">
                   <%= item.label %>
                 </label>
                 <div class="input">
@@ -76,6 +76,7 @@ define [
         {
           html: html
           label: label
+          key: key
           translated: translated
           cid: self.cid
         }

@@ -99,8 +99,8 @@ define (require) ->
               attribute1: type: 'Text'
               attribute2: type: 'TextArea'
           expect(@view.getItems()).toEqual([
-            { html: 'html', label: 'attribute1', translated: false, cid: '123' }
-            { html: 'html', label: 'attribute2', translated: false, cid: '123' }
+            { html: 'html', label: 'attribute1', key: 'attribute1', translated: false, cid: '123' }
+            { html: 'html', label: 'attribute2', key: 'attribute2', translated: false, cid: '123' }
           ])
 
         it "assigns label if defined in schema", ->
@@ -152,6 +152,7 @@ define (require) ->
               html:
                 ja: 'html'
               label: 'Title'
+              key: 'title'
               translated: true
               cid: '123'
             ])
@@ -176,6 +177,7 @@ define (require) ->
                 en: 'html'
                 ja: 'html'
               label: 'Title'
+              key: 'title'
               translated: true
               cid: '123'
             ])
@@ -212,9 +214,15 @@ define (require) ->
       beforeEach ->
         _(@model).extend(
           schema: ->
-            attribute: type: 'Text'
-            title: type: 'Text'
-            summary: type: 'TextArea'
+            attribute:
+              type: 'Text'
+              label: 'My Attribute'
+            title:
+              type: 'Text'
+              label: 'Title'
+            summary:
+              type: 'TextArea'
+              label: 'Summary'
         )
         @model.set
           attribute: 'some attribute'
@@ -236,7 +244,7 @@ define (require) ->
 
         it "renders labels", ->
           @view.render()
-          expect(@view.$el).toContain('label[for="input-123-attribute"]:contains("attribute")')
+          expect(@view.$el).toContain('label[for="input-123-attribute"]:contains("My Attribute")')
 
       describe "translated attributes", ->
 
