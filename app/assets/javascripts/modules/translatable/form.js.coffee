@@ -63,7 +63,7 @@ define [
 
       _(keys).map (key) ->
         type = schema[key]['type']
-        label = schema[key]['title'] || key
+        label = schema[key]['label'] || key
         value = self.model.get(key)
 
         if translated = translatableAttributes && (key in translatableAttributes)

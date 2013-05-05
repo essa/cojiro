@@ -106,11 +106,11 @@ define (require) ->
             { html: 'html', label: 'attribute2', translated: false, cid: '123' }
           ])
 
-        it "assigns label if title is defined in schema", ->
+        it "assigns label if defined in schema", ->
           _(@model).extend
             schema: ->
               attribute1:
-                title: 'Attribute 1'
+                label: 'Attribute 1'
                 type: 'Text'
               attribute2: type: 'TextArea'
           items = @view.getItems()
@@ -133,7 +133,7 @@ define (require) ->
             schema: ->
               title:
                 type: 'Text'
-                title: 'Title'
+                label: 'Title'
           @model.set(
             title:
               en: "title in English"
