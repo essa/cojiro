@@ -88,42 +88,42 @@ define [
           cid: self.cid
         }
 
-     getHtml: (key, value, type, lang = "") ->
-       key = (key + '-' + lang) if lang
-       pattern = switch(type)
-         when 'Text'
-           '<div class="input-xlarge">
-             <input id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>
-            </div>'
-         when 'TextArea'
-           '<div class="input-xlarge">
-             <textarea id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>
-            </div>'
-       return pattern && pattern
-           .replace(/:cid/g, @cid)
-           .replace(/:key/g, key)
-           .replace(/:value/g, value || "")
-           .replace(/:lang/g, lang && ('lang="' + lang + '"'))
+    getHtml: (key, value, type, lang = "") ->
+      key = (key + '-' + lang) if lang
+      pattern = switch(type)
+        when 'Text'
+          '<div class="input-xlarge">
+            <input id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>
+           </div>'
+        when 'TextArea'
+          '<div class="input-xlarge">
+            <textarea id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>
+           </div>'
+      return pattern && pattern
+          .replace(/:cid/g, @cid)
+          .replace(/:key/g, key)
+          .replace(/:value/g, value || "")
+          .replace(/:lang/g, lang && ('lang="' + lang + '"'))
 
-     serialize: =>
-       form = if @tagName == 'form' then @$el else @$el.find('form')
-       throw new Error('Serialize must operate on a form element.') unless form.length
-       cid = @cid
-       self = @
-       o = {}
-       _(form.serializeArray()).each (a, i) ->
-         name = a.name.replace('input-' + cid + '-', '')
-         [attribute, locale] = name.split('-')
-         if locale
-           o[attribute] ||= {}
-           o[attribute][locale] = self.value(a.value)
-         else
-           o[name] = self.value(a.value)
-       return o
+    serialize: =>
+      form = if @tagName == 'form' then @$el else @$el.find('form')
+      throw new Error('Serialize must operate on a form element.') unless form.length
+      cid = @cid
+      self = @
+      o = {}
+      _(form.serializeArray()).each (a, i) ->
+        name = a.name.replace('input-' + cid + '-', '')
+        [attribute, locale] = name.split('-')
+        if locale
+          o[attribute] ||= {}
+          o[attribute][locale] = self.value(a.value)
+        else
+          o[name] = self.value(a.value)
+      return o
 
-     value: (val) ->
-       switch(val)
-         when 'true' then true
-         when 'false' then false
-         when 'null' then null
-         else val
+    value: (val) ->
+      switch(val)
+        when 'true' then true
+        when 'false' then false
+        when 'null' then null
+        else val
