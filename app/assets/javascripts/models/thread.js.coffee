@@ -15,8 +15,8 @@ define [
 
     schema: ->
       title:
-        label: _(I18n.t("attributes.thread.title")).capitalize()
         type: 'Text'
+        label: _(I18n.t("attributes.thread.title")).capitalize()
       summary:
         type: 'TextArea'
         label: _(I18n.t("attributes.thread.summary")).capitalize()
