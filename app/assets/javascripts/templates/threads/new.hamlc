@@ -1,5 +1,3 @@
 - require 'i18n'
-- require 'underscore'
-- require 'underscore_mixins'
 .page-header
   %h1=i18n.t("templates.threads.new.start_a_thread")
