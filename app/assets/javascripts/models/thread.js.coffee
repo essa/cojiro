@@ -15,11 +15,11 @@ define [
 
     schema: ->
       title:
-        title: _(I18n.t("attributes.thread.title")).capitalize()
+        label: _(I18n.t("attributes.thread.title")).capitalize()
         type: 'Text'
       summary:
         type: 'TextArea'
-        title: _(I18n.t("attributes.thread.summary")).capitalize()
+        label: _(I18n.t("attributes.thread.summary")).capitalize()
 
     # http://stackoverflow.com/questions/5306089/only-update-certain-model-attributes-using-backbone-js
     toJSON: () ->

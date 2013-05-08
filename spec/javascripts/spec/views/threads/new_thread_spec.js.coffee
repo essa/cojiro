@@ -18,6 +18,7 @@ define (require) ->
     describe "with stubbed Thread model", ->
       beforeEach ->
         @model = new Backbone.Model
+        _(@model).extend schema: -> {}
         @view = new NewThreadView(model: @model, router: router)
         @$el = @view.$el
 
@@ -60,8 +61,8 @@ define (require) ->
           expect(spyEvent).toHaveBeenPrevented()
 
         it 'sets title and summary values', ->
-          @view.$("input#title").val("a title")
-          @view.$("textarea#summary").val("a summary")
+          @view.$("form input").val("a title")
+          @view.$("form textarea").val("a summary")
           sinon.stub(@model, 'save')
           @$form.trigger('submit')
 

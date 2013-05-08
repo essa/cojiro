@@ -3,20 +3,3 @@
 - require 'underscore_mixins'
 .page-header
   %h1=i18n.t("templates.threads.new.start_a_thread")
-%form.form-horizontal
-  %fieldset
-    .control-group
-      %label.control-label{ :for => "title"}=underscore(i18n.t("attributes.thread.title")).capitalize()
-      .controls
-        .input-xlarge
-          %input#title{ :type => "text", :name => "title" }
-    .control-group
-      %label.control-label{ :for => "summary"}=underscore(i18n.t("attributes.thread.summary")).capitalize()
-      .controls
-        .input-xlarge
-          %textarea#summary{ :type => "text", :name => "summary" }
-    .form-actions
-      %button.btn.btn-primary
-        =i18n.t("templates.threads.form_actions.create_thread")
-      .btn
-        =i18n.t("templates.threads.form_actions.cancel")

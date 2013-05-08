@@ -8,31 +8,38 @@ define [
 
   class Form extends Base.View
     tagName: 'form'
+    className: 'form-horizontal'
 
     options:
       template:
         _.template '
-          <% _.each(items, function(item) { %>
-            <div class="clearfix">
+          <fieldset>
+            <% _.each(items, function(item) { %>
               <% if (item.translated == true) { %>
                 <% _.each(item.html, function(html, locale) { %>
-                  <div class="input">
-                    <label for="input-<%= item.cid %>-<%= item.key %>-<%= locale %>">
-                      <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
+                  <div class="control-group">
+                    <label class="control-label" for="input-<%= item.cid %>-<%= item.key %>-<%= locale %>">
+                        <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
-                    <%= html %>
+                    <div class="controls">
+                      <%= html %>
+                      <div class="help-block"></div>
+                    </div>
                   </div>
                 <% }); %>
               <% } else { %>
-                <label for="input-<%= item.cid %>-<%= item.key %>">
-                  <%= item.label %>
-                </label>
-                <div class="input">
-                  <%= item.html %>
+                <div class="control-group">
+                  <label class="control-label" for="input-<%= item.cid %>-<%= item.key %>">
+                    <%= item.label %>
+                  </label>
+                  <div class="controls">
+                    <%= item.html %>
+                    <div class="help-block"></div>
+                  </div>
                 </div>
               <% }; %>
-            </div>
-          <% }); %>
+            <% }); %>
+          </fieldset>
         '
 
     initialize: ->
@@ -85,9 +92,13 @@ define [
        key = (key + '-' + lang) if lang
        pattern = switch(type)
          when 'Text'
-           '<input class="xlarge" id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>'
+           '<div class="input-xlarge">
+             <input id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>
+            </div>'
          when 'TextArea'
-           '<textarea class="xlarge" id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>'
+           '<div class="input-xlarge">
+             <textarea id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>
+            </div>'
        return pattern && pattern
            .replace(/:cid/g, @cid)
            .replace(/:key/g, key)

@@ -201,20 +201,20 @@ define (require) ->
 
       describe "untranslated attributes", ->
         it "creates correct html for Text type", ->
-          expect(@view.getHtml("attribute", "value", "Text")).toEqual('<input class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
+          expect(@view.getHtml("attribute", "value", "Text")).toContain('<input id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
 
         it "creates correct html for TextArea type", ->
-          expect(@view.getHtml("attribute", "value", "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
+          expect(@view.getHtml("attribute", "value", "TextArea")).toContain('<textarea id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
 
         it "creates correct html for attributes with undefined value", ->
-          expect(@view.getHtml("attribute", undefined, "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="" />')
+          expect(@view.getHtml("attribute", undefined, "TextArea")).toContain('<textarea id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="" />')
 
         it "creates correct html for attributes with null value", ->
-          expect(@view.getHtml("attribute", null, "TextArea")).toEqual('<textarea class="xlarge" id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="" />')
+          expect(@view.getHtml("attribute", null, "TextArea")).toContain('<textarea id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="" />')
 
       describe "translated attributes", ->
         it "adds lang tag and appends lang to attribute name", ->
-          expect(@view.getHtml("attribute", "value", "Text", "en")).toEqual('<input class="xlarge" id="input-123-attribute-en" name="input-123-attribute-en" size="30" type="text" value="value" lang="en"/>')
+          expect(@view.getHtml("attribute", "value", "Text", "en")).toContain('<input id="input-123-attribute-en" name="input-123-attribute-en" size="30" type="text" value="value" lang="en"/>')
 
     describe "default template (output)", ->
       beforeEach ->
@@ -246,7 +246,7 @@ define (require) ->
 
         it "renders fields", ->
           @view.render()
-          expect(@view.$el).toContain('div.input input.xlarge#input-123-attribute[name="input-123-attribute"][type="text"][value="some attribute"]')
+          expect(@view.$el).toContain('input#input-123-attribute[name="input-123-attribute"][type="text"][value="some attribute"]')
 
         it "renders labels", ->
           @view.render()
@@ -257,14 +257,14 @@ define (require) ->
         it "renders fields for attribute translations specified in locales option", ->
           @view.render()
           # English
-          expect(@view.$el).toContain('div.input input.xlarge#input-123-title-en[name="input-123-title-en"][type="text"][value="Title in English"]')
-          expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-en[name="input-123-summary-en"][type="text"][value="Summary in English"]')
+          expect(@view.$el).toContain('input#input-123-title-en[name="input-123-title-en"][type="text"][value="Title in English"]')
+          expect(@view.$el).toContain('textarea#input-123-summary-en[name="input-123-summary-en"][type="text"][value="Summary in English"]')
           # Japanese
-          expect(@view.$el).toContain('div.input input.xlarge#input-123-title-ja[name="input-123-title-ja"][type="text"][value="Title in Japanese"]')
-          expect(@view.$el).toContain('div.input textarea.xlarge#input-123-summary-ja[name="input-123-summary-ja"][type="text"][value=""]')
+          expect(@view.$el).toContain('input#input-123-title-ja[name="input-123-title-ja"][type="text"][value="Title in Japanese"]')
+          expect(@view.$el).toContain('textarea#input-123-summary-ja[name="input-123-summary-ja"][type="text"][value=""]')
           # French
-          expect(@view.$el).not.toContain('div.input input.xlarge#input-123-title-fr[name="input-123-title-fr"][type="text"][value="Title in French"]')
-          expect(@view.$el).not.toContain('div.input textarea.xlarge#input-123-summary-fr[name="input-123-summary-fr"][type="text"][value="Summary in French"]')
+          expect(@view.$el).not.toContain('input#input-123-title-fr[name="input-123-title-fr"][type="text"][value="Title in French"]')
+          expect(@view.$el).not.toContain('textarea#input-123-summary-fr[name="input-123-summary-fr"][type="text"][value="Summary in French"]')
 
         it "renders label if label is a value", ->
           @view.render()

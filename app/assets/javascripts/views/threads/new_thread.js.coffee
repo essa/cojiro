@@ -3,12 +3,13 @@ define [
   'underscore'
   'backbone'
   'modules/base'
+  'modules/translatable/form'
   'globals'
   'templates/threads/new'
   'templates/threads/form_actions'
   'templates/other/flash'
   'i18n'
-], ($, _, Backbone, Base, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
+], ($, _, Backbone, Base, Form, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
 
   class NewThreadView extends Base.View
     id: 'new_thread'
@@ -19,21 +20,27 @@ define [
 
     initialize: (options) ->
       @router = @options.router
+      @form = new Form(model: @model)
       super
 
     render: ->
       @renderLayout()
+      @renderForm()
       @
 
     renderLayout: ->
       @$el.html(newThreadTemplate())
 
+    renderForm: ->
+      @renderChild(@form)
+      @$el.append(@form.el)
+      @.$('fieldset').append(formActionsTemplate())
+
     getValue: (field) ->
       @.$("#" + field).val()
 
     submitForm: () ->
-      @model.setAttr("title", @getValue("title"))
-      @model.setAttr("summary", @getValue("summary"))
+      @model.set(@form.serialize())
       # TODO: render errors in form
       errors = null
       if !(errors?)
