@@ -39,7 +39,7 @@ define (require) ->
 
       beforeEach ->
         @collection = new Backbone.Collection
-        @collection.url = '/en/threads'
+        @collection.url = '/collection'
         @model = new Thread
         @model.collection = @collection
         @view = new NewThreadView(model: @model, collection: @collection, router: router)
@@ -49,6 +49,10 @@ define (require) ->
         beforeEach ->
           @view.render()
           @$form = @view.$('form')
+          sinon.stub(@model, 'save')
+
+        afterEach ->
+          @model.save.restore()
 
         it 'calls submitForm', ->
           @$form.submit()
@@ -63,7 +67,6 @@ define (require) ->
         it 'sets title and summary values', ->
           @view.$("form input").val("a title")
           @view.$("form textarea").val("a summary")
-          sinon.stub(@model, 'save')
           @$form.trigger('submit')
 
           expect(@model.getAttr('title')).toEqual("a title")
@@ -71,11 +74,8 @@ define (require) ->
 
         it "saves the model", ->
           sinon.stub(@model, 'set').returns(null)
-          sinon.stub(@model, 'save')
           @view.$('form').trigger('submit')
-
           expect(@model.save).toHaveBeenCalledOnce()
-
           @model.set.restore()
 
       describe "after a successful save", ->
@@ -84,12 +84,12 @@ define (require) ->
           @server = sinon.fakeServer.create()
           @server.respondWith(
             'POST',
-            '/en/threads',
+            '/collection',
             [ 200, {'Content-Type': 'application/json'}, JSON.stringify(_(@fixtures.Thread.valid).extend(id: "123")) ]
           )
           sinon.stub(router, 'navigate')
-          @view.$('form input[name="title"]').val("a title")
-          @view.$('form textarea[name="summary"]').val("a summary")
+          @view.$("form input").val("a title")
+          @view.$("form textarea").val("a summary")
 
         afterEach ->
           @server.restore()
@@ -109,4 +109,4 @@ define (require) ->
           @server.respond()
 
           expect(router.navigate).toHaveBeenCalledOnce()
-          expect(router.navigate).toHaveBeenCalledWith('/en/threads/123', true)
+          expect(router.navigate).toHaveBeenCalledWith('/collection/123', true)
