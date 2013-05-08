@@ -122,6 +122,12 @@ define (require) ->
           @model.set('title': { 'en': 'title passed in as nested attribute' } )
           expect(@model.get('title').in('en')).toEqual('title passed in as nested attribute')
 
+        it 'does not overwrite existing attribute translations', ->
+          @model.set('title': { 'en': 'a title in English' })
+          @model.set('title': { 'ja': 'a title in Japanese' })
+          expect(@model.get('title').in('en')).toEqual('a title in English')
+          expect(@model.get('title').in('ja')).toEqual('a title in Japanese')
+
         it 'passes in other attributes unchanged', ->
           @model.set('nested_attribute': { 'nested': 'value' })
           expect(@model.get('nested_attribute')).toEqual({ 'nested': 'value' })
@@ -154,8 +160,19 @@ define (require) ->
       it 'returns null for null response', ->
         expect(@model.parse(null)).toEqual(null)
 
+      it 'replaces nested values for translated attributes with translated attributes', ->
+        parsed = @model.parse({ title: ja: 'title in Japanese'})
+        expect(parsed['title'] instanceof Attribute).toBeTruthy()
+        expect(parsed['title'].attributes).toEqual(ja: 'title in Japanese')
+
       it 'only overwrites translated attributes if they are in the response', ->
         expect(@model.parse({ "foo" : "bar"})).toEqual({ "foo": "bar" })
+
+      describe 'with merge option', ->
+        it 'merges existing translations with response', ->
+          @model.setAttr('title', 'title in English')
+          parsed = @model.parse({ title: ja: 'title in Japanese' }, merge: true)
+          expect(parsed['title'].attributes).toEqual(en: 'title in English', ja: 'title in Japanese')
 
     describe "validations", ->
       beforeEach ->
