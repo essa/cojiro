@@ -121,6 +121,21 @@ define [
           o[name] = self.value(a.value)
       return o
 
+    renderError: (msg, attribute, levels = []) =>
+      self = @
+      levels.push(attribute)
+      if _(msg).isObject()
+        _(msg).each (value, key) -> self.renderError(msg[key], key, levels)
+      else
+        name = 'input-' + self.cid + '-' + levels.join('-')
+        controlGroup = self.$el.find("[id='#{name}']").closest('.control-group')
+        controlGroup.addClass('error')
+        controlGroup.find('.help-block').text(msg)
+
+    renderErrors: (errors) ->
+      self = @
+      _(errors).each (msg, attribute) -> self.renderError(msg, attribute)
+
     value: (val) ->
       switch(val)
         when 'true' then true

@@ -345,3 +345,42 @@ define (require) ->
               en: ''
               ja: ''
           })
+
+    describe '#renderErrors', ->
+      beforeEach ->
+        @view = new Form(model: @model)
+        @view.cid = '123'
+
+      describe "untranslated attributes", ->
+        beforeEach ->
+          _(@model).extend
+            schema: ->
+              attribute: type: 'Text'
+          @view.render()
+
+        it 'appends error class to control-group for each attribute in errors object', ->
+          @view.renderErrors(attribute: "required")
+          $field = @view.$el.find('input#input-123-attribute')
+          expect($field.closest('.control-group')).toHaveClass('error')
+
+        it 'inserts error msg into help block', ->
+          @view.renderErrors(attribute: "required")
+          $field = @view.$el.find('input#input-123-attribute')
+          expect($field.closest('.controls').find('.help-block')).toHaveText('required')
+
+      describe "translated (nested) attributes", ->
+        beforeEach ->
+          _(@model).extend
+            schema: ->
+              title: type: 'Text'
+          @view.render()
+
+        it 'appends error class to control-group for each attribute in errors object', ->
+          @view.renderErrors(title: en: "required")
+          $field = @view.$el.find('input#input-123-title-en')
+          expect($field.closest('.control-group')).toHaveClass('error')
+
+        it 'inserts error msg into help block', ->
+          @view.renderErrors(title: en: "required")
+          $field = @view.$el.find('input#input-123-title-en')
+          expect($field.closest('.controls').find('.help-block')).toHaveText('required')
