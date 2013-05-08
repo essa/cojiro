@@ -169,10 +169,17 @@ define (require) ->
         expect(@model.parse({ "foo" : "bar"})).toEqual({ "foo": "bar" })
 
       describe 'with merge option', ->
-        it 'merges existing translations with response', ->
+        beforeEach ->
           @model.setAttr('title', 'title in English')
+
+        it 'merges existing translations with response', ->
           parsed = @model.parse({ title: ja: 'title in Japanese' }, merge: true)
           expect(parsed['title'].attributes).toEqual(en: 'title in English', ja: 'title in Japanese')
+
+        it 'only includes translated attributes if they are already set, or are in the response', ->
+          parsed = @model.parse({ "foo": "bar" }, merge: true)
+          expect(parsed['foo']).toEqual("bar")
+          expect(parsed['summary']).toBeUndefined()
 
     describe "validations", ->
       beforeEach ->

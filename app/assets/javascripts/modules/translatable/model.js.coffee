@@ -20,12 +20,11 @@ define [
       self = @
       if response? && @translatableAttributes?
         for key in @translatableAttributes
-          if options.merge
-            value = response[key] || {}
+          value = response[key]
+          if options.merge && !!value
+            value ||= {}
             oldValue = self.get(key) && self.get(key).attributes
             _(value).extend oldValue
-          else
-            value = response[key]
           if value
             response[key] = new TranslatableAttribute(value, parse: true)
       return response
