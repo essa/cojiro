@@ -68,10 +68,17 @@ describe Cothread do
       @cothread = FactoryGirl.create(:cothread)
     end
 
-    it "replaces translated attributes with values in JSON object" do
+    it "replaces/adds translations based on values in JSON object" do
       Globalize.with_locale(:fr) { @cothread.title = "a title in French" }
       @cothread.update_attributes(@attr)
       Globalize.with_locale(:fr) { @cothread.title.should == "a new title in French" }
+    end
+
+    it "leaves existing translations as is" do
+      Globalize.with_locale(:fr) { @cothread.title = "a title in French" }
+      Globalize.with_locale(:en) { @cothread.title = "a title in English" }
+      @cothread.update_attributes(@attr)
+      Globalize.with_locale(:en) { @cothread.title.should == "a title in English" }
     end
 
     pending "assigns non-translated attributes with values in JSON object"
@@ -81,7 +88,9 @@ describe Cothread do
     end
 
     it "does not assign nil-valued translated attributes" do
+      Globalize.with_locale(:fr) { @cothread.summary = "a summary in French" }
       expect { @cothread.update_attributes("summary" => nil) }.not_to raise_error
+      Globalize.with_locale(:fr) { @cothread.summary.should == "a summary in French" }
     end
   end
 
