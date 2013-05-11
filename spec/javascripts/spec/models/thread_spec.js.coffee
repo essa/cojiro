@@ -42,7 +42,7 @@ define (require) ->
             'summary':
               'en': 'summary in English'
               'ja': 'summary in Japanese'
-            'source_locale': 'source_locale'
+            'source_locale': 'en'
             'created_at': "2010-07-20T12:20:00Z"
             'updated_at': "2010-07-20T12:20:00Z"
             'user':
@@ -58,12 +58,21 @@ define (require) ->
             'en': 'summary in English'
             'ja': 'summary in Japanese'
           )
-          expect(@thread.toJSON().thread.source_locale).toEqual('source_locale')
+          expect(@thread.toJSON().thread.source_locale).toEqual('en')
 
         it 'does not include protected attributes', ->
           expect(@thread.toJSON().thread.user).not.toBeDefined()
           expect(@thread.toJSON().thread.created_at).not.toBeDefined()
           expect(@thread.toJSON().thread.updated_at).not.toBeDefined()
+
+        it 'includes untranslated attributes as empty object', ->
+          @thread = new Thread
+          collection = url: '/collection'
+          @thread.collection = collection
+          @thread.set
+            title: en: 'title in English'
+            source_locale: 'en'
+          expect(@thread.toJSON().thread.summary).toEqual(new Object)
 
       describe '#getId', ->
         it 'is defined', -> expect(@thread.getId).toBeDefined()
@@ -202,6 +211,7 @@ define (require) ->
 
         describe 'on create', ->
           beforeEach ->
+            @thread.set(@fixtures.Thread.valid)
             @thread.id = null
             @thread.save()
             @request = @server.requests[0]
@@ -212,6 +222,7 @@ define (require) ->
 
         describe 'on update', ->
           beforeEach ->
+            @thread.set(@fixtures.Thread.valid)
             @thread.id = 66
             @thread.save()
             @request = @server.requests[0]
@@ -223,33 +234,34 @@ define (require) ->
         describe 'validations', ->
           beforeEach ->
             @spy = sinon.spy()
-            @thread.bind('error', @spy)
+            @thread.bind('invalid', @spy)
             @data = @fixtures.Thread.valid
 
           afterEach ->
             @thread.unbind('error', @spy)
 
           it 'does not save if title is blank in the source locale', ->
-            I18n.locale = 'en'
-            @thread.save(_(@data).extend('title': { 'en': ''}, 'source_locale': 'en'))
+            expect(@thread.save(_(@data).extend(title: en: '', source_locale: 'en'))).toBeFalsy()
             expect(@spy).toHaveBeenCalledOnce()
-            expect(@spy).toHaveBeenCalledWith(@thread,{'title':"can't be blank"})
-            I18n.locale = I18n.defaultLocale
+            expect(@spy).toHaveBeenCalledWith(@thread, { title: en: "can't be blank" })
+
+          it 'does not save if title is missing in the source locale', ->
+            expect(@thread.save(_(@data).extend(title: {}, source_locale: 'en'))).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@thread, { title: en: "can't be blank" })
+
+          it 'does not save if title in source locale is null', ->
+            expect(@thread.save(_(@data).extend(title: { en: null }, source_locale: 'en'))).toBeFalsy()
+            expect(@spy).toHaveBeenCalled()
 
           it 'does not save if source locale is missing', ->
-            @thread.save(_(@data).extend('source_locale': null))
+            expect(@thread.save(_(@data).extend(source_locale: null))).toBeFalsy()
             expect(@spy).toHaveBeenCalledOnce()
             expect(@spy).toHaveBeenCalledWith(@thread,
               {'source_locale':"can't be blank"})
 
           it 'does save if title is blank in another locale', ->
-            I18n.locale = 'ja'
-            @thread.save(_(@data).extend('title': {'en': 'some title', 'ja': ''}, 'source_locale': 'en'))
-            expect(@spy).not.toHaveBeenCalled()
-            I18n.locale = I18n.defaultLocale
-
-          it 'does save if title in source locale is null (not included)', ->
-            @thread.save(_(@data).extend('title': { 'en': null }, 'source_locale': 'en'))
+            expect(@thread.save(_(@data).extend({ title: en: 'some title', ja: '' }, source_locale: 'en'))).toBeTruthy()
             expect(@spy).not.toHaveBeenCalled()
 
       describe 'parsing response data', ->

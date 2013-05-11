@@ -132,6 +132,12 @@ define (require) ->
           @model.set('nested_attribute': { 'nested': 'value' })
           expect(@model.get('nested_attribute')).toEqual({ 'nested': 'value' })
 
+        it 'does not delete initialized blank translated attributes', ->
+          @model.set('title': { 'en': 'a title in English' })
+          self = @
+          expect(-> self.model.get('summary')).not.toThrow()
+          expect(@model.get('summary') instanceof Attribute).toBeTruthy()
+
       describe "#setAttr", ->
         it 'is defined', -> expect(@model.setAttr).toBeDefined()
 
@@ -168,6 +174,10 @@ define (require) ->
       it 'only overwrites translated attributes if they are in the response', ->
         expect(@model.parse({ "foo" : "bar"})).toEqual({ "foo": "bar" })
 
+      it 'leaves translatable attribute objects unchanged', ->
+        parsed = @model.parse(title: new Attribute(en: "title in English"))
+        expect(parsed['title'].in('en')).toEqual("title in English")
+
       describe 'with merge option', ->
         beforeEach ->
           @model.setAttr('title', 'title in English')
@@ -184,14 +194,14 @@ define (require) ->
     describe "validations", ->
       beforeEach ->
         @spy = sinon.spy()
-        @model.bind('error', @spy)
+        @model.bind('invalid', @spy)
 
       it 'does not save if the source locale is blank', ->
-        @model.save('source_locale': "")
+        expect(@model.save('source_locale': "")).toBeFalsy()
         expect(@spy).toHaveBeenCalledOnce()
         expect(@spy).toHaveBeenCalledWith(@model,{'source_locale':"can't be blank"})
 
       it 'does not save if the source locale is null', ->
-        @model.save('source_locale': null)
+        expect(@model.save('source_locale': null)).toBeFalsy()
         expect(@spy).toHaveBeenCalledOnce()
         expect(@spy).toHaveBeenCalledWith(@model,{'source_locale':"can't be blank"})

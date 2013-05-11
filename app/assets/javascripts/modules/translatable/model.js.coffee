@@ -16,18 +16,19 @@ define [
         _.each @translatableAttributes, (attr) ->
           self.set(attr, new TranslatableAttribute(_.isObject(attributes) && attributes[attr]))
 
-    parse: (response, options = {}) ->
+    parse: (resp, options = {}) ->
       self = @
-      if response? && @translatableAttributes?
+      resp = JSON.parse(JSON.stringify(resp))
+      if resp? && @translatableAttributes?
         for key in @translatableAttributes
-          value = response[key]
+          value = resp[key]
           if options.merge && !!value
             value ||= {}
             oldValue = self.get(key) && self.get(key).attributes
             _(value).extend oldValue
           if value
-            response[key] = new TranslatableAttribute(value, parse: true)
-      return response
+            resp[key] = new TranslatableAttribute(value, parse: true)
+      return resp
 
     getAttrInLocale: (attr_name, locale) -> @get(attr_name).get(locale)
     getAttr: (attr_name) -> @getAttrInLocale(attr_name, I18n.locale)
@@ -35,8 +36,7 @@ define [
     getSourceLocale: -> @get('source_locale')
 
     set: (attributes, options) ->
-      parsed_attributes = JSON.parse(JSON.stringify(attributes))
-      parsed_attributes = @parse(parsed_attributes, merge: true)
+      parsed_attributes = @parse(attributes, merge: true)
       super(parsed_attributes, options)
 
     setAttrInLocale: (attr_name, locale, value) ->

@@ -42,12 +42,12 @@ define [
       errors = super(attrs) || {}
 
       if (source_locale = attrs.source_locale)
-        if attrs.title? and (attrs.title.in(source_locale) is "")
-          errors.title = I18n.t('errors.messages.blank')
+        title = attrs.title
+        unless title && title[source_locale] || (_(title.in).isFunction() && title.in(source_locale))
+          errors.title = {}
+          errors.title[source_locale] = I18n.t('errors.messages.blank')
 
       return !_.isEmpty(errors) && errors
 
     toDateStr: (datetime) ->
       I18n.l("date.formats.long", datetime) unless datetime is undefined
-
-  return Thread
