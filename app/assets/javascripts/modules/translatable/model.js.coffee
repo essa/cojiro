@@ -14,7 +14,7 @@ define [
       if _.isArray(@translatableAttributes)
         self = @
         _.each @translatableAttributes, (attr) ->
-          self.set(attr, new TranslatableAttribute(_.isObject(attributes) && attributes[attr]))
+          self._set(attr, new TranslatableAttribute(_.isObject(attributes) && attributes[attr]))
 
     parse: (resp, options = {}) ->
       self = @
@@ -35,6 +35,9 @@ define [
     getAttrInSourceLocale: (attr_name) -> @getAttrInLocale(attr_name, @getSourceLocale())
     getSourceLocale: -> @get('source_locale')
 
+    _set: (key, val, options) ->
+      @constructor.__super__.set.call(@, key, val, options)
+
     set: (attributes, options) ->
       parsed_attributes = @parse(attributes, merge: true)
       super(parsed_attributes, options)
@@ -42,7 +45,7 @@ define [
     setAttrInLocale: (attr_name, locale, value) ->
       attr = @get(attr_name)
       attr.set(locale, value)
-      @set(attr_name, attr)
+      @_set(attr_name, attr)
     setAttr: (attr_name, value) -> @setAttrInLocale(attr_name, I18n.locale, value)
 
     validate: (attrs) ->
