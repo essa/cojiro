@@ -138,6 +138,10 @@ define (require) ->
           expect(-> self.model.get('summary')).not.toThrow()
           expect(@model.get('summary') instanceof Attribute).toBeTruthy()
 
+        it 'handles "key", "value" style arguments', ->
+          @model.set('title', { 'en': 'a title in English' })
+          expect(@model.get('title').in('en')).toEqual('a title in English')
+
       describe "#setAttr", ->
         it 'is defined', -> expect(@model.setAttr).toBeDefined()
 

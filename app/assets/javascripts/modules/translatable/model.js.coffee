@@ -38,9 +38,12 @@ define [
     _set: (key, val, options) ->
       @constructor.__super__.set.call(@, key, val, options)
 
-    set: (attributes, options) ->
-      parsed_attributes = @parse(attributes, merge: true)
-      super(parsed_attributes, options)
+    set: (key, val, options) ->
+      if typeof key is 'object'
+        attrs = key
+        options = val
+      else (attrs = {})[key] = val
+      super(@parse(attrs, merge: true), options)
 
     setAttrInLocale: (attr_name, locale, value) ->
       attr = @get(attr_name)
