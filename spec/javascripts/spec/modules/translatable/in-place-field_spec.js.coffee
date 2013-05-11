@@ -5,11 +5,11 @@ define (require) ->
 
   InPlaceField = require('modules/translatable/in-place-field')
   Model = require('modules/translatable/model')
-  MyModel = Model.extend(translatableAttributes: ["title", "summary"])
+  MyModel = Model.extend(translatableAttributes: ['title', 'summary'])
   translatableFieldTemplate = require('modules/translatable/templates/_in-place-field')
   require('jquery')
 
-  describe "Translatable.InPlaceField", ->
+  describe 'Translatable.InPlaceField', ->
 
     beforeEach ->
       I18n.locale = 'en'
@@ -19,13 +19,13 @@ define (require) ->
 
     sharedExamplesForInPlaceFields = (context) ->
 
-      describe "shared behaviour for translatable fields", ->
+      describe 'shared behaviour for translatable fields', ->
         beforeEach ->
           @field = context.field
           @type = context.type || 'input'
           @model = new MyModel
           _(@model).extend
-            id: "123"
+            id: '123'
             schema: ->
               title:
                 type: 'Text'
@@ -53,7 +53,7 @@ define (require) ->
           InPlaceField.prototype.saveField.restore()
           InPlaceField.prototype.render.restore()
 
-        describe "before edit button handler is fired", ->
+        describe 'before edit button handler is fired', ->
           it 'has field value wrapped in correct tag', ->
             if @model.getAttr(@field) is undefined
               expect(@view.$('span.untranslated')).toHaveText(@model.getAttrInSourceLocale(@field))
@@ -62,11 +62,11 @@ define (require) ->
 
           it 'has correct edit/save button text', ->
             if @model.getAttr(@field) is undefined
-              expect(@view.$('button.edit-button')).toHaveText("Add English")
+              expect(@view.$('button.edit-button')).toHaveText('Add English')
             else
-              expect(@view.$('button.edit-button')).toHaveText("Edit")
+              expect(@view.$('button.edit-button')).toHaveText('Edit')
 
-        describe "when edit button handler is fired", ->
+        describe 'when edit button handler is fired', ->
           beforeEach ->
             @$editButton.trigger('click')
 
@@ -87,7 +87,7 @@ define (require) ->
           it 'renders form field', ->
             expect(@view.$el).toContain("#{@type}[name='#{@field}']")
 
-        describe "when save button is fired", ->
+        describe 'when save button is fired', ->
           beforeEach ->
             @$editButton.trigger('click')
             sinon.stub(@model, 'setAttr').returns(null)
@@ -101,17 +101,17 @@ define (require) ->
             expect(@saveFieldSpy).toHaveBeenCalledOnce()
 
           it 'sets the field', ->
-            @view.$(@type).val("abcdef")
+            @view.$(@type).val('abcdef')
             @view.$(@saveButtonSelector).trigger('click')
             expect(@model.setAttr).toHaveBeenCalledOnce()
-            expect(@model.setAttr).toHaveBeenCalledWith(@field, "abcdef")
+            expect(@model.setAttr).toHaveBeenCalledWith(@field, 'abcdef')
 
           it 'saves the model', ->
-            @view.$(@type).val("a new value")
+            @view.$(@type).val('a new value')
             @view.$(@saveButtonSelector).trigger('click')
             expect(@model.save).toHaveBeenCalledOnce()
 
-        describe "when translatable field is submitted (e.g. by hitting enter while in form field)", ->
+        describe 'when translatable field is submitted (e.g. by hitting enter while in form field)', ->
           beforeEach ->
             @$editButton.trigger('click')
             sinon.stub(@model, 'save').returns(null)
@@ -137,7 +137,7 @@ define (require) ->
             expect('click').toHaveBeenTriggeredOn(@$saveButton)
             expect(spyEvent).toHaveBeenTriggered()
 
-        describe "when cancel button is fired", ->
+        describe 'when cancel button is fired', ->
           beforeEach ->
             @$editButton.trigger('click')
             @$cancelButton = @view.$(@cancelButtonSelector)
@@ -153,13 +153,13 @@ define (require) ->
             expect(@view.$el).not.toContain('.save-button')
 
           it 'replaces form with original text', ->
-            @view.$(@type).val("abcdefg")
+            @view.$(@type).val('abcdefg')
             @$cancelButton.trigger('click')
 
             expect(@view.$el).not.toContain('form')
             expect(@view.$el).toHaveText(@originalFieldText)
 
-        describe "after a successful save", ->
+        describe 'after a successful save', ->
           beforeEach ->
             @originalButtonText = @$editButton.text().trim()
             @$editButton.trigger('click')
@@ -167,66 +167,66 @@ define (require) ->
             @server.respondWith(
               'PUT',
               '/en/models/123',
-              [ 204, {'Content-Type': 'application/json'}, "" ]
+              [ 204, {'Content-Type': 'application/json'}, '' ]
             )
 
           afterEach ->
             @server.restore()
 
-          it "changes the button text back to its original value (\"Edit\" or \"Add Engish\")", ->
+          it 'changes the button text back to its original value ("Edit" or "Add Engish")', ->
             @view.$(@saveButtonSelector).trigger('click')
             @server.respond()
             expect(@view.$el).toContain(@editButtonSelector)
             expect(@view.$el).not.toContain(@saveButtonSelector)
             expect(@view.$('.edit-button')).toHaveText(@originalButtonText)
 
-          it "removes cancel button", ->
+          it 'removes cancel button', ->
             @view.$(@saveButtonSelector).trigger('click')
             @server.respond()
             expect(@view.$el).not.toContain(@cancelButtonSelector)
 
-          it "if value is changed, replaces form with text with new attribute value and \"translated\" class", ->
-            @view.$(@type).val("abcdefg")
+          it 'if value is changed, replaces form with text with new attribute value and "translated" class', ->
+            @view.$(@type).val('abcdefg')
             @view.$(@saveButtonSelector).trigger('click')
             @server.respond()
-            expect(@view.$('.translated')).toHaveText("abcdefg")
+            expect(@view.$('.translated')).toHaveText('abcdefg')
 
     model_in_my_locale =
       source_locale: 'en'
       title:
-        en: "Co-working spaces in Tokyo"
+        en: 'Co-working spaces in Tokyo'
       summary:
-        en: "a summary"
+        en: 'a summary'
 
     model_in_another_locale =
       source_locale: 'ja'
       title:
-        ja: "東京のコワーキングスペース"
+        ja: '東京のコワーキングスペース'
       summary:
-        ja: "東京のコワーキングスペースについてブログを書こうかと思います。"
+        ja: '東京のコワーキングスペースについてブログを書こうかと思います。'
 
-    describe "text input", ->
+    describe 'text input', ->
       sharedContext =
         field: 'title'
         type: 'input'
 
-      describe "for a model in my locale", ->
+      describe 'for a model in my locale', ->
         beforeEach -> sharedContext.model = model_in_my_locale
         sharedExamplesForInPlaceFields(sharedContext)
 
-      describe "for a model in another locale", ->
+      describe 'for a model in another locale', ->
         beforeEach -> sharedContext.model = model_in_another_locale
         sharedExamplesForInPlaceFields(sharedContext)
 
-    describe "textarea", ->
+    describe 'textarea', ->
       sharedContext =
         field: 'summary'
         type: 'textarea'
 
-      describe "for a model in my locale", ->
+      describe 'for a model in my locale', ->
         beforeEach -> sharedContext.model = model_in_my_locale
         sharedExamplesForInPlaceFields(sharedContext)
 
-      describe "for a model in another locale", ->
+      describe 'for a model in another locale', ->
         beforeEach -> sharedContext.model = model_in_another_locale
         sharedExamplesForInPlaceFields(sharedContext)

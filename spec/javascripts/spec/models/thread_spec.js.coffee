@@ -25,8 +25,8 @@ define (require) ->
         expect(@thread.get('source_locale')).toEqual('ja')
 
       it 'sets attributes passed in to constructor', ->
-        @thread = new Thread(title: { en: "Title in English" })
-        expect(@thread.get('title').in('en')).toEqual("Title in English")
+        @thread = new Thread(title: { en: 'Title in English' })
+        expect(@thread.get('title').in('en')).toEqual('Title in English')
 
     describe 'getters', ->
       beforeEach ->
@@ -37,26 +37,26 @@ define (require) ->
       describe '#toJSON', ->
         beforeEach ->
           @thread.set(
-            'title':
-              'en': 'title in English'
-            'summary':
-              'en': 'summary in English'
-              'ja': 'summary in Japanese'
-            'source_locale': 'en'
-            'created_at': "2010-07-20T12:20:00Z"
-            'updated_at': "2010-07-20T12:20:00Z"
-            'user':
-              'name': 'csasaki'
+            title:
+              en: 'title in English'
+            summary:
+              en: 'summary in English'
+              ja: 'summary in Japanese'
+            source_locale: 'en'
+            created_at: '2010-07-20T12:20:00Z'
+            updated_at: '2010-07-20T12:20:00Z'
+            user:
+              name: 'csasaki'
           )
 
         it 'wraps JSON in thread object', ->
           expect(@thread.toJSON().thread).toBeDefined()
           expect(@thread.toJSON().thread.title).toEqual(
-            'en': 'title in English'
+            en: 'title in English'
           )
           expect(@thread.toJSON().thread.summary).toEqual(
-            'en': 'summary in English'
-            'ja': 'summary in Japanese'
+            en: 'summary in English'
+            ja: 'summary in Japanese'
           )
           expect(@thread.toJSON().thread.source_locale).toEqual('en')
 
