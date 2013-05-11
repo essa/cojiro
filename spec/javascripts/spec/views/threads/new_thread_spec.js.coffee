@@ -74,9 +74,14 @@ define (require) ->
 
         it "saves the model", ->
           sinon.stub(@model, 'set').returns(null)
+          sinon.stub(@model, 'validate')
           @view.$('form').trigger('submit')
           expect(@model.save).toHaveBeenCalledOnce()
           @model.set.restore()
+
+      describe "with errors", ->
+        it "renders errors"
+        it "removes any previous alert(s) and adds a new one"
 
       describe "after a successful save", ->
         beforeEach ->

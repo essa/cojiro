@@ -40,10 +40,8 @@ define [
       @.$("#" + field).val()
 
     submitForm: () ->
-      @model.set(@form.serialize())
-      # TODO: render errors in form
-      errors = null
-      if !(errors?)
+      @model.set(@form.serialize(), validate: true)
+      if !(errors = @model.validationError)
         self = @
         @model.save({},
           success: (model, resp) ->
@@ -55,6 +53,7 @@ define [
             self.router.navigate(model.url(), true )
         )
       else
+        @form.renderErrors(errors)
         @.$('.alert').remove()
         @$el.prepend(flashTemplate(
           name: "error"
