@@ -1,3 +1,4 @@
+@wip
 Feature: Translate a thread
   As a cojiro user
   I want to translate a thread

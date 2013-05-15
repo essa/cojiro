@@ -1,3 +1,4 @@
+@wip
 Feature: Edit fields of a neta
   As a curator
   I want to edit fields of a neta

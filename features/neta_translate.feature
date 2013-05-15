@@ -1,3 +1,4 @@
+@wip
 Feature: Translate fields of a neta
   As a curator
   I want to translate fields of a neta into my own language

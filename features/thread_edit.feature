@@ -1,3 +1,4 @@
+@wip
 Feature: Edit thread
   As a curator
   I want to edit a thread I have created
@@ -11,8 +12,8 @@ Feature: Edit thread
     And my locale is "en"
     And the following thread exists:
       | user    | csasaki                                                                            |
-      | Title   | Capoeira in Japan and around the world |
-      | Summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
+      | title   | Capoeira in Japan and around the world |
+      | summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
 
   @javascript
   Scenario: Edit thread title

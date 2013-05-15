@@ -15,12 +15,11 @@ Feature: Create new thread
     When I create the following thread:
       | Title   | Capoeira in Japan and around the world |
       | Summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
-      | Language | English |
     And I wait for the AJAX call to finish
     Then I should see the new thread "Capoeira in Japan and around the world"
     And I should see a success message: "Thread successfully created."
 
-  @javascript
+  @javascript @wip
   Scenario: User successfully creates a new thread in a language that's not their interface language
     When I create the following thread:
       | Title   | 日本におけるカポエイラ |
@@ -35,7 +34,6 @@ Feature: Create new thread
     When I create the following thread:
       | Title   | <title>   |
       | Summary | <summary> |
-      | Language | <language> |
     Then I should see an error message: "There were problems with the following fields:"
     And I should see an error message: "<message>"
 

@@ -1,3 +1,4 @@
+@wip
 Feature: Change language settings
   As a cojiro user
   I want to change my settings
