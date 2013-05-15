@@ -42,4 +42,3 @@ Feature: Create new thread
     Examples:
       | title   | summary                                             | language        | message |
       |         | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. | English | can't be blank |
-      | Capoeira in Japan and around the world | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. | English | can't be blank |  | can't be blank

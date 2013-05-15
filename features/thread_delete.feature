@@ -13,8 +13,7 @@ Feature: Delete a thread
     And the following thread exists:
       | user    | csasaki                                                                            |
       | Title   | Capoeira in Japan and around the world |
-      | Summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a 
-particularly vibrant community in Japan. |
+      | Summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
     When I click on the edit button next to the "title and summary" field
     And I click the delete link
     Then I should see the homepage
@@ -30,7 +29,6 @@ particularly vibrant community in Japan. |
     And the following thread exists:
       | user    | csasaki                                                                            |
       | Title   | Capoeira in Japan and around the world |
-      | Summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a 
-particularly vibrant community in Japan. |
+      | Summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
     When I click on the edit button next to the "title and summary" field
     Then I should not see the text "delete"
