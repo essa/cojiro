@@ -49,8 +49,7 @@ define [
         throw new Error("Translatable.Form's model must be a Backbone.Model.")
       if !(@model.schema)
         throw new Error("Translatable.Form's model must have a schema.")
-      @schema = ->
-        if _(@model.schema).isFunction() then @model.schema() else @model.schema
+      @schema = -> _(@model).result('schema')
       if (@locales = @options.locales) && !(@locales instanceof Array)
         throw new Error("Translatable.Form's locales must be an array of locale strings.")
 
