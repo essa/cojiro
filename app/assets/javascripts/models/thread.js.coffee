@@ -3,10 +3,13 @@ define [
   'backbone'
   'i18n'
   'modules/translatable'
+  'modules/extended/timestamps'
   'underscore_mixins'
-], (_, Backbone, I18n, Translatable) ->
+], (_, Backbone, I18n, Translatable, Timestamps) ->
 
   class Thread extends Translatable.Model
+    @extendObject(Timestamps)
+
     translatableAttributes:
       [ 'title', 'summary' ]
 
@@ -29,8 +32,6 @@ define [
         source_locale: @get('source_locale')
 
     getId: -> @id
-    getCreatedAt: -> @toDateStr(@get('created_at'))
-    getUpdatedAt: -> @toDateStr(@get('updated_at'))
     getUserName: -> @get('user').name
     getUserFullname: -> @get('user').fullname
     getUserAvatarUrl: -> @get('user').avatar_url
