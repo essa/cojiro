@@ -25,7 +25,7 @@ define (require) ->
         expect(@thread.get('source_locale')).toEqual('ja')
 
       it 'sets attributes passed in to constructor', ->
-        @thread = new Thread(title: { en: 'Title in English' })
+        @thread = new Thread(title: en: 'Title in English')
         expect(@thread.get('title').in('en')).toEqual('Title in English')
 
     describe 'getters', ->
@@ -243,12 +243,12 @@ define (require) ->
           it 'does not save if title is blank in the source locale', ->
             expect(@thread.save(_(@data).extend(title: en: '', source_locale: 'en'))).toBeFalsy()
             expect(@spy).toHaveBeenCalledOnce()
-            expect(@spy).toHaveBeenCalledWith(@thread, { title: en: "can't be blank" })
+            expect(@spy).toHaveBeenCalledWith(@thread, title: en: "can't be blank")
 
           it 'does not save if title is missing in the source locale', ->
             expect(@thread.save(_(@data).extend(title: {}, source_locale: 'en'))).toBeFalsy()
             expect(@spy).toHaveBeenCalledOnce()
-            expect(@spy).toHaveBeenCalledWith(@thread, { title: en: "can't be blank" })
+            expect(@spy).toHaveBeenCalledWith(@thread, title: en: "can't be blank")
 
           it 'does not save if title in source locale is null', ->
             expect(@thread.save(_(@data).extend(title: { en: null }, source_locale: 'en'))).toBeFalsy()
