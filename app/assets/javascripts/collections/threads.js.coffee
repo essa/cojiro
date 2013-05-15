@@ -13,5 +13,3 @@ define [
 
     byUser: (username) ->
       new @constructor(@select((thread) -> (thread.getUserName() == username )))
-
-  return Threads

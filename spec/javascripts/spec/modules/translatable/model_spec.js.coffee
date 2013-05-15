@@ -23,7 +23,7 @@ define (require) ->
         expect(@model.get('summary') instanceof Attribute).toBeTruthy()
 
       it 'sets initial value of translatable attributes if passed in', ->
-        @newModel = new MyModel(source_locale: 'ja', title: { en: 'title in English' })
+        @newModel = new MyModel(source_locale: 'ja', title: en: 'title in English')
         expect(@newModel.get('title').in('en')).toEqual('title in English')
 
       it 'handles undefined value for attributes', ->
@@ -36,9 +36,9 @@ define (require) ->
 
       it 'parses localized data from the server', ->
         @server.respondWith(
-          'GET',
-          '/collection',
-          @validResponse(
+          'GET'
+          '/collection'
+          @validResponse
             source_locale: 'en'
             title:
               en: 'Title in English'
@@ -46,7 +46,6 @@ define (require) ->
             summary:
               fr: 'Summary in French'
               cn: 'Summary in Chinese'
-          )
         )
         @model.fetch()
         @server.respond()
@@ -114,7 +113,7 @@ define (require) ->
     describe 'setters', ->
       describe '#set', ->
         it 'duplicates attributes object before parsing', ->
-          attributes = { title: en: 'title passed in' }
+          attributes = title: en: 'title passed in'
           @model.set(attributes)
           expect(attributes).toEqual( title: en: 'title passed in' )
 
@@ -201,11 +200,11 @@ define (require) ->
         @model.bind('invalid', @spy)
 
       it 'does not save if the source locale is blank', ->
-        expect(@model.save('source_locale': '')).toBeFalsy()
+        expect(@model.save(source_locale: '')).toBeFalsy()
         expect(@spy).toHaveBeenCalledOnce()
-        expect(@spy).toHaveBeenCalledWith(@model, { source_locale: 'can\'t be blank' })
+        expect(@spy).toHaveBeenCalledWith(@model, source_locale: 'can\'t be blank')
 
       it 'does not save if the source locale is null', ->
         expect(@model.save(source_locale: null)).toBeFalsy()
         expect(@spy).toHaveBeenCalledOnce()
-        expect(@spy).toHaveBeenCalledWith(@model, { source_locale: 'can\'t be blank'})
+        expect(@spy).toHaveBeenCalledWith(@model, source_locale: 'can\'t be blank')

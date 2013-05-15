@@ -4,27 +4,27 @@
     .statbar
       %ul.nav.nav-pills
         %li
-          %a{ :href => '#' }
+          %a{ href: '#' }
             %span.stat x
             %br
-            %span.stattext=i18n.t("templates.threads.show.links")
+            %span.stattext=i18n.t('templates.threads.show.links')
         %li.sep
         %li
           %span.date=@model.getCreatedAt()
           %br
-          %span.status=i18n.t("templates.threads.show.started")
+          %span.status=i18n.t('templates.threads.show.started')
         %li.avatar
-          %img{ :src => @model.getUserAvatarMiniUrl() }
+          %img{ src: @model.getUserAvatarMiniUrl() }
         %li.byline
           %span.name=@model.getUserFullname()
           %br
-          %a.unstyled{ :href => '#' }
+          %a.unstyled{ href: '#' }
             %span.handle="@#{@model.getUserName()}"
         %li.sep
         %li
           %span.date=@model.getUpdatedAt()
           %br
-          %span.status=i18n.t("templates.threads.show.updated")
+          %span.status=i18n.t('templates.threads.show.updated')
 
 .row
   .span12
@@ -36,8 +36,8 @@
   - if helpers.isLoggedIn()
     .link
       .link-inner
-        %a.add-link{ :role => "button" }
-          =i18n.t("templates.threads.show.add_a_link")
+        %a.add-link{ role: 'button' }
+          =i18n.t('templates.threads.show.add_a_link')
           .add-link-button
 
 #add-link-modal.modal.hide.fade

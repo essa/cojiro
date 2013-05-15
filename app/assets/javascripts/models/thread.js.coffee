@@ -8,7 +8,7 @@ define [
 
   class Thread extends Translatable.Model
     translatableAttributes:
-      [ "title", "summary" ]
+      [ 'title', 'summary' ]
 
     defaults: ->
       source_locale: I18n.locale
@@ -16,10 +16,10 @@ define [
     schema: ->
       title:
         type: 'Text'
-        label: _(I18n.t("attributes.thread.title")).capitalize()
+        label: _(I18n.t('attributes.thread.title')).capitalize()
       summary:
         type: 'TextArea'
-        label: _(I18n.t("attributes.thread.summary")).capitalize()
+        label: _(I18n.t('attributes.thread.summary')).capitalize()
 
     # http://stackoverflow.com/questions/5306089/only-update-certain-model-attributes-using-backbone-js
     toJSON: () ->
@@ -50,4 +50,4 @@ define [
       return !_.isEmpty(errors) && errors
 
     toDateStr: (datetime) ->
-      I18n.l("date.formats.long", datetime) unless datetime is undefined
+      I18n.l('date.formats.long', datetime) unless datetime is undefined

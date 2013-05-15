@@ -3,22 +3,22 @@
   .container
     %ul.nav
       %li
-        %a{ href: "#" }
-          =i18n.t("layout.home")
+        %a{ href: '#' }
+          =i18n.t('layout.home')
       - if helpers.isLoggedIn()
         %li
           %a{ href: "#{i18n.locale}/threads/new" }
-            =i18n.t("layout.start_a_thread")
+            =i18n.t('layout.start_a_thread')
     %ul.nav.secondary-nav.pull-right
       - if helpers.isLoggedIn()
         %li#profile-menu.dropdown
-          %a.dropdown-toggle{ href: "#profile-menu", data-toggle: 'dropdown' }
+          %a.dropdown-toggle{ href: '#profile-menu', data-toggle: 'dropdown' }
             ="@#{helpers.currentUser().name}"
             %b.caret
           %ul.dropdown-menu
             %li
-              %a{ href: "/logout?locale=#{i18n.locale}", data-bypass: "true" }
-                =i18n.t("layout.logout")
+              %a{ href: "/logout?locale=#{i18n.locale}", data-bypass: 'true' }
+                =i18n.t('layout.logout')
       - else
         %li
-          %a{ href: "/auth/twitter?locale=#{i18n.locale}", data-bypass: "true" }=i18n.t("layout.twitter_sign_in")
+          %a{ href: "/auth/twitter?locale=#{i18n.locale}", data-bypass: 'true' }=i18n.t('layout.twitter_sign_in')

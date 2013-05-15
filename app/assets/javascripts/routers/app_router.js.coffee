@@ -1,22 +1,22 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
-  'views/other/navbar',
-  'views/homepage/index',
-  'views/threads/thread',
-  'views/threads/new_thread',
-  'models/thread',
-  'backbone-support',
+  'jquery'
+  'underscore'
+  'backbone'
+  'views/other/navbar'
+  'views/homepage/index'
+  'views/threads/thread'
+  'views/threads/new_thread'
+  'models/thread'
+  'backbone-support'
   'i18n'
 ], ($, _, Backbone, NavbarView, HomepageView, ThreadView, NewThreadView, Thread, Support, I18n) ->
 
   class AppRouter extends Support.SwappingRouter
     routes:
-      "" : "root"
-      ":locale" : "index"
-      ":locale/threads/new": "new"
-      ":locale/threads/:id": "show"
+      '' : 'root'
+      ':locale' : 'index'
+      ':locale/threads/new': 'new'
+      ':locale/threads/:id': 'show'
 
     initialize: (options) ->
       @navbar = new NavbarView()
