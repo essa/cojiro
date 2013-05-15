@@ -11,11 +11,11 @@ Feature: Change language settings
     And my locale is "en"
     And the following thread exists:
       | user    | csasaki                                                                            |
-      | Title   | Capoeira in Japan and around the world |
-      | Summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
+      | title   | Capoeira in Japan and around the world |
+      | summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
     And the following neta exists:
-      | Title   | 東京のカポエイラ大会映像 |
-      | Summary | 東京で開催されたカポエイラ大会の貴重な映像です。 |
+      | title   | 東京のカポエイラ大会映像 |
+      | summary | 東京で開催されたカポエイラ大会の貴重な映像です。 |
       | language | Japanese|
 
   @javascript
