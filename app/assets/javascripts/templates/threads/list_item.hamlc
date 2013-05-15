@@ -1,7 +1,7 @@
 - require 'i18n'
 - require 'templates/shared/_new_label'
 %td
-  - if (current=@model.getTitle())
+  - if (current=@model.getAttr('title'))
     %span.translated=current
   - else
     %span.untranslated=@model.getAttrInSourceLocale('title')

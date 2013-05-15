@@ -29,8 +29,6 @@ define [
         source_locale: @get('source_locale')
 
     getId: -> @id
-    getTitle: -> @getAttr('title')
-    getSummary: -> @getAttr('summary')
     getCreatedAt: -> @toDateStr(@get('created_at'))
     getUpdatedAt: -> @toDateStr(@get('updated_at'))
     getUserName: -> @get('user').name
