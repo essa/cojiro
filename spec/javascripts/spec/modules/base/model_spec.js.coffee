@@ -1,10 +1,10 @@
 define (require) -> 
 
   Backbone = require('backbone')
-  BaseModel = require('modules/base/model')
 
   describe "BaseModel", ->
     beforeEach ->
+      BaseModel = require('modules/base/model')
       @baseModel = new BaseModel
 
     it 'extends Backbone.Model', ->
@@ -15,12 +15,25 @@ define (require) ->
       it 'returns an empty object', ->
         expect(@baseModel.validate()).toEqual({})
 
-    describe ".extendObject", ->
-      xit 'assigns keys and values of extended object to object'
-      xit 'calls extended method'
-      xit 'returns the object'
+    describe '.use', ->
+      class A
+        foo: -> "bar"
+      class B
+        bar: -> "baz"
+      beforeEach ->
+        @modelClass = require('modules/base/model')
 
-    describe '.include', ->
-      xit 'assigns keys and values of included object to prototype'
-      xit 'calls extended method'
-      xit 'returns the object'
+      it 'assigns keys and values of class prototype to prototype', ->
+        @modelClass.use(A)
+        a = new @modelClass
+        expect(a.foo()).toEqual("bar")
+        expect(a.bar).toBeUndefined()
+
+      it 'accepts more than one class', ->
+        @modelClass.use(A, B)
+        a = new @modelClass
+        expect(a.foo()).toEqual("bar")
+        expect(a.bar()).toEqual("baz")
+
+      it 'returns the object', ->
+        expect(@modelClass.use(class Foo)).toEqual(@modelClass)

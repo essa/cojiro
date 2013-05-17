@@ -1,26 +1,16 @@
 define [
   'jquery'
+  'underscore'
   'backbone'
-], ($, Backbone) ->
-
-  moduleKeywords = ['extended', 'included']
+], ($, _, Backbone) ->
 
   class BaseModel extends Backbone.Model
 
     getId: -> @id
     validate: (attrs) -> {}
 
-    @extendObject: (obj) ->
-      for key, value of obj when key not in moduleKeywords
-        @[key] = value
-
-      obj.extended?.apply(@)
+    @use: (classes...) ->
+      for cl in classes
+        for key, value of cl::
+          @::[key]=value
       @
-
-    @include: (obj) ->
-      for key, value of obj when key not in moduleKeywords
-        # Assign properties to the prototype
-        @::[key] = value
- 
-       obj.included?.apply(@)
-       @

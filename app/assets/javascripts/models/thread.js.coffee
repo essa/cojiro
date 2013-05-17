@@ -8,7 +8,7 @@ define [
 ], (_, Backbone, I18n, Translatable, Timestamps) ->
 
   class Thread extends Translatable.Model
-    @extendObject(Timestamps)
+    @use(Timestamps)
 
     translatableAttributes:
       [ 'title', 'summary' ]
