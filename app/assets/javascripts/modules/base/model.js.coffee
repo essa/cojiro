@@ -4,7 +4,7 @@ define [
   'backbone'
 ], ($, _, Backbone) ->
 
-  class BaseModel extends Backbone.Model
+  class BaseModel extends Backbone.RelationalModel
 
     getId: -> @id
     validate: (attrs) -> {}

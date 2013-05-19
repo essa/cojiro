@@ -38,9 +38,8 @@ define (require) ->
     describe "NewThreadView (with actual Thread model)", ->
 
       beforeEach ->
-        @collection = new Backbone.Collection
-        @collection.url = '/collection'
         @model = new Thread
+        @collection = new Backbone.Collection([], model: Thread, url: '/collection')
         @model.collection = @collection
         @view = new NewThreadView(model: @model, collection: @collection, router: router)
         @$el = @view.$el
@@ -90,7 +89,7 @@ define (require) ->
           @server.respondWith(
             'POST',
             '/collection',
-            [ 200, {'Content-Type': 'application/json'}, JSON.stringify(_(@fixtures.Thread.valid).extend(id: "123")) ]
+            [ 200, {'Content-Type': 'application/json'}, JSON.stringify(id: "123") ]
           )
           sinon.stub(router, 'navigate')
           @view.$("form input").val("a title")

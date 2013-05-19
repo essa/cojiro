@@ -6,7 +6,6 @@ beforeEach ->
       valid:
         "created_at":"2010-07-20T12:20:00Z"
         "updated_at":"2010-09-10T10:20:00Z"
-        "id":5
         "source_locale":"en"
         "title":
           "en": "Co-working spaces in Tokyo"
@@ -18,7 +17,6 @@ beforeEach ->
       valid_in_ja:
         "created_at":"2010-07-20T12:20:00Z"
         "updated_at":"2010-09-10T10:20:00Z"
-        "id":5
         "source_locale":"ja"
         "title":
           ja: "東京のコワーキングスペース"

@@ -14,9 +14,11 @@ define (require) ->
 
     describe 'interacting with the server', ->
       beforeEach ->
-        @thread = new Thread()
-        collection = url: '/collection'
-        @thread.collection = collection
+        @thread = new Thread
+        @collection = new Backbone.Collection([],
+          url: '/collection'
+          model: Thread)
+        @thread.collection = @collection
         @server = sinon.fakeServer.create()
       afterEach -> @server.restore()
 
@@ -47,7 +49,9 @@ define (require) ->
 
         describe 'on create', ->
           beforeEach ->
-            @thread.set(@fixtures.Thread.valid)
+            @thread.set
+              source_locale: 'en'
+              title: en: 'title'
             @thread.id = null
             @thread.save()
             @request = @server.requests[0]
@@ -58,7 +62,9 @@ define (require) ->
 
         describe 'on update', ->
           beforeEach ->
-            @thread.set(@fixtures.Thread.valid)
+            @thread.set
+              source_locale: 'en'
+              title: en: 'title'
             @thread.id = 66
             @thread.save()
             @request = @server.requests[0]

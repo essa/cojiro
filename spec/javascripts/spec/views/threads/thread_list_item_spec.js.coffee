@@ -8,8 +8,8 @@ define (require) ->
   describe "ThreadListItemView", ->
     beforeEach ->
       I18n.locale = 'en'
-      @thread = new Thread(@fixtures.Thread.valid)
-      @thread.collection = new Threads()
+      @thread = new Thread(_(@fixtures.Thread.valid).extend(id: 5))
+      @thread.collection = new Threads
       @view = new ThreadListItemView(model: @thread)
 
     afterEach ->
