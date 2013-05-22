@@ -86,7 +86,7 @@ describe CothreadsController do
           end
 
           it "returns the new thread" do
-            attr = FactoryGirl.attributes_for(:cothread)
+            attr = FactoryGirl.attributes_for(:cothread, title: { "en" => "title" }, summary: { "en" => "summary" })
             post :create, thread: attr, :format => :json
             JSON(response.body).should include(attr.stringify_keys)
           end
@@ -114,7 +114,7 @@ describe CothreadsController do
           end
 
           it "returns the new thread" do
-            attr = FactoryGirl.attributes_for(:cothread, title: { "en" => "a new title" })
+            attr = FactoryGirl.attributes_for(:cothread, title: { "en" => "title" }, summary: { "en" => "summary" })
             put :update, id: @cothread.id, thread: attr, format: :json
             JSON(response.body).should include(attr.stringify_keys)
           end
