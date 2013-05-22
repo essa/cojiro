@@ -4,20 +4,30 @@ define [
   'i18n'
   'modules/translatable'
   'models/user'
+  'models/comment'
+  'collections/comments'
   'modules/extended/timestamps'
   'underscore_mixins'
-], (_, Backbone, I18n, Translatable, User, Timestamps) ->
+], (_, Backbone, I18n, Translatable, User, Comment, Comments, Timestamps) ->
 
   class Thread extends Translatable.Model
     @use(Timestamps)
 
     relations: [
-      type: Backbone.HasOne
-      key: 'user'
-      relatedModel: User
-      reverseRelation:
-        key: 'threads'
-        includeInJSON: 'id'
+        type: Backbone.HasOne
+        key: 'user'
+        relatedModel: User
+        reverseRelation:
+          key: 'threads'
+          includeInJSON: 'id'
+      ,
+        type: Backbone.HasMany
+        key: 'comments'
+        relatedModel: Comment
+        collectionType: Comments
+        reverseRelation:
+          key: 'thread'
+          includeInJSON: 'id'
     ]
 
     translatableAttributes:
@@ -42,10 +52,15 @@ define [
         source_locale: @get('source_locale')
 
     getId: -> @id
+
+    # user relation
     getUserName: -> @get('user').get('name')
     getUserFullname: -> @get('user').get('fullname')
     getUserAvatarUrl: -> @get('user').get('avatar_url')
     getUserAvatarMiniUrl: -> @get('user').get('avatar_mini_url')
+
+    # links relation through comments
+    getLinks: -> @get('comments').pluck('link')
 
     validate: (attrs) ->
       errors = super(attrs) || {}

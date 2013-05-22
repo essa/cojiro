@@ -8,8 +8,9 @@ beforeEach ->
   Backbone.Relational.store._reverseRelations = oldReverseRelations
   Backbone.Relational.eventQueue = new Backbone.BlockingQueue
 
-  # request matchers
   @addMatchers
+
+    # request matchers
     toBeGET: -> @actual.method is 'GET'
     toBePOST: -> @actual.method is 'POST'
     toBePUT: -> @actual.method is 'PUT'
@@ -19,8 +20,11 @@ beforeEach ->
       actual is expected
     toBeAsync: -> @actual.async
 
+    # Backbone custom matchers
+    toHaveMany: (key) -> @actual.get(key) instanceof Backbone.Collection
+
   # response helpers
   @validResponse = (responseText) ->
     [ 200,
       {"Content-Type":"application/json"},
-     JSON.stringify(responseText) ]
+      JSON.stringify(responseText) ]

@@ -2,22 +2,32 @@ define [
   'underscore'
   'backbone'
   'i18n'
-  'models/user'
   'modules/translatable'
+  'models/user'
+  'models/comment'
+  'collections/comments'
   'modules/extended/timestamps'
   'underscore_mixins'
-], (_, Backbone, I18n, User, Translatable, Timestamps) ->
+], (_, Backbone, I18n, Translatable, User, Comment, Comments, Timestamps) ->
 
   class Link extends Translatable.Model
     @use(Timestamps)
 
     relations: [
-      type: Backbone.HasOne
-      key: 'user'
-      relatedModel: User
-      reverseRelation:
-        key: 'links'
-        includeInJSON: 'id'
+        type: Backbone.HasOne
+        key: 'user'
+        relatedModel: User
+        reverseRelation:
+          key: 'links'
+          includeInJSON: 'id'
+      ,
+        type: Backbone.HasMany
+        key: 'comments'
+        relatedModel: Comment
+        collectionType: Comments
+        reverseRelation:
+          key: 'link'
+          includeInJSON: 'id'
     ]
 
     translatableAttributes:

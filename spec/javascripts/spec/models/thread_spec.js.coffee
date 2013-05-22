@@ -5,12 +5,36 @@ define (require) ->
 
   I18n = require('i18n')
   Thread = require('models/thread')
+  Link = require('models/link')
+  Comments = require('collections/comments')
   TranslatableAttribute = require('modules/translatable/attribute')
   sharedExamples = require('spec/models/shared')
 
   describe 'Thread', ->
 
     sharedExamples(Thread, 'thread')
+
+    describe 'link/comment relation', ->
+      beforeEach ->
+        @thread = new Thread
+        @thread.set
+          comments: [
+            { link: title: en: 'link #1' }
+            { link: title: en: 'link #2' }
+            { link: title: en: 'link #3' }
+          ]
+
+      it 'has many comments', ->
+        expect(@thread).toHaveMany('comments')
+
+      it 'has links through comments', ->
+        expect(@thread.get('comments').pluck('link')[0] instanceof Link).toBeTruthy()
+
+      describe '#getLinks', ->
+
+        it 'returns links for this thread', ->
+          links = @thread.getLinks()
+          expect(links[0] instanceof Link).toBeTruthy()
 
     describe 'interacting with the server', ->
       beforeEach ->
