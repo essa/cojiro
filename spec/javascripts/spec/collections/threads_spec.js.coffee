@@ -42,7 +42,7 @@ define (require) ->
           I18n.locale = 'ja'
           expect(@threads.url()).toEqual('/ja/threads')
 
-      describe "byUser()", ->
+      describe "byUser", ->
         beforeEach ->
           Backbone.Model.prototype.getUserName = ->
           @thread1 = new Backbone.Model()
