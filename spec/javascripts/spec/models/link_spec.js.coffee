@@ -8,9 +8,3 @@ define (require) ->
   describe 'Link', ->
 
     sharedExamples(Link, 'link')
-
-    describe 'custom getters', ->
-      beforeEach ->
-        @link = new Link
-        collection = url: '/collection'
-        @link.collection = collection

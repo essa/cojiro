@@ -3,12 +3,22 @@ define [
   'backbone'
   'i18n'
   'modules/translatable'
+  'models/user'
   'modules/extended/timestamps'
   'underscore_mixins'
-], (_, Backbone, I18n, Translatable, Timestamps) ->
+], (_, Backbone, I18n, Translatable, User, Timestamps) ->
 
   class Thread extends Translatable.Model
     @use(Timestamps)
+
+    relations: [
+      type: Backbone.HasOne
+      key: 'user'
+      relatedModel: User
+      reverseRelation:
+        key: 'threads'
+        includeInJSON: 'id'
+    ]
 
     translatableAttributes:
       [ 'title', 'summary' ]
@@ -32,10 +42,10 @@ define [
         source_locale: @get('source_locale')
 
     getId: -> @id
-    getUserName: -> @get('user').name
-    getUserFullname: -> @get('user').fullname
-    getUserAvatarUrl: -> @get('user').avatar_url
-    getUserAvatarMiniUrl: -> @get('user').avatar_mini_url
+    getUserName: -> @get('user').get('name')
+    getUserFullname: -> @get('user').get('fullname')
+    getUserAvatarUrl: -> @get('user').get('avatar_url')
+    getUserAvatarMiniUrl: -> @get('user').get('avatar_mini_url')
 
     validate: (attrs) ->
       errors = super(attrs) || {}
@@ -50,3 +60,6 @@ define [
 
     toDateStr: (datetime) ->
       I18n.l('date.formats.long', datetime) unless datetime is undefined
+
+  # http://backbonerelational.org/#RelationalModel-setup
+  Thread.setup()

@@ -1,6 +1,7 @@
 define [
+  'backbone'
   'i18n'
-], (I18n) ->
+], (Backbone, I18n) ->
 
   # model assumed to have a source_locale and a translated attribute
   # called 'title' (string) and a user
@@ -83,7 +84,7 @@ define [
           it 'is defined', -> expect(@instance.getUserName).toBeDefined()
 
           it 'returns name attribute of user associated with instance', ->
-            stub = sinon.stub(@instance, 'get').returns({ 'name': 'csasaki' })
+            stub = sinon.stub(@instance, 'get').returns(new Backbone.Model(name: 'csasaki'))
 
             expect(@instance.getUserName()).toEqual('csasaki')
             expect(stub).toHaveBeenCalledWith('user')
@@ -92,7 +93,7 @@ define [
           it 'is defined', -> expect(@instance.getUserFullname).toBeDefined()
 
           it 'returns fullname attribute of user associated with instance', ->
-            stub = sinon.stub(@instance, 'get').returns({ 'fullname': 'Cojiro Sasaki' })
+            stub = sinon.stub(@instance, 'get').returns(new Backbone.Model(fullname: 'Cojiro Sasaki'))
 
             expect(@instance.getUserFullname()).toEqual('Cojiro Sasaki')
             expect(stub).toHaveBeenCalledWith('user')
@@ -101,7 +102,7 @@ define [
           it 'is defined', -> expect(@instance.getUserAvatarUrl).toBeDefined()
 
           it 'returns URL of original version of user avatar associated with instance', ->
-            stub = sinon.stub(@instance, 'get').returns({ 'avatar_url': 'http://www.example.com/csasaki.png' })
+            stub = sinon.stub(@instance, 'get').returns(new Backbone.Model(avatar_url: 'http://www.example.com/csasaki.png'))
 
             expect(@instance.getUserAvatarUrl()).toEqual('http://www.example.com/csasaki.png')
             expect(stub).toHaveBeenCalledWith('user')
@@ -110,7 +111,7 @@ define [
           it 'is defined', -> expect(@instance.getUserAvatarMiniUrl).toBeDefined()
 
           it 'returns URL of mini version of user avatar associated with instance', ->
-            stub = sinon.stub(@instance, 'get').returns({ 'avatar_mini_url': 'http://www.example.com/mini_csasaki.png' })
+            stub = sinon.stub(@instance, 'get').returns(new Backbone.Model(avatar_mini_url: 'http://www.example.com/mini_csasaki.png'))
 
             expect(@instance.getUserAvatarMiniUrl()).toEqual('http://www.example.com/mini_csasaki.png')
             expect(stub).toHaveBeenCalledWith('user')

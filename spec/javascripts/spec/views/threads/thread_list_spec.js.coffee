@@ -7,6 +7,7 @@ define (require) ->
   # make sure dependencies are loaded before stubbing, for unstubbed tests
   require('views/threads/thread_list_item')
 
+
   listItemView = new Backbone.View()
   listItemView.render = () ->
     @el = document.createElement('tr')
@@ -14,9 +15,7 @@ define (require) ->
   ThreadListItemView = sinon.stub().returns(listItemView)
 
   context(
-    'models/thread': Thread
-    'collections/threads': Threads
-    "views/threads/thread_list_item": ThreadListItemView
+    'views/threads/thread_list_item': ThreadListItemView
   ) ['views/threads/thread_list'], (ThreadListView) ->
 
     describe "ThreadListView (with stubbed ThreadListItemView)", ->
@@ -74,13 +73,18 @@ define (require) ->
     describe "with actual ThreadListItemView", ->
 
       beforeEach ->
-        @view = new ThreadListView()
+        @view = new ThreadListView
 
       describe "dynamic jquery timeago tag", ->
         beforeEach ->
           @clock = sinon.useFakeTimers()
           @thread = new Thread(_(@fixtures.Thread.valid).extend(updated_at: new Date().toJSON()))
           @threads = new Threads([@thread])
+
+          # TODO: figure out why we need this
+          # -> something to do with Backbone.Relational
+          @thread.collection = @threads
+
           @view.collection = @threads
           @view.render()
 
