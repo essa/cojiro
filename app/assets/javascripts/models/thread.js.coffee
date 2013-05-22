@@ -71,8 +71,5 @@ define [
 
       return !_.isEmpty(errors) && errors
 
-    toDateStr: (datetime) ->
-      I18n.l('date.formats.long', datetime) unless datetime is undefined
-
   # http://backbonerelational.org/#RelationalModel-setup
   Thread.setup()
