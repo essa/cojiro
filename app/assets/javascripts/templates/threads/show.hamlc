@@ -14,15 +14,15 @@
           %br
           %span.status=i18n.t('templates.threads.show.started')
         %li.avatar
-          %img{ src: @model.getUserAvatarMiniUrl() }
+          %img{ src: @model.getUser().getAvatarMiniUrl() }
         %li.byline
-          %span.name=@model.getUserFullname()
+          %span.name=@model.getUser().getFullname()
           %br
           %a.unstyled{ href: '#' }
-            %span.handle="@#{@model.getUserName()}"
+            %span.handle="@#{@model.getUser().getName()}"
         %li.sep
         %li
-          %span.date=@model.getUpdatedAt()
+          %span.date=@model.getUser().getUpdatedAt()
           %br
           %span.status=i18n.t('templates.threads.show.updated')
 

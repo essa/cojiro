@@ -30,7 +30,13 @@ define (require) ->
       it 'has links through comments', ->
         expect(@thread.get('comments').pluck('link')[0] instanceof Link).toBeTruthy()
 
+    describe 'getters', ->
+      beforeEach ->
+        @thread = new Thread
+
       describe '#getLinks', ->
+        beforeEach ->
+          @thread.set comments: [ link: title: en: 'link #1' ]
 
         it 'returns links for this thread', ->
           links = @thread.getLinks()

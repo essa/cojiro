@@ -36,6 +36,15 @@ define [
           collection = url: '/collection'
           @instance.collection = collection
 
+        describe '#getUser', ->
+
+          it 'returns user for this thread', ->
+            user = new Backbone.Model
+            stub = sinon.stub(@instance, 'get').returns(user)
+
+            expect(@instance.getUser()).toEqual(user)
+            expect(stub).toHaveBeenCalledWith('user')
+
         describe '#toJSON', ->
           beforeEach ->
             @instance.set(
@@ -69,42 +78,6 @@ define [
             @instance.set
               source_locale: 'en'
             expect(@instance.toJSON()[model_name].title).toEqual(new Object)
-
-        describe '#getUserName', ->
-          it 'is defined', -> expect(@instance.getUserName).toBeDefined()
-
-          it 'returns name attribute of user associated with instance', ->
-            stub = sinon.stub(@instance, 'get').returns(new Backbone.Model(name: 'csasaki'))
-
-            expect(@instance.getUserName()).toEqual('csasaki')
-            expect(stub).toHaveBeenCalledWith('user')
-
-        describe '#getUserFullname', ->
-          it 'is defined', -> expect(@instance.getUserFullname).toBeDefined()
-
-          it 'returns fullname attribute of user associated with instance', ->
-            stub = sinon.stub(@instance, 'get').returns(new Backbone.Model(fullname: 'Cojiro Sasaki'))
-
-            expect(@instance.getUserFullname()).toEqual('Cojiro Sasaki')
-            expect(stub).toHaveBeenCalledWith('user')
-
-        describe '#getUserAvatarUrl', ->
-          it 'is defined', -> expect(@instance.getUserAvatarUrl).toBeDefined()
-
-          it 'returns URL of original version of user avatar associated with instance', ->
-            stub = sinon.stub(@instance, 'get').returns(new Backbone.Model(avatar_url: 'http://www.example.com/csasaki.png'))
-
-            expect(@instance.getUserAvatarUrl()).toEqual('http://www.example.com/csasaki.png')
-            expect(stub).toHaveBeenCalledWith('user')
-
-        describe '#getUserAvatarMiniUrl', ->
-          it 'is defined', -> expect(@instance.getUserAvatarMiniUrl).toBeDefined()
-
-          it 'returns URL of mini version of user avatar associated with instance', ->
-            stub = sinon.stub(@instance, 'get').returns(new Backbone.Model(avatar_mini_url: 'http://www.example.com/mini_csasaki.png'))
-
-            expect(@instance.getUserAvatarMiniUrl()).toEqual('http://www.example.com/mini_csasaki.png')
-            expect(stub).toHaveBeenCalledWith('user')
 
         describe '#url', ->
           it 'returns collection URL when id is not set', ->

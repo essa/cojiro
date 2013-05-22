@@ -52,10 +52,7 @@ define [
         source_locale: @get('source_locale')
 
     # user relation
-    getUserName: -> @get('user').get('name')
-    getUserFullname: -> @get('user').get('fullname')
-    getUserAvatarUrl: -> @get('user').get('avatar_url')
-    getUserAvatarMiniUrl: -> @get('user').get('avatar_mini_url')
+    getUser: -> @get('user')
 
     # links relation through comments
     getLinks: -> @get('comments').pluck('link')
