@@ -45,7 +45,7 @@ define [
       button_text = if !!fieldVal then I18n.t("templates.threads.show.edit") else I18n.t("templates.threads.show.add_in", lang: I18n.t(I18n.locale))
       @$el.append(_.template('<button class="edit-button btn btn-mini"><%= button_text %></button>', button_text: button_text))
 
-    showForm: (e) ->
+    showForm: ->
       @$el.html(formTemplate(model: @model, field: @field, schema: @schema()))
       @$('.field').val(@model.getAttr(@field))
 
@@ -53,7 +53,7 @@ define [
       e.preventDefault()
       @$('button.save-button').trigger('click')
 
-    saveField: (e) ->
+    saveField: ->
       @model.setAttr(@field, @$('.field').val())
       self = @
       @model.save {},
