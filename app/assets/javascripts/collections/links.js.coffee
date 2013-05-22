@@ -5,3 +5,5 @@ define [
 
   class Links extends Backbone.Collection
     model: Link
+    url: ->
+      '/' + I18n.locale + '/links'
