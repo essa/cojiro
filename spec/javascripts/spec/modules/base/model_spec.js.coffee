@@ -15,6 +15,16 @@ define (require) ->
       it 'returns an empty object', ->
         expect(@baseModel.validate()).toEqual({})
 
+    describe '#getId', ->
+      it 'is defined', -> expect(@baseModel.getId).toBeDefined()
+
+      it 'returns undefined if id is not defined', ->
+        expect(@baseModel.getId()).toBeUndefined()
+
+      it "otherwise returns model's id", ->
+        @baseModel.id = 66
+        expect(@baseModel.getId()).toEqual(66)
+
     describe '.use', ->
       class A
         foo: -> "bar"

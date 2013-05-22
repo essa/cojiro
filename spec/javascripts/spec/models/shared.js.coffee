@@ -70,16 +70,6 @@ define [
               source_locale: 'en'
             expect(@instance.toJSON()[model_name].title).toEqual(new Object)
 
-        describe '#getId', ->
-          it 'is defined', -> expect(@instance.getId).toBeDefined()
-
-          it 'returns undefined if id is not defined', ->
-            expect(@instance.getId()).toBeUndefined()
-
-          it "otherwise returns model's id", ->
-            @instance.id = 66
-            expect(@instance.getId()).toEqual(66)
-
         describe '#getUserName', ->
           it 'is defined', -> expect(@instance.getUserName).toBeDefined()
 
