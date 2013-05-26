@@ -3,7 +3,7 @@ define (require) ->
   Backbone = require('backbone')
   I18n = require('i18n')
 
-  model = new Backbone.Model(id: 5, text: "a comment text")
+  model = new Backbone.Model(id: 12, text: "a comment text")
   Comment = sinon.stub().returns(model)
 
   context(
@@ -28,7 +28,7 @@ define (require) ->
         it 'adds a new model', ->
           expect(@comments.length).toEqual(1)
 
-        xit 'finds a model by id', ->
+        it 'finds a model by id', ->
           expect(@comments.get(12).get('id')).toEqual(12)
 
       describe '#url', ->
