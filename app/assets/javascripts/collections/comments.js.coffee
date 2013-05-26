@@ -1,6 +1,8 @@
 define [
   'backbone'
-], (Backbone) ->
+  'models/comment'
+], (Backbone, Comment) ->
 
   class Comments extends Backbone.Collection
     model: Comment
+    url: -> '/' + I18n.locale + '/comments'
