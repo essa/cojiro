@@ -6,7 +6,6 @@ FactoryGirl.define do
     title "MyString"
     summary "MyText"
     user nil
-    cothread nil
     embed_data "MyText"
   end
 end
