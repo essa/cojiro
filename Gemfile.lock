@@ -272,6 +272,8 @@ GEM
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
+    shoulda-matchers (2.1.0)
+      activesupport (>= 3.0.0)
     spork (0.9.0)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -346,6 +348,7 @@ DEPENDENCIES
   requirejs-rails!
   rspec-rails
   sass-rails (~> 3.2.3)
+  shoulda-matchers
   spork (~> 0.9.0.rc)
   sqlite3
   timecop

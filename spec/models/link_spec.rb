@@ -1,5 +1,9 @@
 require 'spec_helper'
+require 'shoulda-matchers'
 
 describe Link do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'associations' do
+    it { should have_many(:comments) }
+    it { should have_many(:cothreads).through(:comments) }
+  end
 end

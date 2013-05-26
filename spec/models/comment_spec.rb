@@ -1,5 +1,9 @@
 require 'spec_helper'
+require 'shoulda-matchers'
 
 describe Comment do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'associations' do
+    it { should belong_to(:link) }
+    it { should belong_to(:cothread) }
+  end
 end

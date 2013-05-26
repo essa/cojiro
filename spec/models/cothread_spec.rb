@@ -1,9 +1,15 @@
 require 'spec_helper'
 require 'timecop'
+require 'shoulda-matchers'
 
 describe Cothread do
   before do
     I18n.locale = 'en'
+  end
+
+  describe 'associations' do
+    it { should have_many(:comments) }
+    it { should have_many(:links).through(:comments) }
   end
 
   describe "validation with factory" do

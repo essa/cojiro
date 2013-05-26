@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120715131851) do
+ActiveRecord::Schema.define(:version => 20130526032357) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(:version => 20120715131851) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "comments", :force => true do |t|
+    t.text     "text"
+    t.integer  "cothread_id"
+    t.integer  "link_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "comments", ["cothread_id"], :name => "index_comments_on_cothread_id"
+  add_index "comments", ["link_id"], :name => "index_comments_on_link_id"
 
   create_table "cothread_translations", :force => true do |t|
     t.integer  "cothread_id"
@@ -39,6 +50,18 @@ ActiveRecord::Schema.define(:version => 20120715131851) do
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
   end
+
+  create_table "links", :force => true do |t|
+    t.string   "url"
+    t.string   "title"
+    t.text     "summary"
+    t.integer  "user_id"
+    t.text     "embed_data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "links", ["user_id"], :name => "index_links_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

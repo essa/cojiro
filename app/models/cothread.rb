@@ -16,6 +16,8 @@ class Cothread < ActiveRecord::Base
 
   #associations
   belongs_to :user
+  has_many :comments
+  has_many :links, :through => :comments
 
   def write_attribute(name, value, options = {})
     if translated?(name) && value.is_a?(Hash)
