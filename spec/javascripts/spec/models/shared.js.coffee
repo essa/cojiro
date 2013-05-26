@@ -86,4 +86,3 @@ define [
           it 'returns collection URL and id when id is set', ->
             @instance.id = 66
             expect(@instance.url()).toEqual('/collection/66')
-

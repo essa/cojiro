@@ -13,16 +13,16 @@ define (require) ->
     describe 'Threads (with stubbed Thread model)', ->
 
       it 'can be instantiated', ->
-        collection = new Threads()
+        collection = new Threads
         expect(Threads).not.toBeNull()
 
       it 'contains instances of Thread', ->
-        collection = new Threads()
+        collection = new Threads
         expect(collection.model).toEqual(Thread)
 
       describe 'when instantiated with model literal', ->
         beforeEach ->
-          @threads = new Threads()
+          @threads = new Threads
           @threads.add(id: 5, title: 'Geisha bloggers')
 
         it 'adds a new model', ->
@@ -32,7 +32,7 @@ define (require) ->
           expect(@threads.get(5).get('id')).toEqual(5)
 
       describe '#url', ->
-        beforeEach -> @threads = new Threads()
+        beforeEach -> @threads = new Threads
 
         it 'is persisted at /en/threads for an English locale', ->
           I18n.locale = 'en'
