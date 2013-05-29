@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130526032357) do
+ActiveRecord::Schema.define(:version => 20130529020604) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -57,8 +57,9 @@ ActiveRecord::Schema.define(:version => 20130526032357) do
     t.text     "summary"
     t.integer  "user_id"
     t.text     "embed_data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "status",     :default => 0, :null => false
   end
 
   add_index "links", ["user_id"], :name => "index_links_on_user_id"
