@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529020604) do
+ActiveRecord::Schema.define(:version => 20130604235644) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -51,10 +51,20 @@ ActiveRecord::Schema.define(:version => 20130529020604) do
     t.datetime "updated_at",                 :null => false
   end
 
-  create_table "links", :force => true do |t|
-    t.string   "url"
+  create_table "link_translations", :force => true do |t|
+    t.integer  "link_id"
+    t.string   "locale"
     t.string   "title"
     t.text     "summary"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "link_translations", ["link_id"], :name => "index_link_translations_on_link_id"
+  add_index "link_translations", ["locale"], :name => "index_link_translations_on_locale"
+
+  create_table "links", :force => true do |t|
+    t.string   "url"
     t.integer  "user_id"
     t.text     "embed_data"
     t.datetime "created_at",                :null => false

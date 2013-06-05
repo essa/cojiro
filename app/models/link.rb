@@ -1,4 +1,6 @@
 class Link < ActiveRecord::Base
+  translates :title, :summary
+
   belongs_to :user
   has_many :comments
   has_many :cothreads, :through => :comments
