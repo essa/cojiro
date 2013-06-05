@@ -17,7 +17,7 @@ class Link < ActiveRecord::Base
 
   #callbacks
   before_validation :default_values
-  before_validation :parse_url
+  before_validation :parse_and_normalize_url
 
   private
 
@@ -26,8 +26,9 @@ class Link < ActiveRecord::Base
     self.source_locale ||= I18n.locale.to_s
   end
 
-  def parse_url
-    self.url = Addressable::URI.heuristic_parse(url).to_s
+  def parse_and_normalize_url
+    uri = Addressable::URI.heuristic_parse(url)
+    self.url = uri.normalize.to_s
   end
 
   def title_present_in_source_locale

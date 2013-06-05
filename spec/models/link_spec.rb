@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 require 'shoulda-matchers'
 
@@ -64,9 +65,9 @@ describe Link do
       should_not be_valid
     end
 
-    it 'is invalid without a unique url' do
+    it 'is invalid without a unique url (after normalization)' do
       FactoryGirl.create(:link, :url => 'http://www.example.com')
-      subject.url = 'http://www.example.com'
+      subject.url = 'www.example.com'
       should_not be_valid
     end
   end
@@ -92,10 +93,18 @@ describe Link do
   describe 'normalization' do
     it 'adds http:// if missing' do
       link = FactoryGirl.create(:link, :url => 'www.foo.com')
-      link.url.should == 'http://www.foo.com'
+      link.url.should match("^http://www.foo.com/")
     end
 
-    it 'normalizes non-ascii urls'
+    it 'adds trailing forward-slash if missing' do
+      link = FactoryGirl.create(:link, :url => 'www.foo.com')
+      link.url.should match("www.foo.com/$")
+    end
+
+    it 'normalizes non-ascii urls' do
+      link = FactoryGirl.create(:link, :url => 'http://お名前.com')
+      link.url.should == 'http://xn--t8jx73hngb.com/'
+    end
   end
 
   describe "locale helper methods" do
