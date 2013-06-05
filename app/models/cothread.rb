@@ -38,7 +38,8 @@ class Cothread < ActiveRecord::Base
     json = super(options.merge(:only => [:id, :created_at, :updated_at, :source_locale],
                                :include => [ :user ]))
     translated_attribute_names.each do |attr|
-      json.merge!(attr => send("#{attr}_translations"))
+      translations = send("#{attr}_translations").delete_if { |_,v| v.nil? }
+      json.merge!(attr => translations)
     end
     json
   end

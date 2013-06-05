@@ -172,7 +172,16 @@ describe Cothread do
         ].include?(k)
       }.should be_empty
     end
+  end
 
+  describe '#as_json' do
+    it 'does not return nil translations' do
+      Globalize.with_locale(:ja) do
+        @cothread = FactoryGirl.build(:cothread, user: FactoryGirl.create(:csasaki))
+      end
+      @cothread.as_json[:title].should have_key('ja')
+      @cothread.as_json[:title].should_not have_key('en')
+    end
   end
 
 end
