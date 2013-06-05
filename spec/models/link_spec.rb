@@ -58,6 +58,17 @@ describe Link do
       subject.user = nil
       should_not be_valid
     end
+
+    it 'is invalid without a url' do
+      subject.url = ""
+      should_not be_valid
+    end
+
+    it 'is invalid without a unique url' do
+      FactoryGirl.create(:link, :url => 'http://www.example.com')
+      subject.url = 'http://www.example.com'
+      should_not be_valid
+    end
   end
 
   describe 'default values' do
@@ -76,6 +87,15 @@ describe Link do
       @link.save
       @link.source_locale.should == "en"
     end
+  end
+
+  describe 'normalization' do
+    it 'adds http:// if missing' do
+      link = FactoryGirl.create(:link, :url => 'www.foo.com')
+      link.url.should == 'http://www.foo.com'
+    end
+
+    it 'normalizes non-ascii urls'
   end
 
   describe "locale helper methods" do

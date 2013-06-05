@@ -35,7 +35,7 @@ describe LinksController do
         describe 'step 1: url' do
           it 'creates a new link' do
             expect {
-              post :create, thread: FactoryGirl.attributes_for(:link)
+              post :create, link: FactoryGirl.attributes_for(:link)
             }.to change(Link, :count).by(1)
           end
 

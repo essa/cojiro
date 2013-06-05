@@ -1,3 +1,5 @@
+require 'addressable/uri'
+
 class Link < ActiveRecord::Base
   translates :title, :summary
   include GlobalizeHelpers
@@ -9,17 +11,23 @@ class Link < ActiveRecord::Base
 
   #validations
   validates :user, :presence => true
+  validates :url, :presence => true, :uniqueness => true
   validates :status, :presence => true, :numericality => true
   validate :title_present_in_source_locale
 
   #callbacks
   before_validation :default_values
+  before_validation :parse_url
 
   private
 
   def default_values
     self.status ||= 0
     self.source_locale ||= I18n.locale.to_s
+  end
+
+  def parse_url
+    self.url = Addressable::URI.heuristic_parse(url).to_s
   end
 
   def title_present_in_source_locale
