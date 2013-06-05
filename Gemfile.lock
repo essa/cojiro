@@ -125,7 +125,15 @@ GEM
     em-websocket (0.3.8)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
+    embedly (1.6.0)
+      json
+      oauth
+      querystring
+      typhoeus
     erubis (2.7.0)
+    ethon (0.5.3)
+      ffi (~> 1.0.11)
+      mime-types (~> 1.18)
     eventmachine (0.12.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -219,6 +227,7 @@ GEM
       activerecord (~> 3.0)
       railties (~> 3.0)
     polyglot (0.3.3)
+    querystring (0.1.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -289,6 +298,8 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.5.3)
+      ethon (~> 0.5.3)
     tzinfo (0.3.37)
     uglifier (1.2.2)
       execjs (>= 0.3.0)
@@ -297,6 +308,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    vcr (2.5.0)
     webmock (1.9.0)
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
@@ -320,6 +332,7 @@ DEPENDENCIES
   cucumber-rails (~> 1.0)
   database_cleaner
   debugger
+  embedly
   execjs
   factory_girl_rails
   globalize3!
@@ -354,4 +367,5 @@ DEPENDENCIES
   timecop
   uglifier (>= 1.0.3)
   unicorn
+  vcr (~> 2.5.0)
   webmock (>= 1.9.0)

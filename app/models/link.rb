@@ -1,8 +1,11 @@
 require 'addressable/uri'
+require 'embedly'
 
 class Link < ActiveRecord::Base
   translates :title, :summary
   include GlobalizeHelpers
+
+  serialize :embed_data
 
   belongs_to :user
   has_many :comments
@@ -18,6 +21,7 @@ class Link < ActiveRecord::Base
   #callbacks
   before_validation :default_values
   before_validation :parse_and_normalize_url
+  before_create :get_embed_data
 
   private
 
@@ -29,6 +33,12 @@ class Link < ActiveRecord::Base
   def parse_and_normalize_url
     uri = Addressable::URI.heuristic_parse(url)
     self.url = uri.normalize.to_s
+  end
+
+  def get_embed_data
+    embedly_api = Embedly::API.new :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
+    obj = embedly_api.oembed :url => url
+    self.embed_data = { :description => obj[0].description }
   end
 
   def title_present_in_source_locale

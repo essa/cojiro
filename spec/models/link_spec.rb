@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 require 'shoulda-matchers'
+require 'vcr'
 
 describe Link do
   describe 'associations' do
@@ -104,6 +105,15 @@ describe Link do
     it 'normalizes non-ascii urls' do
       link = FactoryGirl.create(:link, :url => 'http://お名前.com')
       link.url.should == 'http://xn--t8jx73hngb.com/'
+    end
+  end
+
+  describe 'get embed data' do
+    it 'saves embed data' do
+      VCR.use_cassette('what_is_crossfit') do
+        link = FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M')
+        link.embed_data.should include(:description => 'What is CrossFit? CrossFit is an effective way to get fit. Anyone can do it. It is a fitness program that combines a wide variety of functional movements into a timed or scored workout. We do pull-ups, squats, push-ups, weightlifting, gymnastics, running, rowing, and a host of other movements.')
+      end
     end
   end
 

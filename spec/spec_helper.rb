@@ -12,6 +12,7 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'webmock/rspec'
+  require 'vcr'
   require 'capybara/rspec'
   require 'capybara/rails'
   require 'capybara/webkit'
@@ -60,6 +61,12 @@ Spork.prefork do
 
     # needed to avoid conflicts with capyabara for tests where :js => true
     WebMock.disable_net_connect!(:allow_localhost => true)
+
+    VCR.configure do |c|
+      c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+      c.allow_http_connections_when_no_cassette = true
+      c.hook_into :webmock
+    end
 
     config.before(:each) do
       load_request_stubs

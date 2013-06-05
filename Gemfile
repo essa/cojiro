@@ -51,6 +51,7 @@ group :test, :development do
   gem 'timecop', :require => false
   gem 'chronic', :require => false
   gem 'launchy', :require => false
+  gem 'embedly', :require => false
   gem 'sqlite3'
 end
 
@@ -58,6 +59,7 @@ group :test do
   # ref: http://datacodescotch.blogspot.jp/2011/11/warning-cucumber-rails-required-outside.html 
   gem 'cucumber-rails', '~> 1.0', :require => false
   gem 'webmock', '>= 1.9.0', :require => false
+  gem 'vcr', '~> 2.5.0', :require => false
   gem 'shoulda-matchers', :require => false
   gem 'guard', '>= 1.3.2', :require => false
   gem 'rb-inotify', '~> 0.8.8', :require => false
