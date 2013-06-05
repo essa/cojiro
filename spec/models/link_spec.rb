@@ -28,6 +28,31 @@ describe Link do
       subject.status = "status"
       should_not be_valid
     end
+
+    it 'validates presence of title in source locale if status > 0' do
+      subject.status = 1
+      subject.title = nil
+      should_not be_valid
+    end
+
+    it 'does not validate presence of title if status = 0' do
+      subject.status = 0
+      subject.title = nil
+      should be_valid
+    end
+
+    it 'does not validate presence of title in other locales' do
+      # need to do this to ensure that Globalize.locale is reset
+      # even if test fails
+      subject.status = 1
+      begin
+        Globalize.locale = :fr
+        subject.title = nil
+        should be_valid
+      ensure
+        Globalize.locale = nil
+      end
+    end
   end
 
   describe 'default values' do
