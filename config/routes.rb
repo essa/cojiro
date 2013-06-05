@@ -8,7 +8,7 @@ Cojiro::Application.routes.draw do
 
   scope '/:locale', :locale => /#{I18n.available_locales.join('|')}/ do
     resources :cothreads, :except => :edit, :path => :threads
-    resources :links, :only => [ :index, :show ]
+    resources :links, :only => [ :index, :show, :create ]
   end
 
   root :to => 'homepage#index'
