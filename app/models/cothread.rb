@@ -1,10 +1,13 @@
+require 'globalize_helpers'
+
 class Cothread < ActiveRecord::Base
+  translates :title, :summary
+  include GlobalizeHelpers
+
   attr_accessible :title, :summary, :source_locale
 
   #scopes
   scope :recent, order("cothreads.created_at DESC")
-
-  translates :title, :summary
 
   #validations
   validates :user, :presence => true
@@ -38,13 +41,6 @@ class Cothread < ActiveRecord::Base
       json.merge!(attr => send("#{attr}_translations"))
     end
     json
-  end
-
-  # define locale helper methods for translated attributes
-  translated_attribute_names.each do |attr|
-    define_method("#{attr}_in_source_locale") do
-      read_attribute attr, { :locale => source_locale }
-    end
   end
 
   private
