@@ -9,7 +9,7 @@ describe Link do
 
   describe 'validation with factory' do
     before do
-      @link = FactoryGirl.build(:link)
+      @link = FactoryGirl.build(:link, :title => 'a title')
     end
 
     subject { @link }
@@ -52,6 +52,11 @@ describe Link do
       ensure
         Globalize.locale = nil
       end
+    end
+
+    it 'is invalid without user' do
+      subject.user = nil
+      should_not be_valid
     end
   end
 

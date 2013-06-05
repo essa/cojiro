@@ -8,6 +8,7 @@ class Link < ActiveRecord::Base
   attr_accessible :embed_data, :summary, :title, :url, :source_locale
 
   #validations
+  validates :user, :presence => true
   validates :status, :presence => true, :numericality => true
   validate :title_present_in_source_locale
 
