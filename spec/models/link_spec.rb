@@ -40,5 +40,23 @@ describe Link do
       @link.save
       @link.status.should == 0
     end
+
+    it 'sets default source language' do
+      @link.source_locale = nil
+      @link.save
+      @link.source_locale.should == "en"
+    end
+  end
+
+  describe "locale helper methods" do
+    let!(:model) { FactoryGirl.create(:link) }
+
+    describe "title" do
+      it_behaves_like 'attribute with locale methods', 'title'
+    end
+
+    describe "summary" do
+      it_behaves_like 'attribute with locale methods', 'summary'
+    end
   end
 end

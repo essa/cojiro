@@ -101,31 +101,15 @@ describe Cothread do
   end
 
   describe "locale helper methods" do
-    before do
-      @cothread = FactoryGirl.create(:cothread,
-                                     :title => "a title in English",
-                                     :summary => "a summary in English")
-    end
-
-    shared_examples_for "attribute with locale methods" do |attr_name|
-
-      it "has #{attr_name}_in_source_locale method" do
-        I18n.with_locale(:ja) do
-          @cothread.send(attr_name).should == nil
-          @cothread.send("#{attr_name}_in_source_locale").should == "a #{attr_name} in English"
-        end
-      end
-
-    end
+    let!(:model) { FactoryGirl.create(:cothread) }
 
     describe "title" do
-      it_behaves_like "attribute with locale methods", "title"
+      it_behaves_like "attribute with locale methods", 'title'
     end
 
     describe "summary" do
-      it_behaves_like "attribute with locale methods", "summary"
+      it_behaves_like "attribute with locale methods", 'summary'
     end
-
   end
 
   describe "#to_json" do
