@@ -10,6 +10,8 @@ define (require) ->
       I18n.locale = 'en'
       @thread = new Thread()
       @thread.set
+        created_at: new Date("2013", "4", "4", "12", "00").toJSON()
+        updated_at: new Date("2013", "5", "5", "12", "00").toJSON()
         title:
           en: "Geisha bloggers"
         summary:
@@ -29,6 +31,8 @@ define (require) ->
         expect($el).toBe("#thread")
         expect($el).toHaveText(/Geisha bloggers/)
         expect($el).toHaveText(/Looking for info on geisha bloggers./)
+        expect($el).toHaveText(/May 4, 2013\s*started/)
+        expect($el).toHaveText(/June 5, 2013\s*last updated/)
 
       it "renders user info", ->
         @view = new ThreadView(model: @thread)

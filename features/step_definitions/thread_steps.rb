@@ -35,6 +35,14 @@ Then /^I should see the new thread "([^"]*)"$/ do |title|
   page.should have_content(@cothread.summary)
 end
 
+Then /^I should see that the thread was created on "([^"]*)"$/ do |date|
+  page.find('span.status', :text => /STARTED/).find(:xpath, './/..').find('span.date').text.should == date
+end
+
+Then /^I should see that the thread was updated on "([^"]*)"$/ do |date|
+  page.find('span.status', :text => /LAST UPDATED/).find(:xpath, './/..').find('span.date').text.should == date
+end
+
 Then /^I should see the new thread page$/ do
   page.should have_css("form", :id => "new_cothread")
 end

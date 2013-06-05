@@ -12,11 +12,14 @@ Feature: Create new thread
 
   @javascript
   Scenario: User successfully creates a new thread
+    Given the date is "June 5, 2013"
     When I create the following thread:
       | Title   | Capoeira in Japan and around the world |
       | Summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
     And I wait for the AJAX call to finish
     Then I should see the new thread "Capoeira in Japan and around the world"
+    And I should see that the thread was created on "June 5, 2013"
+    And I should see that the thread was updated on "June 5, 2013"
     And I should see a success message: "Thread successfully created."
 
   @javascript @wip

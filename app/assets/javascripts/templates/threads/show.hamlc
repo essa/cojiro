@@ -22,7 +22,7 @@
             %span.handle="@#{@model.getUser().getName()}"
         %li.sep
         %li
-          %span.date=@model.getUser().getUpdatedAt()
+          %span.date=@model.getUpdatedAt()
           %br
           %span.status=i18n.t('templates.threads.show.updated')
 
