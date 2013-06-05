@@ -11,8 +11,8 @@ class Cothread < ActiveRecord::Base
 
   #validations
   validates :user, :presence => true
-  validates :title, :presence => true, :if => :in_source_locale?
   validates :source_locale, :presence => :true
+  validate :title_present_in_source_locale
 
   #callbacks
   before_validation :default_values
@@ -28,10 +28,6 @@ class Cothread < ActiveRecord::Base
     else
       super(name, value, options)
     end
-  end
-
-  def in_source_locale?
-    (source_locale == Globalize.locale.to_s) or (source_locale == nil)
   end
 
   def as_json(options = {})
@@ -50,4 +46,9 @@ class Cothread < ActiveRecord::Base
     self.source_locale ||= I18n.locale.to_s
   end
 
+  def title_present_in_source_locale
+    Globalize.with_locale(source_locale) do
+      errors.add(:title, I18n.t('errors.messages.blank')) unless self.title.present?
+    end
+  end
 end

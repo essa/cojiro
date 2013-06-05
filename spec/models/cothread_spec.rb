@@ -24,8 +24,19 @@ describe Cothread do
     end
 
     it "is invalid without a title in source locale" do
-      subject.title = ""
-      should_not be_valid
+      # need to switch to other locale to make sure we are validating
+      # presence of the title in the source locale explicitly
+      I18n.with_locale(:fr) do
+        subject.source_locale = 'en'
+        subject.title_translations = { :en => "" }
+        should_not be_valid
+      end
+    end
+
+    it 'is valid with a title in source locale' do
+      Globalize.with_locale(:ja) do
+        FactoryGirl.create(:cothread, :source_locale => 'ja', :title => 'title').should be_valid
+      end
     end
 
     it "is valid without a title in other locale" do
