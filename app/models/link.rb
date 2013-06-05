@@ -38,7 +38,7 @@ class Link < ActiveRecord::Base
   def get_embed_data
     embedly_api = Embedly::API.new :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
     obj = embedly_api.oembed :url => url
-    self.embed_data = { :description => obj[0].description }
+    self.embed_data = obj[0].marshal_dump
   end
 
   def title_present_in_source_locale

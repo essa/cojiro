@@ -109,12 +109,25 @@ describe Link do
   end
 
   describe 'get embed data' do
-    it 'saves embed data' do
+    around(:each) do |example|
       VCR.use_cassette('what_is_crossfit') do
-        link = FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M')
-        link.embed_data.should include(:description => 'What is CrossFit? CrossFit is an effective way to get fit. Anyone can do it. It is a fitness program that combines a wide variety of functional movements into a timed or scored workout. We do pull-ups, squats, push-ups, weightlifting, gymnastics, running, rowing, and a host of other movements.')
+        example.run
       end
     end
+    let(:link) { FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M') }
+    subject { link.embed_data }
+    its([:description]) { should == 'What is CrossFit? CrossFit is an effective way to get fit. Anyone can do it. It is a fitness program that combines a wide variety of functional movements into a timed or scored workout. We do pull-ups, squats, push-ups, weightlifting, gymnastics, running, rowing, and a host of other movements.' }
+    its([:provider_url]) { should == 'http://www.youtube.com/' }
+    its([:author_name]) { should == 'CrossFit' }
+    its([:height]) { should == 480 }
+    its([:width]) { should == 854 }
+    its([:thumbnail_height]) { should == 360 }
+    its([:thumbnail_width]) { should == 480 }
+    its([:author_url]) { should == 'http://www.youtube.com/user/CrossFitHQ' }
+    its([:type]) { should == 'video' }
+    its([:provider_name]) { should == 'YouTube' }
+    its([:thumbnail_url]) { should == 'http://i1.ytimg.com/vi/tzD9BkXGJ1M/hqdefault.jpg' }
+    its([:html]) { should == '<iframe width="854" height="480" src="http://www.youtube.com/embed/tzD9BkXGJ1M?feature=oembed" frameborder="0" allowfullscreen></iframe>' }
   end
 
   describe "locale helper methods" do
