@@ -37,14 +37,6 @@ describe CothreadsController do
           get :show, :id => "not-found", :format => :html
         }.should raise_error(ActiveRecord::RecordNotFound)
       end
-
-    end
-
-    describe 'POST create' do
-      it 'redirects to homepage' do
-        post :create
-        response.should redirect_to(homepage_path)
-      end
     end
   end
 
@@ -78,6 +70,10 @@ describe CothreadsController do
           post :create
           response.should redirect_to(homepage_path)
         end
+      end
+
+      describe 'PUT update' do
+        it 'redirects to homepage'
       end
     end
 
