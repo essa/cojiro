@@ -66,7 +66,7 @@ define (require) ->
         it 'sets title and summary values', ->
           @view.$("form input").val("a title")
           @view.$("form textarea").val("a summary")
-          @$form.trigger('submit')
+          @$form.submit()
 
           expect(@model.getAttr('title')).toEqual("a title")
           expect(@model.getAttr('summary')).toEqual("a summary")
@@ -74,7 +74,7 @@ define (require) ->
         it "saves the model", ->
           sinon.stub(@model, 'set').returns(null)
           sinon.stub(@model, 'validate')
-          @view.$('form').trigger('submit')
+          @$form.submit()
           expect(@model.save).toHaveBeenCalledOnce()
           @model.set.restore()
 
