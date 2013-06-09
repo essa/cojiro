@@ -31,7 +31,7 @@ define [
     ]
 
     translatableAttributes:
-      [ 'title' ]
+      [ 'title', 'summary' ]
 
     defaults: ->
       source_locale: I18n.locale
@@ -39,7 +39,9 @@ define [
     toJSON: () ->
       link:
         title: @get('title').toJSON()
+        summary: @get('summary').toJSON()
         source_locale: @get('source_locale')
+        url: @get('url')
 
     getId: -> @id
     getUser: -> @get('user')

@@ -4,7 +4,7 @@
     &times;
   %h3 Add a link
 .modal-body
-  %form.form-inline
+  %form.form-inline.add-url-form
     %fieldset
       %label URL &nbsp;
       %input{ type: 'text', name: 'url', placeholder: i18n.t('templates.threads.show.enter_a_url') }

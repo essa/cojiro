@@ -1,6 +1,7 @@
 define (require) ->
 
   Thread = require('models/thread')
+  Link = require('models/link')
   ThreadView = require('views/threads/thread')
   globals = require('globals')
   I18n = require('i18n')
@@ -80,6 +81,10 @@ define (require) ->
       afterEach ->
         $('#sandbox').remove()
         $('body').removeClass()
+
+      it 'creates showAddLinkModal with a new link model', ->
+        expect(@view.addLinkModalView.model).toBeDefined()
+        expect(@view.addLinkModalView.model instanceof Link).toBeTruthy()
 
       it "calls showAddLinkModel when user clicks on the 'add link' button", ->
         # ensure that modal is initially hidden -- bootstrap will do this
