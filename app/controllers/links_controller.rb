@@ -1,4 +1,5 @@
 class LinksController < ApplicationController
+  before_filter :login_required, :except => [:index, :show]
   before_filter :find_link, :except => [:index, :create]
   respond_to :json, :only => [ :index, :show, :create ]
 

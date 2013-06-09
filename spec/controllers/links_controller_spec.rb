@@ -22,6 +22,13 @@ describe LinksController do
           assigns(:link).should eq(link)
         end
       end
+
+      describe 'POST create' do
+        it 'redirects to homepage' do
+          post :create
+          response.should redirect_to(homepage_path)
+        end
+      end
     end
 
     context 'with logged-in user' do
@@ -32,17 +39,19 @@ describe LinksController do
 
       describe 'POST create' do
 
-        describe 'step 1: url' do
-          it 'creates a new link' do
-            expect {
-              post :create, link: FactoryGirl.attributes_for(:link)
-            }.to change(Link, :count).by(1)
-          end
+        context 'with valid params' do
+          describe 'step 1: url' do
+            it 'creates a new link' do
+              expect {
+                post :create, link: FactoryGirl.attributes_for(:link)
+              }.to change(Link, :count).by(1)
+            end
 
-          it 'returns the new link' do
-            attr = FactoryGirl.attributes_for(:link)
-            post :create, link: attr, :format => :json
-            JSON(response.body).should include(attr.stringify_keys)
+            it 'returns the new link' do
+              attr = FactoryGirl.attributes_for(:link)
+              post :create, link: attr, :format => :json
+              JSON(response.body).should include(attr.stringify_keys)
+            end
           end
         end
       end

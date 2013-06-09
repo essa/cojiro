@@ -40,6 +40,12 @@ describe CothreadsController do
 
     end
 
+    describe 'POST create' do
+      it 'redirects to homepage' do
+        post :create
+        response.should redirect_to(homepage_path)
+      end
+    end
   end
 
   context "JSON" do
@@ -67,6 +73,12 @@ describe CothreadsController do
 
       end
 
+      describe 'POST create' do
+        it 'redirects to homepage' do
+          post :create
+          response.should redirect_to(homepage_path)
+        end
+      end
     end
 
     context "with logged-in user" do
