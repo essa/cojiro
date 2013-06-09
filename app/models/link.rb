@@ -5,7 +5,7 @@ class Link < ActiveRecord::Base
   translates :title, :summary
   include GlobalizeHelpers
 
-  serialize :embed_data
+  serialize :embed_data, JSON
 
   belongs_to :user
   has_many :comments
