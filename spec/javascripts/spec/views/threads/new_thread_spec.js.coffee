@@ -89,7 +89,7 @@ define (require) ->
           @server.respondWith(
             'POST',
             '/collection',
-            [ 200, {'Content-Type': 'application/json'}, JSON.stringify(id: "123") ]
+            @validResponse(id: '123')
           )
           sinon.stub(router, 'navigate')
           @view.$("form input").val("a title")
