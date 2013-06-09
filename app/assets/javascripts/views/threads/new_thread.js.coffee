@@ -36,9 +36,6 @@ define [
       @$el.append(@form.el)
       @.$('fieldset').append(formActionsTemplate())
 
-    getValue: (field) ->
-      @.$("#" + field).val()
-
     submitForm: () ->
       @model.set(@form.serialize(), validate: true)
       if !(errors = @model.validationError)
