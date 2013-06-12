@@ -11,7 +11,8 @@ Feature: Logout of cojiro
       | nickname | csasaki       |
     And my locale is "en"
     And I am on the homepage
-    When I click on "Logout"
+    When I click on "@csasaki"
+    And I click on "Logout"
     Then I should see a link to "Sign in through Twitter"
     And I should not see a link to "csasaki"
     And I should not see a link to "Logout"

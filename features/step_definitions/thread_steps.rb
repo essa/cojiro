@@ -36,11 +36,11 @@ Then /^I should see the new thread "([^"]*)"$/ do |title|
 end
 
 Then /^I should see that the thread was created on "([^"]*)"$/ do |date|
-  page.find('span.status', :text => /STARTED/).find(:xpath, './/..').find('span.date').text.should == date
+  page.find('span.status', :text => /STARTED/).first(:xpath, './/..').find('span.date').text.should == date
 end
 
 Then /^I should see that the thread was updated on "([^"]*)"$/ do |date|
-  page.find('span.status', :text => /LAST UPDATED/).find(:xpath, './/..').find('span.date').text.should == date
+  page.find('span.status', :text => /LAST UPDATED/).first(:xpath, './/..').find('span.date').text.should == date
 end
 
 Then /^I should see the new thread page$/ do

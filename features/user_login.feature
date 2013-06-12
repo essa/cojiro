@@ -13,10 +13,9 @@ Feature: Login to cojiro
     And I am on the homepage
     When I click on "Sign in through Twitter"
     Then I should see a link to "csasaki"
-    And I should see a link to "Logout"
     And I should not see a link to "Sign in through Twitter"
     And the following user should exist:
       | name     | csasaki        |
       | fullname | Cojiro Sasaki  |
 
-  Scenario Outline: Invalid login
+    #Scenario Outline: Invalid login

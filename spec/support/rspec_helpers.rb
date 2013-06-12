@@ -14,7 +14,6 @@ module Helpers
 
   def twitter_sign_in
     visit '/auth/twitter'
-    wait_until { page.has_css? '#navbar' }
   end
 
 end
