@@ -32,7 +32,7 @@ class Cothread < ActiveRecord::Base
 
   def as_json(options = {})
     json = super(options.merge(:only => [:id, :created_at, :updated_at, :source_locale],
-                               :include => [ :user ]))
+                               :include => [ :user, :comments ]))
     translated_attribute_names.each do |attr|
       translations = send("#{attr}_translations").delete_if { |_,v| v.nil? }
       json.merge!(attr => translations)

@@ -126,7 +126,9 @@ describe Cothread do
   describe "#to_json" do
     before do
       Timecop.freeze(Time.utc(2002,7,20,12,20)) do
-        @cothread = FactoryGirl.build(:cothread, user: FactoryGirl.create(:csasaki))
+        @cothread = FactoryGirl.build(:cothread,
+                                      user: FactoryGirl.create(:csasaki),
+                                      comments: FactoryGirl.create_list(:comment, 3))
         Globalize.with_locale(:fr) do
           @cothread.title = "title in French"
           @cothread.summary = "summary in French"
@@ -169,6 +171,15 @@ describe Cothread do
       JSON(@cothread_json)["user"]["avatar_mini_url"].should be
     end
 
+    it 'includes comments' do
+      JSON(@cothread_json)["comments"][0].should be
+      JSON(@cothread_json)["comments"][0]['text'].should be
+      JSON(@cothread_json)["comments"][1].should be
+      JSON(@cothread_json)["comments"][1]['text'].should be
+      JSON(@cothread_json)["comments"][2].should be
+      JSON(@cothread_json)["comments"][2]['text'].should be
+    end
+
     it "does not include any other attributes" do
       JSON(@cothread_json).keys.delete_if { |k|
         [ "id",
@@ -179,7 +190,8 @@ describe Cothread do
           "created_at",
           "updated_at",
           "source_locale",
-          "user"
+          "user",
+          "comments"
         ].include?(k)
       }.should be_empty
     end
