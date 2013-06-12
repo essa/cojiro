@@ -30,9 +30,13 @@ class Cothread < ActiveRecord::Base
     end
   end
 
+  def serializable_hash(options = {})
+    super(options.merge(:only => [:id, :created_at, :updated_at, :source_locale],
+                        :include => [ :user, :comments ]))
+  end
+
   def as_json(options = {})
-    json = super(options.merge(:only => [:id, :created_at, :updated_at, :source_locale],
-                               :include => [ :user, :comments ]))
+    json = super(options)
     translated_attribute_names.each do |attr|
       translations = send("#{attr}_translations").delete_if { |_,v| v.nil? }
       json.merge!(attr => translations)

@@ -1,7 +1,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  sequence(:url) { |n| "http://www.mywebsite#{n}.com" }
+  sequence(:url) { |n| "http://www.mywebsite#{n}.com/" }
 
   factory :link do
     url { FactoryGirl.generate(:url) }

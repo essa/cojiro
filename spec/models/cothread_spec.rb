@@ -180,6 +180,21 @@ describe Cothread do
       JSON(@cothread_json)["comments"][2]['text'].should be
     end
 
+    # perhaps this does not belong here, but need to make sure
+    # that we don't include other attributes in nested json
+    # see: https://github.com/rails/rails/pull/2200
+    it 'does not include nested comment cothread_id' do
+      JSON(@cothread_json)['comments'][0]['cothread_id'].should be_nil
+      JSON(@cothread_json)['comments'][0]['link_id'].should be_nil
+      JSON(@cothread_json)['comments'][1]['cothread_id'].should be_nil
+      JSON(@cothread_json)['comments'][1]['link_id'].should be_nil
+    end
+
+    it 'includes nested comment link' do
+      @cothread.comments[0].link = FactoryGirl.create(:link)
+      JSON(@cothread.to_json)['comments'][0]['link'].should be
+    end
+
     it "does not include any other attributes" do
       JSON(@cothread_json).keys.delete_if { |k|
         [ "id",
@@ -206,5 +221,4 @@ describe Cothread do
       @cothread.as_json[:title].should_not have_key('en')
     end
   end
-
 end
