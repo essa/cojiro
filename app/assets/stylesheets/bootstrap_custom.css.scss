@@ -194,7 +194,7 @@ ul.nav-pills {
       border-bottom: 10px solid $cojiroGray;
     }
 
-    .link {
+    .url {
       display: block;
       overflow: hidden;
       height: $linkUrlHeight;
@@ -207,7 +207,7 @@ ul.nav-pills {
         background: darken($cojiroLightGray, 20%);
         color: $white;
       }
-      span.url {
+      span.site {
         font-size: $baseFontSize;
       }
     }

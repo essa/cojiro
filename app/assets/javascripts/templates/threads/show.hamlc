@@ -36,8 +36,10 @@
   - _(@model.getLinks()).each (link) ->
     .link
       .link-inner
-        %a.link{ :href => link.getUrl() }
-          %span.url=link.getUrl()
+        %a.url{ :href => link.getUrl() }
+          %span.lang en
+          %span.site=link.getUrl()
+        %a.description{ :href => '#' }
   - if helpers.isLoggedIn()
     .link
       .link-inner
