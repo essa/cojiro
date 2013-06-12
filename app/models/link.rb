@@ -32,7 +32,7 @@ class Link < ActiveRecord::Base
 
   def parse_and_normalize_url
     uri = Addressable::URI.heuristic_parse(url)
-    self.url = uri.normalize.to_s
+    self.url = uri && uri.normalize.to_s
   end
 
   def get_embed_data

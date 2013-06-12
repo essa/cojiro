@@ -61,8 +61,15 @@ describe Link do
       should_not be_valid
     end
 
-    it 'is invalid without a url' do
+    it 'is invalid with a blank url' do
       subject.url = ""
+      should_not be_valid
+    end
+
+    # callback was crashing on nil url
+    # added this to check
+    it 'is invlid with a nil url' do
+      subject.url = nil
       should_not be_valid
     end
 
