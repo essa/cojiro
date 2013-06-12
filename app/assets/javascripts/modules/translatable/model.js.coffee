@@ -18,7 +18,7 @@ define [
 
     parse: (resp, options = {}) ->
       self = @
-      resp = JSON.parse(JSON.stringify(resp))
+      resp = resp && JSON.parse(JSON.stringify(resp))
       if resp? && @translatableAttributes?
         for key in @translatableAttributes
           value = resp[key]
