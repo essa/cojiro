@@ -4,6 +4,7 @@ class Comment < ActiveRecord::Base
   attr_accessible :text
 
   def as_json(options = {})
-    json = super(options.merge(:include => [ :link ]))
+    json = super(options.merge(:only => [:id, :text, :created_at, :updated_at],
+                               :include => [ :link ]))
   end
 end
