@@ -33,6 +33,11 @@
   .span12
     %h2#summary
 .links
+  - _(@model.getLinks()).each (link) ->
+    .link
+      .link-inner
+        %a.link{ :href => link.getUrl() }
+          %span.url=link.getUrl()
   - if helpers.isLoggedIn()
     .link
       .link-inner

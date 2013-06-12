@@ -9,6 +9,22 @@ define (require) ->
 
     sharedExamples(Link, 'link')
 
+    describe 'wrapper methods', ->
+      beforeEach ->
+        @link = new Link
+        collection = url: '/collection'
+        @link.collection = collection
+
+      describe '#getId', ->
+        it 'returns the id', ->
+          @link.id = 123
+          expect(@link.getId()).toEqual(123)
+
+      describe '#getUrl', ->
+        it 'returns the url', ->
+          @link.set('url', 'http://www.foo.com')
+          expect(@link.getUrl()).toEqual('http://www.foo.com')
+
     describe 'interacting with the server', ->
       beforeEach ->
         @link = new Link

@@ -21,6 +21,15 @@ define (require) ->
           name: "csasaki"
           fullname: "Cojiro Sasaki"
           avatar_mini_url: "http://www.example.com/mini_csasaki.png"
+        comments: [
+            text: 'comment 1'
+            link:
+              url: 'http://www.foo.com'
+          ,
+            text: 'comment 2'
+            link:
+              url: 'http://www.bar.com'
+        ]
 
     afterEach ->
       I18n.locale = I18n.defaultLocale
@@ -41,6 +50,12 @@ define (require) ->
         expect($el).toHaveText(/@csasaki/)
         expect($el).toHaveText(/Cojiro Sasaki/)
         expect($el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')
+
+      it 'renders link info', ->
+        @view = new ThreadView(model: @thread)
+        $el = @view.render().$el
+        expect($el).toContain('a.link[href="http://www.foo.com"]')
+        expect($el).toContain('a.link[href="http://www.bar.com"]')
 
       describe "logged-in user", ->
         beforeEach ->
