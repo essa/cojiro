@@ -45,6 +45,11 @@ define [
             expect(@instance.getUser()).toEqual(user)
             expect(stub).toHaveBeenCalledWith('user')
 
+        describe '#getId', ->
+          it 'returns the id', ->
+            @instance.id = 123
+            expect(@instance.getId()).toEqual(123)
+
         describe '#toJSON', ->
           beforeEach ->
             @instance.set(

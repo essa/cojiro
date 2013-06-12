@@ -51,7 +51,7 @@ define [
         summary: @get('summary').toJSON()
         source_locale: @get('source_locale')
 
-    # user relation
+    getId: -> @id
     getUser: -> @get('user')
 
     # links relation through comments

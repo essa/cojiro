@@ -15,11 +15,6 @@ define (require) ->
         collection = url: '/collection'
         @link.collection = collection
 
-      describe '#getId', ->
-        it 'returns the id', ->
-          @link.id = 123
-          expect(@link.getId()).toEqual(123)
-
       describe '#getUrl', ->
         it 'returns the url', ->
           @link.set('url', 'http://www.foo.com')
