@@ -170,9 +170,14 @@ describe Cothread do
       its([2]) { should_not have_key('link_id') }
     end
 
-    it 'includes nested comment link' do
-      @cothread.comments[0].link = FactoryGirl.create(:link)
-      JSON(@cothread.to_json)['comments'][0]['link'].should be
+    describe 'link associated through comment' do
+      before do
+        link = @cothread.comments[0].link = FactoryGirl.create(:link)
+        link.stub(:site_name).and_return('www.foo.com')
+      end
+      subject { JSON(@cothread.to_json)['comments'][0]['link'] }
+      it { should be }
+      its(['site_name']) { should == 'www.foo.com' }
     end
 
     it "does not include any other attributes" do

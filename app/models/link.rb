@@ -29,7 +29,7 @@ class Link < ActiveRecord::Base
     end
   end
 
-  def as_json(options = {})
+  def serializable_hash(options = {})
     super(options.merge(:methods => :site_name))
   end
 
