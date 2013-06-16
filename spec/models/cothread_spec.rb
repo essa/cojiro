@@ -137,57 +137,37 @@ describe Cothread do
       end
       @cothread_json = @cothread.to_json
     end
+    let(:cothread_json) { JSON(@cothread.to_json) }
+    subject { cothread_json }
+    its(['id']) { should be }
+    its(['title']) { should == { "en" => @cothread.title, "fr" => "title in French" } }
+    its(['summary']) { should == { "en" => @cothread.summary, "fr" => "summary in French" } }
+    its(['created_at']) { should == "2002-07-20T12:20:00Z" }
+    its(['updated_at']) { should == "2002-07-20T12:20:00Z" }
+    its(['source_locale']) { should be }
 
-    it "has an id" do
-      JSON(@cothread_json)["id"].should be
-    end
+    its(['user']) { should be }
+    its(['user']) { should have_key('name') }
+    its(['user']) { should have_key('fullname') }
+    its(['user']) { should have_key('location') }
+    its(['user']) { should have_key('profile') }
+    its(['user']) { should have_key('avatar_url') }
+    its(['user']) { should have_key('avatar_mini_url') }
 
-    it "has titles in all locales" do
-      JSON(@cothread_json)["title"].should ==
-        { "en" => @cothread.title, "fr" => "title in French" }
-    end
-
-    it "has summaries in all locales" do
-      JSON(@cothread_json)["summary"].should ==
-        { "en" => @cothread.summary, "fr" => "summary in French" }
-    end
-
-    it "has created_at and updated_at timestamps" do
-      JSON(@cothread_json)["created_at"].should == "2002-07-20T12:20:00Z"
-      JSON(@cothread_json)["updated_at"].should == "2002-07-20T12:20:00Z"
-    end
-
-    it "has a source locale" do
-      JSON(@cothread_json)["source_locale"].should be
-    end
-
-    it "includes user" do
-      JSON(@cothread_json)["user"].should be
-      JSON(@cothread_json)["user"]["name"].should be
-      JSON(@cothread_json)["user"]["fullname"].should be
-      JSON(@cothread_json)["user"]["location"].should be
-      JSON(@cothread_json)["user"]["profile"].should be
-      JSON(@cothread_json)["user"]["avatar_url"].should be
-      JSON(@cothread_json)["user"]["avatar_mini_url"].should be
-    end
-
-    it 'includes comments' do
-      JSON(@cothread_json)["comments"][0].should be
-      JSON(@cothread_json)["comments"][0]['text'].should be
-      JSON(@cothread_json)["comments"][1].should be
-      JSON(@cothread_json)["comments"][1]['text'].should be
-      JSON(@cothread_json)["comments"][2].should be
-      JSON(@cothread_json)["comments"][2]['text'].should be
-    end
-
-    # perhaps this does not belong here, but need to make sure
-    # that we don't include other attributes in nested json
-    # see: https://github.com/rails/rails/pull/2200
-    it 'does not include nested comment cothread_id' do
-      JSON(@cothread_json)['comments'][0]['cothread_id'].should be_nil
-      JSON(@cothread_json)['comments'][0]['link_id'].should be_nil
-      JSON(@cothread_json)['comments'][1]['cothread_id'].should be_nil
-      JSON(@cothread_json)['comments'][1]['link_id'].should be_nil
+    describe 'comments' do
+      subject { cothread_json['comments'] }
+      its([0]) { should be }
+      its([0]) { should have_key('text') }
+      its([0]) { should_not have_key('cothread_id') }
+      its([0]) { should_not have_key('link_id') }
+      its([1]) { should be }
+      its([1]) { should have_key('text') }
+      its([1]) { should_not have_key('cothread_id') }
+      its([1]) { should_not have_key('link_id') }
+      its([2]) { should be }
+      its([2]) { should have_key('text') }
+      its([2]) { should_not have_key('cothread_id') }
+      its([2]) { should_not have_key('link_id') }
     end
 
     it 'includes nested comment link' do
