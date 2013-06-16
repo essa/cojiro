@@ -137,6 +137,26 @@ describe Link do
     its(["html"]) { should == '<iframe width="854" height="480" src="http://www.youtube.com/embed/tzD9BkXGJ1M?feature=oembed" frameborder="0" allowfullscreen></iframe>' }
   end
 
+  describe 'embed helper methods' do
+    context 'for a link with valid embed data' do
+      around(:each) do |example|
+        VCR.use_cassette('what_is_crossfit') do
+          example.run
+        end
+      end
+      subject { FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M') }
+      its(:site_name) { should == 'www.youtube.com' }
+    end
+
+    context 'for a link with missing embed data' do
+      it 'returns nil site name if provider_url is nil' do
+        link = FactoryGirl.build(:link)
+        link.stub(:embed_data).and_return {}
+        link.site_name.should == nil
+      end
+    end
+  end
+
   describe "locale helper methods" do
     let!(:model) { FactoryGirl.create(:link) }
 

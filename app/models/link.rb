@@ -23,6 +23,12 @@ class Link < ActiveRecord::Base
   before_validation :parse_and_normalize_url
   before_create :get_embed_data
 
+  def site_name
+    if (embed_data && provider_url = embed_data['provider_url'])
+      provider_url.gsub(/^http:\/\//,'').chomp('/')
+    end
+  end
+
   private
 
   def default_values
