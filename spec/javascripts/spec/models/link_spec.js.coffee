@@ -20,6 +20,11 @@ define (require) ->
           @link.set('url', 'http://www.foo.com')
           expect(@link.getUrl()).toEqual('http://www.foo.com')
 
+      describe '#getSiteName', ->
+        it 'returns the site name', ->
+          @link.set('site_name', 'www.foo.com')
+          expect(@link.getSiteName()).toEqual('www.foo.com')
+
     describe 'interacting with the server', ->
       beforeEach ->
         @link = new Link

@@ -38,7 +38,7 @@
       .link-inner
         %a.url{ :href => link.getUrl() }
           %span.lang en
-          %span.site=link.getUrl()
+          %span.site=link.getSiteName()
         %a.description{ :href => '#' }
   - if helpers.isLoggedIn()
     .link

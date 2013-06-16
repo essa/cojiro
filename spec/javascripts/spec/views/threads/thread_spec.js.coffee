@@ -25,10 +25,12 @@ define (require) ->
             text: 'comment 1'
             link:
               url: 'http://www.foo.com'
+              site_name: 'www.foo.com'
           ,
             text: 'comment 2'
             link:
               url: 'http://www.bar.com'
+              site_name: 'www.bar.com'
         ]
 
     afterEach ->
@@ -54,8 +56,11 @@ define (require) ->
       it 'renders link info', ->
         @view = new ThreadView(model: @thread)
         $el = @view.render().$el
-        expect($el).toContain('a.link[href="http://www.foo.com"]')
-        expect($el).toContain('a.link[href="http://www.bar.com"]')
+        expect($el).toContain('a.url[href="http://www.foo.com"]')
+        expect($el).toContain('a.url[href="http://www.bar.com"]')
+        sites = $el.find('.site')
+        expect($(sites[0])).toHaveText('www.foo.com')
+        expect($(sites[1])).toHaveText('www.bar.com')
 
       describe "logged-in user", ->
         beforeEach ->

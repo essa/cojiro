@@ -80,6 +80,17 @@ describe Link do
     end
   end
 
+  describe '#to_json' do
+    before do
+      VCR.use_cassette('what_is_crossfit') do
+        @link = FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M')
+      end
+    end
+    subject { JSON(@link.to_json) }
+    its(['id']) { should be }
+    its(['site_name']) { should == 'www.youtube.com' }
+  end
+
   describe 'default values' do
     before do
       @link = FactoryGirl.create(:link)

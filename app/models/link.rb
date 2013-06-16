@@ -29,6 +29,10 @@ class Link < ActiveRecord::Base
     end
   end
 
+  def as_json(options = {})
+    super(options.merge(:methods => :site_name))
+  end
+
   private
 
   def default_values

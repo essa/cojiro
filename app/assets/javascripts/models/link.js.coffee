@@ -46,6 +46,7 @@ define [
     getId: -> @id
     getUser: -> @get('user')
     getUrl: -> @get('url')
+    getSiteName: -> @get('site_name')
 
   # http://backbonerelational.org/#RelationalModel-setup
   Link.setup()
