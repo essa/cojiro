@@ -33,6 +33,14 @@ class Link < ActiveRecord::Base
     super(options.merge(:methods => :site_name))
   end
 
+  def self.embedly_api
+    embedly_api = Embedly::API.new :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)', :key => ENV['EMBEDLY_KEY']
+  end
+
+  def embedly_api
+    self.class.embedly_api
+  end
+
   private
 
   def default_values
@@ -46,7 +54,6 @@ class Link < ActiveRecord::Base
   end
 
   def get_embed_data
-    embedly_api = Embedly::API.new :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
     obj = embedly_api.oembed :url => url
     self.embed_data = obj[0].marshal_dump
   end
