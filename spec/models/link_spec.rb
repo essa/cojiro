@@ -89,9 +89,10 @@ describe Link do
     its(['id']) { should be }
     its(['site_name']) { should == 'www.youtube.com' }
     its(['user']) { should == 'foo' }
+    its(['url']) { should == 'http://youtu.be/tzD9BkXGJ1M' }
     it 'does not include any other attributes' do
       subject.keys.delete_if { |k|
-        %w[ id site_name user ].include?(k)
+        %w[ id site_name user url ].include?(k)
       }.should be_empty
     end
   end
