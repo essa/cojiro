@@ -9,16 +9,21 @@ define (require) ->
     it 'can be instantiated', ->
       expect(@user).not.toBeNull()
 
+    describe 'id attribute', ->
+      it 'maps user name to id', ->
+        @user.set('name', 'alice')
+        expect(@user.id).toEqual('alice')
+
     describe '#url', ->
-      beforeEach -> @user.id = 123
+      beforeEach -> @user.set('name', 'alice')
 
-      it 'is persisted at /en/users/#id for an English locale', ->
+      it 'is persisted at /en/users/#name for an English locale', ->
         I18n.locale = 'en'
-        expect(@user.url()).toEqual('/en/users/123')
+        expect(@user.url()).toEqual('/en/users/alice')
 
-      it 'is persisted at /ja/users/#id for an Japanese locale', ->
+      it 'is persisted at /ja/users/#name for an Japanese locale', ->
         I18n.locale = 'ja'
-        expect(@user.url()).toEqual('/ja/users/123')
+        expect(@user.url()).toEqual('/ja/users/alice')
 
     describe '#getName', ->
       it 'is defined', -> expect(@user.getName).toBeDefined()

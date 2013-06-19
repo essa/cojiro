@@ -8,7 +8,8 @@ define [
 
   class User extends Base.Model
     @use(Timestamps)
-    url: -> '/' + I18n.locale + '/users/' + @id
+    idAttribute: 'name'
+    url: -> '/' + I18n.locale + '/users/' + @getName()
 
     # user getter methods
     getName: -> @get('name')

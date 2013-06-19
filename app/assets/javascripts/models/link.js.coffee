@@ -17,6 +17,7 @@ define [
         type: Backbone.HasOne
         key: 'user'
         relatedModel: User
+        autoFetch: true
         reverseRelation:
           key: 'links'
           includeInJSON: 'name'
