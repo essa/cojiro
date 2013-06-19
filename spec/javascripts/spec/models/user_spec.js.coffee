@@ -9,6 +9,17 @@ define (require) ->
     it 'can be instantiated', ->
       expect(@user).not.toBeNull()
 
+    describe '#url', ->
+      beforeEach -> @user.id = 123
+
+      it 'is persisted at /en/users/#id for an English locale', ->
+        I18n.locale = 'en'
+        expect(@user.url()).toEqual('/en/users/123')
+
+      it 'is persisted at /ja/users/#id for an Japanese locale', ->
+        I18n.locale = 'ja'
+        expect(@user.url()).toEqual('/ja/users/123')
+
     describe '#getName', ->
       it 'is defined', -> expect(@user.getName).toBeDefined()
 

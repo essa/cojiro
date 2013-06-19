@@ -19,7 +19,7 @@ define [
         relatedModel: User
         reverseRelation:
           key: 'links'
-          includeInJSON: 'id'
+          includeInJSON: 'name'
       ,
         type: Backbone.HasMany
         key: 'comments'
