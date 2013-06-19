@@ -29,8 +29,14 @@ class Link < ActiveRecord::Base
     end
   end
 
+  def user_name
+    user && user.name
+  end
+
   def serializable_hash(options = {})
-    super(options.merge(:methods => :site_name))
+    hash = super(options.merge(:only => [ :id ], :methods => [ :site_name, :user_name ]))
+    hash[:user] = hash.delete(:user_name)
+    hash
   end
 
   def self.embedly_api

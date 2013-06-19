@@ -82,10 +82,18 @@ describe Link do
 
   describe '#to_json' do
     use_vcr_cassette('what_is_crossfit')
-    let(:link) { FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M') }
+    let(:link) { FactoryGirl.create(:link,
+                                    :url => 'http://youtu.be/tzD9BkXGJ1M',
+                                    :user => FactoryGirl.create(:user, :name => 'foo')) }
     subject { JSON(link.to_json) }
     its(['id']) { should be }
     its(['site_name']) { should == 'www.youtube.com' }
+    its(['user']) { should == 'foo' }
+    it 'does not include any other attributes' do
+      subject.keys.delete_if { |k|
+        %w[ id site_name user ].include?(k)
+      }.should be_empty
+    end
   end
 
   describe 'default values' do
