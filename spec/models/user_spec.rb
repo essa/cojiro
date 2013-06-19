@@ -114,4 +114,10 @@ describe User do
 
   end
 
+  describe '#to_param' do
+    let(:user) { FactoryGirl.create(:alice).to_param }
+    it 'returns the user name' do
+      user.to_param.should == 'alice'
+    end
+  end
 end
