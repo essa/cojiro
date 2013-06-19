@@ -135,7 +135,6 @@ describe Cothread do
         end
         @cothread.save
       end
-      @cothread_json = @cothread.to_json
     end
     let(:cothread_json) { JSON(@cothread.to_json) }
     subject { cothread_json }
@@ -181,7 +180,7 @@ describe Cothread do
     end
 
     it "does not include any other attributes" do
-      JSON(@cothread_json).keys.delete_if { |k|
+      cothread_json.keys.delete_if { |k|
         [ "id",
           "title",
           "title_in_source_locale",
