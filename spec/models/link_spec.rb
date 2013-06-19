@@ -81,12 +81,9 @@ describe Link do
   end
 
   describe '#to_json' do
-    before do
-      VCR.use_cassette('what_is_crossfit') do
-        @link = FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M')
-      end
-    end
-    subject { JSON(@link.to_json) }
+    use_vcr_cassette('what_is_crossfit')
+    let(:link) { FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M') }
+    subject { JSON(link.to_json) }
     its(['id']) { should be }
     its(['site_name']) { should == 'www.youtube.com' }
   end
@@ -127,11 +124,7 @@ describe Link do
   end
 
   describe 'get embed data' do
-    around(:each) do |example|
-      VCR.use_cassette('what_is_crossfit') do
-        example.run
-      end
-    end
+    use_vcr_cassette('what_is_crossfit')
     let(:link) { FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M') }
     subject { link.embed_data }
     its(["description"]) { should == 'What is CrossFit? CrossFit is an effective way to get fit. Anyone can do it. It is a fitness program that combines a wide variety of functional movements into a timed or scored workout. We do pull-ups, squats, push-ups, weightlifting, gymnastics, running, rowing, and a host of other movements.' }

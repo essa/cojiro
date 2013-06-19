@@ -14,6 +14,8 @@ module CojiroRequestStubs
     # for link urls
     stub_request(:get, 'http://www.mywebsite.com').to_return(:status => 200)
     stub_request(:get, 'http://www.foo.com').to_return(:status => 200)
-    stub_request(:get, 'http://api.embed.ly/1/services/ruby').to_return(fixture('embedly_response.json'))
+
+    # catch-all if no VCR cassette is in use -- to avoid an actual call to the API
+    stub_request(:get, /#{Regexp.quote("http://api.embed.ly/1/oembed")}.*/).to_return(fixture('embedly_response.json'))
   end
 end

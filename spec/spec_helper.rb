@@ -66,10 +66,26 @@ Spork.prefork do
       c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
       c.allow_http_connections_when_no_cassette = true
       c.hook_into :webmock
+      # ignore api key
+      c.default_cassette_options = {
+        :match_requests_on => [ :method, VCR.request_matchers.uri_without_param(:key)]
+      }
     end
 
+    # ref: https://github.com/vcr/vcr/issues/146
+    VCR.turn_off!
+
+    # Turns VCR on then off around the VCR.use_cassette block
+    VCR.extend Module.new {
+      def use_cassette(*args)
+        VCR.turn_on!
+        super
+        VCR.turn_off!
+      end
+    }
+
     config.before(:each) do
-      load_request_stubs
+      load_request_stubs unless VCR.turned_on?
     end
 
     # ref: http://highgroove.com/articles/2012/04/06/sane-rspec-config-for-clean,-and-slightly-faster,-specs.html
