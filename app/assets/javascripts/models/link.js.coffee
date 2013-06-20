@@ -37,6 +37,14 @@ define [
     defaults: ->
       source_locale: I18n.locale
 
+    schema: ->
+      title:
+        type: 'Text'
+        label: _(I18n.t('attributes.link.title')).capitalize()
+      summary:
+        type: 'TextArea'
+        label: _(I18n.t('attributes.link.summary')).capitalize()
+
     toJSON: () ->
       link:
         title: @get('title').toJSON()

@@ -84,15 +84,21 @@ describe Link do
     use_vcr_cassette('what_is_crossfit')
     let(:link) { FactoryGirl.create(:link,
                                     :url => 'http://youtu.be/tzD9BkXGJ1M',
-                                    :user => FactoryGirl.create(:user, :name => 'foo')) }
+                                    :title => 'What is CrossFit?',
+                                    :summary => 'CrossFit is an effective way to get fit. Anyone can do it.',
+                                    :user => FactoryGirl.create(:user, :name => 'foo'),
+                                    :source_locale => 'en') }
     subject { JSON(link.to_json) }
     its(['id']) { should be }
+    its(['title']) { should == 'What is CrossFit?' }
+    its(['summary']) { should == 'CrossFit is an effective way to get fit. Anyone can do it.' }
     its(['site_name']) { should == 'www.youtube.com' }
     its(['user']) { should == 'foo' }
     its(['url']) { should == 'http://youtu.be/tzD9BkXGJ1M' }
+    its(['source_locale']) { should == 'en' }
     it 'does not include any other attributes' do
       subject.keys.delete_if { |k|
-        %w[ id site_name user url ].include?(k)
+        %w[ id title summary url source_locale site_name user ].include?(k)
       }.should be_empty
     end
   end

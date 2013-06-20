@@ -25,11 +25,15 @@ define (require) ->
             text: 'comment 1'
             link:
               url: 'http://www.foo.com'
+              title: en: 'A link about foo'
+              summary: en: 'A summary about foo'
               site_name: 'www.foo.com'
           ,
             text: 'comment 2'
             link:
               url: 'http://www.bar.com'
+              title: en: 'A link about bar'
+              summary: en: 'A summary about bar'
               site_name: 'www.bar.com'
         ]
 
@@ -53,14 +57,27 @@ define (require) ->
         expect($el).toHaveText(/Cojiro Sasaki/)
         expect($el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')
 
-      it 'renders link info', ->
-        @view = new ThreadView(model: @thread)
-        $el = @view.render().$el
-        expect($el).toContain('a.url[href="http://www.foo.com"]')
-        expect($el).toContain('a.url[href="http://www.bar.com"]')
-        sites = $el.find('.site')
-        expect($(sites[0])).toHaveText('www.foo.com')
-        expect($(sites[1])).toHaveText('www.bar.com')
+      describe 'link info', ->
+        beforeEach ->
+          @view = new ThreadView(model: @thread)
+
+        it 'renders url', ->
+          $el = @view.render().$el
+          expect($el).toContain('a.url[href="http://www.foo.com"]')
+          expect($el).toContain('a.url[href="http://www.bar.com"]')
+
+        it 'renders provider url', ->
+          $el = @view.render().$el
+          sites = $el.find('.site')
+          expect($(sites[0])).toHaveText('www.foo.com')
+          expect($(sites[1])).toHaveText('www.bar.com')
+
+        it 'renders title', ->
+          $el = @view.render().$el
+          links = $el.find('.link')
+          expect($(links[0])).toContainText('A link about foo')
+          expect($(links[1])).toContainText('A link about bar')
+
 
       describe "logged-in user", ->
         beforeEach ->

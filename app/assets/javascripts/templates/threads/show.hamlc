@@ -33,13 +33,7 @@
   .span12
     %h2#summary
 .links
-  - _(@model.getLinks()).each (link) ->
-    .link
-      .link-inner
-        %a.url{ :href => link.getUrl() }
-          %span.lang en
-          %span.site=link.getSiteName()
-        %a.description{ :href => '#' }
+  .link-list
   - if helpers.isLoggedIn()
     .link
       .link-inner

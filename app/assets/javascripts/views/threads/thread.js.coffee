@@ -9,8 +9,9 @@ define [
   'templates/threads/show',
   'templates/other/flash'
   'views/threads/add_link_modal'
+  'views/links/link'
   'bootstrap-modal'
-], ($, _, Backbone, Link, Base, Translatable, globals, showThreadTemplate, flashTemplate, AddLinkModal) ->
+], ($, _, Backbone, Link, Base, Translatable, globals, showThreadTemplate, flashTemplate, AddLinkModal, LinkView) ->
 
   class ThreadView extends Base.View
     id: 'thread'
@@ -28,6 +29,7 @@ define [
     render: ->
       @$el.html(showThreadTemplate(model: @model))
       @renderTranslatableFields()
+      @renderLinks()
       @renderModals()
       if globals.flash?
         @renderFlash()
@@ -38,6 +40,14 @@ define [
       @$('#title').html(@titleField.el)
       @summaryField.render()
       @$('#summary').html(@summaryField.el)
+
+    renderLinks: ->
+      linksContainer = @.$('.link-list')
+      self = @
+      _.each @model.getLinks(), (link) ->
+        linkView = new LinkView(model: link)
+        self.renderChild(linkView)
+        linksContainer.append(linkView.el)
 
     # see: http://lostechies.com/derickbailey/2012/04/17/managing-a-modal-dialog-with-backbone-and-marionette
     renderModals: ->

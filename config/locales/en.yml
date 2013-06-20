@@ -63,6 +63,9 @@ en:
     thread:
       title: title
       summary: summary
+    link:
+      title: title
+      summary: summary
 
   layout:
     home: Home

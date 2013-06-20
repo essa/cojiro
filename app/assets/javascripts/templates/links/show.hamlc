@@ -1,0 +1,7 @@
+.link-inner
+  %a.url{ :href => @model.getUrl() }
+    %span.lang=@model.getSourceLocale()
+    %span.site=@model.getSiteName()
+  %a.description
+    %h3.title
+    %p.summary

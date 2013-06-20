@@ -63,6 +63,9 @@ ja:
     thread:
       title: タイトル
       summary: サマリ
+    link:
+      title: タイトル
+      summary: サマリ
 
   layout:
     home: ホーム
