@@ -17,6 +17,14 @@ GIT
       paper_trail (~> 2)
 
 GIT
+  remote: https://github.com/bradphelan/jasminerice.git
+  revision: 13ae61378afdf66aed7eb945172eb1f5c75b451b
+  ref: 13ae61378afdf66aed7eb945172eb1f5c75b451b
+  specs:
+    jasminerice (0.1.0)
+      coffee-rails
+
+GIT
   remote: https://github.com/fnando/i18n-js.git
   revision: eeec14066b50f72876aa789c9b1f226172452798
   specs:
@@ -194,9 +202,6 @@ GEM
     hike (1.2.3)
     http_parser.rb (0.5.3)
     i18n (0.6.4)
-    jasminerice (0.0.10)
-      coffee-rails
-      haml
     journey (1.0.4)
     jquery-rails (3.0.1)
       railties (>= 3.0, < 5.0)
@@ -216,7 +221,7 @@ GEM
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
     mini_portile (0.5.0)
-    multi_json (1.7.6)
+    multi_json (1.7.7)
     mysql2 (0.3.11)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
@@ -269,7 +274,7 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     raindrops (0.11.0)
-    rake (10.0.4)
+    rake (10.1.0)
     rb-inotify (0.8.8)
       ffi (>= 0.5.0)
     rdoc (3.12.2)
@@ -361,7 +366,7 @@ DEPENDENCIES
   haml-rails
   haml_coffee_assets (~> 1.11.0)
   i18n-js!
-  jasminerice
+  jasminerice!
   journey (= 1.0.4)
   jquery-rails
   launchy
