@@ -5,8 +5,12 @@ require 'globalize'
 require 'globalize_helpers'
 
 ActiveRecord::Schema.define do
+  create_table :my_other_models, :temporary => true do |t|
+  end
+
   create_table :my_models, :temporary => true do |t|
     t.string :source_locale
+    t.references :my_other_model
   end
 
   create_table :my_model_translations, :temporary => true do |t|
@@ -16,8 +20,13 @@ ActiveRecord::Schema.define do
   end
 end
 
+class MyOtherModel < ActiveRecord::Base
+  has_many :my_models
+end
+
 class MyModel < ActiveRecord::Base
   translates :foo
+  belongs_to :my_other_model
   include GlobalizeHelpers
 end
 
@@ -39,7 +48,7 @@ describe 'globalize helpers' do
     end
   end
 
-  describe 'nested translation accessors' do
+  describe 'nested translation writers' do
     describe '#update_attributes' do
       let(:attr) { { 'foo' => { 'fr' => 'a new foo in French' } } }
 
@@ -85,8 +94,17 @@ describe 'globalize helpers' do
 
   describe '#as_json' do
     it 'does not return nil translations' do
-      model.as_json[:foo].should have_key('ja')
-      model.as_json[:foo].should_not have_key('en')
+      model.as_json['foo'].should have_key('ja')
+      model.as_json['foo'].should_not have_key('en')
+    end
+
+    # check that we are patching serializable_hash and not as_json, otherwise
+    # translated attributes will not be included in JSON of associated models
+    it 'includes translations in associated models' do
+      other_model = MyOtherModel.create!
+      other_model.my_models << model
+      my_model_serialized = other_model.reload.as_json(:include => :my_models)[:my_models][0]
+      my_model_serialized.should include('foo' => { 'ja' => 'タイトル' })
     end
   end
 end
