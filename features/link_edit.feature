@@ -1,6 +1,6 @@
-Feature: Edit fields of a neta
+Feature: Edit fields of a link
   As a curator
-  I want to edit fields of a neta
+  I want to edit fields of a link
   So that I can improve the content
 
   Background:

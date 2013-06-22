@@ -1,7 +1,7 @@
 @wip
-Feature: Translate fields of a neta
+Feature: Translate fields of a link
   As a curator
-  I want to translate fields of a neta into my own language
+  I want to translate fields of a link into my own language
   So that more people can access the content
 
   Background:

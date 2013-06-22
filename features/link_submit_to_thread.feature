@@ -1,7 +1,7 @@
 @wip
-Feature: Add my neta to a thread
+Feature: Add my link to a thread
   As a curator
-  I want to submit an edited neta
+  I want to submit an edited link
   So that I can add it to a thread
 
   Background:
