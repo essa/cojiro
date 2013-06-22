@@ -10,6 +10,8 @@ define [
   class InPlaceField extends Base.View
     tagName: "span"
     className: "in-place-field"
+    fieldTemplate: _.template('<span class="<%= status %>"><%= fieldText %></span>')
+    buttonTemplate: _.template('<button class="edit-button btn btn-mini"><%= button_text %></button>')
 
     buildEvents: () ->
       _(super).extend
@@ -38,11 +40,11 @@ define [
       else
         fieldText = @model.getAttrInSourceLocale(@field)
         status = "untranslated"
-      @$el.html(_.template('<span class="<%= status %>"><%= fieldText %></span>', status: status, fieldText: fieldText))
+      @$el.html(@fieldTemplate(status: status, fieldText: fieldText))
 
     renderButton: (fieldVal) ->
       button_text = if !!fieldVal then I18n.t("templates.threads.show.edit") else I18n.t("templates.threads.show.add_in", lang: I18n.t(I18n.locale))
-      @$el.append(_.template('<button class="edit-button btn btn-mini"><%= button_text %></button>', button_text: button_text))
+      @$el.append(@buttonTemplate(button_text: button_text))
 
     showForm: ->
       @$el.html(formTemplate(model: @model, field: @field, schema: @schema()))
