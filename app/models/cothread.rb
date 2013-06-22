@@ -22,26 +22,9 @@ class Cothread < ActiveRecord::Base
   has_many :comments
   has_many :links, :through => :comments
 
-  def write_attribute(name, value, options = {})
-    if translated?(name) && value.is_a?(Hash)
-      send("#{name}_translations=", value)
-    else
-      super(name, value, options)
-    end
-  end
-
   def serializable_hash(options = {})
     super(options.merge(:only => [:id, :created_at, :updated_at, :source_locale],
                         :include => [ :user, :comments ]))
-  end
-
-  def as_json(options = {})
-    json = super(options)
-    translated_attribute_names.each do |attr|
-      translations = send("#{attr}_translations").delete_if { |_,v| v.nil? }
-      json.merge!(attr => translations)
-    end
-    json
   end
 
   private

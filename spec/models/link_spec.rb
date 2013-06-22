@@ -90,8 +90,8 @@ describe Link do
                                     :source_locale => 'en') }
     subject { JSON(link.to_json) }
     its(['id']) { should be }
-    its(['title']) { should == 'What is CrossFit?' }
-    its(['summary']) { should == 'CrossFit is an effective way to get fit. Anyone can do it.' }
+    its(['title']) { should == { 'en' => 'What is CrossFit?' } }
+    its(['summary']) { should == { 'en' => 'CrossFit is an effective way to get fit. Anyone can do it.' } }
     its(['site_name']) { should == 'www.youtube.com' }
     its(['user']) { should == 'foo' }
     its(['url']) { should == 'http://youtu.be/tzD9BkXGJ1M' }
@@ -118,6 +118,21 @@ describe Link do
       @link.source_locale = nil
       @link.save
       @link.source_locale.should == "en"
+    end
+  end
+
+  # defined in spec/support/shared_examples.rb
+  describe 'globalize helpers' do
+    let!(:model) { FactoryGirl.create(:link) }
+
+    describe 'title' do
+      it_behaves_like 'attribute with locale methods', 'title'
+      it_behaves_like 'attribute with nested translation accessors', 'title'
+    end
+
+    describe 'summary' do
+      it_behaves_like 'attribute with locale methods', 'summary'
+      it_behaves_like 'attribute with nested translation accessors', 'summary'
     end
   end
 

@@ -63,63 +63,20 @@ describe Cothread do
       @cothread.save
       @cothread.source_locale.should == "en"
     end
-
   end
 
-  describe ".new" do
-    before do
-      attr = { "title" =>  { "en" => "a title in English",
-                             "ja" =>  "a title in Japanese" } }
-      @cothread = Cothread.new(attr)
-    end
-
-    it "assigns translated attributes defined as JSON objects" do
-      Globalize.with_locale(:en) { @cothread.title.should == "a title in English" }
-      Globalize.with_locale(:ja) { @cothread.title.should == "a title in Japanese" }
-    end
-  end
-
-  describe "#update_attributes" do
-    before do
-      @attr = { "title" => { "fr" => "a new title in French" } }
-      @cothread = FactoryGirl.create(:cothread)
-    end
-
-    it "replaces/adds translations based on values in JSON object" do
-      Globalize.with_locale(:fr) { @cothread.title = "a title in French" }
-      @cothread.update_attributes(@attr)
-      Globalize.with_locale(:fr) { @cothread.title.should == "a new title in French" }
-    end
-
-    it "leaves existing translations as is" do
-      Globalize.with_locale(:fr) { @cothread.title = "a title in French" }
-      Globalize.with_locale(:en) { @cothread.title = "a title in English" }
-      @cothread.update_attributes(@attr)
-      Globalize.with_locale(:en) { @cothread.title.should == "a title in English" }
-    end
-
-    pending "assigns non-translated attributes with values in JSON object"
-
-    it "ignores nil attributes" do
-      expect { @cothread.update_attributes(nil) }.not_to raise_error
-    end
-
-    it "does not assign nil-valued translated attributes" do
-      Globalize.with_locale(:fr) { @cothread.summary = "a summary in French" }
-      expect { @cothread.update_attributes("summary" => nil) }.not_to raise_error
-      Globalize.with_locale(:fr) { @cothread.summary.should == "a summary in French" }
-    end
-  end
-
-  describe "locale helper methods" do
+  # defined in spec/support/shared_examples.rb
+  describe 'globalize helpers' do
     let!(:model) { FactoryGirl.create(:cothread) }
 
-    describe "title" do
-      it_behaves_like "attribute with locale methods", 'title'
+    describe 'title' do
+      it_behaves_like 'attribute with locale methods', 'title'
+      it_behaves_like 'attribute with nested translation accessors', 'title'
     end
 
-    describe "summary" do
-      it_behaves_like "attribute with locale methods", 'summary'
+    describe 'summary' do
+      it_behaves_like 'attribute with locale methods', 'summary'
+      it_behaves_like 'attribute with nested translation accessors', 'summary'
     end
   end
 
@@ -193,16 +150,6 @@ describe Cothread do
           "comments"
         ].include?(k)
       }.should be_empty
-    end
-  end
-
-  describe '#as_json' do
-    it 'does not return nil translations' do
-      Globalize.with_locale(:ja) do
-        @cothread = FactoryGirl.build(:cothread, user: FactoryGirl.create(:csasaki))
-      end
-      @cothread.as_json[:title].should have_key('ja')
-      @cothread.as_json[:title].should_not have_key('en')
     end
   end
 end
