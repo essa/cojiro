@@ -39,7 +39,7 @@ gem 'journey', '1.0.4' # ref: https://github.com/rails/journey/issues/42
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'cucumber', '>= 1.1.6', :require => false
+  gem 'cucumber', '1.2.5', :require => false
   gem 'spork', '~> 0.9.0.rc', :require => false
   gem 'database_cleaner', :require => false
   gem 'factory_girl_rails'
@@ -57,7 +57,8 @@ end
 
 group :test do
   # ref: http://datacodescotch.blogspot.jp/2011/11/warning-cucumber-rails-required-outside.html 
-  gem 'cucumber-rails', '~> 1.0', :require => false
+  # ref: http://stackoverflow.com/questions/16226933/run-cucumber-through-spork
+  gem 'cucumber-rails', '1.3.0', :require => false
   gem 'webmock', '>= 1.9.0', :require => false
   gem 'vcr', '~> 2.5.0', :require => false
   gem 'shoulda-matchers', :require => false
