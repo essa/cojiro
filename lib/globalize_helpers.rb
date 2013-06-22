@@ -17,12 +17,12 @@ module GlobalizeHelpers
     end
 
     def serializable_hash(options = {})
-      json = super(options)
+      hash = super(options)
       translated_attribute_names.each do |attr|
         translations = send("#{attr}_translations").delete_if { |_,v| v.nil? }
-        json.merge!(attr.to_s => translations)
+        hash.merge!(attr.to_s => translations)
       end
-      json
+      hash
     end
   end
 end
