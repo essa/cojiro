@@ -11,8 +11,8 @@ require [
 ], ($, _, Backbone, App) ->
 
   $ ->
-    # check for locale stops init from being called in tests
-    App.init() unless I18n.locale is undefined
+    # we don't want to actually hit the server if we're running jasmine tests
+    App.init() unless jasmine?
 
   # ref: https://github.com/tbranyen/backbone-boilerplate/blob/master/app/main.js
   $(document).on('click', 'a:not([data-bypass]),.clickable:not([data-bypass])', (evt) ->
