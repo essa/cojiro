@@ -6,7 +6,6 @@ define (require) ->
   InPlaceField = require('modules/translatable/in-place-field')
   Model = require('modules/translatable/model')
   MyModel = Model.extend(translatableAttributes: ['title', 'summary'])
-  translatableFieldTemplate = require('modules/translatable/templates/_in-place-field')
   require('jquery')
 
   describe 'Translatable.InPlaceField', ->

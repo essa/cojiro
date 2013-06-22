@@ -3,10 +3,9 @@ define [
   'underscore',
   'backbone',
   'modules/base',
-  'modules/translatable/templates/_in-place-field',
   'modules/translatable/templates/_in-place-field-form',
   'i18n'
-], ($, _, Backbone, Base, fieldTemplate, formTemplate, I18n) ->
+], ($, _, Backbone, Base, formTemplate, I18n) ->
 
   class InPlaceField extends Base.View
     tagName: "span"
