@@ -13,6 +13,11 @@ define [
   class Link extends Translatable.Model
     @use(Timestamps)
 
+    url: ->
+      base = '/' + I18n.locale + '/links'
+      if @id then base += ('/' + @id)
+      base
+
     relations: [
         type: Backbone.HasOne
         key: 'user'

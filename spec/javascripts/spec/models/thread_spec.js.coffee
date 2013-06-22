@@ -14,6 +14,19 @@ define (require) ->
 
     sharedExamples(Thread, 'thread')
 
+    describe '#url', ->
+      beforeEach ->
+        @thread = new Thread
+        collection = url: '/collection'
+        @thread.collection = collection
+
+      it 'returns collection URL when id is not set', ->
+        expect(@thread.url()).toEqual('/collection')
+
+      it 'returns collection URL and id when id is set', ->
+        @thread.id = 66
+        expect(@thread.url()).toEqual('/collection/66')
+
     describe 'link/comment relation', ->
       beforeEach ->
         @thread = new Thread

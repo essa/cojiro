@@ -55,6 +55,23 @@ describe LinksController do
           end
         end
       end
+
+      describe 'PUT update' do
+        let(:link) { FactoryGirl.create(:link) }
+
+        context 'with valid params' do
+          it 'locates the requested @link' do
+            put :update, id: link.id, link: FactoryGirl.attributes_for(:link), format: :json
+            assigns(:link).should eq(link)
+          end
+
+          it 'returns the new link' do
+            attr = FactoryGirl.attributes_for(:link, title: { "en" => "title" }, summary: { "en" => "summary" })
+            put :update, id: link.id, link: attr, format: :json
+            JSON(response.body).should include(attr.stringify_keys)
+          end
+        end
+      end
     end
   end
 end

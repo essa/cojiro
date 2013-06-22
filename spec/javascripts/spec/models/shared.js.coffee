@@ -83,11 +83,3 @@ define [
             @instance.set
               source_locale: 'en'
             expect(@instance.toJSON()[model_name].title).toEqual(new Object)
-
-        describe '#url', ->
-          it 'returns collection URL when id is not set', ->
-            expect(@instance.url()).toEqual('/collection')
-
-          it 'returns collection URL and id when id is set', ->
-            @instance.id = 66
-            expect(@instance.url()).toEqual('/collection/66')
