@@ -3,15 +3,24 @@ define [
   'underscore',
   'backbone',
   'modules/base',
-  'modules/translatable/templates/_in-place-field-form',
   'i18n'
-], ($, _, Backbone, Base, formTemplate, I18n) ->
+], ($, _, Backbone, Base, I18n) ->
 
   class InPlaceField extends Base.View
     tagName: "span"
     className: "in-place-field"
     fieldTemplate: _.template('<span class="<%= status %>"><%= fieldText %></span>')
     buttonTemplate: _.template('<button class="edit-button btn btn-mini"><%= button_text %></button>')
+    formTemplate: _.template '
+      <form class="in-place-form form-inline">
+        <fieldset class="in-place-form">
+          <span class="input-small">
+            <<%= (type == "Text") ? "input" : "textarea" %> name="<%= field %>" type="text" class="field" />
+          </span>
+        </fieldset>
+      </form>
+      <button class="save-button btn btn-mini"><%= save_text %></button>
+      <button class="cancel-button btn btn-mini"><%= cancel_text %></button>'
 
     buildEvents: () ->
       _(super).extend
@@ -47,7 +56,10 @@ define [
       @$el.append(@buttonTemplate(button_text: button_text))
 
     showForm: ->
-      @$el.html(formTemplate(model: @model, field: @field, schema: @schema()))
+      save_text = I18n.t('views.mixins.translatable_fields.save')
+      cancel_text = I18n.t('views.mixins.translatable_fields.cancel')
+      html = @formTemplate(field: @field, type: @schema().type, save_text: save_text, cancel_text: cancel_text)
+      @$el.html(html)
       @$('.field').val(@model.getAttr(@field))
 
     submitForm: (e) ->
