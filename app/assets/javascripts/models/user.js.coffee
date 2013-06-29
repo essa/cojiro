@@ -16,3 +16,6 @@ define [
     getFullname: -> @get('fullname')
     getAvatarUrl: -> @get('avatar_url')
     getAvatarMiniUrl: -> @get('avatar_mini_url')
+
+  # http://backbonerelational.org/#RelationalModel-setup
+  User.setup()

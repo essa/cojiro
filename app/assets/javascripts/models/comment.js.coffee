@@ -5,3 +5,6 @@ define [
 
   class Comment extends BaseModel
     @use Timestamps
+
+  # http://backbonerelational.org/#RelationalModel-setup
+  Comment.setup()
