@@ -10,7 +10,7 @@ define [
     tagName: "span"
     className: "in-place-field"
     fieldTemplate: _.template('<span class="<%= status %>"><%= fieldText %></span>')
-    buttonTemplate: _.template('<button class="edit-button btn btn-mini"><%= button_text %></button>')
+    buttonTemplate: _.template('<button class="<%= button_name %>-button btn btn-mini"><%= button_text %></button>')
     formTemplate: _.template '
       <form class="in-place-form form-inline">
         <fieldset class="in-place-form">
@@ -18,9 +18,7 @@ define [
             <<%= (type == "Text") ? "input" : "textarea" %> name="<%= field %>" type="text" class="field" />
           </span>
         </fieldset>
-      </form>
-      <button class="save-button btn btn-mini"><%= save_text %></button>
-      <button class="cancel-button btn btn-mini"><%= cancel_text %></button>'
+      </form>'
 
     buildEvents: () ->
       _(super).extend
@@ -49,18 +47,27 @@ define [
       else
         fieldText = @model.getAttrInSourceLocale(@field)
         status = "untranslated"
-      @$el.html(@fieldTemplate(status: status, fieldText: fieldText))
+      fieldHtml = @fieldTemplate(status: status, fieldText: fieldText)
+      @$el.html(fieldHtml)
 
     renderButton: (fieldVal) ->
-      button_text = if !!fieldVal then I18n.t("templates.threads.show.edit") else I18n.t("templates.threads.show.add_in", lang: I18n.t(I18n.locale))
-      @$el.append(@buttonTemplate(button_text: button_text))
+      editButtonText = if !!fieldVal then I18n.t("templates.threads.show.edit") else I18n.t("templates.threads.show.add_in", lang: I18n.t(I18n.locale))
+      editButtonHtml = @buttonTemplate(button_name: 'edit', button_text: editButtonText)
+      @$el.append(editButtonHtml)
 
     showForm: ->
-      save_text = I18n.t('views.mixins.translatable_fields.save')
-      cancel_text = I18n.t('views.mixins.translatable_fields.cancel')
-      html = @formTemplate(field: @field, type: @schema().type, save_text: save_text, cancel_text: cancel_text)
-      @$el.html(html)
-      @$('.field').val(@model.getAttr(@field))
+      field = @field
+      model = @model
+      type = @schema().type
+      formHtml = @formTemplate(field: field, type: type)
+      @$el.html(formHtml)
+      saveButtonText = I18n.t('views.mixins.translatable_fields.save')
+      saveButtonHtml = @buttonTemplate(button_name: 'save', button_text: saveButtonText)
+      @$el.append(saveButtonHtml)
+      cancelButtonText = I18n.t('views.mixins.translatable_fields.cancel')
+      cancelButtonHtml = @buttonTemplate(button_name: 'cancel', button_text: cancelButtonText)
+      @$el.append(cancelButtonHtml)
+      @$('.field').val(model.getAttr(field))
 
     submitForm: (e) ->
       e.preventDefault()
