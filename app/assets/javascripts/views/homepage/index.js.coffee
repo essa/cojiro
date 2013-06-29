@@ -13,7 +13,12 @@ define [
   class HomepageView extends Base.View
     id: 'homepage'
 
-    initialize: ->
+    initialize: (options = {}) ->
+      # isolate dependencies
+      @ThreadListView = options.ThreadListView || ThreadListView
+      @ThreadFilterView = options.ThreadFilterView || ThreadFilterView
+
+      # initialize view
       @filteredCollection = @collection
       @collection.bind("change", @renderThreadList)
 
@@ -28,12 +33,12 @@ define [
       @$el.html(indexTemplate())
 
     renderThreadList: =>
-      @threadListView = new ThreadListView(collection: @filteredCollection)
+      @threadListView = new @ThreadListView(collection: @filteredCollection)
       threadListContainer = @.$('#threads')
       @renderChildInto(@threadListView, threadListContainer)
 
     renderThreadFilter: =>
-      @threadFilterView = new ThreadFilterView
+      @threadFilterView = new @ThreadFilterView
       @threadFilterView.bind("changed", @filterThreads)
       threadFilterContainer = @.$('#content-header')
       @renderChildInto(@threadFilterView, threadFilterContainer)

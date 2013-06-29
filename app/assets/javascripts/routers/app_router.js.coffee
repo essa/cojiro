@@ -18,8 +18,16 @@ define [
       ':locale/threads/new': 'new'
       ':locale/threads/:id': 'show'
 
-    initialize: (options) ->
-      @navbar = new NavbarView()
+    initialize: (options = {}) ->
+      # isolate dependencies
+      @NavbarView = options.NavbarView || NavbarView
+      @HomepageView = options.HomepageView || HomepageView
+      @ThreadView = options.ThreadView || ThreadView
+      @NewThreadView = options.NewThreadView || NewThreadView
+      @Thread = options.Thread || Thread
+
+      # initialize router
+      @navbar = new @NavbarView
       $('#navbar').html(@navbar.render().$el)
       @el = $('#content')
       @collection = options.collection
@@ -28,14 +36,14 @@ define [
       @index(I18n.locale)
 
     index: (locale) ->
-      view = new HomepageView(collection: @collection)
+      view = new @HomepageView(collection: @collection)
       @swap(view)
 
     show: (locale, id) ->
-      view = new ThreadView(model: @collection.get(id))
+      view = new @ThreadView(model: @collection.get(id))
       @swap(view)
 
     new: (locale) ->
-      thread = new Thread({}, collection: @collection)
-      view = new NewThreadView(model: thread, collection: @collection, router: @)
+      thread = new @Thread({}, collection: @collection)
+      view = new @NewThreadView(model: thread, collection: @collection, router: @)
       @swap(view)

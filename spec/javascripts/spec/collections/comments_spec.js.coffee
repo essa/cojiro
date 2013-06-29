@@ -2,42 +2,37 @@ define (require) ->
 
   Backbone = require('backbone')
   I18n = require('i18n')
+  Comment = require('models/comment')
+  Comments = require('collections/comments')
 
-  model = new Backbone.Model(id: 12, text: "a comment text")
-  Comment = sinon.stub().returns(model)
+  describe 'Comments', ->
 
-  context(
-    'models/comment': Comment
-  ) ['collections/comments'], (Comments) ->
+    it 'can be instantiated', ->
+      collection = new Comments
+      expect(Comments).not.toBeNull()
 
-    describe 'Comments (with stubbed Comment model)', ->
+    it 'contains instances of Comment', ->
+      collection = new Comments
+      expect(collection.model).toEqual(Comment)
 
-      it 'can be instantiated', ->
-        collection = new Comments
-        expect(Comments).not.toBeNull()
+    describe 'when instantiated with model literal', ->
+      beforeEach ->
+        @comments = new Comments
+        @comments.add(id: 12, text: 'a comment text')
 
-      it 'contains instances of Comment', ->
-        collection = new Comments
-        expect(collection.model).toEqual(Comment)
+      it 'adds a new model', ->
+        expect(@comments.length).toEqual(1)
 
-      describe 'when instantiated with model literal', ->
-        beforeEach ->
-          @comments = new Comments
-          @comments.add(id: 12, text: 'a comment text')
+      it 'finds a model by id', ->
+        expect(@comments.get(12).get('id')).toEqual(12)
 
-        it 'adds a new model', ->
-          expect(@comments.length).toEqual(1)
+    describe '#url', ->
+      beforeEach -> @comments = new Comments
 
-        it 'finds a model by id', ->
-          expect(@comments.get(12).get('id')).toEqual(12)
+      it 'is persisted at /en/comments for an English locale', ->
+        I18n.locale = 'en'
+        expect(@comments.url()).toEqual('/en/comments')
 
-      describe '#url', ->
-        beforeEach -> @comments = new Comments
-
-        it 'is persisted at /en/comments for an English locale', ->
-          I18n.locale = 'en'
-          expect(@comments.url()).toEqual('/en/comments')
-
-        it 'is persisted at /ja/comments for a Japanese locale', ->
-          I18n.locale = 'ja'
-          expect(@comments.url()).toEqual('/ja/comments')
+      it 'is persisted at /ja/comments for a Japanese locale', ->
+        I18n.locale = 'ja'
+        expect(@comments.url()).toEqual('/ja/comments')

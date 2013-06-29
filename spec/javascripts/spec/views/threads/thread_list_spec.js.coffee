@@ -5,8 +5,8 @@ define (require) ->
   Threads = require('collections/threads')
 
   # make sure dependencies are loaded before stubbing, for unstubbed tests
-  require('views/threads/thread_list_item')
-
+  ThreadListItemView = require('views/threads/thread_list_item')
+  ThreadListView = require('views/threads/thread_list')
 
   listItemView = new Backbone.View()
   listItemView.render = () ->
@@ -14,13 +14,11 @@ define (require) ->
     @
   ThreadListItemView = sinon.stub().returns(listItemView)
 
-  context(
-    'views/threads/thread_list_item': ThreadListItemView
-  ) ['views/threads/thread_list'], (ThreadListView) ->
+  describe "ThreadListView", ->
 
-    describe "ThreadListView (with stubbed ThreadListItemView)", ->
+    describe 'with stubbed ThreadListItemView', ->
       beforeEach ->
-        @view = new ThreadListView()
+        @view = new ThreadListView(ThreadListItemView: ThreadListItemView)
 
       describe "instantiation", ->
         beforeEach ->
@@ -64,11 +62,6 @@ define (require) ->
         it "has list item views as children (for cleanup)", ->
           expect(@view.children).toBeDefined()
           expect(@view.children.size()).toEqual(3)
-
-  context(
-    'models/thread': Thread
-    'collections/threads': Threads
-  ) ['views/threads/thread_list'], (ThreadListView) ->
 
     describe "with actual ThreadListItemView", ->
 

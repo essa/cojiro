@@ -13,7 +13,8 @@ define [
     tagName: 'table'
     className: 'table table-striped'
 
-    initialize: ->
+    initialize: (options = {}) ->
+      @ThreadListItemView = options.ThreadListItemView || ThreadListItemView
 
     render: ->
       @renderLayout()
@@ -30,7 +31,7 @@ define [
 
       self = @
       @collection.each (thread) ->
-        threadListItemView = new ThreadListItemView(model: thread)
+        threadListItemView = new self.ThreadListItemView(model: thread)
         self.renderChild(threadListItemView)
         listItemsContainer.append(threadListItemView.el)
 

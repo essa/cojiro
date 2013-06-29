@@ -1,23 +1,19 @@
 define (require) ->
 
   Backbone = require('backbone')
+  I18n = require('i18n')
+  Link = require('models/link')
+  Links = require('collections/links')
 
-  model = new Backbone.Model(id: 7, title: 'a link')
-  Link = sinon.stub().returns(model)
+  describe 'Links', ->
 
-  context(
-    'models/link': Link
-  ) ['collections/links'], (Links) ->
+    it 'can be instantiated', ->
+      collection = new Links()
+      expect(Links).not.toBeNull()
 
-    describe 'Links (with stubbed Link model)', ->
-
-      it 'can be instantiated', ->
-        collection = new Links()
-        expect(Links).not.toBeNull()
-
-      it 'contains instances of Link', ->
-        collection = new Links()
-        expect(collection.model).toEqual(Link)
+    it 'contains instances of Link', ->
+      collection = new Links()
+      expect(collection.model).toEqual(Link)
 
     describe '#url', ->
       beforeEach -> @links = new Links()

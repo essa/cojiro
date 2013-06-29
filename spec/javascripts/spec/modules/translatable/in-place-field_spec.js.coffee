@@ -1,12 +1,13 @@
 define (require) ->
 
+  $ = require('jquery')
+  _ = require('underscore')
   Backbone = require('backbone')
   I18n = require('i18n')
 
   InPlaceField = require('modules/translatable/in-place-field')
   Model = require('modules/translatable/model')
   MyModel = Model.extend(translatableAttributes: ['title', 'summary'])
-  require('jquery')
 
   describe 'Translatable.InPlaceField', ->
 

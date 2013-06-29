@@ -6,15 +6,23 @@ define [
   'collections/threads'
 ], ($, Backbone, globals, AppRouter, Threads) ->
 
-  init: () ->
-    @currentUser = globals.currentUser
-    @threads = new Threads()
-    @threads.deferred = @threads.fetch()
-    self = @
+  class App
 
-    @threads.deferred.done ->
-      self.appRouter = new AppRouter(collection: self.threads)
+    constructor: (options = {}) ->
+      # isolate dependencies
+      @globals = options.globals || globals
+      @Threads = options.Threads || Threads
+      @AppRouter = options.AppRouter || AppRouter
 
-      if (!Backbone.history.started)
-        Backbone.history.start(pushState: true)
-        Backbone.history.started = true
+    init: () ->
+      @currentUser = @globals.currentUser
+      @threads = new @Threads
+      @threads.deferred = @threads.fetch()
+      self = @
+
+      @threads.deferred.done ->
+        self.appRouter = new self.AppRouter(collection: self.threads)
+
+        if (!Backbone.history.started)
+          Backbone.history.start(pushState: true)
+          Backbone.history.started = true
