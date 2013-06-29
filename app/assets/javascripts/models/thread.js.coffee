@@ -53,6 +53,7 @@ define [
 
     getId: -> @id
     getUser: -> @get('user')
+    getUserName: -> @getUser().getName()
 
     # links relation through comments
     getLinks: -> @get('comments').pluck('link')
