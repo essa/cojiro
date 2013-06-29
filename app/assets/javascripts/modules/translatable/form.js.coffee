@@ -2,11 +2,11 @@ define [
   'jquery'
   'underscore'
   'backbone'
-  'modules/base'
+  'modules/base/view'
   'i18n'
-], ($, _, Backbone, Base, I18n) ->
+], ($, _, Backbone, BaseView, I18n) ->
 
-  class Form extends Base.View
+  class Form extends BaseView
     tagName: 'form'
     className: 'form-horizontal'
 

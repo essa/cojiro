@@ -1,7 +1,7 @@
 define [
-  'modules/base'
+  'modules/base/model'
   'modules/extended/timestamps'
-], (Base, Timestamps) ->
+], (BaseModel, Timestamps) ->
 
-  class Comment extends Base.Model
+  class Comment extends BaseModel
     @use Timestamps

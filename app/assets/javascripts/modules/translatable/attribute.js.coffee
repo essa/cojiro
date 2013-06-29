@@ -1,10 +1,10 @@
 define [
   'underscore',
   'backbone',
-  'modules/base',
+  'modules/base/model',
   'i18n'
-], (_, Backbone, Base, I18n) ->
-  class TranslatableAttribute extends Base.Model
+], (_, Backbone, BaseModel, I18n) ->
+  class TranslatableAttribute extends BaseModel
 
     in: (attr) -> @get(attr)
 

@@ -3,7 +3,7 @@ define [
   'underscore',
   'backbone',
   'models/link'
-  'modules/base',
+  'modules/base/view',
   'modules/translatable',
   'globals',
   'templates/threads/show',
@@ -11,9 +11,9 @@ define [
   'views/threads/add_link_modal'
   'views/links/link'
   'bootstrap-modal'
-], ($, _, Backbone, Link, Base, Translatable, globals, showThreadTemplate, flashTemplate, AddLinkModal, LinkView) ->
+], ($, _, Backbone, Link, BaseView, Translatable, globals, showThreadTemplate, flashTemplate, AddLinkModal, LinkView) ->
 
-  class ThreadView extends Base.View
+  class ThreadView extends BaseView
     id: 'thread'
 
     buildEvents: () ->

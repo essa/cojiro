@@ -2,16 +2,16 @@ define [
   'jquery'
   'underscore'
   'backbone'
-  'modules/base'
+  'modules/base/view'
   'modules/translatable/form'
   'globals'
   'templates/threads/new'
   'templates/threads/form_actions'
   'templates/other/flash'
   'i18n'
-], ($, _, Backbone, Base, Form, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
+], ($, _, Backbone, BaseView, Form, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
 
-  class NewThreadView extends Base.View
+  class NewThreadView extends BaseView
     id: 'new_thread'
 
     buildEvents: () ->

@@ -2,11 +2,12 @@ define [
   'jquery',
   'underscore',
   'backbone',
-  'modules/base',
+  'modules/base/model',
   'modules/translatable/attribute',
   'i18n'
-], ($, _, Backbone, Base, TranslatableAttribute, I18n) ->
-  class TranslatableModel extends Base.Model
+], ($, _, Backbone, BaseModel, TranslatableAttribute, I18n) ->
+
+  class TranslatableModel extends BaseModel
 
     translatableAttributes: []
 

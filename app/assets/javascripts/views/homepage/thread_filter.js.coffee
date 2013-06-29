@@ -2,11 +2,11 @@ define [
   'jquery',
   'underscore',
   'backbone',
-  'modules/base',
+  'modules/base/view',
   'templates/homepage/thread_filter'
-], ($, _, Backbone, Base, threadFilterTemplate) ->
+], ($, _, Backbone, BaseView, threadFilterTemplate) ->
 
-  class ThreadFilterView extends Base.View
+  class ThreadFilterView extends BaseView
     className: 'commentheader form-horizontal'
     tagName: 'form'
     id: 'thread-filter'

@@ -2,11 +2,11 @@ define [
   'jquery'
   'underscore'
   'backbone'
-  'modules/base'
+  'modules/base/view'
   'templates/threads/list_item'
-], ($, _, Backbone, Base, threadsListItemTemplate) ->
+], ($, _, Backbone, BaseView, threadsListItemTemplate) ->
 
-  class ThreadListItemView extends Base.View
+  class ThreadListItemView extends BaseView
     tagName: 'tr'
     id: 'thread-list-item'
     className: 'clickable'

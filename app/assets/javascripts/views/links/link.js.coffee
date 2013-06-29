@@ -3,13 +3,13 @@ define [
   'underscore',
   'backbone',
   'models/link'
-  'modules/base',
+  'modules/base/view',
   'modules/translatable',
   'globals',
   'templates/links/show'
-], ($, _, Backbone, Link, Base, Translatable, globals, showLinkTemplate) ->
+], ($, _, Backbone, Link, BaseView, Translatable, globals, showLinkTemplate) ->
 
-  class LinkView extends Base.View
+  class LinkView extends BaseView
     className: 'link'
 
     initialize: ->

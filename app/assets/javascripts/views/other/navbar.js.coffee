@@ -2,11 +2,11 @@ define [
   'jquery',
   'underscore',
   'backbone',
-  'modules/base',
+  'modules/base/view',
   'templates/other/navbar'
-], ($, _, Backbone, Base, navbarTemplate) ->
+], ($, _, Backbone, BaseView, navbarTemplate) ->
 
-  class NavbarView extends Base.View
+  class NavbarView extends BaseView
     className: 'navbar navbar-fixed-top'
 
     initialize: ->

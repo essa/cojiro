@@ -2,11 +2,11 @@ define [
   'jquery'
   'underscore'
   'backbone'
-  'modules/base'
+  'modules/base/view'
   'templates/threads/add_link'
-], ($, _, Backbone, Base, addLinkTemplate) ->
+], ($, _, Backbone, BaseView, addLinkTemplate) ->
 
-  class AddLinkModalView extends Base.View
+  class AddLinkModalView extends BaseView
 
     buildEvents: () ->
       _(super).extend

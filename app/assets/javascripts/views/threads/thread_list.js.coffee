@@ -2,13 +2,13 @@ define [
   'jquery'
   'underscore'
   'backbone'
-  'modules/base'
+  'modules/base/view'
   'views/threads/thread_list_item'
   'templates/threads/list'
   'jquery.timeago'
-], ($, _, Backbone, Base, ThreadListItemView, threadsListTemplate) ->
+], ($, _, Backbone, BaseView, ThreadListItemView, threadsListTemplate) ->
 
-  class ThreadListView extends Base.View
+  class ThreadListView extends BaseView
     id: 'threads_list'
     tagName: 'table'
     className: 'table table-striped'

@@ -2,11 +2,11 @@ define [
   'underscore'
   'backbone'
   'i18n'
-  'modules/base'
+  'modules/base/model'
   'modules/extended/timestamps'
-], (_, Backbone, I18n, Base, Timestamps) ->
+], (_, Backbone, I18n, BaseModel, Timestamps) ->
 
-  class User extends Base.Model
+  class User extends BaseModel
     @use(Timestamps)
     idAttribute: 'name'
     url: -> '/' + I18n.locale + '/users/' + @getName()
