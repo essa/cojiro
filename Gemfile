@@ -62,8 +62,8 @@ group :test do
   gem 'webmock', '>= 1.9.0', :require => false
   gem 'vcr', '~> 2.5.0', :require => false
   gem 'shoulda-matchers', :require => false
-  gem 'guard', '>= 1.3.2', :require => false
-  gem 'rb-inotify', '~> 0.8.8', :require => false
+  gem 'guard', '>= 1.8.0', :require => false
+  gem 'rb-inotify', '>= 0.8.8', :require => false
   gem 'guard-spork', :require => false
   gem 'guard-rspec', :require => false
   gem 'guard-cucumber', :require => false
