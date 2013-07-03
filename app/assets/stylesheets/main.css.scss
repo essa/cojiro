@@ -6,6 +6,8 @@
   @include box-shadow(0 0 1px 0px $cojiroGray !important);
   border-bottom: 4px solid $cojiroGray !important;
 //  background-image: none !important;
+
+  a.dropdown-toggle:hover { cursor: pointer }
 }
 
 .hero-unit {

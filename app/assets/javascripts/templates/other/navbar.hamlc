@@ -12,7 +12,7 @@
     %ul.nav.secondary-nav.pull-right
       - if helpers.isLoggedIn()
         %li#profile-menu.dropdown
-          %a.dropdown-toggle{ href: '#profile-menu', data-toggle: 'dropdown' }
+          %a.dropdown-toggle{ data-toggle: 'dropdown' }
             ="@#{helpers.currentUser().name}"
             %b.caret
           %ul.dropdown-menu
