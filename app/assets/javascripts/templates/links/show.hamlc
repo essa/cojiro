@@ -1,7 +1,9 @@
 .link-inner
-  %a.url{ :href => @model.getUrl() }
-    %span.lang=@model.getSourceLocale()
-    %span.site=@model.getSiteName()
+  %div.url
+    %a{ :href => @model.getUrl() }
+      %span.lang=@model.getSourceLocale()
+      %span.site=@model.getSiteName()
+    %a{ :href => '#', :style => 'float: right', :class => 'icon-edit' }
   %a.description
     %h3.title
     %p.summary

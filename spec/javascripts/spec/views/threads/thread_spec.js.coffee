@@ -63,8 +63,8 @@ define (require) ->
 
         it 'renders url', ->
           $el = @view.render().$el
-          expect($el).toContain('a.url[href="http://www.foo.com"]')
-          expect($el).toContain('a.url[href="http://www.bar.com"]')
+          expect($el).toContain('.url a[href="http://www.foo.com"]')
+          expect($el).toContain('.url a[href="http://www.bar.com"]')
 
         it 'renders provider url', ->
           $el = @view.render().$el
