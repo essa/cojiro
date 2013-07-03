@@ -2,7 +2,7 @@
 define [
   'backbone',
   'backbone-support'
-], (Backbone) ->
+], (Backbone, Support) ->
 
   class BaseView extends Support.CompositeView
 
