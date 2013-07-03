@@ -8,17 +8,17 @@ define (require) ->
   ThreadListItemView = require('views/threads/thread_list_item')
   ThreadListView = require('views/threads/thread_list')
 
-  listItemView = new Backbone.View()
-  listItemView.render = () ->
-    @el = document.createElement('tr')
-    @
-  ThreadListItemView = sinon.stub().returns(listItemView)
-
   describe "ThreadListView", ->
 
     describe 'with stubbed ThreadListItemView', ->
       beforeEach ->
-        @view = new ThreadListView(ThreadListItemView: ThreadListItemView)
+        # create stub child view
+        @listItemView = new Backbone.View()
+        @listItemView.render = () ->
+          @el = document.createElement('tr')
+          @
+        @ThreadListItemView = sinon.stub().returns(@listItemView)
+        @view = new ThreadListView(ThreadListItemView: @ThreadListItemView)
 
       describe "instantiation", ->
         beforeEach ->
@@ -34,7 +34,7 @@ define (require) ->
 
       describe "rendering", ->
         beforeEach ->
-          sinon.spy(listItemView, "render")
+          sinon.spy(@listItemView, "render")
           @thread1 = new Backbone.Model()
           @thread2 = new Backbone.Model()
           @thread3 = new Backbone.Model()
@@ -42,19 +42,20 @@ define (require) ->
           @returnVal = @view.render()
 
         afterEach ->
-          listItemView.render.restore()
+          @listItemView.render.restore()
 
         it "returns the view object", ->
           expect(@returnVal).toEqual(@view)
 
         it "creates a ThreadListItemView for each model", ->
-          expect(ThreadListItemView.alwaysCalledWithNew()).toBeTruthy()
-          expect(ThreadListItemView).toHaveBeenCalledWith(model: @thread1)
-          expect(ThreadListItemView).toHaveBeenCalledWith(model: @thread2)
-          expect(ThreadListItemView).toHaveBeenCalledWith(model: @thread3)
+          #expect(ThreadListItemView.alwaysCalledWithNew()).toBeTruthy()
+          expect(@ThreadListItemView).toHaveBeenCalledThrice()
+          expect(@ThreadListItemView).toHaveBeenCalledWith(model: @thread1)
+          expect(@ThreadListItemView).toHaveBeenCalledWith(model: @thread2)
+          expect(@ThreadListItemView).toHaveBeenCalledWith(model: @thread3)
 
         it "renders each ThreadListItemView", ->
-          expect(listItemView.render).toHaveBeenCalledThrice()
+          expect(@listItemView.render).toHaveBeenCalledThrice()
 
         it "appends list items to the list", ->
           expect(@view.$('tbody').children().length).toEqual(3)
