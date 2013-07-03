@@ -26,7 +26,7 @@ define (require) ->
           @$el = @view.$el
 
         it "creates a table element for a threads list", ->
-          expect(@$el).toBe("table#threads_list")
+          expect(@$el).toBe("table.threads_list")
 
         it "has bootstrap classes", ->
           expect(@$el).toHaveClass("table")

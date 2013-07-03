@@ -44,7 +44,7 @@ define (require) ->
       it "renders the thread", ->
         @view = new ThreadView(model: @thread)
         $el = @view.render().$el
-        expect($el).toBe("#thread")
+        expect($el).toBe(".thread")
         expect($el).toHaveText(/Geisha bloggers/)
         expect($el).toHaveText(/Looking for info on geisha bloggers./)
         expect($el).toHaveText(/May 4, 2013\s*started/)

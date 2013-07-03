@@ -9,9 +9,8 @@ define [
 ], ($, _, Backbone, BaseView, ThreadListItemView, threadsListTemplate) ->
 
   class ThreadListView extends BaseView
-    id: 'threads_list'
     tagName: 'table'
-    className: 'table table-striped'
+    className: 'threads_list table table-striped'
 
     initialize: (options = {}) ->
       @ThreadListItemView = options.ThreadListItemView || ThreadListItemView

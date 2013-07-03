@@ -39,39 +39,39 @@ Then /^I (should|should not) see the text:? "([^"]*)"$/ do |expectation, text|
 end
 
 Then /^I (should|should not) see the text:? "([^"]*)" in the (thread|threads list)$/ do |expectation, text, class_tag|
-  within(:css, "##{class_tag.gsub(/ /,'_')}") do
+  within(:css, ".#{class_tag.gsub(/ /,'_')}") do
     page.send(expectation.gsub(' ','_'),have_content(text))
   end
 end
 
 Then /^I should see the translated text "([^"]*)" in the (thread|threads list)$/ do |text, class_tag|
-  within(:css, "##{class_tag.gsub(/ /,'_')}") do
+  within(:css, ".#{class_tag.gsub(/ /,'_')}") do
     page.should have_xpath('//span[contains(@class,"translated")]', :text => text)
   end
 end
 
 Then /^I should see the untranslated text "([^"]*)" in the (thread|threads list)$/ do |text, class_tag|
-  within(:css, "##{class_tag.gsub(/ /,'_')}") do
+  within(:css, ".#{class_tag.gsub(/ /,'_')}") do
     page.should have_xpath('//span[contains(@class,"untranslated")]', :text => text)
   end
 end
 
 Then /^I should see a note "([^"]*)" next to the thread "([^"]*)" in the threads list$/ do |text, title|
-  within(:css, "#threads_list") do
+  within(:css, ".threads_list") do
     row = find(:xpath, "//tr[./td[contains(.,\"#{title}\")]]")
     row.should have_content(text)
   end
 end
 
 Then /^I should see a "([^"]*)" tag next to the thread "([^"]*)" in the threads list$/ do |tag_text, title|
-  within(:css, "#threads_list") do
+  within(:css, ".threads_list") do
     row = find(:xpath, "//tr[./td[contains(.,\"#{title}\")]]")
     row.should have_selector('span.label.label-info', :text => tag_text)
   end
 end
 
 Then /^I should see a "new" tag next to the thread "([^"]*)"$/ do |title|
-  within(:css, "#threads_list") do
+  within(:css, ".threads_list") do
     row = find(:xpath, "//tr[./td[contains(.,\"#{title}\")]]")
     row.should have_selector('span.label.label-info', :text => title)
   end

@@ -14,7 +14,7 @@ define [
 ], ($, _, Backbone, Link, BaseView, Translatable, globals, showThreadTemplate, flashTemplate, AddLinkModal, LinkView) ->
 
   class ThreadView extends BaseView
-    id: 'thread'
+    className: 'thread'
 
     buildEvents: () ->
       _(super).extend
