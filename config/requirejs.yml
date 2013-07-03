@@ -14,6 +14,8 @@ shim:
   'bootstrap-button': [ 'jquery' ]
   'bootstrap-alert': [ 'jquery' ]
   'bootstrap-modal': [ 'jquery' ]
+  'bootstrap-tooltip': [ 'jquery' ]
+  'bootstrap-popover': [ 'jquery', 'bootstrap-tooltip' ]
   'underscore':
     exports: '_'
 

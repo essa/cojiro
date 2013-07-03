@@ -1,0 +1,50 @@
+/* -------- Editable fields ----- */
+
+span.untranslated {
+  font-style: italic;
+}
+
+.editable:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.editable-input, .in-place-form {
+  display: inline-block;
+  margin: 0;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.in-place-form h3.popover-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input.field {
+  width: auto;
+  height: auto;
+}
+
+textarea.field {
+  width: auto;
+  height: auto;
+}
+
+.editable-input {
+  position: relative;
+}
+
+.editable-buttons {
+  display: inline-block;
+  vertical-align: top;
+//  margin-left: 7px;
+}
+
+span.in-place-field {
+  display: inline;
+}
+
+button.cancel-button {
+//  margin-left: 5px;
+}

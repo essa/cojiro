@@ -8,6 +8,9 @@ beforeEach ->
   Backbone.Relational.store._reverseRelations = oldReverseRelations
   Backbone.Relational.eventQueue = new Backbone.BlockingQueue
 
+  # set locale to default locale
+  I18n.locale = I18n.defaultLocale
+
   @addMatchers
 
     # request matchers

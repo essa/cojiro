@@ -84,9 +84,12 @@ define (require) ->
           globals.currentUser = @fixtures.User.valid
           @view = new ThreadView(model: @thread)
 
-        it 'renders edit/add buttons', ->
+        it 'makes in-place-fields editable', ->
           $el = @view.render().$el
-          expect($el).toContain('button.edit-button:contains("Edit")')
+          expect($el.find(':contains("A link about foo")')).toHaveClass('editable')
+          expect($el.find(':contains("A summary about foo")')).toHaveClass('editable')
+          expect($el.find(':contains("A link about bar")')).toHaveClass('editable')
+          expect($el.find(':contains("A summary about bar")')).toHaveClass('editable')
 
         it 'renders add link button', ->
           $el = @view.render().$el
