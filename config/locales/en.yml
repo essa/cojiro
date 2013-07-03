@@ -34,10 +34,6 @@ en:
     threads:
       new_thread:
         thread_created: "Thread successfully created."
-    mixins:
-      translatable_fields:
-        save: Save
-        cancel: Cancel
 
   jquery:
     timeago:
