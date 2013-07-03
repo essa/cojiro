@@ -3,9 +3,10 @@ define [
   'underscore',
   'backbone',
   'modules/base/view',
+  'modules/channel'
   'i18n'
   'bootstrap-popover'
-], ($, _, Backbone, BaseView, I18n) ->
+], ($, _, Backbone, BaseView, channel, I18n) ->
 
   class FieldForm extends BaseView
     template: _.template '
@@ -60,4 +61,4 @@ define [
 
     closeForm: ->
       @leave()
-      @parent.render()
+      channel.trigger('fieldForm:close')

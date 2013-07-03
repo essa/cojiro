@@ -4,9 +4,10 @@ define [
   'backbone',
   'modules/base/view',
   'modules/translatable/field-form'
+  'modules/channel'
   'i18n'
   'bootstrap-popover'
-], ($, _, Backbone, BaseView, FieldForm, I18n) ->
+], ($, _, Backbone, BaseView, FieldForm, channel, I18n) ->
 
   class InPlaceField extends BaseView
     tagName: "span"
@@ -29,6 +30,9 @@ define [
       @schema = () -> @model.schema()[@field]
       @type = @schema().type
       @FieldForm = options.FieldForm || FieldForm
+
+      self = @
+      channel.on 'fieldForm:close', -> self.render()
 
     render: ->
       fieldVal = @model.getAttr(@field)

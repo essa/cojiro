@@ -7,6 +7,7 @@ define (require) ->
   FieldForm = require('modules/translatable/field-form')
   BaseView = require('modules/base/view')
   Model = require('modules/translatable/model')
+  channel = require('modules/channel')
   MyModel = Model.extend(translatableAttributes: ['title', 'summary'])
 
   describe 'Translatable.FieldForm', ->
@@ -134,9 +135,7 @@ define (require) ->
     describe 'when cancel button is clicked', ->
       beforeEach ->
         @view = new FieldForm model: @model, field: 'title', type: 'Text'
-        # we're using composite views, so we need a parent
-        @parent = new (BaseView.extend(render: -> ))
-        @parent.renderChild(@view)
+        @view.render()
 
       it 'calls closeForm', ->
         @view.$('button.cancel-button').click()
@@ -149,18 +148,16 @@ define (require) ->
         expect(@view.leave).toHaveBeenCalledWithExactly()
         @view.leave.restore()
 
-      it 'calls render on parent', ->
-        sinon.spy(@parent, 'render')
+      it 'triggers fieldForm.close event on channel', ->
+        eventSpy = sinon.spy()
+        channel.on('fieldForm:close', eventSpy)
         @view.$('button.cancel-button').click()
-        expect(@parent.render).toHaveBeenCalled()
-        expect(@parent.render).toHaveBeenCalledWithExactly()
-        @parent.render.restore()
+        expect(eventSpy).toHaveBeenCalledOnce()
 
     describe 'after a successful save', ->
       beforeEach ->
         @view = new FieldForm model: @model, field: 'title', type: 'Text'
-        @parent = new (BaseView.extend(render: -> ))
-        @parent.renderChild(@view)
+        @view.render()
 
         @server = sinon.fakeServer.create()
         @server.respondWith(

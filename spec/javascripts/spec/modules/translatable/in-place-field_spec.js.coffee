@@ -5,6 +5,7 @@ define (require) ->
   Backbone = require('backbone')
   I18n = require('i18n')
   InPlaceField = require('modules/translatable/in-place-field')
+  FieldForm = require('modules/translatable/field-form')
   Model = require('modules/translatable/model')
   MyModel = Model.extend(translatableAttributes: ['title'])
 
@@ -25,9 +26,7 @@ define (require) ->
         @model = new MyModel
         _(@model).extend
           id: '123'
-          schema: ->
-            title:
-              type: 'Text'
+          schema: -> title: type: 'Text'
         @model.set
           source_locale: 'en'
           title: en: 'Co-working spaces in Tokyo'
@@ -93,3 +92,50 @@ define (require) ->
             I18n.locale = 'fr'
             @$clickableField.click()
             expect(@view.$el).toContain('.popover:contains("Co-working spaces in Tokyo")')
+
+    describe 'with real FieldForm', ->
+      beforeEach ->
+        @field = 'title'
+        @model = new MyModel
+        _(@model).extend
+          id: '123'
+          schema: -> title: type: 'Text'
+        @model.collection = url: '/collection'
+        @model.set
+          source_locale: 'en'
+          title: en: 'Co-working spaces in Tokyo'
+        @view = new InPlaceField model: @model, field: @field, editable: true
+
+        @server = sinon.fakeServer.create()
+        @server.respondWith(
+          'PUT',
+          '/collection/123',
+          [ 204, {'Content-Type': 'application/json'}, '' ]
+        )
+
+      describe 'successful save', ->
+        beforeEach ->
+          @view.render()
+          @view.$('span.editable').click()
+          @view.$('input').val('abcdef')
+          @view.$('button.save-button').click()
+          @server.respond()
+
+        it 'saves new value to model', ->
+          expect(@model.getAttr(@field)).toEqual('abcdef')
+
+        it 'renders new field value', ->
+          expect(@view.$el).toHaveText('abcdef')
+
+      describe 'cancelled save', ->
+        beforeEach ->
+          @view.render()
+          @view.$('span.editable').click()
+          @view.$('input').val('abcdef')
+          @view.$('button.cancel-button').click()
+
+        it 'resets field to original value', ->
+          expect(@view.$el).toHaveText('Co-working spaces in Tokyo')
+
+        it 'does not change value in model', ->
+          expect(@model.getAttr(@field)).toEqual('Co-working spaces in Tokyo')
