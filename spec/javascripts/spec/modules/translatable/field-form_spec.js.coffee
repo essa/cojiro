@@ -150,7 +150,8 @@ define (require) ->
 
       it 'triggers fieldForm.close event on channel', ->
         eventSpy = sinon.spy()
-        channel.on('fieldForm:close', eventSpy)
+        @view.cid = '123'
+        channel.on('fieldForm:123:close', eventSpy)
         @view.$('button.cancel-button').click()
         expect(eventSpy).toHaveBeenCalledOnce()
 

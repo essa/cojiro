@@ -7,6 +7,7 @@ define (require) ->
   InPlaceField = require('modules/translatable/in-place-field')
   FieldForm = require('modules/translatable/field-form')
   Model = require('modules/translatable/model')
+  channel = require('modules/channel')
   MyModel = Model.extend(translatableAttributes: ['title'])
 
   describe 'Translatable.InPlaceField', ->
@@ -69,6 +70,13 @@ define (require) ->
             model: @model
             field: @field
             type: @model.schema()[@field].type
+
+        it 'binds fieldForm handler to channel', ->
+          @$clickableField.click()
+          sinon.spy(@view, 'render')
+          channel.trigger("fieldForm:#{@fieldForm.cid}:close")
+          expect(@view.render).toHaveBeenCalledOnce()
+          @view.render.restore()
 
         it 'renders a FieldForm', ->
           sinon.spy(@fieldForm, 'render')

@@ -31,9 +31,6 @@ define [
       @type = @schema().type
       @FieldForm = options.FieldForm || FieldForm
 
-      self = @
-      channel.on 'fieldForm:close', -> self.render()
-
     render: ->
       fieldVal = @model.getAttr(@field)
       @renderField(fieldVal)
@@ -53,9 +50,12 @@ define [
       @$el.html(fieldHtml)
 
     showForm: ->
-      form = new @FieldForm(model: @model, field: @field, type: @type)
-      @renderChild(form)
-      @$el.html(form.el)
+      channel.unbind("fieldForm:#{@form.cid}:close") if @form
+      @form = new @FieldForm(model: @model, field: @field, type: @type)
+      self = @
+      channel.on "fieldForm:#{@form.cid}:close", -> self.render()
+      @renderChild(@form)
+      @$el.html(@form.el)
       if I18n.locale != @model.getSourceLocale()
         @showPopover()
 

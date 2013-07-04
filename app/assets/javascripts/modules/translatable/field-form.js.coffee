@@ -61,4 +61,4 @@ define [
 
     closeForm: ->
       @leave()
-      channel.trigger('fieldForm:close')
+      channel.trigger("fieldForm:#{@cid}:close")
