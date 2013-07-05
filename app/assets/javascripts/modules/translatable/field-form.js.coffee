@@ -32,12 +32,12 @@ define [
         "submit form.in-place-form": "submitForm"
         "click button.cancel-button": "closeForm"
 
-    initialize: (options) ->
+    initialize: (options = {}) ->
       super(options)
 
-      @field = options.field
-      @model = options.model
-      @type = options.type
+      throw('field required') unless @field = options.field
+      throw('model required') unless @model = options.model
+      throw('type required') unless @type = options.type
 
     render: ->
       @$el.html(@template(field: @field, type: @type))

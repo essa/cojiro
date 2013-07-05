@@ -43,6 +43,40 @@ define (require) ->
       afterEach ->
         InPlaceField.prototype.showForm.restore()
 
+      describe 'instantiation', ->
+        beforeEach ->
+          @options =
+            field: 'title'
+            model: @model
+
+        it 'throws no error if passed required options', ->
+          options = @options
+          expect(-> new InPlaceField(options)).not.toThrow()
+
+        it 'throws error if not passed field', ->
+          options = _(@options).extend(field: null)
+          expect(-> new InPlaceField(options)).toThrow("field required")
+
+        it 'throws error if not passed model', ->
+          options = _(@options).extend(model: null)
+          expect(-> new InPlaceField(options)).toThrow("model required")
+
+        it 'throws error if model does not have schema', ->
+          options = _(@options).extend(model: {})
+          expect(-> new InPlaceField(options)).toThrow('model schema must be defined')
+
+        it 'throws error if model schema is not a function', ->
+          options = _(@options).extend(model: schema: {})
+          expect(-> new InPlaceField(options)).toThrow('model schema must be a function')
+
+        it 'throws error if model schema does not have field as key', ->
+          options = _(@options).extend(model: schema: -> {})
+          expect(-> new InPlaceField(options)).toThrow('model schema must have field as key')
+
+        it 'throws error if model schema does not have a type', ->
+          options = _(@options).extend(model: schema: -> title: {})
+          expect(-> new InPlaceField(options)).toThrow('model schema must have a type')
+
       describe 'rendering', ->
         it 'wraps field in span with translated class if field exists in this locale', ->
           I18n.locale = 'en'

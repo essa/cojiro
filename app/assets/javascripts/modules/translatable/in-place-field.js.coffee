@@ -21,14 +21,17 @@ define [
       _(super).extend
         "click span.editable": "showForm"
 
-    initialize: (options) ->
+    initialize: (options = {}) ->
       super(options)
 
-      @field = options.field
-      @model = options.model
-      @editable = options.editable
+      throw('field required') unless @field = options.field
+      throw('model required') unless @model = options.model
+      @editable = options.editable || false
+      throw('model schema must be defined') unless @model.schema
+      throw('model schema must be a function') unless _.isFunction(@model.schema)
       @schema = () -> @model.schema()[@field]
-      @type = @schema().type
+      throw('model schema must have field as key') unless @schema()
+      throw('model schema must have a type') unless @type = @schema().type
       @FieldForm = options.FieldForm || FieldForm
 
     render: ->

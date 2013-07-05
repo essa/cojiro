@@ -37,6 +37,29 @@ define (require) ->
       FieldForm.prototype.submitForm.restore()
       FieldForm.prototype.closeForm.restore()
 
+    describe 'instantiation', ->
+      beforeEach ->
+        @options =
+          field: 'title'
+          model: @model
+          type: 'Text'
+
+      it 'throws no error if passed required options', ->
+        options = @options
+        expect(-> new FieldForm(options)).not.toThrow()
+
+      it 'throws error if not passed field', ->
+        options = _(@options).extend(field: null)
+        expect(-> new FieldForm(options)).toThrow("field required")
+
+      it 'throws error if not passed model', ->
+        options = _(@options).extend(model: null)
+        expect(-> new FieldForm(options)).toThrow("model required")
+
+      it 'throws error if not passed type', ->
+        options = _(@options).extend(type: null)
+        expect(-> new FieldForm(options)).toThrow("type required")
+
     describe 'rendering', ->
 
       describe 'html elements', ->
