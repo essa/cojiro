@@ -31,6 +31,10 @@ define (require) ->
           expect($el.find('.modal-header')).toHaveText(/Add a link/)
           expect($el.find('.modal-body')).toContain('form:contains("URL")')
 
+        it 'renders placeholder "Enter a URL"', ->
+          $el = @view.render().$el
+          expect($el.find('input')).toHaveAttr('placeholder', 'Enter a URL...')
+
     describe 'with actual Link modal', ->
       beforeEach ->
         @model = new Link
