@@ -162,6 +162,9 @@ ul.nav-pills {
       text-decoration: none;
       color: $black;
     }
+    a.add-link:hover {
+      cursor: pointer;
+    }
     .url {
       color: $black;
       display: block;
@@ -193,6 +196,9 @@ ul.nav-pills {
       overflow: hidden;
       padding: 10px;
       margin-bottom: 15px;
+    }
+    .summary textarea {
+      height: $linkDescriptionHeight / 2;
     }
     .add-link {
       text-align: center;
