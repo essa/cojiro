@@ -132,20 +132,18 @@ describe Link do
   end
 
   describe 'default values' do
-    before do
-      @link = FactoryGirl.create(:link)
-    end
+    let(:link) { FactoryGirl.create(:link) }
 
     it 'sets default status' do
-      @link.status = nil
-      @link.save
-      @link.status.should == 0
+      link.status = nil
+      link.save
+      link.status.should == 0
     end
 
     it 'sets default source language' do
-      @link.source_locale = nil
-      @link.save
-      @link.source_locale.should == "en"
+      link.source_locale = nil
+      link.save
+      link.source_locale.should == "en"
     end
   end
 
