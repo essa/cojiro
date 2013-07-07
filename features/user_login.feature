@@ -12,7 +12,7 @@ Feature: Login to cojiro
     And my locale is "en"
     And I am on the homepage
     When I click on "Sign in through Twitter"
-    Then I should see a link to "csasaki"
+    Then I should see the text "@csasaki" in the navbar
     And I should not see a link to "Sign in through Twitter"
     And the following user should exist:
       | name     | csasaki        |
