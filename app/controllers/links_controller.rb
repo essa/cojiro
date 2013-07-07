@@ -15,9 +15,13 @@ class LinksController < ApplicationController
   #new
 
   def create
-    @link = Link.new(params[:link])
-    @link.user_id = current_user.id
-    @link.save
+    if link = Link.by_url(params.try(:[], :link).try(:[], :url)).first
+      @link = link
+    else
+      @link = Link.new(params[:link])
+      @link.user_id = current_user.id
+      @link.save
+    end
     respond_with(@link)
   end
 

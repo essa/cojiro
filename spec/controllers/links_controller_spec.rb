@@ -38,19 +38,45 @@ describe LinksController do
       end
 
       describe 'POST create' do
-
         context 'with valid params' do
-          describe 'step 1: url' do
+
+          it 'does not crash on blank params' do
+            expect {
+              post :create
+            }.not_to raise_error
+          end
+
+          context 'url not yet registered' do
             it 'creates a new link' do
               expect {
-                post :create, link: FactoryGirl.attributes_for(:link)
+                post :create, link: FactoryGirl.attributes_for(:link), format: :json
               }.to change(Link, :count).by(1)
             end
 
             it 'returns the new link' do
-              attr = FactoryGirl.attributes_for(:link)
-              post :create, link: attr, :format => :json
-              JSON(response.body).should include(attr.stringify_keys)
+              attrs = FactoryGirl.attributes_for(:link)
+              post :create, link: attrs, :format => :json
+              JSON(response.body).should include(attrs.stringify_keys)
+            end
+          end
+
+          context 'url already registered' do
+            let!(:link) { FactoryGirl.create(:link, url: 'http://www.foo.com') }
+
+            it 'does not create new link' do
+              expect {
+                post :create, link: { url: 'http://www.foo.com' }, format: :json
+              }.not_to change(Link, :count)
+            end
+
+            it 'assigns existing link to @link' do
+              post :create, link: { url: 'http://www.foo.com' }, format: :json
+              assigns(:link).should eq(link)
+            end
+
+            it 'returns existing link' do
+              post :create, link: { url: 'http://www.foo.com' }, format: :json
+              response.body.should == link.to_json
             end
           end
         end
