@@ -29,7 +29,7 @@ define [
     buildEvents: () ->
       _(super).extend
         "click button.save-button": "saveField"
-        "submit form.in-place-form": "submitForm"
+        "submit form.in-place-form": "saveField"
         "click button.cancel-button": "closeForm"
 
     initialize: (options = {}) ->
@@ -47,11 +47,8 @@ define [
     renderVal: ->
       @$('.field').val(@model.getAttr(@field))
 
-    submitForm: (e) ->
+    saveField: (e) ->
       e.preventDefault()
-      @$('button.save-button').trigger('click')
-
-    saveField: ->
       @model.setAttr(@field, @$('.field').val())
       self = @
       @model.save {},

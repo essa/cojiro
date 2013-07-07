@@ -29,12 +29,10 @@ define (require) ->
       @model.collection = url: '/collection'
 
       @saveFieldSpy = sinon.spy(FieldForm.prototype, 'saveField')
-      @submitFormSpy = sinon.spy(FieldForm.prototype, 'submitForm')
       @closeFormSpy = sinon.spy(FieldForm.prototype, 'closeForm')
 
     afterEach ->
       FieldForm.prototype.saveField.restore()
-      FieldForm.prototype.submitForm.restore()
       FieldForm.prototype.closeForm.restore()
 
     describe 'instantiation', ->
@@ -137,23 +135,23 @@ define (require) ->
       describe 'when form is submitted (by hitting enter while in form field)', ->
         beforeEach ->
           @$form = @view.$('form')
-          @$saveButton = @view.$('button.save-button')
 
-        it 'calls submitForm', ->
+        it 'calls saveField', ->
           @$form.submit()
-          expect(@submitFormSpy).toHaveBeenCalledOnce()
+          expect(@saveFieldSpy).toHaveBeenCalledOnce()
 
-        it 'prevents default form submission', ->
-          spyEvent = spyOnEvent(@$form, 'submit')
+        it 'sets the field in the current locale', ->
+          sinon.stub(@model, 'setAttr')
+          @view.$('input').val('abcdef')
           @$form.submit()
-          expect('submit').toHaveBeenPreventedOn(@$form)
-          expect(spyEvent).toHaveBeenPrevented()
+          expect(@model.setAttr).toHaveBeenCalledOnce()
+          expect(@model.setAttr).toHaveBeenCalledWithExactly('title', 'abcdef')
+          @model.setAttr.restore()
 
-        it 'triggers click event on save button', ->
-          spyEvent = spyOnEvent(@$saveButton, 'click')
+        it 'saves the model', ->
+          @view.$('input').val('a new value')
           @$form.submit()
-          expect('click').toHaveBeenTriggeredOn(@$saveButton)
-          expect(spyEvent).toHaveBeenTriggered()
+          expect(@model.save).toHaveBeenCalledOnce()
 
     describe 'when cancel button is clicked', ->
       beforeEach ->
