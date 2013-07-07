@@ -1,5 +1,6 @@
 require 'addressable/uri'
 require 'embedly'
+require 'globalize_helpers'
 
 class Link < ActiveRecord::Base
   translates :title, :summary
@@ -10,13 +11,20 @@ class Link < ActiveRecord::Base
   belongs_to :user
   has_many :comments
   has_many :cothreads, :through => :comments
-  attr_accessible :embed_data, :summary, :title, :url, :source_locale
+
+  #readonly accessors
+  attr_readonly :url, :source_locale
+
+  #accessible
+  attr_accessible :url, :source_locale, :title, :summary
 
   #validations
   validates :user, :presence => true
   validates :url, :presence => true, :uniqueness => true
   validates :status, :presence => true, :numericality => true
   validate :title_present_in_source_locale
+  validates :title, :absence => true, :if => proc { |a| a.status == 0 }
+  validates :summary, :absence => true, :if => proc { |a| a.status == 0 }
 
   #callbacks
   before_validation :default_values

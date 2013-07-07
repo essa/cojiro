@@ -9,12 +9,28 @@ describe Link do
     it { should have_many(:cothreads).through(:comments) }
   end
 
-  describe 'validation with factory' do
-    before do
-      @link = FactoryGirl.build(:link, :title => 'a title')
-    end
+  # url and source_locale are set only when a link is first created
+  # and in principle should not be changed thereafter
+  describe 'readonly accessors' do
+    it { should have_readonly_attribute(:url) }
+    it { should have_readonly_attribute(:source_locale) }
+  end
 
-    subject { @link }
+  describe 'mass assignment' do
+    it { should allow_mass_assignment_of(:url) }
+    it { should allow_mass_assignment_of(:source_locale) }
+    it { should allow_mass_assignment_of(:title) }
+    it { should allow_mass_assignment_of(:summary) }
+
+    it { should_not allow_mass_assignment_of(:user_id) }
+    it { should_not allow_mass_assignment_of(:status) }
+    it { should_not allow_mass_assignment_of(:created_at) }
+    it { should_not allow_mass_assignment_of(:updated_at) }
+  end
+
+  describe 'validation with factory' do
+    let(:link) { FactoryGirl.build(:link) }
+    subject { link }
 
     it 'has a valid factory' do
       should be_valid
@@ -37,10 +53,16 @@ describe Link do
       should_not be_valid
     end
 
-    it 'is valid without a title if status = 0' do
+    it 'is invalid with a title if status = 0' do
       subject.status = 0
-      subject.title = nil
-      should be_valid
+      subject.title = 'a title'
+      should_not be_valid
+    end
+
+    it 'is invalid with a summary if status = 0' do
+      subject.status = 0
+      subject.summary = 'a summary'
+      should_not be_valid
     end
 
     it 'is valid without a title in other locales' do
@@ -48,6 +70,7 @@ describe Link do
       # even if test fails
       subject.status = 1
       begin
+        subject.title = 'a title'
         Globalize.locale = :fr
         subject.title = nil
         should be_valid
@@ -82,12 +105,17 @@ describe Link do
 
   describe '#to_json' do
     use_vcr_cassette('what_is_crossfit')
-    let(:link) { FactoryGirl.create(:link,
-                                    :url => 'http://youtu.be/tzD9BkXGJ1M',
-                                    :title => 'What is CrossFit?',
-                                    :summary => 'CrossFit is an effective way to get fit. Anyone can do it.',
-                                    :user => FactoryGirl.create(:user, :name => 'foo'),
-                                    :source_locale => 'en') }
+    let(:link) do
+      link = FactoryGirl.create(:link,
+                                :url => 'http://youtu.be/tzD9BkXGJ1M',
+                                :source_locale => 'en',
+                                :user => FactoryGirl.create(:user, :name => 'foo'))
+      link.status = 1
+      link.update_attributes!(:title => 'What is CrossFit?',
+                              :summary => 'CrossFit is an effective way to get fit. Anyone can do it.')
+      link
+    end
+
     subject { JSON(link.to_json) }
     its(['id']) { should be }
     its(['title']) { should == { 'en' => 'What is CrossFit?' } }
