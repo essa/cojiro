@@ -153,6 +153,20 @@ describe Link do
     end
   end
 
+  describe 'scopes' do
+    describe '.by_url' do
+      let!(:link) { FactoryGirl.create(:link, :url => 'http://www.foo.com/') }
+
+      it 'finds link by normalized url' do
+        Link.by_url('http://www.foo.com').first.should == link
+      end
+
+      it 'heuristically parses query url' do
+        Link.by_url('www.foo.com').first.should == link
+      end
+    end
+  end
+
   describe 'get embed data' do
     use_vcr_cassette('what_is_crossfit')
     let(:link) { FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M') }

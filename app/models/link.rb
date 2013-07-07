@@ -23,6 +23,9 @@ class Link < ActiveRecord::Base
   before_validation :parse_and_normalize_url
   before_create :get_embed_data
 
+  #scopes
+  scope :by_url, lambda { |url| { :conditions => { :url => parse_and_normalize(url) } } }
+
   def site_name
     if (embed_data && provider_url = embed_data['provider_url'])
       provider_url.gsub(/^http:\/\//,'').chomp('/')
@@ -55,8 +58,12 @@ class Link < ActiveRecord::Base
   end
 
   def parse_and_normalize_url
+    self.url = self.class.parse_and_normalize(url)
+  end
+
+  def self.parse_and_normalize(url)
     uri = Addressable::URI.heuristic_parse(url)
-    self.url = uri && uri.normalize.to_s
+    uri && uri.normalize.to_s
   end
 
   def get_embed_data
