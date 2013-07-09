@@ -131,6 +131,13 @@ describe Link do
     end
   end
 
+  describe '#to_param' do
+    let(:user) { FactoryGirl.create(:link, :url => 'http://www.foo.com').to_param }
+    it 'returns the user name' do
+      user.to_param.should == 'http://www.foo.com/'
+    end
+  end
+
   describe 'default values' do
     let(:link) { FactoryGirl.create(:link) }
 

@@ -50,6 +50,10 @@ class Link < ActiveRecord::Base
     hash
   end
 
+  def to_param
+    url
+  end
+
   def self.embedly_api
     embedly_api = Embedly::API.new :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)', :key => ENV['EMBEDLY_KEY']
   end
