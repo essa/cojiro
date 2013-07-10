@@ -110,31 +110,44 @@ describe Link do
   end
 
   describe '#to_json' do
-    use_vcr_cassette('what_is_crossfit')
-    let(:link) do
-      FactoryGirl.create(:link,
-                         :url => 'http://youtu.be/tzD9BkXGJ1M',
-                         :source_locale => 'en',
-                         :user => FactoryGirl.create(:user, :name => 'foo'),
-                         :title => 'What is CrossFit?',
-                         :summary => 'CrossFit is an effective way to get fit. Anyone can do it.')
+    describe 'CrossFit YouTube video in English' do
+      use_vcr_cassette('what_is_crossfit')
+      let(:link) do
+        FactoryGirl.create(:link,
+                           :url => 'http://youtu.be/tzD9BkXGJ1M',
+                           :source_locale => 'en',
+                           :user => FactoryGirl.create(:user, :name => 'foo'),
+                           :title => 'What is CrossFit?',
+                           :summary => 'CrossFit is an effective way to get fit. Anyone can do it.')
+      end
+
+      subject { JSON(link.to_json) }
+      its(['id']) { should be }
+      its(['title']) { should == { 'en' => 'What is CrossFit?' } }
+      its(['summary']) { should == { 'en' => 'CrossFit is an effective way to get fit. Anyone can do it.' } }
+      its(['site_name']) { should == 'www.youtube.com' }
+      its(['user']) { should == 'foo' }
+      its(['url']) { should == 'http://youtu.be/tzD9BkXGJ1M' }
+      its(['source_locale']) { should == 'en' }
+      it 'does not include any other attributes' do
+        subject.keys.delete_if { |k|
+          %w[ id title summary url display_url source_locale embed_data site_name user ].include?(k)
+        }.should be_empty
+      end
+      its(['embed_data']) { should be }
+      its(['embed_data']) { should include('title' => 'What is CrossFit?') }
     end
 
-    subject { JSON(link.to_json) }
-    its(['id']) { should be }
-    its(['title']) { should == { 'en' => 'What is CrossFit?' } }
-    its(['summary']) { should == { 'en' => 'CrossFit is an effective way to get fit. Anyone can do it.' } }
-    its(['site_name']) { should == 'www.youtube.com' }
-    its(['user']) { should == 'foo' }
-    its(['url']) { should == 'http://youtu.be/tzD9BkXGJ1M' }
-    its(['source_locale']) { should == 'en' }
-    it 'does not include any other attributes' do
-      subject.keys.delete_if { |k|
-        %w[ id title summary url source_locale embed_data site_name user ].include?(k)
-      }.should be_empty
+    describe 'Wikipedia page in Japanese' do
+      use_vcr_cassette('capoeira_wikipedia_ja')
+      let(:link) do
+        FactoryGirl.create(:link, :url => 'ja.wikipedia.org/wiki/カポエイラ')
+      end
+
+      subject { JSON(link.to_json) }
+      its(['url']) { should == 'http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9' }
+      its(['display_url']) { should == 'http://ja.wikipedia.org/wiki/カポエイラ' }
     end
-    its(['embed_data']) { should be }
-    its(['embed_data']) { should include('title' => 'What is CrossFit?') }
   end
 
   describe '#to_param' do
@@ -176,6 +189,11 @@ describe Link do
       link.url.should match("www.foo.com/$")
     end
 
+    it 'encodes special characters' do
+      link = FactoryGirl.create(:link, :url => 'http://ja.wikipedia.org/wiki/カポエイラ')
+      link.url.should == 'http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9'
+    end
+
     it 'normalizes non-ascii urls' do
       link = FactoryGirl.create(:link, :url => 'http://お名前.com')
       link.url.should == 'http://xn--t8jx73hngb.com/'
@@ -206,6 +224,18 @@ describe Link do
     it 'has a status of 1 if source_locale is defined' do
       link.source_locale = 'en'
       link.status.should == 1
+    end
+  end
+
+  describe '#display_url' do
+    it 'unescapes url characters' do
+      link = FactoryGirl.create(:link, url: 'http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9')
+      link.display_url.should == 'http://ja.wikipedia.org/wiki/カポエイラ'
+    end
+
+    it 'returns display-friendly basename' do
+      link = FactoryGirl.create(:link, url: 'http://xn--1sqt31d.com/')
+      link.display_url.should == 'http://価格.com/'
     end
   end
 
