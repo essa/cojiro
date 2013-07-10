@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=https://maps.google.com/maps?q=%25E6%259D%25B1%25E4%25BA%25AC%26hl=ja%26ie=UTF8%26sll=37.0625,-95.677068%26sspn=37.188995,86.572266%26hnear=%25E6%2597%25A5%25E6%259C%25AC,%2B%25E6%259D%25B1%25E4%25BA%25AC%25E9%2583%25BD%26t=m%26z=10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Jul 2013 07:36:02 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '486'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"5904e90a397bdf9eb11af3efe8589d8036b0f759"'
+      X-Embedly-Process-Time:
+      - '48'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api40
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA21STW/bMAz9K4YB+7LE35btomqRtNlOu22neigUWbE1yJYn
+        yd2WYf99lNIEaLODCfKRj6Sf+PTHn5V84R1Tz4sS/o3nD8bMN3E8kllHvZS9
+        YBGVo7/y/I5pqvhsuJxsYbuUVZ6ARYe8XVCT0napuixrlzxB9SVbdQeHMGsL
+        AghrKuvXhbX70toDtbbLHdKc61FCIVvWeWrHG24EOw1GVZW2S8EI9dbeJ7ek
+        5xq4IdS16SpHGpZxPxEunn/yzgxAz8oE8IHxfjAQFrUNz0lUuKQZnRS3/KDI
+        yDyXxa0P2db3TlQIgQqhK9lLBRICZhFQSQrBpx7iSQIwEtXz6cJLLtC5sWMp
+        Cp5VX1/L7+L7HzjYoaB5DLZpsCuC7SbYPISDwN9JyBn++uVjHWohcF5FCcrK
+        1bopI1AKHiPUep4sntZ105SrGkVllWUIhcPEiDq1rYJN6ZwHaLv6cD0q2DVB
+        nQfbx9DgMTziNAnlYubFYDbuWdf6d7fxSbE7K/0LU/r1VNIoscjl1Caosfjr
+        032Gn3v7WNe3uCYzX2st3osSAx5rQwynEN5TNhmm/qfTUcoRp2Wo+ZFhOIJf
+        8IWaTVoqfCBCM7fB79ktpjgd3m50ORig/f32Dxl+s6Y4AwAA
+    http_version: 
+  recorded_at: Wed, 10 Jul 2013 07:36:02 GMT
+recorded_with: VCR 2.5.0
