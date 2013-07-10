@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :logged_in?
 
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
   def set_locale
     I18n.locale = params[:locale]
   end
@@ -49,5 +51,14 @@ class ApplicationController < ActionController::Base
 
   def available_locales
     I18n.available_locales
+  end
+
+  private
+
+  def record_not_found(error)
+    respond_to do |format|
+      format.json { render :json => { :error => error.message }, :status => :not_found }
+      format.html { render :file => 'public/404', :status => :not_found, :layout => false, :formats => [:html] }
+    end
   end
 end

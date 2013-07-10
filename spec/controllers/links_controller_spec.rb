@@ -16,17 +16,27 @@ describe LinksController do
       end
 
       describe 'GET show' do
-        it 'assigns the requested link as @link' do
-          link = FactoryGirl.create(:link)
-          get :show, :id => link.id, :format => :json
-          assigns(:link).should eq(link)
+        context 'url exact match' do
+          it 'assigns the requested link as @link' do
+            link = FactoryGirl.create(:link)
+            get :show, :id => link.url, :format => :json
+            assigns(:link).should eq(link)
+          end
         end
-      end
 
-      describe 'POST create' do
-        it 'redirects to homepage' do
-          post :create
-          response.should redirect_to(homepage_path)
+        context 'url heuristic match' do
+          it 'assigns the requested link as @link' do
+            link = FactoryGirl.create(:link, :url => 'http://www.foo.com/')
+            get :show, :id => 'www.foo.com', :format => :json
+            assigns(:link).should eq(link)
+          end
+        end
+
+        context 'url no match' do
+          it 'raises 404 when not found' do
+            get :show, :id => 'www.bar.com', :format => :json
+            response.response_code.should == 404
+          end
         end
       end
     end
@@ -37,64 +47,42 @@ describe LinksController do
         controller.stub(:current_user) { user }
       end
 
-      describe 'POST create' do
+      describe 'PUT update' do
         context 'with valid params' do
+          let(:url) { 'www.foo.com' }
+          let(:normalized_url) { 'http://www.foo.com/' }
+          let(:attrs) { FactoryGirl.attributes_for(:link, :url => url) }
 
-          it 'does not crash on blank params' do
-            expect {
-              post :create
-            }.not_to raise_error
-          end
-
-          context 'url not yet registered' do
+          context 'if link with url does not yet exist' do
             it 'creates a new link' do
               expect {
-                post :create, link: FactoryGirl.attributes_for(:link), format: :json
+                post :update, id: url, link: attrs, format: :json
               }.to change(Link, :count).by(1)
             end
 
-            it 'returns the new link' do
-              attrs = FactoryGirl.attributes_for(:link)
-              post :create, link: attrs, :format => :json
-              JSON(response.body).should include(attrs.stringify_keys)
+            it 'returns the new link with normalized url' do
+              post :update, id: url, link: attrs, :format => :json
+              JSON(response.body).should include('url' => normalized_url)
             end
           end
 
-          context 'url already registered' do
-            let!(:link) { FactoryGirl.create(:link, url: 'http://www.foo.com') }
+          context 'if link with url already exists' do
+            let!(:link) { FactoryGirl.create(:link, url: normalized_url) }
 
-            it 'does not create new link' do
-              expect {
-                post :create, link: { url: 'http://www.foo.com' }, format: :json
-              }.not_to change(Link, :count)
-            end
-
-            it 'assigns existing link to @link' do
-              post :create, link: { url: 'http://www.foo.com' }, format: :json
+            it 'locates the requested @link' do
+              put :update, id: url, link: attrs, format: :json
               assigns(:link).should eq(link)
             end
 
-            it 'returns existing link' do
-              post :create, link: { url: 'http://www.foo.com' }, format: :json
-              response.body.should == link.to_json
+            it 'returns the new link with updated attributes and normalized url' do
+              attrs.merge!(title: { 'en' => 'title' }, summary: { 'en' => 'summary' })
+              put :update, id: link.url, link: attrs, format: :json
+              JSON(response.body).should include(
+                'title' => { 'en' => 'title' },
+                'summary'  => { 'en' => 'summary' },
+                'url' => normalized_url
+              )
             end
-          end
-        end
-      end
-
-      describe 'PUT update' do
-        let(:link) { FactoryGirl.create(:link) }
-
-        context 'with valid params' do
-          it 'locates the requested @link' do
-            put :update, id: link.id, link: FactoryGirl.attributes_for(:link), format: :json
-            assigns(:link).should eq(link)
-          end
-
-          it 'returns the new link' do
-            attr = FactoryGirl.attributes_for(:link, title: { "en" => "title" }, summary: { "en" => "summary" })
-            put :update, id: link.id, link: attr, format: :json
-            JSON(response.body).should include(attr.stringify_keys)
           end
         end
       end

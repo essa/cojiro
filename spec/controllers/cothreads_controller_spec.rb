@@ -32,10 +32,9 @@ describe CothreadsController do
         response.should render_template("show")
       end
 
-      it "displays an error if thread does not exist" do
-        lambda {
-          get :show, :id => "not-found", :format => :html
-        }.should raise_error(ActiveRecord::RecordNotFound)
+      it "returns 404 when not found" do
+        get :show, :id => "not-found", :format => :html
+        response.response_code.should == 404
       end
     end
   end
