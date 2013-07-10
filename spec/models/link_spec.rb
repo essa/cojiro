@@ -130,9 +130,11 @@ describe Link do
     its(['source_locale']) { should == 'en' }
     it 'does not include any other attributes' do
       subject.keys.delete_if { |k|
-        %w[ id title summary url source_locale site_name user ].include?(k)
+        %w[ id title summary url source_locale embed_data site_name user ].include?(k)
       }.should be_empty
     end
+    its(['embed_data']) { should be }
+    its(['embed_data']) { should include('title' => 'What is CrossFit?') }
   end
 
   describe '#to_param' do

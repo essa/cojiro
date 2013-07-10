@@ -19,6 +19,15 @@ describe 'Links API' do
       it 'returns link with normalized url' do
         json.should include('url' => 'http://youtu.be/tzD9BkXGJ1M')
       end
+
+      it 'returns embed data' do
+        json.should have_key('embed_data')
+        embed_data = json['embed_data']
+        embed_data.should include('title' => 'What is CrossFit?')
+        embed_data.should include('description' => 'What is CrossFit? CrossFit is an effective way to get fit. Anyone can do it. It is a fitness program that combines a wide variety of functional movements into a timed or scored workout. We do pull-ups, squats, push-ups, weightlifting, gymnastics, running, rowing, and a host of other movements.')
+        embed_data.should include('height' => 480)
+        embed_data.should include('width' => 854)
+      end
     end
   end
 end
