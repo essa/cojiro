@@ -4,86 +4,55 @@ define (require) ->
 
   Link = require('models/link')
   AddLinkModalView = require('views/threads/add_link_modal')
-
-  router = navigate: ->
+  RegisterUrlView = require('views/links/register_url')
 
   describe "AddLinkModalView", ->
     beforeEach ->
       I18n.locale = 'en'
-      @submitURLSpy = sinon.spy(AddLinkModalView.prototype, 'submitURL')
 
-    afterEach ->
-      AddLinkModalView.prototype.submitURL.restore()
+    describe 'instantiation', ->
+      beforeEach -> @options = model: {}
 
-    describe 'with no Link model', ->
-      describe "rendering", ->
-        beforeEach ->
-          @view = new AddLinkModalView
+      it 'throws no error if passed required options', ->
+        options = @options
+        expect(-> new AddLinkModalView(options)).not.toThrow()
 
-        afterEach ->
-          I18n.locale = I18n.defaultLocale
+      it 'throws error if not passed model', ->
+        options = _(@options).extend(model: null)
+        expect(-> new AddLinkModalView(@options)).toThrow('model required')
 
-        it "returns the view object", ->
-          expect(@view.render()).toEqual(@view)
-
-        it "renders URL input form", ->
-          $el = @view.render().$el
-          expect($el.find('.modal-header')).toHaveText(/Add a link/)
-          expect($el.find('.modal-body')).toContain('form:contains("URL")')
-
-        it 'renders placeholder "Enter a URL"', ->
-          $el = @view.render().$el
-          expect($el.find('input')).toHaveAttr('placeholder', 'Enter a URL...')
-
-    describe 'with actual Link modal', ->
+    describe 'rendering', ->
       beforeEach ->
-        @model = new Link
-        @collection = new Backbone.Collection([], model: Link, url: '/collection')
-        @model.collection = @collection
-        @view = new AddLinkModalView(model: @model, collection: @collection, router: router)
+        # create stub child view
+        @registerUrlView = new Backbone.View()
+        @registerUrlView.render = () ->
+          @el = document.createElement('form')
+          @
+        sinon.spy(@registerUrlView, 'render')
+        @model = sinon.stub()
+        @RegisterUrlView = sinon.stub().returns(@registerUrlView)
+        @view = new AddLinkModalView
+          model: @model
+          RegisterUrlView: @RegisterUrlView
 
-      describe 'submitting url form', ->
-        beforeEach ->
-          @view.render()
-          @$form = @view.$('form')
-          sinon.stub(@model, 'save')
+      afterEach -> @registerUrlView.render.restore()
 
-        it 'calls submitURL', ->
-          @$form.submit()
-          expect(@submitURLSpy).toHaveBeenCalledOnce()
+      it 'returns the view object', ->
+        expect(@view.render()).toEqual(@view)
 
-        it 'prevents default form submission', ->
-          spyEvent = spyOnEvent(@$form, 'submit')
-          @$form.submit()
-          expect('submit').toHaveBeenPreventedOn(@$form)
-          expect(spyEvent).toHaveBeenPrevented()
+      it 'renders modal title', ->
+        $el = @view.render().$el
+        expect($el.find('.modal-header')).toHaveText(/Add a link/)
 
-        it 'sets the url', ->
-          @view.$('form input').val('http://www.example.com')
-          @$form.submit()
-          expect(@model.get('url')).toEqual('http://www.example.com')
+      it 'creates a RegisterUrlView', ->
+        @view.render()
+        expect(@RegisterUrlView).toHaveBeenCalledOnce()
+        expect(@RegisterUrlView).toHaveBeenCalledWithExactly(model: @model)
 
-        it 'saves the link', ->
-          sinon.stub(@model, 'set')
-          @$form.submit()
-          expect(@model.save).toHaveBeenCalledOnce()
-          @model.set.restore()
+      it 'renders newly-created RegisterUrlView', ->
+        $el = @view.render().$el
+        expect(@registerUrlView.render).toHaveBeenCalledOnce()
 
-      describe 'with errors', ->
-        xit 'renders errors', ->
-
-      describe 'after saving link with URL', ->
-        beforeEach ->
-          @view.render()
-          @server = sinon.fakeServer.create()
-          @server.respondWith(
-            'POST'
-            '/collection'
-            @validResponse(id: '123')
-          )
-          @view.$('form input').val('http://www.example.com')
-
-        afterEach ->
-          @server.restore()
-
-        it 'renders step 2 template', ->
+      it 'inserts form html into .modal-body element', ->
+        $el = @view.render().$el
+        expect($el.find('.modal-body')).toContain('form')
