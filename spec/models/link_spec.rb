@@ -35,56 +35,70 @@ describe Link do
       should be_valid
     end
 
-    it 'is invalid without a title in source locale if source_locale is set' do
-      subject.source_locale = :en
-      subject.title = nil
-      should_not be_valid
+    describe 'title' do
+      describe 'with source locale set' do
+        it 'is invalid without a title in source locale' do
+          subject.source_locale = :en
+          subject.title = nil
+          should_not be_valid
+        end
+
+        it 'is valid without a title in other locales if source_locale is set' do
+          subject.source_locale = 'en'
+          subject.title = 'a title'
+          Globalize.with_locale(:fr) { should be_valid }
+        end
+      end
+
+      describe 'with source locale unset' do
+        it 'is invalid with a title in current locale' do
+          subject.title = 'a title'
+          should_not be_valid
+        end
+
+        it 'is invalid with a title in another locale' do
+          Globalize.with_locale(:fr) { subject.title = 'un titre' }
+          should_not be_valid
+        end
+      end
     end
 
-    it 'is invalid with a title in current locale if source_locale is not set' do
-      subject.title = 'a title'
-      should_not be_valid
+    describe 'summary' do
+      describe 'with source locale unset' do
+        it 'is invalid with a summary in current locale' do
+          subject.summary = 'a summary'
+          should_not be_valid
+        end
+
+        it 'is invalid with a summary in another locale if source_locale is not set' do
+          Globalize.with_locale(:fr) { subject.summary = 'un sommaire' }
+          should_not be_valid
+        end
+      end
     end
 
-    it 'is invalid with a title in another locale if source_locale is not set' do
-      Globalize.with_locale(:fr) { subject.title = 'un titre' }
-      should_not be_valid
+    describe 'user' do
+      it { should validate_presence_of(:user) }
     end
 
-    it 'is invalid with a summary in current locale if source_locale is not set' do
-      subject.summary = 'a summary'
-      should_not be_valid
-    end
+    describe 'url' do
+      it 'is invalid with a blank url' do
+        subject.url = ""
+        should_not be_valid
+      end
 
-    it 'is invalid with a title in another locale if source_locale is not set' do
-      Globalize.with_locale(:fr) { subject.summary = 'un sommaire' }
-      should_not be_valid
-    end
+      # callback was crashing on nil url
+      # added this to check
+      it 'is invlid with a nil url' do
+        subject.url = nil
+        should_not be_valid
+      end
 
-    it 'is valid without a title in other locales if source_locale is set' do
-      subject.source_locale = 'en'
-      subject.title = 'a title'
-      Globalize.with_locale(:fr) { should be_valid }
-    end
-
-    it { should validate_presence_of(:user) }
-
-    it 'is invalid with a blank url' do
-      subject.url = ""
-      should_not be_valid
-    end
-
-    # callback was crashing on nil url
-    # added this to check
-    it 'is invlid with a nil url' do
-      subject.url = nil
-      should_not be_valid
-    end
-
-    it 'is invalid without a unique url (after normalization)' do
-      FactoryGirl.create(:link, :url => 'http://www.example.com')
-      subject.url = 'www.example.com'
-      should_not be_valid
+      it 'is invalid without a unique url (after normalization)' do
+        FactoryGirl.create(:link, :url => 'http://www.example.com')
+        subject.url = 'www.example.com'
+        should_not be_valid
+      end
     end
   end
 
