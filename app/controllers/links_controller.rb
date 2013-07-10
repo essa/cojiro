@@ -26,7 +26,7 @@ class LinksController < ApplicationController
       @link.save
     end
     respond_with(@link) do |format|
-      format.json { render :json => @link.to_json, :status => :accepted }
+      format.json { render :json => @link.to_json }
     end
   end
 
