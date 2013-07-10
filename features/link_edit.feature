@@ -14,8 +14,8 @@ Feature: Edit fields of a link
       | title   | Capoeira in Japan and around the world |
       | summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
     And the thread has the following links:
-      | user    | title                | summary                                                            | url                         |
-      | csasaki | Best Capoiera Brazil | Capoeira group in Salvador Bahia Brazil - 'Grupo Engenho da Bahia' | http://youtu.be/6H0D8VaIli0 |
+      | user    | source_locale | title                | summary                                                            | url                         |
+      | csasaki | en            | Best Capoiera Brazil | Capoeira group in Salvador Bahia Brazil - 'Grupo Engenho da Bahia' | http://youtu.be/6H0D8VaIli0 |
     And I am on the thread "Capoeira in Japan and around the world"
 
   @javascript
