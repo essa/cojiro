@@ -16,6 +16,6 @@ module CojiroRequestStubs
     stub_request(:get, 'http://www.foo.com').to_return(:status => 200)
 
     # catch-all if no VCR cassette is in use -- to avoid an actual call to the API
-    stub_request(:get, /#{Regexp.quote("http://api.embed.ly/1/oembed")}.*/).to_return(fixture('embedly_response.json'))
+    stub_request(:get, /#{Regexp.quote("http://api.embed.ly/")}.*/).to_return(fixture('embedly_response.json'))
   end
 end
