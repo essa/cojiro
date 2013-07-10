@@ -67,6 +67,8 @@ describe Link do
           Globalize.with_locale(:fr) { subject.title = 'un titre' }
           should_not be_valid
         end
+
+        pending 'has correct validation error when title is set in any locale but source locale is not set'
       end
     end
 
@@ -81,6 +83,8 @@ describe Link do
           Globalize.with_locale(:fr) { subject.summary = 'un sommaire' }
           should_not be_valid
         end
+
+        pending 'has correct validation error when title is set in any locale but source locale is not set'
       end
     end
 
