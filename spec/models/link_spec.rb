@@ -13,7 +13,7 @@ describe Link do
   # and in principle should not be changed thereafter
   describe 'readonly accessors' do
     it { should have_readonly_attribute(:url) }
-    it { should have_readonly_attribute(:source_locale) }
+    it { should have_readonly_attribute(:embed_data) }
   end
 
   describe 'mass assignment' do

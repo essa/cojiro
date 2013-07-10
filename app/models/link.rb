@@ -13,7 +13,7 @@ class Link < ActiveRecord::Base
   has_many :cothreads, :through => :comments
 
   #readonly accessors
-  attr_readonly :url, :source_locale
+  attr_readonly :url, :embed_data
 
   #accessible
   attr_accessible :url, :source_locale, :title, :summary
