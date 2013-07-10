@@ -21,10 +21,9 @@ class Link < ActiveRecord::Base
   #validations
   validates :user, :presence => true
   validates :url, :presence => true, :uniqueness => true
-  validates :status, :presence => true, :numericality => true
   validate :title_present_in_source_locale
-  validates :title, :absence => true, :if => proc { |a| a.status == 0 }
-  validates :summary, :absence => true, :if => proc { |a| a.status == 0 }
+  validates :title_translations, :absence => true, :if => proc { |a| a.status == 0 }
+  validates :summary_translations, :absence => true, :if => proc { |a| a.status == 0 }
 
   #callbacks
   before_validation :default_values
@@ -42,6 +41,10 @@ class Link < ActiveRecord::Base
 
   def user_name
     user && user.name
+  end
+
+  def status
+    source_locale ? 1 : 0
   end
 
   def serializable_hash(options = {})
@@ -65,8 +68,7 @@ class Link < ActiveRecord::Base
   private
 
   def default_values
-    self.status ||= 0
-    self.source_locale ||= I18n.locale.to_s
+    # add default values here
   end
 
   def parse_and_normalize_url

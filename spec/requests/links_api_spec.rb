@@ -16,9 +16,8 @@ describe 'Links API' do
         response.response_code.should == 200
       end
 
-      it 'returns link' do
+      it 'returns link with normalized url' do
         json.should include('url' => 'http://youtu.be/tzD9BkXGJ1M')
-        json.should include('source_locale' => 'en')
       end
     end
   end

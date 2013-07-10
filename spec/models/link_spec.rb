@@ -23,7 +23,6 @@ describe Link do
     it { should allow_mass_assignment_of(:summary) }
 
     it { should_not allow_mass_assignment_of(:user_id) }
-    it { should_not allow_mass_assignment_of(:status) }
     it { should_not allow_mass_assignment_of(:created_at) }
     it { should_not allow_mass_assignment_of(:updated_at) }
   end
@@ -36,53 +35,39 @@ describe Link do
       should be_valid
     end
 
-    # default value callback set status to true, so this will fail
-    pending 'is invalid without a status' do
-      subject.status = nil
-      should_not be_valid
-    end
-
-    it 'is invalid with a non-integer status' do
-      subject.status = "status"
-      should_not be_valid
-    end
-
-    it 'is invalid without a title in source locale if status > 0' do
-      subject.status = 1
+    it 'is invalid without a title in source locale if source_locale is set' do
+      subject.source_locale = :en
       subject.title = nil
       should_not be_valid
     end
 
-    it 'is invalid with a title if status = 0' do
-      subject.status = 0
+    it 'is invalid with a title in current locale if source_locale is not set' do
       subject.title = 'a title'
       should_not be_valid
     end
 
-    it 'is invalid with a summary if status = 0' do
-      subject.status = 0
+    it 'is invalid with a title in another locale if source_locale is not set' do
+      Globalize.with_locale(:fr) { subject.title = 'un titre' }
+      should_not be_valid
+    end
+
+    it 'is invalid with a summary in current locale if source_locale is not set' do
       subject.summary = 'a summary'
       should_not be_valid
     end
 
-    it 'is valid without a title in other locales' do
-      # need to do this to ensure that Globalize.locale is reset
-      # even if test fails
-      subject.status = 1
-      begin
-        subject.title = 'a title'
-        Globalize.locale = :fr
-        subject.title = nil
-        should be_valid
-      ensure
-        Globalize.locale = nil
-      end
-    end
-
-    it 'is invalid without user' do
-      subject.user = nil
+    it 'is invalid with a title in another locale if source_locale is not set' do
+      Globalize.with_locale(:fr) { subject.summary = 'un sommaire' }
       should_not be_valid
     end
+
+    it 'is valid without a title in other locales if source_locale is set' do
+      subject.source_locale = 'en'
+      subject.title = 'a title'
+      Globalize.with_locale(:fr) { should be_valid }
+    end
+
+    it { should validate_presence_of(:user) }
 
     it 'is invalid with a blank url' do
       subject.url = ""
@@ -106,14 +91,12 @@ describe Link do
   describe '#to_json' do
     use_vcr_cassette('what_is_crossfit')
     let(:link) do
-      link = FactoryGirl.create(:link,
-                                :url => 'http://youtu.be/tzD9BkXGJ1M',
-                                :source_locale => 'en',
-                                :user => FactoryGirl.create(:user, :name => 'foo'))
-      link.status = 1
-      link.update_attributes!(:title => 'What is CrossFit?',
-                              :summary => 'CrossFit is an effective way to get fit. Anyone can do it.')
-      link
+      FactoryGirl.create(:link,
+                         :url => 'http://youtu.be/tzD9BkXGJ1M',
+                         :source_locale => 'en',
+                         :user => FactoryGirl.create(:user, :name => 'foo'),
+                         :title => 'What is CrossFit?',
+                         :summary => 'CrossFit is an effective way to get fit. Anyone can do it.')
     end
 
     subject { JSON(link.to_json) }
@@ -141,22 +124,12 @@ describe Link do
   describe 'default values' do
     let(:link) { FactoryGirl.create(:link) }
 
-    it 'sets default status' do
-      link.status = nil
-      link.save
-      link.status.should == 0
-    end
-
-    it 'sets default source language' do
-      link.source_locale = nil
-      link.save
-      link.source_locale.should == "en"
-    end
+    # spec default values here, currently none
   end
 
   # defined in spec/support/shared_examples.rb
   describe 'globalize helpers' do
-    let!(:model) { FactoryGirl.create(:link) }
+    let!(:model) { FactoryGirl.build(:link, source_locale: I18n.locale) }
 
     describe 'title' do
       it_behaves_like 'attribute with locale methods', 'title'
@@ -200,6 +173,19 @@ describe Link do
     end
   end
 
+  describe '#status' do
+    let!(:link) { FactoryGirl.build(:link) }
+
+    it 'has a status of 0 if source_locale is not defined' do
+      link.status.should == 0
+    end
+
+    it 'has a status of 1 if source_locale is defined' do
+      link.source_locale = 'en'
+      link.status.should == 1
+    end
+  end
+
   describe 'get embed data' do
     use_vcr_cassette('what_is_crossfit')
     let(:link) { FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M') }
@@ -235,18 +221,6 @@ describe Link do
         link.stub(:embed_data).and_return {}
         link.site_name.should == nil
       end
-    end
-  end
-
-  describe "locale helper methods" do
-    let!(:model) { FactoryGirl.create(:link) }
-
-    describe "title" do
-      it_behaves_like 'attribute with locale methods', 'title'
-    end
-
-    describe "summary" do
-      it_behaves_like 'attribute with locale methods', 'summary'
     end
   end
 end
