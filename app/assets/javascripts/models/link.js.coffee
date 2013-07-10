@@ -13,9 +13,12 @@ define [
   class Link extends Translatable.Model
     @use(Timestamps)
 
+    idAttribute: 'url'
+
     url: ->
+      throw('id is required to generate url') unless @id
       base = '/' + I18n.locale + '/links'
-      if @id then base += ('/' + @id)
+      if @id then base += ('/' + encodeURIComponent(@id))
       base
 
     relations: [

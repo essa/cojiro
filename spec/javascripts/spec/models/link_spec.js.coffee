@@ -25,35 +25,42 @@ define (require) ->
           @link.set('site_name', 'www.foo.com')
           expect(@link.getSiteName()).toEqual('www.foo.com')
 
+    describe 'idAttribute', ->
+      it 'uses url attribute as id', ->
+        expect((new Link).idAttribute).toEqual('url')
+
     describe '#url', ->
       beforeEach -> @link = new Link
 
       describe 'when no id is set', ->
 
-        it 'is persisted at /en/links/ for an English locale', ->
-          I18n.locale = 'en'
-          expect(@link.url()).toEqual('/en/links')
-
-        it 'it persisted at /ja/links/ for a Japanese locale', ->
-          I18n.locale = 'ja'
-          expect(@link.url()).toEqual('/ja/links')
+        it 'throws an error', ->
+          link = @link
+          expect(-> link.url()).toThrow('id is required to generate url')
 
       describe 'when id is set', ->
 
         it 'is persisted at /links/en/#id for an English locale', ->
           I18n.locale = 'en'
-          @link.id = 123
-          expect(@link.url()).toEqual('/en/links/123')
+          @link.id = 'url123'
+          expect(@link.url()).toEqual('/en/links/url123')
 
         it 'is persisted at /links/ja/#id for a Japanese locale', ->
           I18n.locale = 'ja'
-          @link.id = 123
-          expect(@link.url()).toEqual('/ja/links/123')
+          @link.id = 'url123'
+          expect(@link.url()).toEqual('/ja/links/url123')
+
+      describe 'escaping id', ->
+
+        it 'escapes id in url', ->
+          I18n.locale = 'en'
+          @link.id = 'http://www.google.com'
+          expect(@link.url()).toEqual('/en/links/http%3A%2F%2Fwww.google.com')
 
     describe 'interacting with the server', ->
       beforeEach ->
         I18n.locale = 'en'
-        @link = new Link
+        @link = new Link(url: 'http://www.example.com')
         @server = sinon.fakeServer.create()
 
       describe 'fetching the record', ->
@@ -61,7 +68,7 @@ define (require) ->
           @link.fetch()
           expect(@server.requests.length).toEqual(1)
           expect(@server.requests[0]).toBeGET()
-          expect(@server.requests[0]).toHaveUrl('/en/links')
+          expect(@server.requests[0]).toHaveUrl('/en/links/http%3A%2F%2Fwww.example.com')
 
       describe 'saving the record', ->
 
