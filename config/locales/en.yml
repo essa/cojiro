@@ -170,6 +170,7 @@ en:
     messages:
       accepted: must be accepted
       blank: can't be blank
+      blank_in_lang: can't be blank in %{lang}
       confirmation: doesn't match confirmation
       empty: can't be empty
       equal_to: must be equal to %{count}

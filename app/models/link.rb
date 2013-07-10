@@ -88,7 +88,7 @@ class Link < ActiveRecord::Base
   def title_present_in_source_locale
     return unless status > 0
     Globalize.with_locale(source_locale) do
-      errors.add(:title, I18n.t('errors.messages.blank')) unless title.present?
+      errors.add(:title, I18n.t('errors.messages.blank_in_lang', lang: I18n.t(source_locale))) unless title.present?
     end
   end
 end

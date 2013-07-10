@@ -43,6 +43,13 @@ describe Link do
           should_not be_valid
         end
 
+        it 'has correct validation error when title not set in source locale' do
+          subject.source_locale = :ja
+          subject.title = nil
+          Globalize.with_locale(:ja) { subject.valid? }
+          subject.errors.messages[:title].should include 'can\'t be blank in Japanese'
+        end
+
         it 'is valid without a title in other locales if source_locale is set' do
           subject.source_locale = 'en'
           subject.title = 'a title'
