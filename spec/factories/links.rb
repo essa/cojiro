@@ -7,5 +7,11 @@ FactoryGirl.define do
     url { FactoryGirl.generate(:url) }
     after(:build) { |l| l.user ||= FactoryGirl.create(:alice) }
     after(:stub) { |l| l.user ||= FactoryGirl.build_stubbed(:alice) }
+
+    # source locale and no title in that locale is invalid
+    trait :invalid do
+      source_locale 'en'
+    end
   end
+
 end

@@ -33,7 +33,7 @@ describe LinksController do
         end
 
         context 'url no match' do
-          it 'raises 404 when not found' do
+          it 'returns 404 when not found' do
             get :show, :id => 'www.bar.com', :format => :json
             response.response_code.should == 404
           end
@@ -75,14 +75,41 @@ describe LinksController do
             end
 
             it 'returns the new link with updated attributes and normalized url' do
-              attrs.merge!(title: { 'en' => 'title' }, summary: { 'en' => 'summary' })
+              attrs.merge!(
+                title: { en: 'title' },
+                summary: { en:'summary' },
+                source_locale: 'en')
               put :update, id: link.url, link: attrs, format: :json
               JSON(response.body).should include(
                 'title' => { 'en' => 'title' },
                 'summary'  => { 'en' => 'summary' },
+                'source_locale' => 'en',
                 'url' => normalized_url
               )
             end
+          end
+        end
+
+        context 'with invalid params' do
+          let(:invalid_attrs) { FactoryGirl.attributes_for(:link, :invalid) }
+
+          it 'does not create the link' do
+            expect {
+              post :update, id: invalid_attrs[:url], link: invalid_attrs, format: :json
+            }.not_to change(Link, :count)
+          end
+
+          it 'returns 422 unprocessable entity' do
+            post :update, id: invalid_attrs[:url], link: invalid_attrs, format: :json
+            response.response_code.should == 422
+          end
+
+          it 'returns error messages' do
+            invalid_link = Link.new(invalid_attrs)
+            invalid_link.valid?
+            messages = invalid_link.errors.messages.except(:user).stringify_keys
+            post :update, id: invalid_attrs[:url], link: invalid_attrs, format: :json
+            JSON(response.body).should include(messages)
           end
         end
       end

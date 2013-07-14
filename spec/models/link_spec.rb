@@ -35,6 +35,10 @@ describe Link do
       should be_valid
     end
 
+    it 'has a factory for creating invalid links' do
+      FactoryGirl.build(:link, :invalid).should_not be_valid
+    end
+
     describe 'title' do
       describe 'with source locale set' do
         it 'is invalid without a title in source locale' do

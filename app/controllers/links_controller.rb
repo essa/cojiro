@@ -26,7 +26,13 @@ class LinksController < ApplicationController
       @link.save
     end
     respond_with(@link) do |format|
-      format.json { render :json => @link.to_json }
+      format.json do
+        if @link.valid?
+          render :json => @link.to_json
+        else
+          render :json => @link.errors.messages, :status => 422
+        end
+      end
     end
   end
 
