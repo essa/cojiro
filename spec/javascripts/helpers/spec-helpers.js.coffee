@@ -11,6 +11,10 @@ beforeEach ->
   # set locale to default locale
   I18n.locale = I18n.defaultLocale
 
+  # unbind all channel events
+  channel = require('modules/channel')
+  channel.unbind()
+
   @addMatchers
 
     # request matchers
