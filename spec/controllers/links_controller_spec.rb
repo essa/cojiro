@@ -56,12 +56,12 @@ describe LinksController do
           context 'if link with url does not yet exist' do
             it 'creates a new link' do
               expect {
-                post :update, id: url, link: attrs, format: :json
+                post :update, id: url, format: :json
               }.to change(Link, :count).by(1)
             end
 
             it 'returns the new link with normalized url' do
-              post :update, id: url, link: attrs, :format => :json
+              post :update, id: url, :format => :json
               JSON(response.body).should include('url' => normalized_url)
             end
           end
@@ -70,7 +70,7 @@ describe LinksController do
             let!(:link) { FactoryGirl.create(:link, url: normalized_url) }
 
             it 'locates the requested @link' do
-              put :update, id: url, link: attrs, format: :json
+              put :update, id: url, format: :json
               assigns(:link).should eq(link)
             end
 

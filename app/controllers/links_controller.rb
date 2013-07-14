@@ -21,7 +21,7 @@ class LinksController < ApplicationController
     if @link
       @link.update_attributes(params[:link])
     else
-      @link = Link.new(params[:link])
+      @link = Link.new((params[:link] || {}).merge(url: params[:id]))
       @link.user_id = current_user.id
       @link.save
     end
