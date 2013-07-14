@@ -60,36 +60,6 @@ describe Link do
           Globalize.with_locale(:fr) { should be_valid }
         end
       end
-
-      describe 'with source locale unset' do
-        it 'is invalid with a title in current locale' do
-          subject.title = 'a title'
-          should_not be_valid
-        end
-
-        it 'is invalid with a title in another locale' do
-          Globalize.with_locale(:fr) { subject.title = 'un titre' }
-          should_not be_valid
-        end
-
-        pending 'has correct validation error when title is set in any locale but source locale is not set'
-      end
-    end
-
-    describe 'summary' do
-      describe 'with source locale unset' do
-        it 'is invalid with a summary in current locale' do
-          subject.summary = 'a summary'
-          should_not be_valid
-        end
-
-        it 'is invalid with a summary in another locale if source_locale is not set' do
-          Globalize.with_locale(:fr) { subject.summary = 'un sommaire' }
-          should_not be_valid
-        end
-
-        pending 'has correct validation error when title is set in any locale but source locale is not set'
-      end
     end
 
     describe 'user' do

@@ -22,8 +22,6 @@ class Link < ActiveRecord::Base
   validates :user, :presence => true
   validates :url, :presence => true, :uniqueness => true
   validate :title_present_in_source_locale
-  validates :title_translations, :absence => true, :if => proc { |a| a.status == 0 }
-  validates :summary_translations, :absence => true, :if => proc { |a| a.status == 0 }
 
   #callbacks
   before_validation :default_values
