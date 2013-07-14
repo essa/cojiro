@@ -3,18 +3,20 @@ define [
   'underscore'
   'backbone'
   'modules/base/view'
+  'modules/channel'
   'i18n'
-], ($, _, Backbone, BaseView, I18n) ->
+], ($, _, Backbone, BaseView, channel, I18n) ->
 
   class RegisterUrlView extends BaseView
-    tagName: 'form'
-    className: 'form-inline register-url-form'
+    className: 'form'
     template: _.template '
-      <fieldset>
-        <label>URL&nbsp;</label>
-        <input type="text" name="url" placeholder="<%= enter_a_url_string %>" />
-        <button type="submit" class="btn"><%= go_string %></button>
-      </fieldset>'
+      <form class="form-inline register-url-form">
+        <fieldset>
+          <label>URL&nbsp;</label>
+          <input type="text" name="url" placeholder="<%= enter_a_url_string %>" />
+          <button type="submit" class="btn"><%= go_string %></button>
+        </fieldset>
+      </form>'
 
     buildEvents: () ->
       _(super).extend
@@ -25,7 +27,14 @@ define [
       @$el.html(@template(enter_a_url_string: enter_a_url_string, go_string: 'Go!'))
       @
 
-    registerUrl: () ->
+    registerUrl: (e) ->
+      e.preventDefault()
       @model.set('url', @.$('input[name="url"]').val())
-      @model.save()
-      return false
+      self = @
+      @model.save {},
+        success: (model, resp) ->
+          self.goToNext()
+
+    goToNext: () ->
+      @leave()
+      channel.trigger('registerUrlView:next')
