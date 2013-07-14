@@ -47,7 +47,7 @@ group :test, :development do
   gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git', :require => false
   gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git', :ref => '13ae61378afdf66aed7eb945172eb1f5c75b451b'
   gem 'pry'
-  gem 'pry-nav'
+  gem 'pry-debugger'
   gem 'rake'
   gem 'timecop'
   gem 'chronic'
