@@ -169,7 +169,7 @@ define (require) ->
         expect(@view.leave).toHaveBeenCalledWithExactly()
         @view.leave.restore()
 
-      it 'triggers fieldForm.close event on channel', ->
+      it 'triggers fieldForm:<cid>:close event on channel', ->
         eventSpy = sinon.spy()
         @view.cid = '123'
         channel.on('fieldForm:123:close', eventSpy)
