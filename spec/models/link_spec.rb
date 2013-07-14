@@ -215,6 +215,12 @@ describe Link do
       link = FactoryGirl.create(:link, url: 'http://xn--1sqt31d.com/')
       link.display_url.should == 'http://価格.com/'
     end
+
+    pending 'handles invalid urls gracefully' do
+      expect {
+        FactoryGirl.build(:link, url: 'jjj').display_url
+      }.not_to raise_error
+    end
   end
 
   describe 'get embed data' do
