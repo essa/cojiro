@@ -58,7 +58,6 @@ define [
         title: @get('title').toJSON()
         summary: @get('summary').toJSON()
         source_locale: @get('source_locale')
-        url: @get('url')
 
     getId: -> @id
     getUser: -> @get('user')

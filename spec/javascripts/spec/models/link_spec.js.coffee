@@ -81,6 +81,5 @@ define (require) ->
           params = JSON.parse(request.requestBody)
 
           expect(params.link).toBeDefined()
-          expect(params.link.url).toEqual('http://www.example.com')
           expect(params.link.title).toEqual('en': 'a cool link')
           expect(params.link.summary).toEqual('en': 'a summary')
