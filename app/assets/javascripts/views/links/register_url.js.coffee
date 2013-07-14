@@ -37,4 +37,4 @@ define [
 
     goToNext: () ->
       @leave()
-      channel.trigger('registerUrlView:next')
+      channel.trigger('registerUrlView:success')
