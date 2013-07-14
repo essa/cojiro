@@ -42,9 +42,6 @@ define [
     translatableAttributes:
       [ 'title', 'summary' ]
 
-    defaults: ->
-      source_locale: I18n.locale
-
     schema: ->
       title:
         type: 'Text'

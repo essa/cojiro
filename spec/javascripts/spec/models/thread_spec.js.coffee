@@ -43,6 +43,18 @@ define (require) ->
       it 'has links through comments', ->
         expect(@thread.get('comments').pluck('link')[0] instanceof Link).toBeTruthy()
 
+    describe 'new instance', ->
+      beforeEach ->
+        I18n.locale = 'ja'
+
+      afterEach ->
+        I18n.locale = I18n.defaultLocale
+
+      it 'has default value for source_locale attribute', ->
+        expect((new Thread).get('source_locale')).toEqual('ja')
+        I18n.locale = 'fr'
+        expect((new Thread).get('source_locale')).toEqual('fr')
+
     describe 'getters', ->
       beforeEach ->
         @thread = new Thread

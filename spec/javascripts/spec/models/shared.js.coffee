@@ -21,11 +21,6 @@ define [
         afterEach ->
           I18n.locale = I18n.defaultLocale
 
-        it 'has default value for source_locale attribute', ->
-          expect((new model).get('source_locale')).toEqual('ja')
-          I18n.locale = 'fr'
-          expect((new model).get('source_locale')).toEqual('fr')
-
         it 'sets translatable attributes passed in to constructor', ->
           @instance = new model(title: en: 'Title in English')
           expect(@instance.get('title').in('en')).toEqual('Title in English')
