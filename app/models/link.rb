@@ -38,7 +38,8 @@ class Link < ActiveRecord::Base
   end
 
   def display_uri
-    Addressable::URI.parse(url).display_uri
+    uri = Addressable::URI.heuristic_parse(url)
+    uri.host ? uri.display_uri : uri.to_s
   end
 
   def display_url

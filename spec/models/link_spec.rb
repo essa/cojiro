@@ -216,10 +216,15 @@ describe Link do
       link.display_url.should == 'http://価格.com/'
     end
 
-    pending 'handles invalid urls gracefully' do
+    it 'handles invalid urls gracefully' do
       expect {
         FactoryGirl.build(:link, url: 'jjj').display_url
       }.not_to raise_error
+    end
+
+    it 'defaults to returning url as string if url has no host' do
+      link = FactoryGirl.build(:link, url: 'jjj')
+      link.url.should == 'jjj'
     end
   end
 
