@@ -4,8 +4,10 @@ define [
   'backbone'
   'modules/base/view'
   'views/links/register_url'
+  'views/links/confirm_link_details'
+  'modules/channel'
   'i18n'
-], ($, _, Backbone, BaseView, RegisterUrlView, I18n) ->
+], ($, _, Backbone, BaseView, RegisterUrlView, ConfirmLinkDetailsView, channel, I18n) ->
 
   class AddLinkModalView extends BaseView
     template: _.template '
@@ -22,14 +24,22 @@ define [
       super(options)
 
       throw('model required') unless options.model
-      @step = 0
+      @step = options.step || 1
       @RegisterUrlView = options.RegisterUrlView || RegisterUrlView
+      @ConfirmLinkDetailsView = options.ConfirmLinkDetailsView || ConfirmLinkDetailsView
+      self = @
+      channel.on 'registerUrlView:success', ->
+        self.step = 2
+        self.render()
 
     render: () ->
       @modal.leave() if @modal
       switch @step
-        when 0
+        when 1
           @$el.html(@template(title: 'Add a link'))
           @modal = new @RegisterUrlView(model: @model)
+        when 2
+          @$el.html(@template(title: 'Confirm link details'))
+          @modal = new @ConfirmLinkDetailsView(model: @model)
       @renderChildInto(@modal, '.modal-body')
       @
