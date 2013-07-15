@@ -25,6 +25,11 @@ define (require) ->
           @link.set('site_name', 'www.foo.com')
           expect(@link.getSiteName()).toEqual('www.foo.com')
 
+      describe '#getEmbedData', ->
+        it 'returns embedly data', ->
+          @link.set('embed_data', { 'foo': 'bar' })
+          expect(@link.getEmbedData()).toEqual('foo': 'bar')
+
       describe '#toJSON', ->
         it 'does not include link key if all values are null', ->
           expect(@link.toJSON()['link']).not.toBeDefined()
