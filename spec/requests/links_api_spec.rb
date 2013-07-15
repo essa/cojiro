@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'spec_helper'
+require 'timecop'
 
 describe 'Links API' do
   use_vcr_cassette('google_maps_tokyo')
@@ -11,7 +12,11 @@ describe 'Links API' do
     context 'record with id = <id> exists' do
       let(:link) { FactoryGirl.create(:link, url: 'https://maps.google.com/maps?q=東京&hl=ja&ie=UTF8&sll=37.0625,-95.677068&sspn=37.188995,86.572266&hnear=日本,+東京都&t=m&z=10') }
       let(:json) { JSON(response.body) }
-      before { get "/en/links/#{CGI.escape(link.url)}", :format => :json }
+      before do
+        Timecop.freeze(Time.utc(2008,8,20,12,20)) do
+          get "/en/links/#{CGI.escape(link.url)}", :format => :json
+        end
+      end
 
       it 'returns with correct response code' do
         response.response_code.should == 200
@@ -19,6 +24,11 @@ describe 'Links API' do
 
       it 'returns link with normalized url' do
         json['url'].should == 'https://maps.google.com/maps?q=%E6%9D%B1%E4%BA%AC&hl=ja&ie=UTF8&sll=37.0625,-95.677068&sspn=37.188995,86.572266&hnear=%E6%97%A5%E6%9C%AC,+%E6%9D%B1%E4%BA%AC%E9%83%BD&t=m&z=10'
+      end
+
+      it 'returns timestamps' do
+        json['created_at'].should == '2008-08-20T12:20:00Z'
+        json['updated_at'].should == '2008-08-20T12:20:00Z'
       end
 
       it 'returns embed data' do

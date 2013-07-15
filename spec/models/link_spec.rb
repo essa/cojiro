@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 require 'shoulda-matchers'
+require 'timecop'
 require 'vcr'
 
 describe Link do
@@ -91,16 +92,24 @@ describe Link do
     describe 'CrossFit YouTube video in English' do
       use_vcr_cassette('what_is_crossfit')
       let(:link) do
-        FactoryGirl.create(:link,
-                           :url => 'http://youtu.be/tzD9BkXGJ1M',
-                           :source_locale => 'en',
-                           :user => FactoryGirl.create(:user, :name => 'foo'),
-                           :title => 'What is CrossFit?',
-                           :summary => 'CrossFit is an effective way to get fit. Anyone can do it.')
+        link = Timecop.freeze(Time.utc(2008,8,20,12,20)) do
+          FactoryGirl.create(:link,
+                             :url => 'http://youtu.be/tzD9BkXGJ1M',
+                             :source_locale => 'en',
+                             :user => FactoryGirl.create(:user, :name => 'foo'),
+                             :title => 'What is CrossFit?',
+                             :summary => 'CrossFit is an effective way to get fit. Anyone can do it.')
+        end
+        Timecop.freeze(Time.utc(2009,1,20,10,00)) do
+          link.touch
+        end
+        link
       end
 
       subject { JSON(link.to_json) }
       its(['id']) { should be }
+      its(['created_at']) { should == '2008-08-20T12:20:00Z' }
+      its(['updated_at']) { should == '2009-01-20T10:00:00Z' }
       its(['title']) { should == { 'en' => 'What is CrossFit?' } }
       its(['summary']) { should == { 'en' => 'CrossFit is an effective way to get fit. Anyone can do it.' } }
       its(['site_name']) { should == 'www.youtube.com' }
@@ -109,7 +118,7 @@ describe Link do
       its(['source_locale']) { should == 'en' }
       it 'does not include any other attributes' do
         subject.keys.delete_if { |k|
-          %w[ id title summary url display_url source_locale embed_data site_name user ].include?(k)
+          %w[ id created_at updated_at title summary url display_url source_locale embed_data site_name user ].include?(k)
         }.should be_empty
       end
       its(['embed_data']) { should be }
