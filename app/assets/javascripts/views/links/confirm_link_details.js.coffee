@@ -48,7 +48,9 @@ define [
           select_language_string: 'Select a language'
           title_string: 'Title'
       )
-      # pre-fill from embedly data
-      if (embed_data = @model.get('embed_data'))
-        @$('input[name="title"]').val(embed_data['title'])
+      @preFill()
       @
+
+    preFill: () ->
+      if (embed_data = @model.getEmbedData())
+        @$('input[name="title"]').val(embed_data['title'])
