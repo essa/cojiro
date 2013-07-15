@@ -61,6 +61,9 @@ define [
     validate: (attrs) ->
       errors = super(attrs) || {}
 
+      if (attrs.source_locale is '' or attrs.source_locale is null)
+        errors.source_locale = I18n.t('errors.messages.blank')
+
       if (source_locale = attrs.source_locale)
         title = attrs.title
         unless title && title[source_locale] || (_(title.in).isFunction() && title.in(source_locale))

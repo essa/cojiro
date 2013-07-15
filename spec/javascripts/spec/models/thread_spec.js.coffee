@@ -137,6 +137,16 @@ define (require) ->
           afterEach ->
             @thread.unbind('error', @spy)
 
+          it 'does not save if the source locale is blank', ->
+            expect(@thread.save(_(@data).extend(source_locale: ''))).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@thread, source_locale: 'can\'t be blank')
+
+          it 'does not save if the source locale is null', ->
+            expect(@thread.save(_(@data).extend(source_locale: null))).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@thread, source_locale: 'can\'t be blank')
+
           it 'does not save if title is blank in the source locale', ->
             expect(@thread.save(_(@data).extend(title: en: '', source_locale: 'en'))).toBeFalsy()
             expect(@spy).toHaveBeenCalledOnce()

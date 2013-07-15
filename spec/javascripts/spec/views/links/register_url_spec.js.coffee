@@ -107,7 +107,10 @@ define (require) ->
               @server.respondWith(
                 'PUT'
                 '/en/links/http%3A%2F%2Fwww.example.com'
-                @validResponse(id: '123')
+                @validResponse
+                  id: 123
+                  url: 'http://www.example.com/'
+                  source_locale: {}
               )
 
             it 'calls leave to unbind events and remove from document', ->

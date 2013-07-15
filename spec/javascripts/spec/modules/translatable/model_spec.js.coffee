@@ -3,7 +3,9 @@ define (require) ->
   Model = require('modules/translatable/model')
   Attribute = require('modules/translatable/attribute')
   I18n = require('i18n')
-  MyModel = Model.extend( translatableAttributes: ['title', 'summary'] )
+  MyModel = Model.extend
+    translatableAttributes: ['title', 'summary']
+    validate: (attrs) ->
 
   describe 'Translatable.Model', ->
 
@@ -199,12 +201,10 @@ define (require) ->
         @spy = sinon.spy()
         @model.bind('invalid', @spy)
 
-      it 'does not save if the source locale is blank', ->
-        expect(@model.save(source_locale: '')).toBeFalsy()
-        expect(@spy).toHaveBeenCalledOnce()
-        expect(@spy).toHaveBeenCalledWith(@model, source_locale: 'can\'t be blank')
+      it 'returns false if valid', ->
+        expect(@model.validate()).toBeFalsy()
 
-      it 'does not save if the source locale is null', ->
-        expect(@model.save(source_locale: null)).toBeFalsy()
-        expect(@spy).toHaveBeenCalledOnce()
-        expect(@spy).toHaveBeenCalledWith(@model, source_locale: 'can\'t be blank')
+      it 'returns errors if invalid', ->
+        sinon.stub(MyModel.prototype, 'validate').returns('title': 'is empty')
+        expect(@model.validate()).toEqual('title': 'is empty')
+        MyModel.prototype.validate.restore()
