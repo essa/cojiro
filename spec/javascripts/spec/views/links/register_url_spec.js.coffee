@@ -11,8 +11,7 @@ define (require) ->
       I18n.locale = 'en'
 
     describe 'with no Link model', ->
-      beforeEach ->
-        @view = new RegisterUrlView
+      beforeEach -> @view = new RegisterUrlView
 
       describe 'instantiation', ->
         beforeEach -> @$el = @view.$el

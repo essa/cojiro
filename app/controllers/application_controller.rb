@@ -41,7 +41,8 @@ class ApplicationController < ActionController::Base
         :currentUser => @current_user
       },
       :'adapters/i18n-adapter' => {
-        :locale => I18n.locale
+        :locale => I18n.locale,
+        :availableLocales => I18n.available_locales
       }
     }
     opts = { :config => config }

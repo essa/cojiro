@@ -9,7 +9,8 @@ beforeEach ->
   Backbone.Relational.eventQueue = new Backbone.BlockingQueue
 
   # set locale to default locale
-  I18n.locale = I18n.defaultLocale
+  I18n.locale = I18n.defaultLocale = 'en'
+  I18n.availableLocales = ['en', 'ja']
 
   # unbind all channel events
   channel = require('modules/channel')
