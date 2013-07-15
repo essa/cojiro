@@ -9,7 +9,7 @@ define (require) ->
 
     sharedExamples(Link, 'link')
 
-    describe 'wrapper methods', ->
+    describe 'getters', ->
       beforeEach ->
         @link = new Link
         collection = url: '/collection'
@@ -24,6 +24,10 @@ define (require) ->
         it 'returns the site name', ->
           @link.set('site_name', 'www.foo.com')
           expect(@link.getSiteName()).toEqual('www.foo.com')
+
+      describe '#toJSON', ->
+        it 'does not include link key if all values are null', ->
+          expect(@link.toJSON()['link']).not.toBeDefined()
 
     describe 'idAttribute', ->
       it 'uses url attribute as id', ->

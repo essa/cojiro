@@ -51,10 +51,15 @@ define [
         label: _(I18n.t('attributes.link.summary')).capitalize()
 
     toJSON: () ->
-      link:
-        title: @get('title').toJSON()
-        summary: @get('summary').toJSON()
-        source_locale: @get('source_locale')
+      title = @get('title').toJSON()
+      summary = @get('summary').toJSON()
+      source_locale = @get('source_locale')
+      if !_.isEmpty(title) || !_.isEmpty(summary) || source_locale?
+        link:
+          title: title
+          summary: summary
+          source_locale: source_locale
+      else {}
 
     getId: -> @id
     getUser: -> @get('user')
