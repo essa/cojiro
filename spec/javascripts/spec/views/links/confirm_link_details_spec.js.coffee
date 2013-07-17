@@ -85,3 +85,6 @@ define (require) ->
 
           it 'removes readonly restriction on title field', ->
             expect(@view.$('input[name="title"]')).not.toHaveAttr('readonly')
+
+          it 'removes default source locale option', ->
+            expect(@view.$('select[name="source_locale"] option[value=""]').length).toEqual(0)

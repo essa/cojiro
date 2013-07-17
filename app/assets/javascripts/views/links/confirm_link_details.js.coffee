@@ -66,3 +66,4 @@ define [
       self = @
       @$('.title label').text('Title in ' + self.$('select option:selected').text())
       @$('.title input').attr('readonly', false)
+      @$('select[name="source_locale"] option[value=""]').remove()
