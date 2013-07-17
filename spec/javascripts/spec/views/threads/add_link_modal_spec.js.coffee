@@ -41,6 +41,20 @@ define (require) ->
             model: @model
             RegisterUrlView: @RegisterUrlView
 
+        it 'calls leave on any existing modal', ->
+          modal = leave: ->
+          sinon.spy(modal, 'leave')
+          @view.modal = modal
+          @view.render()
+          expect(modal.leave).toHaveBeenCalledOnce()
+
+        it 'calls leave on any existing footer', ->
+          footer = leave: ->
+          sinon.spy(footer, 'leave')
+          @view.footer = footer
+          @view.render()
+          expect(footer.leave).toHaveBeenCalledOnce()
+
         it 'returns the view object', ->
           expect(@view.render()).toEqual(@view)
 
@@ -89,6 +103,14 @@ define (require) ->
         it 'inserts form html into .modal-body element', ->
           $el = @view.render().$el
           expect($el.find('.modal-body')).toContain('div.stub-modal')
+
+        it 'renders modal confirm button', ->
+          @view.render()
+          expect(@view.$el).toContain('button.btn-primary:contains("Confirm")')
+
+        it 'renders modal back button', ->
+          @view.render()
+          expect(@view.$el).toContain('button.btn:contains("Back")')
 
     describe 'events', ->
       beforeEach ->
