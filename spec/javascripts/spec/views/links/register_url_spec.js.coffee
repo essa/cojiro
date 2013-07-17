@@ -120,9 +120,9 @@ define (require) ->
               expect(@view.leave).toHaveBeenCalledWithExactly()
               @view.leave.restore()
 
-            it 'triggers registerUrlView:success event on channel', ->
+            it 'triggers modal:next event on channel', ->
               eventSpy = sinon.spy()
-              channel.on('registerUrlView:success', eventSpy)
+              channel.on('modal:next', eventSpy)
               @$form.submit()
               @server.respond()
               expect(eventSpy).toHaveBeenCalledOnce()

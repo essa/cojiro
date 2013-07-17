@@ -90,25 +90,42 @@ define (require) ->
           $el = @view.render().$el
           expect($el.find('.modal-body')).toContain('div.stub-modal')
 
-      describe 'after a url is successfully registered', ->
-        beforeEach ->
-          @model = sinon.stub()
-          @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
-          @view = new AddLinkModalView
-            model: @model
-            ConfirmLinkDetailsView: @ConfirmLinkDetailsView
+    describe 'events', ->
+      beforeEach ->
+        @model = sinon.stub()
+        @ConfirmLinkDetailsView = sinon.stub()
+        @RegisterUrlView = sinon.stub()
+        @view = new AddLinkModalView
+          model: @model
+          ConfirmLinkDetailsView: @ConfirmLinkDetailsView
+          RegisterUrlView: @RegisterUrlView
+        sinon.stub(@view, 'render')
 
-        it 'increments the step variable', ->
-          channel.trigger('registerUrlView:success')
+      afterEach ->
+        @view.render.restore()
+
+      describe 'go to next step', ->
+        it 'increments the step', ->
+          channel.trigger('modal:next')
           expect(@view.step).toEqual(2)
 
-        it 're-renders the parent view', ->
-          sinon.spy(@view, 'render')
-          channel.trigger('registerUrlView:success')
+        it 're-renders the view', ->
+          channel.trigger('modal:next')
           expect(@view.render).toHaveBeenCalledOnce()
           expect(@view.render).toHaveBeenCalledWithExactly()
 
-        it 'renders the confirm details view', ->
-          channel.trigger('registerUrlView:success')
-          expect(@modalView.render).toHaveBeenCalledOnce()
-          expect(@modalView.render).toHaveBeenCalledWithExactly()
+      describe 'go to previous step', ->
+        it 'decrements the step if step > 1', ->
+          @view.step = 2
+          channel.trigger('modal:prev')
+          expect(@view.step).toEqual(1)
+
+        it 'does not change the step if step == 1', ->
+          @view.step = 1
+          channel.trigger('modal:prev')
+          expect(@view.step).toEqual(1)
+
+        it 're-renders the view', ->
+          channel.trigger('modal:prev')
+          expect(@view.render).toHaveBeenCalledOnce()
+          expect(@view.render).toHaveBeenCalledWithExactly()

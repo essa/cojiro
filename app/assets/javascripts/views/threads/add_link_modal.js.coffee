@@ -28,8 +28,11 @@ define [
       @RegisterUrlView = options.RegisterUrlView || RegisterUrlView
       @ConfirmLinkDetailsView = options.ConfirmLinkDetailsView || ConfirmLinkDetailsView
       self = @
-      channel.on 'registerUrlView:success', ->
-        self.step = 2
+      channel.on 'modal:next', ->
+        self.step = self.step + 1
+        self.render()
+      channel.on 'modal:prev', ->
+        self.step = self.step - 1 unless self.step == 1
         self.render()
 
     render: () ->
