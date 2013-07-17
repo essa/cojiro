@@ -33,6 +33,13 @@ define (require) ->
           @
         sinon.spy(@modalView, 'render')
 
+      describe 'invalid step', ->
+        it 'throws error', ->
+          @view = new AddLinkModalView model: sinon.stub()
+          @view.step = -1
+          self = @
+          expect(-> self.view.render()).toThrow('invalid step')
+
       describe 'register url view (step 1)', ->
         beforeEach ->
           @model = sinon.stub()

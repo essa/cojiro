@@ -72,3 +72,16 @@ define (require) ->
             sinon.stub(@model, 'get').withArgs('embed_data').returns(title: 'a title')
             @view.render()
             expect(@view.$('input[name="title"]')).toHaveValue('a title')
+
+      describe 'events', ->
+
+        describe 'when source locale is selected', ->
+          beforeEach ->
+            @view.render()
+            @view.$('select').val('ja').trigger('change')
+
+          it 'updates the title label with the language', ->
+            expect(@view.$('.title label')).toHaveText('Title in Japanese')
+
+          it 'removes readonly restriction on title field', ->
+            expect(@view.$('input[name="title"]')).not.toHaveAttr('readonly')
