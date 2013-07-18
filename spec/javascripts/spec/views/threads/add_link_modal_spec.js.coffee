@@ -33,6 +33,12 @@ define (require) ->
           @
         sinon.spy(@modalView, 'render')
 
+        modalEl = $('<div id="modal"></div>')
+        $('body').append(modalEl)
+
+      afterEach ->
+        $('#modal').remove()
+
       describe 'invalid step', ->
         it 'throws error', ->
           @view = new AddLinkModalView model: sinon.stub()
@@ -66,8 +72,8 @@ define (require) ->
           expect(@view.render()).toEqual(@view)
 
         it 'renders modal title', ->
-          $el = @view.render().$el
-          expect($el.find('.modal-header')).toHaveText(/Add a link/)
+          @view.render()
+          expect(@view.$('.modal-header')).toHaveText(/Add a link/)
 
         it 'creates a RegisterUrlView', ->
           @view.render()

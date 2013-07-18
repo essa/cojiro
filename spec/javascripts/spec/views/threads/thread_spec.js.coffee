@@ -143,25 +143,39 @@ define (require) ->
         @view.summaryField.leave.restore()
 
     describe "add a link modal", ->
-      beforeEach ->
-        sandbox = document.createElement('div')
-        sandbox.setAttribute('id', 'sandbox')
-        $('body').append(sandbox)
-        globals.currentUser = @fixtures.User.valid
-        @view = new ThreadView(model: @thread)
-        $('#sandbox').append(@view.render().el)
-        $('#add-link-modal').hide()
 
-      afterEach ->
-        $('#sandbox').remove()
-        $('body').removeClass()
+      describe 'click add link button', ->
+        beforeEach ->
+          $('body').append('<div id="sandbox"></div>')
+          $('#sandbox').append('<div id="modal"></div>')
 
-      it 'creates showAddLinkModal with a new link model', ->
-        expect(@view.addLinkModalView.model).toBeDefined()
-        expect(@view.addLinkModalView.model instanceof Link).toBeTruthy()
+          globals.currentUser = @fixtures.User.valid
+          @view = new ThreadView(model: @thread)
+          $('#modal').hide()
+          @view.render()
+          $('body').append(@view.el)
 
-      it "calls showAddLinkModel when user clicks on the 'add link' button", ->
-        # ensure that modal is initially hidden -- bootstrap will do this
-        expect($('.modal')).not.toBeVisible()
-        $('a.add-link').trigger('click')
-        expect($('.modal')).toBeVisible()
+        afterEach ->
+          $('#sandbox').remove()
+          $('body').removeClass()
+
+        it 'creates addLinkModal with a new link model', ->
+          expect(@view.addLinkModal.model).toBeDefined()
+          expect(@view.addLinkModal.model instanceof Link).toBeTruthy()
+
+        it "shows addLinkModal when user clicks on the 'add link' button", ->
+          # ensure that modal is initially hidden -- bootstrap will do this
+          expect($('#modal')).not.toBeVisible()
+          $('a.add-link').trigger('click')
+          expect($('#modal')).toBeVisible()
+
+      describe 'leave', ->
+        beforeEach -> @view = new ThreadView(model: @thread)
+
+        it 'calls leave when leaving the thread', ->
+          sinon.spy(@view.addLinkModal, 'leave')
+          @view.render()
+          @view.leave()
+          expect(@view.addLinkModal.leave).toHaveBeenCalledOnce()
+          expect(@view.addLinkModal.leave).toHaveBeenCalledWithExactly()
+          @view.addLinkModal.leave.restore()

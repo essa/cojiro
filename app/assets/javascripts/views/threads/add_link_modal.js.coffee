@@ -6,16 +6,16 @@ define [
   'views/links/register_url'
   'views/links/confirm_link_details'
   'views/modals/footer'
+  'modules/modal'
   'modules/channel'
   'i18n'
-], ($, _, Backbone, BaseView, RegisterUrlView, ConfirmLinkDetailsView, ModalFooterView, channel, I18n) ->
+], ($, _, Backbone, BaseView, RegisterUrlView, ConfirmLinkDetailsView, ModalFooterView, ModalView, channel, I18n) ->
 
-  class AddLinkModalView extends BaseView
+  class AddLinkModal extends ModalView
     template: _.template '
         <div class="modal-header">
           <button class="close"
                   type="button"
-                  data-dismiss="modal"
                   aria-hidden="true">&times;</button>
           <h3><%= title %></h3>
         </div>
@@ -55,3 +55,7 @@ define [
         else
           throw('invalid step')
       @
+
+    showModal: () ->
+      @step = 1
+      super

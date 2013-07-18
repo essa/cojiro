@@ -40,5 +40,3 @@
         %a.add-link{ role: 'button' }
           =i18n.t('templates.threads.show.add_a_link')
           .add-link-button
-
-#add-link-modal.modal.hide.fade

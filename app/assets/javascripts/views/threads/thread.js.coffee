@@ -20,9 +20,10 @@ define [
       _(super).extend
         "click .add-link": "showAddLinkModal"
 
-    initialize: ->
-      super
-      @addLinkModalView = new AddLinkModal(model: new Link)
+    initialize: (options = {}) ->
+      super(options)
+
+      @addLinkModal = new AddLinkModal(model: new Link)
       @titleField = new Translatable.InPlaceField(model: @model, field: "title", editable: globals.currentUser?)
       @summaryField = new Translatable.InPlaceField(model: @model, field: "summary", editable: globals.currentUser?)
 
@@ -49,12 +50,11 @@ define [
 
     # see: http://lostechies.com/derickbailey/2012/04/17/managing-a-modal-dialog-with-backbone-and-marionette
     renderModals: ->
-      @addLinkModalView.render()
-      @$('#add-link-modal').html(@addLinkModalView.el)
+      @renderChild(@addLinkModal)
 
     renderFlash: ->
       @$el.prepend(flashTemplate(globals.flash))
       globals.flash = null
 
     showAddLinkModal: ->
-      @$('#add-link-modal').modal()
+      @addLinkModal.trigger('view:show')
