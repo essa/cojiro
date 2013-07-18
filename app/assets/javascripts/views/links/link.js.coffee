@@ -23,7 +23,5 @@ define [
       @
 
     renderTranslatableFields: ->
-      @renderChild(@titleField)
-      @$('.title').html(@titleField.el)
-      @renderChild(@summaryField)
-      @$('.summary').html(@summaryField.el)
+      @renderChildInto(@titleField, '.title')
+      @renderChildInto(@summaryField, '.summary')
