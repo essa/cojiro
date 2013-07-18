@@ -247,4 +247,10 @@ form.register-url-form {
   text-align: center;
 }
 
+form.confirm-link-details-form {
+  input[name='title'] {
+    width: 90%;
+  }
+}
+
 @import "translatable/in_place_field";
