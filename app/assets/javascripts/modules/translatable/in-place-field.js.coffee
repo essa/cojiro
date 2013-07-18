@@ -1,8 +1,8 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
-  'modules/base/view',
+  'jquery'
+  'underscore'
+  'backbone'
+  'modules/base/view'
   'modules/translatable/field-form'
   'modules/channel'
   'i18n'

@@ -1,12 +1,12 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
+  'jquery'
+  'underscore'
+  'backbone'
   'models/link'
-  'modules/base/view',
-  'modules/translatable',
-  'globals',
-  'templates/threads/show',
+  'modules/base/view'
+  'modules/translatable'
+  'globals'
+  'templates/threads/show'
   'templates/other/flash'
   'views/threads/add_link_modal'
   'views/links/link'
