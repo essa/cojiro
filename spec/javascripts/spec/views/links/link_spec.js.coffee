@@ -39,9 +39,9 @@ define (require) ->
       it 'renders source locale', ->
         expect(@$el.find('.lang')).toHaveText('en')
 
-    describe 'translatable fields'
+    describe 'translatable fields', ->
       beforeEach ->
-        @view = new LinkView
+        @view = new LinkView(model: new Link)
 
       it 'renders title field', ->
         sinon.spy(@view.titleField, 'render')
