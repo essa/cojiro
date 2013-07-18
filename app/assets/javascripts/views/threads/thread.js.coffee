@@ -36,10 +36,8 @@ define [
       @
 
     renderTranslatableFields: ->
-      @titleField.render()
-      @$('#title').html(@titleField.el)
-      @summaryField.render()
-      @$('#summary').html(@summaryField.el)
+      @renderChildInto(@titleField, '#title')
+      @renderChildInto(@summaryField, '#summary')
 
     renderLinks: ->
       linksContainer = @.$('.link-list')

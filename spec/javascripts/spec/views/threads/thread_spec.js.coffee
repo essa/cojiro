@@ -108,6 +108,40 @@ define (require) ->
           $el = @view.render().$el
           expect($el).not.toContain('a.add-link:contains("Add a link")')
 
+    describe 'translatable fields', ->
+      beforeEach ->
+        @view = new ThreadView(model: @thread)
+
+      it 'renders title field', ->
+        sinon.spy(@view.titleField, 'render')
+        @view.render()
+        expect(@view.titleField.render).toHaveBeenCalledOnce()
+        expect(@view.titleField.render).toHaveBeenCalledWithExactly()
+        @view.titleField.render.restore()
+
+      it 'renders summary field', ->
+        sinon.spy(@view.summaryField, 'render')
+        @view.render()
+        expect(@view.summaryField.render).toHaveBeenCalledOnce()
+        expect(@view.summaryField.render).toHaveBeenCalledWithExactly()
+        @view.summaryField.render.restore()
+
+      it 'calls leave on titleField when closing', ->
+        sinon.spy(@view.titleField, 'leave')
+        @view.render()
+        @view.leave()
+        expect(@view.titleField.leave).toHaveBeenCalledOnce()
+        expect(@view.titleField.leave).toHaveBeenCalledWithExactly()
+        @view.titleField.leave.restore()
+
+      it 'calls leave on summaryField when closing', ->
+        sinon.spy(@view.summaryField, 'leave')
+        @view.render()
+        @view.leave()
+        expect(@view.summaryField.leave).toHaveBeenCalledOnce()
+        expect(@view.summaryField.leave).toHaveBeenCalledWithExactly()
+        @view.summaryField.leave.restore()
+
     describe "add a link modal", ->
       beforeEach ->
         sandbox = document.createElement('div')
