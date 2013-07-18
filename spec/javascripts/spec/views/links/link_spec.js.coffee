@@ -33,6 +33,9 @@ define (require) ->
       it 'renders summary', ->
         expect(@$el.find('.summary')).toContainText(/CrossFit is an effective way to get fit. Anyone can do it./)
 
+      it 'renders site name', ->
+        expect(@view.$('.site')).toHaveText('www.youtube.com')
+
       it 'renders source locale', ->
         expect(@$el.find('.lang')).toHaveText('en')
 
