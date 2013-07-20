@@ -31,9 +31,10 @@ define (require) ->
           @el = document.createElement('div')
           @el.setAttribute('class', 'stub-modal')
           @
+        @modalView.leave = ->
         sinon.spy(@modalView, 'render')
 
-        modalEl = $('<div id="modal"></div>')
+        modalEl = $('<div id="modal" class="modal hide fade"></div>')
         $('body').append(modalEl)
 
       afterEach ->
@@ -46,47 +47,72 @@ define (require) ->
           self = @
           expect(-> self.view.render()).toThrow('invalid step')
 
+      #TODO: refactor this into shared examples
       describe 'register url view (step 1)', ->
         beforeEach ->
           @model = sinon.stub()
           @RegisterUrlView = sinon.stub().returns(@modalView)
+          @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
           @view = new AddLinkModalView
             model: @model
             RegisterUrlView: @RegisterUrlView
-
-        it 'calls leave on any existing modal', ->
-          modal = leave: ->
-          sinon.spy(modal, 'leave')
-          @view.modal = modal
-          @view.render()
-          expect(modal.leave).toHaveBeenCalledOnce()
-
-        it 'calls leave on any existing footer', ->
-          footer = leave: ->
-          sinon.spy(footer, 'leave')
-          @view.footer = footer
-          @view.render()
-          expect(footer.leave).toHaveBeenCalledOnce()
+            ConfirmLinkDetailsView: @ConfirmLinkDetailsView
 
         it 'returns the view object', ->
           expect(@view.render()).toEqual(@view)
 
-        it 'renders modal title', ->
-          @view.render()
-          expect(@view.$('.modal-header')).toHaveText(/Add a link/)
+        describe 'cleaning up', ->
+          it 'calls leave on any existing modal', ->
+            modal = leave: ->
+            sinon.spy(modal, 'leave')
+            @view.modal = modal
+            @view.render()
+            expect(modal.leave).toHaveBeenCalledOnce()
 
-        it 'creates a RegisterUrlView', ->
-          @view.render()
-          expect(@RegisterUrlView).toHaveBeenCalledOnce()
-          expect(@RegisterUrlView).toHaveBeenCalledWithExactly(model: @model)
+          it 'calls leave on any existing footer', ->
+            footer = leave: ->
+            sinon.spy(footer, 'leave')
+            @view.footer = footer
+            @view.render()
+            expect(footer.leave).toHaveBeenCalledOnce()
 
-        it 'renders newly-created RegisterUrlView', ->
-          $el = @view.render().$el
-          expect(@modalView.render).toHaveBeenCalledOnce()
+        describe 'element classes', ->
 
-        it 'inserts form html into .modal-body element', ->
-          $el = @view.render().$el
-          expect($el.find('.modal-body')).toContain('div.stub-modal')
+          it 'has default classes', ->
+            @view.render()
+            expect(@view.$el).toHaveClass('modal')
+            expect(@view.$el).toHaveClass('hide')
+            expect(@view.$el).toHaveClass('fade')
+
+          it 'has register-url class', ->
+            @view.render()
+            expect(@view.$el).toHaveClass('register-url')
+
+          it 'does not leave classes from other steps', ->
+            originalClass = @view.render().$el.attr('class')
+            @view.step = 2
+            @view.render()
+            @view.step = 1
+            expect(@view.render().$el).toHaveAttr('class', originalClass)
+
+        describe 'rendering the modal', ->
+
+          it 'renders modal title', ->
+            @view.render()
+            expect(@view.$('.modal-header')).toHaveText(/Add a link/)
+
+          it 'creates a RegisterUrlView', ->
+            @view.render()
+            expect(@RegisterUrlView).toHaveBeenCalledOnce()
+            expect(@RegisterUrlView).toHaveBeenCalledWithExactly(model: @model)
+
+          it 'renders newly-created RegisterUrlView', ->
+            $el = @view.render().$el
+            expect(@modalView.render).toHaveBeenCalledOnce()
+
+          it 'inserts form html into .modal-body element', ->
+            $el = @view.render().$el
+            expect($el.find('.modal-body')).toContain('div.stub-modal')
 
       describe 'confirm link details view (step 2)', ->
         beforeEach ->
@@ -100,30 +126,66 @@ define (require) ->
         it 'returns the view object', ->
           expect(@view.render()).toEqual(@view)
 
-        it 'renders modal title', ->
-          $el = @view.render().$el
-          expect($el.find('.modal-header')).toHaveText(/Confirm link details/)
+        describe 'cleaning up', ->
+          it 'calls leave on any existing modal', ->
+            modal = leave: ->
+            sinon.spy(modal, 'leave')
+            @view.modal = modal
+            @view.render()
+            expect(modal.leave).toHaveBeenCalledOnce()
 
-        it 'creates a ConfirmLinkDetailsView', ->
-          @view.render()
-          expect(@ConfirmLinkDetailsView).toHaveBeenCalledOnce()
-          expect(@ConfirmLinkDetailsView).toHaveBeenCalledWithExactly(model: @model)
+          it 'calls leave on any existing footer', ->
+            footer = leave: ->
+            sinon.spy(footer, 'leave')
+            @view.footer = footer
+            @view.render()
+            expect(footer.leave).toHaveBeenCalledOnce()
 
-        it 'renders newly-created RegisterUrlView', ->
-          $el = @view.render().$el
-          expect(@modalView.render).toHaveBeenCalledOnce()
+        describe 'element classes', ->
 
-        it 'inserts form html into .modal-body element', ->
-          $el = @view.render().$el
-          expect($el.find('.modal-body')).toContain('div.stub-modal')
+          it 'has default classes', ->
+            @view.render()
+            expect(@view.$el).toHaveClass('modal')
+            expect(@view.$el).toHaveClass('hide')
+            expect(@view.$el).toHaveClass('fade')
 
-        it 'renders modal confirm button', ->
-          @view.render()
-          expect(@view.$el).toContain('button.btn-primary:contains("Confirm")')
+          it 'has confirm-link-details class', ->
+            @view.render()
+            expect(@view.$el).toHaveClass('confirm-link-details')
 
-        it 'renders modal back button', ->
-          @view.render()
-          expect(@view.$el).toContain('button.btn:contains("Back")')
+          it 'does not leave classes from other steps', ->
+            originalClass = @view.render().$el.attr('class')
+            @view.step = 1
+            @view.render()
+            @view.step = 2
+            expect(@view.render().$el).toHaveAttr('class', originalClass)
+
+        describe 'rendering the modal', ->
+
+          it 'renders modal title', ->
+            $el = @view.render().$el
+            expect($el.find('.modal-header')).toHaveText(/Confirm link details/)
+
+          it 'creates a ConfirmLinkDetailsView', ->
+            @view.render()
+            expect(@ConfirmLinkDetailsView).toHaveBeenCalledOnce()
+            expect(@ConfirmLinkDetailsView).toHaveBeenCalledWithExactly(model: @model)
+
+          it 'renders newly-created RegisterUrlView', ->
+            $el = @view.render().$el
+            expect(@modalView.render).toHaveBeenCalledOnce()
+
+          it 'inserts form html into .modal-body element', ->
+            $el = @view.render().$el
+            expect($el.find('.modal-body')).toContain('div.stub-modal')
+
+          it 'renders modal confirm button', ->
+            @view.render()
+            expect(@view.$el).toContain('button.btn-primary:contains("Confirm")')
+
+          it 'renders modal back button', ->
+            @view.render()
+            expect(@view.$el).toContain('button.btn:contains("Back")')
 
     describe 'events', ->
       beforeEach ->

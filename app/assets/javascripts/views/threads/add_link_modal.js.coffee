@@ -44,10 +44,14 @@ define [
       switch @step
         when 1
           @$el.html(@template(title: 'Add a link'))
+          @$el.removeClass('confirm-link-details')
+          @$el.addClass('register-url')
           @modal = new @RegisterUrlView(model: @model)
           @renderChildInto(@modal, '.modal-body')
         when 2
           @$el.html(@template(title: 'Confirm link details'))
+          @$el.removeClass('register-url')
+          @$el.addClass('confirm-link-details')
           @modal = new @ConfirmLinkDetailsView(model: @model)
           @renderChildInto(@modal, '.modal-body')
           @footer = new @ModalFooterView(prevString: 'Back', nextString: 'Confirm')

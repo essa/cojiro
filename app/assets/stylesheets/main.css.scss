@@ -253,4 +253,13 @@ form.confirm-link-details-form {
   }
 }
 
+#modal.confirm-link-details {
+  width: 900px;
+  margin-left: -450px;
+
+  .modal-body {
+    max-height: 80%;
+  }
+}
+
 @import "translatable/in_place_field";
