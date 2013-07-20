@@ -30,6 +30,14 @@ define (require) ->
           @link.set('embed_data', { 'foo': 'bar' })
           expect(@link.getEmbedData()).toEqual('foo': 'bar')
 
+        it 'returns empty object if no embedly data', ->
+          expect(@link.getEmbedData()).toEqual({})
+
+      describe '#getThumbnailUrl', ->
+        it 'returns thumbnail url from embedly data', ->
+          @link.set('embed_data', { 'thumbnail_url': 'http://www.foo.com/bar' })
+          expect(@link.getThumbnailUrl()).toEqual('http://www.foo.com/bar')
+
       describe '#toJSON', ->
         it 'does not include link key if all values are null', ->
           expect(@link.toJSON()['link']).not.toBeDefined()
