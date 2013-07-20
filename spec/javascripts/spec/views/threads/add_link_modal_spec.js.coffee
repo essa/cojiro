@@ -51,6 +51,7 @@ define (require) ->
       describe 'register url view (step 1)', ->
         beforeEach ->
           @model = sinon.stub()
+          @model.getUrl = -> ''
           @RegisterUrlView = sinon.stub().returns(@modalView)
           @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
           @view = new AddLinkModalView
@@ -117,6 +118,7 @@ define (require) ->
       describe 'confirm link details view (step 2)', ->
         beforeEach ->
           @model = sinon.stub()
+          @model.getUrl = -> 'http://www.example.com'
           @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
           @view = new AddLinkModalView
             model: @model
@@ -165,6 +167,10 @@ define (require) ->
           it 'renders modal title', ->
             $el = @view.render().$el
             expect($el.find('.modal-header')).toHaveText(/Confirm link details/)
+
+          it 'renders url in title', ->
+            @view.render()
+            expect(@view.$('.modal-header')).toContain('small:contains("http://www.example.com")')
 
           it 'creates a ConfirmLinkDetailsView', ->
             @view.render()

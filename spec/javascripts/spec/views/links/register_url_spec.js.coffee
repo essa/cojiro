@@ -26,9 +26,9 @@ define (require) ->
         it 'returns the view object', ->
           expect(@view.render()).toEqual(@view)
 
-        it 'renders form with bootstrap and register-url-form classes', ->
+        it 'renders form with bootstrap form-inline class', ->
           @view.render()
-          expect(@view.$('form')).toHaveClass('form-inline register-url-form')
+          expect(@view.$('form')).toHaveClass('form-inline')
 
         it 'renders URL input form', ->
           @view.render()

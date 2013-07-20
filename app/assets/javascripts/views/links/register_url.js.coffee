@@ -10,7 +10,7 @@ define [
   class RegisterUrlView extends BaseView
     className: 'form'
     template: _.template '
-      <form class="form-inline register-url-form">
+      <form class="form-inline">
         <fieldset>
           <label>URL&nbsp;</label>
           <input type="text" name="url" placeholder="<%= enter_a_url_string %>" />
@@ -20,7 +20,7 @@ define [
 
     buildEvents: () ->
       _(super).extend
-        'submit form.register-url-form' : 'registerUrl'
+        'submit form' : 'registerUrl'
 
     render: () ->
       enter_a_url_string = I18n.t('templates.threads.show.enter_a_url')

@@ -243,14 +243,8 @@ ul.nav-pills {
 
 /* -------- Add link dialog ----- */
 
-form.register-url-form {
+#modal.register-url form {
   text-align: center;
-}
-
-form.confirm-link-details-form {
-  input[name='title'] {
-    width: 90%;
-  }
 }
 
 #modal.confirm-link-details {
@@ -259,6 +253,15 @@ form.confirm-link-details-form {
 
   .modal-body {
     max-height: 80%;
+  }
+
+  form {
+    textarea {
+      width: 98%;
+    }
+    label {
+      font-weight: bold;
+    }
   }
 }
 

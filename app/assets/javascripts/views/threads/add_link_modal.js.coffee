@@ -49,7 +49,7 @@ define [
           @modal = new @RegisterUrlView(model: @model)
           @renderChildInto(@modal, '.modal-body')
         when 2
-          @$el.html(@template(title: 'Confirm link details'))
+          @$el.html(@template(title: 'Confirm link details' + ' <small>' + @model.getUrl() + '</small>'))
           @$el.removeClass('register-url')
           @$el.addClass('confirm-link-details')
           @modal = new @ConfirmLinkDetailsView(model: @model)

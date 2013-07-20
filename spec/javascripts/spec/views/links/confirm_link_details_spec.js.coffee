@@ -5,7 +5,11 @@ define (require) ->
   Link = require('models/link')
   ConfirmLinkDetailsView = require('views/links/confirm_link_details')
   I18n = require('i18n')
-  cannel = require('modules/channel')
+  channel = require('modules/channel')
+
+  titleSelector = 'input[name="title"],textarea[name="title"]'
+  summarySelector = 'input[name="summary"],textarea[name="summary"]'
+
 
   describe 'ConfirmLinkDetailsView', ->
     beforeEach ->
@@ -34,15 +38,8 @@ define (require) ->
         it 'returns the view object', ->
           expect(@view.render()).toEqual(@view)
 
-        it 'renders form with bootstrap and confirm-link-details classes', ->
-          expect(@view.$('form')).toHaveClass('form-horizontal confirm-link-details-form')
-
-        describe 'url', ->
-          it 'renders url field', ->
-            expect(@view.$el).toContain('input[name="url"][value="http://www.example.com"]')
-
-          it 'sets url field to readonly', ->
-            expect(@view.$('input[name="url"]')).toHaveAttr('readonly')
+        it 'renders form with bootstrap form-horizontal class', ->
+          expect(@view.$('form')).toHaveClass('form-horizontal')
 
         describe 'source locale', ->
           it 'renders source_locale label', ->
@@ -62,29 +59,56 @@ define (require) ->
             expect(@view.$('option[value="ja"]')).toHaveText('Japanese')
 
         describe 'title', ->
-          it 'renders title input field', ->
-            expect(@view.$el).toContain('input[name="title"]')
+          it 'renders title field', ->
+            expect(@view.$el).toContain(titleSelector)
 
           it 'sets title field to readonly until source locale has been selected', ->
-            expect(@view.$('input[name="title"]')).toHaveAttr('readonly')
+            expect(@view.$(titleSelector)).toHaveAttr('readonly')
 
           it 'prefills title field with title from embed data', ->
             sinon.stub(@model, 'get').withArgs('embed_data').returns(title: 'a title')
             @view.render()
-            expect(@view.$('input[name="title"]')).toHaveValue('a title')
+            expect(@view.$(titleSelector)).toHaveValue('a title')
+
+        describe 'summary', ->
+          it 'renders summary field', ->
+            expect(@view.$el).toContain(summarySelector)
+
+          it 'sets summary field to readonly until source locale has been selected', ->
+            expect(@view.$(summarySelector)).toHaveAttr('readonly')
+
+          it 'prefills summary field with description from embed data', ->
+            sinon.stub(@model, 'get').withArgs('embed_data').returns(description: 'a summary')
+            @view.render()
+            expect(@view.$(summarySelector)).toHaveValue('a summary')
 
       describe 'events', ->
 
         describe 'when source locale is selected', ->
           beforeEach ->
             @view.render()
-            @view.$('select').val('ja').trigger('change')
 
           it 'updates the title label with the language', ->
+            expect(@view.$('.title label')).toHaveText('Title')
+            @view.$('select').val('ja').trigger('change')
             expect(@view.$('.title label')).toHaveText('Title in Japanese')
 
+          it 'updates the summary label with the language', ->
+            expect(@view.$('.summary label')).toHaveText('Summary')
+            @view.$('select').val('ja').trigger('change')
+            expect(@view.$('.summary label')).toHaveText('Summary in Japanese')
+
           it 'removes readonly restriction on title field', ->
-            expect(@view.$('input[name="title"]')).not.toHaveAttr('readonly')
+            expect(@view.$(titleSelector)).toHaveAttr('readonly')
+            @view.$('select').val('ja').trigger('change')
+            expect(@view.$(titleSelector)).not.toHaveAttr('readonly')
+
+          it 'removes readonly restriction on summary field', ->
+            expect(@view.$(summarySelector)).toHaveAttr('readonly')
+            @view.$('select').val('ja').trigger('change')
+            expect(@view.$(summarySelector)).not.toHaveAttr('readonly')
 
           it 'removes default source locale option', ->
+            expect(@view.$('select[name="source_locale"] option[value=""]').length).toEqual(1)
+            @view.$('select').val('ja').trigger('change')
             expect(@view.$('select[name="source_locale"] option[value=""]').length).toEqual(0)
