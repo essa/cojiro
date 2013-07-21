@@ -18,7 +18,7 @@ define [
               <% if (item.translated == true) { %>
                 <% _.each(item.html, function(html, locale) { %>
                   <div class="control-group">
-                    <label class="control-label" for="input-<%= item.cid %>-<%= item.key %>-<%= locale %>">
+                    <label class="control-label" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
                         <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
                     <div class="controls">
@@ -29,7 +29,7 @@ define [
                 <% }); %>
               <% } else { %>
                 <div class="control-group">
-                  <label class="control-label" for="input-<%= item.cid %>-<%= item.key %>">
+                  <label class="control-label" for="<%= item.cid %>-<%= item.key %>">
                     <%= item.label %>
                   </label>
                   <div class="controls">
@@ -92,11 +92,11 @@ define [
       pattern = switch(type)
         when 'Text'
           '<div class="input-xlarge">
-            <input id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>
+            <input id=":cid-:key" name=":key" size="30" type="text" value=":value" :lang/>
            </div>'
         when 'TextArea'
           '<div class="input-xlarge">
-            <textarea id="input-:cid-:key" name="input-:cid-:key" size="30" type="text" value=":value" :lang/>
+            <textarea id=":cid-:key" name=":key" size="30" type="text" value=":value" :lang/>
            </div>'
       return pattern && pattern
           .replace(/:cid/g, @cid)
@@ -111,7 +111,7 @@ define [
       self = @
       o = {}
       _(form.serializeArray()).each (a, i) ->
-        name = a.name.replace('input-' + cid + '-', '')
+        name = a.name
         [attribute, locale] = name.split('-')
         if locale
           o[attribute] ||= {}
@@ -126,8 +126,8 @@ define [
       if _(msg).isObject()
         _(msg).each (value, key) -> self.renderError(msg[key], key, levels)
       else
-        name = 'input-' + self.cid + '-' + levels.join('-')
-        controlGroup = self.$el.find("[id='#{name}']").closest('.control-group')
+        name = levels.join('-')
+        controlGroup = self.$el.find("[name='#{name}']").closest('.control-group')
         controlGroup.addClass('error')
         controlGroup.find('.help-block').text(msg)
 

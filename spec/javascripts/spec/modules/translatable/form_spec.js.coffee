@@ -201,20 +201,20 @@ define (require) ->
 
       describe 'untranslated attributes', ->
         it 'creates correct html for Text type', ->
-          expect(@view.getHtml('attribute', 'value', 'Text')).toContain('<input id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
+          expect(@view.getHtml('attribute', 'value', 'Text')).toContain('<input id="123-attribute" name="attribute" size="30" type="text" value="value" />')
 
         it 'creates correct html for TextArea type', ->
-          expect(@view.getHtml('attribute', 'value', 'TextArea')).toContain('<textarea id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="value" />')
+          expect(@view.getHtml('attribute', 'value', 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="value" />')
 
         it 'creates correct html for attributes with undefined value', ->
-          expect(@view.getHtml('attribute', undefined, 'TextArea')).toContain('<textarea id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="" />')
+          expect(@view.getHtml('attribute', undefined, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="" />')
 
         it 'creates correct html for attributes with null value', ->
-          expect(@view.getHtml('attribute', null, 'TextArea')).toContain('<textarea id="input-123-attribute" name="input-123-attribute" size="30" type="text" value="" />')
+          expect(@view.getHtml('attribute', null, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="" />')
 
       describe 'translated attributes', ->
         it 'adds lang tag and appends lang to attribute name', ->
-          expect(@view.getHtml('attribute', 'value', 'Text', 'en')).toContain('<input id="input-123-attribute-en" name="input-123-attribute-en" size="30" type="text" value="value" lang="en"/>')
+          expect(@view.getHtml('attribute', 'value', 'Text', 'en')).toContain('<input id="123-attribute-en" name="attribute-en" size="30" type="text" value="value" lang="en"/>')
 
     describe 'default template (output)', ->
       beforeEach ->
@@ -246,33 +246,33 @@ define (require) ->
 
         it 'renders fields', ->
           @view.render()
-          expect(@view.$el).toContain('input#input-123-attribute[name="input-123-attribute"][type="text"][value="some attribute"]')
+          expect(@view.$el).toContain('input#123-attribute[name="attribute"][type="text"][value="some attribute"]')
 
         it 'renders labels', ->
           @view.render()
-          expect(@view.$el).toContain('label[for="input-123-attribute"]:contains("My Attribute")')
+          expect(@view.$el).toContain('label[for="123-attribute"]:contains("My Attribute")')
 
       describe 'translated attributes', ->
 
         it 'renders fields for attribute translations specified in locales option', ->
           @view.render()
           # English
-          expect(@view.$el).toContain('input#input-123-title-en[name="input-123-title-en"][type="text"][value="Title in English"]')
-          expect(@view.$el).toContain('textarea#input-123-summary-en[name="input-123-summary-en"][type="text"][value="Summary in English"]')
+          expect(@view.$el).toContain('input#123-title-en[name="title-en"][type="text"][value="Title in English"]')
+          expect(@view.$el).toContain('textarea#123-summary-en[name="summary-en"][type="text"][value="Summary in English"]')
           # Japanese
-          expect(@view.$el).toContain('input#input-123-title-ja[name="input-123-title-ja"][type="text"][value="Title in Japanese"]')
-          expect(@view.$el).toContain('textarea#input-123-summary-ja[name="input-123-summary-ja"][type="text"][value=""]')
+          expect(@view.$el).toContain('input#123-title-ja[name="title-ja"][type="text"][value="Title in Japanese"]')
+          expect(@view.$el).toContain('textarea#123-summary-ja[name="summary-ja"][type="text"][value=""]')
           # French
-          expect(@view.$el).not.toContain('input#input-123-title-fr[name="input-123-title-fr"][type="text"][value="Title in French"]')
-          expect(@view.$el).not.toContain('textarea#input-123-summary-fr[name="input-123-summary-fr"][type="text"][value="Summary in French"]')
+          expect(@view.$el).not.toContain('input#123-title-fr[name="title-fr"][type="text"][value="Title in French"]')
+          expect(@view.$el).not.toContain('textarea#123-summary-fr[name="summary-fr"][type="text"][value="Summary in French"]')
 
         it 'renders label if label is a value', ->
           @view.render()
-          expect(@view.$el).toContain('label[for="input-123-title-en"]:contains("Title")')
+          expect(@view.$el).toContain('label[for="123-title-en"]:contains("Title")')
 
         it 'calls function with locale as argument if label is a function', ->
           @view.render()
-          expect(@view.$el).toContain('label[for="input-123-summary-en"]:contains("Summary (en)")')
+          expect(@view.$el).toContain('label[for="123-summary-en"]:contains("Summary (en)")')
 
     describe '#serialize', ->
       it 'throws error if no form tag is found', ->
@@ -292,8 +292,8 @@ define (require) ->
           @view.render()
 
         it 'serializes form data', ->
-          @view.$el.find('input#input-123-attribute1').val('a new value')
-          @view.$el.find('textarea#input-123-attribute2').val('another new value')
+          @view.$el.find('input#123-attribute1').val('a new value')
+          @view.$el.find('textarea#123-attribute2').val('another new value')
           expect(@view.serialize()).toEqual(
             attribute1: 'a new value'
             attribute2: 'another new value'
@@ -321,8 +321,8 @@ define (require) ->
             summary: new Attribute(en: '', ja: '')
           )
           @view.render()
-          @view.$el.find('input#input-123-title-en').val('a value in English')
-          @view.$el.find('input#input-123-title-ja').val('a value in Japanese')
+          @view.$el.find('input#123-title-en').val('a value in English')
+          @view.$el.find('input#123-title-ja').val('a value in Japanese')
           expect(@view.serialize()).toEqual(
             title:
               en: 'a value in English'
@@ -360,12 +360,12 @@ define (require) ->
 
         it 'appends error class to control-group for each attribute in errors object', ->
           @view.renderErrors(attribute: 'required')
-          $field = @view.$el.find('input#input-123-attribute')
+          $field = @view.$el.find('input#123-attribute')
           expect($field.closest('.control-group')).toHaveClass('error')
 
         it 'inserts error msg into help block', ->
           @view.renderErrors(attribute: 'required')
-          $field = @view.$el.find('input#input-123-attribute')
+          $field = @view.$el.find('input#123-attribute')
           expect($field.closest('.controls').find('.help-block')).toHaveText('required')
 
       describe 'translated (nested) attributes', ->
@@ -377,10 +377,10 @@ define (require) ->
 
         it 'appends error class to control-group for each attribute in errors object', ->
           @view.renderErrors(title: en: 'required')
-          $field = @view.$el.find('input#input-123-title-en')
+          $field = @view.$el.find('input#123-title-en')
           expect($field.closest('.control-group')).toHaveClass('error')
 
         it 'inserts error msg into help block', ->
           @view.renderErrors(title: en: 'required')
-          $field = @view.$el.find('input#input-123-title-en')
+          $field = @view.$el.find('input#123-title-en')
           expect($field.closest('.controls').find('.help-block')).toHaveText('required')
