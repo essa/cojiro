@@ -9,6 +9,7 @@ define [
   class Form extends BaseView
     tagName: 'form'
     className: 'form-horizontal'
+    wildcard: 'xx'
 
     options:
       template:
@@ -42,7 +43,7 @@ define [
           </fieldset>
         '
 
-    initialize: ->
+    initialize: (options = {}) ->
       if !@model
         throw new Error('Translatable.Form needs a model to work with.')
       if !(@model instanceof Backbone.Model)
@@ -52,6 +53,7 @@ define [
       @schema = -> _(@model).result('schema')
       if (@locales = @options.locales) && !(@locales instanceof Array)
         throw new Error("Translatable.Form's locales must be an array of locale strings.")
+      @wildcard = options.wildcard if options.wildcard
 
     render: ->
       @$el.html(@html())
@@ -60,12 +62,14 @@ define [
     html: ->
       @options.template(items: @getItems())
 
+    sourceLocale: -> I18n.locale
+
     getItems: ->
       self = @
       schema = @schema()
       translatableAttributes = @model.translatableAttributes
       keys = _(schema).keys()
-      locales = @locales || [I18n.locale]
+      locales = @locales || [ self.wildcard ]
 
       _(keys).map (key) ->
         type = schema[key]['type']
@@ -76,7 +80,7 @@ define [
           value = value.toJSON()
           html = {}
           _(locales).each (locale) ->
-            html[locale] = self.getHtml(key, value[locale], type, locale)
+            html[locale] = self.getHtml(key, value[locale] || '', type, locale)
         else
           html = self.getHtml(key, value, type)
         {
@@ -111,7 +115,7 @@ define [
       self = @
       o = {}
       _(form.serializeArray()).each (a, i) ->
-        name = a.name
+        name = a.name.replace(self.wildcard, self.sourceLocale())
         [attribute, locale] = name.split('-')
         if locale
           o[attribute] ||= {}
@@ -127,9 +131,10 @@ define [
         _(msg).each (value, key) -> self.renderError(msg[key], key, levels)
       else
         name = levels.join('-')
-        controlGroup = self.$el.find("[name='#{name}']").closest('.control-group')
-        controlGroup.addClass('error')
-        controlGroup.find('.help-block').text(msg)
+        _([name, name.replace(self.sourceLocale(), self.wildcard)]).each (name) ->
+          controlGroup = self.$el.find("[name='#{name}']").closest('.control-group')
+          controlGroup.addClass('error')
+          controlGroup.find('.help-block').text(msg)
 
     renderErrors: (errors) ->
       self = @

@@ -143,9 +143,9 @@ define (require) ->
               ja: 'title in Japanese'
           )
 
-        describe 'with locales option unset, in Japanese locale', ->
+        describe 'with locales option unset', ->
           beforeEach ->
-            @view = new Form(model: @model)
+            @view = new Form(model: @model, wildcard: 'xyz')
             @view.cid = '123'
             sinon.stub(@view, 'getHtml').returns('html')
             I18n.locale = 'ja'
@@ -153,20 +153,20 @@ define (require) ->
           it 'sets translated to true', ->
             expect(@view.getItems()[0]['translated']).toBeTruthy()
 
-          it 'maps translated attributes to items with Japanese value only', ->
+          it 'maps translated attributes to items with wildcard locale', ->
             expect(@view.getItems()).toEqual([
               html:
-                ja: 'html'
+                xyz: 'html'
               label: 'Title'
               key: 'title'
               translated: true
               cid: '123'
             ])
 
-          it 'calls getHtml on translation of schema item in Japanese only', ->
+          it 'calls getHtml with attribute and blank value', ->
             @view.getItems()
             expect(@view.getHtml).toHaveBeenCalledOnce()
-            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', 'ja')
+            expect(@view.getHtml).toHaveBeenCalledWith('title', '', 'Text', 'xyz')
 
         describe 'with locales option set', ->
           beforeEach ->
@@ -347,40 +347,99 @@ define (require) ->
           })
 
     describe '#renderErrors', ->
-      beforeEach ->
-        @view = new Form(model: @model)
-        @view.cid = '123'
 
-      describe 'untranslated attributes', ->
+      describe 'with locales passed in', ->
         beforeEach ->
-          _(@model).extend
-            schema: ->
-              attribute: type: 'Text'
-          @view.render()
+          @view = new Form(model: @model, locales: ['en'])
+          @view.cid = '123'
 
-        it 'appends error class to control-group for each attribute in errors object', ->
-          @view.renderErrors(attribute: 'required')
-          $field = @view.$el.find('input#123-attribute')
-          expect($field.closest('.control-group')).toHaveClass('error')
+        describe 'untranslated attributes', ->
+          beforeEach ->
+            _(@model).extend
+              schema: ->
+                attribute: type: 'Text'
+            @view.render()
 
-        it 'inserts error msg into help block', ->
-          @view.renderErrors(attribute: 'required')
-          $field = @view.$el.find('input#123-attribute')
-          expect($field.closest('.controls').find('.help-block')).toHaveText('required')
+          it 'appends error class to control-group for each attribute in errors object', ->
+            @view.renderErrors(attribute: 'required')
+            $field = @view.$el.find('input#123-attribute')
+            expect($field.closest('.control-group')).toHaveClass('error')
 
-      describe 'translated (nested) attributes', ->
+          it 'inserts error msg into help block', ->
+            @view.renderErrors(attribute: 'required')
+            $field = @view.$el.find('input#123-attribute')
+            expect($field.closest('.controls').find('.help-block')).toHaveText('required')
+
+        describe 'translated (nested) attributes', ->
+          beforeEach ->
+            _(@model).extend
+              schema: ->
+                title: type: 'Text'
+            @view.render()
+
+          it 'appends error class to control-group for each attribute in errors object', ->
+            @view.renderErrors(title: en: 'required')
+            $field = @view.$el.find('input#123-title-en')
+            expect($field.closest('.control-group')).toHaveClass('error')
+
+          it 'inserts error msg into help block', ->
+            @view.renderErrors(title: en: 'required')
+            $field = @view.$el.find('input#123-title-en')
+            expect($field.closest('.controls').find('.help-block')).toHaveText('required')
+
+      describe 'with locales dynamically assigned', ->
         beforeEach ->
+          @view = new Form(model: @model, wildcard: 'xyz')
+          @view.cid = '123'
           _(@model).extend
             schema: ->
               title: type: 'Text'
           @view.render()
 
-        it 'appends error class to control-group for each attribute in errors object', ->
-          @view.renderErrors(title: en: 'required')
-          $field = @view.$el.find('input#123-title-en')
-          expect($field.closest('.control-group')).toHaveClass('error')
+        describe 'default sourceLocale function', ->
+          it 'maps errors on current locale to wildcard', ->
+            I18n.locale = 'fr'
+            @view.renderErrors(title: fr: 'required')
+            $field = @view.$el.find('input#123-title-xyz')
+            expect($field.closest('.control-group')).toHaveClass('error')
+            expect($field.closest('.controls').find('.help-block')).toHaveText('required')
 
-        it 'inserts error msg into help block', ->
-          @view.renderErrors(title: en: 'required')
-          $field = @view.$el.find('input#123-title-en')
-          expect($field.closest('.controls').find('.help-block')).toHaveText('required')
+          it 'does not map errors on other locales to wildcard', ->
+            I18n.locale = 'fr'
+            @view.renderErrors(title: ja: 'required')
+            $field = @view.$el.find('input#123-title-xyz')
+            expect($field.closest('.control-group')).not.toHaveClass('error')
+            expect($field.closest('.controls').find('.help-block')).not.toHaveText('required')
+
+          # This is a somewhat contrived example, but suppose we have a custom
+          # template which shows fields for locales other than the source locale,
+          # and we want to render those errors on those locales.
+          # Then renderError should correctly render those locale-specific errors
+          # *in addition* to the errors it renders on the source locale.
+          it 'maps errors on other locales to attributes in that locale', ->
+            @view.$('fieldset').append '
+              <div class="control-group">
+                <div class="controls">
+                  <input id="123-title-ja" name="title-ja" type="text" value="" />
+                  <div class="help-block"></div>
+                </div>
+              </div>'
+            @view.renderErrors(title: ja: 'required')
+            $field = @view.$el.find('input#123-title-ja')
+            expect($field.closest('.control-group')).toHaveClass('error')
+            expect($field.closest('.controls').find('.help-block')).toHaveText('required')
+
+        describe 'custom sourceLocale function', ->
+          beforeEach -> @view.sourceLocale = -> 'de'
+
+          it 'maps errors on source locale to wildcard', ->
+            @view.renderErrors(title: de: 'required')
+            $field = @view.$el.find('input#123-title-xyz')
+            expect($field.closest('.control-group')).toHaveClass('error')
+            expect($field.closest('.controls').find('.help-block')).toHaveText('required')
+
+          it 'does not map errors on other locales to wildcard', ->
+            @view.renderErrors(title: ja: 'required')
+            $field = @view.$el.find('input#123-title-xyz')
+            expect($field.closest('.control-group')).not.toHaveClass('error')
+            expect($field.closest('.controls').find('.help-block')).not.toHaveText('required')
