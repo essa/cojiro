@@ -103,7 +103,15 @@ define [
           '<div class="input-xlarge">
             <textarea id=":cid-:key" name=":key" size="30" type="text" value=":value" :lang/>
            </div>'
-      return pattern && pattern
+        when 'Select'
+          attributeValue = @model.get(key)
+          fragment = ['<select id=":cid-:key" name=":key">']
+          fragment = fragment.concat(_(@schema()[key]['values']).map (value, key) ->
+            selected = if (attributeValue == key) then ' selected="selected"' else ''
+            '<option value="' + key + '"' + selected + '>' + value + '</option>')
+          fragment.push('</select>')
+          fragment.join('')
+      pattern && pattern
           .replace(/:cid/g, @cid)
           .replace(/:key/g, key)
           .replace(/:value/g, value || "")

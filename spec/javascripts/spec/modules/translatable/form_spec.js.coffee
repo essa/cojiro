@@ -200,17 +200,38 @@ define (require) ->
         @view.cid = '123'
 
       describe 'untranslated attributes', ->
-        it 'creates correct html for Text type', ->
-          expect(@view.getHtml('attribute', 'value', 'Text')).toContain('<input id="123-attribute" name="attribute" size="30" type="text" value="value" />')
 
-        it 'creates correct html for TextArea type', ->
-          expect(@view.getHtml('attribute', 'value', 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="value" />')
+        describe 'Text', ->
+          it 'creates correct html for Text type', ->
+            expect(@view.getHtml('attribute', 'value', 'Text')).toContain('<input id="123-attribute" name="attribute" size="30" type="text" value="value" />')
 
-        it 'creates correct html for attributes with undefined value', ->
-          expect(@view.getHtml('attribute', undefined, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="" />')
+        describe 'TextArea', ->
+          it 'creates correct html for TextArea type', ->
+            expect(@view.getHtml('attribute', 'value', 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="value" />')
 
-        it 'creates correct html for attributes with null value', ->
-          expect(@view.getHtml('attribute', null, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="" />')
+        describe 'Select', ->
+          beforeEach ->
+            @model.schema = ->
+              attribute:
+                type: 'Select'
+                label: 'a select'
+                values: { en: 'English', ja: 'Japanese', fr: 'French' }
+            @model.set('attribute', 'fr')
+
+          it 'creates correct select tag', ->
+            expect(@view.getHtml('attribute', 'ja', 'Select')).toContain([
+              '<select id="123-attribute" name="attribute">'
+              '<option value="en">English</option>'
+              '<option value="ja">Japanese</option>'
+              '<option value="fr" selected="selected">French</option>'
+              '</select>'].join(''))
+
+        describe 'other values', ->
+          it 'creates correct html for attributes with undefined value', ->
+            expect(@view.getHtml('attribute', undefined, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="" />')
+
+          it 'creates correct html for attributes with null value', ->
+            expect(@view.getHtml('attribute', null, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="" />')
 
       describe 'translated attributes', ->
         it 'adds lang tag and appends lang to attribute name', ->
