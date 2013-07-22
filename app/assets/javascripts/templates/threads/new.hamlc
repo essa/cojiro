@@ -1,3 +1,0 @@
-- require 'i18n'
-.page-header
-  %h1=i18n.t("templates.threads.new.start_a_thread")

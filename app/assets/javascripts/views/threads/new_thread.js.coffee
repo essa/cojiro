@@ -5,14 +5,17 @@ define [
   'modules/base/view'
   'modules/translatable/form'
   'globals'
-  'templates/threads/new'
   'templates/threads/form_actions'
   'templates/other/flash'
   'i18n'
-], ($, _, Backbone, BaseView, Form, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
+], ($, _, Backbone, BaseView, Form, globals, formActionsTemplate, flashTemplate, I18n) ->
 
   class NewThreadView extends BaseView
     id: 'new_thread'
+    template: _.template '
+      <div class="page-header">
+        <h1><%= start_a_thread_string %></h1>
+      </div>'
 
     buildEvents: () ->
       _(super).extend
@@ -29,7 +32,9 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(newThreadTemplate())
+      self = @
+      start_a_thread_string = I18n.t('templates.threads.new.start_a_thread')
+      @$el.html(self.template(start_a_thread_string: start_a_thread_string))
 
     renderForm: ->
       @renderChild(@form)
