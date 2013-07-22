@@ -388,15 +388,14 @@ define (require) ->
             expect($field.closest('.controls').find('.help-block')).toHaveText('required')
 
       describe 'with locales dynamically assigned', ->
-        beforeEach ->
-          @view = new Form(model: @model, wildcard: 'xyz')
-          @view.cid = '123'
-          _(@model).extend
-            schema: ->
-              title: type: 'Text'
-          @view.render()
 
         describe 'default sourceLocale function', ->
+          beforeEach ->
+            @view = new Form(model: @model, wildcard: 'xyz')
+            @view.cid = '123'
+            _(@model).extend schema: -> title: type: 'Text'
+            @view.render()
+
           it 'maps errors on current locale to wildcard', ->
             I18n.locale = 'fr'
             @view.renderErrors(title: fr: 'required')
@@ -430,7 +429,14 @@ define (require) ->
             expect($field.closest('.controls').find('.help-block')).toHaveText('required')
 
         describe 'custom sourceLocale function', ->
-          beforeEach -> @view.sourceLocale = -> 'de'
+          beforeEach ->
+            @view = new Form
+              model: @model
+              wildcard: 'xyz'
+              sourceLocale: -> 'de'
+            @view.cid = '123'
+            _(@model).extend schema: -> title: type: 'Text'
+            @view.render()
 
           it 'maps errors on source locale to wildcard', ->
             @view.renderErrors(title: de: 'required')

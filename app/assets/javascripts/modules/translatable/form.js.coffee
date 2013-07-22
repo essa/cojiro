@@ -54,6 +54,7 @@ define [
       if (@locales = @options.locales) && !(@locales instanceof Array)
         throw new Error("Translatable.Form's locales must be an array of locale strings.")
       @wildcard = options.wildcard if options.wildcard
+      @sourceLocale = options.sourceLocale if options.sourceLocale
 
     render: ->
       @$el.html(@html())
