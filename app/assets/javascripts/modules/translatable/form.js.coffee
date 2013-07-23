@@ -140,7 +140,8 @@ define [
         _(msg).each (value, key) -> self.renderError(msg[key], key, levels)
       else
         name = levels.join('-')
-        _([name, name.replace(self.sourceLocale(), self.wildcard)]).each (name) ->
+        names = _.uniq([name, name.replace(@sourceLocale(), @wildcard)])
+        _(names).each (name) ->
           controlGroup = self.$el.find("[name='#{name}']").closest('.control-group')
           controlGroup.addClass('error')
           controlGroup.find('.help-block').text(msg)
