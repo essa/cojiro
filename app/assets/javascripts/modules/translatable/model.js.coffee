@@ -51,6 +51,7 @@ define [
       attr.set(locale, value)
       @_set(attr_name, attr)
     setAttr: (attr_name, value) -> @setAttrInLocale(attr_name, I18n.locale, value)
+    setSourceLocale: (locale) -> @set('source_locale', locale)
 
     validate: (attrs) ->
       errors = super(attrs) || {}
