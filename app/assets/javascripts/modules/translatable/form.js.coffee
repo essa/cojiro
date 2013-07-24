@@ -96,13 +96,9 @@ define [
       key = (key + '-' + lang) if lang
       pattern = switch(type)
         when 'Text'
-          '<div class="input-xlarge">
-            <input id=":cid-:key" name=":key" size="30" type="text" value=":value" :lang/>
-           </div>'
+          '<input id=":cid-:key" name=":key" size="30" type="text" value=":value" :lang/>'
         when 'TextArea'
-          '<div class="input-xlarge">
-            <textarea id=":cid-:key" name=":key" size="30" type="text" value=":value" :lang/>
-           </div>'
+          '<textarea id=":cid-:key" name=":key" size="30" type="text" value=":value" :lang/>'
         when 'Select'
           attributeValue = @model.get(key)
           fragment = ['<select id=":cid-:key" name=":key">']
