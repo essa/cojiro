@@ -153,11 +153,12 @@ define (require) ->
           @view = new ThreadView(model: @thread)
           $('#modal').hide()
           @view.render()
-          $('body').append(@view.el)
+          $('#sandbox').append(@view.el)
 
         afterEach ->
           $('#sandbox').remove()
           $('body').removeClass()
+          $('body .modal-backdrop').remove()
 
         it 'creates addLinkModal with a new link model', ->
           expect(@view.addLinkModal.model).toBeDefined()
