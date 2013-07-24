@@ -76,8 +76,11 @@ define [
     validate: (attrs) ->
       errors = super(attrs) || {}
 
-      if (attrs.source_locale is '' or attrs.source_locale is null)
+      if (attrs.source_locale == '' || attrs.source_locale == null)
         errors.source_locale = I18n.t('errors.messages.blank')
+
+      if (attrs.url is '' or attrs.url is null)
+        errors.url = I18n.t('errors.messages.blank')
 
       return !_.isEmpty(errors) && errors
 

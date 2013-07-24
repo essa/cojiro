@@ -46,11 +46,15 @@ define [
 
     registerUrl: (e) ->
       e.preventDefault()
-      @model.set('url', @.$('input[name="url"]').val())
-      self = @
-      @model.save {},
-        success: (model, resp) ->
-          self.next()
+      if (url = @.$('input[name="url"]').val())
+        @model.set('url', url)
+        self = @
+        @model.save {},
+          validate: false
+          success: (model, resp) ->
+            self.next()
+      else
+        @$('input[name="url"]').addClass('error')
 
     next: () ->
       @leave()

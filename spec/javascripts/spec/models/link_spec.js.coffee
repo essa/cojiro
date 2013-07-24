@@ -113,3 +113,8 @@ define (require) ->
             expect(@link.save(_(@data).extend(source_locale: ''))).toBeFalsy()
             expect(@spy).toHaveBeenCalledOnce()
             expect(@spy).toHaveBeenCalledWith(@link, source_locale: 'can\'t be blank')
+
+          it 'does not save if the url is blank', ->
+            expect(@link.save(_(@data).extend(url: ''))).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@link, url: 'can\'t be blank')

@@ -265,4 +265,11 @@ ul.nav-pills {
   }
 }
 
+/* we need to render errors for inline forms as well as
+   horizontal ones */
+form .error {
+  border-color: #B94A48;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
 @import "translatable/in_place_field";

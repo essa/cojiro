@@ -91,11 +91,28 @@ define (require) ->
             @$form.submit()
             expect(@model.get('url')).toEqual('http://www.example.com')
 
-          it 'saves the link', ->
-            sinon.stub(@model, 'set')
-            @$form.submit()
-            expect(@model.save).toHaveBeenCalledOnce()
-            @model.set.restore()
+          describe 'valid data', ->
+
+            it 'saves the link if data is valid', ->
+              sinon.stub(@model, 'set')
+              @view.$('form input').val('http://www.example.com')
+              @$form.submit()
+              expect(@model.save).toHaveBeenCalledOnce()
+              @model.set.restore()
+
+          describe 'invalid data', ->
+
+            it 'does not save link if data is not valid', ->
+              sinon.stub(@model, 'set')
+              @view.$('form input').val('')
+              @$form.submit()
+              expect(@model.save).not.toHaveBeenCalled()
+
+            it 'renders error', ->
+              sinon.stub(@model, 'set')
+              @view.$('form input').val('')
+              @$form.submit()
+              expect(@$form.find('input[name="url"]')).toHaveClass('error')
 
         describe 'interacting with the server', ->
           beforeEach ->
