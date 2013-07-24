@@ -170,3 +170,31 @@ define (require) ->
         it 'calls next', ->
           @view.$('button.next').click()
           expect(@nextSpy).toHaveBeenCalledOnce()
+
+        it 'sets model values from form', ->
+          sinon.spy(@model, 'set')
+          @view.$('button.next').click()
+          expect(@model.set).toHaveBeenCalledOnce()
+          expect(@model.set).toHaveBeenCalledWith
+            source_locale: ''
+            title: en: ''
+            summary: en: ''
+
+        it 'renders error if source locale is not set', ->
+          @view.$('button.next').click()
+          expect(@view.$('.control-group.source_locale')).toHaveClass('error')
+
+        it 'renders error if title is blank', ->
+          @view.$('select').val('en')
+          @view.$('[name="title-xx"]').val('')
+          @view.$('button.next').click()
+          expect(@view.$('.control-group.title-xx')).toHaveClass('error')
+
+        it 'sets values if source locale is set', ->
+          @view.$('select').val('en')
+          @view.$('[name="title-xx"]').val('a title')
+          @view.$('[name="summary-xx"]').val('a summary')
+          @view.$('button.next').click()
+          expect(@model.getSourceLocale()).toEqual('en')
+          expect(@model.getAttr('title')).toEqual('a title')
+          expect(@model.getAttr('summary')).toEqual('a summary')
