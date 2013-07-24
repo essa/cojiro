@@ -19,12 +19,13 @@ define (require) ->
         it 'creates a div element for the form', ->
           expect(@$el).toBe('div')
 
-        it 'has form class', ->
-          expect(@$el).toHaveClass('form')
-
       describe 'rendering', ->
         it 'returns the view object', ->
           expect(@view.render()).toEqual(@view)
+
+        it 'renders modal title', ->
+          @view.render()
+          expect(@view.$('.modal-header')).toHaveText(/Add a link/)
 
         it 'renders form with bootstrap form-inline class', ->
           @view.render()
@@ -40,7 +41,19 @@ define (require) ->
 
         it 'renders Go! string', ->
           @view.render()
-          expect(@view.$('button')).toHaveText('Go!')
+          expect(@view.$('button[type="submit"]')).toHaveText('Go!')
+
+      describe 'cleaning up', ->
+
+        it 'calls leave on any existing header', ->
+          header =
+            leave: ->
+            render: ->
+          sinon.spy(header, 'leave')
+          @view.header = header
+          @view.render()
+          @view.leave()
+          expect(header.leave).toHaveBeenCalledOnce()
 
     describe 'with real Link model', ->
       beforeEach ->

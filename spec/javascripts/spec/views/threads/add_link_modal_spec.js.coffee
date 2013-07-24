@@ -70,13 +70,6 @@ define (require) ->
             @view.render()
             expect(modal.leave).toHaveBeenCalledOnce()
 
-          it 'calls leave on any existing footer', ->
-            footer = leave: ->
-            sinon.spy(footer, 'leave')
-            @view.footer = footer
-            @view.render()
-            expect(footer.leave).toHaveBeenCalledOnce()
-
         describe 'element classes', ->
 
           it 'has default classes', ->
@@ -98,10 +91,6 @@ define (require) ->
 
         describe 'rendering the modal', ->
 
-          it 'renders modal title', ->
-            @view.render()
-            expect(@view.$('.modal-header')).toHaveText(/Add a link/)
-
           it 'creates a RegisterUrlView', ->
             @view.render()
             expect(@RegisterUrlView).toHaveBeenCalledOnce()
@@ -113,7 +102,7 @@ define (require) ->
 
           it 'inserts form html into .modal-body element', ->
             $el = @view.render().$el
-            expect($el.find('.modal-body')).toContain('div.stub-modal')
+            expect($el).toContain('div.stub-modal')
 
       describe 'confirm link details view (step 2)', ->
         beforeEach ->
@@ -136,13 +125,6 @@ define (require) ->
             @view.render()
             expect(modal.leave).toHaveBeenCalledOnce()
 
-          it 'calls leave on any existing footer', ->
-            footer = leave: ->
-            sinon.spy(footer, 'leave')
-            @view.footer = footer
-            @view.render()
-            expect(footer.leave).toHaveBeenCalledOnce()
-
         describe 'element classes', ->
 
           it 'has default classes', ->
@@ -164,14 +146,6 @@ define (require) ->
 
         describe 'rendering the modal', ->
 
-          it 'renders modal title', ->
-            $el = @view.render().$el
-            expect($el.find('.modal-header')).toHaveText(/Confirm link details/)
-
-          it 'renders url in title', ->
-            @view.render()
-            expect(@view.$('.modal-header')).toContain('small:contains("http://www.example.com")')
-
           it 'creates a ConfirmLinkDetailsView', ->
             @view.render()
             expect(@ConfirmLinkDetailsView).toHaveBeenCalledOnce()
@@ -183,15 +157,7 @@ define (require) ->
 
           it 'inserts form html into .modal-body element', ->
             $el = @view.render().$el
-            expect($el.find('.modal-body')).toContain('div.stub-modal')
-
-          it 'renders modal confirm button', ->
-            @view.render()
-            expect(@view.$el).toContain('button.btn-primary:contains("Confirm")')
-
-          it 'renders modal back button', ->
-            @view.render()
-            expect(@view.$el).toContain('button.btn:contains("Back")')
+            expect($el).toContain('div.stub-modal')
 
     describe 'events', ->
       beforeEach ->

@@ -2,32 +2,41 @@ define [
   'jquery'
   'underscore'
   'backbone'
+  'views/modals/header'
+  'views/modals/footer'
   'modules/base/view'
   'modules/translatable/form'
   'i18n'
-], ($, _, Backbone, BaseView, Form, I18n) ->
+], ($, _, Backbone, ModalHeaderView, ModalFooterView, BaseView, Form, I18n) ->
 
   class ConfirmLinkDetailsView extends BaseView
-    className: 'form'
     template: _.template '
-      <div class="row-fluid">
-        <div class="span8" id="form">
-        </div>
-        <div class="span4">
-          <div class="thumbnail">
-            <img src="<%= thumb_src %>" style="max-width: 300; max-height: 500px" />
+      <div class="modal-header"></div>
+      <div class="modal-body">
+        <div class="row-fluid">
+          <div class="span8" id="form">
+          </div>
+          <div class="span4">
+            <div class="thumbnail">
+              <img src="<%= thumb_src %>" style="max-width: 300; max-height: 500px" />
+            </div>
           </div>
         </div>
       </div>
-    '
+      <div class="modal-footer"></div>'
 
     buildEvents: () ->
       _(super).extend
         'change select': 'updateLabels'
+        'submit form': 'submitForm'
 
     initialize: (options = {}) ->
       super(options)
       @form = new Form(model: @model, wildcard: 'xx')
+      @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
+      @header = new @ModalHeaderView(title: 'Confirm link details <small>' + @model.getUrl() + '</small>')
+      @ModalFooterView = options.ModalFooterView || ModalFooterView
+      @footer = new @ModalFooterView(prevString: 'Back', nextString: 'Confirm')
 
     render: () ->
       @renderChild(@form)
@@ -35,10 +44,13 @@ define [
       if embedData = @model.getEmbedData()
         @preFillForm(@form, embedData)
       @$el.html(
-        @template
+        @template(
           thumb_src: @model.getThumbnailUrl()
+        )
       )
       @$('#form').append(@form.el)
+      @renderChildInto(@header, '.modal-header')
+      @renderChildInto(@footer, '.modal-footer')
       @
 
     formatForm: (form) ->
@@ -61,3 +73,5 @@ define [
       @form.$('.title-xx textarea').attr('readonly', false)
       @form.$('.summary-xx textarea').attr('readonly', false)
       @form.$('select[name="source_locale"] option[value=""]').remove()
+
+    submitForm: () ->

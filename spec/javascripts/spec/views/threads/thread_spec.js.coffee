@@ -157,7 +157,6 @@ define (require) ->
 
         afterEach ->
           $('#sandbox').remove()
-          $('body').removeClass()
           $('body .modal-backdrop').remove()
 
         it 'creates addLinkModal with a new link model', ->
