@@ -100,3 +100,16 @@ define (require) ->
           expect(params.link).toBeDefined()
           expect(params.link.title).toEqual('en': 'a cool link')
           expect(params.link.summary).toEqual('en': 'a summary')
+
+        describe 'validations', ->
+          beforeEach ->
+            @spy = sinon.spy()
+            @link.bind('invalid', @spy)
+            @data = @fixtures.Link.valid
+
+          afterEach -> @link.unbind('error', @spy)
+
+          it 'does not save if the source locale is blank', ->
+            expect(@link.save(_(@data).extend(source_locale: ''))).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@link, source_locale: 'can\'t be blank')

@@ -64,3 +64,17 @@ beforeEach ->
         profile: "I like dicing blue chickens."
         avatar_url: "http://www.example.com/csasaki.png"
         avatar_mini_url: "http://www.example.com/csasaki_mini.png"
+
+    Link:
+      valid:
+        "created_at":"2011-07-20T12:20:00Z"
+        "updated_at":"2012-04-10T10:25:00Z"
+        "source_locale":"en"
+        "url": "http://youtu.be/tzD9BkXGJ1M"
+        "title":
+          "en": "What is CrossFit?"
+        "summary":
+          "en": "CrossFit is an effective way to get fit. Anyone can do it."
+        "user":
+          "name":"csasaki"
+          "fullname":"Cojiro Sasaki"
