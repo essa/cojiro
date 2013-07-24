@@ -76,14 +76,18 @@ define [
         type = schema[key]['type']
         label = schema[key]['label'] || key
         value = self.model.get(key)
+        values = schema[key]['values']
 
         if translated = translatableAttributes && (key in translatableAttributes)
           value = value.toJSON()
           html = {}
           _(locales).each (locale) ->
-            html[locale] = self.getHtml(key, value[locale] || '', type, locale)
+            options = locale: locale
+            _(options).extend(values: values) if values?
+            html[locale] = self.getHtml(key, value[locale] || '', type, options)
         else
-          html = self.getHtml(key, value, type)
+          options = values: values if values?
+          html = self.getHtml(key, value, type, options)
         {
           html: html
           label: label
@@ -92,8 +96,9 @@ define [
           cid: self.cid
         }
 
-    getHtml: (key, value, type, lang = "") ->
-      key = (key + '-' + lang) if lang
+    getHtml: (key, value, type, options = {}) ->
+      key = (key + '-' + options.locale) if options.locale
+      locale = options.locale || ''
       pattern = switch(type)
         when 'Text'
           '<input id=":cid-:key" name=":key" type="text" value=":value" :lang/>'
@@ -101,7 +106,7 @@ define [
           '<textarea id=":cid-:key" name=":key" type="text" value=":value" :lang/>'
         when 'Select'
           fragment = ['<select id=":cid-:key" name=":key">']
-          fragment = fragment.concat(_(@schema()[key]['values']).map (displayVal, val) ->
+          fragment = fragment.concat(_(options.values || {}).map (displayVal, val) ->
             selected = if (value == val) then ' selected="selected"' else ''
             '<option value="' + val + '"' + selected + '>' + displayVal + '</option>')
           fragment.push('</select>')
@@ -110,7 +115,7 @@ define [
           .replace(/:cid/g, @cid)
           .replace(/:key/g, key)
           .replace(/:value/g, value || "")
-          .replace(/:lang/g, lang && ('lang="' + lang + '"'))
+          .replace(/:lang/g, locale && ('lang="' + locale + '"'))
 
     serialize: =>
       form = if @tagName == 'form' then @$el else @$el.find('form')

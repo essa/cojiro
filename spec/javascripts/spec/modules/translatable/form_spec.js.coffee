@@ -95,6 +95,7 @@ define (require) ->
         beforeEach ->
           @model.set('attribute1', 'value 1')
           @model.set('attribute2', 'value 2')
+          @model.set('attribute3', 'value 3')
           @view = new Form(model: @model)
           @view.cid = '123'
           sinon.stub(@view, 'getHtml').returns('html')
@@ -104,9 +105,11 @@ define (require) ->
             schema: ->
               attribute1: type: 'Text'
               attribute2: type: 'TextArea'
+              attribute3: type: 'Select'
           expect(@view.getItems()).toEqual([
             { html: 'html', label: 'attribute1', key: 'attribute1', translated: false, cid: '123' }
             { html: 'html', label: 'attribute2', key: 'attribute2', translated: false, cid: '123' }
+            { html: 'html', label: 'attribute3', key: 'attribute3', translated: false, cid: '123' }
           ])
 
         it 'assigns label if defined in schema', ->
@@ -125,10 +128,14 @@ define (require) ->
             schema: ->
               attribute1: type: 'Text'
               attribute2: type: 'TextArea'
+              attribute3:
+                type: 'Select'
+                values: 'values'
           @view.getItems()
-          expect(@view.getHtml).toHaveBeenCalledTwice()
+          expect(@view.getHtml).toHaveBeenCalledThrice()
           expect(@view.getHtml).toHaveBeenCalledWith('attribute1', 'value 1', 'Text')
           expect(@view.getHtml).toHaveBeenCalledWith('attribute2', 'value 2', 'TextArea')
+          expect(@view.getHtml).toHaveBeenCalledWith('attribute3', 'value 3', 'Select', values: 'values')
 
       describe 'translated attributes', ->
         beforeEach ->
@@ -166,7 +173,7 @@ define (require) ->
           it 'calls getHtml with attribute and blank value', ->
             @view.getItems()
             expect(@view.getHtml).toHaveBeenCalledOnce()
-            expect(@view.getHtml).toHaveBeenCalledWith('title', '', 'Text', 'xyz')
+            expect(@view.getHtml).toHaveBeenCalledWith('title', '', 'Text', locale: 'xyz')
 
         describe 'with locales option set', ->
           beforeEach ->
@@ -191,8 +198,8 @@ define (require) ->
           it 'calls getHtml on each translation of schema items', ->
             @view.getItems()
             expect(@view.getHtml).toHaveBeenCalledTwice()
-            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in English', 'Text', 'en')
-            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', 'ja')
+            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in English', 'Text', locale: 'en')
+            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', locale: 'ja')
 
     describe '#getHtml', ->
       beforeEach ->
@@ -210,15 +217,10 @@ define (require) ->
             expect(@view.getHtml('attribute', 'value', 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text" value="value" />')
 
         describe 'Select', ->
-          beforeEach ->
-            @model.schema = ->
-              attribute:
-                type: 'Select'
-                label: 'a select'
-                values: { en: 'English', ja: 'Japanese', fr: 'French' }
 
           it 'creates correct select tag', ->
-            expect(@view.getHtml('attribute', 'fr', 'Select')).toContain([
+            options = values: { en: 'English', ja: 'Japanese', fr: 'French' }
+            expect(@view.getHtml('attribute', 'fr', 'Select', options)).toContain([
               '<select id="123-attribute" name="attribute">'
               '<option value="en">English</option>'
               '<option value="ja">Japanese</option>'
@@ -234,7 +236,7 @@ define (require) ->
 
       describe 'translated attributes', ->
         it 'adds lang tag and appends lang to attribute name', ->
-          expect(@view.getHtml('attribute', 'value', 'Text', 'en')).toContain('<input id="123-attribute-en" name="attribute-en" type="text" value="value" lang="en"/>')
+          expect(@view.getHtml('attribute', 'value', 'Text', locale: 'en')).toContain('<input id="123-attribute-en" name="attribute-en" type="text" value="value" lang="en"/>')
 
     describe 'default template (output)', ->
       beforeEach ->
