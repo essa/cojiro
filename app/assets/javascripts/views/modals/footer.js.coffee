@@ -13,11 +13,6 @@ define [
       <button class="next btn btn-primary"><%= next_string %></button>
       '
 
-    buildEvents: () ->
-      _(super).extend
-        'click button.next': 'next'
-        'click button.prev': 'prev'
-
     initialize: (options = {}) ->
       super(options)
 
@@ -31,6 +26,3 @@ define [
           next_string: @nextString
       )
       @
-
-    next: () -> channel.trigger('modal:next')
-    prev: () -> channel.trigger('modal:prev')

@@ -13,12 +13,12 @@ define (require) ->
   describe 'ConfirmLinkDetailsView', ->
     beforeEach ->
       I18n.locale = 'en'
-      @submitFormSpy = sinon.spy(ConfirmLinkDetailsView.prototype, 'submitForm')
+      @nextSpy = sinon.spy(ConfirmLinkDetailsView.prototype, 'next')
       @model = new Link(url: 'http://www.example.com')
       @view = new ConfirmLinkDetailsView(model: @model)
 
     afterEach ->
-      @submitFormSpy.restore()
+      @nextSpy.restore()
 
     describe 'instantiation', ->
       beforeEach -> @$el = @view.$el
@@ -160,6 +160,6 @@ define (require) ->
           @view.render()
           sinon.stub(@model, 'save')
 
-        xit 'calls submitLink', ->
-          @$('button.next').click()
-          expect(@submitFormSpy).toHaveBeenCalledOnce()
+        it 'calls next', ->
+          @view.$('button.next').click()
+          expect(@nextSpy).toHaveBeenCalledOnce()

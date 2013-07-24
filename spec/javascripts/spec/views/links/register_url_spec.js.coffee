@@ -59,11 +59,9 @@ define (require) ->
       beforeEach ->
         @model = new Link
         @registerUrlSpy = sinon.spy(RegisterUrlView.prototype, 'registerUrl')
-        @goToNextSpy = sinon.spy(RegisterUrlView.prototype, 'goToNext')
 
       afterEach ->
         RegisterUrlView.prototype.registerUrl.restore()
-        RegisterUrlView.prototype.goToNext.restore()
 
       describe 'saving the link', ->
         beforeEach ->

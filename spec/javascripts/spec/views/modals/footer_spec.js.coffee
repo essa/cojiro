@@ -22,19 +22,3 @@ define (require) ->
       it 'renders next button', ->
         @view.render()
         expect(@view.$el).toContain('button.btn.btn-primary:contains("Next")')
-
-    describe 'events', ->
-      beforeEach ->
-        @view.render()
-
-      it 'triggers modal:next event on channel when next button is clicked', ->
-        eventSpy = sinon.spy()
-        channel.on('modal:next', eventSpy)
-        @view.$('button:contains("Next")').click()
-        expect(eventSpy).toHaveBeenCalled()
-
-      it 'triggers modal:prev event on channel when prev button is clicked', ->
-        eventSpy = sinon.spy()
-        channel.on('modal:prev', eventSpy)
-        @view.$('button:contains("Back")').click()
-        expect(eventSpy).toHaveBeenCalled()

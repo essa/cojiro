@@ -6,8 +6,9 @@ define [
   'views/modals/footer'
   'modules/base/view'
   'modules/translatable/form'
+  'modules/channel'
   'i18n'
-], ($, _, Backbone, ModalHeaderView, ModalFooterView, BaseView, Form, I18n) ->
+], ($, _, Backbone, ModalHeaderView, ModalFooterView, BaseView, Form, channel, I18n) ->
 
   class ConfirmLinkDetailsView extends BaseView
     template: _.template '
@@ -28,7 +29,8 @@ define [
     buildEvents: () ->
       _(super).extend
         'change select': 'updateLabels'
-        'submit form': 'submitForm'
+        'click button.next': 'next'
+        'click button.prev': 'prev'
 
     initialize: (options = {}) ->
       super(options)
@@ -74,4 +76,5 @@ define [
       @form.$('.summary-xx textarea').attr('readonly', false)
       @form.$('select[name="source_locale"] option[value=""]').remove()
 
-    submitForm: () ->
+    next: () ->
+    prev: () ->channel.trigger('modal:prev')

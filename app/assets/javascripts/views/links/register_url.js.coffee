@@ -50,8 +50,8 @@ define [
       self = @
       @model.save {},
         success: (model, resp) ->
-          self.goToNext()
+          self.next()
 
-    goToNext: () ->
+    next: () ->
       @leave()
       channel.trigger('modal:next')
