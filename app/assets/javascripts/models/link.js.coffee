@@ -43,8 +43,13 @@ define [
       [ 'title', 'summary' ]
 
     schema: ->
+      source_locale:
+        type: 'Select'
+        label: I18n.t('attributes.link.source_locale')
+        values: _('': 'Select a language').extend(
+          _.object(_(I18n.availableLocales).map (locale) -> [locale, I18n.t(locale)]))
       title:
-        type: 'Text'
+        type: 'TextArea'
         label: _(I18n.t('attributes.link.title')).capitalize()
       summary:
         type: 'TextArea'

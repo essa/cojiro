@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
       },
       :'adapters/i18n-adapter' => {
         :locale => I18n.locale,
-        :availableLocales => I18n.available_locales
+        :availableLocales => I18n.available_locales.rotate(I18n.available_locales.index(I18n.locale))
       }
     }
     opts = { :config => config }

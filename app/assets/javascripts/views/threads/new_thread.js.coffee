@@ -37,8 +37,7 @@ define [
       @$el.html(self.template(start_a_thread_string: start_a_thread_string))
 
     renderForm: ->
-      @renderChild(@form)
-      @$el.append(@form.el)
+      @appendChild(@form)
       @.$('fieldset').append(formActionsTemplate())
 
     submitForm: () ->

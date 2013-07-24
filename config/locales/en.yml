@@ -62,6 +62,7 @@ en:
     link:
       title: title
       summary: summary
+      source_locale: This link is in
 
   layout:
     home: Home
