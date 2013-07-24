@@ -74,6 +74,8 @@ define [
       @form.$('.summary-xx label').text('Summary in ' + locale)
       @form.$('.title-xx textarea').attr('readonly', false)
       @form.$('.summary-xx textarea').attr('readonly', false)
+      @form.$('.control-group.source_locale').removeClass('error')
+      @form.$('.control-group .help-block').empty()
       @form.$('select[name="source_locale"] option[value=""]').remove()
 
     next: () ->

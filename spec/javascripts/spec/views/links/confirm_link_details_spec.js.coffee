@@ -155,6 +155,13 @@ define (require) ->
           @view.$('select').val('ja').trigger('change')
           expect(@view.$('select[name="source_locale"] option[value=""]').length).toEqual(0)
 
+        it 'removes any existing errors on source locale', ->
+          @view.$('.control-group.source_locale').addClass('error')
+          @view.$('.control-group .help-block').html('an error message')
+          @view.$('select').val('en').trigger('change')
+          expect(@view.$('.control-group.source_locale')).not.toHaveClass('error')
+          expect(@view.$('.control-group .help-block')).toBeEmpty()
+
       describe 'submitting link form data', ->
         beforeEach ->
           @view.render()
