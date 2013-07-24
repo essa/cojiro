@@ -76,11 +76,19 @@ define [
     validate: (attrs) ->
       errors = super(attrs) || {}
 
-      if (attrs.source_locale == '' || attrs.source_locale == null)
-        errors.source_locale = I18n.t('errors.messages.blank')
-
       if (attrs.url is '' or attrs.url is null)
         errors.url = I18n.t('errors.messages.blank')
+
+      sourceLocale = attrs.source_locale
+
+      if (sourceLocale == '' || sourceLocale == null)
+        errors.source_locale = I18n.t('errors.messages.blank')
+      else
+        if (title = attrs.title) instanceof Backbone.Model
+          title = title.attributes
+
+        if _.isEmpty(title) || (title[sourceLocale] == '') || (title[sourceLocale] == null)
+          (errors.title = {})[sourceLocale] = I18n.t('errors.messages.blank')
 
       return !_.isEmpty(errors) && errors
 

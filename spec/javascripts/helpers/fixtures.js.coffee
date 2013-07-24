@@ -67,8 +67,6 @@ beforeEach ->
 
     Link:
       valid:
-        "created_at":"2011-07-20T12:20:00Z"
-        "updated_at":"2012-04-10T10:25:00Z"
         "source_locale":"en"
         "url": "http://youtu.be/tzD9BkXGJ1M"
         "title":

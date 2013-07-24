@@ -109,6 +109,10 @@ define (require) ->
 
           afterEach -> @link.unbind('error', @spy)
 
+          it 'is valid with valid attributes', ->
+            expect(@link.save(@data)).toBeTruthy()
+            expect(@spy).not.toHaveBeenCalled()
+
           it 'does not save if the source locale is blank', ->
             expect(@link.save(_(@data).extend(source_locale: ''))).toBeFalsy()
             expect(@spy).toHaveBeenCalledOnce()
@@ -118,3 +122,26 @@ define (require) ->
             expect(@link.save(_(@data).extend(url: ''))).toBeFalsy()
             expect(@spy).toHaveBeenCalledOnce()
             expect(@spy).toHaveBeenCalledWith(@link, url: 'can\'t be blank')
+
+          it 'does not save if the title is blank in the source locale', ->
+            @data =
+              source_locale: 'fr'
+              title: fr: ''
+            expect(@link.save(@data)).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@link, title: fr: 'can\'t be blank')
+
+          it 'does not save if the title in the source locale is missing', ->
+            @data =
+              source_locale: 'fr'
+            expect(@link.save(@data)).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@link, title: fr: 'can\'t be blank')
+
+          it 'does not save if the title in the source locale is null', ->
+            @data =
+              source_locale: 'fr'
+              title: fr: null
+            expect(@link.save(@data)).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@link, title: fr: 'can\'t be blank')
