@@ -203,11 +203,11 @@ define (require) ->
 
         describe 'Text', ->
           it 'creates correct html for Text type', ->
-            expect(@view.getHtml('attribute', 'value', 'Text')).toContain('<input id="123-attribute" name="attribute" size="30" type="text" value="value" />')
+            expect(@view.getHtml('attribute', 'value', 'Text')).toContain('<input id="123-attribute" name="attribute" type="text" value="value" />')
 
         describe 'TextArea', ->
           it 'creates correct html for TextArea type', ->
-            expect(@view.getHtml('attribute', 'value', 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="value" />')
+            expect(@view.getHtml('attribute', 'value', 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text" value="value" />')
 
         describe 'Select', ->
           beforeEach ->
@@ -216,10 +216,9 @@ define (require) ->
                 type: 'Select'
                 label: 'a select'
                 values: { en: 'English', ja: 'Japanese', fr: 'French' }
-            @model.set('attribute', 'fr')
 
           it 'creates correct select tag', ->
-            expect(@view.getHtml('attribute', 'ja', 'Select')).toContain([
+            expect(@view.getHtml('attribute', 'fr', 'Select')).toContain([
               '<select id="123-attribute" name="attribute">'
               '<option value="en">English</option>'
               '<option value="ja">Japanese</option>'
@@ -228,14 +227,14 @@ define (require) ->
 
         describe 'other values', ->
           it 'creates correct html for attributes with undefined value', ->
-            expect(@view.getHtml('attribute', undefined, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="" />')
+            expect(@view.getHtml('attribute', undefined, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text" value="" />')
 
           it 'creates correct html for attributes with null value', ->
-            expect(@view.getHtml('attribute', null, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" size="30" type="text" value="" />')
+            expect(@view.getHtml('attribute', null, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text" value="" />')
 
       describe 'translated attributes', ->
         it 'adds lang tag and appends lang to attribute name', ->
-          expect(@view.getHtml('attribute', 'value', 'Text', 'en')).toContain('<input id="123-attribute-en" name="attribute-en" size="30" type="text" value="value" lang="en"/>')
+          expect(@view.getHtml('attribute', 'value', 'Text', 'en')).toContain('<input id="123-attribute-en" name="attribute-en" type="text" value="value" lang="en"/>')
 
     describe 'default template (output)', ->
       beforeEach ->
@@ -267,25 +266,25 @@ define (require) ->
 
         it 'renders fields', ->
           @view.render()
-          expect(@view.$el).toContain('input#123-attribute[name="attribute"][type="text"][value="some attribute"]')
+          expect(@view.$el).toContain('.control-group.attribute input#123-attribute[name="attribute"][type="text"][value="some attribute"]')
 
         it 'renders labels', ->
           @view.render()
-          expect(@view.$el).toContain('label[for="123-attribute"]:contains("My Attribute")')
+          expect(@view.$el).toContain('.control-group.attribute label[for="123-attribute"]:contains("My Attribute")')
 
       describe 'translated attributes', ->
 
         it 'renders fields for attribute translations specified in locales option', ->
           @view.render()
           # English
-          expect(@view.$el).toContain('input#123-title-en[name="title-en"][type="text"][value="Title in English"]')
-          expect(@view.$el).toContain('textarea#123-summary-en[name="summary-en"][type="text"][value="Summary in English"]')
+          expect(@view.$el).toContain('.control-group.title-en input#123-title-en[name="title-en"][type="text"][value="Title in English"]')
+          expect(@view.$el).toContain('.control-group.summary-en textarea#123-summary-en[name="summary-en"][type="text"][value="Summary in English"]')
           # Japanese
-          expect(@view.$el).toContain('input#123-title-ja[name="title-ja"][type="text"][value="Title in Japanese"]')
-          expect(@view.$el).toContain('textarea#123-summary-ja[name="summary-ja"][type="text"][value=""]')
+          expect(@view.$el).toContain('.control-group.title-ja input#123-title-ja[name="title-ja"][type="text"][value="Title in Japanese"]')
+          expect(@view.$el).toContain('.control-group.summary-ja textarea#123-summary-ja[name="summary-ja"][type="text"][value=""]')
           # French
-          expect(@view.$el).not.toContain('input#123-title-fr[name="title-fr"][type="text"][value="Title in French"]')
-          expect(@view.$el).not.toContain('textarea#123-summary-fr[name="summary-fr"][type="text"][value="Summary in French"]')
+          expect(@view.$el).not.toContain('.control-group.title-fr input#123-title-fr[name="title-fr"][type="text"][value="Title in French"]')
+          expect(@view.$el).not.toContain('.control-group.summary-fr textarea#123-summary-fr[name="summary-fr"][type="text"][value="Summary in French"]')
 
         it 'renders label if label is a value', ->
           @view.render()

@@ -18,7 +18,7 @@ define [
             <% _.each(items, function(item) { %>
               <% if (item.translated == true) { %>
                 <% _.each(item.html, function(html, locale) { %>
-                  <div class="control-group">
+                  <div class="control-group <%= item.key %>-<%= locale %>">
                     <label class="control-label" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
                         <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
@@ -29,7 +29,7 @@ define [
                   </div>
                 <% }); %>
               <% } else { %>
-                <div class="control-group">
+                <div class="control-group <%= item.key %>">
                   <label class="control-label" for="<%= item.cid %>-<%= item.key %>">
                     <%= item.label %>
                   </label>
@@ -96,15 +96,14 @@ define [
       key = (key + '-' + lang) if lang
       pattern = switch(type)
         when 'Text'
-          '<input id=":cid-:key" name=":key" size="30" type="text" value=":value" :lang/>'
+          '<input id=":cid-:key" name=":key" type="text" value=":value" :lang/>'
         when 'TextArea'
-          '<textarea id=":cid-:key" name=":key" size="30" type="text" value=":value" :lang/>'
+          '<textarea id=":cid-:key" name=":key" type="text" value=":value" :lang/>'
         when 'Select'
-          attributeValue = @model.get(key)
           fragment = ['<select id=":cid-:key" name=":key">']
-          fragment = fragment.concat(_(@schema()[key]['values']).map (value, key) ->
-            selected = if (attributeValue == key) then ' selected="selected"' else ''
-            '<option value="' + key + '"' + selected + '>' + value + '</option>')
+          fragment = fragment.concat(_(@schema()[key]['values']).map (displayVal, val) ->
+            selected = if (value == val) then ' selected="selected"' else ''
+            '<option value="' + val + '"' + selected + '>' + displayVal + '</option>')
           fragment.push('</select>')
           fragment.join('')
       pattern && pattern
