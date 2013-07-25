@@ -104,9 +104,9 @@ define [
       locale = options.locale || ''
       pattern = switch(type)
         when 'Text'
-          '<input id=":cid-:key" name=":key" type="text" value=":value" :lang/>'
+          '<input id=":cid-:key" name=":key" type="text" value=":value":lang/>'
         when 'TextArea'
-          '<textarea id=":cid-:key" name=":key" type="text" value=":value" :lang/>'
+          '<textarea id=":cid-:key" name=":key" type="text":lang>:value</textarea>'
         when 'Select'
           fragment = ['<select id=":cid-:key" name=":key">']
           fragment = fragment.concat(_(options.values || {}).map (displayVal, val) ->
@@ -118,7 +118,7 @@ define [
           .replace(/:cid/g, @cid)
           .replace(/:key/g, key)
           .replace(/:value/g, value || "")
-          .replace(/:lang/g, locale && ('lang="' + locale + '"'))
+          .replace(/:lang/g, locale && (' lang="' + locale + '"'))
 
     serialize: =>
       form = if @tagName == 'form' then @$el else @$el.find('form')
