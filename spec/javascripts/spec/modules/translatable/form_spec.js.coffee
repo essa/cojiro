@@ -170,10 +170,10 @@ define (require) ->
               cid: '123'
             ])
 
-          it 'calls getHtml with attribute and blank value', ->
+          it 'calls getHtml with attribute and value in current locale', ->
             @view.getItems()
             expect(@view.getHtml).toHaveBeenCalledOnce()
-            expect(@view.getHtml).toHaveBeenCalledWith('title', '', 'Text', locale: 'xyz')
+            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', locale: 'xyz')
 
         describe 'with locales option set', ->
           beforeEach ->

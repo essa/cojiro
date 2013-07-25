@@ -67,10 +67,12 @@ define [
 
     getItems: ->
       self = @
+      wildcard = @wildcard
       schema = @schema()
       translatableAttributes = @model.translatableAttributes
       keys = _(schema).keys()
-      locales = @locales || [ self.wildcard ]
+      locales = @locales || [ wildcard ]
+      sourceLocale = @sourceLocale()
 
       _(keys).map (key) ->
         type = schema[key]['type']
@@ -80,6 +82,7 @@ define [
 
         if translated = translatableAttributes && (key in translatableAttributes)
           value = value.toJSON()
+          value[wildcard] = value[sourceLocale]
           html = {}
           _(locales).each (locale) ->
             options = locale: locale
