@@ -13,26 +13,27 @@ define (require) ->
       I18n.locale = 'en'
 
     describe 'instantiation', ->
-      beforeEach -> @options = model: {}
 
-      it 'throws no error if passed required options', ->
-        options = @options
-        expect(-> new AddLinkModalView(options)).not.toThrow()
+      it 'throws no error if passed no options', ->
+        expect(-> new AddLinkModalView().not.toThrow())
 
-      it 'throws error if not passed model', ->
-        options = _(@options).extend(model: null)
-        expect(-> new AddLinkModalView(@options)).toThrow('model required')
+      it 'throws error if passed model in options', ->
+        options = model: {}
+        expect(-> new AddLinkModalView(options)).toThrow('no model needed')
 
     describe 'rendering', ->
       beforeEach ->
         # create stub child modal view
-        @modalView = new Backbone.View()
+        @modalView = new Backbone.View
         @modalView.render = () ->
           @el = document.createElement('div')
           @el.setAttribute('class', 'stub-modal')
           @
         @modalView.leave = ->
         sinon.spy(@modalView, 'render')
+
+        @model = sinon.stub()
+        @model.getUrl = -> 'http://www.example.com'
 
         modalEl = $('<div id="modal" class="modal hide fade"></div>')
         $('body').append(modalEl)
@@ -42,7 +43,7 @@ define (require) ->
 
       describe 'invalid step', ->
         it 'throws error', ->
-          @view = new AddLinkModalView model: sinon.stub()
+          @view = new AddLinkModalView
           @view.step = -1
           self = @
           expect(-> self.view.render()).toThrow('invalid step')
@@ -50,12 +51,11 @@ define (require) ->
       #TODO: refactor this into shared examples
       describe 'register url view (step 1)', ->
         beforeEach ->
-          @model = sinon.stub()
-          @model.getUrl = -> ''
           @RegisterUrlView = sinon.stub().returns(@modalView)
           @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
+          @Link = sinon.stub().returns(@model)
           @view = new AddLinkModalView
-            model: @model
+            Link: @Link
             RegisterUrlView: @RegisterUrlView
             ConfirmLinkDetailsView: @ConfirmLinkDetailsView
 
@@ -69,6 +69,11 @@ define (require) ->
             @view.modal = modal
             @view.render()
             expect(modal.leave).toHaveBeenCalledOnce()
+
+          it 'creates a new link model', ->
+            @view.render()
+            expect(@Link.calledWithNew()).toBeTruthy()
+            expect(@Link).toHaveBeenCalledWithExactly()
 
         describe 'element classes', ->
 
@@ -106,13 +111,13 @@ define (require) ->
 
       describe 'confirm link details view (step 2)', ->
         beforeEach ->
-          @model = sinon.stub()
-          @model.getUrl = -> 'http://www.example.com'
           @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
+          @Link = sinon.stub()
           @view = new AddLinkModalView
-            model: @model
             ConfirmLinkDetailsView: @ConfirmLinkDetailsView
+            Link: @Link
             step: 2
+          @view.model = @model
 
         it 'returns the view object', ->
           expect(@view.render()).toEqual(@view)
@@ -146,6 +151,10 @@ define (require) ->
 
         describe 'rendering the modal', ->
 
+          it 'does not create a new model', ->
+            @view.render()
+            expect(@Link.calledWithNew()).toBeFalsy()
+
           it 'creates a ConfirmLinkDetailsView', ->
             @view.render()
             expect(@ConfirmLinkDetailsView).toHaveBeenCalledOnce()
@@ -161,13 +170,13 @@ define (require) ->
 
     describe 'events', ->
       beforeEach ->
-        @model = sinon.stub()
         @ConfirmLinkDetailsView = sinon.stub()
         @RegisterUrlView = sinon.stub()
+        @Link = sinon.stub()
         @view = new AddLinkModalView
-          model: @model
           ConfirmLinkDetailsView: @ConfirmLinkDetailsView
           RegisterUrlView: @RegisterUrlView
+          Link: @Link
         sinon.stub(@view, 'render')
 
       afterEach ->

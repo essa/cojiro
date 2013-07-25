@@ -23,7 +23,7 @@ define [
     initialize: (options = {}) ->
       super(options)
 
-      @addLinkModal = new AddLinkModal(model: new Link)
+      @addLinkModal = new AddLinkModal
       @titleField = new Translatable.InPlaceField(model: @model, field: "title", editable: globals.currentUser?)
       @summaryField = new Translatable.InPlaceField(model: @model, field: "summary", editable: globals.currentUser?)
 
