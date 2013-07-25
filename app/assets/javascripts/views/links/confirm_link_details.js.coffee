@@ -64,8 +64,8 @@ define [
       form.$('textarea[name="summary-xx"]').attr('readonly', true)
 
     preFillForm: (form, embedData) ->
-      @form.$('textarea[name="title-xx"]').val(embedData['title'])
-      @form.$('textarea[name="summary-xx"]').val(embedData['description'])
+      @form.$('textarea[name="title-xx"]').val(embedData.title)
+      @form.$('textarea[name="summary-xx"]').val(embedData.description)
 
     updateLabels: () ->
       self = @
