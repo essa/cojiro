@@ -214,7 +214,7 @@ define (require) ->
 
         describe 'TextArea', ->
           it 'creates correct html for TextArea type', ->
-            expect(@view.getHtml('attribute', 'value', 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text">value</textarea>')
+            expect(@view.getHtml('attribute', 'value', 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text" rows="3">value</textarea>')
 
         describe 'Select', ->
 
@@ -229,10 +229,10 @@ define (require) ->
 
         describe 'other values', ->
           it 'creates correct html for attributes with undefined value', ->
-            expect(@view.getHtml('attribute', undefined, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text"></textarea>')
+            expect(@view.getHtml('attribute', undefined, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text" rows="3"></textarea>')
 
           it 'creates correct html for attributes with null value', ->
-            expect(@view.getHtml('attribute', null, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text"></textarea>')
+            expect(@view.getHtml('attribute', null, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text" rows="3"></textarea>')
 
       describe 'translated attributes', ->
         it 'adds lang tag and appends lang to attribute name', ->
@@ -279,14 +279,14 @@ define (require) ->
         it 'renders fields for attribute translations specified in locales option', ->
           @view.render()
           # English
-          expect(@view.$el).toContain('.control-group.title-en input#123-title-en[name="title-en"][type="text"][value="Title in English"]')
-          expect(@view.$el).toContain('.control-group.summary-en textarea#123-summary-en[name="summary-en"][type="text"]:contains("Summary in English")')
+          expect(@view.$el).toContain('.control-group.title.title-en input#123-title-en[name="title-en"][type="text"][value="Title in English"]')
+          expect(@view.$el).toContain('.control-group.summary.summary-en textarea#123-summary-en[name="summary-en"][type="text"]:contains("Summary in English")')
           # Japanese
-          expect(@view.$el).toContain('.control-group.title-ja input#123-title-ja[name="title-ja"][type="text"][value="Title in Japanese"]')
-          expect(@view.$el).toContain('.control-group.summary-ja textarea#123-summary-ja[name="summary-ja"][type="text"]:contains("")')
+          expect(@view.$el).toContain('.control-group.title.title-ja input#123-title-ja[name="title-ja"][type="text"][value="Title in Japanese"]')
+          expect(@view.$el).toContain('.control-group.summary.summary-ja textarea#123-summary-ja[name="summary-ja"][type="text"]:contains("")')
           # French
-          expect(@view.$el).not.toContain('.control-group.title-fr input#123-title-fr[name="title-fr"][type="text"][value="Title in French"]')
-          expect(@view.$el).not.toContain('.control-group.summary-fr textarea#123-summary-fr[name="summary-fr"][type="text"]:contains("Summary in French")')
+          expect(@view.$el).not.toContain('.control-group.title.title-fr input#123-title-fr[name="title-fr"][type="text"][value="Title in French"]')
+          expect(@view.$el).not.toContain('.control-group.summary.summary-fr textarea#123-summary-fr[name="summary-fr"][type="text"]:contains("Summary in French")')
 
         it 'renders label if label is a value', ->
           @view.render()

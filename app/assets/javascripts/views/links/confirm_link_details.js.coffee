@@ -56,9 +56,6 @@ define [
       @
 
     formatForm: (form) ->
-      # set rows
-      form.$('textarea[name="title-xx"]').attr('rows', 2)
-      form.$('textarea[name="summary-xx"]').attr('rows', 5)
       # set to readonly
       form.$('textarea[name="title-xx"]').attr('readonly', true)
       form.$('textarea[name="summary-xx"]').attr('readonly', true)

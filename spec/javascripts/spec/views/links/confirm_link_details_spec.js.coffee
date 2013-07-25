@@ -80,9 +80,6 @@ define (require) ->
           @view.render()
           expect(@view.$(titleSelector)).toHaveValue('a title')
 
-        it 'sets rows attribute', ->
-          @view.render()
-          expect(@view.$(titleSelector)).toHaveAttr('rows', 2)
 
       describe 'summary', ->
         it 'renders summary field', ->
@@ -95,10 +92,6 @@ define (require) ->
           @model.getEmbedData = -> description: 'a summary'
           @view.render()
           expect(@view.$(summarySelector)).toHaveValue('a summary')
-
-        it 'sets rows attribute', ->
-          @view.render()
-          expect(@view.$(summarySelector)).toHaveAttr('rows', 5)
 
       describe 'cleaning up', ->
 

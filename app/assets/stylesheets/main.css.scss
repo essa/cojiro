@@ -259,6 +259,15 @@ ul.nav-pills {
     textarea {
       width: 98%;
     }
+
+    .title textarea {
+      height: 30px;
+    }
+
+    .summary textarea {
+      height: 100px;
+    }
+
     label {
       font-weight: bold;
     }

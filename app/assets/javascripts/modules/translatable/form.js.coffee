@@ -18,7 +18,7 @@ define [
             <% _.each(items, function(item) { %>
               <% if (item.translated == true) { %>
                 <% _.each(item.html, function(html, locale) { %>
-                  <div class="control-group <%= item.key %>-<%= locale %>">
+                  <div class="control-group <%= item.key %> <%= item.key %>-<%= locale %>">
                     <label class="control-label" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
                         <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
@@ -106,7 +106,7 @@ define [
         when 'Text'
           '<input id=":cid-:key" name=":key" type="text" value=":value":lang/>'
         when 'TextArea'
-          '<textarea id=":cid-:key" name=":key" type="text":lang>:value</textarea>'
+          '<textarea id=":cid-:key" name=":key" type="text" rows="3":lang>:value</textarea>'
         when 'Select'
           fragment = ['<select id=":cid-:key" name=":key">']
           fragment = fragment.concat(_(options.values || {}).map (displayVal, val) ->
