@@ -19,8 +19,7 @@ define [
             <button type="submit" class="btn"><%= go_string %></button>
           </fieldset>
         </form>
-      </div>
-      <div class="modal-footer"></div>'
+      </div>'
 
     buildEvents: () ->
       _(super).extend
