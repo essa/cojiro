@@ -210,33 +210,84 @@ define (require) ->
 
         describe 'Text', ->
           it 'creates correct html for Text type', ->
-            expect(@view.getHtml('attribute', 'value', 'Text')).toContain('<input id="123-attribute" name="attribute" type="text" value="value"/>')
+            $el = $(@view.getHtml('attribute', 'value', 'Text'))
+            expect($el).toBe('input')
+            expect($el).toHaveId('123-attribute')
+            expect($el).toHaveAttr('name', 'attribute')
+            expect($el).toHaveAttr('type', 'text')
+            expect($el).toHaveValue('value')
+            expect($el).not.toHaveAttr('lang')
 
         describe 'TextArea', ->
           it 'creates correct html for TextArea type', ->
-            expect(@view.getHtml('attribute', 'value', 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text" rows="3">value</textarea>')
+            $el = $(@view.getHtml('attribute', 'value', 'TextArea'))
+            expect($el).toBe('textarea')
+            expect($el).toHaveId('123-attribute')
+            expect($el).toHaveAttr('name', 'attribute')
+            expect($el).toHaveAttr('type', 'text')
+            expect($el).toHaveAttr('rows', '3')
+            expect($el).toHaveValue('value')
+            expect($el).not.toHaveAttr('lang')
 
         describe 'Select', ->
+          beforeEach -> @options = values: { en: 'English', ja: 'Japanese', fr: 'French' }
 
           it 'creates correct select tag', ->
-            options = values: { en: 'English', ja: 'Japanese', fr: 'French' }
-            expect(@view.getHtml('attribute', 'fr', 'Select', options)).toContain([
-              '<select id="123-attribute" name="attribute">'
-              '<option value="en">English</option>'
-              '<option value="ja">Japanese</option>'
-              '<option value="fr" selected="selected">French</option>'
-              '</select>'].join(''))
+            $el = $(@view.getHtml('attribute', 'fr', 'Select', @options))
+            expect($el).toBe('select')
+            expect($el).toHaveId('123-attribute')
+            expect($el).toHaveAttr('name', 'attribute')
+
+          it 'creates correct options', ->
+            $els = $(@view.getHtml('attribute', 'fr', 'Select', @options)).find('option')
+            expect($els[0]).toHaveValue('en')
+            expect($els[0]).toHaveText('English')
+            expect($els[0]).not.toHaveAttr('selected')
+            expect($els[1]).toHaveValue('ja')
+            expect($els[1]).toHaveText('Japanese')
+            expect($els[1]).not.toHaveAttr('selected')
+            expect($els[2]).toHaveValue('fr')
+            expect($els[2]).toHaveText('French')
+            expect($els[2]).toHaveAttr('selected')
 
         describe 'other values', ->
           it 'creates correct html for attributes with undefined value', ->
-            expect(@view.getHtml('attribute', undefined, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text" rows="3"></textarea>')
+            $el = $(@view.getHtml('attribute', undefined, 'TextArea'))
+            expect($el).toBe('textarea')
+            expect($el).toHaveId('123-attribute')
+            expect($el).toHaveAttr('name', 'attribute')
+            expect($el).toHaveAttr('type', 'text')
+            expect($el).not.toHaveAttr('value')
 
           it 'creates correct html for attributes with null value', ->
-            expect(@view.getHtml('attribute', null, 'TextArea')).toContain('<textarea id="123-attribute" name="attribute" type="text" rows="3"></textarea>')
+            $el = $(@view.getHtml('attribute', null, 'TextArea'))
+            expect($el).toBe('textarea')
+            expect($el).toHaveId('123-attribute')
+            expect($el).toHaveAttr('name', 'attribute')
+            expect($el).toHaveAttr('type', 'text')
+            expect($el).not.toHaveAttr('value')
 
       describe 'translated attributes', ->
-        it 'adds lang tag and appends lang to attribute name', ->
-          expect(@view.getHtml('attribute', 'value', 'Text', locale: 'en')).toContain('<input id="123-attribute-en" name="attribute-en" type="text" value="value" lang="en"/>')
+        describe 'Text', ->
+          it 'adds lang tag and appends lang to attribute name', ->
+            $el = $(@view.getHtml('attribute', 'value', 'Text', locale: 'en'))
+            expect($el).toBe('input')
+            expect($el).toHaveId('123-attribute-en')
+            expect($el).toHaveAttr('name', 'attribute-en')
+            expect($el).toHaveAttr('type', 'text')
+            expect($el).toHaveAttr('lang', 'en')
+            expect($el).toHaveValue('value')
+
+        describe 'TextArea', ->
+          it 'adds lang tag and appends lang to attribute name', ->
+            $el = $(@view.getHtml('attribute', 'value', 'TextArea', locale: 'en'))
+            expect($el).toBe('textarea')
+            expect($el).toHaveId('123-attribute-en')
+            expect($el).toHaveAttr('name', 'attribute-en')
+            expect($el).toHaveAttr('type', 'text')
+            expect($el).toHaveAttr('lang', 'en')
+            expect($el).toHaveValue('value')
+
 
     describe 'default template (output)', ->
       beforeEach ->
