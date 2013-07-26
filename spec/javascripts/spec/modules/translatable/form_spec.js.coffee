@@ -71,6 +71,22 @@ define (require) ->
       it 'returns view', ->
         expect(@view.render()).toBe(@view)
 
+    describe 'events', ->
+      describe 'error on model', ->
+        beforeEach ->
+          _(@model).extend
+            schema: ->
+              attribute: type: 'Text'
+          @view = new Form(model: @model)
+          @view.cid = '123'
+          @view.render()
+
+        it 'renders errors', ->
+          error = attribute: 'required'
+          @model.trigger('invalid', @, error)
+          $field = @view.$el.find('input#123-attribute')
+          expect($field.closest('.control-group')).toHaveClass('error')
+
     describe '#html', ->
       beforeEach ->
         @view = new Form(model: @model)

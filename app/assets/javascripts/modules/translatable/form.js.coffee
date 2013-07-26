@@ -55,6 +55,8 @@ define [
         throw new Error("Translatable.Form's locales must be an array of locale strings.")
       @wildcard = options.wildcard if options.wildcard
       @sourceLocale = options.sourceLocale if options.sourceLocale
+      self = @
+      @model.on('invalid', (model, error) -> self.renderErrors(error))
 
     render: ->
       @$el.html(@html())
