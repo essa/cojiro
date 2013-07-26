@@ -54,7 +54,6 @@ define [
             self.router.navigate(model.url(), true )
         )
       else
-        @form.renderErrors(errors)
         @.$('.alert').remove()
         @$el.prepend(flashTemplate(
           name: "error"
