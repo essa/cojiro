@@ -158,20 +158,26 @@ define (require) ->
       describe 'submitting link form data', ->
         beforeEach ->
           @view.render()
-          sinon.stub(@model, 'save')
+          @server = sinon.fakeServer.create()
+          @server.respondWith(
+            'POST'
+            '/collection'
+            @validResponse(id: '123')
+          )
 
         it 'calls next', ->
           @view.$('button.next').click()
           expect(@nextSpy).toHaveBeenCalledOnce()
 
         it 'sets model values from form', ->
-          sinon.spy(@model, 'set')
+          @view.$('select').val('en')
+          @view.$('.title textarea').val('a title')
+          @view.$('.summary textarea').val('a summary')
           @view.$('button.next').click()
-          expect(@model.set).toHaveBeenCalledOnce()
-          expect(@model.set).toHaveBeenCalledWith
-            source_locale: ''
-            title: en: ''
-            summary: en: ''
+          @server.respond()
+          expect(@model.get('source_locale')).toEqual('en')
+          expect(@model.getAttr('title')).toEqual('a title')
+          expect(@model.getAttr('summary')).toEqual('a summary')
 
         it 'renders error if source locale is not set', ->
           @view.$('button.next').click()
@@ -179,14 +185,14 @@ define (require) ->
 
         it 'renders error if title is blank', ->
           @view.$('select').val('en')
-          @view.$('[name="title-xx"]').val('')
+          @view.$('.title textarea').val('')
           @view.$('button.next').click()
-          expect(@view.$('.control-group.title-xx')).toHaveClass('error')
+          expect(@view.$('.control-group.title')).toHaveClass('error')
 
         it 'sets values if source locale is set', ->
           @view.$('select').val('en')
-          @view.$('[name="title-xx"]').val('a title')
-          @view.$('[name="summary-xx"]').val('a summary')
+          @view.$('.title textarea').val('a title')
+          @view.$('.summary textarea').val('a summary')
           @view.$('button.next').click()
           expect(@model.getSourceLocale()).toEqual('en')
           expect(@model.getAttr('title')).toEqual('a title')
