@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710024231) do
+ActiveRecord::Schema.define(:version => 20130727123542) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20130710024231) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "comments", ["cothread_id", "link_id"], :name => "index_comments_on_cothread_id_and_link_id", :unique => true
   add_index "comments", ["cothread_id"], :name => "index_comments_on_cothread_id"
   add_index "comments", ["link_id"], :name => "index_comments_on_link_id"
 

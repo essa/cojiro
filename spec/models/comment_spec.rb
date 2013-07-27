@@ -18,7 +18,7 @@ describe Comment do
 
     describe 'cothread' do
       it { should validate_presence_of(:cothread_id) }
-      it { should validate_uniqueness_of(:cothread_id) }
+      it { should validate_uniqueness_of(:cothread_id).scoped_to(:link_id) }
     end
   end
 
