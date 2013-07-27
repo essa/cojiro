@@ -7,8 +7,8 @@ define (require) ->
   I18n = require('i18n')
   channel = require('modules/channel')
 
-  titleSelector = 'input[name="title-xx"],textarea[name="title-xx"]'
-  summarySelector = 'input[name="summary-xx"],textarea[name="summary-xx"]'
+  titleSelector = '.title textarea'
+  summarySelector = '.summary textarea'
 
   describe 'ConfirmLinkDetailsView', ->
     beforeEach ->
@@ -124,14 +124,14 @@ define (require) ->
           @view.render()
 
         it 'updates the title label with the language', ->
-          expect(@view.$('.title-xx label')).toHaveText('Title')
+          expect(@view.$('.title label')).toHaveText('Title')
           @view.$('select').val('ja').trigger('change')
-          expect(@view.$('.title-xx label')).toHaveText('Title in Japanese')
+          expect(@view.$('.title label')).toHaveText('Title in Japanese')
 
         it 'updates the summary label with the language', ->
-          expect(@view.$('.summary-xx label')).toHaveText('Summary')
+          expect(@view.$('.summary label')).toHaveText('Summary')
           @view.$('select').val('ja').trigger('change')
-          expect(@view.$('.summary-xx label')).toHaveText('Summary in Japanese')
+          expect(@view.$('.summary label')).toHaveText('Summary in Japanese')
 
         it 'removes readonly restriction on title field', ->
           expect(@view.$(titleSelector)).toHaveAttr('readonly')

@@ -34,7 +34,7 @@ define [
 
     initialize: (options = {}) ->
       super(options)
-      @form = new Form(model: @model, wildcard: 'xx')
+      @form = new Form(model: @model)
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
       @header = new @ModalHeaderView(title: 'Confirm link details <small>' + @model.getUrl() + '</small>')
       @ModalFooterView = options.ModalFooterView || ModalFooterView
@@ -57,23 +57,23 @@ define [
 
     formatForm: (form) ->
       # set to readonly
-      form.$('textarea[name="title-xx"]').attr('readonly', true)
-      form.$('textarea[name="summary-xx"]').attr('readonly', true)
+      form.$('.title textarea').attr('readonly', true)
+      form.$('.summary textarea').attr('readonly', true)
 
     preFillForm: (form, embedData) ->
-      @form.$('textarea[name="title-xx"]').val(embedData.title)
-      @form.$('textarea[name="summary-xx"]').val(embedData.description)
+      @form.$('.title textarea').val(embedData.title)
+      @form.$('.summary textarea').val(embedData.description)
 
     updateLabels: () ->
       self = @
       locale = @form.$('select option:selected').text()
-      @form.$('.title-xx label').text('Title in ' + locale)
-      @form.$('.summary-xx label').text('Summary in ' + locale)
-      @form.$('.title-xx textarea').attr('readonly', false)
-      @form.$('.summary-xx textarea').attr('readonly', false)
+      @form.$('.title label').text('Title in ' + locale)
+      @form.$('.summary label').text('Summary in ' + locale)
+      @form.$('.title textarea').attr('readonly', false)
+      @form.$('.summary textarea').attr('readonly', false)
       @form.$('.control-group.source_locale').removeClass('error')
       @form.$('.control-group .help-block').empty()
-      @form.$('select[name="source_locale"] option[value=""]').remove()
+      @form.$('.source_locale select option[value=""]').remove()
 
     next: () ->
       self = @
