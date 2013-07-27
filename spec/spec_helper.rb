@@ -142,6 +142,14 @@ end
 Spork.each_run do
   # This code will be run each time you run your specs.
 
+  # reset factories
+  FactoryGirl.reload
+
+  # reload routes
+  Cojiro::Application.reload_routes!
+
+  # ref: http://blog.carbonfive.com/2010/12/10/speedy-test-iterations-for-rails-3-with-spork-and-guard/
+  load 'Sporkfile.rb' if File.exists?('Sporkfile.rb')
 end
 
 # --- Instructions ---
