@@ -66,8 +66,8 @@ group :test do
   gem 'guard', :git => 'git://github.com/guard/guard.git'
   gem 'rb-inotify', '>= 0.8.8'
   gem 'guard-spork'
-  gem 'guard-rspec'
-  gem 'guard-cucumber'
+  gem 'guard-rspec', :require => false
+  gem 'guard-cucumber', :require => false
   gem 'guard-jasmine'
   gem 'guard-rails'
 end
