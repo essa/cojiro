@@ -164,36 +164,53 @@ define (require) ->
             '/collection'
             @validResponse(id: '123')
           )
+          @$nextButton = @view.$('button.next')
+
+        afterEach -> @server.restore()
 
         it 'calls next', ->
-          @view.$('button.next').click()
+          @$nextButton.click()
           expect(@nextSpy).toHaveBeenCalledOnce()
 
-        it 'sets model values from form', ->
-          @view.$('select').val('en')
-          @view.$('.title textarea').val('a title')
-          @view.$('.summary textarea').val('a summary')
-          @view.$('button.next').click()
-          @server.respond()
-          expect(@model.get('source_locale')).toEqual('en')
-          expect(@model.getAttr('title')).toEqual('a title')
-          expect(@model.getAttr('summary')).toEqual('a summary')
+        describe 'with valid data', ->
+          beforeEach ->
+            @view.$('select').val('en')
+            @view.$('.title textarea').val('a title')
+            @view.$('.summary textarea').val('a summary')
 
-        it 'renders error if source locale is not set', ->
-          @view.$('button.next').click()
-          expect(@view.$('.control-group.source_locale')).toHaveClass('error')
+          it 'makes correct request', ->
+            @$nextButton.click()
+            expect(@server.requests[0]).toBePUT()
+            expect(@server.requests[0]).toHaveUrl('/en/links/http%3A%2F%2Fwww.example.com')
 
-        it 'renders error if title is blank', ->
-          @view.$('select').val('en')
-          @view.$('.title textarea').val('')
-          @view.$('button.next').click()
-          expect(@view.$('.control-group.title')).toHaveClass('error')
+          it 'sends correct data', ->
+            @$nextButton.click()
+            expect(@server.requests[0].requestBody).toBeDefined()
+            body = JSON.parse(@server.requests[0].requestBody)
+            expect(body.link).toBeDefined()
+            expect(body.link.source_locale).toEqual('en')
+            expect(body.link.title).toEqual(en: 'a title')
+            expect(body.link.summary).toEqual(en: 'a summary')
 
-        it 'sets values if source locale is set', ->
-          @view.$('select').val('en')
-          @view.$('.title textarea').val('a title')
-          @view.$('.summary textarea').val('a summary')
-          @view.$('button.next').click()
-          expect(@model.getSourceLocale()).toEqual('en')
-          expect(@model.getAttr('title')).toEqual('a title')
-          expect(@model.getAttr('summary')).toEqual('a summary')
+          it 'sets model values from form', ->
+            @$nextButton.click()
+            @server.respond()
+            expect(@model.getSourceLocale()).toEqual('en')
+            expect(@model.getAttr('title')).toEqual('a title')
+            expect(@model.getAttr('summary')).toEqual('a summary')
+
+        describe 'with invalid data', ->
+
+          it 'makes no request', ->
+            @$nextButton.click()
+            expect(@server.requests).toEqual([])
+
+          it 'renders error if source locale is not set', ->
+            @$nextButton.click()
+            expect(@view.$('.control-group.source_locale')).toHaveClass('error')
+
+          it 'renders error if title is blank', ->
+            @view.$('select').val('en')
+            @view.$('.title textarea').val('')
+            @$nextButton.click()
+            expect(@view.$('.control-group.title')).toHaveClass('error')
