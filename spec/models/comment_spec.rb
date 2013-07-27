@@ -8,6 +8,20 @@ describe Comment do
     it { should belong_to(:cothread) }
   end
 
+  describe 'validation with factory' do
+    let(:comment) { FactoryGirl.build(:comment) }
+    subject { comment }
+
+    it 'has a valid factory' do
+      should be_valid
+    end
+
+    describe 'cothread' do
+      it { should validate_presence_of(:cothread_id) }
+      it { should validate_uniqueness_of(:cothread_id) }
+    end
+  end
+
   describe '#to_json' do
     before do
       Timecop.freeze(Time.utc(2012,6,11,12,20)) do

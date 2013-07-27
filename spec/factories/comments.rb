@@ -5,7 +5,6 @@ FactoryGirl.define do
 
   factory :comment do
     text { FactoryGirl.generate(:text) }
-    cothread nil
-    link nil
+    cothread
   end
 end
