@@ -7,7 +7,9 @@ Cojiro::Application.routes.draw do
   match '/logout', :to => 'sessions#destroy', :as => 'logout'
 
   scope '/:locale', :locale => /#{I18n.available_locales.join('|')}/ do
-    resources :cothreads, :except => :edit, :path => :threads
+    resources :cothreads, :except => :edit, :path => :threads do
+      resources :comments, :only => [ :show, :create ]
+    end
     resources :links, :only => [ :index, :show, :update ], :constraints => { :id => /.*/ }
     resources :users, :only => :show
   end
