@@ -76,6 +76,11 @@ define [
       @form.$('select[name="source_locale"] option[value=""]').remove()
 
     next: () ->
-      @model.save(@form.serialize())
+      self = @
+      @model.save(@form.serialize(),
+        success: (model, resp) ->
+          channel.trigger('modal:next')
+          self.leave()
+      )
 
     prev: () ->channel.trigger('modal:prev')

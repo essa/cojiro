@@ -160,9 +160,9 @@ define (require) ->
           @view.render()
           @server = sinon.fakeServer.create()
           @server.respondWith(
-            'POST'
-            '/collection'
-            @validResponse(id: '123')
+            'PUT'
+            '/en/links/http%3A%2F%2Fwww.example.com'
+            @validResponse(url: '123')
           )
           @$nextButton = @view.$('button.next')
 
@@ -180,17 +180,18 @@ define (require) ->
 
           it 'makes correct request', ->
             @$nextButton.click()
+            expect(@server.requests.length).toEqual(1)
             expect(@server.requests[0]).toBePUT()
             expect(@server.requests[0]).toHaveUrl('/en/links/http%3A%2F%2Fwww.example.com')
 
-          it 'sends correct data', ->
+          it 'sends valid data', ->
             @$nextButton.click()
-            expect(@server.requests[0].requestBody).toBeDefined()
-            body = JSON.parse(@server.requests[0].requestBody)
-            expect(body.link).toBeDefined()
-            expect(body.link.source_locale).toEqual('en')
-            expect(body.link.title).toEqual(en: 'a title')
-            expect(body.link.summary).toEqual(en: 'a summary')
+            request = @server.requests[0]
+            params = JSON.parse(request.requestBody)
+            expect(params.link).toBeDefined()
+            expect(params.link.source_locale).toEqual('en')
+            expect(params.link.title).toEqual(en: 'a title')
+            expect(params.link.summary).toEqual(en: 'a summary')
 
           it 'sets model values from form', ->
             @$nextButton.click()
@@ -199,11 +200,32 @@ define (require) ->
             expect(@model.getAttr('title')).toEqual('a title')
             expect(@model.getAttr('summary')).toEqual('a summary')
 
+          it 'does not trigger any errors', ->
+            @$nextButton.click()
+            @server.respond()
+            expect(@view.$el).not.toContain('.error')
+            expect(@model.validationError).toBeNull()
+
+          it 'calls leave on view', ->
+            sinon.spy(@view, 'leave')
+            @$nextButton.click()
+            @server.respond()
+            expect(@view.leave).toHaveBeenCalledOnce()
+            expect(@view.leave).toHaveBeenCalledWithExactly()
+            @view.leave.restore()
+
+          it 'triggers modal:next event on channel', ->
+            eventSpy = sinon.spy()
+            channel.on('modal:next', eventSpy)
+            @$nextButton.click()
+            @server.respond()
+            expect(eventSpy).toHaveBeenCalledOnce()
+
         describe 'with invalid data', ->
 
           it 'makes no request', ->
             @$nextButton.click()
-            expect(@server.requests).toEqual([])
+            expect(@server.requests.length).toEqual(0)
 
           it 'renders error if source locale is not set', ->
             @$nextButton.click()
