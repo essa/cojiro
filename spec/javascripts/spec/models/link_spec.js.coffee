@@ -10,10 +10,7 @@ define (require) ->
     sharedExamples(Link, 'link')
 
     describe 'getters', ->
-      beforeEach ->
-        @link = new Link
-        collection = url: '/collection'
-        @link.collection = collection
+      beforeEach -> @link = new Link
 
       describe '#getUrl', ->
         it 'returns the url', ->
