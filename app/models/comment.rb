@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   belongs_to :cothread
   belongs_to :link
-  attr_accessible :text
+  attr_accessible :text, :link_id
 
   validates :cothread_id, :presence => true, :uniqueness => { :scope => :link_id }
 

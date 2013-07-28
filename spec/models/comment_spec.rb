@@ -8,6 +8,16 @@ describe Comment do
     it { should belong_to(:cothread) }
   end
 
+  describe 'mass assignment' do
+    it { should allow_mass_assignment_of(:text) }
+    it { should allow_mass_assignment_of(:link_id) }
+
+    it { should_not allow_mass_assignment_of(:cothread_id) }
+    it { should_not allow_mass_assignment_of(:user_id) }
+    it { should_not allow_mass_assignment_of(:created_at) }
+    it { should_not allow_mass_assignment_of(:updated_at) }
+  end
+
   describe 'validation with factory' do
     let(:comment) { FactoryGirl.build(:comment) }
     subject { comment }
