@@ -1,7 +1,8 @@
 define [
   'backbone'
   'models/link'
-], (Backbone, Link) ->
+  'i18n'
+], (Backbone, Link, I18n) ->
 
   class Links extends Backbone.Collection
     model: Link

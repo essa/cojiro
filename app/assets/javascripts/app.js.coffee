@@ -4,7 +4,8 @@ define [
   'globals'
   'routers/app_router'
   'collections/threads'
-], ($, Backbone, globals, AppRouter, Threads) ->
+  'collections/links'
+], ($, Backbone, globals, AppRouter, Threads, Links) ->
 
   class App
 
