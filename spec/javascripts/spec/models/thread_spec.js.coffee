@@ -17,8 +17,7 @@ define (require) ->
     describe '#url', ->
       beforeEach ->
         @thread = new Thread
-        collection = url: '/collection'
-        @thread.collection = collection
+        @thread.collection = url: '/collection'
 
       it 'returns collection URL when id is not set', ->
         expect(@thread.url()).toEqual('/collection')

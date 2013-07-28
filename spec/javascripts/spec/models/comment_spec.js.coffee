@@ -11,8 +11,7 @@ define (require) ->
     describe 'getters', ->
       beforeEach ->
         @comment = new Comment
-        collection = url: '/collection'
-        @comment.collection = collection
+        @comment.collection = url: '/collection'
 
       describe '#url', ->
         it 'returns collection URL when id is not set', ->
