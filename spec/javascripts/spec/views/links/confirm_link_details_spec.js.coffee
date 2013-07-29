@@ -12,7 +12,6 @@ define (require) ->
 
   describe 'ConfirmLinkDetailsView', ->
     beforeEach ->
-      I18n.locale = 'en'
       @nextSpy = sinon.spy(ConfirmLinkDetailsView.prototype, 'next')
       @model = new Link(url: 'http://www.example.com')
       @view = new ConfirmLinkDetailsView(model: @model)
@@ -174,9 +173,9 @@ define (require) ->
 
         describe 'with valid data', ->
           beforeEach ->
-            @view.$('select').val('en')
-            @view.$('.title textarea').val('a title')
-            @view.$('.summary textarea').val('a summary')
+            @view.$('select').val('ja')
+            @view.$('.title textarea').val('日本語のタイトル')
+            @view.$('.summary textarea').val('日本語のサマリ')
 
           it 'makes correct request', ->
             @$nextButton.click()
@@ -189,16 +188,16 @@ define (require) ->
             request = @server.requests[0]
             params = JSON.parse(request.requestBody)
             expect(params.link).toBeDefined()
-            expect(params.link.source_locale).toEqual('en')
-            expect(params.link.title).toEqual(en: 'a title')
-            expect(params.link.summary).toEqual(en: 'a summary')
+            expect(params.link.source_locale).toEqual('ja')
+            expect(params.link.title).toEqual(ja: '日本語のタイトル')
+            expect(params.link.summary).toEqual(ja: '日本語のサマリ')
 
           it 'sets model values from form', ->
             @$nextButton.click()
             @server.respond()
-            expect(@model.getSourceLocale()).toEqual('en')
-            expect(@model.getAttr('title')).toEqual('a title')
-            expect(@model.getAttr('summary')).toEqual('a summary')
+            expect(@model.getSourceLocale()).toEqual('ja')
+            expect(@model.getAttrInLocale('title', 'ja')).toEqual('日本語のタイトル')
+            expect(@model.getAttrInLocale('summary', 'ja')).toEqual('日本語のサマリ')
 
           it 'does not trigger any errors', ->
             @$nextButton.click()

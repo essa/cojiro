@@ -34,7 +34,9 @@ define [
 
     initialize: (options = {}) ->
       super(options)
-      @form = new Form(model: @model)
+      @form = new Form
+        model: @model
+        sourceLocale: -> @$('.source_locale select').val()
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
       @header = new @ModalHeaderView(title: 'Confirm link details <small>' + @model.getUrl() + '</small>')
       @ModalFooterView = options.ModalFooterView || ModalFooterView
