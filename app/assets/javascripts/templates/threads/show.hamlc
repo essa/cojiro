@@ -5,7 +5,7 @@
       %ul.nav.nav-pills
         %li
           %a{ href: '#' }
-            %span.stat x
+            %span.stat=@model.getLinks().length
             %br
             %span.stattext=i18n.t('templates.threads.show.links')
         %li.sep

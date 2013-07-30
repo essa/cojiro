@@ -61,6 +61,10 @@ define (require) ->
         beforeEach ->
           @view = new ThreadView(model: @thread)
 
+        it 'renders number of links', ->
+          @view.render()
+          expect(@view.$('span.stat')).toHaveText('2')
+
         it 'renders url', ->
           $el = @view.render().$el
           expect($el).toContain('.url a[href="http://www.foo.com"]')
