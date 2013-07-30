@@ -87,8 +87,8 @@ define (require) ->
           @view.render()
           @server = sinon.fakeServer.create()
           @server.respondWith(
-            'POST',
-            '/collection',
+            'POST'
+            '/collection'
             @validResponse(id: '123')
           )
           sinon.stub(router, 'navigate')
