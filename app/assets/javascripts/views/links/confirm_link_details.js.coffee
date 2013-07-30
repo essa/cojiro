@@ -41,6 +41,7 @@ define [
       @header = new @ModalHeaderView(title: 'Confirm link details <small>' + @model.getUrl() + '</small>')
       @ModalFooterView = options.ModalFooterView || ModalFooterView
       @footer = new @ModalFooterView(prevString: 'Back', nextString: 'Confirm')
+      @thread = options.thread
 
     render: () ->
       @renderChild(@form)

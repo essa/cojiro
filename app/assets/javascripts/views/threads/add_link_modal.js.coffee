@@ -16,7 +16,7 @@ define [
     initialize: (options = {}) ->
       super(options)
 
-      throw('no model needed') if options.model
+      throw('model required') unless options.model
       @step = options.step || 1
       @RegisterUrlView = options.RegisterUrlView || RegisterUrlView
       @ConfirmLinkDetailsView = options.ConfirmLinkDetailsView || ConfirmLinkDetailsView
@@ -33,15 +33,15 @@ define [
       @modal.leave() if @modal
       switch @step
         when 1
-          @model = new @Link
+          @link = new @Link
           @$el.removeClass('confirm-link-details')
           @$el.addClass('register-url')
-          @modal = new @RegisterUrlView(model: @model)
+          @modal = new @RegisterUrlView(model: @link)
           @appendChild(@modal)
         when 2
           @$el.removeClass('register-url')
           @$el.addClass('confirm-link-details')
-          @modal = new @ConfirmLinkDetailsView(model: @model)
+          @modal = new @ConfirmLinkDetailsView(model: @link, thread: @model)
           @appendChild(@modal)
         else
           throw('invalid step')

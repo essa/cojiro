@@ -160,8 +160,8 @@ define (require) ->
           $('body .modal-backdrop').remove()
 
         it 'creates addLinkModal with a new link model', ->
-          expect(@view.addLinkModal.model).toBeDefined()
-          expect(@view.addLinkModal.model instanceof Link).toBeTruthy()
+          expect(@view.addLinkModal.link).toBeDefined()
+          expect(@view.addLinkModal.link instanceof Link).toBeTruthy()
 
         it "shows addLinkModal when user clicks on the 'add link' button", ->
           # ensure that modal is initially hidden -- bootstrap will do this

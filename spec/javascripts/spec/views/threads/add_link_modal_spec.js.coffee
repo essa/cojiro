@@ -11,15 +11,18 @@ define (require) ->
   describe "AddLinkModalView", ->
     beforeEach ->
       I18n.locale = 'en'
+      @thread = sinon.stub()
 
     describe 'instantiation', ->
+      beforeEach -> @options = model: {}
 
-      it 'throws no error if passed no options', ->
-        expect(-> new AddLinkModalView().not.toThrow())
+      it 'throws no error if passed required options', ->
+        expect(-> new AddLinkModalView(@options).not.toThrow())
 
-      it 'throws error if passed model in options', ->
-        options = model: {}
-        expect(-> new AddLinkModalView(options)).toThrow('no model needed')
+      it 'throws error if not passed model (thread) in options', ->
+        options = _.clone(@options)
+        delete(options.model)
+        expect(-> new AddLinkModalView(options)).toThrow('model required')
 
     describe 'rendering', ->
       beforeEach ->
@@ -32,8 +35,8 @@ define (require) ->
         @modalView.leave = ->
         sinon.spy(@modalView, 'render')
 
-        @model = sinon.stub()
-        @model.getUrl = -> 'http://www.example.com'
+        @link = sinon.stub()
+        @link.getUrl = -> 'http://www.example.com'
 
         modalEl = $('<div id="modal" class="modal hide fade"></div>')
         $('body').append(modalEl)
@@ -43,21 +46,22 @@ define (require) ->
 
       describe 'invalid step', ->
         it 'throws error', ->
-          @view = new AddLinkModalView
+          @view = new AddLinkModalView(model: @thread)
           @view.step = -1
           self = @
           expect(-> self.view.render()).toThrow('invalid step')
 
       #TODO: refactor this into shared examples
-      describe 'register url view (step 1)', ->
+      describe 'register url (step 1)', ->
         beforeEach ->
           @RegisterUrlView = sinon.stub().returns(@modalView)
           @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
-          @Link = sinon.stub().returns(@model)
+          @Link = sinon.stub().returns(@link)
           @view = new AddLinkModalView
             Link: @Link
             RegisterUrlView: @RegisterUrlView
             ConfirmLinkDetailsView: @ConfirmLinkDetailsView
+            model: @thread
 
         it 'returns the view object', ->
           expect(@view.render()).toEqual(@view)
@@ -99,7 +103,7 @@ define (require) ->
           it 'creates a RegisterUrlView', ->
             @view.render()
             expect(@RegisterUrlView).toHaveBeenCalledOnce()
-            expect(@RegisterUrlView).toHaveBeenCalledWithExactly(model: @model)
+            expect(@RegisterUrlView).toHaveBeenCalledWithExactly(model: @link)
 
           it 'renders newly-created RegisterUrlView', ->
             $el = @view.render().$el
@@ -109,15 +113,16 @@ define (require) ->
             $el = @view.render().$el
             expect($el).toContain('div.stub-modal')
 
-      describe 'confirm link details view (step 2)', ->
+      describe 'confirm link details (step 2)', ->
         beforeEach ->
           @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
           @Link = sinon.stub()
           @view = new AddLinkModalView
             ConfirmLinkDetailsView: @ConfirmLinkDetailsView
             Link: @Link
+            model: @thread
             step: 2
-          @view.model = @model
+          @view.link = @link
 
         it 'returns the view object', ->
           expect(@view.render()).toEqual(@view)
@@ -158,7 +163,7 @@ define (require) ->
           it 'creates a ConfirmLinkDetailsView', ->
             @view.render()
             expect(@ConfirmLinkDetailsView).toHaveBeenCalledOnce()
-            expect(@ConfirmLinkDetailsView).toHaveBeenCalledWithExactly(model: @model)
+            expect(@ConfirmLinkDetailsView).toHaveBeenCalledWithExactly(model: @link, thread: @thread)
 
           it 'renders newly-created RegisterUrlView', ->
             $el = @view.render().$el
@@ -172,11 +177,12 @@ define (require) ->
       beforeEach ->
         @ConfirmLinkDetailsView = sinon.stub()
         @RegisterUrlView = sinon.stub()
-        @Link = sinon.stub()
+        @Link = sinon.stub().returns(@link)
         @view = new AddLinkModalView
           ConfirmLinkDetailsView: @ConfirmLinkDetailsView
           RegisterUrlView: @RegisterUrlView
           Link: @Link
+          model: @thread
         sinon.stub(@view, 'render')
 
       afterEach ->

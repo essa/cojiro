@@ -14,7 +14,8 @@ define (require) ->
     beforeEach ->
       @nextSpy = sinon.spy(ConfirmLinkDetailsView.prototype, 'next')
       @model = new Link(url: 'http://www.example.com')
-      @view = new ConfirmLinkDetailsView(model: @model)
+      @thread = sinon.stub()
+      @view = new ConfirmLinkDetailsView(model: @model, thread: @thread)
 
     afterEach ->
       @nextSpy.restore()
@@ -24,6 +25,9 @@ define (require) ->
 
       it 'creates a div element for the form', ->
         expect(@$el).toBe('div')
+
+      it 'assigns options.thread to thread', ->
+        expect(@view.thread).toEqual(@thread)
 
     describe 'rendering', ->
       beforeEach -> @view.render()
