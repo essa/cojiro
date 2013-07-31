@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 describe User do
-  before do
-    I18n.locale = 'en'
+  describe 'associations' do
+    it { should have_many(:cothreads) }
+    it { should have_many(:links) }
+    it { should have_many(:comments) }
   end
 
   describe "validation with factory" do

@@ -6,6 +6,7 @@ describe Comment do
   describe 'associations' do
     it { should belong_to(:link) }
     it { should belong_to(:cothread) }
+    it { should belong_to(:user) }
   end
 
   describe 'nested attributes' do

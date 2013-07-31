@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   # associations
   has_many :cothreads
+  has_many :links
+  has_many :comments
   has_many :authorizations
 
   mount_uploader :avatar, AvatarUploader
