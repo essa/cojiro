@@ -219,6 +219,12 @@ describe Link do
       it 'returns link unchanged if passed no attributes hash' do
         Link.initialize_by_url('www.foo.com').should == link
       end
+
+      it 'does not allow mass assignment of protected attributes' do
+        expect {
+          Link.initialize_by_url('www.foo.com', :user_id => 10)
+        }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+      end
     end
 
     context 'link with url does not exist' do
@@ -243,6 +249,12 @@ describe Link do
       it 'normalizes url' do
         link = Link.initialize_by_url('www.bar.com', new_attrs)
         link.url.should == 'http://www.bar.com/'
+      end
+
+      it 'does not allow mass assignment of protected attributes' do
+        expect {
+          Link.initialize_by_url('www.foo.com', :user_id => 10)
+        }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
       end
     end
   end
