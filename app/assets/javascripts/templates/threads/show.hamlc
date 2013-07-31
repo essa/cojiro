@@ -33,10 +33,10 @@
   .span12
     %h2#summary
 .links
-  .link-list
   - if helpers.isLoggedIn()
     .link
       .link-inner
         %a.add-link{ role: 'button' }
           =i18n.t('templates.threads.show.add_a_link')
           .add-link-button
+  .link-list
