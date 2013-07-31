@@ -9,7 +9,7 @@ class LinksController < ApplicationController
   end
 
   def show
-    raise ActiveRecord::RecordNotFound unless @link
+    raise ActiveRecord::RecordNotFound unless @link.persisted?
     respond_with(@link)
   end
 
@@ -18,13 +18,8 @@ class LinksController < ApplicationController
   #create
 
   def update
-    if @link
-      @link.update_attributes(params[:link])
-    else
-      @link = Link.new((params[:link] || {}).merge(url: params[:id]))
-      @link.user_id = current_user.id
-      @link.save
-    end
+    @link.user_id ||= current_user.id
+    @link.save
     respond_with(@link) do |format|
       format.json do
         if @link.valid?
@@ -39,6 +34,6 @@ class LinksController < ApplicationController
   private
 
   def find_link
-    @link = Link.by_url(params[:id]).first
+    @link = Link.initialize_by_url(params[:id], params[:link] || {})
   end
 end

@@ -28,9 +28,6 @@ class Link < ActiveRecord::Base
   before_validation :parse_and_normalize_url
   before_create :get_embed_data
 
-  #scopes
-  scope :by_url, lambda { |url| { :conditions => { :url => parse_and_normalize(url) } } }
-
   def self.initialize_by_url(url, attrs = {})
     normalized_url = parse_and_normalize(url)
     if link = where(:url => normalized_url).first
