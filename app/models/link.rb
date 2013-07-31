@@ -31,6 +31,16 @@ class Link < ActiveRecord::Base
   #scopes
   scope :by_url, lambda { |url| { :conditions => { :url => parse_and_normalize(url) } } }
 
+  def self.initialize_by_url(url, attrs = {})
+    normalized_url = parse_and_normalize(url)
+    if link = where(:url => normalized_url).first
+      link.assign_attributes(attrs)
+    else
+      link = new({ url: normalized_url }.merge(attrs))
+    end
+    link
+  end
+
   def site_name
     if (embed_data && provider_url = embed_data['provider_url'])
       provider_url.gsub(/^http:\/\//,'').chomp('/')

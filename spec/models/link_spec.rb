@@ -201,6 +201,66 @@ describe Link do
     end
   end
 
+  describe '.initialize_by_url' do
+    let(:user) { FactoryGirl.create(:alice) }
+
+    context 'link with url exists' do
+      let(:valid_attrs) { { :url => 'http://www.foo.com/', :title => 'a title', :source_locale => 'en', :user => user } }
+      let!(:link) { FactoryGirl.create(:link, valid_attrs) }
+
+      it 'does not change the number of links' do
+        expect { Link.initialize_by_url('www.foo.com', :title => 'a new title') }.not_to change(Link, :count)
+      end
+
+      it 'is not a new record' do
+        Link.initialize_by_url('www.foo.com', :title => 'a new title').should_not be_new_record
+      end
+
+      it 'returns existing link if link with url already exists' do
+        Link.initialize_by_url('www.foo.com', :title => 'a new title').should == link
+      end
+
+      it 'assigns new attributes' do
+        link = Link.initialize_by_url('www.foo.com', :title => 'a new title')
+        link.title.should == 'a new title'
+      end
+
+      it 'leaves existing attributes unchanged' do
+        link = Link.initialize_by_url('www.foo.com', :title => 'a new title')
+        link.user.should == user
+      end
+
+      it 'returns link unchanged if passed no attributes hash' do
+        Link.initialize_by_url('www.foo.com').should == link
+      end
+    end
+
+    context 'link with url does not exist' do
+      let(:new_attrs) { { :title => 'a new title', :summary => 'a summary' } }
+
+      it 'does not change the number of links' do
+        expect {
+          Link.initialize_by_url('www.bar.com', new_attrs)
+        }.not_to change(Link, :count)
+      end
+
+      it 'is a new record' do
+          Link.initialize_by_url('www.bar.com', new_attrs).should be_new_record
+      end
+
+      it 'assigns attributes' do
+        link = Link.initialize_by_url('www.bar.com', new_attrs)
+        link.title.should == 'a new title'
+        link.summary.should == 'a summary'
+      end
+
+      it 'normalizes url' do
+        link = Link.initialize_by_url('www.bar.com', new_attrs)
+        link.url.should == 'http://www.bar.com/'
+      end
+    end
+  end
+
   describe '#status' do
     let!(:link) { FactoryGirl.build(:link) }
 
