@@ -8,6 +8,10 @@ describe Comment do
     it { should belong_to(:cothread) }
   end
 
+  describe 'nested attributes' do
+    it { should accept_nested_attributes_for(:link).allow_destroy(false) }
+  end
+
   describe 'mass assignment' do
     it { should allow_mass_assignment_of(:text) }
     it { should allow_mass_assignment_of(:link_id) }

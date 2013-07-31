@@ -3,6 +3,8 @@ class Comment < ActiveRecord::Base
   belongs_to :link
   attr_accessible :text, :link_id
 
+  accepts_nested_attributes_for :link
+
   validates :cothread_id, :presence => true, :uniqueness => { :scope => :link_id }
 
   def serializable_hash(options = {})
