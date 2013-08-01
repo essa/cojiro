@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(params[:comment])
+    @comment.user_id = current_user.id
     @comment.cothread = @cothread
     @comment.save
     respond_with(@cothread, @comment)

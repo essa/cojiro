@@ -7,6 +7,7 @@ class Comment < ActiveRecord::Base
   accepts_nested_attributes_for :link
 
   validates :cothread_id, :presence => true, :uniqueness => { :scope => :link_id }
+  validates :user_id, :presence => true
 
   def serializable_hash(options = {})
     super(options.merge(:only => [:id, :text, :created_at, :updated_at],

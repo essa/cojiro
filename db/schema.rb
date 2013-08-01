@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130731053206) do
+ActiveRecord::Schema.define(:version => 20130801042224) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -23,11 +23,11 @@ ActiveRecord::Schema.define(:version => 20130731053206) do
 
   create_table "comments", :force => true do |t|
     t.text     "text"
-    t.integer  "cothread_id"
+    t.integer  "cothread_id", :null => false
     t.integer  "link_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.integer  "user_id"
+    t.integer  "user_id",     :null => false
   end
 
   add_index "comments", ["cothread_id", "link_id"], :name => "index_comments_on_cothread_id_and_link_id", :unique => true
