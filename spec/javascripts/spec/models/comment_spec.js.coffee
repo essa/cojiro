@@ -39,11 +39,10 @@ define (require) ->
 
     describe 'interacting with the server', ->
       beforeEach ->
-        @link = new Link(url: 'http://www.example.com', id: 456)
         @collection = new Threads
         @thread = new Thread(id: 123)
         @thread.collection = @collection
-        @comment = new Comment(thread: 123, link: 'http://www.example.com')
+        @comment = new Comment(thread: @thread)
         @server = sinon.fakeServer.create()
       afterEach -> @server.restore()
 
@@ -59,16 +58,21 @@ define (require) ->
         it 'sends valid data to the server', ->
           @comment.save
             text: 'a comment text'
+            link:
+              url: 'http://www.example.com'
+              title: en: 'a link title in English'
           request = @server.requests[0]
           params = JSON.parse(request.requestBody)
 
           expect(params.comment).toBeDefined()
           expect(params.comment.text).toEqual('a comment text')
-          expect(params.comment.link_id).toEqual(456)
+          expect(params.comment.link_attributes).toEqual
+            url: 'http://www.example.com'
+            title: en: 'a link title in English'
+            summary: {}
 
-        it 'does not leak other data in server request', ->
+        it 'does not include link data if link not set', ->
           @comment.save()
           request = @server.requests[0]
           params = JSON.parse(request.requestBody)
-          delete(params.comment.link_id)
-          expect(params).toEqual(comment: {})
+          expect(params.comment.link_attributes).toBeNull()

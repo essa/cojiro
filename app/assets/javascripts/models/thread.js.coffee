@@ -13,6 +13,8 @@ define [
   class Thread extends Translatable.Model
     @use(Timestamps)
 
+    name: 'thread'
+
     relations: [
         type: Backbone.HasOne
         key: 'user'
@@ -27,7 +29,8 @@ define [
         collectionType: Comments
         reverseRelation:
           key: 'thread'
-          includeInJSON: 'id'
+          keySource: 'thread_id'
+          includeInJSON: false
     ]
 
     translatableAttributes:
@@ -46,10 +49,9 @@ define [
 
     # http://stackoverflow.com/questions/5306089/only-update-certain-model-attributes-using-backbone-js
     toJSON: () ->
-      thread:
-        title: @get('title').toJSON()
-        summary: @get('summary').toJSON()
-        source_locale: @get('source_locale')
+      title: @get('title').toJSON()
+      summary: @get('summary').toJSON()
+      source_locale: @get('source_locale')
 
     getId: -> @id
     getUser: -> @get('user')

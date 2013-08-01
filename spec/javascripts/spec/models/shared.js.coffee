@@ -58,18 +58,21 @@ define [
                 name: 'csasaki'
             )
 
-          it 'wraps JSON in object', ->
-            expect(@instance.toJSON()[model_name]).toBeDefined()
-            expect(@instance.toJSON()[model_name].title).toEqual(
+          # just to check
+          it 'does not wrap JSON in object', ->
+            expect(@instance.toJSON()[model_name]).not.toBeDefined()
+
+          it 'has correct translated attributes', ->
+            expect(@instance.toJSON().title).toEqual(
               en: 'title in English'
               ja: 'title in Japanese'
             )
-            expect(@instance.toJSON()[model_name].source_locale).toEqual('en')
+            expect(@instance.toJSON().source_locale).toEqual('en')
 
           it 'does not include protected attributes', ->
-            expect(@instance.toJSON()[model_name].user).not.toBeDefined()
-            expect(@instance.toJSON()[model_name].created_at).not.toBeDefined()
-            expect(@instance.toJSON()[model_name].updated_at).not.toBeDefined()
+            expect(@instance.toJSON().user).not.toBeDefined()
+            expect(@instance.toJSON().created_at).not.toBeDefined()
+            expect(@instance.toJSON().updated_at).not.toBeDefined()
 
           it 'includes untranslated attributes as empty object', ->
             @instance = new model
@@ -77,4 +80,4 @@ define [
             @instance.collection = collection
             @instance.set
               source_locale: 'en'
-            expect(@instance.toJSON()[model_name].title).toEqual(new Object)
+            expect(@instance.toJSON().title).toEqual(new Object)

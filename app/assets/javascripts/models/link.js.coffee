@@ -14,6 +14,7 @@ define [
     @use(Timestamps)
 
     idAttribute: 'url'
+    name: 'link'
 
     url: ->
       throw('id is required to generate url') unless @id
@@ -36,7 +37,8 @@ define [
         collectionType: Comments
         reverseRelation:
           key: 'link'
-          includeInJSON: 'id'
+          keyDestination: 'link_attributes'
+          includeInJSON: true
     ]
 
     translatableAttributes:
@@ -56,14 +58,15 @@ define [
         label: _(I18n.t('attributes.link.summary')).capitalize()
 
     toJSON: () ->
+      url = @getUrl()
       title = @get('title').toJSON()
       summary = @get('summary').toJSON()
-      source_locale = @get('source_locale')
+      source_locale = @getSourceLocale()
       if !_.isEmpty(title) || !_.isEmpty(summary) || source_locale?
-        link:
-          title: title
-          summary: summary
-          source_locale: source_locale
+        url: url
+        title: title
+        summary: summary
+        source_locale: source_locale
       else {}
 
     getId: -> @id

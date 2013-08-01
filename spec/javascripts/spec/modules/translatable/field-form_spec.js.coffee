@@ -8,7 +8,9 @@ define (require) ->
   BaseView = require('modules/base/view')
   Model = require('modules/translatable/model')
   channel = require('modules/channel')
-  MyModel = Model.extend(translatableAttributes: ['title', 'summary'])
+  MyModel = Model.extend
+    name: 'my_model'
+    translatableAttributes: ['title', 'summary']
 
   describe 'Translatable.FieldForm', ->
     beforeEach ->

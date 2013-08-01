@@ -37,3 +37,5 @@ map:
     'backbone': 'backbone'
   'backbone-relational':
     'backbone': 'backbone'
+  'patches/backbone-sync':
+    'backbone': 'backbone'

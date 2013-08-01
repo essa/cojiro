@@ -4,6 +4,7 @@ define (require) ->
   Attribute = require('modules/translatable/attribute')
   I18n = require('i18n')
   MyModel = Model.extend
+    name: 'my_model'
     translatableAttributes: ['title', 'summary']
     validate: (attrs) ->
 
@@ -67,10 +68,10 @@ define (require) ->
         expect(request).toBePOST()
         params = JSON.parse(request.requestBody)
 
-        expect(params.title.en).toEqual('Title in English')
-        expect(params.title.fr).toEqual('Title in French')
-        expect(params.summary.en).toEqual('Summary in English')
-        expect(params.summary.fr).toEqual('Summary in French')
+        expect(params.my_model.title.en).toEqual('Title in English')
+        expect(params.my_model.title.fr).toEqual('Title in French')
+        expect(params.my_model.summary.en).toEqual('Summary in English')
+        expect(params.my_model.summary.fr).toEqual('Summary in French')
 
     describe 'getters', ->
       beforeEach ->
