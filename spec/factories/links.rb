@@ -12,6 +12,15 @@ FactoryGirl.define do
     trait :invalid do
       source_locale 'en'
     end
+
+    trait :with_valid_data do
+      source_locale 'en'
+      title 'A title'
+      summary 'A summary'
+    end
   end
 
+  factory :link_without_user, class: 'Link' do
+    url { FactoryGirl.generate(:url) }
+  end
 end

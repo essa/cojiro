@@ -6,5 +6,10 @@ FactoryGirl.define do
   factory :comment do
     text { FactoryGirl.generate(:text) }
     cothread
+    user
+
+    trait :with_link do
+      association :link, strategy: :build, factory: :link_without_user
+    end
   end
 end

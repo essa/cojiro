@@ -11,6 +11,72 @@ describe Comment do
 
   describe 'nested attributes' do
     it { should accept_nested_attributes_for(:link).allow_destroy(false) }
+
+    context 'link with url does not yet exist' do
+      let(:comment) { FactoryGirl.build(:comment, :with_link) }
+
+      it 'saves comment with link' do
+        expect {
+          comment.save
+        }.to change(Comment, :count).by(1)
+      end
+
+      it 'saves link association' do
+        expect {
+          comment.save
+        }.to change(Link, :count).by(1)
+      end
+
+      it 'saves link attributes' do
+        comment.link.title = 'a link title'
+        comment.save
+        comment.reload
+        comment.link.title.should == 'a link title'
+      end
+
+      it 'sets user_id from comment' do
+        comment.save
+        comment.reload
+        comment.link.user_id.should == comment.user_id
+      end
+    end
+
+    # Note: it's important to test updating link translated attributes here
+    context 'link with url already exists' do
+      let!(:link) { FactoryGirl.create(:link, :with_valid_data) }
+      let(:comment) do
+        comment = FactoryGirl.build(:comment)
+        comment.link = FactoryGirl.build(:link_without_user, url: link.url, source_locale: 'en', title: 'foo')
+        comment
+      end
+
+      it 'saves comment with link' do
+        expect { comment.save }.to change(Comment, :count).by(1)
+      end
+
+      it 'does not create new link' do
+        expect { comment.save }.not_to change(Link, :count)
+      end
+
+      it 'updates link attributes' do
+        comment.save
+        existing_link = Link.find_by_url(link.url)
+        existing_link.url.should == link.url
+        existing_link.title.should == 'foo'
+      end
+
+      it 'sets user_id from comment' do
+        comment.save
+        comment.reload
+        comment.link.user_id.should == comment.user_id
+      end
+
+      it 'sets link_id' do
+        comment.save
+        comment.reload
+        comment.link_id == link.id
+      end
+    end
   end
 
   describe 'mass assignment' do
