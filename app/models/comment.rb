@@ -17,10 +17,17 @@ class Comment < ActiveRecord::Base
   # ref: http://stackoverflow.com/questions/3579924/accepts-nested-attributes-for-with-find-or-create
   def autosave_associated_records_for_link
     if link
-      # we need to do it this way (using send) because globalize3 does not
-      # initialize translated attributes in link.attributes hash
-      attrs = Hash[link.attribute_names.map { |name| [name, link.send(name)] }]
-      attrs.delete_if { |_,v| v.nil? }
+      # this is really ugly, but what it is basically doing is merging
+      # translated attributes as hashes, and sending the result to
+      # initialize_by_url. see at globalize_helpers.
+      #
+      # it would be much easier if #translated_attributes returned
+      # a has of keys/values, but values are nil at this point
+      # so it doesn't work.
+      attributes_hash = link.attribute_names.map do |name|
+        [ name, link.translated?(name) ? link.send("#{name}_translations") : link.send(name) ]
+      end
+      attrs = Hash[attributes_hash].delete_if { |_,v| v.nil? }
       new_link = Link.initialize_by_url(attrs.delete('url'), attrs)
       new_link.user_id = user_id
       if new_link.save

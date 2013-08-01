@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 require 'timecop'
 require 'shoulda-matchers'
@@ -27,11 +28,18 @@ describe Comment do
         }.to change(Link, :count).by(1)
       end
 
-      it 'saves link attributes' do
+      it 'saves link attributes in this locale' do
         comment.link.title = 'a link title'
         comment.save
         comment.reload
         comment.link.title.should == 'a link title'
+      end
+
+      it 'saves link attributes in another locale' do
+        comment.link.translation_for(:ja).title = 'タイトル'
+        comment.save
+        comment.reload
+        comment.link.translation_for(:ja).title.should == 'タイトル'
       end
 
       it 'sets user_id from comment' do
