@@ -78,6 +78,32 @@ describe 'globalize helpers' do
       end
     end
 
+    describe '#merge_translations!' do
+      let(:other_model) do
+        I18n.with_locale(:fr) do
+          MyModel.create!(:source_locale => 'fr', :foo => 'titre')
+        end
+      end
+
+      it 'merges translated attributes from source and target' do
+        model.merge_translations!(other_model)
+        model.save
+        model.reload
+        model.translation_for(:ja).foo.should == 'タイトル'
+        model.translation_for(:fr).foo.should == 'titre'
+      end
+
+      it 'overwrites translated attribute values in target with source values' do
+        I18n.with_locale(:ja) do
+          other_model.update_attributes(:foo => '他のタイトル')
+        end
+        model.merge_translations!(other_model)
+        model.save
+        model.reload
+        model.translation_for(:ja).foo.should == '他のタイトル'
+      end
+    end
+
     describe ".new" do
       let(:new_model) do
         attr = { "foo" =>  { "en" => "a foo in English",

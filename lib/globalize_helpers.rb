@@ -16,6 +16,12 @@ module GlobalizeHelpers
       end
     end
 
+    def merge_translations!(source)
+      source.translated_attribute_names.each do |attr|
+        send("#{attr}_translations=", source.send("#{attr}_translations"))
+      end
+    end
+
     def serializable_hash(options = {})
       hash = super(options)
       translated_attribute_names.each do |attr|
