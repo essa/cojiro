@@ -66,11 +66,21 @@ describe Comment do
         expect { comment.save }.not_to change(Link, :count)
       end
 
-      it 'updates link attributes' do
+      it 'overwrites translations in the same locale' do
         comment.save
         existing_link = Link.find_by_url(link.url)
         existing_link.url.should == link.url
         existing_link.title.should == 'foo'
+      end
+
+      it 'merges link translations with those in other locales' do
+        c = FactoryGirl.build(:comment)
+        c.link = FactoryGirl.build(:link_without_user, url: link.url, source_locale: 'en', title: { ja: 'タイトル' })
+        c.save
+        c.reload
+        c.link.title.should == link.title
+        c.link.translation_for(:en).title.should == link.title
+        c.link.translation_for(:ja).title.should == 'タイトル'
       end
 
       it 'sets user_id from comment' do
