@@ -82,6 +82,7 @@ describe Comment do
   describe 'mass assignment' do
     it { should allow_mass_assignment_of(:text) }
     it { should allow_mass_assignment_of(:link_id) }
+    it { should allow_mass_assignment_of(:link_attributes) }
 
     it { should_not allow_mass_assignment_of(:cothread_id) }
     it { should_not allow_mass_assignment_of(:user_id) }
@@ -107,8 +108,7 @@ describe Comment do
   describe '#to_json' do
     before do
       Timecop.freeze(Time.utc(2012,6,11,12,20)) do
-        @comment = FactoryGirl.build(:comment,
-                                     link: FactoryGirl.create(:link))
+        @comment = FactoryGirl.build(:comment, :with_link)
         @comment.save
       end
       @comment_json = @comment.to_json

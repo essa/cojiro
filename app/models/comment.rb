@@ -1,8 +1,8 @@
 class Comment < ActiveRecord::Base
   belongs_to :cothread
-  attr_accessible :text, :link_id
   belongs_to :link, :autosave => true, :validate => false
   belongs_to :user
+  attr_accessible :text, :link_id, :link_attributes
 
   accepts_nested_attributes_for :link
 
