@@ -2,13 +2,14 @@ define [
   'jquery'
   'underscore'
   'backbone'
+  'models/comment'
   'views/modals/header'
   'views/modals/footer'
   'modules/base/view'
   'modules/translatable/form'
   'modules/channel'
   'i18n'
-], ($, _, Backbone, ModalHeaderView, ModalFooterView, BaseView, Form, channel, I18n) ->
+], ($, _, Backbone, Comment, ModalHeaderView, ModalFooterView, BaseView, Form, channel, I18n) ->
 
   class ConfirmLinkDetailsView extends BaseView
     template: _.template '
@@ -37,6 +38,7 @@ define [
       @form = new Form
         model: @model
         sourceLocale: -> @$('.source_locale select').val()
+      @Comment = options.Comment || Comment
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
       @header = new @ModalHeaderView(title: 'Confirm link details <small>' + @model.getUrl() + '</small>')
       @ModalFooterView = options.ModalFooterView || ModalFooterView
@@ -80,10 +82,11 @@ define [
 
     next: () ->
       self = @
-      @model.save(@form.serialize(),
-        success: (model, resp) ->
-          channel.trigger('modal:next')
-          self.leave()
-      )
+      if @model.set(@form.serialize(), validate: true)
+        comment = new @Comment(link: @model, thread: @thread)
+        comment.save {},
+          success: (model, resp) ->
+            channel.trigger('modal:next')
+            self.leave()
 
-    prev: () ->channel.trigger('modal:prev')
+    prev: () -> channel.trigger('modal:prev')

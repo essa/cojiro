@@ -3,6 +3,8 @@ define (require) ->
   Backbone = require('backbone')
 
   Link = require('models/link')
+  Thread = require('models/thread')
+  Comment = require('models/comment')
   ConfirmLinkDetailsView = require('views/links/confirm_link_details')
   I18n = require('i18n')
   channel = require('modules/channel')
@@ -14,7 +16,8 @@ define (require) ->
     beforeEach ->
       @nextSpy = sinon.spy(ConfirmLinkDetailsView.prototype, 'next')
       @model = new Link(url: 'http://www.example.com')
-      @thread = sinon.stub()
+      @thread = new Thread
+      @thread.collection = url: '/collection'
       @view = new ConfirmLinkDetailsView(model: @model, thread: @thread)
 
     afterEach ->
@@ -158,15 +161,10 @@ define (require) ->
           expect(@view.$('.control-group.source_locale')).not.toHaveClass('error')
           expect(@view.$('.control-group .help-block')).toBeEmpty()
 
-      describe 'submitting link form data', ->
+      describe 'submitting comment and nested link form data', ->
         beforeEach ->
           @view.render()
           @server = sinon.fakeServer.create()
-          @server.respondWith(
-            'PUT'
-            '/en/links/http%3A%2F%2Fwww.example.com'
-            @validResponse(url: '123')
-          )
           @$nextButton = @view.$('button.next')
 
         afterEach -> @server.restore()
@@ -180,49 +178,80 @@ define (require) ->
             @view.$('select').val('ja')
             @view.$('.title textarea').val('日本語のタイトル')
             @view.$('.summary textarea').val('日本語のサマリ')
+            @thread.id = 123
+            @server.respondWith(
+              'POST'
+              '/collection/123/comments'
+              @validResponse(id: '555')
+            )
 
-          it 'makes correct request', ->
-            @$nextButton.click()
-            expect(@server.requests.length).toEqual(1)
-            expect(@server.requests[0]).toBePUT()
-            expect(@server.requests[0]).toHaveUrl('/en/links/http%3A%2F%2Fwww.example.com')
+          describe 'saving the comment and link', ->
 
-          it 'sends valid data', ->
-            @$nextButton.click()
-            request = @server.requests[0]
-            params = JSON.parse(request.requestBody)
-            expect(params.link).toBeDefined()
-            expect(params.link.source_locale).toEqual('ja')
-            expect(params.link.title).toEqual(ja: '日本語のタイトル')
-            expect(params.link.summary).toEqual(ja: '日本語のサマリ')
+            it 'makes correct request', ->
+              @$nextButton.click()
+              expect(@server.requests.length).toEqual(1)
+              expect(@server.requests[0]).toBePOST()
+              expect(@server.requests[0]).toHaveUrl('/collection/123/comments')
 
-          it 'sets model values from form', ->
-            @$nextButton.click()
-            @server.respond()
-            expect(@model.getSourceLocale()).toEqual('ja')
-            expect(@model.getAttrInLocale('title', 'ja')).toEqual('日本語のタイトル')
-            expect(@model.getAttrInLocale('summary', 'ja')).toEqual('日本語のサマリ')
+            it 'sends valid data', ->
+              @$nextButton.click()
+              request = @server.requests[0]
+              params = JSON.parse(request.requestBody)
+              expect(params.comment).toBeDefined()
+              expect(params.comment.link_attributes).toBeDefined()
+              expect(params.comment.link_attributes.source_locale).toEqual('ja')
+              expect(params.comment.link_attributes.title).toEqual(ja: '日本語のタイトル')
+              expect(params.comment.link_attributes.summary).toEqual(ja: '日本語のサマリ')
 
-          it 'does not trigger any errors', ->
-            @$nextButton.click()
-            @server.respond()
-            expect(@view.$el).not.toContain('.error')
-            expect(@model.validationError).toBeNull()
+            it 'creates new comment on thread', ->
+              @$nextButton.click()
+              @server.respond()
+              comments = @thread.get('comments')
+              expect(comments.length).toEqual(1)
 
-          it 'calls leave on view', ->
-            sinon.spy(@view, 'leave')
-            @$nextButton.click()
-            @server.respond()
-            expect(@view.leave).toHaveBeenCalledOnce()
-            expect(@view.leave).toHaveBeenCalledWithExactly()
-            @view.leave.restore()
+            it 'sets comment id from response', ->
+              @$nextButton.click()
+              @server.respond()
+              comment = @thread.get('comments').at(0)
+              expect(comment.getId()).toEqual('555')
 
-          it 'triggers modal:next event on channel', ->
-            eventSpy = sinon.spy()
-            channel.on('modal:next', eventSpy)
-            @$nextButton.click()
-            @server.respond()
-            expect(eventSpy).toHaveBeenCalledOnce()
+            it 'associates link with comment', ->
+              @$nextButton.click()
+              @server.respond()
+              comment = @thread.get('comments').at(0)
+              expect(comment.get('link')).toBeDefined()
+              expect(comment.get('link').getId()).toEqual('http://www.example.com')
+
+            it 'sets link values from form', ->
+              @$nextButton.click()
+              @server.respond()
+              expect(@model.getSourceLocale()).toEqual('ja')
+              expect(@model.getAttrInLocale('title', 'ja')).toEqual('日本語のタイトル')
+              expect(@model.getAttrInLocale('summary', 'ja')).toEqual('日本語のサマリ')
+
+            it 'does not trigger any errors', ->
+              @$nextButton.click()
+              @server.respond()
+              expect(@view.$el).not.toContain('.error')
+              expect(@model.validationError).toBeNull()
+
+          describe 'after a successful save', ->
+
+            it 'triggers a modal:next event on the channel', ->
+              eventSpy = sinon.spy()
+              channel.on('modal:next', eventSpy)
+              @$nextButton.click()
+              @server.respond()
+              expect(eventSpy).toHaveBeenCalledOnce()
+              expect(eventSpy).toHaveBeenCalledWithExactly()
+
+            it 'calls leave on the view', ->
+              sinon.spy(@view, 'leave')
+              @$nextButton.click()
+              @server.respond()
+              expect(@view.leave).toHaveBeenCalledOnce()
+              expect(@view.leave).toHaveBeenCalledWithExactly()
+
 
         describe 'with invalid data', ->
 
