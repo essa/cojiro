@@ -27,6 +27,8 @@ define [
       @titleField = new Translatable.InPlaceField(model: @model, field: "title", editable: globals.currentUser?)
       @summaryField = new Translatable.InPlaceField(model: @model, field: "summary", editable: globals.currentUser?)
 
+      @model.on('add:comments', @renderLinks, @)
+
     render: ->
       @$el.html(showThreadTemplate(model: @model))
       @renderTranslatableFields()
@@ -41,7 +43,7 @@ define [
       @renderChildInto(@summaryField, '#summary')
 
     renderLinks: ->
-      linksContainer = @.$('.link-list')
+      (linksContainer = @.$('.link-list')).empty()
       self = @
       _.each @model.getLinks(), (link) ->
         linkView = new LinkView(model: link)

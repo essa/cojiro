@@ -8,7 +8,6 @@ define (require) ->
 
   describe "ThreadView", ->
     beforeEach ->
-      I18n.locale = 'en'
       @thread = new Thread()
       @thread.set
         created_at: new Date("2013", "4", "4", "12", "00").toJSON()
@@ -37,9 +36,6 @@ define (require) ->
               site_name: 'www.bar.com'
         ]
 
-    afterEach ->
-      I18n.locale = I18n.defaultLocale
-
     describe "rendering", ->
       it "renders the thread", ->
         @view = new ThreadView(model: @thread)
@@ -57,7 +53,7 @@ define (require) ->
         expect($el).toHaveText(/Cojiro Sasaki/)
         expect($el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')
 
-      describe 'link info', ->
+      describe 'links', ->
         beforeEach ->
           @view = new ThreadView(model: @thread)
 
@@ -81,7 +77,6 @@ define (require) ->
           links = $el.find('.link')
           expect($(links[0])).toContainText('A link about foo')
           expect($(links[1])).toContainText('A link about bar')
-
 
       describe "logged-in user", ->
         beforeEach ->
@@ -111,6 +106,23 @@ define (require) ->
         it 'does not render add link button', ->
           $el = @view.render().$el
           expect($el).not.toContain('a.add-link:contains("Add a link")')
+
+    describe 'events', ->
+      describe 'comment added to thread', ->
+        beforeEach -> @view = new ThreadView(model: @thread)
+
+        it 're-renders links', ->
+          @view.render()
+          @view.$('.link-list').empty()
+          @thread.trigger('add:comments')
+          expect(@view.$('.link-list')).toContain('.url a[href="http://www.foo.com"]')
+          expect(@view.$('.link-list')).toContain('.url a[href="http://www.bar.com"]')
+
+        it 'empties link list container', ->
+          @view.render()
+          @thread.trigger('add:comments')
+          expect(@view.$('.url a[href="http://www.foo.com"]').length).toEqual(1)
+          expect(@view.$('.url a[href="http://www.bar.com"]').length).toEqual(1)
 
     describe 'translatable fields', ->
       beforeEach ->
