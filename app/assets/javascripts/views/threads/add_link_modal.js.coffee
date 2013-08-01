@@ -43,6 +43,8 @@ define [
           @$el.addClass('confirm-link-details')
           @modal = new @ConfirmLinkDetailsView(model: @link, thread: @model)
           @appendChild(@modal)
+        when 3
+          @hideModal()
         else
           throw('invalid step')
       @
