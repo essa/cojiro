@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
-  before_filter :find_link, :except => [:index]
+  before_filter :initialize_link, :except => [:index, :show]
   respond_to :json
 
   def index
@@ -9,7 +9,8 @@ class LinksController < ApplicationController
   end
 
   def show
-    raise ActiveRecord::RecordNotFound unless @link.persisted?
+    @link = Link.find_by_url(params[:id])
+    raise ActiveRecord::RecordNotFound unless @link
     respond_with(@link)
   end
 
@@ -33,7 +34,7 @@ class LinksController < ApplicationController
 
   private
 
-  def find_link
+  def initialize_link
     @link = Link.initialize_by_url(params[:id], params[:link] || {})
   end
 end

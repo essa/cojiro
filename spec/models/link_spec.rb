@@ -187,6 +187,26 @@ describe Link do
     end
   end
 
+  describe '.find_by_url' do
+    context 'link with url exists' do
+      let!(:link) { FactoryGirl.create(:link, :url => 'http://www.foo.com/') }
+
+      it 'finds link for exact url match' do
+        Link.find_by_url('http://www.foo.com/').should == link
+      end
+
+      it 'finds link for normalized url match' do
+        Link.find_by_url('www.foo.com').should == link
+      end
+    end
+
+    context 'link with url does not exist' do
+      it 'finds link for exact url match' do
+        Link.find_by_url('http://www.foo.com/').should be_nil
+      end
+    end
+  end
+
   describe '.initialize_by_url' do
     let(:user) { FactoryGirl.create(:alice) }
 
