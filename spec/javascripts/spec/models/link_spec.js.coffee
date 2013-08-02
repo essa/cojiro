@@ -17,6 +17,11 @@ define (require) ->
           @link.set('url', 'http://www.foo.com')
           expect(@link.getUrl()).toEqual('http://www.foo.com')
 
+      describe '#getUrl', ->
+        it 'returns the display url', ->
+          @link.set('display_url', 'http://www.価格.com/')
+          expect(@link.getDisplayUrl()).toEqual('http://www.価格.com/')
+
       describe '#getSiteName', ->
         it 'returns the site name', ->
           @link.set('site_name', 'www.foo.com')

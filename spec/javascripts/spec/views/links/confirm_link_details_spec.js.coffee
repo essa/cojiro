@@ -15,7 +15,9 @@ define (require) ->
   describe 'ConfirmLinkDetailsView', ->
     beforeEach ->
       @nextSpy = sinon.spy(ConfirmLinkDetailsView.prototype, 'next')
-      @model = new Link(url: 'http://www.example.com')
+      @model = new Link
+        url: 'http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9',
+        display_url: 'http://ja.wikipedia.org/wiki/カポエイラ'
       @thread = new Thread
       @thread.collection = url: '/collection'
       @view = new ConfirmLinkDetailsView(model: @model, thread: @thread)
@@ -44,7 +46,7 @@ define (require) ->
 
       it 'renders url in title', ->
         @view.render()
-        expect(@view.$('.modal-header')).toContain('small:contains("http://www.example.com")')
+        expect(@view.$('.modal-header')).toContain('small:contains("http://ja.wikipedia.org/wiki/カポエイラ")')
 
       it 'renders form with bootstrap form-horizontal class', ->
         expect(@view.$('form')).toHaveClass('form-horizontal')
@@ -220,7 +222,7 @@ define (require) ->
               @server.respond()
               comment = @thread.get('comments').at(0)
               expect(comment.get('link')).toBeDefined()
-              expect(comment.get('link').getId()).toEqual('http://www.example.com')
+              expect(comment.get('link').getId()).toEqual('http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9')
 
             it 'sets link values from form', ->
               @$nextButton.click()

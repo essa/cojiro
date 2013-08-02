@@ -72,6 +72,7 @@ define [
     getId: -> @id
     getUser: -> @get('user')
     getUrl: -> @get('url')
+    getDisplayUrl: -> @get('display_url')
     getSiteName: -> @get('site_name')
     getEmbedData: -> @get('embed_data') || {}
     getThumbnailUrl: ->  @getEmbedData()['thumbnail_url']
