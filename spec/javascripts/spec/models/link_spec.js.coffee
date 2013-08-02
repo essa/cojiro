@@ -45,35 +45,34 @@ define (require) ->
           expect(@link.toJSON()['link']).not.toBeDefined()
 
     describe 'idAttribute', ->
-      it 'uses url attribute as id', ->
-        expect((new Link).idAttribute).toEqual('url')
+      it 'uses \'id\' attribute as id', ->
+        expect((new Link).idAttribute).toEqual('id')
 
     describe '#url', ->
       beforeEach -> @link = new Link
 
-      describe 'when no id is set', ->
+      describe 'when no url attribute is set', ->
 
         it 'throws an error', ->
           link = @link
-          expect(-> link.url()).toThrow('id is required to generate url')
+          expect(-> link.url()).toThrow('url attribute is required to generate link url')
 
-      describe 'when id is set', ->
+      describe 'when url attribute is set', ->
+        beforeEach -> @link.set('url', 'url123')
 
-        it 'is persisted at /links/en/#id for an English locale', ->
+        it 'is persisted at /links/en/<url> for an English locale', ->
           I18n.locale = 'en'
-          @link.id = 'url123'
           expect(@link.url()).toEqual('/en/links/url123')
 
-        it 'is persisted at /links/ja/#id for a Japanese locale', ->
+        it 'is persisted at /links/ja/<url> for a Japanese locale', ->
           I18n.locale = 'ja'
-          @link.id = 'url123'
           expect(@link.url()).toEqual('/ja/links/url123')
 
-      describe 'escaping id', ->
+      describe 'escaping url', ->
 
-        it 'escapes id in url', ->
+        it 'escapes url attribute', ->
           I18n.locale = 'en'
-          @link.id = 'http://www.google.com'
+          @link.set('url', 'http://www.google.com')
           expect(@link.url()).toEqual('/en/links/http%3A%2F%2Fwww.google.com')
 
     describe 'interacting with the server', ->
@@ -102,6 +101,30 @@ define (require) ->
           expect(params.link).toBeDefined()
           expect(params.link.title).toEqual('en': 'a cool link')
           expect(params.link.summary).toEqual('en': 'a summary')
+
+        describe 'on create', ->
+          beforeEach ->
+            @link.set
+              url: 'http://www.example.com'
+            @link.id = null
+            @link.save({}, validate: false)
+            @request = @server.requests[0]
+
+          it 'is a PUT', -> expect(@request).toBePUT()
+          it 'is async', -> expect(@request).toBeAsync()
+          it 'has a valid URL', -> expect(@request).toHaveUrl('/en/links/http%3A%2F%2Fwww.example.com')
+
+        describe 'on update', ->
+          beforeEach ->
+            @link.set
+              url: 'http://www.example.com'
+            @link.id = 66
+            @link.save({}, validate: false)
+            @request = @server.requests[0]
+
+          it 'is a PUT', -> expect(@request).toBePUT()
+          it 'is async', -> expect(@request).toBeAsync()
+          it 'has a valid URL', -> expect(@request).toHaveUrl('/en/links/http%3A%2F%2Fwww.example.com')
 
         describe 'validations', ->
           beforeEach ->

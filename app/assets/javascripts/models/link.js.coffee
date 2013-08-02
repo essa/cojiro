@@ -13,14 +13,18 @@ define [
   class Link extends Translatable.Model
     @use(Timestamps)
 
-    idAttribute: 'url'
+    idAttribute: 'id'
     name: 'link'
 
     url: ->
-      throw('id is required to generate url') unless @id
-      base = '/' + I18n.locale + '/links'
-      if @id then base += ('/' + encodeURIComponent(@id))
-      base
+      throw('url attribute is required to generate link url') unless (url = @getUrl())
+      "/#{I18n.locale}/links/#{encodeURIComponent(url)}"
+
+    sync: (method, model, options) ->
+      # force both create and update to use PUT
+      if (method == 'create')
+        method = 'update'
+      super(method, model, options)
 
     relations: [
         type: Backbone.HasOne

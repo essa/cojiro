@@ -222,7 +222,7 @@ define (require) ->
               @server.respond()
               comment = @thread.get('comments').at(0)
               expect(comment.get('link')).toBeDefined()
-              expect(comment.get('link').getId()).toEqual('http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9')
+              expect(comment.get('link').getUrl()).toEqual('http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9')
 
             it 'sets link values from form', ->
               @$nextButton.click()
