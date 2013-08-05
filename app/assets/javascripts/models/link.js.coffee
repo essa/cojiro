@@ -26,6 +26,23 @@ define [
         method = 'update'
       super(method, model, options)
 
+    set: (key, val, options) ->
+      # backbone-relational patch to get links to work correctly
+      if typeof key is 'object'
+        attrs = key
+        options = val
+      else (attrs = {})[key] = val
+      Backbone.Relational.eventQueue.block()
+      try
+        id = attrs && attrs[@idAttribute]
+        coll = Backbone.Relational.store.getCollection(@)
+        duplicate = coll && coll.get(id)
+        if (duplicate && (@ != duplicate))
+          Backbone.Relational.store.unregister(duplicate)
+      finally
+        Backbone.Relational.eventQueue.unblock()
+      super
+
     relations: [
         type: Backbone.HasOne
         key: 'user'

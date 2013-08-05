@@ -126,6 +126,28 @@ define (require) ->
           it 'is async', -> expect(@request).toBeAsync()
           it 'has a valid URL', -> expect(@request).toHaveUrl('/en/links/http%3A%2F%2Fwww.example.com')
 
+        describe 'already registered in Backbone.Relational.store', ->
+          beforeEach ->
+            @server.respondWith(
+              'PUT'
+              '/en/links/http%3A%2F%2Fwww.example.com'
+              @validResponse(id: 123, url: 'http://www.example.com/'))
+            @link.save { url: 'http://www.example.com' }, validate: false
+            @server.respond()
+
+          it 'does not throw error when saving with same id', ->
+            newLink = new Link
+            expect(-> newLink.set(id: 123)).not.toThrow()
+
+          it 'replaces stored link by new link with same id', ->
+            coll = Backbone.Relational.store.getCollection(Link)
+            oldCid = coll.get(123).cid
+            newLink = new Link
+            newLink.set(id: 123)
+            newCid = coll.get(123).cid
+            expect(newCid).toEqual(newLink.cid)
+            expect(newCid).not.toEqual(oldCid)
+
         describe 'validations', ->
           beforeEach ->
             @spy = sinon.spy()
