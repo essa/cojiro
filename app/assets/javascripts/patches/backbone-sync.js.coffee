@@ -22,9 +22,10 @@ define [
 
     # override this model instance toJSON() method
     model.toJSON = ->
+      oldToJSON = @oldToJSON()
       json = {}
       # namespace original json values under model.name key
-      json[model.name] = @oldToJSON()
+      json[model.name] = oldToJSON unless _.isEmpty(oldToJSON)
       json
         
     
