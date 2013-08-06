@@ -49,6 +49,11 @@ define [
           throw('invalid step')
       @
 
+    leave: () ->
+      channel.off('modal:next')
+      channel.off('modal:prev')
+      super
+
     showModal: () ->
       @step = 1
       super

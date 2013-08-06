@@ -213,3 +213,9 @@ define (require) ->
           channel.trigger('modal:prev')
           expect(@view.render).toHaveBeenCalledOnce()
           expect(@view.render).toHaveBeenCalledWithExactly()
+
+      describe 'unbinding channel events when leaving', ->
+        it 'removes channel handlers when leaving', ->
+          @view.leave()
+          channel.trigger('modal:next')
+          expect(@view.render).not.toHaveBeenCalled()

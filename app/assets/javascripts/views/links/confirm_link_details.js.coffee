@@ -55,7 +55,7 @@ define [
           thumb_src: @model.getThumbnailUrl()
         )
       )
-      @$('#form').append(@form.el)
+      @$('#form').html(@form.el)
       @renderChildInto(@header, '.modal-header')
       @renderChildInto(@footer, '.modal-footer')
       @

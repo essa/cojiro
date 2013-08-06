@@ -25,12 +25,8 @@ define [
     hideModal: () ->
       @$el.modal('hide')
 
-    # override default leave to avoid
-    # removing #modal element from page
-    leave: () ->
-      @trigger('leave')
-      @unbind()
-      @unbindFromAll()
-      #@remove()
-      @_leaveChildren()
-      #@_removeFromParent()
+    # override default to avoid removing element from view
+    remove: ->
+      @$el.empty()
+      @stopListening()
+      @
