@@ -335,13 +335,19 @@ describe Link do
 
   describe 'embed helper methods' do
     context 'for a link with valid embed data' do
-      around(:each) do |example|
-        VCR.use_cassette('what_is_crossfit') do
-          example.run
+      describe '#site_name' do
+        let(:link) { Link.new }
+
+        it 'strips http from provider_url' do
+          link.embed_data = { 'provider_url' => 'http://www.youtube.com/' }
+          link.site_name.should == 'www.youtube.com'
+        end
+
+        it 'strips https from provider_url' do
+          link.embed_data = { 'provider_url' => 'https://github.com/' }
+          link.site_name.should == 'github.com'
         end
       end
-      subject { FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M') }
-      its(:site_name) { should == 'www.youtube.com' }
     end
 
     context 'for a link with missing embed data' do
