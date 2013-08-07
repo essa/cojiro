@@ -42,6 +42,20 @@ define (require) ->
           @comment.id = 456
           expect(@comment.url()).toEqual('/collection/123/comments/456')
 
+    describe 'getters', ->
+      beforeEach ->
+        @comment = new Comment
+
+      describe '#getId', ->
+        it 'returns the id', ->
+          @comment.id = 123
+          expect(@comment.getId()).toEqual(123)
+
+      describe '#getText', ->
+        it 'returns the text of this comment', ->
+          @comment.set('text', 'foo')
+          expect(@comment.getText()).toEqual('foo')
+
     describe 'interacting with the server', ->
       beforeEach ->
         @collection = new Threads

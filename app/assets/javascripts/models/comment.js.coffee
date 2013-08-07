@@ -16,6 +16,7 @@ define [
       return !_.isEmpty(errors) && errors
 
     getId: -> @id
+    getText: -> @get('text')
 
   # http://backbonerelational.org/#RelationalModel-setup
   Comment.setup()
