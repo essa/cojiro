@@ -44,6 +44,14 @@ define (require) ->
         it 'does not include link key if all values are null', ->
           expect(@link.toJSON()['link']).not.toBeDefined()
 
+      describe '#getStatus', ->
+        it 'returns 1 if source locale is defined', ->
+          @link.setSourceLocale('en')
+          expect(@link.getStatus()).toEqual(1)
+
+        it 'returns 0 otherwise', ->
+          expect(@link.getStatus()).toEqual(0)
+
     describe 'idAttribute', ->
       it 'uses \'id\' attribute as id', ->
         expect((new Link).idAttribute).toEqual('id')
