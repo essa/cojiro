@@ -334,17 +334,17 @@ describe Link do
   end
 
   describe 'embed helper methods' do
+    let(:link) { FactoryGirl.build(:link) }
+
     context 'for a link with valid embed data' do
       describe '#site_name' do
-        let(:link) { Link.new }
-
         it 'strips http from provider_url' do
-          link.embed_data = { 'provider_url' => 'http://www.youtube.com/' }
+          link.stub(:embed_data).and_return({ 'provider_url' => 'http://www.youtube.com/' })
           link.site_name.should == 'www.youtube.com'
         end
 
         it 'strips https from provider_url' do
-          link.embed_data = { 'provider_url' => 'https://github.com/' }
+          link.stub(:embed_data).and_return({ 'provider_url' => 'https://github.com/' })
           link.site_name.should == 'github.com'
         end
       end
@@ -352,7 +352,6 @@ describe Link do
 
     context 'for a link with missing embed data' do
       it 'returns nil site name if provider_url is nil' do
-        link = FactoryGirl.build(:link)
         link.stub(:embed_data).and_return {}
         link.site_name.should == nil
       end
