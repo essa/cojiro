@@ -38,8 +38,8 @@ define [
     relations: [
         type: Backbone.HasOne
         key: 'user'
+        keySource: 'user_name'
         relatedModel: User
-        autoFetch: true
         reverseRelation:
           key: 'links'
           includeInJSON: 'name'

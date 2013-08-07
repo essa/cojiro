@@ -67,7 +67,6 @@ class Link < ActiveRecord::Base
 
   def serializable_hash(options = {})
     hash = super(options.merge(:only => [ :id, :created_at, :updated_at, :url, :source_locale, :embed_data ], :methods => [ :display_url, :site_name, :user_name ]))
-    hash[:user] = hash.delete(:user_name)
     hash
   end
 
