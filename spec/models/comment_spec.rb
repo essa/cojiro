@@ -127,6 +127,7 @@ describe Comment do
     before do
       Timecop.freeze(Time.utc(2012,6,11,12,20)) do
         @comment = FactoryGirl.build(:comment, :with_link)
+        @comment.user = FactoryGirl.create(:user, :name => 'foo')
         @comment.save
       end
       @comment_json = @comment.to_json
@@ -138,10 +139,11 @@ describe Comment do
     its(['updated_at']) { should == "2012-06-11T12:20:00Z" }
     its(['link']) { should be }
     its(['link']) { should have_key('url') }
+    its(['user_name']) { should == 'foo' }
 
     it 'does not include any other attributes' do
       subject.keys.delete_if { |k|
-        [ 'id', 'text', 'created_at', 'updated_at', 'link' ].include?(k)
+        %w[ id text created_at updated_at link user_name ].include?(k)
       }.should be_empty
     end
   end

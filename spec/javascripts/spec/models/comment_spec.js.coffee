@@ -89,6 +89,9 @@ define (require) ->
             url: 'http://www.example.com'
             title: en: 'a link title in English'
             summary: {}
+          # user association should not be sent -- it is set
+          # server-side from cookie
+          expect(params.comment.user_name).not.toBeDefined()
 
         it 'does not include link data if link not set', ->
           @comment.save()

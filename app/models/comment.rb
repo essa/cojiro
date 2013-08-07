@@ -9,9 +9,13 @@ class Comment < ActiveRecord::Base
   validates :cothread_id, :presence => true, :uniqueness => { :scope => :link_id }
   validates :user_id, :presence => true
 
+  def user_name
+    user && user.name
+  end
+
   def serializable_hash(options = {})
     super(options.merge(:only => [:id, :text, :created_at, :updated_at],
-                        :include => [ :link ]))
+                        :include => [ :link ], :methods  => [ :user_name ]))
   end
 
   # ref: http://stackoverflow.com/questions/3579924/accepts-nested-attributes-for-with-find-or-create
