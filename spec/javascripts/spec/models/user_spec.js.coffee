@@ -9,11 +9,6 @@ define (require) ->
     it 'can be instantiated', ->
       expect(@user).not.toBeNull()
 
-    describe 'id attribute', ->
-      it 'maps user name to id', ->
-        @user.set('name', 'alice')
-        expect(@user.id).toEqual('alice')
-
     describe '#url', ->
       beforeEach -> @user.set('name', 'alice')
 
