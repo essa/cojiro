@@ -44,7 +44,7 @@ class Link < ActiveRecord::Base
 
   def site_name
     if (embed_data && provider_url = embed_data['provider_url'])
-      provider_url.gsub(/^http:\/\//,'').chomp('/')
+      provider_url.gsub(/^(http|https):\/\//,'').chomp('/')
     end
   end
 
