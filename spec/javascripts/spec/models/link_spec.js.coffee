@@ -126,27 +126,24 @@ define (require) ->
           it 'is async', -> expect(@request).toBeAsync()
           it 'has a valid URL', -> expect(@request).toHaveUrl('/en/links/http%3A%2F%2Fwww.example.com')
 
-        describe 'already registered in Backbone.Relational.store', ->
+        describe 'handing duplicate ids', ->
           beforeEach ->
             @server.respondWith(
               'PUT'
-              '/en/links/http%3A%2F%2Fwww.example.com'
+              /^\/en\/links\/(.*)www\.example\.com/
               @validResponse(id: 123, url: 'http://www.example.com/'))
-            @link.save { url: 'http://www.example.com' }, validate: false
+            @link.save { url: 'www.example.com' }, validate: false
             @server.respond()
 
-          it 'does not throw error when saving with same id', ->
-            newLink = new Link
-            expect(-> newLink.set(id: 123)).not.toThrow()
+          it 'assigns id returned from server if no model exists yet in store', ->
+            expect(@link.getId()).toEqual(123)
 
-          it 'replaces stored link by new link with same id', ->
-            coll = Backbone.Relational.store.getCollection(Link)
-            oldCid = coll.get(123).cid
+          it 'deletes id attribute from response if model with same id exists in store', ->
             newLink = new Link
-            newLink.set(id: 123)
-            newCid = coll.get(123).cid
-            expect(newCid).toEqual(newLink.cid)
-            expect(newCid).not.toEqual(oldCid)
+            newLink.save { url: 'www.example.com' }, validate: false
+            @server.respond()
+            expect(newLink.getId()).toBeUndefined()
+            expect(newLink.getUrl()).toEqual('http://www.example.com/')
 
         describe 'validations', ->
           beforeEach ->
