@@ -39,6 +39,13 @@ define [
           @modal = new @RegisterUrlView(model: @link)
           @appendChild(@modal)
         when 2
+          # we've now got the normalized url (set by the server),
+          # but we might not have the same instance that's in the store.
+          # to be sure, let's find it.
+          coll = Backbone.Relational.store.getCollection(Link)
+          linkInStore = coll.findWhere(url: @link.getUrl())
+          @link = linkInStore if linkInStore
+
           @$el.removeClass('register-url')
           @$el.addClass('confirm-link-details')
           @modal = new @ConfirmLinkDetailsView(model: @link, thread: @model)

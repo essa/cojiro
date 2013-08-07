@@ -116,7 +116,7 @@ define (require) ->
       describe 'confirm link details (step 2)', ->
         beforeEach ->
           @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
-          @Link = sinon.stub()
+          @Link = sinon.stub().returns(@link)
           @view = new AddLinkModalView
             ConfirmLinkDetailsView: @ConfirmLinkDetailsView
             Link: @Link
@@ -172,6 +172,15 @@ define (require) ->
           it 'inserts form html into .modal-body element', ->
             $el = @view.render().$el
             expect($el).toContain('div.stub-modal')
+
+        describe 'fetching link from store', ->
+
+          it 'searches for link with same url in store, and replaces if found', ->
+            linkInStore = new Link(id: 123, url: 'http://www.example.com')
+            coll = Backbone.Relational.store.getCollection(Link)
+            coll.add(linkInStore)
+            @view.render()
+            expect(@view.link).toBe(linkInStore)
 
     describe 'events', ->
       beforeEach ->
