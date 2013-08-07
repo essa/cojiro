@@ -40,9 +40,9 @@ define [
         sourceLocale: -> @$('.source_locale select').val()
       @Comment = options.Comment || Comment
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
-      @header = new @ModalHeaderView(title: 'Confirm link details <small>' + @model.getDisplayUrl() + '</small>')
+      @header = new @ModalHeaderView(title: 'Add <small>' + @model.getDisplayUrl() + '</small>')
       @ModalFooterView = options.ModalFooterView || ModalFooterView
-      @footer = new @ModalFooterView(prevString: 'Back', nextString: 'Confirm')
+      @footer = new @ModalFooterView(prevString: 'Back', nextString: 'Add to this thread')
       @thread = options.thread
 
     render: () ->

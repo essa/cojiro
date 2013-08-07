@@ -42,7 +42,7 @@ define (require) ->
 
       it 'renders modal title', ->
         $el = @view.render().$el
-        expect($el.find('.modal-header')).toHaveText(/Confirm link details/)
+        expect($el.find('.modal-header')).toHaveText(/Add/)
 
       it 'renders url in title', ->
         @view.render()
@@ -53,7 +53,7 @@ define (require) ->
 
       it 'renders modal confirm button', ->
         @view.render()
-        expect(@view.$el).toContain('button.btn-primary:contains("Confirm")')
+        expect(@view.$el).toContain('button.btn-primary:contains("Add to this thread")')
 
       it 'renders modal back button', ->
         @view.render()
