@@ -113,12 +113,12 @@ describe Link do
       its(['title']) { should == { 'en' => 'What is CrossFit?' } }
       its(['summary']) { should == { 'en' => 'CrossFit is an effective way to get fit. Anyone can do it.' } }
       its(['site_name']) { should == 'www.youtube.com' }
-      its(['user_id']) { should == link.id }
+      its(['user']) { should == 'foo' }
       its(['url']) { should == 'http://youtu.be/tzD9BkXGJ1M' }
       its(['source_locale']) { should == 'en' }
       it 'does not include any other attributes' do
         subject.keys.delete_if { |k|
-          %w[ id created_at updated_at title summary url display_url source_locale embed_data site_name user_id ].include?(k)
+          %w[ id created_at updated_at title summary url display_url source_locale embed_data site_name user ].include?(k)
         }.should be_empty
       end
       its(['embed_data']) { should be }

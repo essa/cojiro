@@ -8,6 +8,7 @@ define [
 
   class User extends BaseModel
     @use(Timestamps)
+    idAttribute: 'name'
     url: -> '/' + I18n.locale + '/users/' + @getName()
 
     # user getter methods

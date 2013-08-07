@@ -38,11 +38,11 @@ define [
     relations: [
         type: Backbone.HasOne
         key: 'user'
-        keySource: 'user_id'
         relatedModel: User
+        autoFetch: true
         reverseRelation:
           key: 'links'
-          includeInJSON: 'id'
+          includeInJSON: 'name'
       ,
         type: Backbone.HasMany
         key: 'comments'
