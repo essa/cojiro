@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  belongs_to :cothread
+  belongs_to :cothread, :touch => true
   belongs_to :link, :autosave => true, :validate => false
   belongs_to :user
   attr_accessible :text, :link_id, :link_attributes
