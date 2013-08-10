@@ -259,11 +259,13 @@ ul.nav-pills {
   form {
     margin-top: 20px;
 
-    textarea {
-      width: 90%;
+    .title, .summary {
+      textarea,.uneditable-input {
+        width: 90%;
+      }
     }
 
-    .summary textarea {
+    .summary textarea,.summary .uneditable-input {
       height: 100px;
     }
 
@@ -273,6 +275,7 @@ ul.nav-pills {
 
     .uneditable-input {
       color: #555555;
+      white-space: normal;
     }
   }
 }
