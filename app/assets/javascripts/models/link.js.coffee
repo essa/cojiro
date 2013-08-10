@@ -84,6 +84,7 @@ define [
 
     getId: -> @id
     getUser: -> @get('user')
+    getUserName: -> @getUser().getName()
     getUrl: -> @get('url')
     getDisplayUrl: -> @get('display_url')
     getSiteName: -> @get('site_name')
