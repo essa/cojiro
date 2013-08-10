@@ -33,7 +33,7 @@ define (require) ->
 
         it 'renders URL input form', ->
           @view.render()
-          expect(@view.$('label')).toHaveText('URL')
+          expect(@view.$('label')).toHaveText('URL:')
 
         it 'renders placeholder "Enter a URL"', ->
           @view.render().$el

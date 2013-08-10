@@ -245,6 +245,7 @@ ul.nav-pills {
 
 #modal.register-url form {
   text-align: center;
+  margin-top: 20px;
 }
 
 #modal.confirm-link-details {
@@ -256,12 +257,10 @@ ul.nav-pills {
   }
 
   form {
-    textarea {
-      width: 98%;
-    }
+    margin-top: 20px;
 
-    .title textarea {
-      height: 30px;
+    textarea {
+      width: 90%;
     }
 
     .summary textarea {
@@ -270,6 +269,10 @@ ul.nav-pills {
 
     label {
       font-weight: bold;
+    }
+
+    .uneditable-input {
+      color: #555555;
     }
   }
 }

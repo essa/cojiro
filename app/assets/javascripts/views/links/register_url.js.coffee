@@ -14,9 +14,11 @@ define [
       <div class="modal-body">
         <form class="form-inline">
           <fieldset>
-            <label>URL&nbsp;</label>
-            <input type="text" name="url" placeholder="<%= enter_a_url_string %>" />
-            <button type="submit" class="btn"><%= go_string %></button>
+            <label>URL:&nbsp;</label>
+            <div class="input-append">
+              <input class="span4" type="text" name="url" placeholder="<%= enter_a_url_string %>" />
+              <button type="submit" class="btn"><%= go_string %></button>
+            </div>
           </fieldset>
         </form>
       </div>'

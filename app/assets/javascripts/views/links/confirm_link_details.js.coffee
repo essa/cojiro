@@ -8,21 +8,19 @@ define [
   'modules/base/view'
   'modules/translatable/form'
   'modules/channel'
+  'templates/other/flash'
   'i18n'
-], ($, _, Backbone, Comment, ModalHeaderView, ModalFooterView, BaseView, Form, channel, I18n) ->
+], ($, _, Backbone, Comment, ModalHeaderView, ModalFooterView, BaseView, Form, channel, flashTemplate, I18n) ->
 
   class ConfirmLinkDetailsView extends BaseView
     template: _.template '
       <div class="modal-header"></div>
       <div class="modal-body">
+        <div class="row-fluid hide">
+          <div class="span12" id="flash-box"></div>
+        </div>
         <div class="row-fluid">
-          <div class="span8" id="form">
-          </div>
-          <div class="span4">
-            <div class="thumbnail">
-              <img src="<%= thumb_src %>" style="max-width: 300; max-height: 500px" />
-            </div>
-          </div>
+          <div class="span12" id="link-details"></div>
         </div>
       </div>
       <div class="modal-footer"></div>'
@@ -46,24 +44,35 @@ define [
       @thread = options.thread
 
     render: () ->
+      @$el.html(@template())
+      @renderChildInto(@header, '.modal-header')
+      @renderChildInto(@footer, '.modal-footer')
       @renderChild(@form)
       @formatForm(@form)
       if embedData = @model.getEmbedData()
         @preFillForm(@form, embedData)
-      @$el.html(
-        @template(
-          thumb_src: @model.getThumbnailUrl()
-        )
-      )
-      @$('#form').html(@form.el)
-      @renderChildInto(@header, '.modal-header')
-      @renderChildInto(@footer, '.modal-footer')
+      @$('#link-details').html(@form.el)
       @
 
     formatForm: (form) ->
-      # set to readonly
-      form.$('.title textarea').attr('readonly', true)
-      form.$('.summary textarea').attr('readonly', true)
+      # link already exists
+      if @model.getStatus()
+        form.$('.source_locale select').replaceWith($('<span class="uneditable-input">' + I18n.t(@model.getSourceLocale()) + '</span>'))
+        form.$('.title textarea').addClass('uneditable-input')
+        form.$('.summary textarea').addClass('uneditable-input')
+        @$('.row-fluid.hide').removeClass('hide').html(
+          flashTemplate(
+            name: 'notice'
+            msg: I18n.t(
+              'views.links.confirm_link_details.already_registered'
+              name: @model.getUserName()
+              date: @model.getCreatedAt())))
+
+      # this is a new link
+      else
+        # set to readonly
+        form.$('.title textarea').attr('readonly', true)
+        form.$('.summary textarea').attr('readonly', true)
 
     preFillForm: (form, embedData) ->
       @form.$('.title textarea').val(embedData.title)
@@ -82,7 +91,7 @@ define [
 
     next: () ->
       self = @
-      if @model.set(@form.serialize(), validate: true)
+      if @model.getStatus() || @model.set(@form.serialize(), validate: true)
         comment = new @Comment(link: @model, thread: @thread)
         comment.save {},
           success: (model, resp) ->

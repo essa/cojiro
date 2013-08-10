@@ -35,6 +35,9 @@ ja:
     threads:
       new_thread:
         thread_created: "スレッドは作成されました。"
+    links:
+      confirm_link_details:
+        already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
 
   jquery:
     timeago:
