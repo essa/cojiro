@@ -125,6 +125,7 @@ define (require) ->
           expect(@view.$el).not.toHaveText(originalFieldText)
 
         describe 'popover with field in source locale', ->
+          afterEach -> _.each $('body .popover'), (popover) -> $(popover).remove()
 
           it 'does not render popover if we\'re in the source locale', ->
             @$clickableField.click()
@@ -133,7 +134,7 @@ define (require) ->
           it 'renders popover if source locale is different from this one', ->
             I18n.locale = 'fr'
             @$clickableField.click()
-            expect(@view.$el).toContain('.popover:contains("Co-working spaces in Tokyo")')
+            expect($('body')).toContain('.popover:contains("Co-working spaces in Tokyo")')
 
     describe 'with real FieldForm', ->
       beforeEach ->

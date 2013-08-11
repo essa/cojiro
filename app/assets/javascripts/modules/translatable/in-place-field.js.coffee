@@ -35,6 +35,7 @@ define [
       @FieldForm = options.FieldForm || FieldForm
 
     render: ->
+      @destroyPopover()
       fieldVal = @model.getAttr(@field)
       @renderField(fieldVal)
 
@@ -69,4 +70,8 @@ define [
             content: source_text
             placement: 'top'
             trigger: 'manual'
+            container: 'body'
           .popover('show')
+
+    destroyPopover: ->
+      @$('.editable-input').popover('destroy')

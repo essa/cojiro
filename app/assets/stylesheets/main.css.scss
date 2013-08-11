@@ -187,6 +187,9 @@ ul.nav-pills {
       background: $cojiroGray;
     }
 
+    a.description {
+      position: relative;
+    }
     .description {
       display: block;
       height: $linkDescriptionHeight;
@@ -196,6 +199,9 @@ ul.nav-pills {
       overflow: hidden;
       padding: 10px;
       margin-bottom: 15px;
+    }
+    .title textarea {
+      height: $linkDescriptionHeight / 4;
     }
     .summary textarea {
       height: $linkDescriptionHeight / 2;
@@ -216,9 +222,21 @@ ul.nav-pills {
       width: 100%;
     }
 
-    h3 {
+    h3.title {
       font-size: $baseFontSize * 1.4;
       line-height: $baseLineHeight * 1.4;
+    }
+
+    p.summary {
+      overflow: hidden;
+    }
+
+    // position in-place-field 80px below top of the box
+    // regardless of how large the title field is,
+    // to prevent buttons being hidden
+    .summary > .in-place-field > div {
+      position: absolute;
+      top: 80px;
     }
 
   }
