@@ -1,4 +1,7 @@
 class Comment < ActiveRecord::Base
+  translates :text
+  include GlobalizeHelpers
+
   belongs_to :cothread, :touch => true
   belongs_to :link, :autosave => true, :validate => false
   belongs_to :user
