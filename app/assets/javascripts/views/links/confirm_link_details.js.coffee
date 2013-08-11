@@ -57,9 +57,12 @@ define [
     formatForm: (form) ->
       # link already exists
       if @model.getStatus()
-        form.$('.source_locale select').replaceWith($('<span class="uneditable-input">' + I18n.t(@model.getSourceLocale()) + '</span>'))
-        form.$('.title textarea').addClass('uneditable-input')
-        form.$('.summary textarea').addClass('uneditable-input')
+        sourceLocale = @model.getSourceLocale()
+        form.$('.source_locale select').replaceWith($("<span class='uneditable-input'>#{I18n.t(sourceLocale)}</span>"))
+        title = @model.getAttrInSourceLocale('title')
+        form.$('.title textarea').replaceWith($("<div class='uneditable-input'>#{title}</div>"))
+        summary = @model.getAttrInSourceLocale('summary')
+        form.$('.summary textarea').replaceWith($("<div class='uneditable-input'>#{summary}</div>"))
         @$('.row-fluid.hide').removeClass('hide').html(
           flashTemplate(
             name: 'notice'

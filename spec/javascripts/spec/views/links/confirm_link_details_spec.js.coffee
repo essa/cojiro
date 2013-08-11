@@ -67,14 +67,6 @@ define (require) ->
         it 'renders source_locale label', ->
           expect(@view.$el).toContainText('This link is in')
 
-      describe 'title', ->
-        it 'renders title field', ->
-          expect(@view.$el).toContain(titleSelector)
-
-      describe 'summary', ->
-        it 'renders summary field', ->
-          expect(@view.$el).toContain(summarySelector)
-
       describe 'cleaning up', ->
 
         it 'calls leave on any existing header', ->
@@ -135,6 +127,9 @@ define (require) ->
 
           describe 'title', ->
 
+            it 'renders title field', ->
+              expect(@view.$el).toContain(titleSelector)
+
             it 'sets title field to readonly until source locale has been selected', ->
               expect(@view.$(titleSelector)).toHaveAttr('readonly')
 
@@ -144,6 +139,9 @@ define (require) ->
               expect(@view.$(titleSelector)).toHaveValue('a title')
 
           describe 'summary', ->
+
+            it 'renders summary field', ->
+              expect(@view.$el).toContain(summarySelector)
 
             it 'sets summary field to readonly until source locale has been selected', ->
               expect(@view.$(summarySelector)).toHaveAttr('readonly')
@@ -333,18 +331,12 @@ define (require) ->
               expect(@view.$el).not.toContain('select[name="source_locale"]')
 
           describe 'title', ->
-            it 'adds uneditable-input class to input field', ->
-              expect(@view.$(titleSelector)).toHaveClass('uneditable-input')
-
-            it 'does not add readonly attribute', ->
-              expect(@view.$(titleSelector)).not.toHaveAttr('readonly')
+            it 'renders title as uneditable input', ->
+              expect(@view.$('.title .uneditable-input')).toHaveText('日本語のタイトル')
 
           describe 'summary', ->
-            it 'adds uneditable-input class to input field', ->
-              expect(@view.$(summarySelector)).toHaveClass('uneditable-input')
-
-            it 'does not add readonly attribute', ->
-              expect(@view.$(summarySelector)).not.toHaveAttr('readonly')
+            it 'renders summary as uneditable input', ->
+              expect(@view.$('.summary .uneditable-input')).toHaveText('日本語のサマリ')
 
           describe 'flash message', ->
             it 'appends flash message', ->
