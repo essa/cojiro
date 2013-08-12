@@ -272,10 +272,15 @@ ul.nav-pills {
 
   .modal-body {
     max-height: 80%;
+    padding-bottom: 0;
+  }
+
+  form.link-form {
+    margin-top: 20px;
+    margin-bottom: 0;
   }
 
   form {
-    margin-top: 20px;
 
     .title, .summary {
       textarea,.uneditable-input {
@@ -283,8 +288,12 @@ ul.nav-pills {
       }
     }
 
+    .title textarea,.title .uneditable-input {
+      height: $baseLineHeight;
+    }
+
     .summary textarea,.summary .uneditable-input {
-      height: 100px;
+      height: $baseLineHeight * 4;
     }
 
     label {

@@ -52,8 +52,8 @@ define (require) ->
           expect(@comment.getId()).toEqual(123)
 
       describe '#getText', ->
-        it 'returns the text of this comment', ->
-          @comment.set('text', 'foo')
+        it 'returns the text of this comment in this locale', ->
+          @comment.set('text', en: 'foo')
           expect(@comment.getText()).toEqual('foo')
 
     describe 'interacting with the server', ->
@@ -76,7 +76,7 @@ define (require) ->
 
         it 'sends valid data to the server', ->
           @comment.save
-            text: 'a comment text'
+            text: en: 'a comment text'
             link:
               url: 'http://www.example.com'
               title: en: 'a link title in English'
@@ -84,7 +84,7 @@ define (require) ->
           params = JSON.parse(request.requestBody)
 
           expect(params.comment).toBeDefined()
-          expect(params.comment.text).toEqual('a comment text')
+          expect(params.comment.text).toEqual(en: 'a comment text')
           expect(params.comment.link_attributes).toEqual
             url: 'http://www.example.com'
             title: en: 'a link title in English'

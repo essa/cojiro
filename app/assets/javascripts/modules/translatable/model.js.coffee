@@ -7,6 +7,8 @@ define [
   'i18n'
 ], ($, _, Backbone, BaseModel, TranslatableAttribute, I18n) ->
 
+  duplicate = (obj) -> obj && JSON.parse(JSON.stringify(obj))
+
   class TranslatableModel extends BaseModel
 
     translatableAttributes: []
@@ -15,20 +17,21 @@ define [
       if _.isArray(@translatableAttributes)
         self = @
         _.each @translatableAttributes, (attr) ->
-          self._set(attr, new TranslatableAttribute(_.isObject(attributes) && attributes[attr]))
+          value = _.isObject(attributes) && duplicate(attributes[attr])
+          self._set(attr, new TranslatableAttribute(value))
 
     parse: (resp, options = {}) ->
-      self = @
-      resp = resp && JSON.parse(JSON.stringify(resp))
-      if resp? && @translatableAttributes?
-        for key in @translatableAttributes
-          value = resp[key]
-          if options.merge && !!value
-            value ||= {}
-            oldValue = self.get(key) && self.get(key).attributes
-            _(value).extend oldValue
-          if value
-            resp[key] = new TranslatableAttribute(value, parse: true)
+      return unless resp
+      for key in @translatableAttributes
+        if resp[key]
+          resp[key] = duplicate(resp[key])
+        value = resp[key]
+        if options.merge && value
+          value ||= {}
+          oldValue = @get(key) && @get(key).attributes
+          _(value).extend oldValue
+        if value
+          resp[key] = new TranslatableAttribute(value, parse: true)
       return resp
 
     getAttrInLocale: (attr_name, locale) -> @get(attr_name).get(locale)

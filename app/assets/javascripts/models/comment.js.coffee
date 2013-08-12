@@ -1,10 +1,12 @@
 define [
-  'modules/base/model'
+  'backbone'
+  'modules/translatable/model'
   'modules/extended/timestamps'
   'models/user'
-], (BaseModel, Timestamps, User) ->
+  'models/link'
+], (Backbone, TranslatableModel, Timestamps, User, Link) ->
 
-  class Comment extends BaseModel
+  class Comment extends TranslatableModel
     @use Timestamps
     name: 'comment'
 
@@ -22,12 +24,16 @@ define [
           includeInJSON: 'name'
     ]
 
-    validate: (attrs) ->
-      errors = super(attrs) || {}
-      return !_.isEmpty(errors) && errors
+    translatableAttributes:
+      [ 'text' ]
+
+    schema: ->
+      text:
+        type: 'TextArea'
+        label: 'Comment'
 
     getId: -> @id
-    getText: -> @get('text')
+    getText: -> @getAttr('text')
 
     toJSON: () ->
       delete((json = super).user_name)

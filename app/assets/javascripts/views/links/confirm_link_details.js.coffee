@@ -33,10 +33,13 @@ define [
 
     initialize: (options = {}) ->
       super(options)
-      @form = new Form
+      @linkForm = new Form
         model: @model
         sourceLocale: -> @$('.source_locale select').val()
       @Comment = options.Comment || Comment
+      @comment = new @Comment(link: @model)
+      @commentForm = new Form
+        model: @comment
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
       @header = new @ModalHeaderView(title: 'Add <small>' + @model.getDisplayUrl() + '</small>')
       @ModalFooterView = options.ModalFooterView || ModalFooterView
@@ -47,14 +50,17 @@ define [
       @$el.html(@template())
       @renderChildInto(@header, '.modal-header')
       @renderChildInto(@footer, '.modal-footer')
-      @renderChild(@form)
-      @formatForm(@form)
+      @renderChild(@linkForm)
+      @renderChild(@commentForm)
+      @formatForm(@linkForm)
       if embedData = @model.getEmbedData()
-        @preFillForm(@form, embedData)
-      @$('#link-details').html(@form.el)
+        @preFillForm(@linkForm, embedData)
+      @$('#link-details').html(@linkForm.el)
+      @$('#link-details').append(@commentForm.el)
       @
 
     formatForm: (form) ->
+      form.$el.addClass('link-form')
       # link already exists
       if @model.getStatus()
         sourceLocale = @model.getSourceLocale()
@@ -78,25 +84,25 @@ define [
         form.$('.summary textarea').attr('readonly', true)
 
     preFillForm: (form, embedData) ->
-      @form.$('.title textarea').val(embedData.title)
-      @form.$('.summary textarea').val(embedData.description)
+      form.$('.title textarea').val(embedData.title)
+      form.$('.summary textarea').val(embedData.description)
 
     updateLabels: () ->
       self = @
-      locale = @form.$('select option:selected').text()
-      @form.$('.title label').text('Title in ' + locale)
-      @form.$('.summary label').text('Summary in ' + locale)
-      @form.$('.title textarea').attr('readonly', false)
-      @form.$('.summary textarea').attr('readonly', false)
-      @form.$('.control-group.source_locale').removeClass('error')
-      @form.$('.control-group .help-block').empty()
-      @form.$('.source_locale select option[value=""]').remove()
+      locale = @linkForm.$('select option:selected').text()
+      @linkForm.$('.title label').text('Title in ' + locale)
+      @linkForm.$('.summary label').text('Summary in ' + locale)
+      @linkForm.$('.title textarea').attr('readonly', false)
+      @linkForm.$('.summary textarea').attr('readonly', false)
+      @linkForm.$('.control-group.source_locale').removeClass('error')
+      @linkForm.$('.control-group .help-block').empty()
+      @linkForm.$('.source_locale select option[value=""]').remove()
 
     next: () ->
       self = @
-      if @model.getStatus() || @model.set(@form.serialize(), validate: true)
-        comment = new @Comment(link: @model, thread: @thread)
-        comment.save {},
+      if @model.getStatus() || @model.set(@linkForm.serialize(), validate: true)
+        @comment.set('thread', @thread)
+        @comment.save @commentForm.serialize(),
           success: (model, resp) ->
             channel.trigger('modal:next')
             self.leave()

@@ -2,15 +2,15 @@ define [
   'underscore'
   'backbone'
   'i18n'
-  'modules/translatable'
+  'modules/translatable/model'
   'models/user'
   'models/comment'
   'collections/comments'
   'modules/extended/timestamps'
   'underscore_mixins'
-], (_, Backbone, I18n, Translatable, User, Comment, Comments, Timestamps) ->
+], (_, Backbone, I18n, TranslatableModel, User, Comment, Comments, Timestamps) ->
 
-  class Link extends Translatable.Model
+  class Link extends TranslatableModel
     @use(Timestamps)
 
     idAttribute: 'id'
