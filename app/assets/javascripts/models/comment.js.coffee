@@ -34,6 +34,8 @@ define [
 
     getId: -> @id
     getText: -> @getAttr('text')
+    getUser: -> @get('user')
+    getUserName: -> @getUser().getName()
 
     toJSON: () ->
       delete((json = super).user_name)

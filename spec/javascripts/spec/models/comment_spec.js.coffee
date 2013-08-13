@@ -5,6 +5,7 @@ define (require) ->
   Thread = require('models/thread')
   Threads = require('collections/threads')
   Link = require('models/link')
+  User = require('models/user')
 
   describe 'Comment', ->
 
@@ -55,6 +56,16 @@ define (require) ->
         it 'returns the text of this comment in this locale', ->
           @comment.set('text', en: 'foo')
           expect(@comment.getText()).toEqual('foo')
+
+      describe '#getUser', ->
+        it 'returns the user who created this comment', ->
+          @comment.set('user', user = new User)
+          expect(@comment.getUser()).toEqual(user)
+
+      describe '#getUserName', ->
+        it 'returns the name of the user who created this comment', ->
+          @comment.set('user', user = new User(name: 'bar'))
+          expect(@comment.getUserName()).toEqual('bar')
 
     describe 'interacting with the server', ->
       beforeEach ->
