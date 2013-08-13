@@ -25,12 +25,15 @@ map:
     'jquery.timeago': 'adapters/jquery.timeago-adapter'
     'jquery': 'adapters/jquery-adapter'
     'backbone': 'adapters/backbone-adapter'
+    'bootstrap-tooltip': 'adapters/bootstrap-tooltip-adapter'
   'adapters/i18n-adapter':
     'i18n': 'i18n'
   'adapters/jquery.timeago-adapter':
     'jquery.timeago': 'jquery.timeago'
   'adapters/jquery-adapter':
     'jquery': 'jquery'
+  'adapters/bootstrap-tooltip-adapter':
+    'bootstrap-tooltip': 'bootstrap-tooltip'
   'jquery_ujs':
     'jquery': 'jquery'
   'adapters/backbone-adapter':
