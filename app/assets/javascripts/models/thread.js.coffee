@@ -56,9 +56,8 @@ define [
     getId: -> @id
     getUser: -> @get('user')
     getUserName: -> @getUser().getName()
-
-    # links relation through comments
-    getLinks: -> @get('comments').pluck('link')
+    getComments: -> @get('comments')
+    getLinks: -> @getComments().pluck('link')
 
     validate: (attrs) ->
       errors = super(attrs) || {}

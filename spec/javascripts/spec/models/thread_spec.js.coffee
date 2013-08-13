@@ -6,6 +6,7 @@ define (require) ->
   I18n = require('i18n')
   Thread = require('models/thread')
   Link = require('models/link')
+  Comment = require('models/comment')
   Comments = require('collections/comments')
   TranslatableAttribute = require('modules/translatable/attribute')
   sharedExamples = require('spec/models/shared')
@@ -58,13 +59,25 @@ define (require) ->
       beforeEach ->
         @thread = new Thread
 
+      describe '#getComments', ->
+        beforeEach ->
+          @comment1 = new Comment
+          @comment2 = new Comment
+          @thread.set 'comments', [ @comment1, @comment2 ]
+
+        it 'returns collection of comments for this thread', ->
+          comments = @thread.getComments()
+          expect(comments instanceof Backbone.Collection).toBeTruthy()
+          expect(comments.models).toEqual([@comment1, @comment2])
+
       describe '#getLinks', ->
         beforeEach ->
-          @thread.set comments: [ link: title: en: 'link #1' ]
+          @link = new Link(title: en: 'link #1')
+          @thread.set comments: [ link: @link ]
 
-        it 'returns links for this thread', ->
+        it 'returns array of links for this thread', ->
           links = @thread.getLinks()
-          expect(links[0] instanceof Link).toBeTruthy()
+          expect(links).toEqual( [ @link ] )
 
     describe 'interacting with the server', ->
       beforeEach ->
