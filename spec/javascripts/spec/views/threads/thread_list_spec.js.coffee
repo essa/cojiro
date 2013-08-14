@@ -20,7 +20,7 @@ define (require) ->
         @ThreadListItemView = sinon.stub().returns(@listItemView)
         @view = new ThreadListView(ThreadListItemView: @ThreadListItemView)
 
-      describe "instantiation", ->
+      describe "initialization", ->
         beforeEach ->
           @view.collection = new Backbone.Collection()
           @$el = @view.$el

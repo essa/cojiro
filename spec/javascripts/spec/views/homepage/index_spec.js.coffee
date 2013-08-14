@@ -33,7 +33,7 @@ define (require) ->
     afterEach ->
       I18n.locale = I18n.defaultLocale
 
-    describe "instantiation", ->
+    describe "initialization", ->
       beforeEach ->
         @renderThreadListSpy = sinon.stub(HomepageView.prototype, 'renderThreadList')
         @view = new HomepageView(_(options).extend(collection: @threads))

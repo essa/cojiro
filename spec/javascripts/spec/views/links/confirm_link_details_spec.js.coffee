@@ -29,7 +29,7 @@ define (require) ->
       @model.set('user', @user)
       @view = new ConfirmLinkDetailsView(model: @model, thread: @thread)
 
-    describe 'instantiation', ->
+    describe 'initialization', ->
       beforeEach -> @$el = @view.$el
 
       it 'creates a div element for the form', ->

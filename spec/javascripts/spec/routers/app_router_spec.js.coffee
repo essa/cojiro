@@ -34,7 +34,7 @@ define (require) ->
     afterEach ->
       I18n.locale = I18n.defaultLocale
 
-    describe "instantiation", ->
+    describe "initialization", ->
 
       it "can be instantiated", ->
         router = new AppRouter(options)

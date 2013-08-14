@@ -15,7 +15,7 @@ define (require) ->
     afterEach ->
       I18n.locale = I18n.defaultLocale
 
-    describe "instantiation", ->
+    describe "initialization", ->
 
       it "creates a table row for a thread", ->
         $el = @view.$el

@@ -6,7 +6,7 @@ define (require) ->
 
   describe "NavbarView", ->
 
-    describe "instantiation", ->
+    describe "initialization", ->
       beforeEach ->
         @view = new NavbarView
 

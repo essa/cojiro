@@ -13,7 +13,7 @@ define (require) ->
       I18n.locale = 'en'
       @thread = sinon.stub()
 
-    describe 'instantiation', ->
+    describe 'initialization', ->
       beforeEach -> @options = model: {}
 
       it 'throws no error if passed required options', ->

@@ -43,7 +43,7 @@ define (require) ->
       afterEach ->
         InPlaceField.prototype.showForm.restore()
 
-      describe 'instantiation', ->
+      describe 'initialization', ->
         beforeEach ->
           @options =
             field: 'title'

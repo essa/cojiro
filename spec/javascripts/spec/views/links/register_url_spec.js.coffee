@@ -13,7 +13,7 @@ define (require) ->
     describe 'with no Link model', ->
       beforeEach -> @view = new RegisterUrlView
 
-      describe 'instantiation', ->
+      describe 'initialization', ->
         beforeEach -> @$el = @view.$el
 
         it 'creates a div element for the form', ->

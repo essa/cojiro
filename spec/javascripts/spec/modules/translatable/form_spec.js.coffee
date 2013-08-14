@@ -21,7 +21,7 @@ define (require) ->
         id: '123'
         schema: -> {}
 
-    describe 'instantiation', ->
+    describe 'initialization', ->
       beforeEach ->
         @view = new Form(model: @model)
 

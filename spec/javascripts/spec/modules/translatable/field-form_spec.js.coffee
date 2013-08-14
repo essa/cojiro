@@ -37,7 +37,7 @@ define (require) ->
       FieldForm.prototype.saveField.restore()
       FieldForm.prototype.closeForm.restore()
 
-    describe 'instantiation', ->
+    describe 'initialization', ->
       beforeEach ->
         @options =
           field: 'title'

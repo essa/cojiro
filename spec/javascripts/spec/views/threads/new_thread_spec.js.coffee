@@ -22,7 +22,7 @@ define (require) ->
         @view = new NewThreadView(model: @model, router: router)
         @$el = @view.$el
 
-      describe 'instantiation', ->
+      describe 'initialization', ->
 
         it 'creates the new thread element', ->
           expect(@$el).toBe('#new_thread')
