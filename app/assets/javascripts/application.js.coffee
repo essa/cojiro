@@ -3,11 +3,6 @@ require [
   'underscore'
   'backbone'
   'app'
-  'i18n'
-  'bootstrap-dropdown'
-  'bootstrap-button'
-  'bootstrap-alert'
-  'bootstrap-modal'
 ], ($, _, Backbone, App) ->
 
   $ ->

@@ -6,7 +6,7 @@ define [
   'modules/translatable/field-form'
   'modules/channel'
   'i18n'
-  'bootstrap-popover'
+  'bootstrap'
 ], ($, _, Backbone, BaseView, FieldForm, channel, I18n) ->
 
   class InPlaceField extends BaseView

@@ -6,7 +6,7 @@ define [
   'modules/base/view'
   'modules/translatable'
   'globals'
-  'bootstrap-popover'
+  'bootstrap'
 ], ($, _, Backbone, Link, BaseView, Translatable, globals) ->
 
   class CommentLinkView extends BaseView

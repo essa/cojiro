@@ -1,9 +1,10 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
-  'modules/base/view',
+  'jquery'
+  'underscore'
+  'backbone'
+  'modules/base/view'
   'globals'
+  'bootstrap'
 ], ($, _, Backbone, BaseView, globals) ->
 
   class NavbarView extends BaseView

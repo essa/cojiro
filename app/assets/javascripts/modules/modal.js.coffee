@@ -3,7 +3,7 @@ define [
   'underscore'
   'backbone'
   'modules/base/view'
-  'bootstrap-modal'
+  'bootstrap'
 ], ($, _, Backbone, BaseView) ->
 
   class ModalView extends BaseView

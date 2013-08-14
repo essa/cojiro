@@ -9,7 +9,7 @@ define [
   'globals'
   'views/threads/add_link_modal'
   'views/comments/comment_link'
-  'bootstrap-modal'
+  'bootstrap'
 ], ($, _, Backbone, Link, BaseView, FlashView, Translatable, globals, AddLinkModal, CommentLinkView) ->
 
   class ThreadView extends BaseView
