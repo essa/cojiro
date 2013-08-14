@@ -36,6 +36,12 @@ define [
     getText: -> @getAttr('text')
     getUser: -> @get('user')
     getUserName: -> @getUser().getName()
+    getUserAvatarUrl: -> @getUser().getAvatarMiniUrl()
+    getStatusMessage: ->
+      if @getUser()
+        I18n.t('models.comment.added_ago', avatar_url: @getUserAvatarUrl(), name: @getUserName(), timeago: @get('updated_at'))
+      else
+        ''
 
     toJSON: () ->
       delete((json = super).user_name)

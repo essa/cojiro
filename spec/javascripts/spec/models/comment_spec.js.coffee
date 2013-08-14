@@ -64,8 +64,25 @@ define (require) ->
 
       describe '#getUserName', ->
         it 'returns the name of the user who created this comment', ->
-          @comment.set('user', user = new User(name: 'bar'))
+          @comment.set('user', new User(name: 'bar'))
           expect(@comment.getUserName()).toEqual('bar')
+
+      describe '#getUserAvatarUrl', ->
+        it 'returns the url of the avatar of the user who created this comment', ->
+          @comment.set('user', new User(avatar_mini_url: 'http://url'))
+          expect(@comment.getUserAvatarUrl()).toEqual('http://url')
+
+      describe '#getStatusMessage', ->
+        it 'returns blank if user is not defined', ->
+          expect(@comment.getStatusMessage()).toEqual('')
+
+        it 'returns status message if user is defined', ->
+          @comment.set('user', new User(name: 'bar'))
+          @comment.set('updated_at', '2013-08-12T12:59:13Z')
+          # wrap in p tags so it's a valid element
+          $el = $('<p>' + @comment.getStatusMessage() + '</p>')
+          expect($el).toContain('time.timeago[datetime="2013-08-12T12:59:13Z"]')
+          expect($el).toHaveText(/@bar added/)
 
     describe 'interacting with the server', ->
       beforeEach ->

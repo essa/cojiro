@@ -38,6 +38,10 @@ en:
       confirm_link_details:
         already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
 
+  models:
+    comment:
+      added_ago: "@%{name} added <time class='timeago' datetime='%{timeago}'>some time ago</time>"
+
   jquery:
     timeago:
       prefixAgo: ""
