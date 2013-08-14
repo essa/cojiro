@@ -7,10 +7,30 @@ define [
   'views/homepage/thread_filter'
   'globals'
   'i18n'
-  'templates/homepage/index'
-], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals, I18n, indexTemplate) ->
+], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals, I18n) ->
 
   class HomepageView extends BaseView
+    template: _.template '
+      <% if (!currentUser) { %>
+        <section class="hero-unit">
+          <h1><%= t(".catchphrase") %></h1>
+          <%= t(".lead_html", { url: "#" }) %>
+        </section>
+      <% } %>
+      <section class="latest">
+        <div id="content-header">
+          <% if (!currentUser) { %>
+            <h3>
+              <%= t(".recent_threads") %>
+              <small>
+                <%= t(".invite_message_html", { new_account_url: "#", login_url: "#" }) %>
+              </small>
+            </h3>
+          <% } %>
+        </div>
+      </section>
+      <div id="threads"></div>
+    '
     id: 'homepage'
 
     initialize: (options = {}) ->
@@ -30,7 +50,10 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(indexTemplate())
+      @$el.html(@template(
+        t: I18n.scoped('views.homepage.index').t
+        currentUser: globals.currentUser
+      ))
 
     renderThreadList: =>
       @threadListView = new @ThreadListView(collection: @filteredCollection)

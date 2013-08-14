@@ -3,10 +3,20 @@ define [
   'underscore',
   'backbone',
   'modules/base/view',
-  'templates/homepage/thread_filter'
-], ($, _, Backbone, BaseView, threadFilterTemplate) ->
+], ($, _, Backbone, BaseView) ->
 
   class ThreadFilterView extends BaseView
+    template: _.template '
+      <fieldset>
+        <label class="control-label" for="thread-filter">
+          Show me:
+        </label>
+        <select id="thread-filter" class="span3">
+          <option value="all">everything</option>
+          <option value="mine">threads that I started</option>
+        </select>
+      </fieldset>
+    '
     className: 'commentheader form-horizontal'
     tagName: 'form'
     id: 'thread-filter'
@@ -16,7 +26,7 @@ define [
         "change select": "selectFilter"
 
     render: =>
-      @$el.html(threadFilterTemplate())
+      @$el.html(@template())
       @
 
     selectFilter: (e) =>

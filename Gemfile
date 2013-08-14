@@ -22,7 +22,6 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', :branch => '2.0'
-  gem 'haml_coffee_assets', '~> 1.11.0'
   gem 'execjs'
   gem 'i18n-js', :git => 'https://github.com/fnando/i18n-js.git'
 end

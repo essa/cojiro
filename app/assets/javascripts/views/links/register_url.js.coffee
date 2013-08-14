@@ -16,8 +16,8 @@ define [
           <fieldset>
             <label>URL:&nbsp;</label>
             <div class="input-append">
-              <input class="span4" type="text" name="url" placeholder="<%= enter_a_url_string %>" />
-              <button type="submit" class="btn"><%= go_string %></button>
+              <input class="span4" type="text" name="url" placeholder="<%= t(".enter_a_url") %>" />
+              <button type="submit" class="btn"><%= t(".go") %></button>
             </div>
           </fieldset>
         </form>
@@ -31,17 +31,10 @@ define [
       super(options)
 
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
-      @header = new @ModalHeaderView(title: 'Add a link')
+      @header = new @ModalHeaderView(title: I18n.t('views.links.register_url.add_a_link'))
 
     render: () ->
-      enter_a_url_string = I18n.t('templates.threads.show.enter_a_url')
-      @$el.html(
-        @template(
-          title: 'Add a link'
-          enter_a_url_string: enter_a_url_string
-          go_string: 'Go!'
-        )
-      )
+      @$el.html(@template(t: I18n.scoped('views.links.register_url').t))
       @renderChildInto(@header, '.modal-header')
       @
 

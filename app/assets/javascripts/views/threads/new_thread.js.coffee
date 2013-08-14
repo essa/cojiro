@@ -4,17 +4,17 @@ define [
   'backbone'
   'modules/base/view'
   'modules/translatable/form'
+  'views/other/flash'
+  'views/other/form_actions'
   'globals'
-  'templates/threads/form_actions'
-  'templates/other/flash'
   'i18n'
-], ($, _, Backbone, BaseView, Form, globals, formActionsTemplate, flashTemplate, I18n) ->
+], ($, _, Backbone, BaseView, Form, FlashView, FormActionsView, globals, I18n) ->
 
   class NewThreadView extends BaseView
     id: 'new_thread'
     template: _.template '
       <div class="page-header">
-        <h1><%= start_a_thread_string %></h1>
+        <h1><%= t(".start_a_thread") %></h1>
       </div>'
 
     buildEvents: () ->
@@ -32,13 +32,15 @@ define [
       @
 
     renderLayout: ->
-      self = @
-      start_a_thread_string = I18n.t('templates.threads.new.start_a_thread')
-      @$el.html(self.template(start_a_thread_string: start_a_thread_string))
+      @$el.html(@template(t: I18n.scoped('views.threads.new_thread').t))
 
     renderForm: ->
       @appendChild(@form)
-      @.$('fieldset').append(formActionsTemplate())
+      @formActions = new FormActionsView(
+        submit: I18n.t('views.threads.new_thread.submit')
+        cancel: I18n.t('views.threads.new_thread.cancel')
+      )
+      @appendChildTo(@formActions, 'fieldset')
 
     submitForm: () ->
       @model.set(@form.serialize(), validate: true)
@@ -54,9 +56,11 @@ define [
             self.router.navigate(model.url(), true )
         )
       else
-        @.$('.alert').remove()
-        @$el.prepend(flashTemplate(
-          name: "error"
-          msg: I18n.t("errors.template.body")
-        ))
+        @flash.leave() if @flash
+        @flash = new FlashView(
+          name: 'error'
+          msg: I18n.t('views.threads.new_thread.errors.body')
+        )
+        @renderChild(@flash)
+        @$el.prepend(@flash.el)
       return false

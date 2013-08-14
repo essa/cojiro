@@ -2,23 +2,9 @@ ja:
   en: 英語
   ja: 日本語
 
-  templates:
-    homepage:
-      index:
-        catchphrase: 日本語のキャッチコピー
-        lead_html: 日本語の説明文章 <a href='%{url}'>詳しくはこちらへ</a>
-        recent_threads: 最新のスレッド
-        invite_message_html: <a href='%{new_account_url}'>アカウントを登録する</a>または<a href='%{login_url}'>ログイン</a>してください
+  views:
     threads:
-      new:
-        start_a_thread: スレッドを立てる
-      form_actions:
-        create_thread: 登録する
-        cancel: キャンセル
-      list_item:
-        started_by: "@%{username}が登録した"
-        updated_ago: "<time class='timeago' datetime='%{timeago}'></time> 更新しました"
-      show:
+      thread:
         links: ネタ
         started: に登録した
         updated: last updated
@@ -26,18 +12,40 @@ ja:
         edit: 編集する
         add_in: "%{lang}を追加する"
         add_a_link: ネタを追加する
-        enter_a_url: URLを入力する
-    shared:
-      new_label:
-        new: New
-
-  views:
-    threads:
       new_thread:
         thread_created: "スレッドは作成されました。"
+        start_a_thread: スレッドを立てる
+        submit: 登録する
+        cancel: キャンセル
+        errors:
+          body: 次の項目を確認してください。
+          header:
+            one: ! '%{model}にエラーが発生しました。'
+            other: ! '%{model}に%{count}つのエラーが発生しました。'
+      thread_list_item:
+        started_by: "@%{username}が登録した"
+        updated_ago: "<time class='timeago' datetime='%{datetime}'></time> 更新しました"
+        new_label: New
+
     links:
+      register_url:
+        add_a_link: ネタを追加する
+        enter_a_url: URLを入力する
+        go: 'Go!'
       confirm_link_details:
         already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
+    homepage:
+      index:
+        catchphrase: 日本語のキャッチコピー
+        lead_html: 日本語の説明文章 <a href='%{url}'>詳しくはこちらへ</a>
+        recent_threads: 最新のスレッド
+        invite_message_html: <a href='%{new_account_url}'>アカウントを登録する</a>または<a href='%{login_url}'>ログイン</a>してください
+    other:
+      navbar:
+        home: ホーム
+        start_a_thread: スレッドを立てる
+        twitter_sign_in: Twitterでサインインする
+        logout: ログアウト
 
   models:
     comment:
@@ -70,12 +78,6 @@ ja:
       title: タイトル
       summary: サマリ
       source_locale: This link is in
-
-  layout:
-    home: ホーム
-    start_a_thread: スレッドを立てる
-    twitter_sign_in: Twitterでサインインする
-    logout: ログアウト
 
   date:
     abbr_day_names:
@@ -198,11 +200,6 @@ ja:
       too_long: は%{count}文字以内で入力してください。
       too_short: は%{count}文字以上で入力してください。
       wrong_length: は%{count}文字で入力してください。
-    template:
-      body: 次の項目を確認してください。
-      header:
-        one: ! '%{model}にエラーが発生しました。'
-        other: ! '%{model}に%{count}つのエラーが発生しました。'
   helpers:
     select:
       prompt: 選択してください。

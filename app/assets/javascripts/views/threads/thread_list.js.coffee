@@ -4,11 +4,11 @@ define [
   'backbone'
   'modules/base/view'
   'views/threads/thread_list_item'
-  'templates/threads/list'
   'jquery.timeago'
-], ($, _, Backbone, BaseView, ThreadListItemView, threadsListTemplate) ->
+], ($, _, Backbone, BaseView, ThreadListItemView) ->
 
   class ThreadListView extends BaseView
+    template: _.template '<tbody></tbody>'
     tagName: 'table'
     className: 'threads_list table table-striped'
 
@@ -22,7 +22,7 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(threadsListTemplate())
+      @$el.html(@template())
 
     renderListItems: ->
       listItemsContainer = @.$('tbody')

@@ -35,6 +35,14 @@ define (require) ->
           expect(@$el).toHaveText(/Start a thread/)
           I18n.locale = I18n.defaultLocale
 
+        it 'renders form submit button', ->
+          @view.render()
+          expect(@view.$el).toContain('button.btn.btn-primary:contains("Create thread")')
+
+        it 'renders cancel button', ->
+          @view.render()
+          expect(@view.$el).toContain('.btn:contains("Cancel")')
+
     describe 'with actual Thread model', ->
 
       beforeEach ->
@@ -79,8 +87,18 @@ define (require) ->
           @model.set.restore()
 
       describe 'with errors', ->
-        it 'renders errors'
-        it 'removes any previous alert(s) and adds a new one'
+        beforeEach ->
+          @view.render()
+          @$form = @view.$('form')
+
+        it 'renders inline errors', ->
+          @$form.submit()
+          expect(@view.$('.title')).toContainText('can\'t be blank')
+
+        it 'removes any previous alert(s) and adds a new one', ->
+          @$form.submit()
+          expect(@view.$('.alert')).toHaveLength(1)
+          expect(@view.$('#flash-error')).toHaveText(/There were problems/)
 
       describe 'after a successful save', ->
         beforeEach ->

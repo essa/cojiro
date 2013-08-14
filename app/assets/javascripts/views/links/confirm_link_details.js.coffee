@@ -5,13 +5,13 @@ define [
   'models/comment'
   'views/modals/header'
   'views/modals/footer'
+  'views/other/flash'
   'modules/base/view'
   'modules/translatable/form'
   'modules/channel'
-  'templates/other/flash'
   'i18n'
   'globals'
-], ($, _, Backbone, Comment, ModalHeaderView, ModalFooterView, BaseView, Form, channel, flashTemplate, I18n, globals) ->
+], ($, _, Backbone, Comment, ModalHeaderView, ModalFooterView, FlashView, BaseView, Form, channel, I18n, globals) ->
 
   class ConfirmLinkDetailsView extends BaseView
     template: _.template '
@@ -62,6 +62,7 @@ define [
 
     formatForm: (form) ->
       form.$el.addClass('link-form')
+
       # link already exists
       if @model.getStatus()
         sourceLocale = @model.getSourceLocale()
@@ -70,13 +71,16 @@ define [
         form.$('.title textarea').replaceWith($("<div class='uneditable-input'>#{title}</div>"))
         summary = @model.getAttrInSourceLocale('summary')
         form.$('.summary textarea').replaceWith($("<div class='uneditable-input'>#{summary}</div>"))
-        @$('.row-fluid.hide').removeClass('hide').html(
-          flashTemplate(
-            name: 'notice'
-            msg: I18n.t(
-              'views.links.confirm_link_details.already_registered'
-              name: @model.getUserName()
-              date: @model.getCreatedAt())))
+        @flash.leave() if @flash
+        @flash = new FlashView(
+          name: 'notice'
+          msg: I18n.t(
+            'views.links.confirm_link_details.already_registered'
+            name: @model.getUserName()
+            date: @model.getCreatedAt()
+          )
+        )
+        @$('.row-fluid.hide').removeClass('hide').html(@flash.render().el)
 
       # this is a new link
       else
