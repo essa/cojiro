@@ -15,8 +15,8 @@ Given /^the thread has the following links:$/ do |table|
   raise Error, '@cothread not defined' unless @cothread.is_a?(Cothread)
   table.hashes.each do |hash|
     u = User.find_by_name(hash.delete('user'))
-    link = FactoryGirl.create(:link, u.nil? ? hash : hash.merge(:user => u))
-    @cothread.links << link
+    comment = FactoryGirl.create(:comment, :with_link, cothread: @cothread)
+    comment.link.update_attributes!(hash)
   end
 end
 
