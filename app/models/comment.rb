@@ -24,7 +24,8 @@ class Comment < ActiveRecord::Base
   # ref: http://stackoverflow.com/questions/3579924/accepts-nested-attributes-for-with-find-or-create
   def autosave_associated_records_for_link
     if link
-      attrs = link.untranslated_attributes.delete_if { |_,v| v.nil? }
+      attrs = link.untranslated_attributes.slice(*link.class.accessible_attributes)
+      attrs.delete_if { |_,v| v.nil? }
       new_link = Link.initialize_by_url(attrs.delete('url'), attrs)
       new_link.merge_translations!(link)
       new_link.user_id = user_id

@@ -95,6 +95,23 @@ describe Comment do
         comment.link_id == link.id
       end
     end
+
+    context 'appending comment to thread' do
+      let(:cothread) { FactoryGirl.create(:cothread) }
+      let(:comment) do
+        comment = FactoryGirl.create(:comment, :with_link, cothread: cothread)
+        comment.link.update_attributes!(source_locale: 'en', title: 'foo')
+        comment
+      end
+
+      it 'only updates accessible attributes' do
+        cothread.comments << comment
+        cothread.reload
+        link = cothread.links[0]
+        link.source_locale.should == 'en'
+        link.title.should == 'foo'
+      end
+    end
   end
 
   describe 'mass assignment' do
