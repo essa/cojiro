@@ -40,7 +40,7 @@ en:
 
   models:
     comment:
-      added_ago: "@%{name} added <time class='timeago' datetime='%{timeago}'>some time ago</time>"
+      added_ago: "@%{name} added <time class='timeago' datetime='%{datetime}'>%{timeago}</time>"
 
   jquery:
     timeago:

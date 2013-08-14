@@ -39,7 +39,12 @@ define [
     getUserAvatarUrl: -> @getUser().getAvatarMiniUrl()
     getStatusMessage: ->
       if @getUser()
-        I18n.t('models.comment.added_ago', avatar_url: @getUserAvatarUrl(), name: @getUserName(), timeago: @get('updated_at'))
+        created_at = @get('created_at') || new Date().toJSON()
+        I18n.t('models.comment.added_ago',
+          name: @getUserName()
+          datetime: created_at
+          timeago: $.timeago(created_at)
+        )
       else
         ''
 

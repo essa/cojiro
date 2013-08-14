@@ -76,13 +76,18 @@ define (require) ->
         it 'returns blank if user is not defined', ->
           expect(@comment.getStatusMessage()).toEqual('')
 
-        it 'returns status message if user is defined', ->
+        it 'returns status message with created_at timestamp if user is defined', ->
           @comment.set('user', new User(name: 'bar'))
-          @comment.set('updated_at', '2013-08-12T12:59:13Z')
+          @comment.set('created_at', '2010-08-12T12:59:13Z')
           # wrap in p tags so it's a valid element
           $el = $('<p>' + @comment.getStatusMessage() + '</p>')
-          expect($el).toContain('time.timeago[datetime="2013-08-12T12:59:13Z"]')
-          expect($el).toHaveText(/@bar added/)
+          expect($el).toContain('time.timeago[datetime="2010-08-12T12:59:13Z"]')
+          expect($el).toHaveText(/^@bar added \d+ years ago$/)
+
+        it 'sets timestamp to current time if created_at not defined on user model', ->
+          @comment.set('user', new User(name: 'bar'))
+          $el = $('<p>' + @comment.getStatusMessage() + '</p>')
+          expect($el).toHaveText("@bar added less than a minute ago")
 
     describe 'interacting with the server', ->
       beforeEach ->
