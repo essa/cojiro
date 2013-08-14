@@ -1,11 +1,12 @@
 define (require) ->
 
   Link = require('models/link')
-  LinkView = require('views/links/link')
+  Comment = require('models/comment')
+  CommentLinkView = require('views/comments/comment_link')
   globals = require('globals')
   I18n = require('i18n')
 
-  describe 'LinkView', ->
+  describe 'CommentLinkView', ->
     beforeEach ->
       I18n.locale = 'en'
       @link = new Link()
@@ -15,13 +16,25 @@ define (require) ->
         user: 'csasaki'
         site_name: 'www.youtube.com'
         source_locale: 'en'
+      @comment = new Comment(link: @link)
 
     afterEach ->
       I18n.locale = I18n.defaultLocale
 
+    describe 'initialization', ->
+      it 'throws no error if passed in comment with link as model', ->
+        comment = @comment
+        expect(-> new CommentLinkView(model: comment)).not.toThrow()
+
+      it 'throws error if not passed comment as model', ->
+        expect(-> new CommentLinkView()).toThrow('model required in CommentLinkView')
+
+      it 'throws error if passed comment without link as model', ->
+        expect(-> new CommentLinkView(model: new Comment)).toThrow('comment must have a link to render a CommentLinkView')
+
     describe 'rendering', ->
       beforeEach ->
-        @view = new LinkView(model: @link)
+        @view = new CommentLinkView(model: @comment)
         @$el = @view.render().$el
 
       it 'renders link element', ->
@@ -39,9 +52,40 @@ define (require) ->
       it 'renders source locale', ->
         expect(@$el.find('.lang')).toHaveText('en')
 
+    describe 'popover', ->
+      beforeEach ->
+        @view = new CommentLinkView(model: @comment)
+
+      it 'assigns popover to data-toggle attribute on .link-inner element', ->
+        @view.render()
+        expect(@view.$('.link-inner')).toHaveAttr('data-toggle', 'popover')
+
+      describe 'comment has text', ->
+        beforeEach ->
+          @comment.set(text: en: 'a comment text')
+
+        it 'assigns comment text to popover content', ->
+          @view.render()
+          expect(@view.$('.link-inner')).toHaveAttr('data-content', 'a comment text')
+
+        it 'assigns comment status message to popover title', ->
+          sinon.stub(@comment, 'getStatusMessage').returns('foo updated 10 hours ago')
+          @view.render()
+          expect(@view.$('.link-inner')).toHaveAttr('data-original-title', 'foo updated 10 hours ago')
+
+      describe 'comment has no text', ->
+        it 'assigns comment status message to popover content', ->
+          sinon.stub(@comment, 'getStatusMessage').returns('foo updated 10 hours ago')
+          @view.render()
+          expect(@view.$('.link-inner')).toHaveAttr('data-content', 'foo updated 10 hours ago')
+
+        it 'does not set title', ->
+          @view.render()
+          expect(@view.$('.link-inner')).toHaveAttr('data-original-title', '')
+
     describe 'translatable fields', ->
       beforeEach ->
-        @view = new LinkView(model: new Link)
+        @view = new CommentLinkView(model: new Comment(link: new Link))
 
       it 'renders title field', ->
         sinon.spy(@view.titleField, 'render')

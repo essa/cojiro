@@ -10,7 +10,8 @@ define [
   'modules/channel'
   'templates/other/flash'
   'i18n'
-], ($, _, Backbone, Comment, ModalHeaderView, ModalFooterView, BaseView, Form, channel, flashTemplate, I18n) ->
+  'globals'
+], ($, _, Backbone, Comment, ModalHeaderView, ModalFooterView, BaseView, Form, channel, flashTemplate, I18n, globals) ->
 
   class ConfirmLinkDetailsView extends BaseView
     template: _.template '
@@ -101,8 +102,9 @@ define [
     next: () ->
       self = @
       if @model.getStatus() || @model.set(@linkForm.serialize(), validate: true)
-        @comment.set('thread', @thread)
-        @comment.save @commentForm.serialize(),
+        @comment.set('user', globals.currentUser)
+        attrs = _(@commentForm.serialize()).extend(thread: @thread)
+        @comment.save _(@commentForm.serialize()).extend(thread: @thread),
           success: (model, resp) ->
             channel.trigger('modal:next')
             self.leave()

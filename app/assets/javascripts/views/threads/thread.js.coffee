@@ -9,9 +9,9 @@ define [
   'templates/threads/show'
   'templates/other/flash'
   'views/threads/add_link_modal'
-  'views/links/link'
+  'views/comments/comment_link'
   'bootstrap-modal'
-], ($, _, Backbone, Link, BaseView, Translatable, globals, showThreadTemplate, flashTemplate, AddLinkModal, LinkView) ->
+], ($, _, Backbone, Link, BaseView, Translatable, globals, showThreadTemplate, flashTemplate, AddLinkModal, CommentLinkView) ->
 
   class ThreadView extends BaseView
     className: 'thread'
@@ -45,10 +45,11 @@ define [
     renderLinks: ->
       (linksContainer = @.$('.link-list')).empty()
       self = @
-      _.each @model.getLinks(), (link) ->
-        linkView = new LinkView(model: link)
-        self.renderChild(linkView)
-        linksContainer.append(linkView.el)
+      @model.getComments().each (comment) ->
+        if link = comment.get('link')
+          linkView = new CommentLinkView(model: comment)
+          self.renderChild(linkView)
+          linksContainer.append(linkView.el)
 
     # see: http://lostechies.com/derickbailey/2012/04/17/managing-a-modal-dialog-with-backbone-and-marionette
     renderModals: ->

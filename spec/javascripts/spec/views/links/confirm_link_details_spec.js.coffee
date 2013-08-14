@@ -205,6 +205,7 @@ define (require) ->
                 @view.$('select').val('ja')
                 @view.$('.title textarea').val('日本語のタイトル')
                 @view.$('.summary textarea').val('日本語のサマリ')
+                @view.$('.text textarea').val('a comment text')
                 @thread.id = 123
                 @server.respondWith(
                   'POST'
@@ -225,6 +226,7 @@ define (require) ->
                   request = @server.requests[0]
                   params = JSON.parse(request.requestBody)
                   expect(params.comment).toBeDefined()
+                  expect(params.comment.text).toEqual(en: 'a comment text')
                   expect(params.comment.link_attributes).toBeDefined()
                   expect(params.comment.link_attributes.source_locale).toEqual('ja')
                   expect(params.comment.link_attributes.title).toEqual(ja: '日本語のタイトル')
@@ -233,21 +235,27 @@ define (require) ->
                 it 'creates new comment on thread', ->
                   @$nextButton.click()
                   @server.respond()
-                  comments = @thread.get('comments')
+                  comments = @thread.getComments()
                   expect(comments.length).toEqual(1)
 
                 it 'sets comment id from response', ->
                   @$nextButton.click()
                   @server.respond()
-                  comment = @thread.get('comments').at(0)
+                  comment = @thread.getComments().at(0)
                   expect(comment.getId()).toEqual('555')
 
                 it 'associates link with comment', ->
                   @$nextButton.click()
                   @server.respond()
-                  comment = @thread.get('comments').at(0)
-                  expect(comment.get('link')).toBeDefined()
-                  expect(comment.get('link').getUrl()).toEqual('http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9')
+                  comment = @thread.getComments().at(0)
+                  expect(comment.getLink()).toBeDefined()
+                  expect(comment.getLink().getUrl()).toEqual('http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9')
+
+                it 'sets comment values from form', ->
+                  @$nextButton.click()
+                  @server.respond()
+                  comment = @thread.getComments().at(0)
+                  expect(comment.getText()).toEqual('a comment text')
 
                 it 'sets link values from form', ->
                   @$nextButton.click()
@@ -261,6 +269,32 @@ define (require) ->
                   @server.respond()
                   expect(@view.$el).not.toContain('.error')
                   expect(@model.validationError).toBeNull()
+
+              describe 'adding comment to the thread', ->
+                # make sure that the event is actually triggered
+                beforeEach ->
+                  @eventSpy = sinon.spy()
+                  @thread.on('add:comments', @eventSpy)
+                afterEach -> expect(@eventSpy).toHaveBeenCalledOnce()
+
+                it 'adds comment to thread only after link title and summary have been set', ->
+                  thread = @thread
+                  @thread.on('add:comments', ->
+                    links = thread.getLinks()
+                    expect(links[0].getAttrInLocale('title', 'ja')).toEqual('日本語のタイトル')
+                    expect(links[0].getAttrInLocale('summary', 'ja')).toEqual('日本語のサマリ')
+                  )
+                  @$nextButton.click()
+                  @server.respond()
+
+                it 'adds comment to thread only after comment text has been set', ->
+                  thread = @thread
+                  @thread.on('add:comments', ->
+                    comments = thread.getComments()
+                    expect(comments.at(0).getText()).toEqual('a comment text')
+                  )
+                  @$nextButton.click()
+                  @server.respond()
 
               describe 'after a successful save', ->
 
@@ -278,7 +312,6 @@ define (require) ->
                   @server.respond()
                   expect(@view.leave).toHaveBeenCalledOnce()
                   expect(@view.leave).toHaveBeenCalledWithExactly()
-
 
             describe 'with invalid data', ->
 
