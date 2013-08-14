@@ -34,6 +34,7 @@ define [
 
     getId: -> @id
     getText: -> @getAttr('text')
+    getLink: -> @get('link')
     getUser: -> @get('user')
     getUserName: -> @getUser().getName()
     getUserAvatarUrl: -> @getUser().getAvatarMiniUrl()

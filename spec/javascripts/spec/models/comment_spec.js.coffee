@@ -57,6 +57,11 @@ define (require) ->
           @comment.set('text', en: 'foo')
           expect(@comment.getText()).toEqual('foo')
 
+      describe '#getLink', ->
+        it 'returns the link for this comment', ->
+          @comment.set('link', link = new Link)
+          expect(@comment.getLink()).toEqual(link)
+
       describe '#getUser', ->
         it 'returns the user who created this comment', ->
           @comment.set('user', user = new User)
