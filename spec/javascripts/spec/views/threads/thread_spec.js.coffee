@@ -38,6 +38,7 @@ define (require) ->
 
     describe "rendering", ->
       beforeEach -> globals.currentUser = null
+
       it "renders the thread", ->
         @view = new ThreadView(model: @thread)
         $el = @view.render().$el
