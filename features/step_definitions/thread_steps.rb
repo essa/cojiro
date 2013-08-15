@@ -15,8 +15,10 @@ Given /^the thread has the following links:$/ do |table|
   raise Error, '@cothread not defined' unless @cothread.is_a?(Cothread)
   table.hashes.each do |hash|
     u = User.find_by_name(hash.delete('user'))
-    comment = FactoryGirl.create(:comment, :with_link, cothread: @cothread)
-    comment.link.update_attributes!(hash)
+    Globalize.with_locale(hash['source_locale'] || I18n.locale) do
+      comment = FactoryGirl.create(:comment, :with_link, cothread: @cothread)
+      comment.link.update_attributes!(hash)
+    end
   end
 end
 

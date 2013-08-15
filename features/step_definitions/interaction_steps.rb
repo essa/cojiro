@@ -8,19 +8,17 @@ When /^I click (?:on |)"([^"]*)"$/ do |link_text|
 end
 
 When /^I click on the (submit|cancel) button in the link$/ do |type|
-  within(:css, ".link-list > .link") do
-    find("button[type=#{type}]").click
-  end
+  @el.find("button[type=#{type}]").click
 end
 
 When /^I click on the editable text "([^"]*)"$/ do |clickable_text|
-  find("span.editable", text: clickable_text).click
+  span = find("span.editable", text: clickable_text)
+  @el = span.first(:xpath, ".//ancestor::div[@class='link']")
+  span.click
 end
 
 When 'I enter "$text" into the $tag in the link' do |text, tag|
-  within(:css, ".link-list > .link") do
-    find(tag).set(text)
-  end
+  @el.find(tag).set(text)
 end
 
 When /^I select "([^"]*)" from the drop-down list$/ do |option|
@@ -39,21 +37,19 @@ When /^I wait for the AJAX call to finish$/ do
 end
 
 Then /I (should|should not) see the editable text "([^"]*)" in the link/ do |expectation, text|
-  within(:css, ".link-list > .link") do
-    page.send(expectation.gsub(' ', '_'), have_selector("span.editable", text: text))
-  end
+  @el.send(expectation.gsub(' ', '_'), have_selector("span.editable", text: text))
 end
 
 Then 'I should see a $tag with "$val" in the link' do |tag, val|
-  within(:css, ".link-list > .link") do
-    page.first(tag).value.should == val
-  end
+  @el.first(tag).value.should == val
+end
+
+Then 'I should see a popover with "$val"' do |val|
+  page.should have_selector('.popover .popover-content', text: val)
 end
 
 Then /^I should see a (submit|cancel) button in the link$/ do |type|
-  within(:css, ".link-list > .link") do
-    page.should have_selector("button[type='#{type}']")
-  end
+  @el.should have_selector("button[type='#{type}']")
 end
 
 Then /^I should see an? (error|success|notice) message(?:: "(.*)")?$/ do |msg_type,message|
