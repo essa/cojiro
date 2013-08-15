@@ -74,4 +74,3 @@ Feature: Edit fields of a link
     Then I should see the editable text "Wikipedia article on Capoiera." in the link
     And I should not see the text "foobar"
     And there should not exist a link with summary "foobar" in the database
-
