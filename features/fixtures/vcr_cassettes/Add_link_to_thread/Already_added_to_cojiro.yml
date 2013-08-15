@@ -1,0 +1,114 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://www.mywebsite1.com/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 15 Aug 2013 07:45:13 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '232'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - ''
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"007198facad48a9d0b135b3cb39798eab9a67784"'
+      X-Embedly-Process-Time:
+      - '4702'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api04
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA41Q26rCMBD8lZDnQ5v0klp/QBAE31WktsEsNm1JU4Oo/36a
+        7VERHzwvwzI7M8zu5ko7056hkmY/mJrOCVXWdvMwdM4F+uLkoQcreVC2mv4Q
+        Wsm+NNBZaBuv3Q5MJCniDDHyGOc4F4R7iwVby4c4ynCVoGwycuQrxJx8iKa1
+        mBKRiV/zaLiR/5T4dluITdWgD00B9d5BZdVoEIy98V9jQB/DKIuSksciZmma
+        iTxYrhc+/SxN//c2HjDPPD/fFBo/tHqGYZ1Lh2wNzem9npJwVHbc8ZTdd7+z
+        KDY7xAEAAA==
+    http_version: 
+  recorded_at: Thu, 15 Aug 2013 07:45:14 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://www.flickr.com/photos/ripplet/7128327045/in/set-72157629932925953
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 15 Aug 2013 07:45:31 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '298'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"76551d599cba633d8dc563422885491708f579bb"'
+      X-Embedly-Process-Time:
+      - '59'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api22
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA6WRzU6EMBDHX6Xh4sVAgQLr3vUF1psxZLaUbd1Cm3ZYNMZ3
+        l4Jslph48dj/x3T668tnZJ25qEa4enA62pNIItp9kozjGLda8bOLuemS6J5E
+        jfDcKYvK9CH4+G61cYI8m850ihzAw1ndeWKlQeOJ6cnT0t8miARPhqkKjWhI
+        XlZ0baBZG+E2VKhFuOcAfQPaBw0GlMbVPXSzs5kbfCnUSeJkpTRjYYYcumMP
+        StejalBORlVM8nr4ldoiaMF1D7FHQMVvUOxoWiZVmu3yrKKsqEVesrZoGWO1
+        j9/s6WbRP5Eur04molYLnAlfhPM/dNOYBuW/Gx3Xja7fvMJbUAeLA5eihlOQ
+        85LSgOTDzqF5x2jD6Mq4Kr5evwHUdtTpQAIAAA==
+    http_version: 
+  recorded_at: Thu, 15 Aug 2013 07:45:31 GMT
+recorded_with: VCR 2.5.0

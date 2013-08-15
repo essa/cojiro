@@ -40,6 +40,17 @@ Then /I (should|should not) see the editable text "([^"]*)" in the link/ do |exp
   @el.send(expectation.gsub(' ', '_'), have_selector("span.editable", text: text))
 end
 
+# TODO: find a better way to do this
+Then /^the "([^"]*)" field should say "(.*)"$/ do |name, val|
+  id = page.first('label', text: name)['for']
+  page.find_by_id(id).value.should == val
+end
+
+Then /^the "([^"]*)" field should be blank$/ do |name|
+  id = page.first('label', text: name)['for']
+  page.find_by_id(id).value.should be_blank
+end
+
 Then 'I should see a $tag with "$val" in the link' do |tag, val|
   @el.first(tag).value.should == val
 end
@@ -52,7 +63,7 @@ Then /^I should see a (submit|cancel) button in the link$/ do |type|
   @el.should have_selector("button[type='#{type}']")
 end
 
-Then /^I should see an? (error|success|notice) message(?:: "(.*)")?$/ do |msg_type,message|
+Then /^I should see an? (error|success|notice|info) message(?::? "(.*)")?$/ do |msg_type,message|
   page.should have_css(".#{msg_type.gsub('notice','message')}", :text => message)
 end
 

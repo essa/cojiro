@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://google.com/404.html
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 15 Aug 2013 07:22:11 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '133'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"e88c2ec20090fec1428369a0f97030bc3635fcb6"'
+      X-Embedly-Process-Time:
+      - '49'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api40
+    body:
+      encoding: US-ASCII
+      string: ! '[{"url": "http://google.com/404.html", "error_code": 404, "error_message":
+        "HTTP 404: Not Found", "type": "error", "version": "1.0"}]'
+    http_version: 
+  recorded_at: Thu, 15 Aug 2013 07:22:11 GMT
+recorded_with: VCR 2.5.0

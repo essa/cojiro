@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://ripplet.org/2013/04/self-grooming-and-public-transportation-if-you-cant-beat-them-create-a-space-for-them/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 15 Aug 2013 07:23:57 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '518'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - ''
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"2c3de63c5e991dc8b1cdb63ee1d9ea020f6921ce"'
+      X-Embedly-Process-Time:
+      - '5235'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api25
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA3WTwW7bMAyGX4XzpZcoTrYCBfIGG7BLm9s6BLRNW1pkUZCo
+        BNmwdx/lrEVzyMnyz1/kp9/Wjz9NTHxyA6VDSb7ZQWNF4q5tk4vRk6w5Tc0K
+        moFyr5I4DtX0wjNBJFYLeHckEIae5+jRBcCOi8CFS5jgG0YMlAnOuiPAwE5F
+        seQSzHikEoFDfQdJunUNe11GTOL64jFBRxZPjhNYzIttKJ3jksFyUJVHddSO
+        I6GURAPI2fUECrHn44XhO0nihwwzB7H+ojNDoASRs+gjU3KU1/BMPQXRsp7S
+        TUHbeBy0Aomy7uc51451fOemidIKXhur+VB6bSAL1lQUCU/0digMA/QWw1Th
+        MJHSn51YGIv34ClMup5dSpzy4vVORKMU7LwC1cDFqbBETX40U6VYeqk5ls67
+        viYWcuR0nb+Dr2PNHHoMD6KxoFTieQW9jhcChBxRsxk1t1r4VKdgEcvpEHBe
+        Zu151jHwghmPbqGwZe4COn84u0GserabzUYLd3+W9vNm+6XdPLb5I7dRbnPl
+        Nrfcxo1GsY1ii6nUpsKZK7RBs0AbhV709hbqPgWF9hxNr59dv2xbomcc8jtb
+        tCxstutfcfqQwv1uV0Mrv/OSzEJxopT/34btelOV95v0FufztcXCfImL5F04
+        3p5B78JkRWtPj09/f/4DK9uqWJEDAAA=
+    http_version: 
+  recorded_at: Thu, 15 Aug 2013 07:23:57 GMT
+recorded_with: VCR 2.5.0

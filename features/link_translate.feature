@@ -16,7 +16,7 @@ Feature: Translate fields of a link
       | summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
     And the thread has the following links:
       | user    | source_locale | title | summary | url |
-      | csaaski | ja | カポエイラ - ウィキペディア | カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。 | https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9 |
+      | csasaki | ja | カポエイラ - ウィキペディア | カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。 | https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9 |
       | csasaki | en | Capoeira on Wikipedia | Wikipedia article on Capoiera. | https://en.wikipedia.org/wiki/Capoeira |
     And I am on the thread "Capoeira in Japan and around the world"
 

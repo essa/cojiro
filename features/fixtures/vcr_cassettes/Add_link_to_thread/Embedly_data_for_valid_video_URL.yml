@@ -1,0 +1,178 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://www.youtube.com/watch?v=Sgf0WcJEYz4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "RGF0ZQ==":
+      - !binary |-
+        VGh1LCAxNSBBdWcgMjAxMyAwNzoxNjo0NCBHTVQ=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbg==
+      !binary "VHJhbnNmZXItRW5jb2Rpbmc=":
+      - !binary |-
+        Y2h1bmtlZA==
+      !binary "Q29ubmVjdGlvbg==":
+      - !binary |-
+        a2VlcC1hbGl2ZQ==
+      !binary "WC1FbWJlZGx5LUZyb20tQ2FjaGU=":
+      - !binary ""
+      !binary "QWNjZXNzLUNvbnRyb2wtTWF4LUFnZQ==":
+      - !binary |-
+        ODY0MDA=
+      !binary "U2VydmVy":
+      - !binary |-
+        VG9ybmFkb1NlcnZlci8yLjE=
+      !binary "RXRhZw==":
+      - !binary |-
+        IjE4YzdkM2RkYmJkZmFiZTJiMjBiNjg5YzVlNzA5ZTJlMTI0NzQyODAi
+      !binary "WC1FbWJlZGx5LVByb2Nlc3MtVGltZQ==":
+      - !binary |-
+        MTQ0Mg==
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
+      - !binary |-
+        Kg==
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kcw==":
+      - !binary |-
+        R0VULCBPUFRJT05T
+      !binary "WC1FbWJlZGx5LUhvc3Q=":
+      - !binary |-
+        YXBpMjE=
+      !binary "Q29udGVudC1FbmNvZGluZw==":
+      - !binary |-
+        Z3ppcA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA31UbW/TMBD+K1E/o9RJHCeZ9qIK9oEJtIq9oImiyYmdJpA2
+        JbVbFcR/515o6bSxLyfbd378POe7+/JrtBr6TWvs8OiHbnQSjBrnVifj8Xa7
+        DXe9d760YdUvxqM3wcjYdTW0K9f2S4yceZVl0cxLq6uZT4SyaHWJ1hha52Ql
+        WlvMfKpsAvF1CjYRAu6+GE9ejE9ETWiVojWdM7KysRApINoM0AERGKg4EtN7
+        jFEZ2pQQRIxWEgdJrJRGm5NlJgUh47mqK0HnhIC3pM2Jg6rBmzKmJF2Mw8is
+        Hd9N6wrQiojfYpwnkRAjrSDMFBTsuSFPlcXAITMS1BQ6YlaQVWlLYsuvpMAE
+        +FP2FOCwelhTPHs1xXAOS84DxOcmx5zFEeQhMxFhPo9EFVkaAUJaF8AqjQ2s
+        C4W/IG3MOXyW4ZK08F9XnB/iwBlWxDZnJvQjFjTCzxJnZsj/ixqVkRxPMcQh
+        KuAulBthEkOTwIm0FWeS+XBmSBdWl4pz+k3EzDVWqVIC1qAI2GZpQndzqg0D
+        6oAVqSv5FuEo4iyJM9dMBgj/qis4aphKr3rbDtrZxarHtgnCMMTOca3rLPfM
+        axU/vQ/eTqbXl+8/TYLby4/T6+BqMp15AWm6Drjg61pwUxH1l9ts3zbPWxEL
+        AhAK5PR6v2+1q5qLzdnNvBafq6vLh58SL2nvmn54XOoFyfnwcHd3Owlu7t5N
+        0NvYdt44cMhcoOrGL8qlbrvHbWtcczjf75TEqMYtaPCctvUAsAF5z2Yj8M5G
+        AUPCFiBhux4qWP9nRtlFac34iPFFbbXzgz3ryQX36YmyH2DgAQ4i6q7rt7Xv
+        Opht1i7PT8fM4/xI7uup8ms7jE0/tIP/3i7nHi9u7LD+OyajUODJYc7uc/fQ
+        +1uYrlQeh0Q9famNwp1rF3OawJv2WNq4+WFsrX3nwm+rOYHsVvQnOM37p6iH
+        f0mU+P31Dzi5JMT1BQAA
+    http_version: 
+  recorded_at: Thu, 15 Aug 2013 07:16:44 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://google.com/404.html
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 15 Aug 2013 07:20:19 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '133'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - ''
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"e88c2ec20090fec1428369a0f97030bc3635fcb6"'
+      X-Embedly-Process-Time:
+      - '236'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api31
+    body:
+      encoding: US-ASCII
+      string: ! '[{"url": "http://google.com/404.html", "error_code": 404, "error_message":
+        "HTTP 404: Not Found", "type": "error", "version": "1.0"}]'
+    http_version: 
+  recorded_at: Thu, 15 Aug 2013 07:20:19 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://google.com/404.html
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 15 Aug 2013 07:21:19 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '133'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"e88c2ec20090fec1428369a0f97030bc3635fcb6"'
+      X-Embedly-Process-Time:
+      - '43'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api14
+    body:
+      encoding: US-ASCII
+      string: ! '[{"url": "http://google.com/404.html", "error_code": 404, "error_message":
+        "HTTP 404: Not Found", "type": "error", "version": "1.0"}]'
+    http_version: 
+  recorded_at: Thu, 15 Aug 2013 07:21:19 GMT
+recorded_with: VCR 2.5.0

@@ -65,6 +65,7 @@ Spork.prefork do
     # we don't want to make any actual calls to the API or save the key anywhere
     ENV['EMBEDLY_KEY'] = 'EMBEDLY_KEY'
 
+    # Cucumber is configured separately, see features/support/vcr.rb
     VCR.configure do |c|
       c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
       c.allow_http_connections_when_no_cassette = true

@@ -14,10 +14,10 @@ end
 Given /^the thread has the following links:$/ do |table|
   raise Error, '@cothread not defined' unless @cothread.is_a?(Cothread)
   table.hashes.each do |hash|
-    u = User.find_by_name(hash.delete('user'))
+    u = User.find_by_name(name = hash.delete('user')) || raise(ArgumentError, "User @#{name} not found")
     Globalize.with_locale(hash['source_locale'] || I18n.locale) do
-      comment = FactoryGirl.create(:comment, :with_link, cothread: @cothread)
-      comment.link.update_attributes!(hash)
+      link = FactoryGirl.build(:link, hash)
+      FactoryGirl.create(:comment, cothread: @cothread, link: link, user: u)
     end
   end
 end

@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://www.flickr.com/photos/ripplet/7128327045/in/set-72157629932925953
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "RGF0ZQ==":
+      - !binary |-
+        VGh1LCAxNSBBdWcgMjAxMyAwNzozNzoyNiBHTVQ=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbg==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        Mjk4
+      !binary "Q29ubmVjdGlvbg==":
+      - !binary |-
+        a2VlcC1hbGl2ZQ==
+      !binary "WC1FbWJlZGx5LUZyb20tQ2FjaGU=":
+      - !binary ""
+      !binary "QWNjZXNzLUNvbnRyb2wtTWF4LUFnZQ==":
+      - !binary |-
+        ODY0MDA=
+      !binary "U2VydmVy":
+      - !binary |-
+        VG9ybmFkb1NlcnZlci8yLjE=
+      !binary "RXRhZw==":
+      - !binary |-
+        Ijc2NTUxZDU5OWNiYTYzM2Q4ZGM1NjM0MjI4ODU0OTE3MDhmNTc5YmIi
+      !binary "WC1FbWJlZGx5LVByb2Nlc3MtVGltZQ==":
+      - !binary |-
+        MzYwOQ==
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
+      - !binary |-
+        Kg==
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kcw==":
+      - !binary |-
+        R0VULCBPUFRJT05T
+      !binary "WC1FbWJlZGx5LUhvc3Q=":
+      - !binary |-
+        YXBpMTQ=
+      !binary "Q29udGVudC1FbmNvZGluZw==":
+      - !binary |-
+        Z3ppcA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA6WRzU6EMBDHX6Xh4sVAgQLr3vUF1psxZLaUbd1Cm3ZYNMZ3
+        l4Jslph48dj/x3T668tnZJ25qEa4enA62pNIItp9kozjGLda8bOLuemS6J5E
+        jfDcKYvK9CH4+G61cYI8m850ihzAw1ndeWKlQeOJ6cnT0t8miARPhqkKjWhI
+        XlZ0baBZG+E2VKhFuOcAfQPaBw0GlMbVPXSzs5kbfCnUSeJkpTRjYYYcumMP
+        StejalBORlVM8nr4ldoiaMF1D7FHQMVvUOxoWiZVmu3yrKKsqEVesrZoGWO1
+        j9/s6WbRP5Eur04molYLnAlfhPM/dNOYBuW/Gx3Xja7fvMJbUAeLA5eihlOQ
+        85LSgOTDzqF5x2jD6Mq4Kr5evwHUdtTpQAIAAA==
+    http_version: 
+  recorded_at: Thu, 15 Aug 2013 07:37:26 GMT
+recorded_with: VCR 2.5.0

@@ -73,7 +73,7 @@ define [
         form.$('.summary textarea').replaceWith($("<div class='uneditable-input'>#{summary}</div>"))
         @flash.leave() if @flash
         @flash = new FlashView(
-          name: 'notice'
+          name: 'info'
           msg: I18n.t(
             'views.links.confirm_link_details.already_registered'
             name: @model.getUserName()
