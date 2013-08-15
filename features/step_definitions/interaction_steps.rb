@@ -8,7 +8,7 @@ When /^I click (?:on |)"([^"]*)"$/ do |link_text|
 end
 
 When /^I click on the (submit|cancel) button in the link$/ do |type|
-  @el.find("button[type=#{type}]").click
+  @el.find("button[type='#{type}']").click
 end
 
 When /^I click on the editable text "([^"]*)"$/ do |clickable_text|
@@ -44,12 +44,8 @@ Then 'I should see a $tag with "$val" in the link' do |tag, val|
   @el.first(tag).value.should == val
 end
 
-Then 'I should see a popover with "$val"' do |val|
-  page.should have_selector('.popover .popover-content', text: val)
-end
-
-Then 'I should not see a popover' do
-  page.should_not have_selector('.popover .popover-content')
+Then /I (should|should not) see a popover with "([^"]*)"/ do |expectation, val|
+  page.send(expectation.gsub(' ', '_'), have_selector('.popover .popover-content', text: val))
 end
 
 Then /^I should see a (submit|cancel) button in the link$/ do |type|

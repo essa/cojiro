@@ -36,7 +36,7 @@ Feature: Translate fields of a link
     And I wait for the AJAX call to finish
     Then I should see the editable text "Capoiera - Wikipedia in Japanese" in the link
     And I should not see the editable text "カポエイラ - ウィキペディア" in the link
-    And I should not see a popover
+    And I should not see a popover with "カポエイラ - ウィキペディア"
     And there should exist a link with title "Capoiera - Wikipedia in Japanese" in the database
     And the link should have a Japanese title "カポエイラ - ウィキペディア"
 
