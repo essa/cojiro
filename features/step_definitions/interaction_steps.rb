@@ -48,6 +48,10 @@ Then 'I should see a popover with "$val"' do |val|
   page.should have_selector('.popover .popover-content', text: val)
 end
 
+Then 'I should not see a popover' do
+  page.should_not have_selector('.popover .popover-content')
+end
+
 Then /^I should see a (submit|cancel) button in the link$/ do |type|
   @el.should have_selector("button[type='#{type}']")
 end

@@ -27,3 +27,35 @@ Feature: Translate fields of a link
     And I should see a popover with "カポエイラ - ウィキペディア"
     And I should see a submit button in the link
     And I should see a cancel button in the link
+
+  @javascript
+  Scenario: Translate title
+    When I click on the editable text "カポエイラ - ウィキペディア"
+    And I enter "Capoiera - Wikipedia in Japanese" into the textarea in the link
+    And I click on the submit button in the link
+    And I wait for the AJAX call to finish
+    Then I should see the editable text "Capoiera - Wikipedia in Japanese" in the link
+    And I should not see the editable text "カポエイラ - ウィキペディア" in the link
+    And I should not see a popover
+    And there should exist a link with title "Capoiera - Wikipedia in Japanese" in the database
+    And the link should have a Japanese title "カポエイラ - ウィキペディア"
+
+  @javascript
+  Scenario: Click to translate summary
+    When I click on the editable text "カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。"
+    Then I should see a textarea with "" in the link
+    And I should see a popover with "カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。"
+    And I should see a submit button in the link
+    And I should see a cancel button in the link
+
+  @javascript
+  Scenario: Translate summary
+    When I click on the editable text "カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。"
+    And I enter "A wikipedia article on Capoiera in Japanese" into the textarea in the link
+    And I click on the submit button in the link
+    And I wait for the AJAX call to finish
+    Then I should see the editable text "A wikipedia article on Capoiera in Japanese" in the link
+    And I should not see the editable text "カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。" in the link
+    And I should not see a popover
+    And there should exist a link with summary "A wikipedia article on Capoiera in Japanese" in the database
+    And the link should have a Japanese summary "カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。"

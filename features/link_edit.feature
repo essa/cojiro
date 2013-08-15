@@ -26,6 +26,7 @@ Feature: Edit fields of a link
     Then I should see a textarea with "Capoeira on Wikipedia" in the link
     And I should see a submit button in the link
     And I should see a cancel button in the link
+    And I should not see a popover
 
   @javascript
   Scenario: Edit title

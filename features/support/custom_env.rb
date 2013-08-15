@@ -23,3 +23,14 @@ def wait_until
     value
   end
 end
+
+def language_to_locale(language)
+  case language
+  when 'English'
+    :en
+  when 'Japanese'
+    :ja
+  else
+    nil
+  end
+end
