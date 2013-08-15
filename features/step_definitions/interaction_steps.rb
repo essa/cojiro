@@ -7,6 +7,22 @@ When /^I click (?:on |)"([^"]*)"$/ do |link_text|
   end
 end
 
+When /^I click on the (submit|cancel) button in the link$/ do |type|
+  within(:css, ".link-list > .link") do
+    find("button[type=#{type}]").click
+  end
+end
+
+When /^I click on the editable text "([^"]*)"$/ do |clickable_text|
+  find("span.editable", text: clickable_text).click
+end
+
+When 'I enter "$text" into the $tag in the link' do |text, tag|
+  within(:css, ".link-list > .link") do
+    find(tag).set(text)
+  end
+end
+
 When /^I select "([^"]*)" from the drop-down list$/ do |option|
   select(option)
 end
@@ -19,6 +35,24 @@ end
 When /^I wait for the AJAX call to finish$/ do
   wait_until do
     page.evaluate_script('$.active') == 0
+  end
+end
+
+Then /I (should|should not) see the editable text "([^"]*)" in the link/ do |expectation, text|
+  within(:css, ".link-list > .link") do
+    page.send(expectation.gsub(' ', '_'), have_selector("span.editable", text: text))
+  end
+end
+
+Then 'I should see a $tag with "$val" in the link' do |tag, val|
+  within(:css, ".link-list > .link") do
+    page.first(tag).value.should == val
+  end
+end
+
+Then /^I should see a (submit|cancel) button in the link$/ do |type|
+  within(:css, ".link-list > .link") do
+    page.should have_selector("button[type='#{type}']")
   end
 end
 
