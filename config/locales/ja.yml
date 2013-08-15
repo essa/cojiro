@@ -49,7 +49,7 @@ ja:
 
   models:
     comment:
-      added_ago: "'%{name}' added <time class='timeago' datetime='%{datetime}'>%{timeago}</time>"
+      added_ago: "@%{name}が<time class='timeago' datetime='%{datetime}'>%{timeago}</time>に追加した"
 
   jquery:
     timeago:
