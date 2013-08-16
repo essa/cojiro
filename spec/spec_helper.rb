@@ -89,7 +89,8 @@ Spork.prefork do
     }
 
     config.before(:each) do
-      load_request_stubs unless VCR.turned_on?
+      load_request_stubs
+      load_embedly_request_stub
     end
 
     # ref: http://highgroove.com/articles/2012/04/06/sane-rspec-config-for-clean,-and-slightly-faster,-specs.html

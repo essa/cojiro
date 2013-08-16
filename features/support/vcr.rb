@@ -13,3 +13,20 @@ end
 VCR.cucumber_tags do |t|
   t.tag '@vcr', use_scenario_name: true
 end
+
+# ref: https://github.com/vcr/vcr/issues/146
+VCR.turn_off!
+
+# Turns VCR on when VCR.insert_cassette is called
+# and then off when VCR.eject_cassette is called
+VCR.extend Module.new {
+  def insert_cassette(*args)
+    VCR.turn_on!
+    super
+  end
+
+  def eject_cassette(*args)
+    super
+    VCR.turn_off!
+  end
+}
