@@ -81,4 +81,4 @@ Feature: Add link to thread
     Then I should see an info message: "This link is already registered in cojiro. It was added by csasaki on July 8, 2012."
 
   @wip
-  Scenario: Editing title
+  Scenario: Already added to this thread
