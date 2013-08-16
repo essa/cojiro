@@ -1,3 +1,4 @@
+@javascript
 Feature: Add link to thread
   As a curator
   I want to add a new link to my thread
@@ -15,7 +16,7 @@ Feature: Add link to thread
       | summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
     And I am on the thread "Capoeira in Japan and around the world"
 
-  @javascript @vcr
+  @vcr
   Scenario: Blank data for 404 URL
     When I click on "Add a link"
     And I enter the link "http://google.com/404.html" into the dialog box
@@ -26,7 +27,7 @@ Feature: Add link to thread
     And the "Comment" field should be blank
 
   # oEmbed type: video
-  @javascript @vcr
+  @vcr
   Scenario: Embedly data for valid video URL
     When I click on "Add a link"
     And I enter the link "http://www.youtube.com/watch?v=Sgf0WcJEYz4" into the dialog box
@@ -36,7 +37,7 @@ Feature: Add link to thread
     And the "Summary" field should say "東京のカポエイラ団体、カポエィラ・テンポの2005年作成PVです。いきなりこんな激しい事は教えないので心配しないで下さい。未経験の人のために作ったクラス、超初級クラスで生徒募集中です。サイトはこちら。レッスンの流れを写真で紹介したり、技の説明動画やブログなどあります。 http://www.capoeiratempo.com ..."
 
   # oEmbed type: link
-  @javascript @vcr
+  @vcr
   Scenario: Embedly data for valid website
     When I click on "Add a link"
     And I enter the link "http://ripplet.org/2013/04/self-grooming-and-public-transportation-if-you-cant-beat-them-create-a-space-for-them/" into the dialog box
@@ -46,7 +47,7 @@ Feature: Add link to thread
     And the "Summary" field should say "Some people like to complain about young Japanese women doing their makeup on the train. The particular behavior has the dubious honor of being featured twice in Tokyo Metro's monthly manner poster series. Recently designed ladies restrooms in the bigger, "hipper" stations have makeup and changing areas with full length mirrors and little tables."
 
   # oEmbed provider: Twitter
-  @javascript @wip
+  @wip
   Scenario: Embedly data for valid tweet URL
     When I click on "Add a link"
     And I enter the link "https://twitter.com/tzs/status/328846992044343296" into the dialog box
@@ -54,7 +55,7 @@ Feature: Add link to thread
     Then the "Tweet" field should say "[blogged!] Construction workers customize their temporary workplace http://bit.ly/11RsJGI"
 
   # oEmbed type: photo
-  @javascript @vcr
+  @vcr
   Scenario: Embedly data for valid photo
     When I click on "Add a link"
     And I enter the link "http://www.flickr.com/photos/ripplet/7128327045/in/set-72157629932925953" into the dialog box
@@ -62,7 +63,7 @@ Feature: Add link to thread
     And I wait for the AJAX call to finish
     Then the "Title" field should say "Sandals"
 
-  @javascript @vcr
+  @vcr
   Scenario: Already added to cojiro
     Given the date is "July 8, 2012 at 5pm"
     And the following thread exists:
@@ -79,5 +80,5 @@ Feature: Add link to thread
 #    Then the "Title" field should say "Sandals"
     Then I should see an info message: "This link is already registered in cojiro. It was added by csasaki on July 8, 2012."
 
-  @javascript @wip
+  @wip
   Scenario: Editing title

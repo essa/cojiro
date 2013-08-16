@@ -1,3 +1,4 @@
+@javascript
 Feature: Create new thread
   As a curator
   I want to create a new thread
@@ -10,7 +11,6 @@ Feature: Create new thread
       | nickname | csasaki       |
     And my locale is "en"
 
-  @javascript
   Scenario: User successfully creates a new thread
     Given the date is "June 5, 2013"
     When I create the following thread:
@@ -22,7 +22,7 @@ Feature: Create new thread
     And I should see that the thread was updated on "June 5, 2013"
     And I should see a success message: "Thread successfully created."
 
-  @javascript @wip
+  @wip
   Scenario: User successfully creates a new thread in a language that's not their interface language
     When I create the following thread:
       | Title   | 日本におけるカポエイラ |
@@ -32,7 +32,6 @@ Feature: Create new thread
     Then I should see the new thread "日本におけるカポエイラ"
     And I should see a success message: "Thread successfully created."
 
-  @javascript
   Scenario Outline: User tries to create a thread with invalid input
     When I create the following thread:
       | Title   | <title>   |

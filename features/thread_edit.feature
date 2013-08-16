@@ -1,4 +1,4 @@
-@wip
+@wip @javascript
 Feature: Edit thread
   As a curator
   I want to edit a thread I have created
@@ -15,7 +15,6 @@ Feature: Edit thread
       | title   | Capoeira in Japan and around the world |
       | summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
 
-  @javascript
   Scenario: Edit thread title
     When I go to the thread with English title "Capoeira in Japan and around the world"
     And I click on the edit button next to the "title and summary" field
@@ -24,7 +23,6 @@ Feature: Edit thread
     Then I should go back to the thread page
     And the title of the thread should be "Brazilian martial art Capoeira in Japan and around the world"
 
-  @javascript
   Scenario: Edit thread title and summary together
     When I go to the thread with English title "Capoeira in Japan and around the world"
     And I click on the edit button next to the "title and summary" field
@@ -35,7 +33,6 @@ Feature: Edit thread
     And the title of the thread should be "Capoeira in Japan and around the world"
     And the summary of the thread should be "While the martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan."
 
-  @javascript
   Scenario Outline: Tries to save without a title
     When I go to the thread with English title "Capoeira in Japan and around the world"
     And I click on the edit button next to the "title and summary" field

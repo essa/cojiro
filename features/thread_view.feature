@@ -1,3 +1,4 @@
+@javascript
 Feature: View a thread
   As a cojiro user
   I want to view a thread
@@ -10,7 +11,6 @@ Feature: View a thread
       | nickname | csasaki       |
     And my locale is "en"
 
-  @javascript
   Scenario: View a thread
     Given the date is "July 8, 2012 at 5pm"
     And the following thread exists:
@@ -24,7 +24,6 @@ Feature: View a thread
     And I should see the text "Cojiro Sasaki" in the thread
     And I should see the text "July 8, 2012" in the thread
 
-  @javascript
   Scenario: View a thread translation
     Given the date is "July 8, 2012 at 5pm"
     And the following thread exists:

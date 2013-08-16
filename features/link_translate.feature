@@ -1,4 +1,5 @@
 # encoding: utf-8
+@javascript
 Feature: Translate fields of a link
   As a curator
   I want to translate fields of a link into my own language
@@ -20,7 +21,6 @@ Feature: Translate fields of a link
       | csasaki | en | Capoeira on Wikipedia | Wikipedia article on Capoiera. | https://en.wikipedia.org/wiki/Capoeira |
     And I am on the thread "Capoeira in Japan and around the world"
 
-  @javascript
   Scenario: Click to translate title
     When I click on the editable text "カポエイラ - ウィキペディア"
     Then I should see a textarea with "" in the link
@@ -28,7 +28,6 @@ Feature: Translate fields of a link
     And I should see a submit button in the link
     And I should see a cancel button in the link
 
-  @javascript
   Scenario: Translate title
     When I click on the editable text "カポエイラ - ウィキペディア"
     And I enter "Capoiera - Wikipedia in Japanese" into the textarea in the link
@@ -40,7 +39,6 @@ Feature: Translate fields of a link
     And there should exist a link with title "Capoiera - Wikipedia in Japanese" in the database
     And the link should have a Japanese title "カポエイラ - ウィキペディア"
 
-  @javascript
   Scenario: Cancel translating title
     When I click on the editable text "カポエイラ - ウィキペディア"
     And I enter "foo" into the textarea in the link
@@ -49,7 +47,6 @@ Feature: Translate fields of a link
     And I should not see a popover with "カポエイラ - ウィキペディア"
     And there should not exist a link with title "foo" in the database
 
-  @javascript
   Scenario: Click to translate summary
     When I click on the editable text "カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。"
     Then I should see a textarea with "" in the link
@@ -57,7 +54,6 @@ Feature: Translate fields of a link
     And I should see a submit button in the link
     And I should see a cancel button in the link
 
-  @javascript
   Scenario: Translate summary
     When I click on the editable text "カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。"
     And I enter "A wikipedia article on Capoiera in Japanese" into the textarea in the link
@@ -69,7 +65,6 @@ Feature: Translate fields of a link
     And there should exist a link with summary "A wikipedia article on Capoiera in Japanese" in the database
     And the link should have a Japanese summary "カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。"
 
-  @javascript
   Scenario: Cancel translating summary
     When I click on the editable text "カポエイラは、ブラジルの腿法。相手に蹴りや攻撃を当ててしまうものは下手とされ、基本的に相手には触れず、プレッシャーをかけてゆく。"
     And I enter "bar" into the textarea in the link

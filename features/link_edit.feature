@@ -1,4 +1,5 @@
 # encoding: utf-8
+@javascript
 Feature: Edit fields of a link
   As a curator
   I want to edit fields of a link
@@ -20,7 +21,6 @@ Feature: Edit fields of a link
       | csasaki | en | Capoeira on Wikipedia | Wikipedia article on Capoiera. | https://en.wikipedia.org/wiki/Capoeira |
     And I am on the thread "Capoeira in Japan and around the world"
 
-  @javascript
   Scenario: Click to edit title
     When I click on the editable text "Capoeira on Wikipedia"
     Then I should see a textarea with "Capoeira on Wikipedia" in the link
@@ -28,7 +28,6 @@ Feature: Edit fields of a link
     And I should see a cancel button in the link
     And I should not see a popover with "Capoeira on Wikipedia"
 
-  @javascript
   Scenario: Edit title
     When I click on the editable text "Capoeira on Wikipedia"
     And I enter "foo" into the textarea in the link
@@ -39,7 +38,6 @@ Feature: Edit fields of a link
     And there should exist a link with title "foo" in the database
     And there should not exist a link with title "Capoeira on Wikipedia" in the database
 
-  @javascript
   Scenario: Cancel editing title
     When I click on the editable text "Capoeira on Wikipedia"
     And I enter "bar" into the textarea in the link
@@ -48,14 +46,12 @@ Feature: Edit fields of a link
     And I should not see the text "bar"
     And there should not exist a link with title "bar" in the database
 
-  @javascript
   Scenario: Click to edit summary
     When I click on the editable text "Wikipedia article on Capoiera."
     Then I should see a textarea with "Wikipedia article on Capoiera." in the link
     And I should see a submit button in the link
     And I should see a cancel button in the link
 
-  @javascript
   Scenario: Edit summary
     When I click on the editable text "Wikipedia article on Capoiera."
     And I enter "baz" into the textarea in the link
@@ -66,7 +62,6 @@ Feature: Edit fields of a link
     And there should exist a link with summary "baz" in the database
     And there should not exist a link with summary "Wikipedia article on Capoiera." in the database
 
-  @javascript
   Scenario: Cancel editing summary
     When I click on the editable text "Wikipedia article on Capoiera."
     And I enter "foobar" into the textarea in the link

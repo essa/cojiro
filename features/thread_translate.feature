@@ -1,4 +1,4 @@
-@wip
+@wip @javascript
 Feature: Translate a thread
   As a cojiro user
   I want to translate a thread
@@ -16,7 +16,6 @@ Feature: Translate a thread
       | summary | 最近、人気上昇中のコワーキングスペースのまとめ記事を書きたいと思っています。　|
       | language | Japanese　|
 
-  @javascript
   Scenario: User adds title and summary in their interface language 
     When I go to the thread with Japanese title "東京におけるコワーキングスペース"
     And I click on "Edit title and summary"
@@ -27,7 +26,6 @@ Feature: Translate a thread
     And the title of the thread should be "Coworking spaces in Tokyo"
     And the summary of the thread should be "Help me write an article about the different coworking spaces that are popping up in Tokyo"
 
-  @javascript
   Scenario Outline: User tries to add title/summary with invalid input
     When I go to the thread with Japanese title "東京におけるコワーキングスペース"
     And I click on "Edit title and summary"

@@ -1,4 +1,4 @@
-@wip
+@wip @javascript
 Feature: Change language settings
   As a cojiro user
   I want to change my settings
@@ -19,7 +19,6 @@ Feature: Change language settings
       | summary | 東京で開催されたカポエイラ大会の貴重な映像です。 |
       | language | Japanese|
 
-  @javascript
   Scenario: User changes their interface language
     When I go to the thread with English title "Capoeira in Japan and around the world"
     And I click on a language link in the right corner
@@ -28,7 +27,6 @@ Feature: Change language settings
     Then I should go back to the home page
     And I should see the text "スレッドの新規作成"
 
-  @javascript
   Scenario: User adds a content language
     When I go to the thread with English title "Capoeira in Japan and around the world"
     And I click on a language link in the right corner

@@ -1,9 +1,10 @@
+@javascript
 Feature: Delete a thread
   As a cojiro user
   I want to delete a thread that I created
   So that I can close the discussion
 
-  @javascript @wip
+  @wip
   Scenario: User successfully deletes a thread
     Given I am logged in through Twitter as the following user:
       | name     | Cojiro Sasaki |
@@ -19,7 +20,7 @@ Feature: Delete a thread
     Then I should see the homepage
     And I should see a success message: "Thread "Capoeira in Japan and around the world" deleted."
 
-  @javascript @wip
+  @wip
   Scenario: User cannot delete a thread they didn't create deletes a thread
     Given I am logged in through Twitter as the following user:
       | name     | Tomomi Sasaki |
