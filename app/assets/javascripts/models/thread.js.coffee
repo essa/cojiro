@@ -21,7 +21,7 @@ define [
         relatedModel: User
         reverseRelation:
           key: 'threads'
-          includeInJSON: 'id'
+          includeInJSON: 'name'
       ,
         type: Backbone.HasMany
         key: 'comments'

@@ -344,6 +344,7 @@ define (require) ->
         beforeEach ->
           @model = new Link(
             url: 'http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9'
+            user_name: 'foo'
             display_url: 'http://ja.wikipedia.org/wiki/カポエイラ'
             source_locale: 'ja'
             title: ja: '日本語のタイトル'

@@ -40,19 +40,6 @@ define [
             expect(@instance.getUser()).toEqual(user)
             expect(stub).toHaveBeenCalledWith('user')
 
-        describe '#getUserName', ->
-
-          it 'returns the name of the user who created this model', ->
-            user = new Backbone.Model
-            user.getName = () -> 'foo'
-            sinon.spy(user, 'getName')
-            stub = sinon.stub(@instance, 'get').returns(user)
-
-            expect(@instance.getUserName()).toEqual('foo')
-            expect(stub).toHaveBeenCalledWith('user')
-            expect(user.getName).toHaveBeenCalledOnce()
-            expect(user.getName).toHaveBeenCalledWithExactly()
-
         describe '#getId', ->
           it 'returns the id', ->
             @instance.id = 123

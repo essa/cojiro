@@ -40,6 +40,11 @@ define (require) ->
           @link.set('embed_data', { 'thumbnail_url': 'http://www.foo.com/bar' })
           expect(@link.getThumbnailUrl()).toEqual('http://www.foo.com/bar')
 
+      describe '#getUserName', ->
+        it 'returns the name of the user who created this link', ->
+          @link.set('user_name', 'foo')
+          expect(@link.getUserName()).toEqual('foo')
+
       describe '#toJSON', ->
         it 'does not include link key if all values are null', ->
           expect(@link.toJSON()['link']).not.toBeDefined()

@@ -70,6 +70,19 @@ define (require) ->
           expect(comments instanceof Backbone.Collection).toBeTruthy()
           expect(comments.models).toEqual([@comment1, @comment2])
 
+      describe '#getUserName', ->
+
+        it 'returns the name of the user who created this model', ->
+          user = new Backbone.Model
+          user.getName = () -> 'foo'
+          sinon.spy(user, 'getName')
+          stub = sinon.stub(@thread, 'get').returns(user)
+
+          expect(@thread.getUserName()).toEqual('foo')
+          expect(stub).toHaveBeenCalledWith('user')
+          expect(user.getName).toHaveBeenCalledOnce()
+          expect(user.getName).toHaveBeenCalledWithExactly()
+
       describe '#getLinks', ->
         beforeEach ->
           @link = new Link(title: en: 'link #1')
