@@ -18,7 +18,7 @@ define [
              data-content="<%= commentText %>">
           <div class="url">
             <a href="<%= url %>">
-              <span class="lang"><%= sourceLocale %></span>
+              <span class="favicon"><img src="<%= faviconUrl %>" /></span>
               <span class="site"><%= siteName %></span>
             </a>
             <a href="#" style="float: right" class="icon-edit" />
@@ -51,7 +51,7 @@ define [
         commentText = @model.getStatusMessage()
       @$el.html(@template(
         url: @link.getUrl()
-        sourceLocale: @link.getSourceLocale()
+        faviconUrl: @link.getFaviconUrl()
         siteName: @link.getSiteName()
         commentTitle: commentTitle
         commentText: commentText

@@ -15,6 +15,7 @@ define (require) ->
         summary: en: "CrossFit is an effective way to get fit. Anyone can do it."
         user: 'csasaki'
         site_name: 'www.youtube.com'
+        favicon_url: 'http://s.ytimg.com/yts/img/favicon-vfldLzJxy.ico'
         source_locale: 'en'
       @comment = new Comment(link: @link)
 
@@ -49,8 +50,8 @@ define (require) ->
       it 'renders site name', ->
         expect(@view.$('.site')).toHaveText('www.youtube.com')
 
-      it 'renders source locale', ->
-        expect(@$el.find('.lang')).toHaveText('en')
+      it 'renders favicon', ->
+        expect(@$el.find('.favicon')).toContain('img', src: 'http://s.ytimg.com/yts/img/favicon-vfldLzJxy.ico' )
 
     describe 'popover', ->
       beforeEach ->
