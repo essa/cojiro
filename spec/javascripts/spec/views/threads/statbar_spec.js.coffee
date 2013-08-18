@@ -20,10 +20,12 @@ define (require) ->
             text: 'comment 2'
             link: url: 'http://www.bar.com'
         ]
+      @renderSpy = sinon.spy(StatbarView::, 'render')
+      @view = new StatbarView(model: @thread)
+
+    afterEach -> @renderSpy.restore()
 
     describe 'rendering', ->
-      beforeEach ->
-        @view = new StatbarView(model: @thread)
 
       it 'returns the view', ->
         expect(@view.render()).toEqual(@view)
@@ -43,3 +45,10 @@ define (require) ->
       it 'renders number of links', ->
         @view.render()
         expect(@view.$('span.stat')).toHaveText('2')
+
+    describe 'events', ->
+      describe 'comment added to thread', ->
+        it 're-renders the statbar', ->
+          @thread.trigger('add:comments')
+          expect(@renderSpy).toHaveBeenCalledOnce()
+          expect(@renderSpy).toHaveBeenCalledWithExactly()

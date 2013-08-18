@@ -43,6 +43,10 @@ define [
       </ul>'
     className: 'statbar'
 
+    initialize: (options) ->
+      super(options)
+      @model.on('add:comments', @render, @)
+
     render: () ->
       @$el.html(@template(
         t: I18n.scoped('views.threads.statbar').t
