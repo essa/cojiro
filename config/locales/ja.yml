@@ -5,13 +5,11 @@ ja:
   views:
     threads:
       thread:
+        add_a_link: ネタを追加する
+      statbar:
         links: ネタ
         started: に登録した
         updated: last updated
-        comments_in: "%{lang}のコメント"
-        edit: 編集する
-        add_in: "%{lang}を追加する"
-        add_a_link: ネタを追加する
       new_thread:
         thread_created: "スレッドは作成されました。"
         start_a_thread: スレッドを立てる

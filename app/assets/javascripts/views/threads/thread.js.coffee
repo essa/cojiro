@@ -7,52 +7,16 @@ define [
   'views/other/flash'
   'modules/translatable'
   'globals'
+  'views/threads/statbar'
   'views/threads/add_link_modal'
   'views/comments/comment_link'
   'bootstrap'
-], ($, _, Backbone, Link, BaseView, FlashView, Translatable, globals, AddLinkModal, CommentLinkView) ->
+], ($, _, Backbone, Link, BaseView, FlashView, Translatable, globals, StatbarView, AddLinkModal, CommentLinkView) ->
 
   class ThreadView extends BaseView
     template: _.template '
       <div class="row">
-        <div class="span12">
-          <div class="statbar">
-            <ul class="nav nav-pills">
-              <li>
-                <a href="#">
-                  <span class="stat">
-                    <%= numLinks %>
-                  </span>
-                  <br />
-                  <span class="stattext">
-                    <%= t(".links") %>
-                  </span>
-                </a>
-              </li>
-              <li class="sep"></li>
-              <li>
-                <span class="date"><%= createdAt %></span>
-                <br />
-                <span class="status"><%= t(".started") %></span>
-              </li>
-              <li class="avatar">
-                <img src="<%= avatarUrl %>" />
-              </li>
-              <li class="byline">
-                <span class="name"><%= fullname %></span>
-                <br />
-                <a class="unstyled" href="#">
-                  <span class="handle">@<%= name %></span>
-                </a>
-              </li>
-              <li class="sep"></li>
-              <li>
-                <span class="date"><%= updatedAt %></span>
-                <br />
-                <span class="status"><%= t(".updated") %></span>
-              </li>
-            </ul>
-          </div>
+        <div class="span12" id="statbar">
         </div>
       </div>
       <div class="row">
@@ -98,14 +62,9 @@ define [
       @$el.html(@template(
         t: I18n.scoped('views.threads.thread').t
         currentUser: globals.currentUser
-        numLinks: @model.getLinks().length
-        createdAt: @model.getCreatedAt()
-        updatedAt: @model.getUpdatedAt()
-        avatarUrl: @model.getUser().getAvatarMiniUrl()
-        fullname: @model.getUser().getFullname()
-        name: @model.getUserName()
       ))
       @renderTranslatableFields()
+      @renderStatbar()
       @renderLinks()
       @renderModals()
       if globals.flash?
@@ -115,6 +74,11 @@ define [
     renderTranslatableFields: ->
       @renderChildInto(@titleField, '#title')
       @renderChildInto(@summaryField, '#summary')
+
+    renderStatbar: ->
+      @statbar = new StatbarView(model: @model)
+      @renderChild(@statbar)
+      @$('#statbar').html(@statbar.el)
 
     renderLinks: ->
       (linksContainer = @.$('.link-list')).empty()

@@ -5,12 +5,11 @@ en:
   views:
     threads:
       thread:
+        add_a_link: Add a link
+      statbar:
         links: links
         started: started
         updated: last updated
-        edit: Edit
-        add_in: Add %{lang}
-        add_a_link: Add a link
       new_thread:
         thread_created: "Thread successfully created."
         start_a_thread: Start a thread
