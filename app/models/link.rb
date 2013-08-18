@@ -55,6 +55,10 @@ class Link < ActiveRecord::Base
     uri.host ? uri.display_uri : uri.to_s
   end
 
+  def favicon_url
+    extract_data && extract_data['favicon_url']
+  end
+
   def display_url
     Addressable::URI.unencode(display_uri)
   end
@@ -68,7 +72,22 @@ class Link < ActiveRecord::Base
   end
 
   def serializable_hash(options = {})
-    hash = super(options.merge(:only => [ :id, :created_at, :updated_at, :url, :source_locale, :oembed_data ], :methods => [ :display_url, :site_name, :user_name ]))
+    hash = super(
+      options.merge(
+        :only => [
+          :id,
+          :created_at,
+          :updated_at,
+          :url,
+          :source_locale,
+          :oembed_data
+        ],
+        :methods => [
+          :display_url,
+          :site_name,
+          :favicon_url,
+          :user_name
+        ]))
     hash
   end
 

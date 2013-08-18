@@ -114,6 +114,7 @@ describe Link do
       its(['title']) { should == { 'en' => 'What is CrossFit?' } }
       its(['summary']) { should == { 'en' => 'CrossFit is an effective way to get fit. Anyone can do it.' } }
       its(['site_name']) { should == 'www.youtube.com' }
+      its(['favicon_url']) { should == 'http://s.ytimg.com/yts/img/favicon-vfldLzJxy.ico' }
       its(['user_name']) { should == 'foo' }
       its(['url']) { should == 'http://youtu.be/tzD9BkXGJ1M' }
       its(['source_locale']) { should == 'en' }
@@ -347,24 +348,32 @@ describe Link do
   describe 'embed helper methods' do
     let(:link) { FactoryGirl.build(:link) }
 
-    context 'for a link with valid embed data' do
-      describe '#site_name' do
-        it 'strips http from provider_url' do
-          link.stub(:oembed_data).and_return({ 'provider_url' => 'http://www.youtube.com/' })
-          link.site_name.should == 'www.youtube.com'
-        end
-
-        it 'strips https from provider_url' do
-          link.stub(:oembed_data).and_return({ 'provider_url' => 'https://github.com/' })
-          link.site_name.should == 'github.com'
-        end
+    describe '#site_name' do
+      it 'strips http from provider_url' do
+        link.stub(:oembed_data).and_return({ 'provider_url' => 'http://www.youtube.com/' })
+        link.site_name.should == 'www.youtube.com'
       end
-    end
 
-    context 'for a link with missing embed data' do
+      it 'strips https from provider_url' do
+        link.stub(:oembed_data).and_return({ 'provider_url' => 'https://github.com/' })
+        link.site_name.should == 'github.com'
+      end
+
       it 'returns nil site name if provider_url is nil' do
         link.stub(:embed_data).and_return {}
         link.site_name.should == nil
+      end
+    end
+
+    describe '#favicon_url' do
+      it 'returns favicon_url from extract data' do
+        link.stub(:extract_data).and_return({ 'favicon_url' => 'http://s.ytimg.com/yts/img/favicon-vfldLzJxy.ico' })
+        link.favicon_url.should == 'http://s.ytimg.com/yts/img/favicon-vfldLzJxy.ico'
+      end
+
+      it 'returns nil if favicon_url is nil' do
+        link.stub(:extract_data).and_return {}
+        link.favicon_url.should == nil
       end
     end
   end
