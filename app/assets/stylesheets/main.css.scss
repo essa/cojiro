@@ -173,6 +173,10 @@ ul.nav-pills {
       border-bottom: 2px solid white;
       padding: 10px;
       span.favicon {
+        img {
+          max-width: 20px;
+          max-height: 20px;
+        }
       }
       span.site {
         font-size: $baseFontSize;
