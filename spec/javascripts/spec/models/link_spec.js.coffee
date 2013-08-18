@@ -29,7 +29,7 @@ define (require) ->
 
       describe '#getEmbedData', ->
         it 'returns embedly data', ->
-          @link.set('embed_data', { 'foo': 'bar' })
+          @link.set('oembed_data', { 'foo': 'bar' })
           expect(@link.getEmbedData()).toEqual('foo': 'bar')
 
         it 'returns empty object if no embedly data', ->
@@ -37,7 +37,7 @@ define (require) ->
 
       describe '#getThumbnailUrl', ->
         it 'returns thumbnail url from embedly data', ->
-          @link.set('embed_data', { 'thumbnail_url': 'http://www.foo.com/bar' })
+          @link.set('oembed_data', { 'thumbnail_url': 'http://www.foo.com/bar' })
           expect(@link.getThumbnailUrl()).toEqual('http://www.foo.com/bar')
 
       describe '#getUserName', ->
