@@ -27,6 +27,11 @@ define (require) ->
           @link.set('site_name', 'www.foo.com')
           expect(@link.getSiteName()).toEqual('www.foo.com')
 
+      describe '#getFaviconUrl', ->
+        it 'returns the favicon url', ->
+          @link.set('favicon_url', 'http://www.foo.com/favicon.ico')
+          expect(@link.getFaviconUrl()).toEqual('http://www.foo.com/favicon.ico')
+
       describe '#getEmbedData', ->
         it 'returns embedly data', ->
           @link.set('oembed_data', { 'foo': 'bar' })

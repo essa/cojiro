@@ -88,6 +88,7 @@ define [
     getUrl: -> @get('url')
     getDisplayUrl: -> @get('display_url')
     getSiteName: -> @get('site_name')
+    getFaviconUrl: -> @get('favicon_url')
     getEmbedData: -> @get('oembed_data') || {}
     getThumbnailUrl: ->  @getEmbedData()['thumbnail_url']
     getStatus: -> @getSourceLocale() && 1 || 0
