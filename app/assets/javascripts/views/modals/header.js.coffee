@@ -1,11 +1,8 @@
 define [
   'jquery'
   'underscore'
-  'backbone'
   'modules/base/view'
-  'modules/channel'
-  'i18n'
-], ($, _, Backbone, BaseView, channel, I18n) ->
+], ($, _, BaseView) ->
 
   class ModalHeaderView extends BaseView
     template: _.template '

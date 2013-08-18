@@ -1,13 +1,12 @@
 define [
   'jquery'
   'underscore'
-  'backbone'
   'modules/base/view'
   'views/threads/thread_list'
   'views/homepage/thread_filter'
   'globals'
   'i18n'
-], ($, _, Backbone, BaseView, ThreadListView, ThreadFilterView, globals, I18n) ->
+], ($, _, BaseView, ThreadListView, ThreadFilterView, globals, I18n) ->
 
   class HomepageView extends BaseView
     template: _.template '
