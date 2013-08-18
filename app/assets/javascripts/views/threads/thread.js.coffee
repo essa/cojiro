@@ -52,6 +52,8 @@ define [
     initialize: (options = {}) ->
       super(options)
 
+      @StatbarView = options.StatbarView || StatbarView
+
       @addLinkModal = new AddLinkModal(model: @model)
       @titleField = new Translatable.InPlaceField(model: @model, field: "title", editable: globals.currentUser?)
       @summaryField = new Translatable.InPlaceField(model: @model, field: "summary", editable: globals.currentUser?)
@@ -76,7 +78,7 @@ define [
       @renderChildInto(@summaryField, '#summary')
 
     renderStatbar: ->
-      @statbar = new StatbarView(model: @model)
+      @statbar = new @StatbarView(model: @model)
       @renderChild(@statbar)
       @$('#statbar').html(@statbar.el)
 
