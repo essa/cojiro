@@ -14,7 +14,8 @@ describe Link do
   # and in principle should not be changed thereafter
   describe 'readonly accessors' do
     it { should have_readonly_attribute(:url) }
-    it { should have_readonly_attribute(:embed_data) }
+    it { should have_readonly_attribute(:oembed_data) }
+    it { should have_readonly_attribute(:extract_data) }
   end
 
   describe 'mass assignment' do
@@ -118,11 +119,11 @@ describe Link do
       its(['source_locale']) { should == 'en' }
       it 'does not include any other attributes' do
         subject.keys.delete_if { |k|
-          %w[ id created_at updated_at title summary url display_url source_locale embed_data site_name user_name ].include?(k)
+          %w[ id created_at updated_at title summary url display_url source_locale oembed_data site_name user_name ].include?(k)
         }.should be_empty
       end
-      its(['embed_data']) { should be }
-      its(['embed_data']) { should include('title' => 'What is CrossFit?') }
+      its(['oembed_data']) { should be }
+      its(['oembed_data']) { should include('title' => 'What is CrossFit?') }
     end
 
     describe 'Wikipedia page in Japanese' do
@@ -315,22 +316,32 @@ describe Link do
     end
   end
 
-  describe 'get embed data' do
+  describe 'get oembed data' do
     use_vcr_cassette('what_is_crossfit')
     let(:link) { FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M') }
-    subject { link.embed_data }
-    its(["description"]) { should == 'What is CrossFit? CrossFit is an effective way to get fit. Anyone can do it. It is a fitness program that combines a wide variety of functional movements into a timed or scored workout. We do pull-ups, squats, push-ups, weightlifting, gymnastics, running, rowing, and a host of other movements.' }
-    its(["provider_url"]) { should == 'http://www.youtube.com/' }
-    its(["author_name"]) { should == 'CrossFit' }
-    its(["height"]) { should == 480 }
-    its(["width"]) { should == 854 }
-    its(["thumbnail_height"]) { should == 360 }
-    its(["thumbnail_width"]) { should == 480 }
-    its(["author_url"]) { should == 'http://www.youtube.com/user/CrossFitHQ' }
-    its(["type"]) { should == 'video' }
-    its(["provider_name"]) { should == 'YouTube' }
-    its(["thumbnail_url"]) { should == 'http://i1.ytimg.com/vi/tzD9BkXGJ1M/hqdefault.jpg' }
-    its(["html"]) { should == '<iframe width="854" height="480" src="http://www.youtube.com/embed/tzD9BkXGJ1M?feature=oembed" frameborder="0" allowfullscreen></iframe>' }
+    subject { link.oembed_data }
+    its(['title']) { should == 'What is CrossFit?' }
+    its(['description']) { should == 'What is CrossFit? CrossFit is an effective way to get fit. Anyone can do it. It is a fitness program that combines a wide variety of functional movements into a timed or scored workout. We do pull-ups, squats, push-ups, weightlifting, gymnastics, running, rowing, and a host of other movements.' }
+    its(['provider_url']) { should == 'http://www.youtube.com/' }
+    its(['author_name']) { should == 'CrossFit®' }
+    its(['height']) { should == 480 }
+    its(['width']) { should == 854 }
+    its(['thumbnail_height']) { should == 360 }
+    its(['thumbnail_width']) { should == 480 }
+    its(['author_url']) { should == 'http://www.youtube.com/user/CrossFitHQ' }
+    its(['type']) { should == 'video' }
+    its(['provider_name']) { should == 'YouTube' }
+    its(['thumbnail_url']) { should == 'http://i1.ytimg.com/vi/tzD9BkXGJ1M/hqdefault.jpg' }
+    its(['html']) { should == '<iframe width="854" height="480" src="http://www.youtube.com/embed/tzD9BkXGJ1M?feature=oembed" frameborder="0" allowfullscreen></iframe>' }
+  end
+
+  describe 'get extract data' do
+    use_vcr_cassette('what_is_crossfit')
+    let(:link) { FactoryGirl.create(:link, :url => 'http://youtu.be/tzD9BkXGJ1M') }
+    subject { link.extract_data }
+    its(['title']) { should == 'What is CrossFit?' }
+    its(['description']) { should == 'What is CrossFit? CrossFit is an effective way to get fit. Anyone can do it. It is a fitness program that combines a wide variety of functional movements into a timed or scored workout. We do pull-ups, squats, push-ups, weightlifting, gymnastics, running, rowing, and a host of other movements.' }
+    its(['favicon_url']) { should == 'http://s.ytimg.com/yts/img/favicon-vfldLzJxy.ico' }
   end
 
   describe 'embed helper methods' do
@@ -339,12 +350,12 @@ describe Link do
     context 'for a link with valid embed data' do
       describe '#site_name' do
         it 'strips http from provider_url' do
-          link.stub(:embed_data).and_return({ 'provider_url' => 'http://www.youtube.com/' })
+          link.stub(:oembed_data).and_return({ 'provider_url' => 'http://www.youtube.com/' })
           link.site_name.should == 'www.youtube.com'
         end
 
         it 'strips https from provider_url' do
-          link.stub(:embed_data).and_return({ 'provider_url' => 'https://github.com/' })
+          link.stub(:oembed_data).and_return({ 'provider_url' => 'https://github.com/' })
           link.site_name.should == 'github.com'
         end
       end

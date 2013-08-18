@@ -16,45 +16,137 @@ http_interactions:
   response:
     status:
       code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "RGF0ZQ==":
+      - !binary |-
+        U3VuLCAxOCBBdWcgMjAxMyAwNjoxMDoxOSBHTVQ=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbg==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        NDkw
+      !binary "Q29ubmVjdGlvbg==":
+      - !binary |-
+        a2VlcC1hbGl2ZQ==
+      !binary "WC1FbWJlZGx5LUZyb20tQ2FjaGU=":
+      - !binary |-
+        MA==
+      !binary "QWNjZXNzLUNvbnRyb2wtTWF4LUFnZQ==":
+      - !binary |-
+        ODY0MDA=
+      !binary "U2VydmVy":
+      - !binary |-
+        VG9ybmFkb1NlcnZlci8yLjE=
+      !binary "RXRhZw==":
+      - !binary |-
+        IjllNDcwY2Q3MmVhNTZhZTBkZWI0MTcxYTRjZDQxNjkyNGNlNGU2YmQi
+      !binary "WC1FbWJlZGx5LVByb2Nlc3MtVGltZQ==":
+      - !binary |-
+        NDQ=
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
+      - !binary |-
+        Kg==
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kcw==":
+      - !binary |-
+        R0VULCBPUFRJT05T
+      !binary "WC1FbWJlZGx5LUhvc3Q=":
+      - !binary |-
+        YXBpMTg=
+      !binary "Q29udGVudC1FbmNvZGluZw==":
+      - !binary |-
+        Z3ppcA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA31SXY/TMBD8K6s8l6QVBzpO16v4EF8SD0hIB6KocpJNbC7x
+        5ux1ooD476xdWloJ7sn2jndmPN6vP7PB0WhqdLvguuwKMs08XBXFNE35TIFD
+        iXlFfZEtIKvRV84MbMjGm7daMRgPLx15/9rw5riLVWUBmwYrNiPCpGZgghYZ
+        GsM5PLczWYRKLtUEsfJu3xRhi96D2Gqd6oGjiBgojZQFn8QrjMoZ5BmogSbY
+        KhpSHfQ0Yo+WPRgrYgrY9FgDOfAVOdlN5O7kSTncYpQdQtc9CoNfgL8PimUd
+        gtf7yoSm1dyZho1tF9DOvVWeTSWQC9amoqMprcrWIqbJczRErNH99ZLH4Nhw
+        h/+MLKIPBz8prvRmXPOPV89e3H1+8371ITapwJrczqo+ER8It2G5VBgv6PQC
+        wS4ul9GCDn1plel2kiDrY/1wunxyEZu4T16uTSPhIyR0vc0E3Wawp5SjtMrR
+        u0r2/7GNfYl1cWJ606Di4HBNCZL+JFGSk+ETnsiouo6mRr5F5gzR3lwXex83
+        Jy9+OK3g0RWHMN5+jH0jOv9nYlf5MlaOI39I7wuFT8KQneV0LmRW+Szz1CaV
+        0Zy+rND3NTYqdJx/H9pEMg+JN6rQOevxWx4/Xf769hsMfOLjgAMAAA==
+    http_version: 
+  recorded_at: Wed, 20 Aug 2008 12:20:00 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/extract?key=&urls=http://youtu.be/tzD9BkXGJ1M
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
       message: OK
     headers:
       Date:
-      - Wed, 19 Jun 2013 03:17:45 GMT
+      - Sun, 18 Aug 2013 06:10:20 GMT
       Content-Type:
       - application/json
-      Content-Length:
-      - '890'
+      Transfer-Encoding:
+      - chunked
       Connection:
       - keep-alive
       X-Embedly-From-Cache:
-      - ''
+      - '0'
       Access-Control-Max-Age:
       - '86400'
       Server:
       - TornadoServer/2.1
       Etag:
-      - ! '"80c3b1e6a36b2b431a1f739e831b92c3587c7e5a"'
+      - ! '"678b355effe9b65cada84803a672a3d8b2d597ed"'
       X-Embedly-Process-Time:
-      - '4356'
+      - '43'
       Access-Control-Allow-Origin:
       - ! '*'
       Access-Control-Allow-Methods:
       - GET, OPTIONS
       X-Embedly-Host:
-      - api02
+      - api26
+      Content-Encoding:
+      - gzip
     body:
-      encoding: US-ASCII
-      string: ! '[{"provider_url": "http://www.youtube.com/", "description": "What
-        is CrossFit? CrossFit is an effective way to get fit. Anyone can do it. It
-        is a fitness program that combines a wide variety of functional movements
-        into a timed or scored workout. We do pull-ups, squats, push-ups, weightlifting,
-        gymnastics, running, rowing, and a host of other movements.", "title": "What
-        is CrossFit?", "url": "http://www.youtube.com/watch?v=tzD9BkXGJ1M", "author_name":
-        "CrossFit", "height": 480, "thumbnail_width": 480, "width": 854, "html": "<iframe
-        width=\"854\" height=\"480\" src=\"http://www.youtube.com/embed/tzD9BkXGJ1M?feature=oembed\"
-        frameborder=\"0\" allowfullscreen></iframe>", "author_url": "http://www.youtube.com/user/CrossFitHQ",
-        "version": "1.0", "provider_name": "YouTube", "thumbnail_url": "http://i1.ytimg.com/vi/tzD9BkXGJ1M/hqdefault.jpg",
-        "type": "video", "thumbnail_height": 360}]'
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA4VWW2/bNhT+K4Qe9uRIpq5W0TRwuq1p0ATDFqAd2qKgJUpi
+        TZMqSdlTgv73HVK2q8hzZ0AwyXPl+c6FH5+8VsktK6n60inuvUBeY0z7Igh2
+        u53fy850K+oXchN4M+SVVBeKtYZJYTnfN8QgptFrJbX+nZmr48qeEoFoVdHC
+        sC1FO9IjI1FNDaqY8dFS9FJQVABTKZE9eetUEUsWVGsEbtWKbJCxRsCBFYNj
+        oO/AV7QlilHTI1mhqhNgQgrC0UZu6YYKoxETYIwgwza0RFIhXUgFq51Ua7iS
+        j95Ta7btOL/oWj1D+ltHDPy3nW6Gkx1ldWM4qwwT9QzV/UYQbVgBTKoTwh0q
+        uXP/RJRgrJHaWIekaaj64YtvA0c3K1pqiNnHz7DTpKKwNqqjsDvGv2S65aS3
+        kZ0E36pQlBNDy4OOimxZIcUENO33cOfaAdYbHcA62HNebCtevnu8/af3QdBq
+        JJ1ppDp6xTakpm735BXkALKAGAHv89xgeGRnywLz+Gt+vf7w5hbfBc23klak
+        48b/2tbWTOMiCXqjdA5bwM80sIsXdldIvncBjNq1tY/DGcIYvshGa0ACzud+
+        HKdJFIXzCIfJ9xkai+BkhnL75ROZEKdZni6yiUCSz1CcwTflx3meJxhn+EQE
+        ZwvwyQrhZD6xMs+iMA5PZcLQyuRWJk+mMmkUZ2mSwl0sBRJXydbCn/hzjHGY
+        JjjNwU1Ps0ebL3CQhcO1fwKPhtrlTeLXUtacdpoqSBMDyl1SXMzvl6JIF1V7
+        swiWx9/b0XoZ/Lm5KYsP0UPOl4GOFxfFxTpoG2nkCaQx3G6E6FlAM0A0AkTj
+        cIpoilO45H9FLgLdYQxCYXwS7SSO4yhK8mgKa+hyJ7Xxzk6k4jRapAOwzwMe
+        +ThLwzjLsmQ+CjgGAw6aghQN/QLlASgsQnAXzjglthj39cGJqLuBwftN1Jzp
+        xua+VKxm0JomZer6qr+i48Kx7D/vwDtiiuZqezmqNisELY4R8OTJKztF9r0Z
+        R/Yeh1pbJDHsGrNxDf4lq6CxQk+2lXj5yQPqJw8NZQpbKEzYalXA+swscO1s
+        7PxVRYnpFL2UjgTyzsRKKhgsoMdqJJzLXQXtBGYIpeLVy2Dw45W9hOlbG1zP
+        TiLXnI5dA9yBnPcMM9xxnAwdF+eq0tT2mD0c+5T/cQD5zww7tjfZCcudgqgA
+        P63ewxDzhgrbc0Qjjjeuov6PjpZF4YTP6vmDFUST53RI86Mn96xYM3QHefP1
+        PNNSCcnL8/QHJRkM12vKIRdhWkr0C7qlMLgqGE7XlHB9XvYGwDxPve1gDoJm
+        RldUnWe7J9v+PPWOrdcS/UW4PM+zhKJCr4kCI7YI17SH+T1M0SfPTXTADc/t
+        GDmAWNiXCLwgBqUHnsjW64Fl6IsThrGOdgTPUcOYAR4R3cRCOM6kolEScsrh
+        f1AQPrMwvDJ+wlFvCOPP6XhsYv8wm3DYIj9ccyikZz7Y1nik759CkAU2tm23
+        si3LPS/2JXR8lhw0/i27B3gMjqvVdZTvn/8FRU1SCkUKAAA=
     http_version: 
-  recorded_at: Wed, 19 Jun 2013 03:17:45 GMT
+  recorded_at: Wed, 20 Aug 2008 12:20:00 GMT
 recorded_with: VCR 2.5.0

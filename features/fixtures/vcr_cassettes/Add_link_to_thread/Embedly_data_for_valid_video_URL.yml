@@ -16,47 +16,34 @@ http_interactions:
   response:
     status:
       code: 200
-      message: !binary |-
-        T0s=
+      message: OK
     headers:
-      !binary "RGF0ZQ==":
-      - !binary |-
-        VGh1LCAxNSBBdWcgMjAxMyAwNzoxNjo0NCBHTVQ=
-      !binary "Q29udGVudC1UeXBl":
-      - !binary |-
-        YXBwbGljYXRpb24vanNvbg==
-      !binary "VHJhbnNmZXItRW5jb2Rpbmc=":
-      - !binary |-
-        Y2h1bmtlZA==
-      !binary "Q29ubmVjdGlvbg==":
-      - !binary |-
-        a2VlcC1hbGl2ZQ==
-      !binary "WC1FbWJlZGx5LUZyb20tQ2FjaGU=":
-      - !binary ""
-      !binary "QWNjZXNzLUNvbnRyb2wtTWF4LUFnZQ==":
-      - !binary |-
-        ODY0MDA=
-      !binary "U2VydmVy":
-      - !binary |-
-        VG9ybmFkb1NlcnZlci8yLjE=
-      !binary "RXRhZw==":
-      - !binary |-
-        IjE4YzdkM2RkYmJkZmFiZTJiMjBiNjg5YzVlNzA5ZTJlMTI0NzQyODAi
-      !binary "WC1FbWJlZGx5LVByb2Nlc3MtVGltZQ==":
-      - !binary |-
-        MTQ0Mg==
-      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
-      - !binary |-
-        Kg==
-      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kcw==":
-      - !binary |-
-        R0VULCBPUFRJT05T
-      !binary "WC1FbWJlZGx5LUhvc3Q=":
-      - !binary |-
-        YXBpMjE=
-      !binary "Q29udGVudC1FbmNvZGluZw==":
-      - !binary |-
-        Z3ppcA==
+      Date:
+      - Sun, 18 Aug 2013 06:52:11 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"18c7d3ddbbdfabe2b20b689c5e709e2e12474280"'
+      X-Embedly-Process-Time:
+      - '39'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api26
+      Content-Encoding:
+      - gzip
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -78,10 +65,10 @@ http_interactions:
         +1uYrlQeh0Q9famNwp1rF3OawJv2WNq4+WFsrX3nwm+rOYHsVvQnOM37p6iH
         f0mU+P31Dzi5JMT1BQAA
     http_version: 
-  recorded_at: Thu, 15 Aug 2013 07:16:44 GMT
+  recorded_at: Sun, 18 Aug 2013 06:52:11 GMT
 - request:
     method: get
-    uri: http://api.embed.ly/1/oembed?key=&urls=http://google.com/404.html
+    uri: http://api.embed.ly/1/extract?key=&urls=http://www.youtube.com/watch?v=Sgf0WcJEYz4
     body:
       encoding: US-ASCII
       string: ''
@@ -98,59 +85,11 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 15 Aug 2013 07:20:19 GMT
+      - Sun, 18 Aug 2013 06:52:11 GMT
       Content-Type:
       - application/json
-      Content-Length:
-      - '133'
-      Connection:
-      - keep-alive
-      X-Embedly-From-Cache:
-      - ''
-      Access-Control-Max-Age:
-      - '86400'
-      Server:
-      - TornadoServer/2.1
-      Etag:
-      - ! '"e88c2ec20090fec1428369a0f97030bc3635fcb6"'
-      X-Embedly-Process-Time:
-      - '236'
-      Access-Control-Allow-Origin:
-      - ! '*'
-      Access-Control-Allow-Methods:
-      - GET, OPTIONS
-      X-Embedly-Host:
-      - api31
-    body:
-      encoding: US-ASCII
-      string: ! '[{"url": "http://google.com/404.html", "error_code": 404, "error_message":
-        "HTTP 404: Not Found", "type": "error", "version": "1.0"}]'
-    http_version: 
-  recorded_at: Thu, 15 Aug 2013 07:20:19 GMT
-- request:
-    method: get
-    uri: http://api.embed.ly/1/oembed?key=&urls=http://google.com/404.html
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - ! '*/*'
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Thu, 15 Aug 2013 07:21:19 GMT
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '133'
+      Transfer-Encoding:
+      - chunked
       Connection:
       - keep-alive
       X-Embedly-From-Cache:
@@ -160,19 +99,51 @@ http_interactions:
       Server:
       - TornadoServer/2.1
       Etag:
-      - ! '"e88c2ec20090fec1428369a0f97030bc3635fcb6"'
+      - ! '"f95dbed4b4bf181e00ea23e8286e19833785c2c8"'
       X-Embedly-Process-Time:
-      - '43'
+      - '47'
       Access-Control-Allow-Origin:
       - ! '*'
       Access-Control-Allow-Methods:
       - GET, OPTIONS
       X-Embedly-Host:
-      - api14
+      - api11
+      Content-Encoding:
+      - gzip
     body:
-      encoding: US-ASCII
-      string: ! '[{"url": "http://google.com/404.html", "error_code": 404, "error_message":
-        "HTTP 404: Not Found", "type": "error", "version": "1.0"}]'
+      encoding: ASCII-8BIT
+      string: !binary |-
+        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
+        ag9Vdwc/J3ZbjsbCz8//AfqGjs+HDAAA
     http_version: 
-  recorded_at: Thu, 15 Aug 2013 07:21:19 GMT
+  recorded_at: Sun, 18 Aug 2013 06:52:11 GMT
 recorded_with: VCR 2.5.0

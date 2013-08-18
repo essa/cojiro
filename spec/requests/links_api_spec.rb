@@ -32,11 +32,11 @@ describe 'Links API' do
       end
 
       it 'returns embed data' do
-        json.should have_key('embed_data')
-        embed_data = json['embed_data']
-        embed_data.should include('provider_name' => 'Google Maps')
-        embed_data.should include('height' => 480)
-        embed_data.should include('width' => 640)
+        json.should have_key('oembed_data')
+        oembed_data = json['oembed_data']
+        oembed_data.should include('provider_name' => 'Google Maps')
+        oembed_data.should include('height' => 480)
+        oembed_data.should include('width' => 640)
       end
     end
   end

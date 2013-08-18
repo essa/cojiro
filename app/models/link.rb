@@ -6,14 +6,16 @@ class Link < ActiveRecord::Base
   translates :title, :summary
   include GlobalizeHelpers
 
-  serialize :embed_data, JSON
+  serialize :oembed_data, JSON
+  serialize :extract_data, JSON
 
   belongs_to :user
   has_many :comments
   has_many :cothreads, :through => :comments
 
   #readonly accessors
-  attr_readonly :url, :embed_data
+  attr_readonly :url, :oembed_data
+  attr_readonly :url, :extract_data
 
   #accessible
   attr_accessible :url, :source_locale, :title, :summary
@@ -26,7 +28,7 @@ class Link < ActiveRecord::Base
   #callbacks
   before_validation :default_values
   before_validation :parse_and_normalize_url
-  before_create :get_embed_data
+  before_create :get_embedly_data
 
   def self.find_by_url(url)
     super(parse_and_normalize(url))
@@ -43,7 +45,7 @@ class Link < ActiveRecord::Base
   end
 
   def site_name
-    if (embed_data && provider_url = embed_data['provider_url'])
+    if (oembed_data && provider_url = oembed_data['provider_url'])
       provider_url.gsub(/^(http|https):\/\//,'').chomp('/')
     end
   end
@@ -66,7 +68,7 @@ class Link < ActiveRecord::Base
   end
 
   def serializable_hash(options = {})
-    hash = super(options.merge(:only => [ :id, :created_at, :updated_at, :url, :source_locale, :embed_data ], :methods => [ :display_url, :site_name, :user_name ]))
+    hash = super(options.merge(:only => [ :id, :created_at, :updated_at, :url, :source_locale, :oembed_data ], :methods => [ :display_url, :site_name, :user_name ]))
     hash
   end
 
@@ -97,9 +99,17 @@ class Link < ActiveRecord::Base
     uri && uri.normalize.to_s
   end
 
-  def get_embed_data
-    obj = embedly_api.oembed :url => url
-    self.embed_data = obj[0].marshal_dump
+  def get_embedly_data
+    [
+      Thread.new {
+        obj = embedly_api.oembed :url => url
+        self.oembed_data = obj[0].marshal_dump
+      },
+      Thread.new {
+        obj = embedly_api.extract :url => url;
+        self.extract_data = obj[0].marshal_dump
+      }
+    ].each(&:join)
   end
 
   def title_present_in_source_locale

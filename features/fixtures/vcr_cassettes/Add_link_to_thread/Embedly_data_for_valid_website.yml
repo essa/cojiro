@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 15 Aug 2013 07:23:57 GMT
+      - Sun, 18 Aug 2013 06:52:21 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -27,7 +27,7 @@ http_interactions:
       Connection:
       - keep-alive
       X-Embedly-From-Cache:
-      - ''
+      - '0'
       Access-Control-Max-Age:
       - '86400'
       Server:
@@ -35,13 +35,13 @@ http_interactions:
       Etag:
       - ! '"2c3de63c5e991dc8b1cdb63ee1d9ea020f6921ce"'
       X-Embedly-Process-Time:
-      - '5235'
+      - '48'
       Access-Control-Allow-Origin:
       - ! '*'
       Access-Control-Allow-Methods:
       - GET, OPTIONS
       X-Embedly-Host:
-      - api25
+      - api40
       Content-Encoding:
       - gzip
     body:
@@ -60,5 +60,99 @@ http_interactions:
         tCxstutfcfqQwv1uV0Mrv/OSzEJxopT/34btelOV95v0FufztcXCfImL5F04
         3p5B78JkRWtPj09/f/4DK9uqWJEDAAA=
     http_version: 
-  recorded_at: Thu, 15 Aug 2013 07:23:57 GMT
+  recorded_at: Sun, 18 Aug 2013 06:52:21 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/extract?key=&urls=http://ripplet.org/2013/04/self-grooming-and-public-transportation-if-you-cant-beat-them-create-a-space-for-them/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 18 Aug 2013 06:52:21 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"a1ecc0e74826d218563e8680951480f06844e9bd"'
+      X-Embedly-Process-Time:
+      - '59'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api06
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        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
+    http_version: 
+  recorded_at: Sun, 18 Aug 2013 06:52:21 GMT
 recorded_with: VCR 2.5.0

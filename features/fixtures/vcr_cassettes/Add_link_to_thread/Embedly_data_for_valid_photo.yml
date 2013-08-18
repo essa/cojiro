@@ -16,47 +16,34 @@ http_interactions:
   response:
     status:
       code: 200
-      message: !binary |-
-        T0s=
+      message: OK
     headers:
-      !binary "RGF0ZQ==":
-      - !binary |-
-        VGh1LCAxNSBBdWcgMjAxMyAwNzozNzoyNiBHTVQ=
-      !binary "Q29udGVudC1UeXBl":
-      - !binary |-
-        YXBwbGljYXRpb24vanNvbg==
-      !binary "Q29udGVudC1MZW5ndGg=":
-      - !binary |-
-        Mjk4
-      !binary "Q29ubmVjdGlvbg==":
-      - !binary |-
-        a2VlcC1hbGl2ZQ==
-      !binary "WC1FbWJlZGx5LUZyb20tQ2FjaGU=":
-      - !binary ""
-      !binary "QWNjZXNzLUNvbnRyb2wtTWF4LUFnZQ==":
-      - !binary |-
-        ODY0MDA=
-      !binary "U2VydmVy":
-      - !binary |-
-        VG9ybmFkb1NlcnZlci8yLjE=
-      !binary "RXRhZw==":
-      - !binary |-
-        Ijc2NTUxZDU5OWNiYTYzM2Q4ZGM1NjM0MjI4ODU0OTE3MDhmNTc5YmIi
-      !binary "WC1FbWJlZGx5LVByb2Nlc3MtVGltZQ==":
-      - !binary |-
-        MzYwOQ==
-      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
-      - !binary |-
-        Kg==
-      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kcw==":
-      - !binary |-
-        R0VULCBPUFRJT05T
-      !binary "WC1FbWJlZGx5LUhvc3Q=":
-      - !binary |-
-        YXBpMTQ=
-      !binary "Q29udGVudC1FbmNvZGluZw==":
-      - !binary |-
-        Z3ppcA==
+      Date:
+      - Sun, 18 Aug 2013 06:52:31 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '298'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"76551d599cba633d8dc563422885491708f579bb"'
+      X-Embedly-Process-Time:
+      - '41'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api02
+      Content-Encoding:
+      - gzip
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -68,5 +55,79 @@ http_interactions:
         j9/s6WbRP5Eur04molYLnAlfhPM/dNOYBuW/Gx3Xja7fvMJbUAeLA5eihlOQ
         85LSgOTDzqF5x2jD6Mq4Kr5evwHUdtTpQAIAAA==
     http_version: 
-  recorded_at: Thu, 15 Aug 2013 07:37:26 GMT
+  recorded_at: Sun, 18 Aug 2013 06:52:31 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/extract?key=&urls=http://www.flickr.com/photos/ripplet/7128327045/in/set-72157629932925953
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 18 Aug 2013 06:52:31 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"bb9f520ad4e6f7c82d00d1e4614938555efad74e"'
+      X-Embedly-Process-Time:
+      - '53'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api14
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA61WS4/bNhD+K4Iuvbgy34/cWyCXXtJLEQQGrYfFriQKEr2u
+        s9j/3qFk2ZZkJwGSgxbmzoMz33wznM9vcdu5V5vl3e7YVfGHKC69bz9st6fT
+        KSkqm750SerqbbyJ4izv08623romKP7xX1u5Lo/+drWrbfTJ9ObF/tZHbem8
+        6yPXRH+O9nONqDR9dARTk+VZRIVEk4V3k0W4La/3edbDRZ+/wKk3RQ6/fXfM
+        4XSNObN9W5lzCGcecPDQ5ZXxeTa5KMyrTV2zyLNKzrY+DDketheVBPSCA3P0
+        peuuMdjaHPLh9BanZsKhOVYV6M7RK0xX66T3xtv0DkWFsNhKTBQlEjG+y6lg
+        BS8YY7t98m97CJeWuT2UHm7BiDA4n2zmy9sxdQD6FET4HeLBGG0iJeHjAazT
+        5AIlnAiAGCvJ3zcRhH21kHQTYQlmWCxtmKSCEoUJfw/e8sZ3rg0Y8wRrzRAm
+        WHMMkt5+DUVRWgosR/+/GpavK1gEg6CvqIynJ6DoTaQVfMsEKREaMaLFGhYO
+        +piBIWZyASVhEklEAywzKAkCLLAG9LFSKxuGGRJLEwmFDQhytNDHCnwwKXgw
+        mYMvEgQizBhX8INocisAlQoh8aMFUGteSozYhZfB9W4vsxRqjDjZ9asCSH6H
+        /3B4DL8MsIhAM84WaVJGwbnimi55SRA4JAgKQJBYgiOpGmk5pzIC6CXAwfXS
+        gAumHxYAUwFxITBSdGUE12uB1rEJsGEQHl0yAyONKbqks6wal0xzzSloUIRC
+        R09tg9QP1+zxLKFboRUhDCNKdkriYp8XqRY/UTMRWBzyXE8Fihh0P3kwSkK1
+        AILwZ1loojXF0KOrDiAEupiQUGy6agLNORePrEJ4w0eWRWMEKa3Ymk/Qz2T4
+        FhZAPwV9o4fQljVDQFloNhYmnQ5UmWomiabvA/u+P+ge9Rni0/wXXONdyrAR
+        6Z7g/U/UjAOLMQ/wC7xIUkqqCZfDKJ/1jAIe4jC39IrLzyZjsADoybJaCEvg
+        IBlH1uySMEY5mK0m6cxkjj1PCCeMUyqw0NCG4GLCXnCKhkqlJi3zHbzF4e0R
+        8JjC/6rchIf+8hhXpjkcR4X4ozeVNU14Wl1nD7Yx1bdXnXF/2cKm01a5v3uu
+        t7bZ9rn/XRLMpQjUhikcWjv4/ub29NxlMK3zzBoI/u3XLRGLpcGf2wBWPMSx
+        WjKAGrG3vhpUPpkmM1U/wFUUkO4NVViePCwDt3/AwXp7XYnccRACHePG1IO3
+        f0zpXHzh3igOi8Mk/su9QOZPxR+bNImHkr/k55PrxnXwLe5T2DvBPQ6Pz+Sr
+        h1XNp0ffj/6uOvfhnG/hXOX38aSw5wBHYP0aYpp0gPbXa2xTXBJ6JG1uCT0S
+        Qxp7Z7rsuXvYsF1VzeVh/kxZjhWcRXcPQm3aue29sO3sq0nPI6LtcV/ZvhzW
+        40vXXLfq6bJxfw9UmAhU+hqC+/I/uai4MTcMAAA=
+    http_version: 
+  recorded_at: Sun, 18 Aug 2013 06:52:31 GMT
 recorded_with: VCR 2.5.0
