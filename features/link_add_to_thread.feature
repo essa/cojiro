@@ -80,5 +80,15 @@ Feature: Add link to thread
 #    Then the "Title" field should say "Sandals"
     Then I should see an info message: "This link is already registered in cojiro. It was added by csasaki on July 8, 2012."
 
-  @wip
+  @vcr
   Scenario: Already added to this thread
+    Given the date is "July 8, 2012 at 5pm"
+    And the thread has the following links:
+      | user    | source_locale | title   | summary | url                                                                      |
+      | csasaki | en            | Sandals |         | http://www.flickr.com/photos/ripplet/7128327045/in/set-72157629932925953 | 
+    # need to reload the page so client has link-thread association info
+    And I am on the thread "Capoeira in Japan and around the world"
+    When I click on "Add a link"
+    And I enter the link "http://www.flickr.com/photos/ripplet/7128327045/in/set-72157629932925953" into the dialog box
+    And I click "Go"
+    Then I should see an error message: "This link has already been added to this thread."

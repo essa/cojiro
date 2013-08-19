@@ -81,7 +81,8 @@ define [
           )
           close: false
         )
-        @$('.row-fluid.hide').removeClass('hide').html(@flash.render().el)
+        @renderChild(@flash)
+        @$('.row-fluid.hide').removeClass('hide').html(@flash.el)
 
       # this is a new link
       else

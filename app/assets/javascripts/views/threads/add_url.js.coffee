@@ -3,15 +3,17 @@ define [
   'underscore'
   'backbone'
   'views/modals/header'
+  'views/other/flash'
   'modules/base/view'
   'modules/channel'
   'i18n'
-], ($, _, Backbone, ModalHeaderView, BaseView, channel, I18n) ->
+], ($, _, Backbone, ModalHeaderView, FlashView, BaseView, channel, I18n) ->
 
   class AddUrlView extends BaseView
     template: _.template '
       <div class="modal-header"></div>
       <div class="modal-body">
+        <div id="flash-box"></div>
         <form class="form-inline">
           <fieldset>
             <label>URL:&nbsp;</label>
@@ -31,7 +33,9 @@ define [
       super(options)
 
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
+
       @header = new @ModalHeaderView(title: I18n.t('views.threads.add_url.add_a_link'))
+      @link = options.link
 
     render: () ->
       @$el.html(@template(t: I18n.scoped('views.threads.add_url').t))
@@ -40,15 +44,31 @@ define [
 
     addUrl: (e) ->
       e.preventDefault()
+      @flash.leave() if @flash
+      @$('#flash-box').empty()
       if (url = @.$('input[name="url"]').val())
-        @model.set('url', url)
+        @link.set('url', url)
         self = @
-        @model.save {},
+        @link.save {},
           validate: false
           success: (model, resp) ->
-            self.next()
+            if self.model.hasLink(model.getUrl())
+              self.renderError(I18n.t('views.threads.add_url.already_added'))
+            else
+              self.next()
       else
-        @$('input[name="url"]').addClass('error')
+        @renderError(I18n.t('views.threads.add_url.blank'))
+
+    renderError: (msg) ->
+      @$('input[name="url"]').addClass('error')
+      if msg?
+        @flash = new FlashView(
+          name: 'error'
+          msg: msg
+          close: false
+        )
+        @renderChild(@flash)
+        @.$('#flash-box').html(@flash.el)
 
     next: () ->
       @leave()

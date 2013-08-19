@@ -28,6 +28,8 @@ en:
         add_a_link: 'Add a link'
         enter_a_url: Enter a URL...
         go: 'Go!'
+        already_added: This link has already been added to this thread.
+        blank: URL cannot be blank.
       submit_comment_link:
         already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
 

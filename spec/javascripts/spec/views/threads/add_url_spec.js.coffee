@@ -3,6 +3,7 @@ define (require) ->
   Backbone = require('backbone')
 
   Link = require('models/link')
+  Thread = require('models/thread')
   AddUrlView = require('views/threads/add_url')
   channel = require('modules/channel')
 
@@ -10,7 +11,7 @@ define (require) ->
     beforeEach ->
       I18n.locale = 'en'
 
-    describe 'with no Link model', ->
+    describe 'with no Link or Thread models', ->
       beforeEach -> @view = new AddUrlView
 
       describe 'initialization', ->
@@ -55,9 +56,10 @@ define (require) ->
           @view.leave()
           expect(header.leave).toHaveBeenCalledOnce()
 
-    describe 'with real Link model', ->
+    describe 'with real Link and Thread models', ->
       beforeEach ->
-        @model = new Link
+        @link = new Link
+        @thread = new Thread
         @addUrlSpy = sinon.spy(AddUrlView::, 'addUrl')
 
       afterEach ->
@@ -65,16 +67,16 @@ define (require) ->
 
       describe 'saving the link', ->
         beforeEach ->
-          @view = new AddUrlView(model: @model)
+          @view = new AddUrlView(model: @thread, link: @link)
           @view.render()
           @$form = @view.$('form')
 
         describe 'submitting url form', ->
           beforeEach ->
-            sinon.stub(@model, 'save')
+            sinon.stub(@link, 'save')
 
           afterEach ->
-            @model.save.restore()
+            @link.save.restore()
 
           it 'calls addUrl', ->
             @$form.submit()
@@ -89,29 +91,30 @@ define (require) ->
           it 'sets the url', ->
             @view.$('form input').val('http://www.example.com')
             @$form.submit()
-            expect(@model.get('url')).toEqual('http://www.example.com')
+            expect(@link.get('url')).toEqual('http://www.example.com')
 
           describe 'valid data', ->
 
             it 'saves the link if data is valid', ->
-              sinon.stub(@model, 'set')
+              sinon.stub(@link, 'set')
               @view.$('form input').val('http://www.example.com')
               @$form.submit()
-              expect(@model.save).toHaveBeenCalledOnce()
-              @model.set.restore()
+              expect(@link.save).toHaveBeenCalledOnce()
+              @link.set.restore()
 
           describe 'invalid data', ->
 
             it 'does not save link if data is not valid', ->
-              sinon.stub(@model, 'set')
+              sinon.stub(@link, 'set')
               @view.$('form input').val('')
               @$form.submit()
-              expect(@model.save).not.toHaveBeenCalled()
+              expect(@link.save).not.toHaveBeenCalled()
 
             it 'renders error', ->
-              sinon.stub(@model, 'set')
+              sinon.stub(@link, 'set')
               @view.$('form input').val('')
               @$form.submit()
+              expect(@view.$el).toContainText('URL cannot be blank.')
               expect(@$form.find('input[name="url"]')).toHaveClass('error')
 
         describe 'interacting with the server', ->
@@ -130,30 +133,57 @@ define (require) ->
               expect(@server.requests[0]).toHaveUrl('/en/links/http%3A%2F%2Fwww.example.com')
 
           describe 'after a successful save', ->
-            beforeEach ->
-              @server.respondWith(
-                'PUT'
-                '/en/links/http%3A%2F%2Fwww.example.com'
-                @validResponse
-                  id: 123
-                  url: 'http://www.example.com/'
-                  source_locale: {}
-              )
 
-            it 'calls leave to unbind events and remove from document', ->
-              sinon.spy(@view, 'leave')
-              @$form.submit()
-              @server.respond()
-              expect(@view.leave).toHaveBeenCalled()
-              expect(@view.leave).toHaveBeenCalledWithExactly()
-              @view.leave.restore()
+            describe 'thread already has a link with the same normalized url', ->
+              beforeEach ->
+                @thread.set('comments', [ link: new Link(url: 'http://www.example.com/') ])
+                @server.respondWith(
+                  'PUT'
+                  '/en/links/http%3A%2F%2Fwww.example.com'
+                  @validResponse
+                    id: 123
+                    url: 'http://www.example.com/'
+                    source_locale: {}
+                )
 
-            it 'triggers modal:next event on channel', ->
-              eventSpy = sinon.spy()
-              channel.on('modal:next', eventSpy)
-              @$form.submit()
-              @server.respond()
-              expect(eventSpy).toHaveBeenCalledOnce()
+              it 'renders error', ->
+                @$form.submit()
+                @server.respond()
+                expect(@view.$el).toContainText('This link has already been added to this thread.')
+                expect(@view.$('input[name="url"]')).toHaveClass('error')
+
+              it 'clears any earlier errors', ->
+                @$form.submit()
+                @server.respond()
+                @$form.submit()
+                @server.respond()
+                expect(@view.$('#flash-error:contains("This link has already been added")').length).toEqual(1)
+
+            describe 'thread has no link with the same normalized url', ->
+              beforeEach ->
+                @server.respondWith(
+                  'PUT'
+                  '/en/links/http%3A%2F%2Fwww.example.com'
+                  @validResponse
+                    id: 123
+                    url: 'http://www.example.com/'
+                    source_locale: {}
+                )
+
+              it 'calls leave to unbind events and remove from document', ->
+                sinon.spy(@view, 'leave')
+                @$form.submit()
+                @server.respond()
+                expect(@view.leave).toHaveBeenCalled()
+                expect(@view.leave).toHaveBeenCalledWithExactly()
+                @view.leave.restore()
+
+              it 'triggers modal:next event on channel', ->
+                eventSpy = sinon.spy()
+                channel.on('modal:next', eventSpy)
+                @$form.submit()
+                @server.respond()
+                expect(eventSpy).toHaveBeenCalledOnce()
 
           describe 'after an unsuccessful save', ->
             xit 'renders errors'

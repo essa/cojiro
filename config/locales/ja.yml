@@ -30,6 +30,8 @@ ja:
         add_a_link: ネタを追加する
         enter_a_url: URLを入力する
         go: 'Go!'
+        already_added: This link has already been added to this thread.
+        blank: URL cannot be blank.
       confirm_link_details:
         already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
     homepage:

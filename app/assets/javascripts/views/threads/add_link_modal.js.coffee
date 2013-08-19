@@ -36,7 +36,7 @@ define [
           @link = new @Link
           @$el.removeClass('submit-comment-link')
           @$el.addClass('add-url')
-          @modal = new @AddUrlView(model: @link)
+          @modal = new @AddUrlView(model: @model, link: @link)
           @appendChild(@modal)
         when 2
           # we've now got the normalized url (set by the server),

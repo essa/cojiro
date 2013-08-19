@@ -100,10 +100,13 @@ define (require) ->
 
         describe 'rendering the modal', ->
 
-          it 'creates a AddUrlView', ->
+          it 'creates an AddUrlView', ->
             @view.render()
             expect(@AddUrlView).toHaveBeenCalledOnce()
-            expect(@AddUrlView).toHaveBeenCalledWithExactly(model: @link)
+            expect(@AddUrlView).toHaveBeenCalledWithExactly(
+              model: @thread
+              link: @link
+            )
 
           it 'renders newly-created AddUrlView', ->
             $el = @view.render().$el
