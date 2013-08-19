@@ -79,6 +79,7 @@ define [
             name: @model.getUserName()
             date: @model.getCreatedAt()
           )
+          close: false
         )
         @$('.row-fluid.hide').removeClass('hide').html(@flash.render().el)
 

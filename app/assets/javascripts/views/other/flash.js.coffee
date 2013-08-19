@@ -7,9 +7,11 @@ define [
   class FlashView extends BaseView
     template: _.template '
       <div class="alert alert-<%= name %> <%= name %>" id="flash-<%= name %>">
-        <a class="close" href="#" data-dismiss="alert" data-bypass="true" type="button">
-          &times;
-        </a>
+        <% if (close) { %>
+          <a class="close" href="#" data-dismiss="alert" data-bypass="true" type="button">
+            &times;
+          </a>
+        <% } %>
         <%= msg %>
       </div>
     '
@@ -17,8 +19,10 @@ define [
     initialize: (options = {}) ->
       @name = options.name || 'notice'
       @msg = options.msg || ''
-      super
+      @close = true
+      if options.close?
+        @close = options.close
 
     render: ->
-      @$el.html(@template(name: @name, msg: @msg))
+      @$el.html(@template(name: @name, msg: @msg, close: @close))
       @
