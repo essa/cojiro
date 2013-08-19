@@ -265,6 +265,16 @@ ul.nav-pills {
   margin-top: 20px;
 }
 
+#modal.add-url {
+  #loading {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
 #modal.submit-comment-link {
   width: 900px;
   margin-left: -450px;

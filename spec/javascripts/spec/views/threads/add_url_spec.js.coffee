@@ -132,7 +132,13 @@ define (require) ->
             it 'makes a request to the correct URL', ->
               expect(@server.requests[0]).toHaveUrl('/en/links/http%3A%2F%2Fwww.example.com')
 
+          describe 'after clicking submit button', ->
+            it 'renders loading gif'
+            it 'hides modal body'
+
           describe 'after a successful save', ->
+            it 'removes loading gif'
+            it 'shows modal body'
 
             describe 'thread already has a link with the same normalized url', ->
               beforeEach ->

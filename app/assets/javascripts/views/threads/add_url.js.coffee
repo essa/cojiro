@@ -52,10 +52,14 @@ define [
         @link.save {},
           validate: false
           success: (model, resp) ->
+            @.$('#loading').remove()
+            @.$('.modal-body').show()
             if self.model.hasLink(model.getUrl())
               self.renderError(I18n.t('views.threads.add_url.already_added'))
             else
               self.next()
+        @.$('.modal-body').hide()
+        @$el.append('<img id="loading" src="/images/loading.gif"></img>')
       else
         @renderError(I18n.t('views.threads.add_url.blank'))
 
