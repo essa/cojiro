@@ -88,53 +88,74 @@ define (require) ->
           @view.render()
           expect(@view.$('span:contains("Co-working spaces in Tokyo")')).toHaveClass('untranslated')
 
-      describe 'when editable handler is fired', ->
-        beforeEach ->
-          @view.render()
-          @$clickableField = @view.$('span.editable')
+      describe 'events', ->
+        describe 'when editable handler is fired', ->
+          beforeEach ->
+            @view.render()
+            @$clickableField = @view.$('span.editable')
 
-        it 'calls showForm', ->
-          @$clickableField.click()
-          expect(@showFormSpy).toHaveBeenCalledOnce()
-
-        it 'creates a FieldForm', ->
-          @$clickableField.click()
-          expect(@FieldForm).toHaveBeenCalledOnce()
-          expect(@FieldForm).toHaveBeenCalledWith
-            model: @model
-            field: @field
-            type: @model.schema()[@field].type
-
-        it 'binds fieldForm handler to channel', ->
-          @$clickableField.click()
-          sinon.spy(@view, 'render')
-          channel.trigger("fieldForm:#{@fieldForm.cid}:close")
-          expect(@view.render).toHaveBeenCalledOnce()
-          @view.render.restore()
-
-        it 'renders a FieldForm', ->
-          sinon.spy(@fieldForm, 'render')
-          @$clickableField.click()
-          expect(@fieldForm.render).toHaveBeenCalledOnce()
-          @fieldForm.render.restore()
-
-        it 'replaces field with form', ->
-          originalFieldText = @view.$el.text().trim()
-          @$clickableField.click()
-          expect(@view.$el).toContain('form.in-place-form')
-          expect(@view.$el).not.toHaveText(originalFieldText)
-
-        describe 'popover with field in source locale', ->
-          afterEach -> _.each $('body .popover'), (popover) -> $(popover).remove()
-
-          it 'does not render popover if we\'re in the source locale', ->
+          it 'calls showForm', ->
             @$clickableField.click()
-            expect(@view.$el).not.toContain('.popover')
+            expect(@showFormSpy).toHaveBeenCalledOnce()
 
-          it 'renders popover if source locale is different from this one', ->
-            I18n.locale = 'fr'
+          it 'triggers open event', ->
+            eventSpy = sinon.spy()
+            @view.on('open', eventSpy)
             @$clickableField.click()
-            expect($('body')).toContain('.popover:contains("Co-working spaces in Tokyo")')
+            expect(eventSpy).toHaveBeenCalledOnce()
+            expect(eventSpy).toHaveBeenCalledWithExactly()
+
+          it 'creates a FieldForm', ->
+            @$clickableField.click()
+            expect(@FieldForm).toHaveBeenCalledOnce()
+            expect(@FieldForm).toHaveBeenCalledWith
+              model: @model
+              field: @field
+              type: @model.schema()[@field].type
+
+          it 'renders a FieldForm', ->
+            sinon.spy(@fieldForm, 'render')
+            @$clickableField.click()
+            expect(@fieldForm.render).toHaveBeenCalledOnce()
+            @fieldForm.render.restore()
+
+          it 'replaces field with form', ->
+            originalFieldText = @view.$el.text().trim()
+            @$clickableField.click()
+            expect(@view.$el).toContain('form.in-place-form')
+            expect(@view.$el).not.toHaveText(originalFieldText)
+
+          describe 'popover with field in source locale', ->
+            afterEach -> _.each $('body .popover'), (popover) -> $(popover).remove()
+
+            it 'does not render popover if we\'re in the source locale', ->
+              @$clickableField.click()
+              expect(@view.$el).not.toContain('.popover')
+
+            it 'renders popover if source locale is different from this one', ->
+              I18n.locale = 'fr'
+              @$clickableField.click()
+              expect($('body')).toContain('.popover:contains("Co-working spaces in Tokyo")')
+
+        describe 'when field form is closed', ->
+          beforeEach ->
+            @view.render()
+            @$clickableField = @view.$('span.editable')
+
+          it 're-renders field', ->
+            @$clickableField.click()
+            sinon.spy(@view, 'render')
+            channel.trigger("fieldForm:#{@fieldForm.cid}:close")
+            expect(@view.render).toHaveBeenCalledOnce()
+            @view.render.restore()
+
+          it 'triggers close event', ->
+            eventSpy = sinon.spy()
+            @view.on('close', eventSpy)
+            @$clickableField.click()
+            channel.trigger("fieldForm:#{@fieldForm.cid}:close")
+            expect(eventSpy).toHaveBeenCalledOnce()
+            expect(eventSpy).toHaveBeenCalledWithExactly()
 
     describe 'with real FieldForm', ->
       beforeEach ->
