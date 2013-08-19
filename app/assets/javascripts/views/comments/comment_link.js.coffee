@@ -35,6 +35,12 @@ define [
       throw 'comment must have a link to render a CommentLinkView' unless (@link instanceof Link)
       @titleField = new Translatable.InPlaceField(model: @link, field: 'title', editable: globals.currentUser?)
       @summaryField = new Translatable.InPlaceField(model: @link, field: 'summary', editable: globals.currentUser?)
+
+      @titleField.on 'open', @destroyPopover
+      @titleField.on 'close', @renderPopover
+      @summaryField.on 'open', @destroyPopover
+      @summaryField.on 'close', @renderPopover
+
       super
 
     render: ->
@@ -61,13 +67,16 @@ define [
       @renderChildInto(@titleField, '.title')
       @renderChildInto(@summaryField, '.summary')
 
-    renderPopover: ->
-      @$('.link-inner').popover(
-        trigger: 'hover'
-        placement: 'top'
-        html: true
-        callback: @initTimeago)
+    renderPopover: =>
+      if (@$('.editable-input').length == 0)
+        @$('.link-inner').popover(
+          trigger: 'hover'
+          placement: 'top'
+          html: true
+          callback: @initTimeago)
       @
 
-    initTimeago: ->
-      $('time.timeago').timeago()
+    destroyPopover: =>
+      @$('.link-inner').popover('destroy')
+
+    initTimeago: -> $('time.timeago').timeago()

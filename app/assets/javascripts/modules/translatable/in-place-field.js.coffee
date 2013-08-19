@@ -59,8 +59,8 @@ define [
       @form = new @FieldForm(model: @model, field: @field, type: @type)
       self = @
       channel.on "fieldForm:#{@form.cid}:close", ->
-        self.trigger('close')
         self.render()
+        self.trigger('close')
       @renderChild(@form)
       @$el.html(@form.el)
       if I18n.locale != @model.getSourceLocale()

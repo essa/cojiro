@@ -55,7 +55,13 @@ define (require) ->
 
     describe 'popover', ->
       beforeEach ->
+        @destroyPopoverSpy = sinon.spy(CommentLinkView::, 'destroyPopover')
+        @renderPopoverSpy = sinon.spy(CommentLinkView::, 'renderPopover')
         @view = new CommentLinkView(model: @comment)
+
+      afterEach ->
+        @destroyPopoverSpy.restore()
+        @renderPopoverSpy.restore()
 
       it 'assigns popover to data-toggle attribute on .link-inner element', ->
         @view.render()
@@ -83,6 +89,41 @@ define (require) ->
         it 'does not set title', ->
           @view.render()
           expect(@view.$('.link-inner')).toHaveAttr('data-original-title', '')
+
+      describe 'events', ->
+        beforeEach -> @view.render()
+
+        # TODO: actually check that popover is being rendered
+        # in each case. for some reason this wasn't working
+        # so just checking that methods are being called.
+        describe 'when user mouseovers link', ->
+          it 'renders popover'
+
+        describe 'when title field is opened', ->
+          it 'calls destroyPopover()', ->
+            @view.titleField.trigger('open')
+            expect(@destroyPopoverSpy).toHaveBeenCalledOnce()
+            expect(@destroyPopoverSpy).toHaveBeenCalledWithExactly()
+
+        describe 'when title field is closed', ->
+          it 'calls renderPopover()', ->
+            @renderPopoverSpy.reset()
+            @view.titleField.trigger('close')
+            expect(@renderPopoverSpy).toHaveBeenCalledOnce()
+            expect(@renderPopoverSpy).toHaveBeenCalledWithExactly()
+
+        describe 'when summary field is opened', ->
+          it 'calls destroyPopover()', ->
+            @view.summaryField.trigger('open')
+            expect(@destroyPopoverSpy).toHaveBeenCalledOnce()
+            expect(@destroyPopoverSpy).toHaveBeenCalledWithExactly()
+
+        describe 'when summary field is closed', ->
+          it 'calls renderPopover()', ->
+            @renderPopoverSpy.reset()
+            @view.summaryField.trigger('close')
+            expect(@renderPopoverSpy).toHaveBeenCalledOnce()
+            expect(@renderPopoverSpy).toHaveBeenCalledWithExactly()
 
     describe 'translatable fields', ->
       beforeEach ->
