@@ -239,6 +239,13 @@ ul.nav-pills {
     }
 
   }
+  .status-avatar {
+    float: left;
+    padding-right: 10px;
+  }
+  .popover-title {
+    @include clearfix()
+  }
   // Add a hover state for linked versions only
   a.link:hover {
     border-color: $linkColor;

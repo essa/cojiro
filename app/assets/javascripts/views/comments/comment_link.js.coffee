@@ -3,19 +3,18 @@ define [
   'underscore'
   'backbone'
   'models/link'
+  'views/comments/status_message'
   'modules/base/view'
   'modules/translatable'
   'globals'
   'bootstrap'
-], ($, _, Backbone, Link, BaseView, Translatable, globals) ->
+], ($, _, Backbone, Link, StatusMessageView, BaseView, Translatable, globals) ->
 
   class CommentLinkView extends BaseView
     className: 'link'
     template: _.template '
         <div class="link-inner"
-             data-toggle="popover"
-             title="<%= commentTitle %>"
-             data-content="<%= commentText %>">
+             data-toggle="popover">
           <div class="url">
             <a href="<%= url %>">
               <span class="favicon"><img src="<%= faviconUrl %>" /></span>
@@ -49,19 +48,22 @@ define [
       @renderPopover()
 
     renderTemplate: ->
+      statusMessage = new StatusMessageView(model: @model)
+      @renderChild(statusMessage)
+      statusMessageHtml = statusMessage.el.innerHTML
       if @model.getText()
-        commentTitle = @model.getStatusMessage()
+        commentTitle = statusMessageHtml
         commentText = @model.getText()
       else
         commentTitle = null
-        commentText = @model.getStatusMessage()
+        commentText = statusMessageHtml
       @$el.html(@template(
         url: @link.getUrl()
         faviconUrl: @link.getFaviconUrl()
         siteName: @link.getSiteName()
-        commentTitle: commentTitle
-        commentText: commentText
       ))
+      @$('[data-toggle="popover"]').attr('title', commentTitle)
+      @$('[data-toggle="popover"]').attr('data-content', commentText)
 
     renderTranslatableFields: ->
       @renderChildInto(@titleField, '.title')
