@@ -15,6 +15,8 @@ define [
     initialize: (options = {}) ->
       @ThreadListItemView = options.ThreadListItemView || ThreadListItemView
 
+      @collection && @collection.on('add', @render, @)
+
     render: ->
       @renderLayout()
       @renderListItems()

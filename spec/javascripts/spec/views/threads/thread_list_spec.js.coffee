@@ -9,6 +9,8 @@ define (require) ->
   ThreadListView = require('views/threads/thread_list')
 
   describe "ThreadListView", ->
+    beforeEach -> @renderSpy = sinon.spy(ThreadListView::, 'render')
+    afterEach -> @renderSpy.restore()
 
     describe 'with stubbed ThreadListItemView', ->
       beforeEach ->
@@ -18,11 +20,12 @@ define (require) ->
           @el = document.createElement('tr')
           @
         @ThreadListItemView = sinon.stub().returns(@listItemView)
-        @view = new ThreadListView(ThreadListItemView: @ThreadListItemView)
 
       describe "initialization", ->
         beforeEach ->
-          @view.collection = new Backbone.Collection()
+          @view = new ThreadListView(
+            ThreadListItemView: @ThreadListItemView
+            collection: new Backbone.Collection)
           @$el = @view.$el
 
         it "creates a table element for a threads list", ->
@@ -38,7 +41,9 @@ define (require) ->
           @thread1 = new Backbone.Model()
           @thread2 = new Backbone.Model()
           @thread3 = new Backbone.Model()
-          @view.collection = new Backbone.Collection([ @thread1, @thread2, @thread3 ])
+          @view = new ThreadListView(
+            ThreadListItemView: @ThreadListItemView
+            collection: new Backbone.Collection([ @thread1, @thread2, @thread3 ]))
           @returnVal = @view.render()
 
         afterEach ->
@@ -64,10 +69,20 @@ define (require) ->
           expect(@view.children).toBeDefined()
           expect(@view.children.size()).toEqual(3)
 
-    describe "with actual ThreadListItemView", ->
+      describe 'events', ->
+        describe 'thread added to collection', ->
+          beforeEach ->
+            @collection = new Backbone.Collection
+            @view = new ThreadListView(
+              ThreadListItemView: @ThreadListItemView
+              collection: @collection)
 
-      beforeEach ->
-        @view = new ThreadListView
+          it 're-renders the thread list', ->
+            @collection.trigger('add')
+            expect(@renderSpy).toHaveBeenCalledOnce()
+            expect(@renderSpy).toHaveBeenCalledWithExactly()
+
+    describe "with actual ThreadListItemView", ->
 
       describe "dynamic jquery timeago tag", ->
         beforeEach ->
@@ -79,7 +94,7 @@ define (require) ->
           # -> something to do with Backbone.Relational
           @thread.collection = @threads
 
-          @view.collection = @threads
+          @view = new ThreadListView(collection: @threads)
           @view.render()
 
         afterEach ->

@@ -19,11 +19,8 @@ define [
       @currentUser = @globals.currentUser
       @threads = new @Threads
       @threads.deferred = @threads.fetch()
-      self = @
+      @appRouter = new @AppRouter(collection: @threads)
 
-      @threads.deferred.done ->
-        self.appRouter = new self.AppRouter(collection: self.threads)
-
-        if (!Backbone.history.started)
-          Backbone.history.start(pushState: true)
-          Backbone.history.started = true
+      if (!Backbone.history.started)
+        Backbone.history.start(pushState: true)
+        Backbone.history.started = true

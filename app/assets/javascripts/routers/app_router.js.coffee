@@ -40,8 +40,10 @@ define [
       @swap(view)
 
     show: (locale, id) ->
-      view = new @ThreadView(model: @collection.get(id))
-      @swap(view)
+      self = @
+      @collection.deferred.done ->
+        view = new self.ThreadView(model: self.collection.get(id))
+        self.swap(view)
 
     new: (locale) ->
       thread = new @Thread({}, collection: @collection)
