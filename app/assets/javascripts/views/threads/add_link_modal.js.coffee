@@ -3,13 +3,13 @@ define [
   'underscore'
   'backbone'
   'modules/base/view'
-  'views/links/register_url'
-  'views/links/confirm_link_details'
+  'views/threads/add_url'
+  'views/threads/submit_comment_link'
   'models/link'
   'modules/modal'
   'modules/channel'
   'i18n'
-], ($, _, Backbone, BaseView, RegisterUrlView, ConfirmLinkDetailsView, Link, ModalView, channel, I18n) ->
+], ($, _, Backbone, BaseView, AddUrlView, SubmitCommentLinkView, Link, ModalView, channel, I18n) ->
 
   class AddLinkModal extends ModalView
 
@@ -18,8 +18,8 @@ define [
 
       throw('model required') unless options.model
       @step = options.step || 1
-      @RegisterUrlView = options.RegisterUrlView || RegisterUrlView
-      @ConfirmLinkDetailsView = options.ConfirmLinkDetailsView || ConfirmLinkDetailsView
+      @AddUrlView = options.AddUrlView || AddUrlView
+      @SubmitCommentLinkView = options.SubmitCommentLinkView || SubmitCommentLinkView
       @Link = options.Link || Link
       self = @
       channel.on 'modal:next', ->
@@ -34,9 +34,9 @@ define [
       switch @step
         when 1
           @link = new @Link
-          @$el.removeClass('confirm-link-details')
-          @$el.addClass('register-url')
-          @modal = new @RegisterUrlView(model: @link)
+          @$el.removeClass('submit-comment-link')
+          @$el.addClass('add-url')
+          @modal = new @AddUrlView(model: @link)
           @appendChild(@modal)
         when 2
           # we've now got the normalized url (set by the server),
@@ -46,9 +46,9 @@ define [
           linkInStore = coll.findWhere(url: @link.getUrl())
           @link = linkInStore if linkInStore
 
-          @$el.removeClass('register-url')
-          @$el.addClass('confirm-link-details')
-          @modal = new @ConfirmLinkDetailsView(model: @link, thread: @model)
+          @$el.removeClass('add-url')
+          @$el.addClass('submit-comment-link')
+          @modal = new @SubmitCommentLinkView(model: @link, thread: @model)
           @appendChild(@modal)
         when 3
           @hideModal()

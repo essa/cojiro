@@ -8,7 +8,7 @@ define [
   'i18n'
 ], ($, _, Backbone, ModalHeaderView, BaseView, channel, I18n) ->
 
-  class RegisterUrlView extends BaseView
+  class AddUrlView extends BaseView
     template: _.template '
       <div class="modal-header"></div>
       <div class="modal-body">
@@ -25,20 +25,20 @@ define [
 
     buildEvents: () ->
       _(super).extend
-        'submit form' : 'registerUrl'
+        'submit form' : 'addUrl'
 
     initialize: (options = {}) ->
       super(options)
 
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
-      @header = new @ModalHeaderView(title: I18n.t('views.links.register_url.add_a_link'))
+      @header = new @ModalHeaderView(title: I18n.t('views.threads.add_url.add_a_link'))
 
     render: () ->
-      @$el.html(@template(t: I18n.scoped('views.links.register_url').t))
+      @$el.html(@template(t: I18n.scoped('views.threads.add_url').t))
       @renderChildInto(@header, '.modal-header')
       @
 
-    registerUrl: (e) ->
+    addUrl: (e) ->
       e.preventDefault()
       if (url = @.$('input[name="url"]').val())
         @model.set('url', url)

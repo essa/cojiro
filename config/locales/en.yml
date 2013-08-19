@@ -24,14 +24,13 @@ en:
         started_by: Started by @%{username}
         updated_ago: "Updated <time class='timeago' datetime='%{datetime}'></time>"
         new_label: New
-
-    links:
-      register_url:
+      add_url:
         add_a_link: 'Add a link'
         enter_a_url: Enter a URL...
         go: 'Go!'
-      confirm_link_details:
+      submit_comment_link:
         already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
+
     homepage:
       index:
         catchphrase: Curating content from one language to another

@@ -3,15 +3,15 @@ define (require) ->
   Backbone = require('backbone')
 
   Link = require('models/link')
-  RegisterUrlView = require('views/links/register_url')
+  AddUrlView = require('views/threads/add_url')
   channel = require('modules/channel')
 
-  describe 'RegisterUrlView', ->
+  describe 'AddUrlView', ->
     beforeEach ->
       I18n.locale = 'en'
 
     describe 'with no Link model', ->
-      beforeEach -> @view = new RegisterUrlView
+      beforeEach -> @view = new AddUrlView
 
       describe 'initialization', ->
         beforeEach -> @$el = @view.$el
@@ -58,14 +58,14 @@ define (require) ->
     describe 'with real Link model', ->
       beforeEach ->
         @model = new Link
-        @registerUrlSpy = sinon.spy(RegisterUrlView.prototype, 'registerUrl')
+        @addUrlSpy = sinon.spy(AddUrlView::, 'addUrl')
 
       afterEach ->
-        RegisterUrlView.prototype.registerUrl.restore()
+        @addUrlSpy.restore()
 
       describe 'saving the link', ->
         beforeEach ->
-          @view = new RegisterUrlView(model: @model)
+          @view = new AddUrlView(model: @model)
           @view.render()
           @$form = @view.$('form')
 
@@ -76,9 +76,9 @@ define (require) ->
           afterEach ->
             @model.save.restore()
 
-          it 'calls registerUrl', ->
+          it 'calls addUrl', ->
             @$form.submit()
-            expect(@registerUrlSpy).toHaveBeenCalledOnce()
+            expect(@addUrlSpy).toHaveBeenCalledOnce()
 
           it 'prevents default form submission', ->
             spyEvent = spyOnEvent(@$form, 'submit')

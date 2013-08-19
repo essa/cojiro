@@ -13,7 +13,7 @@ define [
   'globals'
 ], ($, _, Backbone, Comment, ModalHeaderView, ModalFooterView, FlashView, BaseView, Form, channel, I18n, globals) ->
 
-  class ConfirmLinkDetailsView extends BaseView
+  class SubmitCommentLinkView extends BaseView
     template: _.template '
       <div class="modal-header"></div>
       <div class="modal-body">
@@ -75,7 +75,7 @@ define [
         @flash = new FlashView(
           name: 'info'
           msg: I18n.t(
-            'views.links.confirm_link_details.already_registered'
+            'views.threads.submit_comment_link.already_registered'
             name: @model.getUserName()
             date: @model.getCreatedAt()
           )

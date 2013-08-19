@@ -4,8 +4,8 @@ define (require) ->
 
   Link = require('models/link')
   AddLinkModalView = require('views/threads/add_link_modal')
-  RegisterUrlView = require('views/links/register_url')
-  ConfirmLinkDetailsView = require('views/links/confirm_link_details')
+  AddUrlView = require('views/threads/add_url')
+  SubmitCommentLinkView = require('views/threads/submit_comment_link')
   channel = require('modules/channel')
 
   describe "AddLinkModalView", ->
@@ -52,15 +52,15 @@ define (require) ->
           expect(-> self.view.render()).toThrow('invalid step')
 
       #TODO: refactor this into shared examples
-      describe 'register url (step 1)', ->
+      describe 'add url (step 1)', ->
         beforeEach ->
-          @RegisterUrlView = sinon.stub().returns(@modalView)
-          @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
+          @AddUrlView = sinon.stub().returns(@modalView)
+          @SubmitCommentLinkView = sinon.stub().returns(@modalView)
           @Link = sinon.stub().returns(@link)
           @view = new AddLinkModalView
             Link: @Link
-            RegisterUrlView: @RegisterUrlView
-            ConfirmLinkDetailsView: @ConfirmLinkDetailsView
+            AddUrlView: @AddUrlView
+            SubmitCommentLinkView: @SubmitCommentLinkView
             model: @thread
 
         it 'returns the view object', ->
@@ -87,9 +87,9 @@ define (require) ->
             expect(@view.$el).toHaveClass('hide')
             expect(@view.$el).toHaveClass('fade')
 
-          it 'has register-url class', ->
+          it 'has add-url class', ->
             @view.render()
-            expect(@view.$el).toHaveClass('register-url')
+            expect(@view.$el).toHaveClass('add-url')
 
           it 'does not leave classes from other steps', ->
             originalClass = @view.render().$el.attr('class')
@@ -100,12 +100,12 @@ define (require) ->
 
         describe 'rendering the modal', ->
 
-          it 'creates a RegisterUrlView', ->
+          it 'creates a AddUrlView', ->
             @view.render()
-            expect(@RegisterUrlView).toHaveBeenCalledOnce()
-            expect(@RegisterUrlView).toHaveBeenCalledWithExactly(model: @link)
+            expect(@AddUrlView).toHaveBeenCalledOnce()
+            expect(@AddUrlView).toHaveBeenCalledWithExactly(model: @link)
 
-          it 'renders newly-created RegisterUrlView', ->
+          it 'renders newly-created AddUrlView', ->
             $el = @view.render().$el
             expect(@modalView.render).toHaveBeenCalledOnce()
 
@@ -113,12 +113,12 @@ define (require) ->
             $el = @view.render().$el
             expect($el).toContain('div.stub-modal')
 
-      describe 'confirm link details (step 2)', ->
+      describe 'submit comment link (step 2)', ->
         beforeEach ->
-          @ConfirmLinkDetailsView = sinon.stub().returns(@modalView)
+          @SubmitCommentLinkView = sinon.stub().returns(@modalView)
           @Link = sinon.stub().returns(@link)
           @view = new AddLinkModalView
-            ConfirmLinkDetailsView: @ConfirmLinkDetailsView
+            SubmitCommentLinkView: @SubmitCommentLinkView
             Link: @Link
             model: @thread
             step: 2
@@ -143,9 +143,9 @@ define (require) ->
             expect(@view.$el).toHaveClass('hide')
             expect(@view.$el).toHaveClass('fade')
 
-          it 'has confirm-link-details class', ->
+          it 'has submit-comment-link class', ->
             @view.render()
-            expect(@view.$el).toHaveClass('confirm-link-details')
+            expect(@view.$el).toHaveClass('submit-comment-link')
 
           it 'does not leave classes from other steps', ->
             originalClass = @view.render().$el.attr('class')
@@ -160,12 +160,12 @@ define (require) ->
             @view.render()
             expect(@Link.calledWithNew()).toBeFalsy()
 
-          it 'creates a ConfirmLinkDetailsView', ->
+          it 'creates a SubmitCommentLinkView', ->
             @view.render()
-            expect(@ConfirmLinkDetailsView).toHaveBeenCalledOnce()
-            expect(@ConfirmLinkDetailsView).toHaveBeenCalledWithExactly(model: @link, thread: @thread)
+            expect(@SubmitCommentLinkView).toHaveBeenCalledOnce()
+            expect(@SubmitCommentLinkView).toHaveBeenCalledWithExactly(model: @link, thread: @thread)
 
-          it 'renders newly-created RegisterUrlView', ->
+          it 'renders newly-created AddUrlView', ->
             $el = @view.render().$el
             expect(@modalView.render).toHaveBeenCalledOnce()
 
@@ -184,12 +184,12 @@ define (require) ->
 
     describe 'events', ->
       beforeEach ->
-        @ConfirmLinkDetailsView = sinon.stub()
-        @RegisterUrlView = sinon.stub()
+        @SubmitCommentLinkView = sinon.stub()
+        @AddUrlView = sinon.stub()
         @Link = sinon.stub().returns(@link)
         @view = new AddLinkModalView
-          ConfirmLinkDetailsView: @ConfirmLinkDetailsView
-          RegisterUrlView: @RegisterUrlView
+          SubmitCommentLinkView: @SubmitCommentLinkView
+          AddUrlView: @AddUrlView
           Link: @Link
           model: @thread
         sinon.stub(@view, 'render')

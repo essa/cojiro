@@ -6,7 +6,7 @@ define (require) ->
   Thread = require('models/thread')
   Comment = require('models/comment')
   User = require('models/user')
-  ConfirmLinkDetailsView = require('views/links/confirm_link_details')
+  SubmitCommentLinkView = require('views/threads/submit_comment_link')
   I18n = require('i18n')
   channel = require('modules/channel')
 
@@ -14,7 +14,7 @@ define (require) ->
   summarySelector = '.summary textarea'
 
   beforeEach ->
-    @nextSpy = sinon.spy(ConfirmLinkDetailsView.prototype, 'next')
+    @nextSpy = sinon.spy(SubmitCommentLinkView.prototype, 'next')
     @user = new User(name: 'foo')
     @thread = new Thread
     @thread.collection = url: '/collection'
@@ -27,7 +27,7 @@ define (require) ->
     beforeEach ->
       @model = new Link(link_attributes)
       @model.set('user', @user)
-      @view = new ConfirmLinkDetailsView(model: @model, thread: @thread)
+      @view = new SubmitCommentLinkView(model: @model, thread: @thread)
 
     describe 'initialization', ->
       beforeEach -> @$el = @view.$el
@@ -91,7 +91,7 @@ define (require) ->
 
         xit 'calls leave on any existing form'
 
-  describe 'ConfirmLinkDetailsView', ->
+  describe 'SubmitCommentLinkView', ->
     describe 'for a link that is not yet registered', ->
       describe 'shared behavior', ->
         sharedExamples(
@@ -105,7 +105,7 @@ define (require) ->
             url: 'http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9'
             display_url: 'http://ja.wikipedia.org/wiki/カポエイラ')
           @model.set('user', @user)
-          @view = new ConfirmLinkDetailsView(model: @model, thread: @thread)
+          @view = new SubmitCommentLinkView(model: @model, thread: @thread)
 
         describe 'rendering', ->
           beforeEach -> @view.render()
@@ -352,7 +352,7 @@ define (require) ->
             created_at: '2012-07-08T12:20:00Z'
           )
           @model.set('user', @user)
-          @view = new ConfirmLinkDetailsView(model: @model, thread: @thread)
+          @view = new SubmitCommentLinkView(model: @model, thread: @thread)
 
         describe 'rendering', ->
           beforeEach -> @view.render()
