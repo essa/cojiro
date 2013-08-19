@@ -89,7 +89,7 @@ define [
         if link = comment.get('link')
           linkView = new CommentLinkView(model: comment)
           self.renderChild(linkView)
-          linksContainer.append(linkView.el)
+          linksContainer.prepend(linkView.el)
 
     # see: http://lostechies.com/derickbailey/2012/04/17/managing-a-modal-dialog-with-backbone-and-marionette
     renderModals: ->

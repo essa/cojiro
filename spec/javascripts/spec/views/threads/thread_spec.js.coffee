@@ -71,21 +71,31 @@ define (require) ->
             expect(@view.$('#statbar')).toContain('div.statbar')
 
         describe 'links', ->
-          beforeEach -> @view.render()
+          beforeEach ->
+            @view.render()
+            @fooSelector = '.url a[href="http://www.foo.com"]'
+            @barSelector = '.url a[href="http://www.bar.com"]'
 
           it 'renders url', ->
-            expect(@view.$el).toContain('.url a[href="http://www.foo.com"]')
-            expect(@view.$el).toContain('.url a[href="http://www.bar.com"]')
+            expect(@view.$el).toContain(@fooSelector)
+            expect(@view.$el).toContain(@barSelector)
 
           it 'renders provider url', ->
-            sites = @view.$el.find('.site')
-            expect($(sites[0])).toHaveText('www.foo.com')
-            expect($(sites[1])).toHaveText('www.bar.com')
+            expect(@view.$("#{@fooSelector} .site")).toHaveText('www.foo.com')
+            expect(@view.$("#{@barSelector} .site")).toHaveText('www.bar.com')
 
           it 'renders title', ->
-            links = @view.$el.find('.link')
-            expect($(links[0])).toContainText('A link about foo')
-            expect($(links[1])).toContainText('A link about bar')
+            expect(@view.$(@fooSelector).closest('.link'))
+              .toContainText('A link about foo')
+            expect(@view.$(@barSelector).closest('.link'))
+              .toContainText('A link about bar')
+
+          it 'orders links with most recently added first', ->
+            links = @view.$('.link-list .link')
+            expect($(links[0])).toContain('a[href="http://www.bar.com"]')
+            expect($(links[0])).not.toContain('a[href="http://www.foo.com"]')
+            expect($(links[1])).toContain('a[href="http://www.foo.com"]')
+            expect($(links[1])).not.toContain('a[href="http://www.bar.com"]')
 
         describe "logged-in user", ->
           beforeEach ->
