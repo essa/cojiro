@@ -59,6 +59,10 @@ define [
     getComments: -> @get('comments')
     getLinks: -> @getComments().pluck('link')
 
+    hasLink: (url) ->
+      link = _(@getLinks()).find (link) -> link.getUrl() is url
+      return link?
+
     validate: (attrs) ->
       errors = super(attrs) || {}
 

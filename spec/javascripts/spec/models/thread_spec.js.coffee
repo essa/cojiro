@@ -92,6 +92,18 @@ define (require) ->
           links = @thread.getLinks()
           expect(links).toEqual( [ @link ] )
 
+    describe '#hasLink', ->
+      beforeEach ->
+        @thread = new Thread
+        @link = new Link(url: 'http://www.foo.com')
+        @thread.set comments: [ link: @link ]
+
+      it 'returns true if thread has link with url', ->
+        expect(@thread.hasLink('http://www.foo.com')).toEqual(true)
+
+      it 'returns false if thread does not have any link with url', ->
+        expect(@thread.hasLink('http://www.bar.com')).toEqual(false)
+
     describe 'interacting with the server', ->
       beforeEach ->
         @thread = new Thread
