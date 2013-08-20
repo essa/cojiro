@@ -31,7 +31,7 @@ en:
         already_added: This link has already been added to this thread.
         blank: URL cannot be blank.
       submit_comment_link:
-        already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
+        already_registered: This link is already registered in cojiro. It was added by @%{name} on %{date}.
 
     homepage:
       index:

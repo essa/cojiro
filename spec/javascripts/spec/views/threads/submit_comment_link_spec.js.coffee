@@ -375,7 +375,7 @@ define (require) ->
           describe 'flash message', ->
             it 'appends flash message', ->
               expect(@view.$el).toContainText(
-                'This link is already registered in cojiro. It was added by foo on July 8, 2012.'
+                'This link is already registered in cojiro. It was added by @foo on July 8, 2012.'
               )
 
         describe 'submitting comment', ->
