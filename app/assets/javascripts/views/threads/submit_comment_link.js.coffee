@@ -82,7 +82,7 @@ define [
           close: false
         )
         @renderChild(@flash)
-        @$('.row-fluid.hide').removeClass('hide').html(@flash.el)
+        @$('.row-fluid.hide').removeClass('hide').find('#flash-box').html(@flash.el)
 
       # this is a new link
       else
