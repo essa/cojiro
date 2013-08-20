@@ -57,5 +57,5 @@ define [
           self.closeForm()
 
     closeForm: ->
-      @leave()
       channel.trigger("fieldForm:#{@cid}:close")
+      @leave()
