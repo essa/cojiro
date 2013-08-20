@@ -62,6 +62,11 @@ define (require) ->
           @comment.set('link', link = new Link)
           expect(@comment.getLink()).toEqual(link)
 
+      describe '#getThread', ->
+        it 'returns the thread for this comment', ->
+          @comment.set('thread', thread = new Thread)
+          expect(@comment.getThread()).toEqual(thread)
+
       describe '#getUser', ->
         it 'returns the user who created this comment', ->
           @comment.set('user', user = new User)
