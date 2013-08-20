@@ -33,7 +33,7 @@ define [
       else
         title = @model.getAttrInSourceLocale('title')
         translated = 'untranslated'
-      isNew = (Date.now() - $.timeago.parse(@timestamp)) < 86400000
+      isNew = (Date.now() - $.timeago.parse(@model.get('created_at'))) < 86400000
       @$el.html(@template(
         translated: translated
         title: title
