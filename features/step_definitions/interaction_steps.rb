@@ -25,8 +25,12 @@ When /^I select "([^"]*)" from the drop-down list$/ do |option|
   select(option)
 end
 
-When /^I enter the link "([^"]*)" into the dialog box$/ do |link|
-  fill_in("url", :with => link)
+When "I fill in \"$field\" with \"$text\"" do |field, text|
+  fill_in(field, with: text)
+end
+
+When /^I enter the url "([^"]*)" into the dialog box$/ do |url|
+  fill_in("url", with: url)
 end
 
 # ref: http://pivotallabs.com/users/mgehard/blog/articles/1671-waiting-for-jquery-ajax-calls-to-finish-in-cucumber
@@ -49,6 +53,18 @@ end
 Then /^the "([^"]*)" field should be blank$/ do |name|
   id = page.first('label', text: name)['for']
   page.find_by_id(id).value.should be_blank
+end
+
+Then /^the "([^"]*)" field should have a red box around it$/ do |name|
+  id = page.first('label', text: name)['for']
+  control_group = find_by_id(id).first(:xpath, ".//ancestor::div[contains(@class,'control-group')]")
+  control_group[:class].should include('error')
+end
+
+Then /^the "([^"]*)" field should have an error message:? "([^"]*)"$/ do |name, msg|
+  id = page.first('label', text: name)['for']
+  control_group = find_by_id(id).first(:xpath, ".//ancestor::div[contains(@class,'control-group')]")
+  control_group.first('.help-block').should have_text(msg)
 end
 
 Then 'I should see a $tag with "$val" in the link' do |tag, val|
@@ -117,7 +133,6 @@ Then /^I should see a "new" tag next to the thread "([^"]*)"$/ do |title|
     row.should have_selector('span.label.label-info', :text => title)
   end
 end
-
 
 Then /^show me the page$/ do
   save_and_open_page
