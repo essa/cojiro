@@ -1,7 +1,10 @@
 define (require) ->
 
+  Backbone = require('backbone')
+
   I18n = require('i18n')
   Link = require('models/link')
+  Comment = require('models/comment')
   TranslatableAttribute = require('modules/translatable/attribute')
   sharedExamples = require('spec/models/shared')
 
@@ -61,6 +64,17 @@ define (require) ->
 
         it 'returns 0 otherwise', ->
           expect(@link.getStatus()).toEqual(0)
+
+      describe '#getComments', ->
+        beforeEach ->
+          @comment1 = new Comment(id: 1)
+          @comment2 = new Comment(id: 2)
+          @link.set 'comments', [ @comment1, @comment2 ]
+
+        it 'returns collection of comments for this thread', ->
+          comments = @link.getComments()
+          expect(comments instanceof Backbone.Collection).toBeTruthy()
+          expect(comments.models).toEqual([@comment1, @comment2])
 
     describe 'idAttribute', ->
       it 'uses \'id\' attribute as id', ->

@@ -92,6 +92,7 @@ define [
     getEmbedData: -> @get('oembed_data') || {}
     getThumbnailUrl: ->  @getEmbedData()['thumbnail_url']
     getStatus: -> @getSourceLocale() && 1 || 0
+    getComments: -> @get('comments')
 
     validate: (attrs) ->
       errors = super(attrs) || {}

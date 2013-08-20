@@ -61,8 +61,8 @@ define (require) ->
 
       describe '#getComments', ->
         beforeEach ->
-          @comment1 = new Comment
-          @comment2 = new Comment
+          @comment1 = new Comment(id: 1)
+          @comment2 = new Comment(id: 2)
           @thread.set 'comments', [ @comment1, @comment2 ]
 
         it 'returns collection of comments for this thread', ->
