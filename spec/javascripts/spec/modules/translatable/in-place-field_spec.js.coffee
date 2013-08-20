@@ -103,7 +103,7 @@ define (require) ->
             @view.on('open', eventSpy)
             @$clickableField.click()
             expect(eventSpy).toHaveBeenCalledOnce()
-            expect(eventSpy).toHaveBeenCalledWithExactly()
+            expect(eventSpy).toHaveBeenCalledWithExactly(@view)
 
           it 'creates a FieldForm', ->
             @$clickableField.click()
@@ -155,7 +155,7 @@ define (require) ->
             @$clickableField.click()
             channel.trigger("fieldForm:#{@fieldForm.cid}:close")
             expect(eventSpy).toHaveBeenCalledOnce()
-            expect(eventSpy).toHaveBeenCalledWithExactly()
+            expect(eventSpy).toHaveBeenCalledWithExactly(@view)
 
     describe 'with real FieldForm', ->
       beforeEach ->
