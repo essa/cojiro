@@ -98,9 +98,11 @@ define (require) ->
             @$clickableField.click()
             expect(@showFormSpy).toHaveBeenCalledOnce()
 
-          it 'triggers open event', ->
+          it 'triggers open event after field is opened', ->
             eventSpy = sinon.spy()
             @view.on('open', eventSpy)
+            @view.on 'open', (view) ->
+              expect(view.$el).toContain('.editable-input')
             @$clickableField.click()
             expect(eventSpy).toHaveBeenCalledOnce()
             expect(eventSpy).toHaveBeenCalledWithExactly(@view)
@@ -149,9 +151,12 @@ define (require) ->
             expect(@view.render).toHaveBeenCalledOnce()
             @view.render.restore()
 
-          it 'triggers close event', ->
+          it 'triggers close event after field is closedd', ->
             eventSpy = sinon.spy()
             @view.on('close', eventSpy)
+            @view.on 'close', (view) ->
+              expect(view.$el).not.toContain('.editable-input')
+              expect(view.$el).toContainText('Co-working spaces in Tokyo')
             @$clickableField.click()
             channel.trigger("fieldForm:#{@fieldForm.cid}:close")
             expect(eventSpy).toHaveBeenCalledOnce()
