@@ -72,10 +72,20 @@ define (require) ->
           @comment.set('user', new User(name: 'bar'))
           expect(@comment.getUserName()).toEqual('bar')
 
+        it 'returns null if user is not defined', ->
+          self = @
+          expect(-> self.comment.getUserName).not.toThrow()
+          expect(@comment.getUserName()).toEqual(null)
+
       describe '#getUserAvatarUrl', ->
         it 'returns the url of the avatar of the user who created this comment', ->
           @comment.set('user', new User(avatar_mini_url: 'http://url'))
           expect(@comment.getUserAvatarUrl()).toEqual('http://url')
+
+        it 'returns null if user is not defined', ->
+          self = @
+          expect(-> self.comment.getUserAvatarUrl()).not.toThrow()
+          expect(@comment.getUserAvatarUrl()).toEqual(null)
 
       describe '#getStatusMessage', ->
         it 'returns blank if user is not defined', ->

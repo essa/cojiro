@@ -36,8 +36,8 @@ define [
     getText: -> @getAttr('text')
     getLink: -> @get('link')
     getUser: -> @get('user')
-    getUserName: -> @getUser().getName()
-    getUserAvatarUrl: -> @getUser().getAvatarMiniUrl()
+    getUserName: -> @getUser() && @getUser().getName()
+    getUserAvatarUrl: -> @getUser() && @getUser().getAvatarMiniUrl()
     getStatusMessage: ->
       if @getUser()
         created_at = @get('created_at') || new Date().toJSON()
