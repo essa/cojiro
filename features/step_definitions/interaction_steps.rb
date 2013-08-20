@@ -44,15 +44,12 @@ Then /I (should|should not) see the editable text "([^"]*)" in the link/ do |exp
   @el.send(expectation.gsub(' ', '_'), have_selector("span.editable", text: text))
 end
 
-# TODO: find a better way to do this
 Then /^the "([^"]*)" field should say "(.*)"$/ do |name, val|
-  id = page.first('label', text: name)['for']
-  page.find_by_id(id).value.should == val
+  page.should have_field(name, :with => val)
 end
 
 Then /^the "([^"]*)" field should be blank$/ do |name|
-  id = page.first('label', text: name)['for']
-  page.find_by_id(id).value.should be_blank
+  page.should have_field(name, :with => '')
 end
 
 Then /^the "([^"]*)" field should have a red box around it$/ do |name|
