@@ -12,7 +12,7 @@ define (require) ->
         user:
           name: "csasaki"
           fullname: "Cojiro Sasaki"
-          avatar_mini_url: "http://www.example.com/mini_csasaki.png"
+          avatar_mini_url: "http://www.example.com/csasaki_mini.png"
         comments: [
             text: 'comment 1'
             link: url: 'http://www.foo.com'
@@ -40,7 +40,7 @@ define (require) ->
         @view.render()
         expect(@view.$el).toHaveText(/@csasaki/)
         expect(@view.$el).toHaveText(/Cojiro Sasaki/)
-        expect(@view.$el).toContain('img[src="http://www.example.com/mini_csasaki.png"]')
+        expect(@view.$el).toContain('img[src="http://www.example.com/csasaki_mini.png"]')
 
       it 'renders number of links', ->
         @view.render()
