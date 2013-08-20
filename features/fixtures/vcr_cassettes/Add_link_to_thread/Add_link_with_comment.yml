@@ -1,0 +1,312 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.embed.ly/1/extract?key=&urls=http://youtu.be/6H0D8VaIli0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 20 Aug 2013 05:18:30 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"0264d0bdafc0f20ff45dc9361b74e3931251db39"'
+      X-Embedly-Process-Time:
+      - '32'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api09
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA31WW2/bNhT+K4Re8hLbEnWxVDTtkm5IWwxYUAcFurYIaImS
+        mNCiRlH2nKD/fefQkqbIcQJHIHmuPJfv8PuTU2u1FRnXd62WzhvilMbUbxaL
+        3W4336vWtGs+T9Vm4ZwTJ+NNqkVthKqQ8wOrFReakUKrtiaiIismtyxTmlyx
+        UjBypdmjkGRGzq51WyvyR1XwqlQkAxIynJHbUjQEfoykUtQk12pDTMlJLuSG
+        nK0k23JilD36Uu5NuTkjjVIVnq050Vxy1vCMwMmVbGea7UkmmpTshClJ3kpJ
+        Vq0G56qMrPA7J7eK1JrPlIYbE7ifJmpXkVTVe/hUhqWGbDhh8FVVptCN5re1
+        KGrYYRgwCnyz5lkDAfj+E3YNyzmsjW457IZgghu1ZHsM0ySSqAIcZ4ZnvY6c
+        bQVYn2Sgme+N2BQ2+nvTLGC96Dhn21xmfz5+/nc/B0HUyFpTKj14JTas4Hb3
+        5KSsz1gFEQHe54kW3sjOViyij+7v8Vf2SQp3Uf6T8Zy10szv6wLNlFwUpQG9
+        fuTCdicyU8IuiHGXKtm5AEZxjfY9oHge/AcYrV0v7859PwpouIw9Gv46JyOJ
+        JEYJFKPhRIYGoectvXg5EfGiANhjFIzjiYyXhGEYRYEbTQ35yTnc45wE0VQk
+        SBKX+oE/tRMtzwmaipKJhLukSRK7QYSuIY1XRkNRQQTCeegCYemFoBEojXjE
+        gvHjZRAcLv5KfhroRFmG80KpQvK24RqrFJTbqphVq/zTdcOutn9/W1wOf59G
+        68tF9uEuepz91SZNsWiCeJbOHhZ1qYw6ymkA8Rul9FRGKYW4BXAV35umNIy9
+        MKCJjcKznHoUE4T3B4Zp7GgSBp7rhUcJSqBukhALYZohl8Y+df2j2qEUSy3y
+        X3DOpUHgvVAFFMuA+hRr58gzunRD91Cj06zGUIYJ9SKagNolmO0zC3aorYGU
+        pSW/g0aEdMehG2F4AbCw7btOlKwq2gODA+AoRVNilyktClExOQEEC8fzNR+3
+        KLK/Dtw7ZtLy/fZi1NcotOGZYODJk5O1mnWQ7i2hHYYSiEOs19Js7Fx4K3LN
+        ABttz1/8cID6wyEHQIAtQABsG53C+sQIscA5dv59zplpNb9QlgTy1sTaojPo
+        QY1MSrVDKIfRw3n17u3i4Mc7vITZ1xhcBweYhcEBn8AdqEDHCCMtxxVvDBkG
+        1mEw2VDnecMR0LqMdO31/wH0mjBiwFKYIhb+QLQCV1H1te1Npyv4Y/qNSFnD
+        TtMP8uQyTa3yk3q+iLRkOiMfj7iw+HpvbpgWzXMlY/LK8C2HQc1ZweQrbC8N
+        8tPsl1Wm+T254fciPc31VbJMbIQmN60R1Wm+a5w4guvTHPb14Ngme+D7HdRL
+        N+uaVGmLrtDOQ0gO4HnQNjDgwOpjVo8y9CKD0g9tl5meTrFTegVpCQ+XrgQG
+        hrEFmMH2qfTcCTpmKTZMdBnpVXiIGL2N9eHOCKsDfexD91h7bsHDDu41lEPh
+        DArG5EMT2aDW7RqxyL5QusYYXja9tm+qvYXH4bgNLVT8+vkfOrMplFUKAAA=
+    http_version: 
+  recorded_at: Tue, 20 Aug 2013 05:18:30 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://youtu.be/6H0D8VaIli0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "RGF0ZQ==":
+      - !binary |-
+        VHVlLCAyMCBBdWcgMjAxMyAwNToxODozMCBHTVQ=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbg==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        NDg1
+      !binary "Q29ubmVjdGlvbg==":
+      - !binary |-
+        a2VlcC1hbGl2ZQ==
+      !binary "WC1FbWJlZGx5LUZyb20tQ2FjaGU=":
+      - !binary |-
+        MA==
+      !binary "QWNjZXNzLUNvbnRyb2wtTWF4LUFnZQ==":
+      - !binary |-
+        ODY0MDA=
+      !binary "U2VydmVy":
+      - !binary |-
+        VG9ybmFkb1NlcnZlci8yLjE=
+      !binary "RXRhZw==":
+      - !binary |-
+        IjRlOWIwMTcwNDVmMTViZWFjNDI0Zjg4ZDZmMGYwMDQ5MTU5YzQ3ZDki
+      !binary "WC1FbWJlZGx5LVByb2Nlc3MtVGltZQ==":
+      - !binary |-
+        NDc=
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
+      - !binary |-
+        Kg==
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kcw==":
+      - !binary |-
+        R0VULCBPUFRJT05T
+      !binary "WC1FbWJlZGx5LUhvc3Q=":
+      - !binary |-
+        YXBpMjg=
+      !binary "Q29udGVudC1FbmNvZGluZw==":
+      - !binary |-
+        Z3ppcA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA31S32/TMBD+V0556QttOrFNZVo3VECM17VCQgxVTnyJjRyf
+        udiJAuJ/n+2yqn1gUnTK/fruu8/3/U/hmAYtkfeBTXEDhfLe3ZTlOI6LiYIP
+        FS5q6sriDRQS+5q185psqvwgHKFmAS1TcKAtbIUZhCSGjVBawIbFb21gDrPP
+        HBzBJ9uiVQRSHApmsFO6h/gJqI120DB14BVCo00Hs60RA4KnHHpUk1fdDHoi
+        m2IVAqNB0aOEGNmYMGcxgdR9DaP2CppgDGwDR3JWwjbZBewIHOOcOG4McT8G
+        Gi3U5KZorBe1hw5BREtWUqLRv69066KXZEgqeO0Npv032Hs4inBYNhW8LuQo
+        fK3uh/X1w/Lj6qv4YvQyNYngFfHeii5jP+paCZbwEKxPaYW6VT5mLlfLxEGF
+        rrJCm/2opVfH+Iu3urpMTb7LTG51wxEXcnb9VMTsUwEHyOjG1uj2XMf//5DG
+        rkJZnlC+b1D4wLimnIr9eUSVhY04CVEYQ2N6hXg1iPbutjzwuDvZ93WtQo9c
+        xptp45lcvUttA3L/7/wuFlm44/2+SPeNwi4CFGcync/RF4vJ667NQwZ9ulip
+        fklsRDB+8dO1GWRyGTdNoXPU46u8vV7+/fEMuAhDXE0DAAA=
+    http_version: 
+  recorded_at: Tue, 20 Aug 2013 05:18:30 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://youtu.be/Z8xxgFpK-NM
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "RGF0ZQ==":
+      - !binary |-
+        VHVlLCAyMCBBdWcgMjAxMyAwNToxODozMiBHTVQ=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbg==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        NDEz
+      !binary "Q29ubmVjdGlvbg==":
+      - !binary |-
+        a2VlcC1hbGl2ZQ==
+      !binary "WC1FbWJlZGx5LUZyb20tQ2FjaGU=":
+      - !binary |-
+        MA==
+      !binary "QWNjZXNzLUNvbnRyb2wtTWF4LUFnZQ==":
+      - !binary |-
+        ODY0MDA=
+      !binary "U2VydmVy":
+      - !binary |-
+        VG9ybmFkb1NlcnZlci8yLjE=
+      !binary "RXRhZw==":
+      - !binary |-
+        ImVmZDYxMjczMDFhMzI5MWY1N2YwNDg2NzMyYTMzYzdlOWQ3YmJjODQi
+      !binary "WC1FbWJlZGx5LVByb2Nlc3MtVGltZQ==":
+      - !binary |-
+        NDc=
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
+      - !binary |-
+        Kg==
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kcw==":
+      - !binary |-
+        R0VULCBPUFRJT05T
+      !binary "WC1FbWJlZGx5LUhvc3Q=":
+      - !binary |-
+        YXBpMDI=
+      !binary "Q29udGVudC1FbmNvZGluZw==":
+      - !binary |-
+        Z3ppcA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA31STW/UMBD9K6NcuJRkF0pVVd1WKhJSheDSXoCilRNPYoPj
+        CfZ40wXx3xl76Wr30N48X++9eeNvf6op0MZqDOsUXHUBlWGeLppmnud6S4lT
+        i3VHY1OdQKUxdsFObMnnzvdqIrTBRlYRbqNSP0F5DTe2S9p6Q9AHGoENwhAo
+        TXCH/rdyCjTCnfJMsYZb0ORfMdDspdFGyFLoRPI9JcGyDIoha9FLlTjgSF4X
+        QVkPW3aYldwLR4uRodtJUjscwA2G3PjyarPizlxvVl/PHx+HD9PH158/5SHh
+        MxTWXo2Fo3Opbd8s3+WSQTsYluzp+SLrMGlsvbJuPVvNZp9/is5Oc2R4LCou
+        bR8EE0p19VBJ9aGCHaSEMiphDJ28nxGMY4u6OZB73aPiFHBFpSTzhaKlIIcV
+        nIyonKO5T87JDRH91WWz03F1sOvLPqWIoTm0QdyN///Csl7kzP4zPbn2hdK9
+        zFdHLh3T2GW9ZTsOhWNjD/dqzC+NvUqO6x/TUEC2U8Et9z1G3R/l7dni7/d/
+        jjFIRNoCAAA=
+    http_version: 
+  recorded_at: Tue, 20 Aug 2013 05:18:32 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/extract?key=&urls=http://youtu.be/Z8xxgFpK-NM
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "RGF0ZQ==":
+      - !binary |-
+        VHVlLCAyMCBBdWcgMjAxMyAwNToxODozMyBHTVQ=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbg==
+      !binary "VHJhbnNmZXItRW5jb2Rpbmc=":
+      - !binary |-
+        Y2h1bmtlZA==
+      !binary "Q29ubmVjdGlvbg==":
+      - !binary |-
+        a2VlcC1hbGl2ZQ==
+      !binary "WC1FbWJlZGx5LUZyb20tQ2FjaGU=":
+      - !binary |-
+        MA==
+      !binary "QWNjZXNzLUNvbnRyb2wtTWF4LUFnZQ==":
+      - !binary |-
+        ODY0MDA=
+      !binary "U2VydmVy":
+      - !binary |-
+        VG9ybmFkb1NlcnZlci8yLjE=
+      !binary "RXRhZw==":
+      - !binary |-
+        ImE1NGM0Yjk5MzAwNTRlOGFkOTAwZjQzNWY1NmVlNTFmNzJlMjkwN2Qi
+      !binary "WC1FbWJlZGx5LVByb2Nlc3MtVGltZQ==":
+      - !binary |-
+        MTE0
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
+      - !binary |-
+        Kg==
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kcw==":
+      - !binary |-
+        R0VULCBPUFRJT05T
+      !binary "WC1FbWJlZGx5LUhvc3Q=":
+      - !binary |-
+        YXBpMTQ=
+      !binary "Q29udGVudC1FbmNvZGluZw==":
+      - !binary |-
+        Z3ppcA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA5VWW4+jNhT+KxYvfckS7HBd7exqt+20s7tTVZq8dC8aOWDA
+        jcHUmJDMaP97jwlQQpKRKs1EGH/n4u+c85mvz1al5I4nTD02SlivkZVrXb1e
+        Ltu2tQ+y0c2G2bEsltYCWQmrY8UrzWVpkD/TSjKueK1pje5qSreIlgn6wOMm
+        4WUuUapkgXTOUKZkU6EHVj5RQVHC0AMttaxtdIcSWf6kkWxLAPIamVTkAt6n
+        sgFfXCOqkcklwbTRihWyTLqETD6s2LCkhlS+fodVTVMGz1o1DFbjsRJeV4Ie
+        TMKzMxkXigmqWTL4SOmOx7KccVHbB82LrOPhoOslPC975KtdKpLPTx/3BxsM
+        jUdIM5dqzIoXNGPd6tmK6cBd2QgB2FPKOZ7E2fHll3C/z26rT6/+uF/m/yQs
+        pY3Q9t9VZsLkjGe5Br8r34FlyxOdw8oNzSqWok8BgppnEz9aIPNnqGoHY8eO
+        fIc4nhOEmHg/FmiCJzhcIILBhhA8s3IwcT2MAxwGMyvsgEG4WqDAObNxiLeK
+        HH8eCLuQMziEHxzMjZyIBMHKXZ3FCT3ABxAI++6Z0fE45jUrtZKVKT+2ndAP
+        4UCrlQ8ns2r+ZPrFi7zoePD/UR2+rHyXfWh/efxyd1sFt2vuuL8nLFtiU593
+        uxsPs4RQD5+UKjRhh0p1i4uFIm4AnPc/s6MFAY4C4nsXSATesSkZduZ8YJd4
+        FwrskwXyfPgnc/5Cz3UjqD+QfsohsUPXIz5xo1VEHAdDDQYecRQ6HTqmcc4e
+        oeuB3BCDG3gnGDUz1re9oGXWHAHWr2UmeJ0bnqTiGS+pmE1fp0L2hk3nwcBf
+        1quW6jiHQkyGyBgVLOEUMnm2kkbRXsmwCyyMhfFNO4IMFp0cvuGpogVDXdlu
+        vlmw+81Cx+mDJcwbLGsVw/MV5exUapr8u5RR3Sh2I7stsO9CbKQCGQY/xiMV
+        QrYpqAQoLmPl2zfLYx5vzSH0oTLkWp1YnnQYpAO9bGmuRYdYg/huWK0RSI/R
+        anoUWMR2THWUp2nNjIr0lQHt0zAx/72ABdd8FDAQ5U5zwLSElE2I36TMINhx
+        hK7uo/dx3G1exf3JY1rT033TOkOcB5m3qL9yKHqAu4BpdGtEkCm0R2u23bLy
+        uvmaCjiLvA44u52uQ8cb7gWIok9cjPleB55fotex9/fvr29+lHXeUPSplHur
+        m8MtO7TQUv3dU8dSmXqtYOhHTrNJ7UaA6f6B9Fg0mw3B3jHsRUg1qdtFwNB6
+        L/iQatv0rTG4IGYkxzRy+JLoe2wETPPMCsrFaQAMIjo6OE5K13uDPZ4G6L90
+        Zh6mEejQv4baqtkY0eq+G/rJGb83hpz/ks0aPp6m89ppyo/v/wLxD/64dQkA
+        AA==
+    http_version: 
+  recorded_at: Tue, 20 Aug 2013 05:18:33 GMT
+recorded_with: VCR 2.5.0

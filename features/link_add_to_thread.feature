@@ -63,3 +63,12 @@ Feature: Add link to thread
     Then I should see a link with url "http://youtu.be/Z8xxgFpK-NM" in the thread
     And the link should have the title "The best capoeira video ever"
     And the link should have the summary "foobar summary"
+
+  @vcr
+  Scenario: Add link with comment
+    When I select "English" from the drop-down list
+    And I fill in "Comment" with "This is great!"
+    And I click on "Add to this thread"
+    And I hover over the link with url "http://youtu.be/Z8xxgFpK-NM" in the thread
+    Then I should see the text "This is great!"
+    And I should see the text "@csasaki added less than a minute ago"

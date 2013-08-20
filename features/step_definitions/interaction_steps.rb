@@ -21,6 +21,12 @@ When 'I enter "$text" into the $tag in the link' do |text, tag|
   @el.find(tag).set(text)
 end
 
+When /^I hover over the link with url "([^"]*)" in the thread$/ do |url|
+  a = first(".link a[href='#{url}']")
+  @el = a.first(:xpath, ".//ancestor::div[@class='link']")
+  @el.first('.link-inner').trigger('mouseover')
+end
+
 When /^I select "([^"]*)" from the drop-down list$/ do |option|
   select(option)
 end
