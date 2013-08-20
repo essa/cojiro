@@ -1,6 +1,7 @@
 define (require) ->
 
   Link = require('models/link')
+  User = require('models/user')
   Comment = require('models/comment')
   CommentLinkView = require('views/comments/comment_link')
   globals = require('globals')
@@ -9,15 +10,14 @@ define (require) ->
   describe 'CommentLinkView', ->
     beforeEach ->
       I18n.locale = 'en'
-      @link = new Link()
-      @link.set
+      link = new Link(
         title: en: "What is CrossFit?"
         summary: en: "CrossFit is an effective way to get fit. Anyone can do it."
-        user: 'csasaki'
         site_name: 'www.youtube.com'
         favicon_url: 'http://s.ytimg.com/yts/img/favicon-vfldLzJxy.ico'
-        source_locale: 'en'
-      @comment = new Comment(link: @link)
+        source_locale: 'en')
+      user = new User(@fixtures.User.valid)
+      @comment = new Comment(link: link, user: user)
 
     afterEach ->
       I18n.locale = I18n.defaultLocale
@@ -78,13 +78,27 @@ define (require) ->
         it 'assigns comment status message to popover title', ->
           sinon.stub(@comment, 'getStatusMessage').returns('foo updated 10 hours ago')
           @view.render()
-          expect(@view.$('.link-inner')).toHaveAttr('data-original-title', 'foo updated 10 hours ago')
+          title = $(@view.$('.link-inner').data('original-title'))
+          expect(title).toHaveText('foo updated 10 hours ago')
+
+        it 'renders avatar pic into popover title', ->
+          sinon.stub(@comment, 'getStatusMessage').returns('foo updated 10 hours ago')
+          @view.render()
+          title = $(@view.$('.link-inner').data('original-title'))
+          expect(title).toContain('img[src="http://www.example.com/csasaki_mini.png"]')
 
       describe 'comment has no text', ->
         it 'assigns comment status message to popover content', ->
           sinon.stub(@comment, 'getStatusMessage').returns('foo updated 10 hours ago')
           @view.render()
-          expect(@view.$('.link-inner')).toHaveAttr('data-content', 'foo updated 10 hours ago')
+          content = $(@view.$('.link-inner').data('content'))
+          expect(content).toHaveText('foo updated 10 hours ago')
+
+        it 'renders avatar pic into popover content', ->
+          sinon.stub(@comment, 'getStatusMessage').returns('foo updated 10 hours ago')
+          @view.render()
+          content = $(@view.$('.link-inner').data('content'))
+          expect(content).toContain('img[src="http://www.example.com/csasaki_mini.png"]')
 
         it 'does not set title', ->
           @view.render()

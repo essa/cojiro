@@ -240,8 +240,24 @@ ul.nav-pills {
 
   }
   .status-avatar {
-    float: left;
-    padding-right: 10px;
+    position: relative;
+    width: 220px;
+    margin-bottom: 5px;
+    height: 32px;
+  }
+  .status-avatar img {
+    position: absolute;
+    top: 50%;
+    margin-top: -16px;
+    height: 32px;
+    display: inline-block;
+  }
+  .status-message {
+    position: absolute;
+    top: 50%;
+    left: 42px;
+    height: 32px;
+    margin-top: -16px;
   }
   .popover-title {
     @include clearfix()

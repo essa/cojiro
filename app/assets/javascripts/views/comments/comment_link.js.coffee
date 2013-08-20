@@ -50,7 +50,7 @@ define [
     renderTemplate: ->
       statusMessage = new StatusMessageView(model: @model)
       @renderChild(statusMessage)
-      statusMessageHtml = statusMessage.el.innerHTML
+      statusMessageHtml = statusMessage.el.outerHTML
       if @model.getText()
         commentTitle = statusMessageHtml
         commentText = @model.getText()
