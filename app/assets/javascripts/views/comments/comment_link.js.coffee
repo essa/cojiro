@@ -4,47 +4,44 @@ define [
   'backbone'
   'models/link'
   'views/comments/status_message'
+  'views/comments/comment_link_content'
   'modules/base/view'
-  'modules/translatable'
   'globals'
   'bootstrap'
-], ($, _, Backbone, Link, StatusMessageView, BaseView, Translatable, globals) ->
+], ($, _, Backbone, Link, StatusMessageView, CommentLinkContentView, BaseView, globals) ->
 
   class CommentLinkView extends BaseView
     className: 'link'
     template: _.template '
-        <div class="link-inner"
-             data-toggle="popover">
-          <div class="url">
-            <a href="<%= url %>">
-              <span class="favicon"><img src="<%= faviconUrl %>" /></span>
-              <span class="site"><%= siteName %></span>
-            </a>
-            <a href="#" style="float: right" class="icon-edit" />
-          </div>
-          <a class="description">
-            <h3 class="title"></h3>
-            <p class="summary"></p>
+      <div class="link-inner"
+           data-toggle="popover">
+        <div class="url">
+          <a href="<%= url %>">
+            <span class="favicon"><img src="<%= faviconUrl %>" /></span>
+            <span class="site"><%= siteName %></span>
           </a>
-        </div>'
+          <a href="#" style="float: right" class="icon-edit" />
+        </div>
+        <div class="comment-link-content">
+        </div>
+      </div>'
 
-    initialize: (options) ->
+    initialize: (options = {}) ->
+      @CommentLinkContentView = options.CommentLinkContentView || CommentLinkContentView
+
       throw 'model required in CommentLinkView' unless @model
-      @link = @model.get('link')
+      @link = @model.getLink()
       throw 'comment must have a link to render a CommentLinkView' unless (@link instanceof Link)
-      @titleField = new Translatable.InPlaceField(model: @link, field: 'title', editable: globals.currentUser?)
-      @summaryField = new Translatable.InPlaceField(model: @link, field: 'summary', editable: globals.currentUser?)
+      @contentView = new @CommentLinkContentView(model: @model)
 
-      @titleField.on 'open', @destroyPopover
-      @titleField.on 'close', @renderPopover
-      @summaryField.on 'open', @destroyPopover
-      @summaryField.on 'close', @renderPopover
+      @contentView.on 'open', @destroyPopover
+      @contentView.on 'close', @renderPopover
 
-      super
+      super(options)
 
     render: ->
       @renderTemplate()
-      @renderTranslatableFields()
+      @renderContent()
       @renderPopover()
 
     renderTemplate: ->
@@ -65,20 +62,16 @@ define [
       @$('[data-toggle="popover"]').attr('title', commentTitle)
       @$('[data-toggle="popover"]').attr('data-content', commentText)
 
-    renderTranslatableFields: ->
-      @renderChildInto(@titleField, '.title')
-      @renderChildInto(@summaryField, '.summary')
+    renderContent: ->
+      @renderChildInto(@contentView, '.comment-link-content')
 
     renderPopover: =>
-      if (@$('.editable-input').length == 0)
-        @$('.link-inner').popover(
-          trigger: 'hover'
-          placement: 'top'
-          html: true
-          callback: @initTimeago)
+      @$('.link-inner').popover(
+        trigger: 'hover'
+        placement: 'top'
+        html: true
+        callback: @initTimeago)
       @
 
-    destroyPopover: =>
-      @$('.link-inner').popover('destroy')
-
+    destroyPopover: => @$('.link-inner').popover('destroy')
     initTimeago: -> $('time.timeago').timeago()
