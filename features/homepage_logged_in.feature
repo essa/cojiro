@@ -1,4 +1,4 @@
-Feature: Homepage for logged-in useres
+Feature: Homepage for logged-in users
   As a cojiro user
   I want to see the latest threads
   So that I can find threads to contribute to

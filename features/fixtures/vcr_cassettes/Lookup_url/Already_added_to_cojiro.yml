@@ -1,0 +1,147 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.embed.ly/1/extract?key=&urls=http://www.flickr.com/photos/ripplet/7128327045/in/set-72157629932925953
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 18 Aug 2013 06:52:37 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"cd5ce0c9cc96d7da4cb6e391d37d460821e19796"'
+      X-Embedly-Process-Time:
+      - '40'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api06
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA61WS4/bRgz+K4IuvWzleT9yb4FcekkvRRAYY0m2pqsXpPG6
+        zmL/e0nJsi3JmwRIDlp4lo8hP37k8PNr3HbNi8/ybnvsyvhDFBchtB82m9Pp
+        lOxLnz53SdpUm/gpirO8TzvfBt/UqPjHf23ZdHn0d1M1lY8+ud49+9/6qC2a
+        0PRRU0d/jvZzjahwfXQEU5flWcSVJpNFaCYLvC2vdnnWw0Wfv8Cpd/scfofu
+        mMPpGnPm+7Z0ZwxnHjB66PLShTybXOzdi0+bepFnmZx9dRhyPGwuKgnooQN3
+        DEXTXWPwlTvkw+k1Tt2EQ30sS9Cdo7d3XWWTPrjg0zsUDaFqoykznGki5Dbn
+        SuzlXgix3SX/tge8tMj9oQhwCyVMwPnks1DcjmkDoE9B4G+Mh1LyFBkNn0Sw
+        TpMLkkimAGJqtHx7iiDsq4XmTxHVYEbV0kZorjgzlMk39JbXoWtaxFgm1FpB
+        KKNWUpD0/isWxVitqB79/2pYvq5gUQKCvqIynt4BxT5F1sC3TJAzZYlgVq1h
+        kaBPBRhSoRdQMqGJJhxhmUHJCGBBLaBPjVnZCCqIWppoKCwiKMlCnxrwIbSS
+        aDIHXyUERFQIaeAHs+xWAK4NIepHC2DWvNSUiAsv0fV2p7MUakwk2/arAmh5
+        h/9weAy/RlgU0kyKRZpccHBupOVLXjICDhmBAjCiluBobkZazqlMAHoNcEi7
+        NJBK2IcFoFxBXASMDF8ZwfVWkXVsCmwEhMeXzKDEUk4u6SyrJrWw0koOGpwQ
+        7OipbYj54Zo9niV8o6xhTFDC2dZout/l+9Sqn6iZQhZjnuupwImA7mcPRglW
+        CyDAP8tCM2s5hR5ddQBj0MWMYbH5qgmslFI9ssLwho8tiyYYMdaINZ+gn9nw
+        LSyAfgb6xg6hLWtGgLLQbAInnUWqTDXTzPK3gX3fH3SP+ozIaf4raek2FdSp
+        dMfo7idqJoHFVCL8ii6S1JpbJvUwymc9Y4CHFOeWXXH5vcmIFgA9W1aLUA0c
+        ZOPIml2CY1SC2WqSzkzm2MuESSYk54oqC20ILibsleRkqFTq0iLfwluMb49i
+        GqKKy9zhQ395jEtXH46jQvwxuNK7Gp/WpvMHX7vy26vOuL9sYNNpyzzcPdcb
+        X2/6PPyuGZVaIbVhCmNro+9vbk/vu0TTKs+8g+Bff90SsVgawrlFsOIhjtWS
+        AdSIgw/loPLJ1Zkr+wGu/R7SvaEKy1OAZeD2Dzj44K8rUXMchEDHuHbV4O0f
+        VzRNfOHeKMbFYRL/1TxD5u+KP9ZpEg8lf87Pp6Yb18HXuE9h7wT3FB+fyVcP
+        q1pIj6Ef/V117sM538K5yu/jSWHPAY7A+jXENOkgwaZrfL2/JPRIWt8SeiSG
+        NHaN67L33cOG3ZTlXI7zZ7p+rOAsunsQKtfObe+FbedfXHoeEW2Pu9L3xbAe
+        X7rmulVPl437O1JhIlARKgjuy/82S0zfNwwAAA==
+    http_version: 
+  recorded_at: Sun, 08 Jul 2012 08:00:02 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://www.flickr.com/photos/ripplet/7128327045/in/set-72157629932925953
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "RGF0ZQ==":
+      - !binary |-
+        U3VuLCAxOCBBdWcgMjAxMyAwNjo1MjozNyBHTVQ=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbg==
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        Mjk4
+      !binary "Q29ubmVjdGlvbg==":
+      - !binary |-
+        a2VlcC1hbGl2ZQ==
+      !binary "WC1FbWJlZGx5LUZyb20tQ2FjaGU=":
+      - !binary |-
+        MA==
+      !binary "QWNjZXNzLUNvbnRyb2wtTWF4LUFnZQ==":
+      - !binary |-
+        ODY0MDA=
+      !binary "U2VydmVy":
+      - !binary |-
+        VG9ybmFkb1NlcnZlci8yLjE=
+      !binary "RXRhZw==":
+      - !binary |-
+        Ijc2NTUxZDU5OWNiYTYzM2Q4ZGM1NjM0MjI4ODU0OTE3MDhmNTc5YmIi
+      !binary "WC1FbWJlZGx5LVByb2Nlc3MtVGltZQ==":
+      - !binary |-
+        NTU=
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
+      - !binary |-
+        Kg==
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kcw==":
+      - !binary |-
+        R0VULCBPUFRJT05T
+      !binary "WC1FbWJlZGx5LUhvc3Q=":
+      - !binary |-
+        YXBpMTM=
+      !binary "Q29udGVudC1FbmNvZGluZw==":
+      - !binary |-
+        Z3ppcA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA6WRzU6EMBDHX6Xh4sVAgQLr3vUF1psxZLaUbd1Cm3ZYNMZ3
+        l4Jslph48dj/x3T668tnZJ25qEa4enA62pNIItp9kozjGLda8bOLuemS6J5E
+        jfDcKYvK9CH4+G61cYI8m850ihzAw1ndeWKlQeOJ6cnT0t8miARPhqkKjWhI
+        XlZ0baBZG+E2VKhFuOcAfQPaBw0GlMbVPXSzs5kbfCnUSeJkpTRjYYYcumMP
+        StejalBORlVM8nr4ldoiaMF1D7FHQMVvUOxoWiZVmu3yrKKsqEVesrZoGWO1
+        j9/s6WbRP5Eur04molYLnAlfhPM/dNOYBuW/Gx3Xja7fvMJbUAeLA5eihlOQ
+        85LSgOTDzqF5x2jD6Mq4Kr5evwHUdtTpQAIAAA==
+    http_version: 
+  recorded_at: Sun, 08 Jul 2012 08:00:02 GMT
+recorded_with: VCR 2.5.0

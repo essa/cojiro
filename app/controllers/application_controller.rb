@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :logged_in?
 
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
   def set_locale
     I18n.locale = params[:locale]
   end
@@ -39,13 +41,25 @@ class ApplicationController < ActionController::Base
         :currentUser => @current_user
       },
       :'adapters/i18n-adapter' => {
-        :locale => I18n.locale
+        :locale => I18n.locale,
+        :availableLocales => I18n.available_locales.rotate(I18n.available_locales.index(I18n.locale))
       }
     }
-    Requirejs::Rails::Engine.config.requirejs.run_config.merge!({ :config => config })
+    opts = { :config => config }
+    opts.merge!({ :urlArgs => "bust=#{Time.now.to_i}" }) if Rails.env == "development"
+    Requirejs::Rails::Engine.config.requirejs.run_config.merge!(opts)
   end
 
   def available_locales
     I18n.available_locales
+  end
+
+  private
+
+  def record_not_found(error)
+    respond_to do |format|
+      format.json { render :json => { :error => error.message }, :status => :not_found }
+      format.html { render :file => 'public/404', :status => :not_found, :layout => false, :formats => [:html] }
+    end
   end
 end

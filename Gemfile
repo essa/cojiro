@@ -22,7 +22,6 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', :branch => '2.0'
-  gem 'haml_coffee_assets', '~> 1.11.0'
   gem 'execjs'
   gem 'i18n-js', :git => 'https://github.com/fnando/i18n-js.git'
 end
@@ -31,41 +30,45 @@ gem 'jquery-rails'
 gem 'haml', ">= 3.1.alpha.50"
 gem 'haml-rails'
 gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
-gem 'omniauth', :require => false
-gem 'omniauth-twitter', :require => false
+gem 'omniauth'
+gem 'omniauth-twitter'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
-gem 'mini_magick', :require => false
+gem 'mini_magick'
 gem 'journey', '1.0.4' # ref: https://github.com/rails/journey/issues/42
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'cucumber', '>= 1.1.6', :require => false
-  gem 'spork', '~> 0.9.0.rc', :require => false
-  gem 'database_cleaner', :require => false
+  gem 'cucumber', '1.2.5'
+  gem 'spork', '~> 0.9.0.rc'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git', :require => false
-  gem 'jasminerice'
-  gem 'debugger', :require => false unless ENV['CI']
-  gem 'rake', :require => false
-  gem 'timecop', :require => false
-  gem 'chronic', :require => false
-  gem 'launchy', :require => false
+  gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git', :ref => '13ae61378afdf66aed7eb945172eb1f5c75b451b'
+  gem 'pry'
+  gem 'pry-debugger'
+  gem 'rake'
+  gem 'timecop'
+  gem 'chronic'
+  gem 'launchy'
+  gem 'embedly'
   gem 'sqlite3'
 end
 
 group :test do
   # ref: http://datacodescotch.blogspot.jp/2011/11/warning-cucumber-rails-required-outside.html 
-  gem 'cucumber-rails', '~> 1.0', :require => false
-  gem 'webmock', :require => false
-  gem 'guard', '>= 1.3.2', :require => false
-  gem 'rb-inotify', '~> 0.8.8', :require => false
-  gem 'guard-spork', :require => false
+  # ref: http://stackoverflow.com/questions/16226933/run-cucumber-through-spork
+  gem 'cucumber-rails', '1.3.0', :require => false
+  gem 'webmock', '>= 1.9.0'
+  gem 'vcr', '~> 2.5.0'
+  gem 'shoulda-matchers'
+  gem 'guard', :git => 'git://github.com/guard/guard.git'
+  gem 'rb-inotify', '>= 0.8.8'
+  gem 'guard-spork'
   gem 'guard-rspec', :require => false
   gem 'guard-cucumber', :require => false
-  gem 'guard-jasmine', :require => false
-  gem 'guard-rails', :require => false
-  gem 'guard-livereload', :require => false
+  gem 'guard-jasmine'
+  gem 'guard-rails'
 end
 
 # To use ActiveModel has_secure_password

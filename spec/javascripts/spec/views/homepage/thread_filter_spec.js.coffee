@@ -10,7 +10,7 @@ define (require) ->
     afterEach ->
       @selectFilterSpy.restore()
 
-    describe "instantiation", ->
+    describe "initialization", ->
 
       it "creates a thread filter form", ->
         $el = @view.$el

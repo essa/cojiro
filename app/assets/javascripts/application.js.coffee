@@ -3,15 +3,12 @@ require [
   'underscore'
   'backbone'
   'app'
-  'i18n'
-  'bootstrap-dropdown'
-  'bootstrap-button'
-  'bootstrap-alert'
 ], ($, _, Backbone, App) ->
 
   $ ->
-    # check for locale stops init from being called in tests
-    App.init() unless I18n.locale is undefined
+    # we don't want to actually hit the server if we're running jasmine tests
+    window.app = new App
+    app.init() unless jasmine?
 
   # ref: https://github.com/tbranyen/backbone-boilerplate/blob/master/app/main.js
   $(document).on('click', 'a:not([data-bypass]),.clickable:not([data-bypass])', (evt) ->
@@ -20,5 +17,5 @@ require [
     # Ensure the protocol is not part of URL, meaning it's relative.
     if href && href.indexOf(location.protocol)
       evt.preventDefault()
-      App.appRouter.navigate(href, true)
+      app.appRouter.navigate(href, true)
   )

@@ -1,8 +1,16 @@
 define [
   'jquery'
+  'underscore'
   'backbone'
-], ($, Backbone) ->
+], ($, _, Backbone) ->
 
-  class BaseModel extends Backbone.Model
+  class BaseModel extends Backbone.RelationalModel
 
+    getId: -> @id
     validate: (attrs) -> {}
+
+    @use: (classes...) ->
+      for cl in classes
+        for key, value of cl::
+          @::[key]=value
+      @

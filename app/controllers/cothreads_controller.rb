@@ -26,7 +26,7 @@ class CothreadsController < ApplicationController
   def update
     @cothread.update_attributes(params[:thread])
     respond_with @cothread do |format|
-      format.json { render :json => @cothread.to_json, :status => :accepted }
+      format.json { render :json => @cothread.to_json }
     end
   end
 

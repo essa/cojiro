@@ -3,109 +3,121 @@ define (require) ->
   Backbone = require('backbone')
   I18n = require('i18n')
 
-  form = new Backbone.View
-  form.render = ->
-    @el = document.createElement('form')
-    @el.setAttribute('id', 'new_thread')
-  Form = sinon.stub().returns(form)
-
   Thread = require('models/thread')
+  NewThreadView = require('views/threads/new_thread')
 
   router = navigate: ->
 
-  context(
-    "backbone-forms": Form
-  ) ["views/threads/new_thread"], (NewThreadView) ->
+  describe 'NewThreadView', ->
+    beforeEach ->
+      @submitFormSpy = sinon.spy(NewThreadView.prototype, 'submitForm')
 
-    describe "NewThreadView (with stubbed Backbone.Form constructor)", ->
+    afterEach ->
+      NewThreadView.prototype.submitForm.restore()
+
+    describe 'with stubbed Thread model', ->
       beforeEach ->
         @model = new Backbone.Model
+        _(@model).extend schema: -> {}
         @view = new NewThreadView(model: @model, router: router)
         @$el = @view.$el
 
-      describe "instantiation", ->
+      describe 'initialization', ->
 
-        it "creates the new thread element", ->
-          expect(@$el).toBe("#new_thread")
+        it 'creates the new thread element', ->
+          expect(@$el).toBe('#new_thread')
 
-      describe "rendering", ->
+      describe 'rendering', ->
 
-        it "creates a new form", ->
-          @view.render()
-          expect(Form.calledWithNew()).toBeTruthy()
-          expect(Form).toHaveBeenCalledWith(model: @model)
-
-        it "renders the form", ->
-          spy = sinon.spy(form, 'render')
-
-          @view.render()
-          expect(spy).toHaveBeenCalledOnce()
-          expect(spy).toHaveBeenCalledWith()
-
-        it "puts the new form on the page", ->
-          @view.render()
-          expect(@view.$el).toContain('form#new_thread')
-
-      describe "Template", ->
-
-        it "renders the new thread form title", ->
+        it 'renders the new thread form title', ->
           I18n.locale = 'en'
           @view.render()
           expect(@$el).toHaveText(/Start a thread/)
           I18n.locale = I18n.defaultLocale
 
-  context(
-    "models/thread": Thread
-  ) ["views/threads/new_thread"], (NewThreadView) ->
+        it 'renders form submit button', ->
+          @view.render()
+          expect(@view.$el).toContain('button.btn.btn-primary:contains("Create thread")')
 
-    describe "NewThreadView (with actual Backbone.Form constructor)", ->
+        it 'renders cancel button', ->
+          @view.render()
+          expect(@view.$el).toContain('.btn:contains("Cancel")')
+
+    describe 'with actual Thread model', ->
 
       beforeEach ->
-        @collection = new Backbone.Collection
-        @collection.url = '/en/threads'
         @model = new Thread
+        @collection = new Backbone.Collection([], model: Thread, url: '/collection')
         @model.collection = @collection
         @view = new NewThreadView(model: @model, collection: @collection, router: router)
         @$el = @view.$el
 
-      describe "submitting the form data", ->
+      describe 'submitting the form data', ->
         beforeEach ->
           @view.render()
-
-        it "commits the form data", ->
-          spy = sinon.spy(@view.form, 'commit')
-          @view.$('form').trigger('submit')
-
-          expect(spy).toHaveBeenCalledOnce()
-          expect(spy).toHaveBeenCalledWithExactly()
-
-        it "saves the model", ->
-          sinon.stub(@view.form, 'commit').returns(null)
+          @$form = @view.$('form')
           sinon.stub(@model, 'save')
-          @view.$('form').trigger('submit')
 
+        afterEach ->
+          @model.save.restore()
+
+        it 'calls submitForm', ->
+          @$form.submit()
+          expect(@submitFormSpy).toHaveBeenCalledOnce()
+
+        it 'prevents default form submission', ->
+          spyEvent = spyOnEvent(@$form, 'submit')
+          @$form.submit()
+          expect('submit').toHaveBeenPreventedOn(@$form)
+          expect(spyEvent).toHaveBeenPrevented()
+
+        it 'sets title and summary values', ->
+          @view.$('form input').val('a title')
+          @view.$('form textarea').val('a summary')
+          @$form.submit()
+
+          expect(@model.getAttr('title')).toEqual('a title')
+          expect(@model.getAttr('summary')).toEqual('a summary')
+
+        it 'saves the model', ->
+          sinon.stub(@model, 'set').returns(null)
+          sinon.stub(@model, 'validate')
+          @$form.submit()
           expect(@model.save).toHaveBeenCalledOnce()
+          @model.set.restore()
 
-          @view.form.commit.restore()
+      describe 'with errors', ->
+        beforeEach ->
+          @view.render()
+          @$form = @view.$('form')
 
-      describe "after a successful save", ->
+        it 'renders inline errors', ->
+          @$form.submit()
+          expect(@view.$('.title')).toContainText('can\'t be blank')
+
+        it 'removes any previous alert(s) and adds a new one', ->
+          @$form.submit()
+          expect(@view.$('.alert')).toHaveLength(1)
+          expect(@view.$('#flash-error')).toHaveText(/There were problems/)
+
+      describe 'after a successful save', ->
         beforeEach ->
           @view.render()
           @server = sinon.fakeServer.create()
           @server.respondWith(
-            'POST',
-            '/en/threads',
-            [ 200, {'Content-Type': 'application/json'}, JSON.stringify(_(@fixtures.Thread.valid).extend(id: "123")) ]
+            'POST'
+            '/collection'
+            @validResponse(id: '123')
           )
           sinon.stub(router, 'navigate')
-          @view.$('form input[name="title"]').val("a title")
-          @view.$('form textarea[name="summary"]').val("a summary")
+          @view.$('form input').val('a title')
+          @view.$('form textarea').val('a summary')
 
         afterEach ->
           @server.restore()
           router.navigate.restore()
 
-        it "adds the thread to the collection", ->
+        it 'adds the thread to the collection', ->
           spy = sinon.spy(@collection, 'add')
 
           @view.$('form').trigger('submit')
@@ -114,9 +126,9 @@ define (require) ->
           expect(spy).toHaveBeenCalledOnce()
           expect(spy).toHaveBeenCalledWith(@model)
 
-        it "navigates to the new thread", ->
+        it 'navigates to the new thread', ->
           @view.$('form').trigger('submit')
           @server.respond()
 
           expect(router.navigate).toHaveBeenCalledOnce()
-          expect(router.navigate).toHaveBeenCalledWith('/en/threads/123', true)
+          expect(router.navigate).toHaveBeenCalledWith('/collection/123', true)

@@ -5,151 +5,112 @@ define (require) ->
 
   I18n = require('i18n')
   Thread = require('models/thread')
+  Link = require('models/link')
+  Comment = require('models/comment')
+  Comments = require('collections/comments')
+  TranslatableAttribute = require('modules/translatable/attribute')
+  sharedExamples = require('spec/models/shared')
 
   describe 'Thread', ->
 
-    it 'can be instantiated', ->
-      thread = new Thread
-      expect(thread).not.toBeNull()
+    sharedExamples(Thread, 'thread')
 
-    describe 'new instance default values', ->
+    describe '#url', ->
+      beforeEach ->
+        @thread = new Thread
+        @thread.collection = url: '/collection'
+
+      it 'returns collection URL when id is not set', ->
+        expect(@thread.url()).toEqual('/collection')
+
+      it 'returns collection URL and id when id is set', ->
+        @thread.id = 66
+        expect(@thread.url()).toEqual('/collection/66')
+
+    describe 'link/comment relation', ->
+      beforeEach ->
+        @thread = new Thread
+        @thread.set
+          comments: [
+            { link: title: en: 'link #1' }
+            { link: title: en: 'link #2' }
+            { link: title: en: 'link #3' }
+          ]
+
+      it 'has many comments', ->
+        expect(@thread).toHaveMany('comments')
+
+      it 'has links through comments', ->
+        expect(@thread.get('comments').pluck('link')[0] instanceof Link).toBeTruthy()
+
+    describe 'new instance', ->
       beforeEach ->
         I18n.locale = 'ja'
-        @thread = new Thread
 
       afterEach ->
         I18n.locale = I18n.defaultLocale
 
-      it 'has default value for the .title attribute', ->
-        expect(@thread.get('title')).toEqual('')
-
-      it 'has default value for the .summary attribute', ->
-        expect(@thread.get('summary')).toEqual('')
-
-      it 'has default value for the .source_locale attribute', ->
-        expect(@thread.get('source_locale')).toEqual('ja')
+      it 'has default value for source_locale attribute', ->
+        expect((new Thread).get('source_locale')).toEqual('ja')
+        I18n.locale = 'fr'
+        expect((new Thread).get('source_locale')).toEqual('fr')
 
     describe 'getters', ->
       beforeEach ->
         @thread = new Thread
-        collection = url: '/collection'
-        @thread.collection = collection
 
-      describe '#toJSON', ->
+      describe '#getComments', ->
         beforeEach ->
-          @thread.set(
-            'title': 'title'
-            'summary': 'summary'
-            'source_locale': 'source_locale'
-            'created_at': "2010-07-20T12:20:00Z"
-            'updated_at': "2010-07-20T12:20:00Z"
-            'user':
-              'name': 'csasaki'
-          )
+          @comment1 = new Comment(id: 1)
+          @comment2 = new Comment(id: 2)
+          @thread.set 'comments', [ @comment1, @comment2 ]
 
-        it 'wraps JSON in thread object', ->
-          expect(@thread.toJSON().thread).toBeDefined()
-          expect(@thread.toJSON().thread.title).toEqual('title')
-          expect(@thread.toJSON().thread.summary).toEqual('summary')
-          expect(@thread.toJSON().thread.source_locale).toEqual('source_locale')
-
-        it 'does not include protected attributes', ->
-          expect(@thread.toJSON().thread.user).not.toBeDefined()
-          expect(@thread.toJSON().thread.created_at).not.toBeDefined()
-          expect(@thread.toJSON().thread.updated_at).not.toBeDefined()
-
-      describe '#getId', ->
-        it 'is defined', -> expect(@thread.getId).toBeDefined()
-
-        it 'returns undefined if id is not defined', ->
-          expect(@thread.getId()).toBeUndefined()
-
-        it "otherwise returns model's id", ->
-          @thread.id = 66;
-          expect(@thread.getId()).toEqual(66)
-
-      describe '#getTitle', ->
-        it 'is defined', -> expect(@thread.getTitle).toBeDefined()
-
-        it 'returns value for the title attribute', ->
-          stub = sinon.stub(@thread, 'get').returns('Thread title')
-
-          expect(@thread.getTitle()).toEqual('Thread title')
-          expect(stub).toHaveBeenCalledWith('title')
-
-      describe '#getSummary', ->
-        it 'is defined', -> expect(@thread.getSummary).toBeDefined()
-
-        it 'returns value for the summary attribute', ->
-          stub = sinon.stub(@thread, 'get').returns('Thread summary')
-
-          expect(@thread.getSummary()).toEqual('Thread summary')
-          expect(stub).toHaveBeenCalledWith('summary')
-
-      describe '#getCreatedAt', ->
-        it 'is defined', -> expect(@thread.getCreatedAt).toBeDefined()
-
-        it 'returns value for the created_at attribute in correct format', ->
-          stub = sinon.stub(@thread, 'get').returns('2012-07-08T12:20:00Z')
-          I18n.locale = 'en'
-
-          expect(@thread.getCreatedAt()).toEqual('July 8, 2012')
-          expect(stub).toHaveBeenCalledWith('created_at')
-          I18n.locale = I18n.defaultLocale
-
-        it 'is undefined if created_at attribute is undefined', ->
-          stub = sinon.stub(@thread, 'get').returns(undefined)
-          expect(@thread.getCreatedAt()).toEqual(undefined)
+        it 'returns collection of comments for this thread', ->
+          comments = @thread.getComments()
+          expect(comments instanceof Backbone.Collection).toBeTruthy()
+          expect(comments.models).toEqual([@comment1, @comment2])
 
       describe '#getUserName', ->
-        it 'is defined', -> expect(@thread.getUserName).toBeDefined()
 
-        it 'returns name attribute of user associated with thread', ->
-          stub = sinon.stub(@thread, 'get').returns({ 'name': 'csasaki' })
+        it 'returns the name of the user who created this model', ->
+          user = new Backbone.Model
+          user.getName = () -> 'foo'
+          sinon.spy(user, 'getName')
+          stub = sinon.stub(@thread, 'get').returns(user)
 
-          expect(@thread.getUserName()).toEqual('csasaki')
+          expect(@thread.getUserName()).toEqual('foo')
           expect(stub).toHaveBeenCalledWith('user')
+          expect(user.getName).toHaveBeenCalledOnce()
+          expect(user.getName).toHaveBeenCalledWithExactly()
 
-      describe '#getUserFullname', ->
-        it 'is defined', -> expect(@thread.getUserFullname).toBeDefined()
+      describe '#getLinks', ->
+        beforeEach ->
+          @link = new Link(title: en: 'link #1')
+          @thread.set comments: [ link: @link ]
 
-        it 'returns fullname attribute of user associated with thread', ->
-          stub = sinon.stub(@thread, 'get').returns({ 'fullname': 'Cojiro Sasaki' })
+        it 'returns array of links for this thread', ->
+          links = @thread.getLinks()
+          expect(links).toEqual( [ @link ] )
 
-          expect(@thread.getUserFullname()).toEqual('Cojiro Sasaki')
-          expect(stub).toHaveBeenCalledWith('user')
+    describe '#hasLink', ->
+      beforeEach ->
+        @thread = new Thread
+        @link = new Link(url: 'http://www.foo.com')
+        @thread.set comments: [ link: @link ]
 
-      describe '#getUserAvatarUrl', ->
-        it 'is defined', -> expect(@thread.getUserAvatarUrl).toBeDefined()
+      it 'returns true if thread has link with url', ->
+        expect(@thread.hasLink('http://www.foo.com')).toEqual(true)
 
-        it 'returns URL of original version of user avatar associated with thread', ->
-          stub = sinon.stub(@thread, 'get').returns({ 'avatar_url': 'http://www.example.com/csasaki.png' })
-
-          expect(@thread.getUserAvatarUrl()).toEqual('http://www.example.com/csasaki.png')
-          expect(stub).toHaveBeenCalledWith('user')
-
-      describe '#getUserAvatarMiniUrl', ->
-        it 'is defined', -> expect(@thread.getUserAvatarMiniUrl).toBeDefined()
-
-        it 'returns URL of mini version of user avatar associated with thread', ->
-          stub = sinon.stub(@thread, 'get').returns({ 'avatar_mini_url': 'http://www.example.com/mini_csasaki.png' })
-
-          expect(@thread.getUserAvatarMiniUrl()).toEqual('http://www.example.com/mini_csasaki.png')
-          expect(stub).toHaveBeenCalledWith('user')
-
-      describe '#url', ->
-        it 'returns collection URL when id is not set', ->
-          expect(@thread.url()).toEqual('/collection')
-
-        it 'returns collection URL and id when id is set', ->
-          @thread.id = 66
-          expect(@thread.url()).toEqual('/collection/66')
+      it 'returns false if thread does not have any link with url', ->
+        expect(@thread.hasLink('http://www.bar.com')).toEqual(false)
 
     describe 'interacting with the server', ->
       beforeEach ->
-        @thread = new Thread()
-        collection = url: '/collection'
-        @thread.collection = collection
+        @thread = new Thread
+        @collection = new Backbone.Collection([],
+          url: '/collection'
+          model: Thread)
+        @thread.collection = @collection
         @server = sinon.fakeServer.create()
       afterEach -> @server.restore()
 
@@ -165,19 +126,24 @@ define (require) ->
 
         it 'sends valid data to the server', ->
           @thread.save
-            title: 'Co-working spaces in Tokyo',
-            summary: 'I\'m collecting blog posts on co-working spaces in Tokyo.'
+            title:
+              en: 'Co-working spaces in Tokyo',
+            summary:
+              en: 'I\'m collecting blog posts on co-working spaces in Tokyo.'
             source_locale: 'en'
           request = @server.requests[0]
           params = JSON.parse(request.requestBody)
 
           expect(params.thread).toBeDefined()
-          expect(params.thread.title).toEqual('Co-working spaces in Tokyo')
-          expect(params.thread.summary).toEqual('I\'m collecting blog posts on co-working spaces in Tokyo.')
+          expect(params.thread.title).toEqual('en': 'Co-working spaces in Tokyo')
+          expect(params.thread.summary).toEqual('en': 'I\'m collecting blog posts on co-working spaces in Tokyo.')
           expect(params.thread.source_locale).toEqual('en')
 
         describe 'on create', ->
           beforeEach ->
+            @thread.set
+              source_locale: 'en'
+              title: en: 'title'
             @thread.id = null
             @thread.save()
             @request = @server.requests[0]
@@ -188,6 +154,9 @@ define (require) ->
 
         describe 'on update', ->
           beforeEach ->
+            @thread.set
+              source_locale: 'en'
+              title: en: 'title'
             @thread.id = 66
             @thread.save()
             @request = @server.requests[0]
@@ -199,33 +168,44 @@ define (require) ->
         describe 'validations', ->
           beforeEach ->
             @spy = sinon.spy()
-            @thread.bind('error', @spy)
+            @thread.bind('invalid', @spy)
             @data = @fixtures.Thread.valid
 
           afterEach ->
             @thread.unbind('error', @spy)
 
-          it 'does not save if title is blank and we are in the source locale', ->
-            I18n.locale = 'en'
-            @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
+          it 'does not save if the source locale is blank', ->
+            expect(@thread.save(_(@data).extend(source_locale: ''))).toBeFalsy()
             expect(@spy).toHaveBeenCalledOnce()
-            expect(@spy).toHaveBeenCalledWith(@thread,{'title':"can't be blank"})
-            I18n.locale = I18n.defaultLocale
+            expect(@spy).toHaveBeenCalledWith(@thread, source_locale: 'can\'t be blank')
 
-          it 'does not save if title is blank and the source locale is missing', ->
-            @thread.save(_(@data).extend('title':'', 'source_locale': null))
+          it 'does not save if the source locale is null', ->
+            expect(@thread.save(_(@data).extend(source_locale: null))).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@thread, source_locale: 'can\'t be blank')
+
+          it 'does not save if title is blank in the source locale', ->
+            expect(@thread.save(_(@data).extend(title: en: '', source_locale: 'en'))).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@thread, title: en: "can't be blank")
+
+          it 'does not save if title is missing in the source locale', ->
+            expect(@thread.save(_(@data).extend(title: {}, source_locale: 'en'))).toBeFalsy()
+            expect(@spy).toHaveBeenCalledOnce()
+            expect(@spy).toHaveBeenCalledWith(@thread, title: en: "can't be blank")
+
+          it 'does not save if title in source locale is null', ->
+            expect(@thread.save(_(@data).extend(title: { en: null }, source_locale: 'en'))).toBeFalsy()
+            expect(@spy).toHaveBeenCalled()
+
+          it 'does not save if source locale is missing', ->
+            expect(@thread.save(_(@data).extend(source_locale: null))).toBeFalsy()
             expect(@spy).toHaveBeenCalledOnce()
             expect(@spy).toHaveBeenCalledWith(@thread,
-              {'title':"can't be blank", 'source_locale':"can't be blank"})
+              {'source_locale':"can't be blank"})
 
-          it 'does save if title is blank and we are not in the source locale', ->
-            I18n.locale = 'ja'
-            @thread.save(_(@data).extend('title':'', 'source_locale':'en'))
-            expect(@spy).not.toHaveBeenCalled()
-            I18n.locale = I18n.defaultLocale
-
-          it 'does save if title is null (not included)', ->
-            @thread.save(_(@data).extend('title': null))
+          it 'does save if title is blank in another locale', ->
+            expect(@thread.save(_(@data).extend({ title: en: 'some title', ja: '' }, source_locale: 'en'))).toBeTruthy()
             expect(@spy).not.toHaveBeenCalled()
 
       describe 'parsing response data', ->
@@ -239,10 +219,10 @@ define (require) ->
         it 'should parse the thread from the server', ->
           @thread.fetch()
           @server.respond()
-          expect(@thread.getTitle())
-            .toEqual(@fixture.title)
-          expect(@thread.getSummary())
-            .toEqual(@fixture.summary)
+          expect(@thread.getAttr('title'))
+            .toEqual(@fixture.title['en'])
+          expect(@thread.getAttr('summary'))
+            .toEqual(@fixture.summary['en'])
           expect(@thread.getCreatedAt())
             .toEqual(@thread.toDateStr(@fixture.created_at))
           expect(@thread.getUpdatedAt())

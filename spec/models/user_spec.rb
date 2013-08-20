@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 describe User do
-  before do
-    I18n.locale = 'en'
+  describe 'associations' do
+    it { should have_many(:cothreads) }
+    it { should have_many(:links) }
+    it { should have_many(:comments) }
   end
 
   describe "validation with factory" do
@@ -114,4 +116,10 @@ describe User do
 
   end
 
+  describe '#to_param' do
+    let(:user) { FactoryGirl.create(:alice).to_param }
+    it 'returns the user name' do
+      user.to_param.should == 'alice'
+    end
+  end
 end

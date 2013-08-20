@@ -32,14 +32,11 @@ describe CothreadsController do
         response.should render_template("show")
       end
 
-      it "displays an error if thread does not exist" do
-        lambda {
-          get :show, :id => "not-found", :format => :html
-        }.should raise_error(ActiveRecord::RecordNotFound)
+      it "returns 404 when not found" do
+        get :show, :id => "not-found", :format => :html
+        response.response_code.should == 404
       end
-
     end
-
   end
 
   context "JSON" do
@@ -67,6 +64,16 @@ describe CothreadsController do
 
       end
 
+      describe 'POST create' do
+        it 'redirects to homepage' do
+          post :create
+          response.should redirect_to(homepage_path)
+        end
+      end
+
+      describe 'PUT update' do
+        it 'redirects to homepage'
+      end
     end
 
     context "with logged-in user" do
@@ -78,7 +85,6 @@ describe CothreadsController do
       describe "POST create" do
 
         context "with valid params" do
-
           # on the client-side, 'thread' is used instead of 'cothread'
           it "creates a new thread" do
             expect {
@@ -87,7 +93,7 @@ describe CothreadsController do
           end
 
           it "returns the new thread" do
-            attr = FactoryGirl.attributes_for(:cothread)
+            attr = FactoryGirl.attributes_for(:cothread, title: { "en" => "title" }, summary: { "en" => "summary" })
             post :create, thread: attr, :format => :json
             JSON(response.body).should include(attr.stringify_keys)
           end
@@ -110,20 +116,17 @@ describe CothreadsController do
           end
 
           it "updates the thread" do
-            put :update, id: @cothread.id, thread: FactoryGirl.attributes_for(:cothread, title: "a new title"), format: :json
+            put :update, id: @cothread.id, thread: FactoryGirl.attributes_for(:cothread, title: { "en" =>  "a new title" }), format: :json
             assigns(:cothread).title.should eq("a new title")
           end
 
           it "returns the new thread" do
-            attr = FactoryGirl.attributes_for(:cothread, title: "a new title")
+            attr = FactoryGirl.attributes_for(:cothread, title: { "en" => "title" }, summary: { "en" => "summary" })
             put :update, id: @cothread.id, thread: attr, format: :json
             JSON(response.body).should include(attr.stringify_keys)
           end
         end
       end
-
     end
-
   end
-
 end

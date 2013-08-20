@@ -7,13 +7,23 @@ describe 'Cothreads API' do
     @bob = FactoryGirl.create(:bob)
 
     Timecop.freeze(Time.utc(2002,7,20,12,20)) do
-      @cothread1 = FactoryGirl.create(:cothread, :title => "An old post", :summary => "summary 1", :source_locale => "ja", :user => @alice)
+      I18n.with_locale(:ja) do
+        @cothread1 = FactoryGirl.create(:cothread,
+                                        :user => @alice,
+                                        :title => 'An old post',
+                                        :summary => 'summary 1')
+      end
     end
     Timecop.freeze(Time.utc(2012,7,20,12,20)) do
-      @cothread2 = FactoryGirl.create(:cothread, :title => "A very recent post", :summary => "summary 3", :source_locale => "ja", :user => @alice)
+      I18n.with_locale(:ja) do
+        @cothread2 = FactoryGirl.create(:cothread,
+                                        :user => @alice,
+                                        :title => 'A very recent post',
+                                        :summary => 'summary 3')
+      end
     end
     Timecop.freeze(Time.utc(2005,7,20,12,20)) do
-      @cothread3 = FactoryGirl.create(:cothread, :title => "A somewhat recent post", :summary => "summary 2", :source_locale => "en", :user => @bob)
+      @cothread3 = FactoryGirl.create(:cothread, :title => "A somewhat recent post", :summary => "summary 2", :user => @bob)
     end
   end
 
@@ -25,22 +35,22 @@ describe 'Cothreads API' do
 
     it "returns a list of cothreads in reverse chronological order" do
       @json[0].should include(
-        "title" => "A very recent post",
-        "summary" => "summary 3",
+        "title" => { "ja" => "A very recent post" },
+        "summary" => { "ja" => "summary 3" },
         "source_locale" => "ja",
         "created_at" => "2012-07-20T12:20:00Z",
         "updated_at" => "2012-07-20T12:20:00Z",
       )
       @json[1].should include(
-        "title" => "A somewhat recent post",
-        "summary" => "summary 2",
+        "title" => { "en" => "A somewhat recent post" },
+        "summary" => { "en" => "summary 2" },
         "source_locale" => "en",
         "created_at" => "2005-07-20T12:20:00Z",
         "updated_at" => "2005-07-20T12:20:00Z"
       )
       @json[2].should include(
-        "title" => "An old post",
-        "summary" => "summary 1",
+        "title" => { "ja" => "An old post" },
+        "summary" => { "ja" => "summary 1" },
         "source_locale" => "ja",
         "created_at" => "2002-07-20T12:20:00Z",
         "updated_at" => "2002-07-20T12:20:00Z"
@@ -74,8 +84,8 @@ describe 'Cothreads API' do
 
       it "returns the cothread with id = <id>" do
         @json.should include(
-          "title" => "An old post",
-          "summary" => "summary 1",
+          "title" => { "ja" => "An old post" },
+          "summary" => { "ja" => "summary 1" },
           "source_locale" => "ja",
           "created_at" => "2002-07-20T12:20:00Z",
           "updated_at" => "2002-07-20T12:20:00Z"

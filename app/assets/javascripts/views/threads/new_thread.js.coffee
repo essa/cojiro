@@ -2,24 +2,28 @@ define [
   'jquery'
   'underscore'
   'backbone'
-  'backbone-forms'
-  'modules/base'
+  'modules/base/view'
+  'modules/translatable/form'
+  'views/other/flash'
+  'views/other/form_actions'
   'globals'
-  'templates/threads/new'
-  'templates/threads/form_actions'
-  'templates/other/flash'
   'i18n'
-], ($, _, Backbone, Form, Base, globals, newThreadTemplate, formActionsTemplate, flashTemplate, I18n) ->
+], ($, _, Backbone, BaseView, Form, FlashView, FormActionsView, globals, I18n) ->
 
-  class NewThreadView extends Base.View
+  class NewThreadView extends BaseView
     id: 'new_thread'
+    template: _.template '
+      <div class="page-header">
+        <h1><%= t(".start_a_thread") %></h1>
+      </div>'
 
     buildEvents: () ->
       _(super).extend
-        "submit form" : "submit"
+        "submit form" : "submitForm"
 
     initialize: (options) ->
       @router = @options.router
+      @form = new Form(model: @model)
       super
 
     render: ->
@@ -28,17 +32,19 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(newThreadTemplate())
+      @$el.html(@template(t: I18n.scoped('views.threads.new_thread').t))
 
     renderForm: ->
-      @form = new Form(model: @model)
-      @renderChild(@form)
-      @$el.append(@form.el)
-      @.$('fieldset').append(formActionsTemplate())
+      @appendChild(@form)
+      @formActions = new FormActionsView(
+        submit: I18n.t('views.threads.new_thread.submit')
+        cancel: I18n.t('views.threads.new_thread.cancel')
+      )
+      @appendChildTo(@formActions, 'fieldset')
 
-    submit: () ->
-      errors = @form.commit()
-      if !(errors?)
+    submitForm: () ->
+      @model.set(@form.serialize(), validate: true)
+      if !(errors = @model.validationError)
         self = @
         @model.save({},
           success: (model, resp) ->
@@ -50,9 +56,11 @@ define [
             self.router.navigate(model.url(), true )
         )
       else
-        @.$('.alert').remove()
-        @$el.prepend(flashTemplate(
-          name: "error"
-          msg: I18n.t("errors.template.body")
-        ))
+        @flash.leave() if @flash
+        @flash = new FlashView(
+          name: 'error'
+          msg: I18n.t('views.threads.new_thread.errors.body')
+        )
+        @renderChild(@flash)
+        @$el.prepend(@flash.el)
       return false

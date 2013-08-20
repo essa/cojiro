@@ -16,3 +16,21 @@ ensure
   page.evaluate_script "window.confirm = window.original_confirm_function"
 end
 
+def wait_until
+  require "timeout"
+  Timeout.timeout(Capybara.default_wait_time) do
+    sleep(0.1) until value = yield
+    value
+  end
+end
+
+def language_to_locale(language)
+  case language
+  when 'English'
+    :en
+  when 'Japanese'
+    :ja
+  else
+    nil
+  end
+end

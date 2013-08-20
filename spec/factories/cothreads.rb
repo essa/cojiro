@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   sequence(:title) { |n| "title #{n}" }
-  sequence(:summary) { |n| "summary #{n}"}
+  sequence(:summary) { |n| "summary #{n}" }
 
   factory :cothread do
     title { FactoryGirl.generate(:title) }

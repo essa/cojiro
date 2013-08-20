@@ -1,9 +1,15 @@
 require 'spec_helper'
 require 'timecop'
+require 'shoulda-matchers'
 
 describe Cothread do
   before do
     I18n.locale = 'en'
+  end
+
+  describe 'associations' do
+    it { should have_many(:comments) }
+    it { should have_many(:links).through(:comments) }
   end
 
   describe "validation with factory" do
@@ -18,8 +24,19 @@ describe Cothread do
     end
 
     it "is invalid without a title in source locale" do
-      subject.title = ""
-      should_not be_valid
+      # need to switch to other locale to make sure we are validating
+      # presence of the title in the source locale explicitly
+      I18n.with_locale(:fr) do
+        subject.source_locale = 'en'
+        subject.title_translations = { :en => "" }
+        should_not be_valid
+      end
+    end
+
+    it 'is valid with a title in source locale' do
+      Globalize.with_locale(:ja) do
+        FactoryGirl.create(:cothread, :source_locale => 'ja', :title => 'title').should be_valid
+      end
     end
 
     it "is valid without a title in other locale" do
@@ -46,86 +63,81 @@ describe Cothread do
       @cothread.save
       @cothread.source_locale.should == "en"
     end
-
   end
 
-  describe "locale helper methods" do
-    before do
-      @cothread = FactoryGirl.create(:cothread,
-                                     :title => "a title in English",
-                                     :summary => "a summary in English")
+  # defined in spec/support/shared_examples.rb
+  describe 'globalize helpers' do
+    let!(:model) { FactoryGirl.create(:cothread) }
+
+    describe 'title' do
+      it_behaves_like 'attribute with locale methods', 'title'
+      it_behaves_like 'attribute with nested translation accessors', 'title'
     end
 
-    shared_examples_for "attribute with locale methods" do |attr_name|
-
-      it "has #{attr_name}_in_source_locale method" do
-        I18n.with_locale(:ja) do
-          @cothread.send(attr_name).should == nil
-          @cothread.send("#{attr_name}_in_source_locale").should == "a #{attr_name} in English"
-        end
-      end
-
+    describe 'summary' do
+      it_behaves_like 'attribute with locale methods', 'summary'
+      it_behaves_like 'attribute with nested translation accessors', 'summary'
     end
-
-    describe "title" do
-      it_behaves_like "attribute with locale methods", "title"
-    end
-
-    describe "summary" do
-      it_behaves_like "attribute with locale methods", "summary"
-    end
-
   end
 
   describe "#to_json" do
     before do
       Timecop.freeze(Time.utc(2002,7,20,12,20)) do
-        @cothread = FactoryGirl.create(:cothread, user: FactoryGirl.create(:csasaki))
+        @cothread = FactoryGirl.build(:cothread,
+                                      user: FactoryGirl.create(:csasaki),
+                                      comments: FactoryGirl.create_list(:comment, 3))
+        Globalize.with_locale(:fr) do
+          @cothread.title = "title in French"
+          @cothread.summary = "summary in French"
+        end
+        @cothread.save
       end
-      @cothread_json = @cothread.to_json
+    end
+    let(:cothread_json) { JSON(@cothread.to_json) }
+    subject { cothread_json }
+    its(['id']) { should be }
+    its(['title']) { should == { "en" => @cothread.title, "fr" => "title in French" } }
+    its(['summary']) { should == { "en" => @cothread.summary, "fr" => "summary in French" } }
+    its(['created_at']) { should == "2002-07-20T12:20:00Z" }
+    its(['updated_at']) { should == "2002-07-20T12:20:00Z" }
+    its(['source_locale']) { should be }
+
+    its(['user']) { should be }
+    its(['user']) { should have_key('name') }
+    its(['user']) { should have_key('fullname') }
+    its(['user']) { should have_key('location') }
+    its(['user']) { should have_key('profile') }
+    its(['user']) { should have_key('avatar_url') }
+    its(['user']) { should have_key('avatar_mini_url') }
+
+    describe 'comments' do
+      subject { cothread_json['comments'] }
+      its([0]) { should be }
+      its([0]) { should have_key('text') }
+      its([0]) { should_not have_key('cothread_id') }
+      its([0]) { should_not have_key('link_id') }
+      its([1]) { should be }
+      its([1]) { should have_key('text') }
+      its([1]) { should_not have_key('cothread_id') }
+      its([1]) { should_not have_key('link_id') }
+      its([2]) { should be }
+      its([2]) { should have_key('text') }
+      its([2]) { should_not have_key('cothread_id') }
+      its([2]) { should_not have_key('link_id') }
     end
 
-    it "has an id" do
-      JSON(@cothread_json)["id"].should be
-    end
-
-    it "has a title" do
-      JSON(@cothread_json)["title"].should be
-    end
-
-    it "has a title_in_source_locale" do
-      JSON(@cothread_json)["title_in_source_locale"].should be
-    end
-
-    it "has a summary" do
-      JSON(@cothread_json)["summary"].should be
-    end
-
-    it "has a summary_in_source_locale" do
-      JSON(@cothread_json)["summary_in_source_locale"].should be
-    end
-
-    it "has created_at and updated_at timestamps" do
-      JSON(@cothread_json)["created_at"].should == "2002-07-20T12:20:00Z"
-      JSON(@cothread_json)["updated_at"].should == "2002-07-20T12:20:00Z"
-    end
-
-    it "has a source language" do
-      JSON(@cothread_json)["source_locale"].should be
-    end
-
-    it "includes user" do
-      JSON(@cothread_json)["user"].should be
-      JSON(@cothread_json)["user"]["name"].should be
-      JSON(@cothread_json)["user"]["fullname"].should be
-      JSON(@cothread_json)["user"]["location"].should be
-      JSON(@cothread_json)["user"]["profile"].should be
-      JSON(@cothread_json)["user"]["avatar_url"].should be
-      JSON(@cothread_json)["user"]["avatar_mini_url"].should be
+    describe 'link associated through comment' do
+      before do
+        link = @cothread.comments[0].link = FactoryGirl.create(:link)
+        link.stub(:site_name).and_return('www.foo.com')
+      end
+      subject { JSON(@cothread.to_json)['comments'][0]['link'] }
+      it { should be }
+      its(['site_name']) { should == 'www.foo.com' }
     end
 
     it "does not include any other attributes" do
-      JSON(@cothread_json).keys.delete_if { |k|
+      cothread_json.keys.delete_if { |k|
         [ "id",
           "title",
           "title_in_source_locale",
@@ -134,11 +146,10 @@ describe Cothread do
           "created_at",
           "updated_at",
           "source_locale",
-          "user"
+          "user",
+          "comments"
         ].include?(k)
       }.should be_empty
     end
-
   end
-
 end

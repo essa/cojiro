@@ -1,3 +1,4 @@
+@wip @javascript
 Feature: Edit thread
   As a curator
   I want to edit a thread I have created
@@ -11,28 +12,35 @@ Feature: Edit thread
     And my locale is "en"
     And the following thread exists:
       | user    | csasaki                                                                            |
-      | title   | Co-working spaces in Tokyo                                                         |
-      | summary | I want to write an an article about the increased popularity of co-working spaces. |
+      | title   | Capoeira in Japan and around the world |
+      | summary | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. |
 
-  @javascript
   Scenario: Edit thread title
-    When I go to the thread with English title "Co-working spaces in Tokyo"
-    And I click on the edit button next to the "title" field
-    And I enter the text "Tokyo's co-working spaces" into the "title" field
-    And I click the save button next to the "title" field
-    Then I should see the translated text "Tokyo's co-working spaces" in the thread
-    And the title of the thread should be "Tokyo's co-working spaces"
+    When I go to the thread with English title "Capoeira in Japan and around the world"
+    And I click on the edit button next to the "title and summary" field
+    And I enter the text "Brazilian martial art Capoeira in Japan and around the world" into the "title" field of the overlay
+    And I click the save button in the overlay
+    Then I should go back to the thread page
+    And the title of the thread should be "Brazilian martial art Capoeira in Japan and around the world"
 
-  @javascript
   Scenario: Edit thread title and summary together
-    When I go to the thread with English title "Co-working spaces in Tokyo"
-    And I click on the edit button next to the "title" field
-    And I click on the edit button next to the "summary" field
-    And I enter the text "Tokyo's co-working spaces" into the "title" field
-    And I enter the text "a new summary" into the "summary" field
-    And I click the save button next to the "title" field
-    And I click the save button next to the "summary" field
-    Then I should see the translated text "Tokyo's co-working spaces" in the thread
-    And I should see the translated text "a new summary" in the thread
-    And the title of the thread should be "Tokyo's co-working spaces"
-    And the summary of the thread should be "a new summary"
+    When I go to the thread with English title "Capoeira in Japan and around the world"
+    And I click on the edit button next to the "title and summary" field
+    And I enter the text "Brazilian martial art Capoeira in Japan and around the world" into the "title" field of the overlay
+    And I enter the text "While the martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan." into the "summary" field
+    And I click the save button in the overlay
+    Then I should go back to the thread page
+    And the title of the thread should be "Capoeira in Japan and around the world"
+    And the summary of the thread should be "While the martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan."
+
+  Scenario Outline: Tries to save without a title
+    When I go to the thread with English title "Capoeira in Japan and around the world"
+    And I click on the edit button next to the "title and summary" field
+    And I enter the text "" into field of the overlay
+    And I click the save button in the overlay
+    Then I should see an error message: "There were problems with the following fields:"
+    And I should see an error message: "<message>"
+
+    Examples:
+      | title   | summary                                             | message        |
+      |         | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. | can't be blank |

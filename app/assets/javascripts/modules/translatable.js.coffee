@@ -1,9 +1,9 @@
 define [
   'modules/translatable/model'
-  'modules/translatable/view'
-], (Model, View) ->
+  'modules/translatable/in-place-field'
+], (Model, InPlaceField) ->
 
   class Translatable
 
     Translatable.Model = Model
-    Translatable.View = View
+    Translatable.InPlaceField = InPlaceField

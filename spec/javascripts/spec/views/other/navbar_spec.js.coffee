@@ -6,7 +6,7 @@ define (require) ->
 
   describe "NavbarView", ->
 
-    describe "instantiation", ->
+    describe "initialization", ->
       beforeEach ->
         @view = new NavbarView
 
@@ -31,9 +31,9 @@ define (require) ->
         describe "shared behaviour for navbar", ->
           beforeEach ->
             I18n.locale = context.locale
-            @startAThread = context.startAThread
+            @start_a_thread = context.start_a_thread
             @logout = context.logout
-            @twitterSignIn = context.twitterSignIn
+            @twitter_sign_in = context.twitter_sign_in
 
           describe "logged-out user", ->
             beforeEach ->
@@ -41,13 +41,13 @@ define (require) ->
               @$el = @view.render().$el
 
             it "does not render start a thread link", ->
-              expect(@$el).not.toHaveText(new RegExp(@startAThread))
+              expect(@$el).not.toHaveText(new RegExp(@start_a_thread))
 
             it "does not render a logout link", ->
               expect(@$el).not.toHaveText(new RegExp(@logout))
 
             it "renders twitter sign-in link", ->
-              expect(@$el).toHaveText(new RegExp(@twitterSignIn))
+              expect(@$el).toHaveText(new RegExp(@twitter_sign_in))
 
           describe "logged-in user", ->
             beforeEach ->
@@ -55,26 +55,26 @@ define (require) ->
               @$el = @view.render().$el
 
             it "renders start a thread link", ->
-              expect(@$el).toHaveText(new RegExp(@startAThread))
+              expect(@$el).toHaveText(new RegExp(@start_a_thread))
 
             it "renders logout link", ->
               expect(@$el).toHaveText(new RegExp(@logout))
 
             it "does not render twitter sign-in link", ->
-              expect(@$el).not.toHaveText(new RegExp(@twitterSignIn))
+              expect(@$el).not.toHaveText(new RegExp(@twitter_sign_in))
 
       describe "English locale", ->
         sharedExamplesForNavbar(
           locale: 'en'
-          startAThread: "Start a thread"
+          start_a_thread: "Start a thread"
           logout: "Logout"
-          twitterSignIn: "Sign in through Twitter"
+          twitter_sign_in: "Sign in through Twitter"
         )
 
       describe "Japanese locale", ->
         sharedExamplesForNavbar(
           locale: 'ja'
-          startAThread: "スレッドを立てる"
+          start_a_thread: "スレッドを立てる"
           logout: "ログアウト"
-          twitterSignIn: "Twitterでサインインする"
+          twitter_sign_in: "Twitterでサインインする"
         )

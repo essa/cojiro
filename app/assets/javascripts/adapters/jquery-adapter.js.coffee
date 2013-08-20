@@ -1,4 +1,4 @@
 define [
-  'jquery',
+  'jquery'
   'jquery_ujs'
 ], ($) -> $

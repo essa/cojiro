@@ -12,6 +12,7 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'webmock/rspec'
+  require 'vcr'
   require 'capybara/rspec'
   require 'capybara/rails'
   require 'capybara/webkit'
@@ -61,8 +62,35 @@ Spork.prefork do
     # needed to avoid conflicts with capyabara for tests where :js => true
     WebMock.disable_net_connect!(:allow_localhost => true)
 
+    # we don't want to make any actual calls to the API or save the key anywhere
+    ENV['EMBEDLY_KEY'] = 'EMBEDLY_KEY'
+
+    # Cucumber is configured separately, see features/support/vcr.rb
+    VCR.configure do |c|
+      c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+      c.allow_http_connections_when_no_cassette = true
+      c.hook_into :webmock
+      # ignore api key
+      c.default_cassette_options = {
+        :match_requests_on => [ :method, VCR.request_matchers.uri_without_param(:key)]
+      }
+    end
+
+    # ref: https://github.com/vcr/vcr/issues/146
+    VCR.turn_off!
+
+    # Turns VCR on then off around the VCR.use_cassette block
+    VCR.extend Module.new {
+      def use_cassette(*args)
+        VCR.turn_on!
+        super
+        VCR.turn_off!
+      end
+    }
+
     config.before(:each) do
       load_request_stubs
+      load_embedly_request_stub
     end
 
     # ref: http://highgroove.com/articles/2012/04/06/sane-rspec-config-for-clean,-and-slightly-faster,-specs.html
@@ -116,6 +144,14 @@ end
 Spork.each_run do
   # This code will be run each time you run your specs.
 
+  # reset factories
+  FactoryGirl.reload
+
+  # reload routes
+  Cojiro::Application.reload_routes!
+
+  # ref: http://blog.carbonfive.com/2010/12/10/speedy-test-iterations-for-rails-3-with-spork-and-guard/
+  load 'Sporkfile.rb' if File.exists?('Sporkfile.rb')
 end
 
 # --- Instructions ---

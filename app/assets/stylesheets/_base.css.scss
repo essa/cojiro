@@ -1,0 +1,29 @@
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "compass/css3/images";
+@import "compass/utilities/general/clearfix";
+
+/* Colors variables */
+$white: #FFFFFF;
+$cojiroBlue: #04B5F2;
+$cojiroLightBlue: lighten($cojiroBlue, 40%);
+$cojiroGray: #aaa;
+$cojiroLightGray: #eee;
+
+$statbarBackground: $cojiroLightGray;
+$statbarBackgroundLight: #E5E5E5;
+$statbarBorder: $cojiroGray;
+$statbarText: #777777;
+
+$linkUrlHeight: 22px;
+$linkDescriptionHeight: 228px;
+// 22px for border and padding
+$linkHeight: $linkUrlHeight + $linkDescriptionHeight + 52px;
+
+$heroUnitBackground: $white;
+
+$navbarBackground: lighten($cojiroLightBlue, 50%);
+$navbarBackgroundHighlight: $white;
+$navbarBorder: $cojiroLightBlue;
+
+@import "bootstrap";

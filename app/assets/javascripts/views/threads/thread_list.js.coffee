@@ -2,18 +2,20 @@ define [
   'jquery'
   'underscore'
   'backbone'
-  'modules/base'
+  'modules/base/view'
   'views/threads/thread_list_item'
-  'templates/threads/list'
-  'timeago'
-], ($, _, Backbone, Base, ThreadListItemView, threadsListTemplate) ->
+  'jquery.timeago'
+], ($, _, Backbone, BaseView, ThreadListItemView) ->
 
-  class ThreadListView extends Base.View
-    id: 'threads_list'
+  class ThreadListView extends BaseView
+    template: _.template '<tbody></tbody>'
     tagName: 'table'
-    className: 'table table-striped'
+    className: 'threads_list table table-striped'
 
-    initialize: ->
+    initialize: (options = {}) ->
+      @ThreadListItemView = options.ThreadListItemView || ThreadListItemView
+
+      @collection && @collection.on('add', @render, @)
 
     render: ->
       @renderLayout()
@@ -22,7 +24,7 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(threadsListTemplate())
+      @$el.html(@template())
 
     renderListItems: ->
       listItemsContainer = @.$('tbody')
@@ -30,7 +32,7 @@ define [
 
       self = @
       @collection.each (thread) ->
-        threadListItemView = new ThreadListItemView(model: thread)
+        threadListItemView = new self.ThreadListItemView(model: thread)
         self.renderChild(threadListItemView)
         listItemsContainer.append(threadListItemView.el)
 

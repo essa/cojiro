@@ -1,0 +1,349 @@
+@import 'base';
+
+/* Navbar */
+
+.navbar-inner {
+  @include box-shadow(0 0 1px 0px $cojiroGray !important);
+  border-bottom: 4px solid $cojiroGray !important;
+//  background-image: none !important;
+
+  a.dropdown-toggle:hover { cursor: pointer }
+}
+
+.hero-unit {
+  padding-top: 20px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  padding-bottom: 10px !important;
+
+  h1 {
+    margin-bottom: 20px !important;
+  }
+}
+
+
+/* Home */
+
+/* fix to get thread list to appear below top-right form */
+
+#threads {
+  clear: both;
+}
+
+tbody > {
+  .clickable {
+    cursor: pointer;
+  }
+}
+
+#thread-filter {
+  display: block;
+  float: right;
+  margin-left: 10px;
+}
+
+/* Thread show page */
+
+/* Statbar underneath the title */
+
+.statbar {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  background-color: $statbarBackground; /* Old browsers */
+  @include background(linear-gradient(top, $statbarBackground 0%, $statbarBackground 100%));
+  @include border-radius(6px);
+  border: 2px solid $statbarBorder;
+
+  .nav {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+ul.nav-pills {
+  height: 50px;
+}
+
+/* reproduce .navpills link formatting for non-link list items */
+.nav-pills > {
+  li {
+    //border-right: 2px solid white;
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-right: 2px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    line-height: 14px;
+  }
+  li > a {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  li.sep {
+    border-radius: 0px;
+    padding: 0 !important;
+    margin-top: 0;
+    height: 100%;
+    border-right: 2px solid $statbarBorder;
+  }
+  li.avatar {
+    padding-top: 8px;
+  }
+  li > a.unstyled {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.stat, .date {
+  font-weight: bold;
+  color: black
+}
+
+.name {
+  color: black;
+  font-weight: bold;
+}
+
+.handle {
+  color: black;
+}
+
+.stattext, .status {
+  text-transform: uppercase;
+  font-size: 90%;
+  color: $statbarText;
+}
+
+/* Thread area */
+.thread {
+  h1 {
+    font-size: 500%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    line-height: 80px;
+    margin-right: 20px;
+    input, textarea {
+      width: 100%;
+    }
+  }
+  h2 {
+    font-weight: normal;
+    margin-bottom: 40px;
+    input, textarea {
+      width: 100%;
+    }
+  }
+  // based on bootstrap "thumbnail/thumbnails" classes
+  .links {
+    @include makeRow();
+  }
+  .link {
+    @include makeColumn(3,0);
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  .link-inner {
+    display: block;
+    overflow: hidden;
+    height: $linkHeight;
+    line-height: $baseLineHeight;
+    @include border-radius(8px);
+    @include box-shadow(#{0 1px 3px rgba(0,0,0,.055)});
+    @include transition(all .2s ease-in-out);
+    background: $cojiroLightGray;
+    a {
+      text-decoration: none;
+      color: $black;
+    }
+    a.add-link:hover {
+      cursor: pointer;
+    }
+    .url {
+      color: $black;
+      display: block;
+      overflow: hidden;
+      height: $linkUrlHeight;
+      border-bottom: 2px solid white;
+      padding: 10px;
+      span.favicon {
+        img {
+          max-width: 16px;
+          max-height: 16px;
+        }
+      }
+      span.site {
+        font-size: $baseFontSize;
+      }
+    }
+    .url:hover {
+      background: $cojiroGray;
+    }
+
+    a.description {
+      position: relative;
+    }
+    .description {
+      display: block;
+      height: $linkDescriptionHeight;
+      border-bottom: 5px solid $cojiroLightGray;
+    }
+    .description, .add-link {
+      overflow: hidden;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+    .title textarea {
+      height: $linkDescriptionHeight / 4;
+    }
+    .summary textarea {
+      height: $linkDescriptionHeight / 2;
+    }
+    .add-link {
+      text-align: center;
+      height: $linkHeight/2 + 50px;
+      padding-top: $linkHeight/2 - 50px;
+      display: block;
+      text-decoration: none;
+    }
+
+    .add-link-button {
+      background-image: url('plus-mark.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 80px;
+      width: 100%;
+    }
+
+    h3.title {
+      font-size: $baseFontSize * 1.4;
+      line-height: $baseLineHeight * 1.4;
+    }
+
+    p.summary {
+      overflow: hidden;
+    }
+
+    // position in-place-field 80px below top of the box
+    // regardless of how large the title field is,
+    // to prevent buttons being hidden
+    .summary > .in-place-field > div {
+      position: absolute;
+      top: 80px;
+    }
+
+  }
+  .status-avatar {
+    position: relative;
+    width: 220px;
+    margin-bottom: 5px;
+    height: 32px;
+  }
+  .status-avatar img {
+    position: absolute;
+    top: 50%;
+    margin-top: -16px;
+    height: 32px;
+    display: inline-block;
+  }
+  .status-message {
+    position: absolute;
+    top: 50%;
+    left: 42px;
+    height: 32px;
+    margin-top: -16px;
+  }
+  .popover-title {
+    @include clearfix()
+  }
+  // Add a hover state for linked versions only
+  a.link:hover {
+    border-color: $linkColor;
+    @include box-shadow(#{0 1px 4px rgba(0,105,214,.25)});
+  }
+
+  // Images and captions
+  .link > img {
+    display: block;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .link .caption {
+    padding: 9px;
+    color: $gray;
+  }
+}
+
+/* -------- Add link dialog ----- */
+
+#modal.add-url form {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#modal.add-url {
+  #loading {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+#modal.submit-comment-link {
+  width: 900px;
+  margin-left: -450px;
+
+  .modal-body {
+    max-height: 80%;
+    padding-bottom: 0;
+  }
+
+  form.link-form {
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+
+  form {
+
+    .title, .summary, .text {
+      textarea,.uneditable-input {
+        width: 90%;
+      }
+    }
+
+    .title textarea,.title .uneditable-input {
+      height: $baseLineHeight;
+    }
+
+    .summary textarea,.summary .uneditable-input {
+      height: $baseLineHeight * 4;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    .uneditable-input {
+      color: #555555;
+      white-space: normal;
+    }
+  }
+}
+
+/* we need to render errors for inline forms as well as
+   horizontal ones */
+form .error {
+  border-color: #B94A48;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+@import "translatable/in_place_field";

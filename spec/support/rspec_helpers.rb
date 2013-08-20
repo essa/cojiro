@@ -1,3 +1,5 @@
+require 'vcr'
+
 module MockModels
   ["cothread", "user", "authorization"].each do |model_name|
   eval <<-END_RUBY
@@ -14,7 +16,12 @@ module Helpers
 
   def twitter_sign_in
     visit '/auth/twitter'
-    wait_until { page.has_css? '#navbar' }
+  end
+
+  def use_vcr_cassette(name)
+    around(:each) do |example|
+      VCR.use_cassette(name) { example.run }
+    end
   end
 
 end

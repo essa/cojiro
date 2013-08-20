@@ -5,31 +5,31 @@ define (require) ->
   Threads = require('collections/threads')
 
   # make sure dependencies are loaded before stubbing, for unstubbed tests
-  require('views/threads/thread_list_item')
+  ThreadListItemView = require('views/threads/thread_list_item')
+  ThreadListView = require('views/threads/thread_list')
 
-  listItemView = new Backbone.View()
-  listItemView.render = () ->
-    @el = document.createElement('tr')
-    @
-  ThreadListItemView = sinon.stub().returns(listItemView)
+  describe "ThreadListView", ->
+    beforeEach -> @renderSpy = sinon.spy(ThreadListView::, 'render')
+    afterEach -> @renderSpy.restore()
 
-  context(
-    'models/thread': Thread
-    'collections/threads': Threads
-    "views/threads/thread_list_item": ThreadListItemView
-  ) ['views/threads/thread_list'], (ThreadListView) ->
-
-    describe "ThreadListView (with stubbed ThreadListItemView)", ->
+    describe 'with stubbed ThreadListItemView', ->
       beforeEach ->
-        @view = new ThreadListView()
+        # create stub child view
+        @listItemView = new Backbone.View()
+        @listItemView.render = () ->
+          @el = document.createElement('tr')
+          @
+        @ThreadListItemView = sinon.stub().returns(@listItemView)
 
-      describe "instantiation", ->
+      describe "initialization", ->
         beforeEach ->
-          @view.collection = new Backbone.Collection()
+          @view = new ThreadListView(
+            ThreadListItemView: @ThreadListItemView
+            collection: new Backbone.Collection)
           @$el = @view.$el
 
         it "creates a table element for a threads list", ->
-          expect(@$el).toBe("table#threads_list")
+          expect(@$el).toBe("table.threads_list")
 
         it "has bootstrap classes", ->
           expect(@$el).toHaveClass("table")
@@ -37,27 +37,30 @@ define (require) ->
 
       describe "rendering", ->
         beforeEach ->
-          sinon.spy(listItemView, "render")
+          sinon.spy(@listItemView, "render")
           @thread1 = new Backbone.Model()
           @thread2 = new Backbone.Model()
           @thread3 = new Backbone.Model()
-          @view.collection = new Backbone.Collection([ @thread1, @thread2, @thread3 ])
+          @view = new ThreadListView(
+            ThreadListItemView: @ThreadListItemView
+            collection: new Backbone.Collection([ @thread1, @thread2, @thread3 ]))
           @returnVal = @view.render()
 
         afterEach ->
-          listItemView.render.restore()
+          @listItemView.render.restore()
 
         it "returns the view object", ->
           expect(@returnVal).toEqual(@view)
 
         it "creates a ThreadListItemView for each model", ->
-          expect(ThreadListItemView.alwaysCalledWithNew()).toBeTruthy()
-          expect(ThreadListItemView).toHaveBeenCalledWith(model: @thread1)
-          expect(ThreadListItemView).toHaveBeenCalledWith(model: @thread2)
-          expect(ThreadListItemView).toHaveBeenCalledWith(model: @thread3)
+          #expect(ThreadListItemView.alwaysCalledWithNew()).toBeTruthy()
+          expect(@ThreadListItemView).toHaveBeenCalledThrice()
+          expect(@ThreadListItemView).toHaveBeenCalledWith(model: @thread1)
+          expect(@ThreadListItemView).toHaveBeenCalledWith(model: @thread2)
+          expect(@ThreadListItemView).toHaveBeenCalledWith(model: @thread3)
 
         it "renders each ThreadListItemView", ->
-          expect(listItemView.render).toHaveBeenCalledThrice()
+          expect(@listItemView.render).toHaveBeenCalledThrice()
 
         it "appends list items to the list", ->
           expect(@view.$('tbody').children().length).toEqual(3)
@@ -66,22 +69,32 @@ define (require) ->
           expect(@view.children).toBeDefined()
           expect(@view.children.size()).toEqual(3)
 
-  context(
-    'models/thread': Thread
-    'collections/threads': Threads
-  ) ['views/threads/thread_list'], (ThreadListView) ->
+      describe 'events', ->
+        describe 'thread added to collection', ->
+          beforeEach ->
+            @collection = new Backbone.Collection
+            @view = new ThreadListView(
+              ThreadListItemView: @ThreadListItemView
+              collection: @collection)
+
+          it 're-renders the thread list', ->
+            @collection.trigger('add')
+            expect(@renderSpy).toHaveBeenCalledOnce()
+            expect(@renderSpy).toHaveBeenCalledWithExactly()
 
     describe "with actual ThreadListItemView", ->
-
-      beforeEach ->
-        @view = new ThreadListView()
 
       describe "dynamic jquery timeago tag", ->
         beforeEach ->
           @clock = sinon.useFakeTimers()
           @thread = new Thread(_(@fixtures.Thread.valid).extend(updated_at: new Date().toJSON()))
           @threads = new Threads([@thread])
-          @view.collection = @threads
+
+          # TODO: figure out why we need this
+          # -> something to do with Backbone.Relational
+          @thread.collection = @threads
+
+          @view = new ThreadListView(collection: @threads)
           @view.render()
 
         afterEach ->

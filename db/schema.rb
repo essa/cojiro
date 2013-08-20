@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120715131851) do
+ActiveRecord::Schema.define(:version => 20130818052250) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -21,13 +21,38 @@ ActiveRecord::Schema.define(:version => 20120715131851) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "comment_translations", :force => true do |t|
+    t.integer  "comment_id", :null => false
+    t.string   "locale",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.text     "text"
+  end
+
+  add_index "comment_translations", ["comment_id"], :name => "index_comment_translations_on_comment_id"
+  add_index "comment_translations", ["locale"], :name => "index_comment_translations_on_locale"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "cothread_id",                :null => false
+    t.integer  "link_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "user_id",                    :null => false
+    t.string   "source_locale", :limit => 2
+  end
+
+  add_index "comments", ["cothread_id", "link_id"], :name => "index_comments_on_cothread_id_and_link_id", :unique => true
+  add_index "comments", ["cothread_id"], :name => "index_comments_on_cothread_id"
+  add_index "comments", ["link_id"], :name => "index_comments_on_link_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
   create_table "cothread_translations", :force => true do |t|
-    t.integer  "cothread_id"
-    t.string   "locale"
-    t.string   "title"
-    t.text     "summary"
+    t.integer  "cothread_id", :null => false
+    t.string   "locale",      :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "title"
+    t.text     "summary"
   end
 
   add_index "cothread_translations", ["cothread_id"], :name => "index_cothread_translations_on_cothread_id"
@@ -39,6 +64,31 @@ ActiveRecord::Schema.define(:version => 20120715131851) do
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
   end
+
+  create_table "link_translations", :force => true do |t|
+    t.integer  "link_id",    :null => false
+    t.string   "locale",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "title"
+    t.text     "summary"
+  end
+
+  add_index "link_translations", ["link_id"], :name => "index_link_translations_on_link_id"
+  add_index "link_translations", ["locale"], :name => "index_link_translations_on_locale"
+
+  create_table "links", :force => true do |t|
+    t.string   "url",                        :null => false
+    t.integer  "user_id"
+    t.text     "oembed_data"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "source_locale", :limit => 2
+    t.string   "extract_data"
+  end
+
+  add_index "links", ["url"], :name => "index_links_on_url", :unique => true
+  add_index "links", ["user_id"], :name => "index_links_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

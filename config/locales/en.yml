@@ -2,40 +2,53 @@ en:
   en: English
   ja: Japanese
 
-  templates:
+  views:
+    threads:
+      thread:
+        add_a_link: Add a link
+      statbar:
+        links: links
+        started: started
+        updated: last updated
+      new_thread:
+        thread_created: "Thread successfully created."
+        start_a_thread: Start a thread
+        submit: Create thread
+        cancel: Cancel
+        errors:
+          body: ! 'There were problems with the following fields:'
+          header:
+            one: 1 error prohibited this %{model} from being saved
+            other: ! '%{count} errors prohibited this %{model} from being saved'
+      thread_list_item:
+        started_by: Started by @%{username}
+        updated_ago: "Updated <time class='timeago' datetime='%{datetime}'></time>"
+        new_label: New
+      add_url:
+        add_a_link: 'Add a link'
+        enter_a_url: Enter a URL...
+        go: 'Go!'
+        already_added: This link has already been added to this thread.
+        blank: URL cannot be blank.
+      submit_comment_link:
+        already_registered: This link is already registered in cojiro. It was added by @%{name} on %{date}.
+
     homepage:
       index:
         catchphrase: Curating content from one language to another
         lead_html: <p class='lead'>Cojiro is a platform that connects people with complementary skill sets to identify, group and convey stories in one language to a broader audience in another language.</p><p><a class='btn btn-primary btn-large' href='%{url}'>Learn more.</a></p>
         recent_threads: Recent threads
         invite_message_html: Please <a href='%{new_account_url}'>create an account</a> or <a href='%{login_url}'>log in</a> to contribute your expertise.
-    threads:
-      new:
+    other:
+      navbar:
+        home: Home
         start_a_thread: Start a thread
-      form_actions:
-        create_thread: Create thread
-        cancel: Cancel
-      list_item:
-        started_by: Started by @%{username}
-        updated_ago: "Updated <time class='timeago' datetime='%{timeago}'></time>"
-      show:
-        neta: links
-        started: started
-        updated: last updated
-        edit: Edit
-        add_in: Add %{lang}
-    shared:
-      new_label:
-        new: New
+        twitter_sign_in: Sign in through Twitter
+        logout: Logout
 
-  views:
-    threads:
-      new_thread:
-        thread_created: "Thread successfully created."
-    mixins:
-      translatable_fields:
-        save: Save
-        cancel: Cancel
+  models:
+    comment:
+      added_ago: "@%{name} added <time class='timeago' datetime='%{datetime}'>%{timeago}</time>"
 
   jquery:
     timeago:
@@ -61,11 +74,10 @@ en:
     thread:
       title: title
       summary: summary
-
-  layout:
-    start_a_thread: Start a thread
-    twitter_sign_in: Sign in through Twitter
-    logout: Logout
+    link:
+      title: title
+      summary: summary
+      source_locale: This link is in
 
   date:
     abbr_day_names:
@@ -168,6 +180,7 @@ en:
     messages:
       accepted: must be accepted
       blank: can't be blank
+      blank_in_lang: can't be blank in %{lang}
       confirmation: doesn't match confirmation
       empty: can't be empty
       equal_to: must be equal to %{count}
@@ -193,11 +206,6 @@ en:
       wrong_length:
         one: is the wrong length (should be 1 character)
         other: is the wrong length (should be %{count} characters)
-    template:
-      body: ! 'There were problems with the following fields:'
-      header:
-        one: 1 error prohibited this %{model} from being saved
-        other: ! '%{count} errors prohibited this %{model} from being saved'
   helpers:
     select:
       prompt: Please select

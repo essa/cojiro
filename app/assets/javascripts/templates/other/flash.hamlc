@@ -1,3 +1,0 @@
-.alert{ id: "flash_#{@name}", class: "alert-#{@name} #{@name}" }
-  %a.close{ href: "#", data-dismiss: "alert", data-bypass: "true", type: "button" }&times;
-  =@msg

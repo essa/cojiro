@@ -3,27 +3,42 @@ shim:
     exports: 'I18n'
   'backbone':
     exports: 'Backbone'
-    deps: [ 'jquery', 'underscore']
+    deps: [ 'jquery', 'underscore' ]
   'backbone-support':
     exports: 'Support'
-    deps: [ 'jquery', 'underscore', 'backbone' ]
+    deps: [ 'backbone' ]
+  'backbone-relational': [ 'backbone' ]
   'jquery.timeago': [ 'jquery' ]
   'jquery_ujs': [ 'jquery' ]
   'bootstrap-dropdown': [ 'jquery' ]
   'bootstrap-button': [ 'jquery' ]
   'bootstrap-alert': [ 'jquery' ]
+  'bootstrap-modal': [ 'jquery' ]
+  'bootstrap-tooltip': [ 'jquery' ]
+  'bootstrap-popover': [ 'jquery', 'bootstrap-tooltip' ]
+  'underscore':
+    exports: '_'
 
 map:
   '*':
     'i18n': 'adapters/i18n-adapter'
-    'timeago': 'adapters/jquery.timeago-adapter'
-    'backbone-forms': 'adapters/backbone-forms-adapter'
+    'jquery.timeago': 'adapters/jquery.timeago-adapter'
     'jquery': 'adapters/jquery-adapter'
+    'backbone': 'adapters/backbone-adapter'
+    'bootstrap-tooltip': 'adapters/bootstrap-tooltip-adapter'
   'adapters/i18n-adapter':
     'i18n': 'i18n'
-  'adapters/backbone-forms-adapter':
-    'backbone-forms': 'backbone-forms'
+  'adapters/jquery.timeago-adapter':
+    'jquery.timeago': 'jquery.timeago'
   'adapters/jquery-adapter':
     'jquery': 'jquery'
+  'adapters/bootstrap-tooltip-adapter':
+    'bootstrap-tooltip': 'bootstrap-tooltip'
   'jquery_ujs':
     'jquery': 'jquery'
+  'adapters/backbone-adapter':
+    'backbone': 'backbone'
+  'backbone-relational':
+    'backbone': 'backbone'
+  'patches/backbone-sync':
+    'backbone': 'backbone'

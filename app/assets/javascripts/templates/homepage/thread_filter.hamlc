@@ -1,6 +1,0 @@
-%fieldset
-  %label.control-label{ for: "thread-filter" }
-    Show me:
-  %select#thread-filter.span3
-    %option{ value: "all"} everything
-    %option{ value: "mine" } threads that I started

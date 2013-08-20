@@ -7,4 +7,5 @@ World(CojiroRequestStubs)
 
 Before do
   load_request_stubs
+  load_embedly_request_stub
 end

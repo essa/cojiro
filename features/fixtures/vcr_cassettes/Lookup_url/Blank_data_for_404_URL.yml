@@ -1,0 +1,107 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=http://google.com/404.html
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 18 Aug 2013 06:51:04 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '133'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"e88c2ec20090fec1428369a0f97030bc3635fcb6"'
+      X-Embedly-Process-Time:
+      - '33'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api09
+    body:
+      encoding: US-ASCII
+      string: ! '[{"url": "http://google.com/404.html", "error_code": 404, "error_message":
+        "HTTP 404: Not Found", "type": "error", "version": "1.0"}]'
+    http_version: 
+  recorded_at: Sun, 18 Aug 2013 06:51:04 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/extract?key=&urls=http://google.com/404.html
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 18 Aug 2013 06:51:04 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '300'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"080d25646cae6c3e85118d0e8479fad9b7a4e1a8"'
+      X-Embedly-Process-Time:
+      - '48'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api18
+      Content-Encoding:
+      - gzip
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA32RTWrDMBCFr2K0DnZLQik+QNtV6SK7EIwijW1RSSP0E2NC
+        7t5R4tqmhWyE5unpzTfS4cKcx7OS4JvkNasL1sfo6qoahqHsEDsNpUDDNgWT
+        EIRXLiq05LNJaxLBnEAGqg9HqgJvgfbRJ6BqTpYqOM3HnP4/1oPmEeRvRMvP
+        SqB9SFNNppKWHMFT7NHPFHF0mYKB9+jzuTK8g/lYcNFDQwoJry/b7TNpGrhc
+        htLcdulumBT0qlOW6z9YK6Td067so9G530P2tdGAVJysl+tmwm0MhHBvzT72
+        +6+C7HXxibF4w2RlvoRtGyAubPQQEexKoEJFtQz8DeOAfvkll05ahR5WE9MF
+        vRp3/jnLzQ3l/cbPZkqBMusEdz3+APmiWGpEAgAA
+    http_version: 
+  recorded_at: Sun, 18 Aug 2013 06:51:04 GMT
+recorded_with: VCR 2.5.0

@@ -1,16 +1,54 @@
 define [
-  'jquery',
-  'underscore',
-  'backbone',
-  'modules/base',
-  'templates/other/navbar'
-], ($, _, Backbone, Base, navbarTemplate) ->
+  'jquery'
+  'underscore'
+  'modules/base/view'
+  'globals'
+  'bootstrap'
+], ($, _, BaseView, globals) ->
 
-  class NavbarView extends Base.View
+  class NavbarView extends BaseView
+    template: _.template '
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="#"><%= t(".home") %></a></li>
+            <% if (!!currentUser) { %>
+              <li>
+                <a href="<%= locale + \"/threads/new\" %>">
+                  <%= t(".start_a_thread") %>
+                </a>
+              </li>
+            <% } %>
+          </ul>
+          <ul class="nav secondary-nav pull-right">
+            <% if (!!currentUser) { %>
+              <li id="profile-menu" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                  @<%= currentUser.name %> <b class="caret" />
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="/logout?locale=<%= locale %>" data-bypass="true">
+                      <%= t(".logout") %>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            <% } else { %>
+              <li>
+                <a href="/auth/twitter?locale=<%= locale %>" data-bypass="true">
+                  <%= t(".twitter_sign_in") %>
+                </a>
+              </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>'
     className: 'navbar navbar-fixed-top'
 
-    initialize: ->
-
     render: ->
-      @$el.html(navbarTemplate())
+      @$el.html(@template(
+        t: I18n.scoped('views.other.navbar').t
+        currentUser: globals.currentUser
+        locale: I18n.locale))
       @
