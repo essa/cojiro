@@ -11,6 +11,7 @@ define (require) ->
     beforeEach ->
       I18n.locale = 'en'
       link = new Link(
+        url: 'http://www.example.com'
         title: en: "What is CrossFit?"
         site_name: 'www.youtube.com'
         favicon_url: 'http://s.ytimg.com/yts/img/favicon-vfldLzJxy.ico'
@@ -52,6 +53,10 @@ define (require) ->
 
         it 'renders content', ->
           expect(@$el).toContain('a.description')
+
+        it 'renders original link with target="_blank" attribute', ->
+          expect(@$el).toContain('a', href: 'http://www.example.com')
+          expect(@view.$('a[href="http://www.example.com"]')).toHaveAttr('target', '_blank')
 
         it 'renders site name', ->
           expect(@view.$('.site')).toHaveText('www.youtube.com')

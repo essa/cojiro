@@ -16,7 +16,7 @@ define [
       <div class="link-inner"
            data-toggle="popover">
         <div class="url">
-          <a href="<%= url %>">
+          <a href="<%= url %>" target="_blank">
             <span class="favicon"><img src="<%= faviconUrl %>" /></span>
             <span class="site"><%= siteName %></span>
             <span class="lang">(<%= sourceLocale %>)</span>
