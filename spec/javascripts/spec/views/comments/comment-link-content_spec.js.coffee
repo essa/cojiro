@@ -5,7 +5,7 @@ define (require) ->
   Link = require('models/link')
   User = require('models/user')
   Comment = require('models/comment')
-  CommentLinkContentView = require('views/comments/comment_link_content')
+  CommentLinkContentView = require('views/comments/comment-link-content')
   globals = require('globals')
 
   describe 'CommentLinkContent', ->

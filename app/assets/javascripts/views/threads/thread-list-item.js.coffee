@@ -37,7 +37,7 @@ define [
       @$el.html(@template(
         translated: translated
         title: title
-        t: I18n.scoped('views.threads.thread_list_item').t
+        t: I18n.scoped('views.threads.thread-list-item').t
         username: @model.getUserName()
         datetime: @model.get('updated_at')
         isNew: isNew

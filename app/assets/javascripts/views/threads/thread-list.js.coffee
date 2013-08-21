@@ -3,7 +3,7 @@ define [
   'underscore'
   'backbone'
   'modules/base/view'
-  'views/threads/thread_list_item'
+  'views/threads/thread-list-item'
   'jquery.timeago'
 ], ($, _, Backbone, BaseView, ThreadListItemView) ->
 

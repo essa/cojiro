@@ -10,7 +10,7 @@ en:
         links: links
         started: started
         updated: last updated
-      new_thread:
+      new-thread:
         thread_created: "Thread successfully created."
         start_a_thread: Start a thread
         submit: Create thread
@@ -20,17 +20,17 @@ en:
           header:
             one: 1 error prohibited this %{model} from being saved
             other: ! '%{count} errors prohibited this %{model} from being saved'
-      thread_list_item:
+      thread-list-item:
         started_by: Started by @%{username}
         updated_ago: "Updated <time class='timeago' datetime='%{datetime}'></time>"
         new_label: New
-      add_url:
+      add-url:
         add_a_link: 'Add a link'
         enter_a_url: Enter a URL...
         go: 'Go!'
         already_added: This link has already been added to this thread.
         blank: URL cannot be blank.
-      submit_comment_link:
+      submit-comment-link:
         already_registered: This link is already registered in cojiro. It was added by @%{name} on %{date}.
 
     homepage:

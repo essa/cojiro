@@ -34,11 +34,11 @@ define [
 
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
 
-      @header = new @ModalHeaderView(title: I18n.t('views.threads.add_url.add_a_link'))
+      @header = new @ModalHeaderView(title: I18n.t('views.threads.add-url.add_a_link'))
       @link = options.link
 
     render: () ->
-      @$el.html(@template(t: I18n.scoped('views.threads.add_url').t))
+      @$el.html(@template(t: I18n.scoped('views.threads.add-url').t))
       @renderChildInto(@header, '.modal-header')
       @
 
@@ -55,13 +55,13 @@ define [
             @.$('#loading').remove()
             @.$('.modal-body').show()
             if self.model.hasLink(model.getUrl())
-              self.renderError(I18n.t('views.threads.add_url.already_added'))
+              self.renderError(I18n.t('views.threads.add-url.already_added'))
             else
               self.next()
         @.$('.modal-body').hide()
         @$el.append('<img id="loading" src="/images/loading.gif"></img>')
       else
-        @renderError(I18n.t('views.threads.add_url.blank'))
+        @renderError(I18n.t('views.threads.add-url.blank'))
 
     renderError: (msg) ->
       @$('input[name="url"]').addClass('error')

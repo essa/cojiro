@@ -10,7 +10,7 @@ ja:
         links: ネタ
         started: に登録した
         updated: last updated
-      new_thread:
+      new-thread:
         thread_created: "スレッドは作成されました。"
         start_a_thread: スレッドを立てる
         submit: 登録する
@@ -20,7 +20,7 @@ ja:
           header:
             one: ! '%{model}にエラーが発生しました。'
             other: ! '%{model}に%{count}つのエラーが発生しました。'
-      thread_list_item:
+      thread-list-item:
         started_by: "@%{username}が登録した"
         updated_ago: "<time class='timeago' datetime='%{datetime}'></time> 更新しました"
         new_label: New

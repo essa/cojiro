@@ -4,7 +4,7 @@ define (require) ->
   I18n = require('i18n')
 
   Thread = require('models/thread')
-  NewThreadView = require('views/threads/new_thread')
+  NewThreadView = require('views/threads/new-thread')
 
   router = navigate: ->
 
@@ -25,7 +25,7 @@ define (require) ->
       describe 'initialization', ->
 
         it 'creates the new thread element', ->
-          expect(@$el).toBe('#new_thread')
+          expect(@$el).toBe('#new-thread')
 
       describe 'rendering', ->
 

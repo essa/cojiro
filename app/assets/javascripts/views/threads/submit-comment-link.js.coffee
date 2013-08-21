@@ -75,7 +75,7 @@ define [
         @flash = new FlashView(
           name: 'info'
           msg: I18n.t(
-            'views.threads.submit_comment_link.already_registered'
+            'views.threads.submit-comment-link.already_registered'
             name: @model.getUserName()
             date: @model.getCreatedAt()
           )

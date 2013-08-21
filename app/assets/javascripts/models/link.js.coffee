@@ -7,7 +7,7 @@ define [
   'models/comment'
   'collections/comments'
   'modules/extended/timestamps'
-  'underscore_mixins'
+  'underscore-mixins'
 ], (_, Backbone, I18n, TranslatableModel, User, Comment, Comments, Timestamps) ->
 
   class Link extends TranslatableModel

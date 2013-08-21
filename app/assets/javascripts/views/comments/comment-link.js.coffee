@@ -4,7 +4,7 @@ define [
   'backbone'
   'models/link'
   'views/comments/status_message'
-  'views/comments/comment_link_content'
+  'views/comments/comment-link-content'
   'modules/base/view'
   'globals'
   'bootstrap'

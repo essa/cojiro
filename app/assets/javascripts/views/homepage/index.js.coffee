@@ -2,8 +2,8 @@ define [
   'jquery'
   'underscore'
   'modules/base/view'
-  'views/threads/thread_list'
-  'views/homepage/thread_filter'
+  'views/threads/thread-list'
+  'views/homepage/thread-filter'
   'globals'
   'i18n'
 ], ($, _, BaseView, ThreadListView, ThreadFilterView, globals, I18n) ->

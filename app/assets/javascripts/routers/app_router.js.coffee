@@ -5,7 +5,7 @@ define [
   'views/other/navbar'
   'views/homepage/index'
   'views/threads/thread'
-  'views/threads/new_thread'
+  'views/threads/new-thread'
   'models/thread'
   'backbone-support'
   'i18n'

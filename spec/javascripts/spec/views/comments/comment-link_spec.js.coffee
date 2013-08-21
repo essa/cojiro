@@ -3,7 +3,7 @@ define (require) ->
   Link = require('models/link')
   User = require('models/user')
   Comment = require('models/comment')
-  CommentLinkView = require('views/comments/comment_link')
+  CommentLinkView = require('views/comments/comment-link')
   globals = require('globals')
   I18n = require('i18n')
 

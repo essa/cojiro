@@ -5,13 +5,13 @@ define [
   'modules/base/view'
   'modules/translatable/form'
   'views/other/flash'
-  'views/other/form_actions'
+  'views/other/form-actions'
   'globals'
   'i18n'
 ], ($, _, Backbone, BaseView, Form, FlashView, FormActionsView, globals, I18n) ->
 
   class NewThreadView extends BaseView
-    id: 'new_thread'
+    id: 'new-thread'
     template: _.template '
       <div class="page-header">
         <h1><%= t(".start_a_thread") %></h1>
@@ -32,13 +32,13 @@ define [
       @
 
     renderLayout: ->
-      @$el.html(@template(t: I18n.scoped('views.threads.new_thread').t))
+      @$el.html(@template(t: I18n.scoped('views.threads.new-thread').t))
 
     renderForm: ->
       @appendChild(@form)
       @formActions = new FormActionsView(
-        submit: I18n.t('views.threads.new_thread.submit')
-        cancel: I18n.t('views.threads.new_thread.cancel')
+        submit: I18n.t('views.threads.new-thread.submit')
+        cancel: I18n.t('views.threads.new-thread.cancel')
       )
       @appendChildTo(@formActions, 'fieldset')
 
@@ -52,14 +52,14 @@ define [
             self.collection.add(model, at: 0)
             globals.flash =
               name: "success"
-              msg: I18n.t("views.threads.new_thread.thread_created")
+              msg: I18n.t("views.threads.new-thread.thread_created")
             self.router.navigate(model.url(), true )
         )
       else
         @flash.leave() if @flash
         @flash = new FlashView(
           name: 'error'
-          msg: I18n.t('views.threads.new_thread.errors.body')
+          msg: I18n.t('views.threads.new-thread.errors.body')
         )
         @renderChild(@flash)
         @$el.prepend(@flash.el)

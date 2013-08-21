@@ -7,7 +7,7 @@ define [
   'models/comment'
   'collections/comments'
   'modules/extended/timestamps'
-  'underscore_mixins'
+  'underscore-mixins'
 ], (_, Backbone, I18n, Translatable, User, Comment, Comments, Timestamps) ->
 
   class Thread extends Translatable.Model
