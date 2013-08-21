@@ -171,7 +171,7 @@ ul.nav-pills {
       overflow: hidden;
       height: $linkUrlHeight;
       border-bottom: 2px solid white;
-      padding: 10px;
+      padding: 10px 10px 5px;
       span.favicon {
         img {
           max-width: 16px;
@@ -181,6 +181,11 @@ ul.nav-pills {
       }
       span.site {
         font-size: $baseFontSize;
+      }
+      span.lang {
+        text-transform: uppercase;
+        font-size: $baseFontSize * 0.8;
+        vertical-align: middle;
       }
     }
     .url:hover {

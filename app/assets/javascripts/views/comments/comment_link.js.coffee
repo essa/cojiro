@@ -19,8 +19,8 @@ define [
           <a href="<%= url %>">
             <span class="favicon"><img src="<%= faviconUrl %>" /></span>
             <span class="site"><%= siteName %></span>
+            <span class="lang">(<%= sourceLocale %>)</span>
           </a>
-          <a href="#" style="float: right" class="icon-edit" />
         </div>
         <div class="comment-link-content">
         </div>
@@ -58,6 +58,7 @@ define [
         url: @link.getUrl()
         faviconUrl: @link.getFaviconUrl()
         siteName: @link.getSiteName()
+        sourceLocale: @link.getSourceLocale()
       ))
       @$('[data-toggle="popover"]').attr('title', commentTitle)
       @$('[data-toggle="popover"]').attr('data-content', commentText)

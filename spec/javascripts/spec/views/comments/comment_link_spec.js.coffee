@@ -59,6 +59,9 @@ define (require) ->
         it 'renders favicon', ->
           expect(@$el.find('.favicon')).toContain('img', src: 'http://s.ytimg.com/yts/img/favicon-vfldLzJxy.ico' )
 
+        it 'renders source locale', ->
+          expect(@$el.find('.lang')).toHaveText('(en)')
+
       describe 'popover', ->
         beforeEach ->
           @destroyPopoverSpy = sinon.spy(CommentLinkView::, 'destroyPopover')
