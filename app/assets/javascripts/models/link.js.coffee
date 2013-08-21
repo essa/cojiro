@@ -91,6 +91,7 @@ define [
     getFaviconUrl: -> @get('favicon_url')
     getEmbedData: -> @get('oembed_data') || {}
     getThumbnailUrl: ->  @getEmbedData()['thumbnail_url']
+    getMediaType: -> @getEmbedData()['type'] || 'link'
     getStatus: -> @getSourceLocale() && 1 || 0
     getComments: -> @get('comments')
 
