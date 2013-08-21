@@ -3,9 +3,9 @@ define (require) ->
   Backbone = require('backbone')
 
   Link = require('models/link')
-  AddLinkModalView = require('views/threads/add_link_modal')
-  AddUrlView = require('views/threads/add_url')
-  SubmitCommentLinkView = require('views/threads/submit_comment_link')
+  AddLinkModalView = require('views/threads/add-link-modal')
+  AddUrlView = require('views/threads/add-url')
+  SubmitCommentLinkView = require('views/threads/submit-comment-link')
   channel = require('modules/channel')
 
   describe "AddLinkModalView", ->

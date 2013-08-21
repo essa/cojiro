@@ -1,6 +1,6 @@
 define (require) ->
 
-  ThreadFilterView = require('views/homepage/thread_filter')
+  ThreadFilterView = require('views/homepage/thread-filter')
 
   describe "ThreadFilterView", ->
     beforeEach ->

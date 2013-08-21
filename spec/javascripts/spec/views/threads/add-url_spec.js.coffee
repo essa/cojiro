@@ -4,7 +4,7 @@ define (require) ->
 
   Link = require('models/link')
   Thread = require('models/thread')
-  AddUrlView = require('views/threads/add_url')
+  AddUrlView = require('views/threads/add-url')
   channel = require('modules/channel')
 
   describe 'AddUrlView', ->

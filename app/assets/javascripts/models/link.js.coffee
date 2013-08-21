@@ -7,7 +7,7 @@ define [
   'models/comment'
   'collections/comments'
   'modules/extended/timestamps'
-  'underscore_mixins'
+  'underscore-mixins'
 ], (_, Backbone, I18n, TranslatableModel, User, Comment, Comments, Timestamps) ->
 
   class Link extends TranslatableModel
@@ -91,6 +91,7 @@ define [
     getFaviconUrl: -> @get('favicon_url')
     getEmbedData: -> @get('oembed_data') || {}
     getThumbnailUrl: ->  @getEmbedData()['thumbnail_url']
+    getMediaType: -> @getEmbedData()['type'] || 'link'
     getStatus: -> @getSourceLocale() && 1 || 0
     getComments: -> @get('comments')
 

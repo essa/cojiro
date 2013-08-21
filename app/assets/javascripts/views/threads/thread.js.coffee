@@ -8,8 +8,8 @@ define [
   'modules/translatable'
   'globals'
   'views/threads/statbar'
-  'views/threads/add_link_modal'
-  'views/comments/comment_link'
+  'views/threads/add-link-modal'
+  'views/comments/comment-link'
   'bootstrap'
 ], ($, _, Backbone, Link, BaseView, FlashView, Translatable, globals, StatbarView, AddLinkModal, CommentLinkView) ->
 

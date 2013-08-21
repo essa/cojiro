@@ -6,6 +6,9 @@ define [
 ], (_, Backbone, BaseModel, I18n) ->
   class TranslatableAttribute extends BaseModel
 
-    in: (attr) -> @get(attr)
+    in: (locale) ->
+      val = @get(locale)
+      val &&= val.trim()
+      if val == '' then undefined else val
 
     validate: (attrs) -> false

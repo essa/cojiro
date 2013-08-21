@@ -5,8 +5,8 @@ define (require) ->
   Threads = require('collections/threads')
 
   # make sure dependencies are loaded before stubbing, for unstubbed tests
-  ThreadListItemView = require('views/threads/thread_list_item')
-  ThreadListView = require('views/threads/thread_list')
+  ThreadListItemView = require('views/threads/thread-list-item')
+  ThreadListView = require('views/threads/thread-list')
 
   describe "ThreadListView", ->
     beforeEach -> @renderSpy = sinon.spy(ThreadListView::, 'render')

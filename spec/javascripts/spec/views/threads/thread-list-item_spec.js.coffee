@@ -3,7 +3,7 @@ define (require) ->
   I18n = require('i18n')
   Thread = require('models/thread')
   Threads = require('collections/threads')
-  ThreadListItemView = require('views/threads/thread_list_item')
+  ThreadListItemView = require('views/threads/thread-list-item')
 
   describe "ThreadListItemView", ->
     beforeEach ->

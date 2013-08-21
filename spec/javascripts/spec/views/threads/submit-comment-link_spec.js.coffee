@@ -6,7 +6,7 @@ define (require) ->
   Thread = require('models/thread')
   Comment = require('models/comment')
   User = require('models/user')
-  SubmitCommentLinkView = require('views/threads/submit_comment_link')
+  SubmitCommentLinkView = require('views/threads/submit-comment-link')
   I18n = require('i18n')
   channel = require('modules/channel')
 

@@ -48,6 +48,14 @@ define (require) ->
           @link.set('oembed_data', { 'thumbnail_url': 'http://www.foo.com/bar' })
           expect(@link.getThumbnailUrl()).toEqual('http://www.foo.com/bar')
 
+      describe '#getMediaType', ->
+        it 'returns type from embedly data', ->
+          @link.set('oembed_data', { 'type': 'video' })
+          expect(@link.getMediaType()).toEqual('video')
+
+        it 'returns "link" if no type defined', ->
+          expect(@link.getMediaType()).toEqual('link')
+
       describe '#getUserName', ->
         it 'returns the name of the user who created this link', ->
           @link.set('user_name', 'foo')

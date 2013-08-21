@@ -34,7 +34,7 @@ define [
           resp[key] = new TranslatableAttribute(value, parse: true)
       return resp
 
-    getAttrInLocale: (attr_name, locale) -> @get(attr_name).get(locale)
+    getAttrInLocale: (attr_name, locale) -> @get(attr_name).in(locale)
     getAttr: (attr_name) -> @getAttrInLocale(attr_name, I18n.locale)
     getAttrInSourceLocale: (attr_name) -> @getAttrInLocale(attr_name, @getSourceLocale())
     getSourceLocale: -> @get('source_locale')

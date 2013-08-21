@@ -54,17 +54,17 @@ define [
       @$el.html(fieldHtml)
 
     showForm: ->
-      @trigger('open')
       channel.unbind("fieldForm:#{@form.cid}:close") if @form
       @form = new @FieldForm(model: @model, field: @field, type: @type)
       self = @
       channel.on "fieldForm:#{@form.cid}:close", ->
         self.render()
-        self.trigger('close')
+        self.trigger('close', self)
       @renderChild(@form)
       @$el.html(@form.el)
       if I18n.locale != @model.getSourceLocale()
         @showPopover()
+      @trigger('open', @)
 
     showPopover: ->
       if (source_text = @model.getAttrInSourceLocale(@field))
