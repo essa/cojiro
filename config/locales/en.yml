@@ -50,6 +50,11 @@ en:
     comment:
       added_ago: "@%{name} added <time class='timeago' datetime='%{datetime}'>%{timeago}</time>"
 
+  modules:
+    translatable:
+      field-form:
+        translate_to_lang: "Translate to %{lang}"
+
   jquery:
     timeago:
       prefixAgo: ""

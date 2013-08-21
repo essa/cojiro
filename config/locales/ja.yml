@@ -50,6 +50,10 @@ ja:
   models:
     comment:
       added_ago: "@%{name}が<time class='timeago' datetime='%{datetime}'>%{timeago}</time>に追加した"
+  modules:
+    translatable:
+      field-form:
+        translate_to_lang: "%{lang}に翻訳する"
 
   jquery:
     timeago:

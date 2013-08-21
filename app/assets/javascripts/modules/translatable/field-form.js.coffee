@@ -41,6 +41,11 @@ define [
 
     render: ->
       @$el.html(@template(field: @field, type: @type))
+      if @model.getSourceLocale() != (locale = I18n.locale)
+        @$('textarea').attr(
+          'placeholder',
+          I18n.t('modules.translatable.field-form.translate_to_lang', lang: I18n.t(locale))
+        )
       @renderVal()
       @
 

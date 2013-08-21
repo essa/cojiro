@@ -97,13 +97,32 @@ define (require) ->
       describe 'textarea field form elements', ->
         beforeEach ->
           @view = new FieldForm model: @model, field: 'summary', type: 'TextArea'
-          @view.render()
 
         it 'renders textarea element with text type in div with editable-input class', ->
+          @view.render()
           expect(@view.$('.editable-input')).toContain('textarea.field[type="text"]')
 
         it 'sets current value of field', ->
+          @view.render()
           expect(@view.$('textarea').val()).toEqual('a summary')
+
+        describe "in the model's source locale", ->
+          it 'shows no placeholder', ->
+            @view.render()
+            expect(@view.$('.editable-input textarea')).not.toHaveAttr('placeholder')
+
+        describe "in a locale that is different from the model's source locale", ->
+
+          it 'shows correct placeholder text in English', ->
+            @model.setSourceLocale('ja')
+            @view.render()
+            expect(@view.$('.editable-input textarea')).toHaveAttr('placeholder', 'Translate to English')
+
+          it 'shows correct placeholder text in English', ->
+            I18n.locale = 'ja'
+            @model.setSourceLocale('en')
+            @view.render()
+            expect(@view.$('.editable-input textarea')).toHaveAttr('placeholder', '日本語に翻訳する')
 
     describe 'saving the field', ->
       beforeEach ->
