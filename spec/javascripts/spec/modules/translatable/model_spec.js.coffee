@@ -1,7 +1,7 @@
 define (require) ->
 
   Model = require('modules/translatable/model')
-  Attribute = require('modules/translatable/attribute')
+  TranslatableAtribute = require('modules/translatable/attribute')
   I18n = require('i18n')
   MyModel = Model.extend
     name: 'my_model'
@@ -22,8 +22,8 @@ define (require) ->
 
     describe 'initialization', ->
       it 'creates translatable attribute objects for each attribute', ->
-        expect(@model.get('title') instanceof Attribute).toBeTruthy()
-        expect(@model.get('summary') instanceof Attribute).toBeTruthy()
+        expect(@model.get('title') instanceof TranslatableAtribute).toBeTruthy()
+        expect(@model.get('summary') instanceof TranslatableAtribute).toBeTruthy()
 
       it 'sets initial value of translatable attributes if passed in', ->
         @newModel = new MyModel(source_locale: 'ja', title: en: 'title in English')
@@ -75,7 +75,7 @@ define (require) ->
 
     describe 'getters', ->
       beforeEach ->
-        @title_attr = new Backbone.Model(en: 'Title in English', ja: 'Title in Japanese')
+        @title_attr = new TranslatableAtribute(en: 'Title in English', ja: 'Title in Japanese')
 
       describe '#getAttr', ->
         it 'is defined', -> expect(@model.getAttr).toBeDefined()
@@ -138,7 +138,7 @@ define (require) ->
           @model.set(title: en: 'a title in English')
           self = @
           expect(-> self.model.get('summary')).not.toThrow()
-          expect(@model.get('summary') instanceof Attribute).toBeTruthy()
+          expect(@model.get('summary') instanceof TranslatableAtribute).toBeTruthy()
 
         it 'handles "key", "value" style arguments', ->
           @model.set('title', en: 'a title in English' )
@@ -182,14 +182,14 @@ define (require) ->
 
       it 'replaces nested values for translated attributes with translated attributes', ->
         parsed = @model.parse(title: ja: 'title in Japanese')
-        expect(parsed['title'] instanceof Attribute).toBeTruthy()
+        expect(parsed['title'] instanceof TranslatableAtribute).toBeTruthy()
         expect(parsed['title'].attributes).toEqual(ja: 'title in Japanese')
 
       it 'only overwrites translated attributes if they are in the response', ->
         expect(@model.parse(foo: 'bar')).toEqual(foo: 'bar')
 
       it 'leaves translatable attribute objects unchanged', ->
-        parsed = @model.parse(title: new Attribute(en: 'title in English'))
+        parsed = @model.parse(title: new TranslatableAtribute(en: 'title in English'))
         expect(parsed['title'].in('en')).toEqual('title in English')
 
       describe 'with merge option', ->

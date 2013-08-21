@@ -12,3 +12,11 @@ define (require) ->
       expect(@attribute.in('en')).toEqual('Attribute in English')
       expect(stub).toHaveBeenCalledOnce
       expect(stub).toHaveBeenCalledWith('en')
+
+    it 'trims whitespace', ->
+      stub = sinon.stub(@attribute, 'get').returns('  Attribute in English  ')
+      expect(@attribute.in('en')).toEqual('Attribute in English')
+
+    it 'returns undefined if value is blank', ->
+      stub = sinon.stub(@attribute, 'get').returns('  ')
+      expect(@attribute.in('en')).toBeUndefined()
