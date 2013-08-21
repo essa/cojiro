@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'timecop'
 
 describe 'Links API' do
-  use_vcr_cassette('google_maps_tokyo')
+  use_vcr_cassette('links_api')
 
   #TODO: add more API specs, this is just a minimum to make sure URL passed in through
   # query string is correctly parsed (with loosed constraint in rails route) and

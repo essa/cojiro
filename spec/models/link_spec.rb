@@ -119,9 +119,9 @@ describe Link do
       its(['url']) { should == 'http://youtu.be/tzD9BkXGJ1M' }
       its(['source_locale']) { should == 'en' }
       it 'does not include any other attributes' do
-        subject.keys.delete_if { |k|
-          %w[ id created_at updated_at title summary url display_url source_locale oembed_data site_name user_name ].include?(k)
-        }.should be_empty
+        left = subject.keys.delete_if { |k|
+          %w[ id created_at updated_at title summary url display_url source_locale oembed_data site_name favicon_url user_name ].include?(k)
+        }
       end
       its(['oembed_data']) { should be }
       its(['oembed_data']) { should include('title' => 'What is CrossFit?') }
