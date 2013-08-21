@@ -1,7 +1,7 @@
 define [
   'jquery'
   'underscore'
-  'views/links/thumbnail'
+  'views/links/link-thumbnail'
   'modules/base/view'
   'modules/translatable/in-place-field'
   'globals'
