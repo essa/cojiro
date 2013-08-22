@@ -22,7 +22,7 @@ Spork.prefork do
   Capybara.javascript_driver = :webkit
 
   # need to set this high to allow for time to load assets in request specs
-  Capybara.default_wait_time = 7
+  Capybara.default_wait_time = 15
 
   # we don't want to make any actual calls to the API or save the key anywhere
   ENV['EMBEDLY_KEY'] = 'EMBEDLY_KEY'
