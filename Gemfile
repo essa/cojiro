@@ -45,14 +45,16 @@ group :test, :development do
   gem 'capybara'
   gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git', :require => false
   gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git', :ref => '13ae61378afdf66aed7eb945172eb1f5c75b451b'
-  gem 'pry'
-  gem 'pry-debugger' unless ENV['CI']
   gem 'rake'
   gem 'timecop'
   gem 'chronic'
   gem 'launchy'
   gem 'embedly'
   gem 'sqlite3'
+  unless ENV['CI']
+    gem 'pry'
+    gem 'pry-debugger'
+  end
 end
 
 group :test do
@@ -62,13 +64,15 @@ group :test do
   gem 'webmock', '>= 1.9.0'
   gem 'vcr', '~> 2.5.0'
   gem 'shoulda-matchers'
-  gem 'guard', :git => 'git://github.com/guard/guard.git'
-  gem 'rb-inotify', '>= 0.8.8'
-  gem 'guard-spork'
-  gem 'guard-rspec', :require => false
-  gem 'guard-cucumber', :require => false
-  gem 'guard-jasmine'
-  gem 'guard-rails'
+  unless ENV['CI']
+    gem 'guard', :git => 'git://github.com/guard/guard.git'
+    gem 'rb-inotify', '>= 0.8.8'
+    gem 'guard-spork'
+    gem 'guard-rspec', :require => false
+    gem 'guard-cucumber', :require => false
+    gem 'guard-jasmine'
+    gem 'guard-rails'
+  end
 end
 
 # To use ActiveModel has_secure_password
@@ -77,11 +81,13 @@ end
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the web server
-gem 'unicorn', :require => false unless ENV['CI']
+unless ENV['CI']
+  # Use unicorn as the web server
+  gem 'unicorn', :require => false
 
-# Deploy with Capistrano
-gem 'capistrano', :require => false unless ENV['CI']
+  # Deploy with Capistrano
+  gem 'capistrano', :require => false unless ENV['CI']
+end
 
 # Load require.js
 gem 'requirejs-rails', :git => 'https://github.com/jwhitley/requirejs-rails.git'
