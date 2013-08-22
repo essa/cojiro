@@ -46,7 +46,7 @@ group :test, :development do
   gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git', :require => false
   gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git', :ref => '13ae61378afdf66aed7eb945172eb1f5c75b451b'
   gem 'pry'
-  gem 'pry-debugger'
+  gem 'pry-debugger' unless ENV['CI']
   gem 'rake'
   gem 'timecop'
   gem 'chronic'
@@ -78,10 +78,10 @@ end
 # gem 'jbuilder'
 
 # Use unicorn as the web server
-gem 'unicorn', :require => false
+gem 'unicorn', :require => false unless ENV['CI']
 
 # Deploy with Capistrano
-gem 'capistrano', :require => false
+gem 'capistrano', :require => false unless ENV['CI']
 
 # Load require.js
 gem 'requirejs-rails', :git => 'https://github.com/jwhitley/requirejs-rails.git'
