@@ -20,6 +20,7 @@ Feature: Homepage for logged-in users
   @javascript
   Scenario: View threads that I started
     Given I am on the homepage
+    And I wait for the AJAX call to finish
     And I select "threads that I started" from the drop-down list
     Then I should see the text "Co-working spaces in Tokyo"
     But I should not see the text "Geisha blogggers"
