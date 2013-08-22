@@ -8,6 +8,16 @@
 //  background-image: none !important;
 
   a.dropdown-toggle:hover { cursor: pointer }
+
+  a.brand {
+    height: 1px;
+    overflow: visible;
+
+    img {
+      margin-left: 10px;
+      margin-top: 1px;
+    }
+  }
 }
 
 .hero-unit {

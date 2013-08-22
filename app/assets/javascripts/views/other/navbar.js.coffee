@@ -10,8 +10,8 @@ define [
     template: _.template '
       <div class="navbar-inner">
         <div class="container">
+          <a class="brand" href="/<%= I18n.locale %>"><img src="/images/logo.png" /></a>
           <ul class="nav">
-            <li><a href="#"><%= t(".home") %></a></li>
             <% if (!!currentUser) { %>
               <li>
                 <a href="<%= locale + \"/threads/new\" %>">
