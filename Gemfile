@@ -64,13 +64,13 @@ group :test do
   gem 'webmock', '>= 1.9.0'
   gem 'vcr', '~> 2.5.0'
   gem 'shoulda-matchers'
+  gem 'guard', :git => 'git://github.com/guard/guard.git'
+  gem 'guard-jasmine'
   unless ENV['CI']
-    gem 'guard', :git => 'git://github.com/guard/guard.git'
     gem 'rb-inotify', '>= 0.8.8'
     gem 'guard-spork'
     gem 'guard-rspec', :require => false
     gem 'guard-cucumber', :require => false
-    gem 'guard-jasmine'
     gem 'guard-rails'
   end
 end
