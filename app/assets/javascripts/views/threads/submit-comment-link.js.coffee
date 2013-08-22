@@ -111,6 +111,7 @@ define [
         @comment.set('user', globals.currentUser)
         attrs = _(@commentForm.serialize()).extend(thread: @thread)
         @comment.save _(@commentForm.serialize()).extend(thread: @thread),
+          wait: true
           success: (model, resp) ->
             channel.trigger('modal:next')
             self.leave()
