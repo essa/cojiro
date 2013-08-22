@@ -12,14 +12,14 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - ! '*/*'
+      - '*/*'
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Sun, 18 Aug 2013 06:10:24 GMT
+      - Wed, 21 Aug 2013 12:45:29 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -33,127 +33,78 @@ http_interactions:
       Server:
       - TornadoServer/2.1
       Etag:
-      - ! '"562a65f85bf471b984db904c11cc8dce94675494"'
+      - '"da106e12b6d43bbb1499e5495e480f1c84e2974a"'
       X-Embedly-Process-Time:
-      - '49'
+      - '45'
       Access-Control-Allow-Origin:
-      - ! '*'
+      - '*'
       Access-Control-Allow-Methods:
       - GET, OPTIONS
       X-Embedly-Host:
-      - api19
-      Content-Encoding:
-      - gzip
+      - api02
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        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
-        jv/97f+o3TWSEjgAAA==
+      encoding: UTF-8
+      string: '[{"provider_url": "http://wikipedia.org", "description": "\u30ab\u30dd\u30a8\u30a4\u30e9\uff08
+        \u30dd\u30eb\u30c8\u30ac\u30eb\u8a9e: Capoeira\uff09\u306f\u3001 \u30d6\u30e9\u30b8\u30eb\u306e\u817f\u6cd5\u3002\u76f8\u624b\u306b\u8e74\u308a\u3084\u653b\u6483\u3092\u5f53\u3066\u3066\u3057\u307e\u3046\u3082\u306e\u306f\u4e0b\u624b\u3068\u3055\u308c\u3001\u57fa\u672c\u7684\u306b\u76f8\u624b\u306b\u306f\u89e6\u308c\u305a\u3001\u30d7\u30ec\u30c3\u30b7\u30e3\u30fc\u3092\u304b\u3051\u3066\u3086\u304f\u3002\u305d\u306e\u305f\u3081\u3001
+        \u683c\u95d8\u6280\u3068 \u30c0\u30f3\u30b9 \u306e\u4e2d\u9593\u306b\u4f4d\u7f6e\u3059\u308b\u3082\u306e\u3068\u3082\u8003\u3048\u3089\u308c\u3066\u3044\u308b\u3002
+        \u65e5\u672c\u3067\u306f \u68b6\u539f\u4e00\u9a0e\u304c\u81ea\u66f8\u306e\u4f5c\u54c1\u3067\u300e
+        \u9006\u7acb\u3061\u3057\u306a\u304c\u3089\u95d8\u3046\u683c\u95d8\u6280 \u300f\u3068\u7d39\u4ecb\u3057\u305f\u70ba\u306b\u3001\u9577\u5e74\u8aa4\u89e3\u3055\u308c\u3066\u304d\u305f\u304c\u3001\u5e38\u306b\u9006\u7acb\u3061\u306e\u3088\u3046\u306a\u4f53\u52e2\u3092\u3068\u308b\u306e\u3067\u306f\u306a\u304f\u3001\u8db3\u3092\u5730\u9762\u306b\u4ed8\u3051\u3066\u3044\u308b\u3053\u3068\u306e\u307b\u3046\u304c\u591a\u3044\u3002
+        Capoeira\u3068\u3044\u3046\u8a9e\u306f\u30c8\u30a5\u30d4\u30fc\u30fb\u30b0\u30ef\u30e9\u30cb\u30fc\u8a9e\u306eca\u00e1
+        pu\u00e9ra\u304b\u3089\u6765\u3066\u3044\u308b\u3068\u3055\u308c\u308b\u3002ca\u00e1\u306f\u300c\u68ee\u300d\u3092\u3001pu\u00e9ra\u306f\u300c\u5b58\u5728\u3057\u3066\u3044\u305f\u3082\u306e\u300d\u3092\u610f\u5473\u3057\u3001ca\u00e1
+        pu\u00e9ra\u3067\u3001\u5208\u3089\u308c\u305f\u68ee\u3001\u6d88\u6ec5\u3057\u305f\u68ee\u3068\u306a\u308b\u3002
+        1500\u5e74 4\u670822\u65e5\u3001 \u30dd\u30eb\u30c8\u30ac\u30eb\u4eba\u306e
+        \u30da\u30c9\u30ed\u30fb\u30a2\u30eb\u30f4\u30a1\u30ec\u30b9\u30fb\u30ab\u30d6\u30e9\u30eb\u306f
+        \u30d6\u30e9\u30b8\u30eb\u3092\u767a\u898b\u3057\u3001 \u30dd\u30eb\u30c8\u30ac\u30eb\u306f\u30d6\u30e9\u30b8\u30eb\u3092\u690d\u6c11\u5730\u5316\u3057\u305f\u3002\u30dd\u30eb\u30c8\u30ac\u30eb\u4eba\u306f\u30d1\u30a6\u30fb\u30d6\u30e9\u30b8\u30eb\u306e\u67af\u6e07\u5f8c\u3001
+        \u30b5\u30c8\u30a6\u30ad\u30d3\u306a\u3069\u306e \u30d7\u30e9\u30f3\u30c6\u30fc\u30b7\u30e7\u30f3\u3092\u8015\u4f5c\u3055\u305b\u308b\u305f\u3081\u306e\u52b4\u50cd\u529b\u3068\u3057\u3066
+        \u30a2\u30d5\u30ea\u30ab\u5927\u9678\u306e \u30a2\u30f3\u30b4\u30e9\u3084
+        \u30b3\u30f3\u30b4\u3001 \u30e2\u30b6\u30f3\u30d3\u30fc\u30af\u3001 \u897f\u30a2\u30d5\u30ea\u30ab\u304b\u3089\u591a\u304f\u306e
+        \u9ed2\u4eba\u3092\u9023\u884c\u3057\u3066 \u4eba\u8eab\u58f2\u8cb7\u3092\u884c\u3044\u3001\u9ed2\u4eba\u306f
+        \u5974\u96b7\u3068\u3057\u3066\u9177\u4f7f\u3055\u308c\u305f\u3002\u30ab\u30dd\u30a8\u30a4\u30e9\u306e\u6e90\u6d41\u306f\u672a\u3060\u306b\u4e0d\u660e\u306a\u70b9\u304c\u591a\u3044\u3002
+        \u30a2\u30d5\u30ea\u30ab\u306e\u571f\u7740 \u683c\u95d8\u6280 \u3068\u3057\u3066\u3001\u3059\u3067\u306b\u3053\u306e\u9803\u3088\u308a\u3082\u4ee5\u524d\u306b\u5b58\u5728\u3057\u3066\u3044\u305f\u3068\u8a00\u308f\u308c\u308b\u4ed6\u3001\u30a4\u30f3\u30c7\u30a3\u30aa\u304c\u30ab\u30dd\u30a8\u30a4\u30e9\u3092\u3057\u3066\u3044\u308b\u306e\u3092\u30dd\u30eb\u30c8\u30ac\u30eb\u822a\u6d77\u58eb\u30de\u30eb\u30c6\u30a3\u30f3\u30fb\u30a2\u30d5\u30a9\u30f3\u30bd\u30fb\u30c7\u30fb\u30bd\u30a6\u30b6\u304c\u76ee\u6483\u3057\u3066\u3044\u308b\u3068\u8a00\u308f\u308c\u3066\u3044\u308b\u3002\u30ab\u30dd\u30a8\u30a4\u30e9\u754c\u3067\u306f\u3001\u4eca\u306e\u3068\u3053\u308d\u30ab\u30dd\u30a8\u30a4\u30e9\u306f\u30a2\u30d5\u30ea\u30ab\u3067\u306f\u306a\u304f\u3001\u30d6\u30e9\u30b8\u30eb\u3067\u751f\u307e\u308c\u305f\u3068\u3044\u3046\u8aac\u304c\u591a\u304f\u652f\u6301\u3055\u308c\u3066\u3044\u308b\u3002\u3088\u3063\u3066\u3001\u30a2\u30d5\u30ea\u30ab\u304b\u3089\u30d6\u30e9\u30b8\u30eb\u306b\u4f1d\u64ad\u3057\u305f\u6587\u5316\u7684\u8981\u7d20\u304c\u30ab\u30dd\u30a8\u30a4\u30e9\u306b\u5f71\u97ff\u3092\u4e0e\u3048\u305f\u53ef\u80fd\u6027\u306f\u3042\u308b\u306b\u3057\u308d\u3001\u30a2\u30d5\u30ea\u30ab\u8d77\u6e90\u3068\u3044\u3046\u306e\u306b\u306f\u8a9e\u5f0a\u304c\u3042\u308b\u3002\u4f8b\u3048\u3070\u3001\u5974\u96b7\u5c0f\u5c4b\uff08senzala\uff09\u306f\u3001\u5b97\u4e3b\u56fd\u30dd\u30eb\u30c8\u30ac\u30eb\u3084\u30a2\u30d5\u30ea\u30ab\u306b\u306f\u5f53\u7136\u5b58\u5728\u305b\u305a\u3001\u305d\u3046\u3057\u305f\u7279\u7570\u306a\u74b0\u5883\u304c\u30ab\u30dd\u30a8\u30a4\u30e9\u3092\u751f\u307f\u51fa\u3057\u3066\u3044\u3063\u305f\u3068\u8003\u3048\u3089\u308c\u308b\u3002
+        \u307e\u305f\u3001\u30ab\u30dd\u30a8\u30a4\u30e9\u306e\u57fa\u672c\u30b9\u30c6\u30c3\u30d7\u3001\u30b8\u30f3\u30ac\u304c\u901f\u3055\u3068\u8db3\u306e\u9593\u9694\u306e\u9055\u3044\u304c\u3042\u308b\u306b\u305b\u3088\u3001
+        \u30b5\u30f3\u30d0\u306e\u57fa\u672c\u30b9\u30c6\u30c3\u30d7\u306b\u9177\u4f3c\u3057\u3066\u3044\u308b\u3002
+        \u30b5\u30f3\u30d0\u306e\u539f\u578b\u304c\u8f2a\u306b\u306a\u3063\u3066\u4e2d\u5fc3\u306b\u30c0\u30f3\u30b5\u30fc\u304c\u98db\u3073\u51fa\u3057\u3066\u8e0a\u308b\u3053\u3068\u3001\u3082\u3068\u3082\u3068\u306e
+        \u30b5\u30f3\u30d0\u306e\u539f\u578b\u304c\u80f8\u3092\u3064\u304d\u3060\u3057\u3066\u8e0a\u308b\u306a\u3069\u3001
+        \u30b5\u30f3\u30d0 \u3068\u306e\u95a2\u4fc2\u304c\u6df1\u3044\u3002 1808\u5e74
+        1\u670823\u65e5\u306b \u30ea\u30b9\u30dc\u30f3\u304b\u3089 \u30ea\u30aa\u30c7\u30b8\u30e3\u30cd\u30a4\u30ed\u306b\u30dd\u30eb\u30c8\u30ac\u30eb\u738b\u5ba4\u304c\u79fb\u8ee2\u3057\u305f\u305f\u3081\u3001
+        \u30dd\u30eb\u30c8\u30ac\u30eb\u30fb\u30d6\u30e9\u30b8\u30eb\u9023\u5408\u738b\u56fd\u304c\u6a39\u7acb\u3055\u308c\u3001\u30dd\u30eb\u30c8\u30ac\u30eb\u738b
+        \u30b8\u30e7\u30a2\u30f36\u4e16\u3068\u30d6\u30e9\u30b8\u30eb\u7687\u5e1d
+        \u30da\u30c9\u30ed1\u4e16\u306f\u30011808\u5e74\u304b\u3089 1831\u5e74\u307e\u3067\u7279\u5225\u8b66\u5bdf\u3092\u8a2d\u7f6e\u3001\u30a2\u30d5\u30ea\u30ab\u6587\u5316\u306e\u6291\u5727\u3092\u884c\u3063\u305f\u3002
+        1888\u5e74 5\u670813\u65e5\u306b\u306b\u3088\u3063\u3066\u5974\u96b7\u5236\u306f\u5ec3\u6b62\u3055\u308c\u305f\u3082\u306e\u306e\u3001\u305d\u306e\u5f8c\u3082\u89e3\u653e\u3055\u308c\u305f
+        \u30a2\u30d5\u30ea\u30ab\u7cfb\u30d6\u30e9\u30b8\u30eb\u4eba\u306e\u5143\u5974\u96b7\u3078\u306e\u5dee\u5225\u306f\u4f9d\u7136\u3068\u3057\u3066\u7d9a\u304d\u3001\u30ab\u30dd\u30a8\u30a4\u30e9\u306f\u6a29\u529b\u306b\u62b5\u6297\u3059\u308b\u624b\u6bb5\u3068\u307f\u306a\u3055\u308c
+        1892\u5e74\u304b\u3089 1932\u5e74 \u307e\u3067\u7981\u6b62\u3055\u308c\u3066\u3044\u305f\u3002
+        \u3053\u3046\u3057\u305f\u80cc\u666f\u306e\u4e2d\u3001\u30ab\u30dd\u30a8\u30a4\u30e9\u306f\u9ed2\u4eba\u5974\u96b7\u304c\u3001
+        \u770b\u5b88\u306b\u3070\u308c\u306a\u3044\u3088\u3046 \u30c0\u30f3\u30b9\u306e\u3075\u308a\u3092\u3057\u3066\u4fee\u7df4\u3057\u305f
+        \u683c\u95d8\u6280 \u3068\u3044\u308f\u308c\u308b\u3002\u624b\u67b7\u3092\u3055\u308c\u3066\u3044\u305f\u5974\u96b7\u304c\u3001\u305d\u306e\u62d8\u675f\u3092\u89e3\u304b\u308c\u306a\u3044\u307e\u307e\u935b\u932c\u3057\u305f\u683c\u95d8\u6280\u306e\u70ba\u3001\u8db3\u6280\u3092\u4e2d\u5fc3\u306b\u767a\u5c55\u3057\u305f\u3068\u3055\u308c\u308b\u304c\u3001\u3053\u308c\u306f\u5f8c\u4e16\u306e\u60f3\u50cf\u3068\u898b\u3089\u308c\u3066\u3044\u308b\u3002
+        \u73fe\u5728\u306f \u7a7a\u624b\u3084 \u30c6\u30b3\u30f3\u30c9\u30fc\u30fb
+        \u30e0\u30a8\u30bf\u30a4\uff08\u30ef\u30a4\u30af\u30eb\u30fc\u304b\u3089\u305a\u3063\u3068\u8a66\u5408\u306e\u7d42\u308f\u308a\u307e\u3067\u97f3\u697d\u304c\u594f\u3067\u3089\u308c\u308b\uff09\u7b49\u306e\u4ed6\u56fd\u306e
+        \u683c\u95d8\u6280\u3068\u306e\u6280\u6cd5\u4ea4\u6d41\uff08\u7279\u306b\u3001\u5171\u306b\u52d5\u7269\u306e\u52d5\u304d\u3092\u771f\u4f3c\u305f\u578b\u304c\u3042\u308b\u3068\u3044\u3046\u3053\u3068\u3067\u3001\u30a2\u30f3\u30b4\u30fc\u30e9\u3068\u4e2d\u56fd\u306e\u5f62\u610f\u62f3\uff08\u90ed\u96f2\u6df1\u306f\u7344\u4e2d\u3067\u624b\u67b7\u3092\u5d4c\u3081\u3089\u308c\u305f\u307e\u307e\u864e\u5f62\u62f3\u306e\u4fee\u884c\u3092\u3057\u305f\uff09)
+        \u306b\u4f34\u3044 \u62f3\u6cd5 \u6280\u8853\u3092\u7528\u3044\u305f\u6280\u6cd5\u3082\u5c0e\u5165\u3055\u308c\u305f\u305f\u3081\u3001\u8db3\u6280\u3060\u3051\u306e\u683c\u95d8\u6280\u3067\u306f\u306a\u304f\u306a\u3063\u3066\u3044\u308b\u304c\u3001\u624b\u306b\u3088\u308b\u653b\u6483\u306f\u4f9d\u7136\u5c11\u306a\u304f\u3001\u5730\u9762\u306b\u624b\u3092\u3064\ufffd\ufffd\ufffd\u3066\u8e74\u3063\u305f\u308a\u3001\u9006\u7acb\u3061\u3092\u3057\u305f\u308a\u3001\u30a2\u30af\u30ed\u30d0\u30c6\u30a3\u30c3\u30af\u306a\u72ec\u7279\u306e\u52d5\u304d\u3092\u6301\u3064\u3002
+        \u30d6\u30ec\u30a4\u30af\u30c0\u30f3\u30b9\u306a\u3069\u306b\u3082\u5f71\u97ff\u3092\u4e0e\u3048\u305f\u3002\u307e\u305f\u3001\u8e0a\u308a\u306e\u7df4\u7fd2\u3092\u3057\u3066\u3044\u308b\u3088\u3046\u306b\u898b\u305b\u304b\u3051\u308b\u305f\u3081\u3001\u97f3\u697d\u3068\u3068\u3082\u306b\u7df4\u7fd2\u3057\u305f\u3068\u8a00\u308f\u308c\u3066\u304a\u308a\u3001
+        \u30d3\u30ea\u30f3\u30d0\u30a6\u3084 \u30d1\u30f3\u30c7\u30a4\u30ed \u7b49\u306e\u697d\u5668\u3092\u3064\u304b\u3063\u305f\u4f34\u594f\u304c\u4ed8\u304d\u7269\u3067\u3042\u308b\u3002
+        \u4e00\u90e8\u3067\u306f \u30ca\u30a4\u30d5 \u8853\u304c\u4f75\u4f1d\u3055\u308c\u3066\u3044\u308b\u3002\u30b8\u30f3\u30ac\u306e\u52d5\u304d\u304b\u3089\u523a\u3057\u306b\u884c\u304f\u6280\u304c\u5e7e\u3064\u304b\u3042\u308b\u307b\u304b\u3001\u30ca\u30a4\u30d5\u3092\u6307\u306b\u631f\u3093\u3067\u8e74\u308b\u30ca\u30a4\u30d5\u8e74\u308a\u304c\u3042\u308b\u3002\u3053\u308c\u3089\u306e\u6280\u3082\u30d0\u30a4\u30fc\u30a2\u3067\u751f\u307e\u308c\u305f\u3068\u3055\u308c\u308b\u3002
+        \u5927\u304d\u304f\u4e8c\u3064\u306e\u6d41\u6d3e\u304c\u5b58\u5728\u3059\u308b\u3002\u8fd1\u5e74\u306f\u69d8\u3005\u306a\u8981\u7d20\u3092\u6df7\u305c\u305f\u30b3\u30f3\u30c6\u30f3\u30dd\u30e9\u30fc\u30cb\u30a2\u3068\u8a00\u3046\u65b0\u3057\u3044\u30b9\u30bf\u30a4\u30eb\u3082\u751f\u307e\u308c\u3066\u3044\u308b\u3002\u6d41\u6d3e\u3068\u8a00\u3063\u3066\u3082\u30b0\u30eb\u30fc\u30d7\u306b\u3088\u3063\u3066\u306f\u6d41\u6d3e\u306e\u533a\u5225\u3092\u4f5c\u3089\u305a\u3001\u30ab\u30dd\u30a8\u30a4\u30e9\u3068\u3057\u3066\u69d8\u3005\u306a\u30b9\u30bf\u30a4\u30eb\u3092\u7df4\u7fd2\u3059\u308b\u5834\u5408\u3082\u3042\u308b\u3002
+        1928\u5e74\u306b \u30e1\u30b9\u30c8\u30ea\u30fb\u30d3\u30f3\u30d0\uff08Mestre
+        Bimba\u3001\u672c\u540d\uff1a Manuel dos Reis Machado \uff09\u304c\u591a\u304f\u306e\u683c\u95d8\u6280\u3092\u7814\u7a76\u3057\u3001\u5275\u59cb\u3057\u305f\u3002\u3088\u308a\u683c\u95d8\u6280\u7684\u306a\u30b9\u30bf\u30a4\u30eb\u3002\u5275\u59cb\u3057\u305f\u5f53\u6642\u306f\u3055\u307b\u3069\u3067\u306f\u306a\u304b\u3063\u305f\u304c\u3001\u6fc0\u3057\u304f\u30a2\u30af\u30ed\u30d0\u30c6\u30a3\u30c3\u30af\u306a\u52d5\u304d\u3082\u7279\u5fb4\u3002\u4e00\u822c\u7684\u306b\u77e5\u3089\u308c\u3066\u3044\u308b\u30ab\u30dd\u30a8\u30a4\u30e9\u306f\u3053\u3061\u3089\u306e\u7cfb\u7d71\u306e\u6d41\u6d3e\u3002\u5c4b\u5185\u3067\u30ab\u30dd\u30a8\u30a4\u30e9\u6559\u5ba4\u3092\u521d\u3081\u3066\u958b\u304d\u3001
+        1930\u5e74\u4ee3\u306b\u306f\u30d6\u30e9\u30b8\u30eb\u5317\u6771\u90e8\u306e
+        ...", "title": "\u30ab\u30dd\u30a8\u30a4\u30e9", "thumbnail_width": 300, "url":
+        "http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9",
+        "html": "<p><b>&#12459;&#12509;&#12456;&#12452;&#12521;</b>&#65288;<a href=\"http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AB%E3%83%88%E3%82%AC%E3%83%AB%E8%AA%9E\"
+        title=\"&#12509;&#12523;&#12488;&#12460;&#12523;&#35486;\">&#12509;&#12523;&#12488;&#12460;&#12523;&#35486;</a>:
+        <span lang=\"pt\" xml:lang=\"pt\">Capoeira</span>&#65289;&#12399;&#12289;<a
+        href=\"http://ja.wikipedia.org/wiki/%E3%83%96%E3%83%A9%E3%82%B8%E3%83%AB\"
+        title=\"&#12502;&#12521;&#12472;&#12523;\">&#12502;&#12521;&#12472;&#12523;</a>&#12398;&#33151;&#27861;&#12290;&#30456;&#25163;&#12395;&#36468;&#12426;&#12420;&#25915;&#25731;&#12434;&#24403;&#12390;&#12390;&#12375;&#12414;&#12358;&#12418;&#12398;&#12399;&#19979;&#25163;&#12392;&#12373;&#12428;&#12289;&#22522;&#26412;&#30340;&#12395;&#30456;&#25163;&#12395;&#12399;&#35302;&#12428;&#12378;&#12289;&#12503;&#12524;&#12483;&#12471;&#12515;&#12540;&#12434;&#12363;&#12369;&#12390;&#12422;&#12367;&#12290;&#12381;&#12398;&#12383;&#12417;&#12289;<a
+        href=\"http://ja.wikipedia.org/wiki/%E6%A0%BC%E9%97%98%E6%8A%80\" title=\"&#26684;&#38360;&#25216;\">&#26684;&#38360;&#25216;</a>&#12392;<a
+        href=\"http://ja.wikipedia.org/wiki/%E3%83%80%E3%83%B3%E3%82%B9\" title=\"&#12480;&#12531;&#12473;\">&#12480;&#12531;&#12473;</a>&#12398;&#20013;&#38291;&#12395;&#20301;&#32622;&#12377;&#12427;&#12418;&#12398;&#12392;&#12418;&#32771;&#12360;&#12425;&#12428;&#12390;&#12356;&#12427;&#12290;</p>\n<p><a
+        href=\"http://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC\" title=\"&#26085;&#26412;\">&#26085;&#26412;</a>&#12391;&#12399;<a
+        href=\"http://ja.wikipedia.org/wiki/%E6%A2%B6%E5%8E%9F%E4%B8%80%E9%A8%8E\"
+        title=\"&#26806;&#21407;&#19968;&#39438;\">&#26806;&#21407;&#19968;&#39438;</a>&#12364;&#33258;&#26360;&#12398;&#20316;&#21697;&#12391;&#12302;<b>&#36870;&#31435;&#12385;&#12375;&#12394;&#12364;&#12425;&#38360;&#12358;&#26684;&#38360;&#25216;</b>&#12303;&#12392;&#32057;&#20171;&#12375;&#12383;&#28858;&#12395;&#12289;&#38263;&#24180;&#35492;&#35299;&#12373;&#12428;&#12390;&#12365;&#12383;&#12364;&#12289;&#24120;&#12395;&#36870;&#31435;&#12385;&#12398;&#12424;&#12358;&#12394;&#20307;&#21218;&#12434;&#12392;&#12427;&#12398;&#12391;&#12399;&#12394;&#12367;&#12289;&#36275;&#12434;&#22320;&#38754;&#12395;&#20184;&#12369;&#12390;&#12356;&#12427;&#12371;&#12392;&#12398;&#12411;&#12358;&#12364;&#22810;&#12356;&#12290;</p>\n<p>Capoeira&#12392;&#12356;&#12358;&#35486;&#12399;&#12488;&#12453;&#12500;&#12540;&#12539;&#12464;&#12527;&#12521;&#12491;&#12540;&#35486;&#12398;ca&#225;
+        pu&#233;ra&#12363;&#12425;&#26469;&#12390;&#12356;&#12427;&#12392;&#12373;&#12428;&#12427;&#12290;ca&#225;&#12399;&#12300;&#26862;&#12301;&#12434;&#12289;pu&#233;ra&#12399;&#12300;&#23384;&#22312;&#12375;&#12390;&#12356;&#12383;&#12418;&#12398;&#12301;&#12434;&#24847;&#21619;&#12375;&#12289;ca&#225;
+        pu&#233;ra&#12391;&#12289;&#21000;&#12425;&#12428;&#12383;&#26862;&#12289;&#28040;&#28357;&#12375;&#12383;&#26862;&#12392;&#12394;&#12427;&#12290;</p>",
+        "version": "1.0", "provider_name": "Wikipedia", "thumbnail_url": "http://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Capoeira-in-the-street-2.jpg/300px-Capoeira-in-the-street-2.jpg",
+        "type": "link", "thumbnail_height": 208}]'
     http_version: 
-  recorded_at: Sun, 18 Aug 2013 06:10:24 GMT
+  recorded_at: Wed, 21 Aug 2013 12:45:29 GMT
 - request:
     method: get
     uri: http://api.embed.ly/1/extract?key=&urls=http://ja.wikipedia.org/wiki/%25E3%2582%25AB%25E3%2583%259D%25E3%2582%25A8%25E3%2582%25A4%25E3%2583%25A9
@@ -166,14 +117,14 @@ http_interactions:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - ! '*/*'
+      - '*/*'
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Sun, 18 Aug 2013 06:10:25 GMT
+      - Wed, 21 Aug 2013 12:45:29 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -187,353 +138,175 @@ http_interactions:
       Server:
       - TornadoServer/2.1
       Etag:
-      - ! '"3b07e0bed976f44ddd22bea23a7afa32b7f8f3be"'
+      - '"763ff192ba3e6f4716472d9c027ecb73e195281d"'
       X-Embedly-Process-Time:
-      - '182'
+      - '100'
       Access-Control-Allow-Origin:
-      - ! '*'
+      - '*'
       Access-Control-Allow-Methods:
       - GET, OPTIONS
       X-Embedly-Host:
-      - api21
-      Content-Encoding:
-      - gzip
+      - api19
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAA819a3Mb17XlX8FoijdJlUiin+i27NyhZHuSXCfjSjLJh/iW
-        qgk0REQgwAuAlpVU/vusvdfep58AQcm3alyJSALdfc7Zj7Wf5/Tf/vniYbf9
-        cbWod28fd+sXX0xe3B0OD19cX39YvV891ItVdbXdvXvxcvJiUe/nu9XDYbXd
-        yGU/PCbT6lb+XSz090L/TeXfuvzhcbmcFpPm61ovnfOiuV6ET4qqrL+YvKke
-        tvVqV+lNuDWZ5kv5dxrxAbk/M5ne6gP4sLzGA6IZLs3ni0xviH94nOVLXJPH
-        qQ6YyyD1TGdVYAD8i9/zLMHneVok8kmJu7Jlpr/nOhb/zWby+wyjJNNUPy9w
-        Jb7VT2SKaT2V5/hYOrdMZ1LoEqcRnjxbYtx8FuOTWS6jc1bDefKZRVlzLH1C
-        pnOW54DOOp9aP5/rbG/5if6+1M9lLZitrj3Tu7iWQp+Zkqx6TaZc41oy/bzQ
-        65XoeZHgcWW2UFIWU72U7JzrH0uOXyqD5CFpHeOBZVaSjJhAukzxyWxpQyhf
-        C51Yh4xKNPmkmE713pSf8HpdFJeQkon6hGksk8xq0JqUxUVKi3yps7/FcrOk
-        JIsw4bKako14XhHVwhAVE5v7MsPnWTonwfRB0xoPKqdTPGhWzSlL+jWlIle+
-        pDq9AlMlqSgnfeIpjaZK4hxjzhYJbkhrPpSPEwbMprf6UBFZsrzMZphLpuJb
-        VKJaEA6lUVvIjDrKTjKS01LhqxOuEs8cWwx5U+g1FHFZWKrKkMW1CgpFSmbu
-        /DMFMILrnEkO01rMc3Gr81TVmiXCgVlO5RHJqEWuugLa5q6pYuAPlFBpwhnK
-        6rIy4ogqE5CGBkJIZFysX8ktAjI6SZ2eQZBq6UKvoeYsdYhble5arxQUw/X6
-        uVwTnlPPMTgkJJo8POovpWAXBtNLRRzyWa4DDCWXdGzzjzoxjf2heh8piUHz
-        otbJT5W/5MU06o7bXJ3dZqBaNotJX3KIqq9LNUVvwVjz3DwSGc3SGSWMWhAd
-        WSq1TUUsnlI0Wgorw4SJ45p8ISKW13MlSiPyfg2JQiFyckyibApmiPRPMPd8
-        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
-        d4f7NR7x/wCmnrk4ecsAAA==
+      encoding: UTF-8
+      string: '[{"provider_url": "http://wikipedia.org", "description": "\u30ab\u30dd\u30a8\u30a4\u30e9\uff08
+        \u30dd\u30eb\u30c8\u30ac\u30eb\u8a9e: Capoeira\uff09\u306f\u3001 \u30d6\u30e9\u30b8\u30eb\u306e\u817f\u6cd5\u3002\u76f8\u624b\u306b\u8e74\u308a\u3084\u653b\u6483\u3092\u5f53\u3066\u3066\u3057\u307e\u3046\u3082\u306e\u306f\u4e0b\u624b\u3068\u3055\u308c\u3001\u57fa\u672c\u7684\u306b\u76f8\u624b\u306b\u306f\u89e6\u308c\u305a\u3001\u30d7\u30ec\u30c3\u30b7\u30e3\u30fc\u3092\u304b\u3051\u3066\u3086\u304f\u3002\u305d\u306e\u305f\u3081\u3001
+        \u683c\u95d8\u6280\u3068 \u30c0\u30f3\u30b9 \u306e\u4e2d\u9593\u306b\u4f4d\u7f6e\u3059\u308b\u3082\u306e\u3068\u3082\u8003\u3048\u3089\u308c\u3066\u3044\u308b\u3002
+        \u65e5\u672c\u3067\u306f \u68b6\u539f\u4e00\u9a0e\u304c\u81ea\u66f8\u306e\u4f5c\u54c1\u3067\u300e
+        \u9006\u7acb\u3061\u3057\u306a\u304c\u3089\u95d8\u3046\u683c\u95d8\u6280 \u300f\u3068\u7d39\u4ecb\u3057\u305f\u70ba\u306b\u3001\u9577\u5e74\u8aa4\u89e3\u3055\u308c\u3066\u304d\u305f\u304c\u3001\u5e38\u306b\u9006\u7acb\u3061\u306e\u3088\u3046\u306a\u4f53\u52e2\u3092\u3068\u308b\u306e\u3067\u306f\u306a\u304f\u3001\u8db3\u3092\u5730\u9762\u306b\u4ed8\u3051\u3066\u3044\u308b\u3053\u3068\u306e\u307b\u3046\u304c\u591a\u3044\u3002
+        Capoeira\u3068\u3044\u3046\u8a9e\u306f\u30c8\u30a5\u30d4\u30fc\u30fb\u30b0\u30ef\u30e9\u30cb\u30fc\u8a9e\u306eca\u00e1
+        pu\u00e9ra\u304b\u3089\u6765\u3066\u3044\u308b\u3068\u3055\u308c\u308b\u3002ca\u00e1\u306f\u300c\u68ee\u300d\u3092\u3001pu\u00e9ra\u306f\u300c\u5b58\u5728\u3057\u3066\u3044\u305f\u3082\u306e\u300d\u3092\u610f\u5473\u3057\u3001ca\u00e1
+        pu\u00e9ra\u3067\u3001\u5208\u3089\u308c\u305f\u68ee\u3001\u6d88\u6ec5\u3057\u305f\u68ee\u3068\u306a\u308b\u3002
+        1500\u5e74 4\u670822\u65e5\u3001 \u30dd\u30eb\u30c8\u30ac\u30eb\u4eba\u306e
+        \u30da\u30c9\u30ed\u30fb\u30a2\u30eb\u30f4\u30a1\u30ec\u30b9\u30fb\u30ab\u30d6\u30e9\u30eb\u306f
+        \u30d6\u30e9\u30b8\u30eb\u3092\u767a\u898b\u3057\u3001 \u30dd\u30eb\u30c8\u30ac\u30eb\u306f\u30d6\u30e9\u30b8\u30eb\u3092\u690d\u6c11\u5730\u5316\u3057\u305f\u3002\u30dd\u30eb\u30c8\u30ac\u30eb\u4eba\u306f\u30d1\u30a6\u30fb\u30d6\u30e9\u30b8\u30eb\u306e\u67af\u6e07\u5f8c\u3001
+        \u30b5\u30c8\u30a6\u30ad\u30d3\u306a\u3069\u306e \u30d7\u30e9\u30f3\u30c6\u30fc\u30b7\u30e7\u30f3\u3092\u8015\u4f5c\u3055\u305b\u308b\u305f\u3081\u306e\u52b4\u50cd\u529b\u3068\u3057\u3066
+        \u30a2\u30d5\u30ea\u30ab\u5927\u9678\u306e \u30a2\u30f3\u30b4\u30e9\u3084
+        \u30b3\u30f3\u30b4\u3001 \u30e2\u30b6\u30f3\u30d3\u30fc\u30af\u3001 \u897f\u30a2\u30d5\u30ea\u30ab\u304b\u3089\u591a\u304f\u306e
+        \u9ed2\u4eba\u3092\u9023\u884c\u3057\u3066 \u4eba\u8eab\u58f2\u8cb7\u3092\u884c\u3044\u3001\u9ed2\u4eba\u306f
+        \u5974\u96b7\u3068\u3057\u3066\u9177\u4f7f\u3055\u308c\u305f\u3002\u30ab\u30dd\u30a8\u30a4\u30e9\u306e\u6e90\u6d41\u306f\u672a\u3060\u306b\u4e0d\u660e\u306a\u70b9\u304c\u591a\u3044\u3002
+        \u30a2\u30d5\u30ea\u30ab\u306e\u571f\u7740 \u683c\u95d8\u6280 \u3068\u3057\u3066\u3001\u3059\u3067\u306b\u3053\u306e\u9803\u3088\u308a\u3082\u4ee5\u524d\u306b\u5b58\u5728\u3057\u3066\u3044\u305f\u3068\u8a00\u308f\u308c\u308b\u4ed6\u3001\u30a4\u30f3\u30c7\u30a3\u30aa\u304c\u30ab\u30dd\u30a8\u30a4\u30e9\u3092\u3057\u3066\u3044\u308b\u306e\u3092\u30dd\u30eb\u30c8\u30ac\u30eb\u822a\u6d77\u58eb\u30de\u30eb\u30c6\u30a3\u30f3\u30fb\u30a2\u30d5\u30a9\u30f3\u30bd\u30fb\u30c7\u30fb\u30bd\u30a6\u30b6\u304c\u76ee\u6483\u3057\u3066\u3044\u308b\u3068\u8a00\u308f\u308c\u3066\u3044\u308b\u3002\u30ab\u30dd\u30a8\u30a4\u30e9\u754c\u3067\u306f\u3001\u4eca\u306e\u3068\u3053\u308d\u30ab\u30dd\u30a8\u30a4\u30e9\u306f\u30a2\u30d5\u30ea\u30ab\u3067\u306f\u306a\u304f\u3001\u30d6\u30e9\u30b8\u30eb\u3067\u751f\u307e\u308c\u305f\u3068\u3044\u3046\u8aac\u304c\u591a\u304f\u652f\u6301\u3055\u308c\u3066\u3044\u308b\u3002\u3088\u3063\u3066\u3001\u30a2\u30d5\u30ea\u30ab\u304b\u3089\u30d6\u30e9\u30b8\u30eb\u306b\u4f1d\u64ad\u3057\u305f\u6587\u5316\u7684\u8981\u7d20\u304c\u30ab\u30dd\u30a8\u30a4\u30e9\u306b\u5f71\u97ff\u3092\u4e0e\u3048\u305f\u53ef\u80fd\u6027\u306f\u3042\u308b\u306b\u3057\u308d\u3001\u30a2\u30d5\u30ea\u30ab\u8d77\u6e90\u3068\u3044\u3046\u306e\u306b\u306f\u8a9e\u5f0a\u304c\u3042\u308b\u3002\u4f8b\u3048\u3070\u3001\u5974\u96b7\u5c0f\u5c4b\uff08senzala\uff09\u306f\u3001\u5b97\u4e3b\u56fd\u30dd\u30eb\u30c8\u30ac\u30eb\u3084\u30a2\u30d5\u30ea\u30ab\u306b\u306f\u5f53\u7136\u5b58\u5728\u305b\u305a\u3001\u305d\u3046\u3057\u305f\u7279\u7570\u306a\u74b0\u5883\u304c\u30ab\u30dd\u30a8\u30a4\u30e9\u3092\u751f\u307f\u51fa\u3057\u3066\u3044\u3063\u305f\u3068\u8003\u3048\u3089\u308c\u308b\u3002
+        \u307e\u305f\u3001\u30ab\u30dd\u30a8\u30a4\u30e9\u306e\u57fa\u672c\u30b9\u30c6\u30c3\u30d7\u3001\u30b8\u30f3\u30ac\u304c\u901f\u3055\u3068\u8db3\u306e\u9593\u9694\u306e\u9055\u3044\u304c\u3042\u308b\u306b\u305b\u3088\u3001
+        \u30b5\u30f3\u30d0\u306e\u57fa\u672c\u30b9\u30c6\u30c3\u30d7\u306b\u9177\u4f3c\u3057\u3066\u3044\u308b\u3002
+        \u30b5\u30f3\u30d0\u306e\u539f\u578b\u304c\u8f2a\u306b\u306a\u3063\u3066\u4e2d\u5fc3\u306b\u30c0\u30f3\u30b5\u30fc\u304c\u98db\u3073\u51fa\u3057\u3066\u8e0a\u308b\u3053\u3068\u3001\u3082\u3068\u3082\u3068\u306e
+        \u30b5\u30f3\u30d0\u306e\u539f\u578b\u304c\u80f8\u3092\u3064\u304d\u3060\u3057\u3066\u8e0a\u308b\u306a\u3069\u3001
+        \u30b5\u30f3\u30d0 \u3068\u306e\u95a2\u4fc2\u304c\u6df1\u3044\u3002 1808\u5e74
+        1\u670823\u65e5\u306b \u30ea\u30b9\u30dc\u30f3\u304b\u3089 \u30ea\u30aa\u30c7\u30b8\u30e3\u30cd\u30a4\u30ed\u306b\u30dd\u30eb\u30c8\u30ac\u30eb\u738b\u5ba4\u304c\u79fb\u8ee2\u3057\u305f\u305f\u3081\u3001
+        \u30dd\u30eb\u30c8\u30ac\u30eb\u30fb\u30d6\u30e9\u30b8\u30eb\u9023\u5408\u738b\u56fd\u304c\u6a39\u7acb\u3055\u308c\u3001\u30dd\u30eb\u30c8\u30ac\u30eb\u738b
+        \u30b8\u30e7\u30a2\u30f36\u4e16\u3068\u30d6\u30e9\u30b8\u30eb\u7687\u5e1d
+        \u30da\u30c9\u30ed1\u4e16\u306f\u30011808\u5e74\u304b\u3089 1831\u5e74\u307e\u3067\u7279\u5225\u8b66\u5bdf\u3092\u8a2d\u7f6e\u3001\u30a2\u30d5\u30ea\u30ab\u6587\u5316\u306e\u6291\u5727\u3092\u884c\u3063\u305f\u3002
+        1888\u5e74 5\u670813\u65e5\u306b\u306b\u3088\u3063\u3066\u5974\u96b7\u5236\u306f\u5ec3\u6b62\u3055\u308c\u305f\u3082\u306e\u306e\u3001\u305d\u306e\u5f8c\u3082\u89e3\u653e\u3055\u308c\u305f
+        \u30a2\u30d5\u30ea\u30ab\u7cfb\u30d6\u30e9\u30b8\u30eb\u4eba\u306e\u5143\u5974\u96b7\u3078\u306e\u5dee\u5225\u306f\u4f9d\u7136\u3068\u3057\u3066\u7d9a\u304d\u3001\u30ab\u30dd\u30a8\u30a4\u30e9\u306f\u6a29\u529b\u306b\u62b5\u6297\u3059\u308b\u624b\u6bb5\u3068\u307f\u306a\u3055\u308c
+        1892\u5e74\u304b\u3089 1932\u5e74 \u307e\u3067\u7981\u6b62\u3055\u308c\u3066\u3044\u305f\u3002
+        \u3053\u3046\u3057\u305f\u80cc\u666f\u306e\u4e2d\u3001\u30ab\u30dd\u30a8\u30a4\u30e9\u306f\u9ed2\u4eba\u5974\u96b7\u304c\u3001
+        \u770b\u5b88\u306b\u3070\u308c\u306a\u3044\u3088\u3046 \u30c0\u30f3\u30b9\u306e\u3075\u308a\u3092\u3057\u3066\u4fee\u7df4\u3057\u305f
+        \u683c\u95d8\u6280 \u3068\u3044\u308f\u308c\u308b\u3002\u624b\u67b7\u3092\u3055\u308c\u3066\u3044\u305f\u5974\u96b7\u304c\u3001\u305d\u306e\u62d8\u675f\u3092\u89e3\u304b\u308c\u306a\u3044\u307e\u307e\u935b\u932c\u3057\u305f\u683c\u95d8\u6280\u306e\u70ba\u3001\u8db3\u6280\u3092\u4e2d\u5fc3\u306b\u767a\u5c55\u3057\u305f\u3068\u3055\u308c\u308b\u304c\u3001\u3053\u308c\u306f\u5f8c\u4e16\u306e\u60f3\u50cf\u3068\u898b\u3089\u308c\u3066\u3044\u308b\u3002
+        \u73fe\u5728\u306f \u7a7a\u624b\u3084 \u30c6\u30b3\u30f3\u30c9\u30fc\u30fb
+        \u30e0\u30a8\u30bf\u30a4\uff08\u30ef\u30a4\u30af\u30eb\u30fc\u304b\u3089\u305a\u3063\u3068\u8a66\u5408\u306e\u7d42\u308f\u308a\u307e\u3067\u97f3\u697d\u304c\u594f\u3067\u3089\u308c\u308b\uff09\u7b49\u306e\u4ed6\u56fd\u306e
+        \u683c\u95d8\u6280\u3068\u306e\u6280\u6cd5\u4ea4\u6d41\uff08\u7279\u306b\u3001\u5171\u306b\u52d5\u7269\u306e\u52d5\u304d\u3092\u771f\u4f3c\u305f\u578b\u304c\u3042\u308b\u3068\u3044\u3046\u3053\u3068\u3067\u3001\u30a2\u30f3\u30b4\u30fc\u30e9\u3068\u4e2d\u56fd\u306e\u5f62\u610f\u62f3\uff08\u90ed\u96f2\u6df1\u306f\u7344\u4e2d\u3067\u624b\u67b7\u3092\u5d4c\u3081\u3089\u308c\u305f\u307e\u307e\u864e\u5f62\u62f3\u306e\u4fee\u884c\u3092\u3057\u305f\uff09)
+        \u306b\u4f34\u3044 \u62f3\u6cd5 \u6280\u8853\u3092\u7528\u3044\u305f\u6280\u6cd5\u3082\u5c0e\u5165\u3055\u308c\u305f\u305f\u3081\u3001\u8db3\u6280\u3060\u3051\u306e\u683c\u95d8\u6280\u3067\u306f\u306a\u304f\u306a\u3063\u3066\u3044\u308b\u304c\u3001\u624b\u306b\u3088\u308b\u653b\u6483\u306f\u4f9d\u7136\u5c11\u306a\u304f\u3001\u5730\u9762\u306b\u624b\u3092\u3064\u3044\u3066\u8e74\u3063\u305f\u308a\u3001\u9006\u7acb\u3061\u3092\u3057\u305f\u308a\u3001\u30a2\u30af\u30ed\u30d0\u30c6\u30a3\u30c3\u30af\u306a\u72ec\u7279\u306e\u52d5\u304d\u3092\u6301\u3064\u3002
+        \u30d6\u30ec\u30a4\u30af\u30c0\u30f3\u30b9\u306a\u3069\u306b\u3082\u5f71\u97ff\u3092\u4e0e\u3048\u305f\u3002\u307e\u305f\u3001\u8e0a\u308a\u306e\u7df4\u7fd2\u3092\u3057\u3066\u3044\u308b\u3088\u3046\u306b\u898b\u305b\u304b\u3051\u308b\u305f\u3081\u3001\u97f3\u697d\u3068\u3068\u3082\u306b\u7df4\u7fd2\u3057\u305f\u3068\u8a00\u308f\u308c\u3066\u304a\u308a\u3001
+        \u30d3\u30ea\u30f3\u30d0\u30a6\u3084 \u30d1\u30f3\u30c7\u30a4\u30ed \u7b49\u306e\u697d\u5668\u3092\u3064\u304b\u3063\u305f\u4f34\u594f\u304c\u4ed8\u304d\u7269\u3067\u3042\u308b\u3002
+        \u4e00\u90e8\u3067\u306f \u30ca\u30a4\u30d5 \u8853\u304c\u4f75\u4f1d\u3055\u308c\u3066\u3044\u308b\u3002\u30b8\u30f3\u30ac\u306e\u52d5\u304d\u304b\u3089\u523a\u3057\u306b\u884c\u304f\u6280\u304c\u5e7e\u3064\u304b\u3042\u308b\u307b\u304b\u3001\u30ca\u30a4\u30d5\u3092\u6307\u306b\u631f\u3093\u3067\u8e74\u308b\u30ca\u30a4\u30d5\u8e74\u308a\u304c\u3042\u308b\u3002\u3053\u308c\u3089\u306e\u6280\u3082\u30d0\u30a4\u30fc\u30a2\u3067\u751f\u307e\u308c\u305f\u3068\u3055\u308c\u308b\u3002
+        \u5927\u304d\u304f\u4e8c\u3064\u306e\u6d41\u6d3e\u304c\u5b58\u5728\u3059\u308b\u3002\u8fd1\u5e74\u306f\u69d8\u3005\u306a\u8981\u7d20\u3092\u6df7\u305c\u305f\u30b3\u30f3\u30c6\u30f3\u30dd\u30e9\u30fc\u30cb\u30a2\u3068\u8a00\u3046\u65b0\u3057\u3044\u30b9\u30bf\u30a4\u30eb\u3082\u751f\u307e\u308c\u3066\u3044\u308b\u3002\u6d41\u6d3e\u3068\u8a00\u3063\u3066\u3082\u30b0\u30eb\u30fc\u30d7\u306b\u3088\u3063\u3066\u306f\u6d41\u6d3e\u306e\u533a\u5225\u3092\u4f5c\u3089\u305a\u3001\u30ab\u30dd\u30a8\u30a4\u30e9\u3068\u3057\u3066\u69d8\u3005\u306a\u30b9\u30bf\u30a4\u30eb\u3092\u7df4\u7fd2\u3059\u308b\u5834\u5408\u3082\u3042\u308b\u3002
+        1928\u5e74\u306b \u30e1\u30b9\u30c8\u30ea\u30fb\u30d3\u30f3\u30d0\uff08Mestre
+        Bimba\u3001\u672c\u540d\uff1a Manuel dos Reis Machado \uff09\u304c\u591a\u304f\u306e\u683c\u95d8\u6280\u3092\u7814\u7a76\u3057\u3001\u5275\u59cb\u3057\u305f\u3002\u3088\u308a\u683c\u95d8\u6280\u7684\u306a\u30b9\u30bf\u30a4\u30eb\u3002\u5275\u59cb\u3057\u305f\u5f53\u6642\u306f\u3055\u307b\u3069\u3067\u306f\u306a\u304b\u3063\u305f\u304c\u3001\u6fc0\u3057\u304f\u30a2\u30af\u30ed\u30d0\u30c6\u30a3\u30c3\u30af\u306a\u52d5\u304d\u3082\u7279\u5fb4\u3002\u4e00\u822c\u7684\u306b\u77e5\u3089\u308c\u3066\u3044\u308b\u30ab\u30dd\u30a8\u30a4\u30e9\u306f\u3053\u3061\u3089\u306e\u7cfb\u7d71\u306e\u6d41\u6d3e\u3002\u5c4b\u5185\u3067\u30ab\u30dd\u30a8\u30a4\u30e9\u6559\u5ba4\u3092\u521d\u3081\u3066\u958b\u304d\u3001
+        1930\u5e74\u4ee3\u306b\u306f\u30d6\u30e9\u30b8\u30eb\u5317\u6771\u90e8\u306e
+        ...", "embeds": [], "safe": true, "provider_display": "ja.wikipedia.org",
+        "related": [], "favicon_url": "http://bits.wikimedia.org/favicon/wikipedia.ico",
+        "authors": [], "images": [{"caption": null, "url": "http://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Capoeira-in-the-street-2.jpg/300px-Capoeira-in-the-street-2.jpg",
+        "height": 208, "width": 300, "colors": [{"color": [138, 142, 139], "weight":
+        0.3310546875}, {"color": [76, 86, 82], "weight": 0.21044921875}, {"color":
+        [162, 179, 179], "weight": 0.20068359375}, {"color": [41, 51, 55], "weight":
+        0.07470703125}, {"color": [21, 21, 26], "weight": 0.07177734375}], "entropy":
+        6.90163866346, "size": 24153}, {"caption": null, "url": "http://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Roda_de_capoeira2.jpg/250px-Roda_de_capoeira2.jpg",
+        "height": 178, "width": 250, "colors": [{"color": [33, 37, 21], "weight":
+        0.258544921875}, {"color": [75, 74, 46], "weight": 0.23583984375}, {"color":
+        [221, 241, 242], "weight": 0.118896484375}, {"color": [181, 204, 227], "weight":
+        0.109375}, {"color": [167, 178, 162], "weight": 0.0537109375}], "entropy":
+        7.33517266695, "size": 27149}], "cache_age": 57527, "lead": null, "language":
+        "Japanese", "original_url": "http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9",
+        "url": "http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%9D%E3%82%A8%E3%82%A4%E3%83%A9",
+        "media": {}, "title": "\u30ab\u30dd\u30a8\u30a4\u30e9", "offset": null, "content":
+        "<div>\n<p><b>&#12459;&#12509;&#12456;&#12452;&#12521;</b>&#65288; <a href=\"http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AB%E3%83%88%E3%82%AC%E3%83%AB%E8%AA%9E\">&#12509;&#12523;&#12488;&#12460;&#12523;&#35486;</a>:
+        Capoeira&#65289;&#12399;&#12289; <a href=\"http://ja.wikipedia.org/wiki/%E3%83%96%E3%83%A9%E3%82%B8%E3%83%AB\">&#12502;&#12521;&#12472;&#12523;</a>&#12398;&#33151;&#27861;&#12290;&#30456;&#25163;&#12395;&#36468;&#12426;&#12420;&#25915;&#25731;&#12434;&#24403;&#12390;&#12390;&#12375;&#12414;&#12358;&#12418;&#12398;&#12399;&#19979;&#25163;&#12392;&#12373;&#12428;&#12289;&#22522;&#26412;&#30340;&#12395;&#30456;&#25163;&#12395;&#12399;&#35302;&#12428;&#12378;&#12289;&#12503;&#12524;&#12483;&#12471;&#12515;&#12540;&#12434;&#12363;&#12369;&#12390;&#12422;&#12367;&#12290;&#12381;&#12398;&#12383;&#12417;&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E6%A0%BC%E9%97%98%E6%8A%80\">&#26684;&#38360;&#25216;</a>&#12392;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%80%E3%83%B3%E3%82%B9\">&#12480;&#12531;&#12473;</a>
+        &#12398;&#20013;&#38291;&#12395;&#20301;&#32622;&#12377;&#12427;&#12418;&#12398;&#12392;&#12418;&#32771;&#12360;&#12425;&#12428;&#12390;&#12356;&#12427;&#12290;</p>\n<p><a
+        href=\"http://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC\">&#26085;&#26412;</a>&#12391;&#12399;
+        <a href=\"http://ja.wikipedia.org/wiki/%E6%A2%B6%E5%8E%9F%E4%B8%80%E9%A8%8E\">&#26806;&#21407;&#19968;&#39438;</a>&#12364;&#33258;&#26360;&#12398;&#20316;&#21697;&#12391;&#12302;
+        <b>&#36870;&#31435;&#12385;&#12375;&#12394;&#12364;&#12425;&#38360;&#12358;&#26684;&#38360;&#25216;</b>
+        &#12303;&#12392;&#32057;&#20171;&#12375;&#12383;&#28858;&#12395;&#12289;&#38263;&#24180;&#35492;&#35299;&#12373;&#12428;&#12390;&#12365;&#12383;&#12364;&#12289;&#24120;&#12395;&#36870;&#31435;&#12385;&#12398;&#12424;&#12358;&#12394;&#20307;&#21218;&#12434;&#12392;&#12427;&#12398;&#12391;&#12399;&#12394;&#12367;&#12289;&#36275;&#12434;&#22320;&#38754;&#12395;&#20184;&#12369;&#12390;&#12356;&#12427;&#12371;&#12392;&#12398;&#12411;&#12358;&#12364;&#22810;&#12356;&#12290;</p>\n<p>Capoeira&#12392;&#12356;&#12358;&#35486;&#12399;&#12488;&#12453;&#12500;&#12540;&#12539;&#12464;&#12527;&#12521;&#12491;&#12540;&#35486;&#12398;ca&#225;
+        pu&#233;ra&#12363;&#12425;&#26469;&#12390;&#12356;&#12427;&#12392;&#12373;&#12428;&#12427;&#12290;ca&#225;&#12399;&#12300;&#26862;&#12301;&#12434;&#12289;pu&#233;ra&#12399;&#12300;&#23384;&#22312;&#12375;&#12390;&#12356;&#12383;&#12418;&#12398;&#12301;&#12434;&#24847;&#21619;&#12375;&#12289;ca&#225;
+        pu&#233;ra&#12391;&#12289;&#21000;&#12425;&#12428;&#12383;&#26862;&#12289;&#28040;&#28357;&#12375;&#12383;&#26862;&#12392;&#12394;&#12427;&#12290;</p>\n<p><a
+        href=\"http://ja.wikipedia.org/wiki/1500%E5%B9%B4\">1500&#24180;</a><a href=\"http://ja.wikipedia.org/wiki/4%E6%9C%8822%E6%97%A5\">4&#26376;22&#26085;</a>&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AB%E3%83%88%E3%82%AC%E3%83%AB%E4%BA%BA\">&#12509;&#12523;&#12488;&#12460;&#12523;&#20154;</a>&#12398;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%9A%E3%83%89%E3%83%AD%E3%83%BB%E3%82%A2%E3%83%AB%E3%83%B4%E3%82%A1%E3%83%AC%E3%82%B9%E3%83%BB%E3%82%AB%E3%83%96%E3%83%A9%E3%83%AB\">&#12506;&#12489;&#12525;&#12539;&#12450;&#12523;&#12532;&#12449;&#12524;&#12473;&#12539;&#12459;&#12502;&#12521;&#12523;</a>&#12399;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%96%E3%83%A9%E3%82%B8%E3%83%AB\">&#12502;&#12521;&#12472;&#12523;</a>&#12434;&#30330;&#35211;&#12375;&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AB%E3%83%88%E3%82%AC%E3%83%AB\">&#12509;&#12523;&#12488;&#12460;&#12523;</a>&#12399;&#12502;&#12521;&#12472;&#12523;&#12434;&#26893;&#27665;&#22320;&#21270;&#12375;&#12383;&#12290;&#12509;&#12523;&#12488;&#12460;&#12523;&#20154;&#12399;&#12497;&#12454;&#12539;&#12502;&#12521;&#12472;&#12523;&#12398;&#26543;&#28167;&#24460;&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%88%E3%82%A6%E3%82%AD%E3%83%93\">&#12469;&#12488;&#12454;&#12461;&#12499;</a>&#12394;&#12393;&#12398;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%A9%E3%83%B3%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3\">&#12503;&#12521;&#12531;&#12486;&#12540;&#12471;&#12519;&#12531;</a>&#12434;&#32789;&#20316;&#12373;&#12379;&#12427;&#12383;&#12417;&#12398;&#21172;&#20685;&#21147;&#12392;&#12375;&#12390;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%95%E3%83%AA%E3%82%AB%E5%A4%A7%E9%99%B8\">&#12450;&#12501;&#12522;&#12459;&#22823;&#38520;</a>&#12398;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%82%B4%E3%83%A9\">&#12450;&#12531;&#12468;&#12521;</a>&#12420;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%B3%E3%82%B4\">&#12467;&#12531;&#12468;</a>&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%A2%E3%82%B6%E3%83%B3%E3%83%93%E3%83%BC%E3%82%AF\">&#12514;&#12470;&#12531;&#12499;&#12540;&#12463;</a>&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E8%A5%BF%E3%82%A2%E3%83%95%E3%83%AA%E3%82%AB\">&#35199;&#12450;&#12501;&#12522;&#12459;</a>&#12363;&#12425;&#22810;&#12367;&#12398;
+        <a href=\"http://ja.wikipedia.org/wiki/%E9%BB%92%E4%BA%BA\">&#40658;&#20154;</a>&#12434;&#36899;&#34892;&#12375;&#12390;
+        <a href=\"http://ja.wikipedia.org/wiki/%E4%BA%BA%E8%BA%AB%E5%A3%B2%E8%B2%B7\">&#20154;&#36523;&#22770;&#36023;</a>&#12434;&#34892;&#12356;&#12289;&#40658;&#20154;&#12399;
+        <a href=\"http://ja.wikipedia.org/wiki/%E5%A5%B4%E9%9A%B7\">&#22900;&#38583;</a>&#12392;&#12375;&#12390;&#37239;&#20351;&#12373;&#12428;&#12383;&#12290;&#12459;&#12509;&#12456;&#12452;&#12521;&#12398;&#28304;&#27969;&#12399;&#26410;&#12384;&#12395;&#19981;&#26126;&#12394;&#28857;&#12364;&#22810;&#12356;&#12290;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%95%E3%83%AA%E3%82%AB\">&#12450;&#12501;&#12522;&#12459;</a>&#12398;&#22303;&#30528;
+        <a href=\"http://ja.wikipedia.org/wiki/%E6%A0%BC%E9%97%98%E6%8A%80\">&#26684;&#38360;&#25216;</a>
+        &#12392;&#12375;&#12390;&#12289;&#12377;&#12391;&#12395;&#12371;&#12398;&#38915;&#12424;&#12426;&#12418;&#20197;&#21069;&#12395;&#23384;&#22312;&#12375;&#12390;&#12356;&#12383;&#12392;&#35328;&#12431;&#12428;&#12427;&#20182;&#12289;&#12452;&#12531;&#12487;&#12451;&#12458;&#12364;&#12459;&#12509;&#12456;&#12452;&#12521;&#12434;&#12375;&#12390;&#12356;&#12427;&#12398;&#12434;&#12509;&#12523;&#12488;&#12460;&#12523;&#33322;&#28023;&#22763;&#12510;&#12523;&#12486;&#12451;&#12531;&#12539;&#12450;&#12501;&#12457;&#12531;&#12477;&#12539;&#12487;&#12539;&#12477;&#12454;&#12470;&#12364;&#30446;&#25731;&#12375;&#12390;&#12356;&#12427;&#12392;&#35328;&#12431;&#12428;&#12390;&#12356;&#12427;&#12290;&#12459;&#12509;&#12456;&#12452;&#12521;&#30028;&#12391;&#12399;&#12289;&#20170;&#12398;&#12392;&#12371;&#12429;&#12459;&#12509;&#12456;&#12452;&#12521;&#12399;&#12450;&#12501;&#12522;&#12459;&#12391;&#12399;&#12394;&#12367;&#12289;&#12502;&#12521;&#12472;&#12523;&#12391;&#29983;&#12414;&#12428;&#12383;&#12392;&#12356;&#12358;&#35500;&#12364;&#22810;&#12367;&#25903;&#25345;&#12373;&#12428;&#12390;&#12356;&#12427;&#12290;&#12424;&#12387;&#12390;&#12289;&#12450;&#12501;&#12522;&#12459;&#12363;&#12425;&#12502;&#12521;&#12472;&#12523;&#12395;&#20253;&#25773;&#12375;&#12383;&#25991;&#21270;&#30340;&#35201;&#32032;&#12364;&#12459;&#12509;&#12456;&#12452;&#12521;&#12395;&#24433;&#38911;&#12434;&#19982;&#12360;&#12383;&#21487;&#33021;&#24615;&#12399;&#12354;&#12427;&#12395;&#12375;&#12429;&#12289;&#12450;&#12501;&#12522;&#12459;&#36215;&#28304;&#12392;&#12356;&#12358;&#12398;&#12395;&#12399;&#35486;&#24330;&#12364;&#12354;&#12427;&#12290;&#20363;&#12360;&#12400;&#12289;&#22900;&#38583;&#23567;&#23627;&#65288;senzala&#65289;&#12399;&#12289;&#23447;&#20027;&#22269;&#12509;&#12523;&#12488;&#12460;&#12523;&#12420;&#12450;&#12501;&#12522;&#12459;&#12395;&#12399;&#24403;&#28982;&#23384;&#22312;&#12379;&#12378;&#12289;&#12381;&#12358;&#12375;&#12383;&#29305;&#30064;&#12394;&#29872;&#22659;&#12364;&#12459;&#12509;&#12456;&#12452;&#12521;&#12434;&#29983;&#12415;&#20986;&#12375;&#12390;&#12356;&#12387;&#12383;&#12392;&#32771;&#12360;&#12425;&#12428;&#12427;&#12290;</p>\n<p>&#12414;&#12383;&#12289;&#12459;&#12509;&#12456;&#12452;&#12521;&#12398;&#22522;&#26412;&#12473;&#12486;&#12483;&#12503;&#12289;&#12472;&#12531;&#12460;&#12364;&#36895;&#12373;&#12392;&#36275;&#12398;&#38291;&#38548;&#12398;&#36949;&#12356;&#12364;&#12354;&#12427;&#12395;&#12379;&#12424;&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%B3%E3%83%90\">&#12469;&#12531;&#12496;</a>&#12398;&#22522;&#26412;&#12473;&#12486;&#12483;&#12503;&#12395;&#37239;&#20284;&#12375;&#12390;&#12356;&#12427;&#12290;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%B3%E3%83%90\">&#12469;&#12531;&#12496;</a>&#12398;&#21407;&#22411;&#12364;&#36650;&#12395;&#12394;&#12387;&#12390;&#20013;&#24515;&#12395;&#12480;&#12531;&#12469;&#12540;&#12364;&#39131;&#12403;&#20986;&#12375;&#12390;&#36362;&#12427;&#12371;&#12392;&#12289;&#12418;&#12392;&#12418;&#12392;&#12398;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%B3%E3%83%90\">&#12469;&#12531;&#12496;</a>&#12398;&#21407;&#22411;&#12364;&#33016;&#12434;&#12388;&#12365;&#12384;&#12375;&#12390;&#36362;&#12427;&#12394;&#12393;&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%B3%E3%83%90\">&#12469;&#12531;&#12496;</a>
+        &#12392;&#12398;&#38306;&#20418;&#12364;&#28145;&#12356;&#12290;</p>\n<p><a
+        href=\"http://ja.wikipedia.org/wiki/1808%E5%B9%B4\">1808&#24180;</a><a href=\"http://ja.wikipedia.org/wiki/1%E6%9C%8823%E6%97%A5\">1&#26376;23&#26085;</a>&#12395;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%B9%E3%83%9C%E3%83%B3\">&#12522;&#12473;&#12508;&#12531;</a>&#12363;&#12425;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%AA%E3%83%87%E3%82%B8%E3%83%A3%E3%83%8D%E3%82%A4%E3%83%AD\">&#12522;&#12458;&#12487;&#12472;&#12515;&#12493;&#12452;&#12525;</a>&#12395;&#12509;&#12523;&#12488;&#12460;&#12523;&#29579;&#23460;&#12364;&#31227;&#36578;&#12375;&#12383;&#12383;&#12417;&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AB%E3%83%88%E3%82%AC%E3%83%AB%E3%83%BB%E3%83%96%E3%83%A9%E3%82%B8%E3%83%AB%E9%80%A3%E5%90%88%E7%8E%8B%E5%9B%BD\">&#12509;&#12523;&#12488;&#12460;&#12523;&#12539;&#12502;&#12521;&#12472;&#12523;&#36899;&#21512;&#29579;&#22269;</a>&#12364;&#27193;&#31435;&#12373;&#12428;&#12289;&#12509;&#12523;&#12488;&#12460;&#12523;&#29579;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%B8%E3%83%A7%E3%82%A2%E3%83%B36%E4%B8%96\">&#12472;&#12519;&#12450;&#12531;6&#19990;</a>&#12392;&#12502;&#12521;&#12472;&#12523;&#30343;&#24093;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%9A%E3%83%89%E3%83%AD1%E4%B8%96_(%E3%83%96%E3%83%A9%E3%82%B8%E3%83%AB%E7%9A%87%E5%B8%9D)\">&#12506;&#12489;&#12525;1&#19990;</a>&#12399;&#12289;1808&#24180;&#12363;&#12425;
+        <a href=\"http://ja.wikipedia.org/wiki/1831%E5%B9%B4\">1831&#24180;</a>&#12414;&#12391;&#29305;&#21029;&#35686;&#23519;&#12434;&#35373;&#32622;&#12289;&#12450;&#12501;&#12522;&#12459;&#25991;&#21270;&#12398;&#25233;&#22311;&#12434;&#34892;&#12387;&#12383;&#12290;
+        <a href=\"http://ja.wikipedia.org/wiki/1888%E5%B9%B4\">1888&#24180;</a><a
+        href=\"http://ja.wikipedia.org/wiki/5%E6%9C%8813%E6%97%A5\">5&#26376;13&#26085;</a>&#12395;&#12395;&#12424;&#12387;&#12390;&#22900;&#38583;&#21046;&#12399;&#24259;&#27490;&#12373;&#12428;&#12383;&#12418;&#12398;&#12398;&#12289;&#12381;&#12398;&#24460;&#12418;&#35299;&#25918;&#12373;&#12428;&#12383;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%95%E3%83%AA%E3%82%AB%E7%B3%BB%E3%83%96%E3%83%A9%E3%82%B8%E3%83%AB%E4%BA%BA\">&#12450;&#12501;&#12522;&#12459;&#31995;&#12502;&#12521;&#12472;&#12523;&#20154;</a>&#12398;&#20803;&#22900;&#38583;&#12408;&#12398;&#24046;&#21029;&#12399;&#20381;&#28982;&#12392;&#12375;&#12390;&#32154;&#12365;&#12289;&#12459;&#12509;&#12456;&#12452;&#12521;&#12399;&#27177;&#21147;&#12395;&#25269;&#25239;&#12377;&#12427;&#25163;&#27573;&#12392;&#12415;&#12394;&#12373;&#12428;
+        <a href=\"http://ja.wikipedia.org/wiki/1892%E5%B9%B4\">1892&#24180;</a>&#12363;&#12425;
+        <a href=\"http://ja.wikipedia.org/wiki/1932%E5%B9%B4\">1932&#24180;</a> &#12414;&#12391;&#31105;&#27490;&#12373;&#12428;&#12390;&#12356;&#12383;&#12290;</p>\n<p>&#12371;&#12358;&#12375;&#12383;&#32972;&#26223;&#12398;&#20013;&#12289;&#12459;&#12509;&#12456;&#12452;&#12521;&#12399;&#40658;&#20154;&#22900;&#38583;&#12364;&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E7%9C%8B%E5%AE%88\">&#30475;&#23432;</a>&#12395;&#12400;&#12428;&#12394;&#12356;&#12424;&#12358;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%80%E3%83%B3%E3%82%B9\">&#12480;&#12531;&#12473;</a>&#12398;&#12405;&#12426;&#12434;&#12375;&#12390;&#20462;&#32244;&#12375;&#12383;
+        <a href=\"http://ja.wikipedia.org/wiki/%E6%A0%BC%E9%97%98%E6%8A%80\">&#26684;&#38360;&#25216;</a>
+        &#12392;&#12356;&#12431;&#12428;&#12427;&#12290;&#25163;&#26551;&#12434;&#12373;&#12428;&#12390;&#12356;&#12383;&#22900;&#38583;&#12364;&#12289;&#12381;&#12398;&#25304;&#26463;&#12434;&#35299;&#12363;&#12428;&#12394;&#12356;&#12414;&#12414;&#37723;&#37676;&#12375;&#12383;&#26684;&#38360;&#25216;&#12398;&#28858;&#12289;&#36275;&#25216;&#12434;&#20013;&#24515;&#12395;&#30330;&#23637;&#12375;&#12383;&#12392;&#12373;&#12428;&#12427;&#12364;&#12289;&#12371;&#12428;&#12399;&#24460;&#19990;&#12398;&#24819;&#20687;&#12392;&#35211;&#12425;&#12428;&#12390;&#12356;&#12427;&#12290;</p>\n<p>&#29694;&#22312;&#12399;
+        <a href=\"http://ja.wikipedia.org/wiki/%E7%A9%BA%E6%89%8B\">&#31354;&#25163;</a>&#12420;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B3%E3%83%B3%E3%83%89%E3%83%BC\">&#12486;&#12467;&#12531;&#12489;&#12540;</a>&#12539;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%A0%E3%82%A8%E3%82%BF%E3%82%A4\">&#12512;&#12456;&#12479;&#12452;</a>&#65288;&#12527;&#12452;&#12463;&#12523;&#12540;&#12363;&#12425;&#12378;&#12387;&#12392;&#35430;&#21512;&#12398;&#32066;&#12431;&#12426;&#12414;&#12391;&#38899;&#27005;&#12364;&#22863;&#12391;&#12425;&#12428;&#12427;&#65289;&#31561;&#12398;&#20182;&#22269;&#12398;
+        <a href=\"http://ja.wikipedia.org/wiki/%E6%A0%BC%E9%97%98%E6%8A%80\">&#26684;&#38360;&#25216;</a>&#12392;&#12398;&#25216;&#27861;&#20132;&#27969;&#65288;&#29305;&#12395;&#12289;&#20849;&#12395;&#21205;&#29289;&#12398;&#21205;&#12365;&#12434;&#30495;&#20284;&#12383;&#22411;&#12364;&#12354;&#12427;&#12392;&#12356;&#12358;&#12371;&#12392;&#12391;&#12289;&#12450;&#12531;&#12468;&#12540;&#12521;&#12392;&#20013;&#22269;&#12398;&#24418;&#24847;&#25331;&#65288;&#37101;&#38642;&#28145;&#12399;&#29508;&#20013;&#12391;&#25163;&#26551;&#12434;&#23884;&#12417;&#12425;&#12428;&#12383;&#12414;&#12414;&#34382;&#24418;&#25331;&#12398;&#20462;&#34892;&#12434;&#12375;&#12383;&#65289;)
+        &#12395;&#20276;&#12356; <a href=\"http://ja.wikipedia.org/wiki/%E6%8B%B3%E6%B3%95\">&#25331;&#27861;</a>
+        &#25216;&#34899;&#12434;&#29992;&#12356;&#12383;&#25216;&#27861;&#12418;&#23566;&#20837;&#12373;&#12428;&#12383;&#12383;&#12417;&#12289;&#36275;&#25216;&#12384;&#12369;&#12398;&#26684;&#38360;&#25216;&#12391;&#12399;&#12394;&#12367;&#12394;&#12387;&#12390;&#12356;&#12427;&#12364;&#12289;&#25163;&#12395;&#12424;&#12427;&#25915;&#25731;&#12399;&#20381;&#28982;&#23569;&#12394;&#12367;&#12289;&#22320;&#38754;&#12395;&#25163;&#12434;&#12388;&#12356;&#12390;&#36468;&#12387;&#12383;&#12426;&#12289;&#36870;&#31435;&#12385;&#12434;&#12375;&#12383;&#12426;&#12289;&#12450;&#12463;&#12525;&#12496;&#12486;&#12451;&#12483;&#12463;&#12394;&#29420;&#29305;&#12398;&#21205;&#12365;&#12434;&#25345;&#12388;&#12290;</p>\n<p><a
+        href=\"http://ja.wikipedia.org/wiki/%E3%83%96%E3%83%AC%E3%82%A4%E3%82%AF%E3%83%80%E3%83%B3%E3%82%B9\">&#12502;&#12524;&#12452;&#12463;&#12480;&#12531;&#12473;</a>&#12394;&#12393;&#12395;&#12418;&#24433;&#38911;&#12434;&#19982;&#12360;&#12383;&#12290;&#12414;&#12383;&#12289;&#36362;&#12426;&#12398;&#32244;&#32722;&#12434;&#12375;&#12390;&#12356;&#12427;&#12424;&#12358;&#12395;&#35211;&#12379;&#12363;&#12369;&#12427;&#12383;&#12417;&#12289;&#38899;&#27005;&#12392;&#12392;&#12418;&#12395;&#32244;&#32722;&#12375;&#12383;&#12392;&#35328;&#12431;&#12428;&#12390;&#12362;&#12426;&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%93%E3%83%AA%E3%83%B3%E3%83%90%E3%82%A6\">&#12499;&#12522;&#12531;&#12496;&#12454;</a>&#12420;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%91%E3%83%B3%E3%83%87%E3%82%A4%E3%83%AD\">&#12497;&#12531;&#12487;&#12452;&#12525;</a>
+        &#31561;&#12398;&#27005;&#22120;&#12434;&#12388;&#12363;&#12387;&#12383;&#20276;&#22863;&#12364;&#20184;&#12365;&#29289;&#12391;&#12354;&#12427;&#12290;</p>\n<p>&#19968;&#37096;&#12391;&#12399;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%8A%E3%82%A4%E3%83%95\">&#12490;&#12452;&#12501;</a>
+        &#34899;&#12364;&#20341;&#20253;&#12373;&#12428;&#12390;&#12356;&#12427;&#12290;&#12472;&#12531;&#12460;&#12398;&#21205;&#12365;&#12363;&#12425;&#21050;&#12375;&#12395;&#34892;&#12367;&#25216;&#12364;&#24190;&#12388;&#12363;&#12354;&#12427;&#12411;&#12363;&#12289;&#12490;&#12452;&#12501;&#12434;&#25351;&#12395;&#25375;&#12435;&#12391;&#36468;&#12427;&#12490;&#12452;&#12501;&#36468;&#12426;&#12364;&#12354;&#12427;&#12290;&#12371;&#12428;&#12425;&#12398;&#25216;&#12418;&#12496;&#12452;&#12540;&#12450;&#12391;&#29983;&#12414;&#12428;&#12383;&#12392;&#12373;&#12428;&#12427;&#12290;</p>\n<p>&#22823;&#12365;&#12367;&#20108;&#12388;&#12398;&#27969;&#27966;&#12364;&#23384;&#22312;&#12377;&#12427;&#12290;&#36817;&#24180;&#12399;&#27096;&#12293;&#12394;&#35201;&#32032;&#12434;&#28151;&#12380;&#12383;&#12467;&#12531;&#12486;&#12531;&#12509;&#12521;&#12540;&#12491;&#12450;&#12392;&#35328;&#12358;&#26032;&#12375;&#12356;&#12473;&#12479;&#12452;&#12523;&#12418;&#29983;&#12414;&#12428;&#12390;&#12356;&#12427;&#12290;&#27969;&#27966;&#12392;&#35328;&#12387;&#12390;&#12418;&#12464;&#12523;&#12540;&#12503;&#12395;&#12424;&#12387;&#12390;&#12399;&#27969;&#27966;&#12398;&#21306;&#21029;&#12434;&#20316;&#12425;&#12378;&#12289;&#12459;&#12509;&#12456;&#12452;&#12521;&#12392;&#12375;&#12390;&#27096;&#12293;&#12394;&#12473;&#12479;&#12452;&#12523;&#12434;&#32244;&#32722;&#12377;&#12427;&#22580;&#21512;&#12418;&#12354;&#12427;&#12290;</p>\n<p><a
+        href=\"http://ja.wikipedia.org/wiki/1928%E5%B9%B4\">1928&#24180;</a>&#12395;
+        <a href=\"http://ja.wikipedia.org/w/index.php?title=%E3%83%A1%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BB%E3%83%93%E3%83%B3%E3%83%90&amp;action=edit&amp;redlink=1\">&#12513;&#12473;&#12488;&#12522;&#12539;&#12499;&#12531;&#12496;</a>&#65288;Mestre
+        Bimba&#12289;&#26412;&#21517;&#65306; <a href=\"http://en.wikipedia.org/wiki/Manuel_dos_Reis_Machado\">Manuel
+        dos Reis Machado </a>&#65289;&#12364;&#22810;&#12367;&#12398;&#26684;&#38360;&#25216;&#12434;&#30740;&#31350;&#12375;&#12289;&#21109;&#22987;&#12375;&#12383;&#12290;&#12424;&#12426;&#26684;&#38360;&#25216;&#30340;&#12394;&#12473;&#12479;&#12452;&#12523;&#12290;&#21109;&#22987;&#12375;&#12383;&#24403;&#26178;&#12399;&#12373;&#12411;&#12393;&#12391;&#12399;&#12394;&#12363;&#12387;&#12383;&#12364;&#12289;&#28608;&#12375;&#12367;&#12450;&#12463;&#12525;&#12496;&#12486;&#12451;&#12483;&#12463;&#12394;&#21205;&#12365;&#12418;&#29305;&#24500;&#12290;&#19968;&#33324;&#30340;&#12395;&#30693;&#12425;&#12428;&#12390;&#12356;&#12427;&#12459;&#12509;&#12456;&#12452;&#12521;&#12399;&#12371;&#12385;&#12425;&#12398;&#31995;&#32113;&#12398;&#27969;&#27966;&#12290;&#23627;&#20869;&#12391;&#12459;&#12509;&#12456;&#12452;&#12521;&#25945;&#23460;&#12434;&#21021;&#12417;&#12390;&#38283;&#12365;&#12289;
+        <a href=\"http://ja.wikipedia.org/wiki/1930%E5%B9%B4%E4%BB%A3\">1930&#24180;&#20195;</a>&#12395;&#12399;&#12502;&#12521;&#12472;&#12523;&#21271;&#26481;&#37096;&#12398;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%90%E3%82%A4%E3%83%BC%E3%82%A2%E5%B7%9E\">&#12496;&#12452;&#12540;&#12450;&#24030;</a><a
+        href=\"http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%AB%E3%83%B4%E3%82%A1%E3%83%89%E3%83%BC%E3%83%AB\">&#12469;&#12523;&#12532;&#12449;&#12489;&#12540;&#12523;</a>&#12391;&#19990;&#30028;&#21021;&#12398;&#36947;&#22580;&#12434;&#38283;&#26657;&#12375;&#12383;&#12290;&#24403;&#26178;&#12398;&#29420;&#35009;&#32773;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%B8%E3%82%A7%E3%83%88%E3%82%A5%E3%83%AA%E3%82%AA%E3%83%BB%E3%83%89%E3%83%AB%E3%83%8D%E3%83%AC%E3%82%B9%E3%83%BB%E3%83%B4%E3%82%A1%E3%83%AB%E3%82%AC%E3%82%B9\">&#12472;&#12455;&#12488;&#12453;&#12522;&#12458;&#12539;&#12489;&#12523;&#12493;&#12524;&#12473;&#12539;&#12532;&#12449;&#12523;&#12460;&#12473;</a>&#22823;&#32113;&#38936;&#12395;&#12424;&#12427;&#12502;&#12521;&#12472;&#12523;&#12398;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%83%8A%E3%82%B7%E3%83%A7%E3%83%8A%E3%83%AA%E3%82%BA%E3%83%A0\">&#12490;&#12471;&#12519;&#12490;&#12522;&#12474;&#12512;</a>
+        &#31216;&#25562;&#12392;&#22269;&#27665;&#25991;&#21270;&#12434;&#35211;&#30452;&#12377;&#36939;&#21205;&#12364;&#24375;&#12414;&#12427;&#20013;&#12289;&#19978;&#27969;&#38542;&#32026;&#12398;&#23376;&#24351;&#12414;&#12391;&#12418;&#12364;&#12459;&#12509;&#12456;&#12452;&#12521;&#12434;&#32722;&#12356;&#12289;&#12414;&#12383;&#12289;&#12532;&#12449;&#12523;&#12460;&#12473;&#12395;&#25307;&#12363;&#12428;&#12390;&#12487;&#12514;&#12531;&#12473;&#12488;&#12524;&#12540;&#12471;&#12519;&#12531;&#12434;&#34892;&#12387;&#12383;&#12371;&#12392;&#12363;&#12425;&#12418;&#12289;&#12499;&#12531;&#12496;&#12399;&#22900;&#38583;&#12398;&#25991;&#21270;&#12363;&#12425;&#12398;&#12459;&#12509;&#12456;&#12452;&#12521;&#12398;&#22320;&#20301;&#12434;&#21521;&#19978;&#12373;&#12379;&#12383;&#23384;&#22312;&#12392;&#12356;&#12360;&#12427;&#12290;&#12289;&#31354;&#25163;&#12398;&#20844;&#30456;&#21531;&#65288;&#12463;&#12540;&#12471;&#12515;&#12531;&#12463;&#12540;&#65289;&#12398;&#12424;&#12358;&#12395;&#12289;&#24444;&#12398;&#21517;&#12434;&#38306;&#12377;&#12427;&#22411;&#12539;&#12300;&#12475;&#12463;&#12456;&#12531;&#12471;&#12450;&#12539;&#12472;&#12539;&#12513;&#12473;&#12488;&#12524;&#12539;&#12499;&#12531;&#12496;&#12301;&#12364;8&#20491;&#12418;&#12354;&#12427;&#12290;</p>\n<p><a
+        href=\"http://ja.wikipedia.org/w/index.php?title=%E3%83%A1%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BB%E3%83%91%E3%82%B9%E3%83%81%E3%83%BC%E3%83%8B%E3%83%A3&amp;action=edit&amp;redlink=1\">&#12513;&#12473;&#12488;&#12522;&#12539;&#12497;&#12473;&#12481;&#12540;&#12491;&#12515;</a>&#65288;Mestre
+        Pastinha&#12289;&#26412;&#21517;&#65306; <a href=\"http://en.wikipedia.org/wiki/Vicente_Ferreira_Pastinha\">Vicente
+        Ferreira Pastinha </a>&#65289;&#12364;&#12414;&#12392;&#12417;&#12383;&#27969;&#27966;&#12290;&#24444;&#12399;&#22900;&#38583;&#12391;&#12394;&#12356;&#36523;&#20998;&#12398;&#32773;&#12395;&#12418;&#12459;&#12509;&#12456;&#12452;&#12521;&#12434;&#25945;&#12360;&#12383;&#38761;&#21629;&#20816;&#12290;&#12459;&#12509;&#12456;&#12452;&#12521;&#12398;&#24107;&#12391;&#12354;&#12427;&#12450;&#12501;&#12522;&#12459;&#20154;&#12505;&#12493;&#12472;&#12540;&#12488;&#12398;&#20986;&#36523;&#22320;&#12384;&#12387;&#12383;&#12502;&#12521;&#12472;&#12523;&#12398;&#12450;&#12531;&#12468;&#12540;&#12521;&#22320;&#26041;&#65288;&#12371;&#12398;&#22320;&#26041;&#12398;&#21517;&#21069;&#12399;&#12450;&#12501;&#12522;&#12459;&#12398;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%82%B4%E3%83%A9\">&#12450;&#12531;&#12468;&#12521;</a>&#12395;&#30001;&#26469;&#12377;&#12427;&#65289;&#12363;&#12425;&#21517;&#21069;&#12434;&#12392;&#12387;&#12383;&#12290;&#20736;&#24335;&#30340;&#12391;&#12393;&#12385;&#12425;&#12363;&#12392;&#12356;&#12360;&#12400;&#12422;&#12387;&#12383;&#12426;&#12375;&#12383;&#21205;&#12365;&#12364;&#29305;&#24500;&#12290;&#39131;&#12403;&#36339;&#12397;&#12427;&#12424;&#12358;&#12394;&#27966;&#25163;&#12394;&#21205;&#20316;&#12399;&#12354;&#12414;&#12426;&#34892;&#12431;&#12378;&#12289;&#21205;&#29289;&#12398;&#21205;&#12365;&#12434;&#12414;&#12397;&#12383;
+        <a href=\"http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%95%E3%83%AA%E3%82%AB\">&#12450;&#12501;&#12522;&#12459;</a>&#22303;&#30528;&#12398;
+        <a href=\"http://ja.wikipedia.org/wiki/%E6%A0%BC%E9%97%98%E6%8A%80\">&#26684;&#38360;&#25216;</a>&#12395;&#36817;&#12356;&#12290;&#12497;&#12473;&#12481;&#12540;&#12491;&#12515;&#12399;
+        <a href=\"http://ja.wikipedia.org/wiki/1941%E5%B9%B4\">1941&#24180;</a> &#12395;&#12469;&#12523;&#12532;&#12449;&#12489;&#12540;&#12523;&#12391;&#12450;&#12531;&#12468;&#12540;&#12521;&#12398;&#26412;&#26684;&#30340;&#12394;&#36947;&#22580;&#12434;&#38283;&#12356;&#12383;&#12290;</p>\n<p><a
+        href=\"http://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:Ginga_de_dos.gif\"><img
+        src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Ginga_de_dos.gif/170px-Ginga_de_dos.gif\"></a></p>\n<p>\n</p><ul><li>&#12472;&#12531;&#12460;&#65288;ginga&#65289;......&#12300;&#12424;&#12385;&#12424;&#12385;&#27497;&#12365;&#12301;&#12398;&#24847;&#21619;&#12290;&#20182;&#12398;&#26684;&#38360;&#25216;&#12398;&#27083;&#12360;&#12395;&#36817;&#12356;&#12289;&#12459;&#12509;&#12456;&#12452;&#12521;&#12398;&#29305;&#24500;&#30340;&#12394;&#12473;&#12486;&#12483;&#12503;&#12290;&#33136;&#12434;&#33853;&#12392;&#12375;&#12289;&#38996;&#38754;&#12434;&#38450;&#24481;&#12375;&#12388;&#12388;&#24038;&#21491;&#12395;&#20307;&#12434;&#31227;&#21205;&#12373;&#12379;&#12427;&#12290;&#12469;&#12531;&#12496;&#12398;&#12473;&#12486;&#12483;&#12503;&#12392;&#12418;&#21516;&#12376;&#12391;&#12289;&#12469;&#12531;&#12496;&#12398;&#12473;&#12486;&#12483;&#12503;&#12399;&#12472;&#12531;&#12460;&#12434;&#36895;&#12417;&#12383;&#12418;&#12398;&#12395;&#12394;&#12427;&#12290;</li>\n\t<li>&#12465;&#12452;&#12471;&#12515;&#12540;&#12480;&#65288;queixada&#65289;......&#12354;&#12372;&#12408;&#12398;&#36468;&#12426;&#12290;</li>\n\t<li>&#12450;&#12523;&#12510;&#12540;&#12480;&#65288;armada&#65289;......&#12300;&#33382;&#38538;&#12539;&#28023;&#36557;&#12301;&#12434;&#24847;&#21619;&#12377;&#12427;&#36468;&#12426;&#12290;</li>\n\t<li>&#12456;&#12522;&#12467;&#12540;&#12500;&#12486;&#12525;......&#12300;&#12504;&#12522;&#12467;&#12503;&#12479;&#12540;&#12301;&#12434;&#24847;&#21619;&#12377;&#12427;&#36870;&#31435;&#12385;&#22238;&#36578;&#36468;&#12426;&#12290;&#27880;&#30446;&#24230;&#65326;&#65327;1&#12398;&#39749;&#12379;&#25216;&#12391;&#12354;&#12427;&#12290;</li>\n\t<li>&#12450;&#12454;&#12540;&#65288;a&#250;&#65289;......&#20596;&#36578;&#12290;&#21205;&#20316;&#20013;&#12399;&#22320;&#38754;&#12395;&#12388;&#12356;&#12383;&#25163;&#12434;&#35211;&#12378;&#12395;&#12289;&#30456;&#25163;&#12434;&#35211;&#32154;&#12369;&#12427;&#12371;&#12392;&#12364;&#29305;&#24500;&#12290;</li>\n\t<li>&#12450;&#12454;&#12540;&#12497;&#12481;&#12489;&#12453;&#12540;......&#31354;&#25163;&#12398;&#12300;&#23376;&#23433;&#12461;&#12483;&#12463;&#12301;&#12398;&#20803;&#12395;&#12394;&#12387;&#12383;&#36468;&#12426;&#25216;&#12290;</li>\n\t<li>&#12501;&#12457;&#12540;&#12522;&#12515;&#65288;folha&#65289;......&#12300;&#33865;&#12387;&#12401;&#12301;&#12434;&#24847;&#21619;&#12377;&#12427;&#12450;&#12463;&#12525;&#12496;&#12486;&#12451;&#12483;&#12463;&#12394;&#36468;&#12426;&#25216;&#12290;</li>\n\t<li>&#12510;&#12459;&#12540;&#12467;&#65288;macaco&#65289;......&#12300;<a
+        href=\"http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%AB\">&#29503;</a>&#12301;&#12434;&#24847;&#21619;&#12377;&#12427;&#12289;&#12375;&#12419;&#12364;&#12435;&#12384;&#29366;&#24907;&#12363;&#12425;&#12398;&#12496;&#12463;&#36578;&#12290;</li>\n\t<li>&#12510;&#12523;&#12486;&#12540;&#12525;&#65288;martelo&#65289;......&#12300;<a
+        href=\"http://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%B3%E3%83%9E%E3%83%BC\">&#12495;&#12531;&#12510;&#12540;</a>&#12301;&#12434;&#24847;&#21619;&#12377;&#12427;&#19978;&#27573;&#36468;&#12426;&#12290;</li>\n\t<li>&#12495;&#12473;&#12486;&#12452;&#12521;&#65288;rasteira&#65289;......&#36275;&#12434;&#24341;&#12387;&#25499;&#12369;&#12390;&#20498;&#12377;&#25216;&#12290;</li>\n\t<li>&#12505;&#12531;&#12469;&#12457;&#12531;&#65288;ben&#231;&#227;o&#65289;......&#21069;&#26041;&#25276;&#12375;&#36468;&#12426;&#12290;&#12300;<a
+        href=\"http://ja.wikipedia.org/w/index.php?title=%E6%84%9F%E8%AC%9D&amp;action=edit&amp;redlink=1\">&#24863;&#35613;</a>&#12301;&#12434;&#24847;&#21619;&#12375;&#12289;&#33145;&#37096;&#12434;&#36468;&#12425;&#12428;&#12383;&#30456;&#25163;&#12364;&#12289;&#12362;&#36766;&#20736;&#12434;&#12373;&#12379;&#12390;&#12356;&#12427;&#12424;&#12358;&#12395;&#12394;&#12427;&#12371;&#12392;&#12363;&#12425;&#21517;&#12364;&#20184;&#12356;&#12383;&#12392;&#12373;&#12428;&#12427;&#12290;</li>\n\t<li>&#12486;&#12487;&#12451;&#12521;......&#20108;&#26412;&#25351;&#12398;&#12302;&#37341;&#25171;&#12385;&#12303;&#12395;&#12424;&#12427;&#30446;&#31361;&#12365;</li>\n\t<li>&#12513;&#12452;&#12450;&#12539;&#12523;&#12540;&#12450;&#12539;&#12472;&#12539;&#12501;&#12524;&#12531;&#12481;......&#25391;&#12426;&#23376;&#36468;&#12426;&#12290;</li>\n\t<li>&#12467;&#12488;&#12532;&#12455;&#12521;&#12540;&#12480;......&#32920;&#25171;&#12385;&#12290;&#20307;&#12434;&#22238;&#36578;&#12373;&#12379;&#12390;&#12398;&#32920;&#25171;&#12385;&#12394;&#12393;&#12289;&#12512;&#12456;&#12479;&#12452;&#12395;&#12424;&#12367;&#20284;&#12383;&#21205;&#12365;&#12418;&#12354;&#12427;&#12290;</li>\n\t<li>&#12472;&#12519;&#12456;&#12522;&#12515;&#12540;&#12480;......&#33181;&#36468;&#12426;&#12290;&#12512;&#12456;&#12479;&#12452;&#12391;&#12399;&#12289;&#39640;&#24471;&#28857;&#12434;&#24471;&#12425;&#12428;&#12427;&#25216;&#12290;</li>\n\t<li>&#12468;&#12487;&#12540;&#12511;......&#30446;&#12376;&#12426;&#12434;&#25915;&#25731;&#30446;&#27161;&#12392;&#12375;&#12383;&#35023;&#25331;</li>\n\t<li>&#12459;&#12505;&#12469;&#12540;&#12480;&#65288;cabe&#231;ada&#65289;......&#38957;&#31361;&#12365;&#12290;</li>\n\t<li>&#12450;&#12523;&#12497;&#12457;&#12531;&#12539;&#12472;&#12539;&#12459;&#12505;&#12483;&#12469;......&#31361;&#36914;&#12377;&#12427;&#38957;&#31361;&#12365;</li>\n\t<li>&#12497;&#12454;&#12510;......&#21463;&#12369;</li>\n\t<li>&#12460;&#12525;&#12497;&#12531;&#12481;......&#24179;&#25163;&#25171;&#12385;</li>\n</ul><p><a
+        href=\"http://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:Roda_de_capoeira2.jpg\"><img
+        src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Roda_de_capoeira2.jpg/250px-Roda_de_capoeira2.jpg\"></a></p>\n<p>\n</p><ul><li>&#12472;&#12519;&#12540;&#12468;......&#12411;&#12363;&#12398;&#26684;&#38360;&#25216;&#12391;&#32068;&#25163;&#12395;&#12354;&#12383;&#12427;&#12418;&#12398;&#12290;</li>\n\t<li>&#12507;&#12540;&#12480;......&#20870;&#38499;&#12398;&#20013;&#24515;&#12391;&#12289;&#27005;&#22120;&#12398;&#28436;&#22863;&#12392;&#12392;&#12418;&#12395;&#12472;&#12519;&#12540;&#12468;&#12434;&#34892;&#12358;&#12290;&#23550;&#25126;&#30456;&#25163;&#12399;&#27425;&#12293;&#20837;&#12428;&#26367;&#12431;&#12427;&#12290;</li>\n\t<li>&#12459;&#12509;&#12456;&#12452;&#12522;&#12473;&#12479;......&#12459;&#12509;&#12456;&#12452;&#12521;&#12434;&#12377;&#12427;&#20154;&#12290;</li>\n\t<li>&#12450;&#12496;&#12480;&#12539;&#12459;&#12509;&#12456;&#12452;&#12521;......&#19990;&#30028;&#26368;&#22823;&#35215;&#27169;&#12398;&#12459;&#12509;&#12456;&#12452;&#12521;&#12398;&#22243;&#20307;&#12290;&#12522;&#12458;&#12487;&#12472;&#12515;&#12493;&#12452;&#12525;&#12391;&#12289;&#12467;&#12531;&#12486;&#12531;&#12509;&#12521;&#12540;&#12491;&#12450;&#12539;&#12473;&#12479;&#12452;&#12523;&#12398;&#31478;&#25216;&#22823;&#20250;&#12434;&#38283;&#20652;&#12375;&#12383;&#12290;</li>\n</ul><p>&#38542;&#32026;&#12399;&#12393;&#12398;&#12464;&#12523;&#12540;&#12503;&#12418;&#20849;&#36890;&#12384;&#12364;&#12289;&#38542;&#32026;&#12395;&#23550;&#24540;&#12377;&#12427;&#24111;&#12398;&#33394;&#12364;&#36949;&#12358;&#12290;&#12375;&#12363;&#12418;&#12289;&#22243;&#20307;&#12395;&#12424;&#12387;&#12390;&#36949;&#12358;&#12290;&#19968;&#33324;&#30340;&#12395;&#12399;&#12289;&#12302;&#30333;&#24111;&#12303;&#12364;&#26368;&#39640;&#12391;&#12354;&#12427;&#12290;</p>\n<p>&#22522;&#26412;&#30340;</p>\n<p>\n</p><ul><li>\n<a
+        href=\"http://ja.wikipedia.org/w/index.php?title=%E3%83%A9%E3%83%80%E3%82%A4%E3%83%BC%E3%83%8B%E3%83%A3&amp;action=edit&amp;redlink=1\">&#12521;&#12480;&#12452;&#12540;&#12491;&#12515;&#65288;Ladainhas&#65289;</a>......&#12450;&#12531;&#12468;&#12540;&#12521;&#12398;&#12507;&#12540;&#12480;&#12398;&#38283;&#22987;&#26178;&#12395;&#34892;&#12431;&#12428;&#12427;&#12290;&#12467;&#12525;&#12399;&#21442;&#21152;&#12379;&#12378;&#12395;&#12289;&#12513;&#12473;&#12488;&#12524;&#12364;&#12477;&#12525;&#12391;&#27468;&#12358;&#12290;&#22900;&#38583;&#21046;&#12420;&#12459;&#12509;&#12456;&#12521;&#12398;&#27508;&#21490;&#12364;&#27468;&#12431;&#12428;&#12427;&#12371;&#12392;&#12364;&#22810;&#12356;&#12290;</li>\n\t<li>&#12463;&#12449;&#12489;&#12521;...&#12504;&#12472;&#12457;&#12490;&#12454;&#12398;&#12507;&#12540;&#12480;&#12398;&#23566;&#20837;&#27468;</li>\n\t<li>&#12510;&#12463;&#12524;&#12524;...&#30701;&#26834;&#12420;&#23665;&#20992;&#12434;&#25171;&#12385;&#21512;&#12431;&#12379;&#12390;&#36362;&#12427;&#12480;&#12531;&#12473;&#12290;</li>\n\t<li><a
+        href=\"http://ja.wikipedia.org/w/index.php?title=%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%A9&amp;action=edit&amp;redlink=1\">&#12471;&#12517;&#12540;&#12521;&#65288;Chulas&#65289;</a></li>\n\t<li>&#12459;&#12531;&#12488;&#12539;&#12472;&#12539;&#12456;&#12531;&#12488;&#12521;&#12540;&#12480;...&#12507;&#12540;&#12480;&#12395;&#20837;&#12427;&#30452;&#21069;&#12395;&#27468;&#12358;&#27468;&#12290;&#12507;&#12540;&#12480;&#21442;&#21152;&#32773;&#12399;&#12289;&#12371;&#12371;&#12363;&#12425;&#12300;&#12467;&#12525;&#12301;&#12395;&#20837;&#12427;&#12290;&#12456;&#12531;&#12488;&#12521;&#12540;&#12480;&#12392;&#12399;&#12300;&#20837;&#22580;&#12301;&#12398;&#24847;&#12290;</li>\n\t<li>\n<a
+        href=\"http://ja.wikipedia.org/w/index.php?title=%E3%82%B3%E3%83%92%E3%83%BC%E3%83%89&amp;action=edit&amp;redlink=1\">&#12467;&#12498;&#12540;&#12489;&#65288;Corridos&#65289;</a>...&#12507;&#12540;&#12480;&#20013;&#12398;&#27468;&#12290;&#12467;&#12498;&#12540;&#12489;&#12434;&#27468;&#12356;&#22987;&#12417;&#12390;&#12363;&#12425;&#12289;&#12472;&#12519;&#12540;&#12468;&#12434;&#34892;&#12358;&#12290;</li>\n\t<li><a
+        href=\"http://ja.wikipedia.org/wiki/%E3%83%88%E3%83%BC%E3%82%AD\">&#12488;&#12540;&#12461;&#65288;Toques&#65289;</a></li>\n\t<li>&#12503;&#12471;&#12515;&#12480;&#12539;&#12472;&#12539;&#12504;&#12483;&#12472;...&#12471;&#12519;&#12540;&#12391;&#12289;&#12510;&#12463;&#12524;&#12524;&#12392;&#20341;&#29992;&#12375;&#12390;&#34892;&#12431;&#12428;&#12427;&#21127;.&#28023;&#12398;&#31070;&#12408;&#22823;&#28417;&#12398;&#24863;&#35613;&#12392;&#24693;&#12415;&#12434;&#31048;&#12427;&#20736;&#24335;&#12391;&#12354;&#12427;&#12290;</li>\n</ul><p>&#12459;&#12509;&#12456;&#12452;&#12521;&#12398;&#27468;&#12418;&#12354;&#12426;&#12289;&#12507;&#12540;&#12480;&#20013;&#12395;&#27468;&#12431;&#12428;&#12427;&#12290;&#12377;&#12409;&#12390;&#25499;&#12369;&#21512;&#12356;&#65288;&#12467;&#12540;&#12523;&#65286;&#12487;&#12451;&#12473;&#12509;&#12531;&#12473;&#65289;&#12363;&#12425;&#25104;&#12426;&#31435;&#12387;&#12390;&#12356;&#12427;&#12290;&#12513;&#12473;&#12488;&#12524;&#12420;&#24111;&#12398;&#20301;&#12398;&#39640;&#12356;&#12459;&#12509;&#12456;&#12522;&#12473;&#12479;&#12364;&#12477;&#12525;&#12434;&#27468;&#12356;&#12289;&#12507;&#12540;&#12480;&#12395;&#21442;&#21152;&#12375;&#12390;&#12356;&#12427;&#12418;&#12398;&#12364;&#12467;&#12525;&#65288;&#12467;&#12540;&#12521;&#12473;&#65289;&#37096;&#20998;&#12398;&#27468;&#35422;&#12434;&#27468;&#12358;&#12290;</p>\n<img
+        src=\"http://ja.wikipedia.org/w/index.php?title=%E7%89%B9%E5%88%A5:CentralAutoLogin/start&amp;type=1x1&amp;from=jawiki\"></div>",
+        "entities": [{"count": 1, "name": "Mestre Bimba"}, {"count": 1, "name": "Vicente
+        Ferreira Pastinha"}, {"count": 1, "name": "Manuel dos Reis Machado"}], "keywords":
+        [{"score": 20, "name": "1808"}, {"score": 20, "name": "capoeira"}, {"score":
+        20, "name": "pastinha"}, {"score": 20, "name": "mestre"}, {"score": 10, "name":
+        "bimba"}, {"score": 10, "name": "1831"}, {"score": 10, "name": "toques"},
+        {"score": 10, "name": "macaco"}, {"score": 10, "name": "cabe"}, {"score":
+        10, "name": "1892"}], "published": null, "provider_name": "Wikipedia", "type":
+        "html"}]'
     http_version: 
-  recorded_at: Sun, 18 Aug 2013 06:10:25 GMT
+  recorded_at: Wed, 21 Aug 2013 12:45:29 GMT
 recorded_with: VCR 2.5.0

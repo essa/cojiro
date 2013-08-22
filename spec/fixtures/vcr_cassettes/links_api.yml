@@ -1,0 +1,148 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.embed.ly/1/extract?key=&urls=https://maps.google.com/maps?q=%25E6%259D%25B1%25E4%25BA%25AC%26hl=ja%26ie=UTF8%26sll=37.0625,-95.677068%26sspn=37.188995,86.572266%26hnear=%25E6%2597%25A5%25E6%259C%25AC,%2B%25E6%259D%25B1%25E4%25BA%25AC%25E9%2583%25BD%26t=m%26z=10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "RGF0ZQ==":
+      - !binary |-
+        V2VkLCAyMSBBdWcgMjAxMyAxMzowMzoxNSBHTVQ=
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        YXBwbGljYXRpb24vanNvbg==
+      !binary "VHJhbnNmZXItRW5jb2Rpbmc=":
+      - !binary |-
+        Y2h1bmtlZA==
+      !binary "Q29ubmVjdGlvbg==":
+      - !binary |-
+        a2VlcC1hbGl2ZQ==
+      !binary "WC1FbWJlZGx5LUZyb20tQ2FjaGU=":
+      - !binary |-
+        MA==
+      !binary "QWNjZXNzLUNvbnRyb2wtTWF4LUFnZQ==":
+      - !binary |-
+        ODY0MDA=
+      !binary "U2VydmVy":
+      - !binary |-
+        VG9ybmFkb1NlcnZlci8yLjE=
+      !binary "RXRhZw==":
+      - !binary |-
+        ImQyNmQ1ZTMxZWU3N2E5MmRjN2E4MTczYjA4MjBlNjFkNjYyZDFmNTQi
+      !binary "WC1FbWJlZGx5LVByb2Nlc3MtVGltZQ==":
+      - !binary |-
+        NTU=
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctT3JpZ2lu":
+      - !binary |-
+        Kg==
+      !binary "QWNjZXNzLUNvbnRyb2wtQWxsb3ctTWV0aG9kcw==":
+      - !binary |-
+        R0VULCBPUFRJT05T
+      !binary "WC1FbWJlZGx5LUhvc3Q=":
+      - !binary |-
+        YXBpNDA=
+      !binary "Q29udGVudC1FbmNvZGluZw==":
+      - !binary |-
+        Z3ppcA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        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
+        vd8E/wMPAAA=
+    http_version: 
+  recorded_at: Wed, 20 Aug 2008 12:20:00 GMT
+- request:
+    method: get
+    uri: http://api.embed.ly/1/oembed?key=&urls=https://maps.google.com/maps?q=%25E6%259D%25B1%25E4%25BA%25AC%26hl=ja%26ie=UTF8%26sll=37.0625,-95.677068%26sspn=37.188995,86.572266%26hnear=%25E6%2597%25A5%25E6%259C%25AC,%2B%25E6%259D%25B1%25E4%25BA%25AC%25E9%2583%25BD%26t=m%26z=10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 21 Aug 2013 13:03:15 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '824'
+      Connection:
+      - keep-alive
+      X-Embedly-From-Cache:
+      - '0'
+      Access-Control-Max-Age:
+      - '86400'
+      Server:
+      - TornadoServer/2.1
+      Etag:
+      - ! '"5904e90a397bdf9eb11af3efe8589d8036b0f759"'
+      X-Embedly-Process-Time:
+      - '56'
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      X-Embedly-Host:
+      - api05
+    body:
+      encoding: US-ASCII
+      string: ! '[{"provider_url": "http://maps.google.com", "description": "\u5730\u56f3\u691c\u7d22\u3068\u5730\u57df\u306e\u304a\u5e97\u3084\u30b5\u30fc\u30d3\u30b9\u306e\u60c5\u5831",
+        "title": "\u6771\u4eac - Google \u30de\u30c3\u30d7", "thumbnail_width": 250,
+        "height": 480, "width": 640, "html": "<iframe width=\"640\" height=\"480\"
+        frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"https://maps.google.com/maps?q=%E6%9D%B1%E4%BA%AC&hl=ja&ie=UTF8&sll=37.0625,-95.677068&sspn=37.188995,86.572266&hnear=%E6%97%A5%E6%9C%AC,+%E6%9D%B1%E4%BA%AC%E9%83%BD&t=m&z=10&output=embed\"></iframe>",
+        "version": "1.0", "provider_name": "Google Maps", "thumbnail_url": "http://maps-api-ssl.google.com/maps/api/staticmap?center=%E6%9D%B1%E4%BA%AC&zoom=15&size=250x250&sensor=false",
+        "type": "rich", "thumbnail_height": 250}]'
+    http_version: 
+  recorded_at: Wed, 20 Aug 2008 12:20:00 GMT
+recorded_with: VCR 2.5.0

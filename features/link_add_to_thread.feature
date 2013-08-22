@@ -51,6 +51,7 @@ Feature: Add link to thread
     When I select "English" from the drop-down list
     And I fill in "Title in English" with "foobar title"
     And I click on "Add to this thread"
+    And I wait for the AJAX call to finish
     Then I should see a link with url "http://youtu.be/Z8xxgFpK-NM" in the thread
     And the link should have the title "foobar title"
     #And the link should have the summary "Capoeiristas Isaak and Bicudinho from the group Senzala de Santos. I don't own this video, I found it at www.d1autremonde.com"
@@ -60,6 +61,7 @@ Feature: Add link to thread
     When I select "English" from the drop-down list
     And I fill in "Summary in English" with "foobar summary"
     And I click on "Add to this thread"
+    And I wait for the AJAX call to finish
     Then I should see a link with url "http://youtu.be/Z8xxgFpK-NM" in the thread
     And the link should have the title "The best capoeira video ever"
     And the link should have the summary "foobar summary"
@@ -69,6 +71,7 @@ Feature: Add link to thread
     When I select "English" from the drop-down list
     And I fill in "Comment" with "This is great!"
     And I click on "Add to this thread"
+    And I wait for the AJAX call to finish
     And I hover over the link with url "http://youtu.be/Z8xxgFpK-NM" in the thread
     Then I should see the text "This is great!"
     And I should see the text "@csasaki added less than a minute ago"

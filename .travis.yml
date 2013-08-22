@@ -5,7 +5,6 @@ before_script:
   - mysql -e 'create database cojiro_test;'
 script: "bundle exec rake travis"
 rvm:
-  - 1.9.2
   - 1.9.3
 env:
   - CI=true
