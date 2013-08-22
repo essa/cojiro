@@ -25,7 +25,7 @@ en:
         updated_ago: "Updated <time class='timeago' datetime='%{datetime}'></time>"
         new_label: New
       add-url:
-        add_a_link: 'Add a link'
+        add_a_link: Add a link
         enter_a_url: Enter a URL...
         go: 'Go!'
         already_added: This link has already been added to this thread.

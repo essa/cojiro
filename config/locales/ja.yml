@@ -24,16 +24,15 @@ ja:
         started_by: "@%{username}が登録した"
         updated_ago: "<time class='timeago' datetime='%{datetime}'></time> 更新しました"
         new_label: New
-
-    links:
-      register_url:
+      add-url:
         add_a_link: ネタを追加する
         enter_a_url: URLを入力する
         go: 'Go!'
         already_added: This link has already been added to this thread.
         blank: URL cannot be blank.
-      confirm_link_details:
+      submit-comment-link:
         already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
+
     homepage:
       index:
         catchphrase: 日本語のキャッチコピー
