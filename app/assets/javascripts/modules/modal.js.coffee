@@ -15,6 +15,8 @@ define (require) ->
       _(super).extend
         'click button.close': 'hideModal'
 
+    render: ->
+
     initialize: (options = {}) ->
       super(options)
 

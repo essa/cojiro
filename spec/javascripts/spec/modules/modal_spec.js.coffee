@@ -7,6 +7,7 @@ define (require) ->
     beforeEach ->
       @$sandbox = @createSandbox()
       @view = new ModalView
+      @view.render = -> @$el.html(@template())
 
     afterEach ->
       @destroySandbox()
