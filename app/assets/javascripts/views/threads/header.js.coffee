@@ -5,15 +5,17 @@ define (require) ->
 
   class ThreadHeaderView extends BaseView
     template: _.template '
-      <div class="span12">
-        <h1 id="title"></h1>
+      <div class="row">
+        <div class="span12">
+          <h1 id="title"></h1>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="span12">
-        <h2 id="summary"></h2>
+      <div class="row">
+        <div class="span12">
+          <h2 id="summary"></h2>
+        </div>
       </div>'
-    className: 'thread-header row'
+    className: 'thread-header'
 
     initialize: (options = {}) ->
       super(options)
