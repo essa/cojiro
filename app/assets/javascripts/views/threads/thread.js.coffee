@@ -93,4 +93,4 @@ define (require) ->
       @$el.prepend(@flash.el)
       globals.flash = null
 
-    showAddLinkModal: -> @addLinkModal.trigger('view:show')
+    showAddLinkModal: -> @addLinkModal.trigger('show')

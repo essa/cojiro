@@ -1,10 +1,6 @@
 define [
   'underscore'
-  'modules/base/view'
-], (_, BaseView) ->
+  'modules/modal'
+], (_, ModalView) ->
 
-  class ThreadHeaderModal extends BaseView
-    template: _.template ''
-    className: 'thread-header-modal'
-
-    render: -> @$el.html(@template())
+  class ThreadHeaderModal extends ModalView

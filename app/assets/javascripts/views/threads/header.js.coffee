@@ -1,4 +1,6 @@
 define (require) ->
+
+  # static dependencies
   _ = require('underscore')
   BaseView = require('modules/base/view')
   globals = require('globals')
@@ -17,6 +19,10 @@ define (require) ->
       </div>'
     className: 'thread-header'
 
+    buildEvents: () ->
+      _(super).extend
+        'click': 'showModal'
+
     initialize: (options = {}) ->
       super(options)
 
@@ -27,7 +33,7 @@ define (require) ->
       # create instances
       @titleField = new @InPlaceField(model: @model, field: "title", editable: false)
       @summaryField = new @InPlaceField(model: @model, field: "summary", editable: false)
-      @headerModal = new @ThreadHeaderModal(model: @model)
+      @modal = new @ThreadHeaderModal(model: @model)
 
     render: ->
       @renderTemplate()
@@ -35,12 +41,14 @@ define (require) ->
       @renderModal()
       @
 
-    renderTemplate: ->
-      @$el.html(@template())
+    renderTemplate: -> @$el.html(@template())
 
     renderTranslatableFields: ->
       @renderChildInto(@titleField, '#title')
       @renderChildInto(@summaryField, '#summary')
 
-    renderModal: ->
-      @renderChild(@headerModal)
+    renderModal: -> @renderChild(@modal)
+
+    showModal: ->
+      if globals.currentUser?
+        @modal.trigger('show')
