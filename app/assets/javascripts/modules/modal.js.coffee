@@ -27,7 +27,9 @@ define (require) ->
       @render()
       @$el.modal('show')
 
-    hideModal: () -> @$el.modal('hide')
+    hideModal: () ->
+      @$el.modal('hide')
+      @$el.empty()
 
     # override default to avoid removing element from view
     remove: ->

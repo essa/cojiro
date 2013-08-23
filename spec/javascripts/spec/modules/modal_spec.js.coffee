@@ -55,6 +55,12 @@ define (require) ->
           @view.$('button').click()
           expect($('#modal')).not.toBeVisible()
 
+        it 'empties the modal', ->
+          @view.trigger('show')
+          expect($('#modal')).toBeVisible()
+          @view.$('button').click()
+          expect($('#modal')).toBeEmpty()
+
     describe '#remove', ->
       it 'does not remove #modal element from page', ->
         @view.remove()
