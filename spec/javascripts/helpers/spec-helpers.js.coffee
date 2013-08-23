@@ -1,5 +1,6 @@
 beforeEach ->
 
+  $ = require('jquery')
   Backbone = require('backbone')
 
   # https://github.com/PaulUithol/Backbone-relational/issues/235
@@ -36,3 +37,12 @@ beforeEach ->
     [ 200,
       {"Content-Type":"application/json"},
       JSON.stringify(responseText) ]
+
+  # create/destroy sandbox
+  @createSandbox = () ->
+    $('body').append('<div id="sandbox"></div>')
+    $('#sandbox').append('<div id="modal"></div>')
+
+  @destroySandbox = () ->
+    $('#sandbox').remove()
+    $('body .modal-backdrop').remove()

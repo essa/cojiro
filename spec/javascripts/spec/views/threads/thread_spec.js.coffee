@@ -9,8 +9,7 @@ define (require) ->
 
   describe "ThreadView", ->
     beforeEach ->
-      $('body').append('<div id="sandbox"></div>')
-      $('#sandbox').append('<div id="modal"></div>')
+      @$sandbox = @createSandbox()
       @thread = new Thread
       @thread.set
         title: en: "Geisha bloggers"
@@ -31,9 +30,7 @@ define (require) ->
               site_name: 'www.bar.com'
         ]
 
-    afterEach ->
-      $('#sandbox').remove()
-      $('body .modal-backdrop').remove()
+    afterEach -> @destroySandbox()
 
     describe 'with stubbed StatbarView', ->
       beforeEach ->
@@ -176,7 +173,7 @@ define (require) ->
             globals.currentUser = @fixtures.User.valid
             $('#modal').hide()
             @view.render()
-            $('#sandbox').append(@view.el)
+            @$sandbox.append(@view.el)
 
           it 'creates addLinkModal with a new link model', ->
             expect(@view.addLinkModal.link).toBeDefined()
