@@ -44,7 +44,7 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git', :require => false
-  gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git', :ref => '13ae61378afdf66aed7eb945172eb1f5c75b451b'
+  gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git'
   gem 'rake'
   gem 'timecop'
   gem 'chronic'
