@@ -50,9 +50,8 @@ define (require) ->
       it 'returns the view', -> expect(@$el).toEqual(@view)
       it 'renders title', -> expect(@view.$('#title')).toContainText('Geisha bloggers')
       it 'renders summary', -> expect(@view.$('#summary')).toContainText('Looking for info on geisha bloggers.')
-      it 'renders thread header modal', ->
-        expect(@modal.render).toHaveBeenCalledOnce()
-        expect(@modal.render).toHaveBeenCalledWithExactly()
+      it 'does not render thread header modal', ->
+        expect(@modal.render).not.toHaveBeenCalled()
 
     describe 'events', ->
 
@@ -63,15 +62,24 @@ define (require) ->
           @modal.on('show', @eventSpy)
 
         describe 'logged-in user', ->
-          beforeEach -> globals.currentUser = @fixtures.User.valid
+          beforeEach ->
+            globals.currentUser = @fixtures.User.valid
+            @view.$el.click()
 
           it 'triggers "show" event on header modal', ->
-            @view.$el.click()
             expect(@eventSpy).toHaveBeenCalled()
 
+          it 'renders thread header modal', ->
+            expect(@modal.render).toHaveBeenCalledOnce()
+            expect(@modal.render).toHaveBeenCalledWithExactly()
+
         describe 'logged-out user', ->
-          beforeEach -> globals.currentUser = null
+          beforeEach ->
+            globals.currentUser = null
+            @view.$el.click()
 
           it 'does not trigger "show" event on modal', ->
-            @view.$el.click()
             expect(@eventSpy).not.toHaveBeenCalled()
+
+          it 'does not render thread header modal', ->
+            expect(@modal.render).not.toHaveBeenCalled()

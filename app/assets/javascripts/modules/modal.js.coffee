@@ -15,8 +15,6 @@ define (require) ->
       _(super).extend
         'click button.close': 'hideModal'
 
-    render: ->
-
     initialize: (options = {}) ->
       super(options)
 
@@ -29,6 +27,8 @@ define (require) ->
 
     hideModal: () ->
       @$el.modal('hide')
+      @$el.removeClass()
+      @$el.addClass('modal hide fade')
       @$el.empty()
 
     # override default to avoid removing element from view

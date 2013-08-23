@@ -6,8 +6,8 @@ define (require) ->
   describe 'ModalView', ->
     beforeEach ->
       @$sandbox = @createSandbox()
+      @$modal = $('#modal')
       @view = new ModalView
-      @view.render = -> @$el.html(@template())
 
     afterEach ->
       @destroySandbox()
@@ -31,35 +31,54 @@ define (require) ->
           expect(@view.render).toHaveBeenCalledWithExactly()
 
         it 'shows the modal', ->
-          $('#modal').hide()
-          expect($('#modal')).not.toBeVisible()
+          @$modal.hide()
+          expect(@$modal).not.toBeVisible()
           @view.trigger('show')
-          expect($('#modal')).toBeVisible()
-          expect($('#modal')).toContain('div.myDiv')
+          expect(@$modal).toBeVisible()
+          expect(@$modal).toContain('div.myDiv')
 
       describe 'when "hide" event is fired', ->
         beforeEach -> @view.template = -> '<div class="myDiv"></div>'
 
         it 'hides the modal', ->
           @view.trigger('show')
-          expect($('#modal')).toBeVisible()
+          expect(@$modal).toBeVisible()
           @view.trigger('hide')
-          expect($('#modal')).not.toBeVisible()
+          expect(@$modal).not.toBeVisible()
+
+        it 'empties the modal', ->
+          @view.trigger('show')
+          expect(@$modal).toBeVisible()
+          @view.trigger('hide')
+          expect(@$modal).toBeEmpty()
+
+        it 'removes non-modal classes from modal element', ->
+          @view.$el.addClass('some-class')
+          @view.trigger('hide')
+          expect(@$modal).not.toHaveClass('some-class')
+          expect(@$modal).toHaveClass('modal hide fade')
 
       describe 'when close button is clicked', ->
         beforeEach -> @view.template = -> '<button class="close"></button>'
 
         it 'hides the modal', ->
           @view.trigger('show')
-          expect($('#modal')).toBeVisible()
+          expect(@$modal).toBeVisible()
           @view.$('button').click()
-          expect($('#modal')).not.toBeVisible()
+          expect(@$modal).not.toBeVisible()
 
         it 'empties the modal', ->
           @view.trigger('show')
-          expect($('#modal')).toBeVisible()
+          expect(@$modal).toBeVisible()
           @view.$('button').click()
-          expect($('#modal')).toBeEmpty()
+          expect(@$modal).toBeEmpty()
+
+        it 'removes non-modal classes from modal element', ->
+          @view.trigger('show')
+          @view.$el.addClass('some-class')
+          @view.$('button').click()
+          expect(@$modal).not.toHaveClass('some-class')
+          expect(@$modal).toHaveClass('modal hide fade')
 
     describe '#remove', ->
       it 'does not remove #modal element from page', ->
@@ -69,22 +88,22 @@ define (require) ->
       it 'empties #modal element', ->
         @view.template = -> '<div>some content</div>'
         @view.render()
-        expect($('#modal')).toHaveText('some content')
+        expect(@$modal).toHaveText('some content')
         @view.remove()
-        expect($('#modal')).toBeEmpty()
+        expect(@$modal).toBeEmpty()
 
       it 'hides modal', ->
         @view.trigger('show')
-        expect($('#modal')).toBeVisible()
+        expect(@$modal).toBeVisible()
         @view.remove()
-        expect($('#modal')).not.toBeVisible()
+        expect(@$modal).not.toBeVisible()
 
       it 'unbinds show event', ->
-        $('#modal').hide()
-        expect($('#modal')).not.toBeVisible()
+        @$modal.hide()
+        expect(@$modal).not.toBeVisible()
         @view.remove()
         @view.trigger('show')
-        expect($('#modal')).not.toBeVisible()
+        expect(@$modal).not.toBeVisible()
 
       it 'stops listening to other events', ->
         eventSpy = sinon.spy()

@@ -38,7 +38,6 @@ define (require) ->
     render: ->
       @renderTemplate()
       @renderTranslatableFields()
-      @renderModal()
       @
 
     renderTemplate: -> @$el.html(@template())
@@ -51,4 +50,5 @@ define (require) ->
 
     showModal: ->
       if globals.currentUser?
+        @renderModal()
         @modal.trigger('show')
