@@ -65,16 +65,16 @@ define (require) ->
           @view.render()
           expect(@view.$el).toBe(".thread")
 
-      describe 'thread header', ->
+        describe 'thread header', ->
 
-        it 'renders the thread header', ->
-          @view.render()
-          expect(@ThreadHeaderView).toHaveBeenCalledOnce()
-          expect(@ThreadHeaderView).toHaveBeenCalledWithExactly(model: @thread)
+          it 'renders the thread header', ->
+            @view.render()
+            expect(@ThreadHeaderView).toHaveBeenCalledOnce()
+            expect(@ThreadHeaderView).toHaveBeenCalledWithExactly(model: @thread)
 
-        it 'inserts thread header into the view', ->
-          @view.render()
-          expect(@view.$('#thread-header')).toContain('div.thread-header')
+          it 'inserts thread header into the view', ->
+            @view.render()
+            expect(@view.$('#thread-header')).toContain('div.thread-header')
 
         describe 'statbar', ->
           beforeEach -> @view.render()
@@ -156,9 +156,6 @@ define (require) ->
             @thread.trigger('add:comments')
             expect(@view.$('.url a[href="http://www.foo.com"]').length).toEqual(1)
             expect(@view.$('.url a[href="http://www.bar.com"]').length).toEqual(1)
-
-      describe 'thread header', ->
-
 
       describe "add a link modal", ->
 
