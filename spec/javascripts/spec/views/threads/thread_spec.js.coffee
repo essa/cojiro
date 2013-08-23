@@ -7,13 +7,11 @@ define (require) ->
   globals = require('globals')
   I18n = require('i18n')
 
-  describe "ThreadView", ->
+  describe 'ThreadView', ->
     beforeEach ->
       @$sandbox = @createSandbox()
       @thread = new Thread
       @thread.set
-        title: en: "Geisha bloggers"
-        summary: en: "Looking for info on geisha bloggers."
         comments: [
             text: 'comment 1'
             link:
@@ -32,26 +30,51 @@ define (require) ->
 
     afterEach -> @destroySandbox()
 
-    describe 'with stubbed StatbarView', ->
+    describe 'when isolated from dependencies', ->
       beforeEach ->
-        # create stub child view
+
+        # stubs
         @statbarView = new Backbone.View
         @statbarView.render = () ->
           @el = document.createElement('div')
           @el.setAttribute('class', 'statbar')
-          @
-        @StatbarView = sinon.stub().returns(@statbarView)
-        sinon.spy(@statbarView, 'render')
-        @view = new ThreadView(model: @thread, StatbarView: @StatbarView)
 
-      describe "rendering", ->
+        @threadHeaderView = new Backbone.View
+        @threadHeaderView.render = () ->
+          @el = document.createElement('div')
+          @el.setAttribute('class', 'thread-header')
+
+        # constructors
+        @StatbarView = sinon.stub().returns(@statbarView)
+        @ThreadHeaderView = sinon.stub().returns(@threadHeaderView)
+
+        # spies
+        sinon.spy(@statbarView, 'render')
+
+        # subject
+        @view = new ThreadView(
+          model: @thread
+          StatbarView: @StatbarView
+          ThreadHeaderView: @ThreadHeaderView
+        )
+
+      describe 'rendering', ->
         beforeEach -> globals.currentUser = null
 
         it 'renders the thread', ->
           @view.render()
           expect(@view.$el).toBe(".thread")
-          expect(@view.$el).toHaveText(/Geisha bloggers/)
-          expect(@view.$el).toHaveText(/Looking for info on geisha bloggers./)
+
+      describe 'thread header', ->
+
+        it 'renders the thread header', ->
+          @view.render()
+          expect(@ThreadHeaderView).toHaveBeenCalledOnce()
+          expect(@ThreadHeaderView).toHaveBeenCalledWithExactly(model: @thread)
+
+        it 'inserts thread header into the view', ->
+          @view.render()
+          expect(@view.$('#thread-header')).toContain('div.thread-header')
 
         describe 'statbar', ->
           beforeEach -> @view.render()
@@ -134,37 +157,8 @@ define (require) ->
             expect(@view.$('.url a[href="http://www.foo.com"]').length).toEqual(1)
             expect(@view.$('.url a[href="http://www.bar.com"]').length).toEqual(1)
 
-      describe 'translatable fields', ->
+      describe 'thread header', ->
 
-        it 'renders title field', ->
-          sinon.spy(@view.titleField, 'render')
-          @view.render()
-          expect(@view.titleField.render).toHaveBeenCalledOnce()
-          expect(@view.titleField.render).toHaveBeenCalledWithExactly()
-          @view.titleField.render.restore()
-
-        it 'renders summary field', ->
-          sinon.spy(@view.summaryField, 'render')
-          @view.render()
-          expect(@view.summaryField.render).toHaveBeenCalledOnce()
-          expect(@view.summaryField.render).toHaveBeenCalledWithExactly()
-          @view.summaryField.render.restore()
-
-        it 'calls leave on titleField when closing', ->
-          sinon.spy(@view.titleField, 'leave')
-          @view.render()
-          @view.leave()
-          expect(@view.titleField.leave).toHaveBeenCalledOnce()
-          expect(@view.titleField.leave).toHaveBeenCalledWithExactly()
-          @view.titleField.leave.restore()
-
-        it 'calls leave on summaryField when closing', ->
-          sinon.spy(@view.summaryField, 'leave')
-          @view.render()
-          @view.leave()
-          expect(@view.summaryField.leave).toHaveBeenCalledOnce()
-          expect(@view.summaryField.leave).toHaveBeenCalledWithExactly()
-          @view.summaryField.leave.restore()
 
       describe "add a link modal", ->
 

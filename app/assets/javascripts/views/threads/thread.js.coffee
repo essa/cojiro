@@ -1,32 +1,23 @@
-define [
-  'jquery'
-  'underscore'
-  'backbone'
-  'models/link'
-  'modules/base/view'
-  'views/other/flash'
-  'modules/translatable'
-  'globals'
-  'views/threads/statbar'
-  'views/threads/add-link-modal'
-  'views/comments/comment-link'
-  'bootstrap'
-], ($, _, Backbone, Link, BaseView, FlashView, Translatable, globals, StatbarView, AddLinkModal, CommentLinkView) ->
+define (require) ->
+
+  # static dependencies
+  $ = require 'jquery'
+  _ = require 'underscore'
+  Backbone = require 'backbone'
+  Link = require 'models/link'
+  BaseView = require 'modules/base/view'
+  FlashView = require 'views/other/flash'
+  globals = require 'globals'
+  AddLinkModal = require 'views/threads/add-link-modal'
+  CommentLinkView = require 'views/comments/comment-link'
+  require 'bootstrap'
 
   class ThreadView extends BaseView
     template: _.template '
+      <div id="thread-header">
+      </div>
       <div class="row">
         <div class="span12" id="statbar">
-        </div>
-      </div>
-      <div class="row">
-        <div class="span12">
-          <h1 id="title" />
-        </div>
-      </div>
-      <div class="row">
-        <div class="span12">
-          <h2 id="summary" />
         </div>
       </div>
       <div class="links">
@@ -52,12 +43,14 @@ define [
     initialize: (options = {}) ->
       super(options)
 
-      @StatbarView = options.StatbarView || StatbarView
+      # dynamic dependencies
+      @StatbarView = options.StatbarView || require('views/threads/statbar')
+      @ThreadHeaderView = options.ThreadHeaderView || require('views/threads/header')
 
+      # create instances
       @addLinkModal = new AddLinkModal(model: @model)
-      @titleField = new Translatable.InPlaceField(model: @model, field: "title", editable: globals.currentUser?)
-      @summaryField = new Translatable.InPlaceField(model: @model, field: "summary", editable: globals.currentUser?)
 
+      # event listeners
       @model.on('add:comments', @renderLinks, @)
 
     render: ->
@@ -65,7 +58,7 @@ define [
         t: I18n.scoped('views.threads.thread').t
         currentUser: globals.currentUser
       ))
-      @renderTranslatableFields()
+      @renderHeader()
       @renderStatbar()
       @renderLinks()
       @renderModals()
@@ -73,14 +66,13 @@ define [
         @renderFlash()
       @
 
-    renderTranslatableFields: ->
-      @renderChildInto(@titleField, '#title')
-      @renderChildInto(@summaryField, '#summary')
+    renderHeader: ->
+      @header = new @ThreadHeaderView(model: @model)
+      @renderChildInto(@header, '#thread-header')
 
     renderStatbar: ->
       @statbar = new @StatbarView(model: @model)
-      @renderChild(@statbar)
-      @$('#statbar').html(@statbar.el)
+      @renderChildInto(@statbar, '#statbar')
 
     renderLinks: ->
       (linksContainer = @.$('.link-list')).empty()
@@ -92,8 +84,7 @@ define [
           linksContainer.prepend(linkView.el)
 
     # see: http://lostechies.com/derickbailey/2012/04/17/managing-a-modal-dialog-with-backbone-and-marionette
-    renderModals: ->
-      @renderChild(@addLinkModal)
+    renderModals: -> @renderChild(@addLinkModal)
 
     renderFlash: ->
       @flash.leave() if @flash
@@ -102,5 +93,4 @@ define [
       @$el.prepend(@flash.el)
       globals.flash = null
 
-    showAddLinkModal: ->
-      @addLinkModal.trigger('view:show')
+    showAddLinkModal: -> @addLinkModal.trigger('view:show')

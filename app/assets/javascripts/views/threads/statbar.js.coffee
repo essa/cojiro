@@ -8,15 +8,13 @@ define [
     template: _.template '
       <ul class="nav nav-pills">
         <li>
-          <a href="#">
-            <span class="stat">
-              <%= numLinks %>
-            </span>
-            <br />
-            <span class="stattext">
-              <%= t(".links") %>
-            </span>
-          </a>
+          <span class="stat">
+            <%= numLinks %>
+          </span>
+          <br />
+          <span class="stattext">
+            <%= t(".links") %>
+          </span>
         </li>
         <li class="sep"></li>
         <li>

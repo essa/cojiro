@@ -1,0 +1,44 @@
+define (require) ->
+  _ = require('underscore')
+  BaseView = require('modules/base/view')
+  globals = require('globals')
+
+  class ThreadHeaderView extends BaseView
+    template: _.template '
+      <div class="span12">
+        <h1 id="title"></h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <h2 id="summary"></h2>
+      </div>'
+    className: 'thread-header row'
+
+    initialize: (options = {}) ->
+      super(options)
+
+      # dynamic dependencies
+      @ThreadHeaderModal = options.ThreadHeaderModal || require('views/threads/header-modal')
+      @InPlaceField = options.InPlaceField || require('modules/translatable/in-place-field')
+
+      # create instances
+      @titleField = new @InPlaceField(model: @model, field: "title", editable: false)
+      @summaryField = new @InPlaceField(model: @model, field: "summary", editable: false)
+      @headerModal = new @ThreadHeaderModal(model: @model)
+
+    render: ->
+      @renderTemplate()
+      @renderTranslatableFields()
+      @renderModal()
+      @
+
+    renderTemplate: ->
+      @$el.html(@template())
+
+    renderTranslatableFields: ->
+      @renderChildInto(@titleField, '#title')
+      @renderChildInto(@summaryField, '#summary')
+
+    renderModal: ->
+      @renderChild(@headerModal)
