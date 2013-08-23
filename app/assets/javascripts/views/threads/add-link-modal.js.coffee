@@ -34,7 +34,7 @@ define [
       switch @step
         when 1
           @link = new @Link
-          @$el.removeClass('submit-comment-link')
+          @resetClass()
           @$el.addClass('add-url')
           @modal = new @AddUrlView(model: @model, link: @link)
           @appendChild(@modal)
@@ -46,7 +46,7 @@ define [
           linkInStore = coll.findWhere(url: @link.getUrl())
           @link = linkInStore if linkInStore
 
-          @$el.removeClass('add-url')
+          @resetClass()
           @$el.addClass('submit-comment-link')
           @modal = new @SubmitCommentLinkView(model: @link, thread: @model)
           @appendChild(@modal)

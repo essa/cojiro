@@ -27,9 +27,10 @@ define (require) ->
 
     hideModal: () ->
       @$el.modal('hide')
-      @$el.removeClass()
-      @$el.addClass('modal hide fade')
+      @resetClass()
       @$el.empty()
+
+    resetClass: () -> @$el.attr('class', 'modal hide fade')
 
     # override default to avoid removing element from view
     remove: ->
