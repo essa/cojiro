@@ -192,7 +192,7 @@ define (require) ->
             beforeEach ->
               @view.render()
               @server = sinon.fakeServer.create()
-              @$nextButton = @view.$('button.next')
+              @$nextButton = @view.$('button[type="submit"]')
 
             afterEach -> @server.restore()
 
@@ -382,7 +382,7 @@ define (require) ->
           beforeEach ->
             @view.render()
             @server = sinon.fakeServer.create()
-            @$nextButton = @view.$('button.next')
+            @$nextButton = @view.$('button[type="submit"]')
 
           afterEach -> @server.restore()
 

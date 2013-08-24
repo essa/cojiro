@@ -8,8 +8,8 @@ define (require) ->
   describe 'ModalFooterView', ->
     beforeEach ->
       @view = new ModalFooterView
-        prevString: 'Back'
-        nextString: 'Next'
+        cancel: 'Back'
+        submit: 'Next'
 
     describe 'rendering', ->
       it 'returns the view', ->
