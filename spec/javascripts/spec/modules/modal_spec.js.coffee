@@ -53,6 +53,7 @@ define (require) ->
           expect(@$modal).toBeEmpty()
 
         it 'removes non-modal classes from modal element', ->
+          @view.trigger('show')
           @view.$el.addClass('some-class')
           @view.trigger('hide')
           expect(@$modal).not.toHaveClass('some-class')

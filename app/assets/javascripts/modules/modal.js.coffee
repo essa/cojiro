@@ -27,10 +27,17 @@ define (require) ->
 
     hideModal: () ->
       @$el.modal('hide')
-      @resetClass()
+      @reset()
       @$el.empty()
 
-    resetClass: () -> @$el.attr('class', 'modal hide fade')
+    getClasses: ->
+      cl = @$el.attr('class')
+      cl && cl.split(' ') || []
+
+    reset: () ->
+      classes = @getClasses()
+      @$el.attr('class', 'modal hide fade')
+      @$el.addClass('in') if 'in' in classes
 
     # override default to avoid removing element from view
     remove: ->
