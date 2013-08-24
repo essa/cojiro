@@ -158,15 +158,16 @@ define (require) ->
             expect(@view.$('.url a[href="http://www.bar.com"]').length).toEqual(1)
 
       describe "add a link modal", ->
+        beforeEach -> globals.currentUser = @fixtures.User.valid
 
         describe 'click add link button', ->
           beforeEach ->
-            globals.currentUser = @fixtures.User.valid
             $('#modal').hide()
             @view.render()
             @$sandbox.append(@view.el)
 
           it 'creates addLinkModal with a new link model', ->
+            @view.$('a.add-link').click()
             expect(@view.addLinkModal.link).toBeDefined()
             expect(@view.addLinkModal.link instanceof Link).toBeTruthy()
 
@@ -178,8 +179,10 @@ define (require) ->
 
         describe 'leave', ->
           it 'calls leave when leaving the thread', ->
-            sinon.spy(@view.addLinkModal, 'leave')
             @view.render()
+            @$sandbox.append(@view.el)
+            sinon.spy(@view.addLinkModal, 'leave')
+            $('a.add-link').trigger('click')
             @view.leave()
             expect(@view.addLinkModal.leave).toHaveBeenCalledOnce()
             expect(@view.addLinkModal.leave).toHaveBeenCalledWithExactly()

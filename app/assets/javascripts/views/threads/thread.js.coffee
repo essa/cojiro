@@ -61,7 +61,6 @@ define (require) ->
       @renderHeader()
       @renderStatbar()
       @renderLinks()
-      @renderModals()
       if globals.flash?
         @renderFlash()
       @
@@ -83,9 +82,6 @@ define (require) ->
           self.renderChild(linkView)
           linksContainer.prepend(linkView.el)
 
-    # see: http://lostechies.com/derickbailey/2012/04/17/managing-a-modal-dialog-with-backbone-and-marionette
-    renderModals: -> @renderChild(@addLinkModal)
-
     renderFlash: ->
       @flash.leave() if @flash
       @flash = new FlashView(globals.flash)
@@ -93,4 +89,6 @@ define (require) ->
       @$el.prepend(@flash.el)
       globals.flash = null
 
-    showAddLinkModal: -> @addLinkModal.trigger('show')
+    showAddLinkModal: ->
+      @renderChild(@addLinkModal)
+      @addLinkModal.trigger('show')
