@@ -297,6 +297,29 @@ ul.nav-pills {
   }
 }
 
+/* -------- Thread header modal - */
+
+#modal.header-modal {
+  width: 700px;
+  margin-left: -400px;
+  form {
+    text-align: left;
+    margin: 0;
+    input {
+      width: 80%;
+    }
+    textarea {
+      width: 80%;
+    }
+  }
+  label {
+    font-weight: bold;
+  }
+  #lang-switcher {
+    float: left;
+  }
+}
+
 /* -------- Add link dialog ----- */
 
 #modal.add-url form {

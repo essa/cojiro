@@ -32,11 +32,28 @@ beforeEach ->
     # Backbone custom matchers
     toHaveMany: (key) -> @actual.get(key) instanceof Backbone.Collection
 
+    # does this element have a field with a given label?
+    toHaveField: (labelText) ->
+      unless ($el = @actual.find("label:contains('#{labelText}')")).length
+        @message = -> "Element has no label '" + labelText + "'"
+        return false
+      unless (id = $el.attr('for')).length
+        @message = -> "Label '" + labelText + "' has no 'for' attribute"
+        return false
+      @message = -> "Expected to find a field with id '" + id + " but none was found"
+      @actual.find('#' + id)?
+
   # response helpers
   @validResponse = (responseText) ->
     [ 200,
       {"Content-Type":"application/json"},
       JSON.stringify(responseText) ]
+
+  # form helpers
+  $.fn.findLabel = (labelText) -> @.find("label:contains(#{labelText})")
+
+  $.fn.findField = (labelText) ->
+    (id = @.findLabel(labelText).attr('for')) && @.find('#' + id)
 
   # create/destroy sandbox
   @createSandbox = () ->
