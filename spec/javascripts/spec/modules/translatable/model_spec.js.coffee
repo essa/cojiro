@@ -1,7 +1,7 @@
 define (require) ->
 
   Model = require('modules/translatable/model')
-  TranslatableAtribute = require('modules/translatable/attribute')
+  TranslatableAttribute = require('modules/translatable/attribute')
   I18n = require('i18n')
   MyModel = Model.extend
     name: 'my_model'
@@ -22,8 +22,8 @@ define (require) ->
 
     describe 'initialization', ->
       it 'creates translatable attribute objects for each attribute', ->
-        expect(@model.get('title') instanceof TranslatableAtribute).toBeTruthy()
-        expect(@model.get('summary') instanceof TranslatableAtribute).toBeTruthy()
+        expect(@model.get('title') instanceof TranslatableAttribute).toBeTruthy()
+        expect(@model.get('summary') instanceof TranslatableAttribute).toBeTruthy()
 
       it 'sets initial value of translatable attributes if passed in', ->
         @newModel = new MyModel(source_locale: 'ja', title: en: 'title in English')
@@ -75,13 +75,13 @@ define (require) ->
 
     describe 'getters', ->
       beforeEach ->
-        @title_attr = new TranslatableAtribute(en: 'Title in English', ja: 'Title in Japanese')
+        @titleAttr = new TranslatableAttribute(en: 'Title in English', ja: 'Title in Japanese')
 
       describe '#getAttr', ->
         it 'is defined', -> expect(@model.getAttr).toBeDefined()
 
         it 'returns value for attribute in current locale', ->
-          stub = sinon.stub(@model, 'get').returns(@title_attr)
+          stub = sinon.stub(@model, 'get').returns(@titleAttr)
           expect(@model.getAttr('title')).toEqual('Title in English')
           expect(stub).toHaveBeenCalledWith('title')
 
@@ -89,7 +89,7 @@ define (require) ->
         it 'is defined', -> expect(@model.getAttrInLocale).toBeDefined()
 
         it 'returns value for attribute in given locale', ->
-          stub = sinon.stub(@model, 'get').returns(@title_attr)
+          stub = sinon.stub(@model, 'get').returns(@titleAttr)
           expect(@model.getAttrInLocale('title', 'ja')).toEqual('Title in Japanese')
           expect(stub).toHaveBeenCalledWith('title')
 
@@ -98,7 +98,7 @@ define (require) ->
 
         it 'returns value for attribute in source locale', ->
           getStub = sinon.stub(@model, 'get')
-          getStub.withArgs('title').returns(@title_attr)
+          getStub.withArgs('title').returns(@titleAttr)
           getStub.withArgs('source_locale').returns('ja')
           expect(@model.getAttrInSourceLocale('title')).toEqual('Title in Japanese')
           expect(getStub).toHaveBeenCalledWith('title')
@@ -131,17 +131,17 @@ define (require) ->
           expect(@model.get('title').in('ja')).toEqual('a title in Japanese')
 
         it 'passes in other attributes unchanged', ->
-          @model.set(nested_attribute: nested: 'value')
-          expect(@model.get('nested_attribute')).toEqual(nested: 'value')
+          @model.set(nestedAttribute: nested: 'value')
+          expect(@model.get('nestedAttribute')).toEqual(nested: 'value')
 
         it 'does not delete initialized blank translated attributes', ->
           @model.set(title: en: 'a title in English')
           self = @
           expect(-> self.model.get('summary')).not.toThrow()
-          expect(@model.get('summary') instanceof TranslatableAtribute).toBeTruthy()
+          expect(@model.get('summary') instanceof TranslatableAttribute).toBeTruthy()
 
         it 'handles "key", "value" style arguments', ->
-          @model.set('title', en: 'a title in English' )
+          @model.set('title', en: 'a title in English')
           expect(@model.get('title').in('en')).toEqual('a title in English')
 
       describe '#setAttr', ->
@@ -182,14 +182,14 @@ define (require) ->
 
       it 'replaces nested values for translated attributes with translated attributes', ->
         parsed = @model.parse(title: ja: 'title in Japanese')
-        expect(parsed['title'] instanceof TranslatableAtribute).toBeTruthy()
+        expect(parsed['title'] instanceof TranslatableAttribute).toBeTruthy()
         expect(parsed['title'].attributes).toEqual(ja: 'title in Japanese')
 
       it 'only overwrites translated attributes if they are in the response', ->
         expect(@model.parse(foo: 'bar')).toEqual(foo: 'bar')
 
       it 'leaves translatable attribute objects unchanged', ->
-        parsed = @model.parse(title: new TranslatableAtribute(en: 'title in English'))
+        parsed = @model.parse(title: new TranslatableAttribute(en: 'title in English'))
         expect(parsed['title'].in('en')).toEqual('title in English')
 
       describe 'with merge option', ->
