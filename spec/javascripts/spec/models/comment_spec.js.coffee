@@ -13,12 +13,6 @@ define (require) ->
       comment = new Comment
       expect(comment).not.toBeNull()
 
-    describe '#getId', ->
-      it 'returns the id', ->
-        comment = new Comment
-        comment.id = 123
-        expect(comment.getId()).toEqual(123)
-
     describe '#url', ->
 
       describe 'with no thread set', ->
