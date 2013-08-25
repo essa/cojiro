@@ -29,7 +29,7 @@ define [
         if options.merge && value
           value ||= {}
           oldValue = @get(key) && @get(key).attributes
-          _(value).extend oldValue
+          _(value).defaults oldValue
         if value
           resp[key] = new TranslatableAttribute(value, parse: true)
       return resp

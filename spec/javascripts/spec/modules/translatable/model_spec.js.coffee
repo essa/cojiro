@@ -144,6 +144,12 @@ define (require) ->
           @model.set('title', en: 'a title in English')
           expect(@model.get('title').in('en')).toEqual('a title in English')
 
+        it 'updates attribute translations and leaves others unchanged', ->
+          @model.set('title', new TranslatableAttribute(en: 'a title in English', ja: 'a title in Japanese'))
+          @model.set('title', en: 'a new title in English')
+          expect(@model.get('title').in('en')).toEqual('a new title in English')
+          expect(@model.get('title').in('ja')).toEqual('a title in Japanese')
+
       describe '#setAttr', ->
         it 'is defined', -> expect(@model.setAttr).toBeDefined()
 
