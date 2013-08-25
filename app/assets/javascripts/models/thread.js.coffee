@@ -53,7 +53,6 @@ define [
       summary: @get('summary').toJSON()
       source_locale: @get('source_locale')
 
-    getId: -> @id
     getUser: -> @get('user')
     getUserName: -> @getUser().getName()
     getComments: -> @get('comments')

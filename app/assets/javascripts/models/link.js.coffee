@@ -82,7 +82,6 @@ define [
         source_locale: source_locale
       else {}
 
-    getId: -> @id
     getUser: -> @get('user')
     getUserName: -> @get('user_name')
     getUrl: -> @get('url')
