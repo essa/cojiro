@@ -55,6 +55,18 @@ define (require) ->
 
     describe 'events', ->
 
+      describe 'when thread is updated', ->
+        beforeEach ->
+          @view.render()
+
+        it 're-renders the title', ->
+          @thread.setAttr('title', 'a new title')
+          expect(@view.$('#title')).toContainText('a new title')
+
+        it 're-renders the summary', ->
+          @thread.setAttr('summary', 'a new summary')
+          expect(@view.$('#summary')).toContainText('a new summary')
+
       describe 'when thread header is clicked', ->
         beforeEach ->
           @view.render()

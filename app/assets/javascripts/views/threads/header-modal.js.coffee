@@ -42,4 +42,7 @@ define (require) ->
         editFor: I18n.t('views.threads.header-modal.edit_for', languages: languages)))
 
     submitForm: ->
-      @model.save {}
+      view = @
+      @model.save @form.serialize(),
+        success: (model, resp) ->
+          view.hideModal()

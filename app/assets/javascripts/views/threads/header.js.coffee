@@ -35,6 +35,10 @@ define (require) ->
       @summaryField = new @InPlaceField(model: @model, field: "summary", editable: false)
       @modal = new @ThreadHeaderModal(model: @model)
 
+      # event listeners
+      view = @
+      @listenTo(@model, 'change', view.render)
+
     render: ->
       @renderTemplate()
       @renderTranslatableFields()

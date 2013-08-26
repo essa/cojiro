@@ -58,25 +58,46 @@ define (require) ->
     describe 'events', ->
 
       describe 'clicking save button', ->
-        beforeEach ->
-          @view = new ThreadHeaderModal(model: @thread)
-          @view.render()
-          @server = sinon.fakeServer.create()
-          @$saveButton = @view.$('button[type="submit"]')
 
-          @thread.id = 123
-          @view.$el.findField('Title').val('another title')
-          @view.$el.findField('Summary').val('another summary')
-          @server.respondWith(
-            'PUT'
-            '/collection/123'
-            @validResponse(id: '123')
-          )
+        describe 'with valid data', ->
+          beforeEach ->
+            @view = new ThreadHeaderModal(model: @thread)
+            @view.render()
+            @server = sinon.fakeServer.create()
+            @$saveButton = @view.$('button[type="submit"]')
 
-        afterEach -> @server.restore()
+            @thread.id = 123
+            @view.$el.findField('Title').val('another title')
+            @view.$el.findField('Summary').val('another summary')
+            @server.respondWith(
+              'PUT'
+              '/collection/123'
+              @validResponse(id: '123')
+            )
 
-        it 'updates the thread', ->
-          @$saveButton.click()
-          expect(@server.requests.length).toEqual(1)
-          expect(@server.requests[0]).toBePUT()
-          expect(@server.requests[0]).toHaveUrl('/collection/123')
+          afterEach -> @server.restore()
+
+          it 'makes correct request', ->
+            @$saveButton.click()
+            expect(@server.requests.length).toEqual(1)
+            expect(@server.requests[0]).toBePUT()
+            expect(@server.requests[0]).toHaveUrl('/collection/123')
+
+          it 'sends valid data', ->
+            @$saveButton.click()
+            request = @server.requests[0]
+            params = JSON.parse(request.requestBody)
+            expect(params.thread).toBeDefined()
+            expect(params.thread.title).toEqual(en: 'another title')
+            expect(params.thread.summary).toEqual(en: 'another summary')
+
+          it 'does not trigger any errors', ->
+            @$saveButton.click()
+            @server.respond()
+            expect(@view.$el).not.toContain('.error')
+            expect(@thread.validationError).toBeNull()
+
+          it 'closes the modal', ->
+            @$saveButton.click()
+            @server.respond()
+            expect(@$sandbox).not.toContain('form')
