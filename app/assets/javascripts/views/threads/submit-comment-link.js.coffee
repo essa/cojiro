@@ -109,7 +109,6 @@ define [
       self = @
       if @model.getStatus() || @model.set(@linkForm.serialize(), validate: true)
         @comment.set('user', globals.currentUser)
-        attrs = _(@commentForm.serialize()).extend(thread: @thread)
         @comment.save _(@commentForm.serialize()).extend(thread: @thread),
           wait: true
           success: (model, resp) ->
