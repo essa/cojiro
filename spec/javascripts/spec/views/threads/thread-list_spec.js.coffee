@@ -1,6 +1,8 @@
 define (require) ->
 
   Backbone = require('backbone')
+  I18n = require('i18n')
+
   Thread = require('models/thread')
   Threads = require('collections/threads')
 
@@ -95,16 +97,26 @@ define (require) ->
           @thread.collection = @threads
 
           @view = new ThreadListView(collection: @threads)
-          @view.render()
 
-        afterEach ->
-          @clock.restore()
+        afterEach -> @clock.restore()
 
-        it "fills in time tag field on new models", ->
-          expect(@view.$('time.timeago')[0]).toHaveText('less than a minute ago')
+        describe 'in English locale', ->
+          beforeEach -> @view.render()
 
-        it "updates time tag as time passes", ->
-          @clock.tick(60000)
-          expect(@view.$('time.timeago')[0]).toHaveText('about a minute ago')
-          @clock.tick(3600000)
-          expect(@view.$('time.timeago')[0]).toHaveText('about an hour ago')
+          it "fills in time tag field on new models", ->
+            expect(@view.$('time.timeago')[0]).toHaveText('less than a minute ago')
+
+          it "updates time tag as time passes", ->
+            @clock.tick(60000)
+            expect(@view.$('time.timeago')[0]).toHaveText('about a minute ago')
+            @clock.tick(3600000)
+            expect(@view.$('time.timeago')[0]).toHaveText('about an hour ago')
+
+        describe 'in Japanese', ->
+          beforeEach ->
+            I18n.locale = 'ja'
+            @view.render()
+
+          it "fills in time tag field on new models", ->
+            expect(@view.$('time.timeago')[0]).toHaveText('ほんの数秒前')
+
