@@ -56,9 +56,12 @@ beforeEach ->
     (id = @.findLabel(labelText).attr('for')) && @.find('#' + id)
 
   # create/destroy sandbox
-  @createSandbox = () ->
+  @createSandbox = (id) ->
     $('body').append('<div id="sandbox"></div>')
-    $('#sandbox').append('<div id="modal"></div>')
+    if id?
+      $('#sandbox').append("<div id='#{id}'></div>")
+    else
+      $('#sandbox').append('<div id="modal"></div>')
 
   @destroySandbox = () ->
     $('#sandbox').remove()

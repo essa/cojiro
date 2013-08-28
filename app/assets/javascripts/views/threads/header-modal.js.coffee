@@ -8,6 +8,7 @@ define (require) ->
   I18n = require 'i18n'
 
   class ThreadHeaderModal extends ModalView
+    el: '#thread-header-modal'
     languageSwitcher: _.template '<div id="lang-switcher"><%= editFor %></div>'
 
     buildEvents: () ->
