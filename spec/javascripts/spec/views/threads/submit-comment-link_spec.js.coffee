@@ -202,7 +202,7 @@ define (require) ->
 
             describe 'with valid data', ->
               beforeEach ->
-                @view.$('select').val('ja')
+                @view.$('select').val('ja').trigger('change')
                 @view.$('.title textarea').val('日本語のタイトル')
                 @view.$('.summary textarea').val('日本語のサマリ')
                 @view.$('.text textarea').val('a comment text')

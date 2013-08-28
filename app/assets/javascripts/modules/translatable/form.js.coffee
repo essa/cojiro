@@ -9,7 +9,6 @@ define [
   class Form extends BaseView
     tagName: 'form'
     className: 'form-horizontal'
-    wildcard: 'xx'
 
     options:
       template:
@@ -18,7 +17,7 @@ define [
             <% _.each(items, function(item) { %>
               <% if (item.translated == true) { %>
                 <% _.each(item.html, function(html, locale) { %>
-                  <div class="control-group <%= item.key %> <%= item.key %>-<%= locale %>">
+                  <div class="control-group <%= item.key %>">
                     <label class="control-label" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
                         <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
@@ -53,10 +52,9 @@ define [
       @schema = -> _(@model).result('schema')
       if (@locales = @options.locales) && !(@locales instanceof Array)
         throw new Error("Translatable.Form's locales must be an array of locale strings.")
-      @wildcard = options.wildcard if options.wildcard
-      @sourceLocale = options.sourceLocale if options.sourceLocale
       self = @
       @model.on('invalid', (model, error) -> self.renderErrors(error))
+      @on('changeLocale', @changeLocale)
 
     render: ->
       @$el.html(@html())
@@ -65,16 +63,12 @@ define [
     html: ->
       @options.template(items: @getItems())
 
-    sourceLocale: -> I18n.locale
-
     getItems: ->
       self = @
-      wildcard = @wildcard
       schema = @schema()
       translatableAttributes = @model.translatableAttributes
       keys = _(schema).keys()
-      locales = @locales || [ wildcard ]
-      sourceLocale = @sourceLocale()
+      locales = @locales || [ I18n.locale ]
 
       _(keys).map (key) ->
         type = schema[key]['type']
@@ -84,7 +78,6 @@ define [
 
         if translated = translatableAttributes && (key in translatableAttributes)
           value = value.toJSON()
-          value[wildcard] = value[sourceLocale]
           html = {}
           _(locales).each (locale) ->
             options = locale: locale
@@ -129,7 +122,7 @@ define [
       self = @
       o = {}
       _(form.serializeArray()).each (a, i) ->
-        name = a.name.replace(self.wildcard, self.sourceLocale())
+        name = a.name
         [attribute, locale] = name.split('-')
         if locale
           o[attribute] ||= {}
@@ -145,11 +138,9 @@ define [
         _(msg).each (value, key) -> self.renderError(msg[key], key, levels)
       else
         name = levels.join('-')
-        names = _.uniq([name, name.replace(@sourceLocale(), @wildcard)])
-        _(names).each (name) ->
-          controlGroup = self.$el.find("[name='#{name}']").closest('.control-group')
-          controlGroup.addClass('error')
-          controlGroup.find('.help-block').text(msg)
+        controlGroup = self.$el.find("[name='#{name}']").closest('.control-group')
+        controlGroup.addClass('error')
+        controlGroup.find('.help-block').text(msg)
 
     renderErrors: (errors) ->
       self = @
@@ -161,3 +152,18 @@ define [
         when 'false' then false
         when 'null' then null
         else val
+
+    changeLocale: (locale) ->
+      return if @locales && @locales.length > 1
+      return unless locale in I18n.availableLocales
+      prevLocale = @locales && @locales[0] || I18n.locale
+      @locales = [ locale ]
+      view = @
+      _.chain(@schema()).keys().each (key) ->
+        id = "#{view.cid}-#{key}-#{prevLocale}"
+        newId = "#{view.cid}-#{key}-#{locale}"
+        view.$("label.control-label[for='#{id}']").attr('for', newId)
+        view.$('#' + id)
+          .attr('name', key + '-' + locale)
+          .attr('id', newId)
+          .attr('lang', locale)

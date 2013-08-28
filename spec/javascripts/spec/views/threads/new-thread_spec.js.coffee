@@ -72,8 +72,8 @@ define (require) ->
           expect(spyEvent).toHaveBeenPrevented()
 
         it 'sets title and summary values', ->
-          @view.$('form input').val('a title')
-          @view.$('form textarea').val('a summary')
+          @view.$el.findField('Title').val('a title')
+          @view.$el.findField('Summary').val('a summary')
           @$form.submit()
 
           expect(@model.getAttr('title')).toEqual('a title')

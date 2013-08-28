@@ -1,7 +1,8 @@
 beforeEach ->
 
-  $ = require('jquery')
-  Backbone = require('backbone')
+  $ = require 'jquery'
+  Backbone = require 'backbone'
+  I18n = require 'i18n'
 
   # https://github.com/PaulUithol/Backbone-relational/issues/235
   oldReverseRelations = Backbone.Relational.store._reverseRelations

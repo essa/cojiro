@@ -87,6 +87,35 @@ define (require) ->
           $field = @view.$el.find('input#123-attribute')
           expect($field.closest('.control-group')).toHaveClass('error')
 
+      describe 'changeLocale', ->
+        beforeEach ->
+          _(@model).extend
+            schema: ->
+              title:
+                label: 'Title'
+                type: 'Text'
+              summary:
+                label: 'Summary'
+                type: 'TextArea'
+          @view = new Form(model: @model)
+          @view.cid = '123'
+          @view.render()
+
+        it 'changes locale-related tags of form input fields', ->
+          @view.trigger('changeLocale', 'ja')
+          expect(@view.$el).toContain('.control-group.title input#123-title-ja[name="title-ja"][type="text"][lang="ja"]')
+          expect(@view.$el).toContain('.control-group.title input#123-title-ja[name="title-ja"][type="text"][lang="ja"]')
+          expect(@view.$el).not.toContain('#123-title-en')
+          expect(@view.$el).not.toContain('#123-summary-en')
+
+        it 'retains original input field values', ->
+          @$el = @view.$el
+          @$el.findField('Title').val('a title')
+          @$el.findField('Summary').val('a summary')
+          @view.trigger('changeLocale', 'ja')
+          expect(@$el.findField('Title')).toHaveValue('a title')
+          expect(@$el.findField('Summary')).toHaveValue('a summary')
+
     describe '#html', ->
       beforeEach ->
         @view = new Form(model: @model)
@@ -168,7 +197,7 @@ define (require) ->
 
         describe 'with locales option unset', ->
           beforeEach ->
-            @view = new Form(model: @model, wildcard: 'xyz')
+            @view = new Form(model: @model)
             @view.cid = '123'
             sinon.stub(@view, 'getHtml').returns('html')
             I18n.locale = 'ja'
@@ -176,10 +205,9 @@ define (require) ->
           it 'sets translated to true', ->
             expect(@view.getItems()[0]['translated']).toBeTruthy()
 
-          it 'maps translated attributes to items with wildcard locale', ->
+          it 'maps translated attributes to items with current locale', ->
             expect(@view.getItems()).toEqual([
-              html:
-                xyz: 'html'
+              html: ja: 'html'
               label: 'Title'
               key: 'title'
               translated: true
@@ -189,7 +217,7 @@ define (require) ->
           it 'calls getHtml with attribute and value in current locale', ->
             @view.getItems()
             expect(@view.getHtml).toHaveBeenCalledOnce()
-            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', locale: 'xyz')
+            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', locale: 'ja')
 
         describe 'with locales option set', ->
           beforeEach ->
@@ -285,6 +313,7 @@ define (require) ->
 
       describe 'translated attributes', ->
         describe 'Text', ->
+
           it 'adds lang tag and appends lang to attribute name', ->
             $el = $(@view.getHtml('attribute', 'value', 'Text', locale: 'en'))
             expect($el).toBe('input')
@@ -346,14 +375,14 @@ define (require) ->
         it 'renders fields for attribute translations specified in locales option', ->
           @view.render()
           # English
-          expect(@view.$el).toContain('.control-group.title.title-en input#123-title-en[name="title-en"][type="text"][value="Title in English"]')
-          expect(@view.$el).toContain('.control-group.summary.summary-en textarea#123-summary-en[name="summary-en"][type="text"]:contains("Summary in English")')
+          expect(@view.$el).toContain('.control-group.title input#123-title-en[name="title-en"][type="text"][value="Title in English"]')
+          expect(@view.$el).toContain('.control-group.summary textarea#123-summary-en[name="summary-en"][type="text"]:contains("Summary in English")')
           # Japanese
-          expect(@view.$el).toContain('.control-group.title.title-ja input#123-title-ja[name="title-ja"][type="text"][value="Title in Japanese"]')
-          expect(@view.$el).toContain('.control-group.summary.summary-ja textarea#123-summary-ja[name="summary-ja"][type="text"]:contains("")')
+          expect(@view.$el).toContain('.control-group.title input#123-title-ja[name="title-ja"][type="text"][value="Title in Japanese"]')
+          expect(@view.$el).toContain('.control-group.summary textarea#123-summary-ja[name="summary-ja"][type="text"]:contains("")')
           # French
-          expect(@view.$el).not.toContain('.control-group.title.title-fr input#123-title-fr[name="title-fr"][type="text"][value="Title in French"]')
-          expect(@view.$el).not.toContain('.control-group.summary.summary-fr textarea#123-summary-fr[name="summary-fr"][type="text"]:contains("Summary in French")')
+          expect(@view.$el).not.toContain('.control-group.title input#123-title-fr[name="title-fr"][type="text"][value="Title in French"]')
+          expect(@view.$el).not.toContain('.control-group.summary textarea#123-summary-fr[name="summary-fr"][type="text"]:contains("Summary in French")')
 
         it 'renders label if label is a value', ->
           @view.render()
@@ -475,66 +504,3 @@ define (require) ->
             @view.renderErrors(title: en: 'required')
             $field = @view.$el.find('input#123-title-en')
             expect($field.closest('.controls').find('.help-block')).toHaveText('required')
-
-      describe 'with locales dynamically assigned', ->
-
-        describe 'default sourceLocale function', ->
-          beforeEach ->
-            @view = new Form(model: @model, wildcard: 'xyz')
-            @view.cid = '123'
-            _(@model).extend schema: -> title: type: 'Text'
-            @view.render()
-
-          it 'maps errors on current locale to wildcard', ->
-            I18n.locale = 'fr'
-            @view.renderErrors(title: fr: 'required')
-            $field = @view.$el.find('input#123-title-xyz')
-            expect($field.closest('.control-group')).toHaveClass('error')
-            expect($field.closest('.controls').find('.help-block')).toHaveText('required')
-
-          it 'does not map errors on other locales to wildcard', ->
-            I18n.locale = 'fr'
-            @view.renderErrors(title: ja: 'required')
-            $field = @view.$el.find('input#123-title-xyz')
-            expect($field.closest('.control-group')).not.toHaveClass('error')
-            expect($field.closest('.controls').find('.help-block')).not.toHaveText('required')
-
-          # This is a somewhat contrived example, but suppose we have a custom
-          # template which shows fields for locales other than the source locale,
-          # and we want to render those errors on those locales.
-          # Then renderError should correctly render those locale-specific errors
-          # *in addition* to the errors it renders on the source locale.
-          it 'maps errors on other locales to attributes in that locale', ->
-            @view.$('fieldset').append '
-              <div class="control-group">
-                <div class="controls">
-                  <input id="123-title-ja" name="title-ja" type="text" value="" />
-                  <div class="help-block"></div>
-                </div>
-              </div>'
-            @view.renderErrors(title: ja: 'required')
-            $field = @view.$el.find('input#123-title-ja')
-            expect($field.closest('.control-group')).toHaveClass('error')
-            expect($field.closest('.controls').find('.help-block')).toHaveText('required')
-
-        describe 'custom sourceLocale function', ->
-          beforeEach ->
-            @view = new Form
-              model: @model
-              wildcard: 'xyz'
-              sourceLocale: -> 'de'
-            @view.cid = '123'
-            _(@model).extend schema: -> title: type: 'Text'
-            @view.render()
-
-          it 'maps errors on source locale to wildcard', ->
-            @view.renderErrors(title: de: 'required')
-            $field = @view.$el.find('input#123-title-xyz')
-            expect($field.closest('.control-group')).toHaveClass('error')
-            expect($field.closest('.controls').find('.help-block')).toHaveText('required')
-
-          it 'does not map errors on other locales to wildcard', ->
-            @view.renderErrors(title: ja: 'required')
-            $field = @view.$el.find('input#123-title-xyz')
-            expect($field.closest('.control-group')).not.toHaveClass('error')
-            expect($field.closest('.controls').find('.help-block')).not.toHaveText('required')

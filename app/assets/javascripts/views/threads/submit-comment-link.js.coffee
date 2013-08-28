@@ -34,13 +34,10 @@ define [
 
     initialize: (options = {}) ->
       super(options)
-      @linkForm = new Form
-        model: @model
-        sourceLocale: -> @$('.source_locale select').val()
+      @linkForm = new Form model: @model
       @Comment = options.Comment || Comment
       @comment = new @Comment(link: @model)
-      @commentForm = new Form
-        model: @comment
+      @commentForm = new Form model: @comment
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
       @header = new @ModalHeaderView(title: 'Add <small>' + @model.getDisplayUrl() + '</small>')
       @ModalFooterView = options.ModalFooterView || ModalFooterView
@@ -96,7 +93,9 @@ define [
 
     updateLabels: () ->
       self = @
-      locale = @linkForm.$('select option:selected').text()
+      selected = @linkForm.$('select option:selected')
+      locale = selected.text()
+      @linkForm.trigger('changeLocale', selected.val())
       @linkForm.$('.title label').text('Title in ' + locale)
       @linkForm.$('.summary label').text('Summary in ' + locale)
       @linkForm.$('.title textarea').attr('readonly', false)

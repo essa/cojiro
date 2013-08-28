@@ -20,32 +20,66 @@ define (require) ->
     describe 'rendering', ->
       beforeEach ->
         @view = new ThreadHeaderModal(model: @thread)
-        @view.render()
 
       it 'returns the view object', -> expect(@view.render()).toEqual(@view)
-      it 'adds #header-modal class', -> expect(@view.$el).toHaveClass('header-modal')
-      it 'renders modal title', -> expect(@view.$('.modal-header')).toHaveText(/Edit title and summary/)
-      it 'renders form', -> expect(@view.$('.modal-body')).toContain('form')
+
+      it 'adds #header-modal class', ->
+        @view.render()
+        expect(@view.$el).toHaveClass('header-modal')
+
+      it 'renders modal title', ->
+        @view.render()
+        expect(@view.$('.modal-header')).toHaveText(/Edit title and summary/)
+
+      it 'renders form', ->
+        @view.render()
+        expect(@view.$('.modal-body')).toContain('form')
 
       describe 'form', ->
-        beforeEach -> @$form = @view.$('.modal-body form')
 
-        it 'renders title field', ->
-          expect(@$form).toHaveField('Title')
-          expect(@$form.findField('Title')).toBe('input')
+        describe 'in source locale', ->
+          beforeEach ->
+            @view.render()
+            @$form = @view.$('.modal-body form')
 
-        it 'renders value of title in current locale', ->
-          expect(@$form.findField('Title')).toHaveValue('a title')
+          it 'renders title field', ->
+            expect(@$form).toHaveField('Title')
+            expect(@$form.findField('Title')).toBe('input')
 
-        it 'renders summary field', ->
-          expect(@$form).toHaveField('Summary')
-          expect(@$form.findField('Summary')).toBe('textarea')
+          it 'renders value of title in current locale', ->
+            expect(@$form.findField('Title')).toHaveValue('a title')
 
-        it 'renders value of summary in current locale', ->
-          expect(@$form.findField('Summary')).toHaveValue('a summary')
+          it 'renders summary field', ->
+            expect(@$form).toHaveField('Summary')
+            expect(@$form.findField('Summary')).toBe('textarea')
+
+          it 'renders value of summary in current locale', ->
+            expect(@$form.findField('Summary')).toHaveValue('a summary')
+
+        describe 'in other locale', ->
+          beforeEach ->
+            I18n.locale = 'ja'
+            @view.render()
+            @$form = @view.$('.modal-body form')
+
+          it 'renders title field', ->
+            expect(@$form).toHaveField('タイトル')
+            expect(@$form.findField('タイトル')).toBe('input')
+
+          it 'renders blank title', ->
+            expect(@$form.findField('タイトル')).toHaveValue('')
+
+          it 'renders summary field', ->
+            expect(@$form).toHaveField('サマリ')
+            expect(@$form.findField('サマリ')).toBe('textarea')
+
+          it 'renders blank summary', ->
+            expect(@$form.findField('サマリ')).toHaveValue('')
 
       describe 'footer', ->
-        beforeEach -> @$footer = @view.$('.modal-footer')
+        beforeEach ->
+          @view.render()
+          @$footer = @view.$('.modal-footer')
 
         it 'renders submit button', ->
           expect(@$footer).toContain('button:contains("Save")')
