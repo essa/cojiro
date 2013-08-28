@@ -6,7 +6,8 @@ define (require) ->
   describe 'ModalView', ->
     beforeEach ->
       @$sandbox = @createSandbox()
-      @$modal = $('#modal')
+      @$modal = $('<div id="modal"></div>')
+      @$sandbox.append(@$modal)
       @view = new ModalView
 
     afterEach ->

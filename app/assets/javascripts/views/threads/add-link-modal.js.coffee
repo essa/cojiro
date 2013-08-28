@@ -12,6 +12,7 @@ define [
 ], ($, _, Backbone, BaseView, AddUrlView, SubmitCommentLinkView, Link, ModalView, channel, I18n) ->
 
   class AddLinkModal extends ModalView
+    el: '#add-link-modal'
 
     initialize: (options = {}) ->
       super(options)

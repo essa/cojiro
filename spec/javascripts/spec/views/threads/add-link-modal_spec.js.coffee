@@ -38,11 +38,11 @@ define (require) ->
         @link = sinon.stub()
         @link.getUrl = -> 'http://www.example.com'
 
-        modalEl = $('<div id="modal" class="modal hide fade"></div>')
-        $('body').append(modalEl)
+        @$sandbox = @createSandbox()
+        @$modal = @createModal('add-link-modal')
+        @$sandbox.append(@$modal)
 
-      afterEach ->
-        $('#modal').remove()
+      afterEach -> @destroySandbox()
 
       describe 'invalid step', ->
         it 'throws error', ->

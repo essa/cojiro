@@ -10,6 +10,8 @@ define (require) ->
   describe 'ThreadView', ->
     beforeEach ->
       @$sandbox = @createSandbox()
+      @$modal = @createModal('add-link-modal')
+      @$sandbox.append(@$modal)
       @thread = new Thread
       @thread.set
         comments: [
@@ -162,7 +164,7 @@ define (require) ->
 
         describe 'click add link button', ->
           beforeEach ->
-            $('#modal').hide()
+            @$modal.hide()
             @view.render()
             @$sandbox.append(@view.el)
 
@@ -173,9 +175,9 @@ define (require) ->
 
           it "shows addLinkModal when user clicks on the 'add link' button", ->
             # ensure that modal is initially hidden -- bootstrap will do this
-            expect($('#modal')).not.toBeVisible()
+            expect(@$modal).not.toBeVisible()
             $('a.add-link').trigger('click')
-            expect($('#modal')).toBeVisible()
+            expect(@$modal).toBeVisible()
 
         describe 'leave', ->
           it 'calls leave when leaving the thread', ->

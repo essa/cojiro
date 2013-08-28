@@ -5,7 +5,8 @@ define (require) ->
 
   describe 'ThreadHeaderModal', ->
     beforeEach ->
-      @$sandbox = @createSandbox('thread-header-modal')
+      @$sandbox = @createSandbox()
+      @$sandbox.append(@createModal('thread-header-modal'))
       @thread = new Thread(
         title: en: 'a title'
         summary: en: 'a summary'
