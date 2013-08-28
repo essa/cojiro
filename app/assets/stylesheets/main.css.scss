@@ -322,12 +322,12 @@ ul.nav-pills {
 
 /* -------- Add link dialog ----- */
 
-#modal.add-url form {
+#add-link-modal.add-url form {
   text-align: center;
   margin-top: 20px;
 }
 
-#modal.add-url {
+#add-link-modal.add-url {
   #loading {
     display: block;
     margin-left: auto;
@@ -337,7 +337,7 @@ ul.nav-pills {
   }
 }
 
-#modal.submit-comment-link {
+#add-link-modal.submit-comment-link {
   width: 900px;
   margin-left: -450px;
 
