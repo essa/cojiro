@@ -136,3 +136,17 @@ define (require) ->
             @$saveButton.click()
             @server.respond()
             expect(@$sandbox).not.toContain('form')
+
+        xdescribe 'with invalid data'
+
+      describe 'clicking cancel button', ->
+        beforeEach ->
+          @view = new ThreadHeaderModal(model: @thread)
+          @view.render()
+          @view.trigger('show')
+          @$cancelButton = @view.$('button[type="cancel"]')
+
+        it 'hides the modal', ->
+          expect(@view.$el).toBeVisible()
+          @$cancelButton.click()
+          expect(@view.$el).not.toBeVisible()

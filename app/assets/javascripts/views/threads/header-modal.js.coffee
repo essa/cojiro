@@ -14,6 +14,7 @@ define (require) ->
     buildEvents: () ->
       _(super).extend
         'click button[type="submit"]': 'submitForm'
+        'click button[type="cancel"]': 'hideModal'
 
     initialize: (options) ->
       super(options)
