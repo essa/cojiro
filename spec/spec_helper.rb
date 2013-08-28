@@ -63,7 +63,8 @@ Spork.prefork do
     WebMock.disable_net_connect!(:allow_localhost => true)
 
     # we don't want to make any actual calls to the API or save the key anywhere
-    ENV['EMBEDLY_KEY'] = 'EMBEDLY_KEY'
+    # to override just set EMBEDLY_ALLOW to true when running test
+    ENV['EMBEDLY_KEY'] = 'EMBEDLY_KEY' unless ENV['EMBEDLY_ALLOW']
 
     # Cucumber is configured separately, see features/support/vcr.rb
     VCR.configure do |c|
