@@ -72,11 +72,14 @@ define (require) ->
         expect(@view.render()).toBe(@view)
 
     describe 'events', ->
+
       describe 'error on model', ->
         beforeEach ->
           _(@model).extend
             schema: ->
-              attribute: type: 'Text'
+              attribute:
+                label: 'Attribute'
+                type: 'Text'
           @view = new Form(model: @model)
           @view.cid = '123'
           @view.render()
@@ -84,7 +87,7 @@ define (require) ->
         it 'renders errors', ->
           error = attribute: 'required'
           @model.trigger('invalid', @, error)
-          $field = @view.$el.find('input#123-attribute')
+          $field = @view.$el.findField('Attribute')
           expect($field.closest('.control-group')).toHaveClass('error')
 
       describe 'changeLocale', ->
@@ -402,16 +405,20 @@ define (require) ->
         beforeEach ->
           _(@model).extend(
             schema: ->
-              attribute1: type: 'Text'
-              attribute2: type: 'TextArea'
+              attribute1:
+                label: 'Attribute1'
+                type: 'Text'
+              attribute2:
+                label: 'Attribute2'
+                type: 'TextArea'
           )
           @view = new Form(model: @model)
           @view.cid = '123'
           @view.render()
 
         it 'serializes form data', ->
-          @view.$el.find('input#123-attribute1').val('a new value')
-          @view.$el.find('textarea#123-attribute2').val('another new value')
+          @view.$el.findField('Attribute1').val('a new value')
+          @view.$el.findField('Attribute2').val('another new value')
           expect(@view.serialize()).toEqual(
             attribute1: 'a new value'
             attribute2: 'another new value'
@@ -427,8 +434,12 @@ define (require) ->
         beforeEach ->
           _(@model).extend(
             schema: ->
-              title: type: 'Text'
-              summary: type: 'TextArea'
+              title:
+                label: (locale) -> 'Title in ' + (en: 'English', ja: 'Japanese')[locale]
+                type: 'Text'
+              summary:
+                label: (locale) -> 'Summary in ' + (en: 'English', ja: 'Japanese')[locale]
+                type: 'TextArea'
           )
           @view = new Form(model: @model, locales: ['en', 'ja'])
           @view.cid = '123'
@@ -439,8 +450,8 @@ define (require) ->
             summary: new Attribute(en: '', ja: '')
           )
           @view.render()
-          @view.$el.find('input#123-title-en').val('a value in English')
-          @view.$el.find('input#123-title-ja').val('a value in Japanese')
+          @view.$el.findField('Title in English').val('a value in English')
+          @view.$el.findField('Title in Japanese').val('a value in Japanese')
           expect(@view.serialize()).toEqual(
             title:
               en: 'a value in English'
@@ -475,32 +486,36 @@ define (require) ->
           beforeEach ->
             _(@model).extend
               schema: ->
-                attribute: type: 'Text'
+                attribute:
+                  label: 'Attribute'
+                  type: 'Text'
             @view.render()
 
           it 'appends error class to control-group for each attribute in errors object', ->
             @view.renderErrors(attribute: 'required')
-            $field = @view.$el.find('input#123-attribute')
+            $field = @view.$el.findField('Attribute')
             expect($field.closest('.control-group')).toHaveClass('error')
 
           it 'inserts error msg into help block', ->
             @view.renderErrors(attribute: 'required')
-            $field = @view.$el.find('input#123-attribute')
+            $field = @view.$el.findField('Attribute')
             expect($field.closest('.controls').find('.help-block')).toHaveText('required')
 
         describe 'translated (nested) attributes', ->
           beforeEach ->
             _(@model).extend
               schema: ->
-                title: type: 'Text'
+                title:
+                  label: 'Title'
+                  type: 'Text'
             @view.render()
 
           it 'appends error class to control-group for each attribute in errors object', ->
             @view.renderErrors(title: en: 'required')
-            $field = @view.$el.find('input#123-title-en')
+            $field = @view.$el.findField('Title')
             expect($field.closest('.control-group')).toHaveClass('error')
 
           it 'inserts error msg into help block', ->
             @view.renderErrors(title: en: 'required')
-            $field = @view.$el.find('input#123-title-en')
+            $field = @view.$el.findField('Title')
             expect($field.closest('.controls').find('.help-block')).toHaveText('required')
