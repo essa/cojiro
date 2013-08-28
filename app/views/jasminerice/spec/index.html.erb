@@ -5,7 +5,8 @@
   <%= requirejs_include_tag 'application' %>
   <%= javascript_include_tag "jasminerice", "spec", :debug => true %>
   <script>
-    require([<%= spec_files.map { |f| "'#{f.sub(/\.js$/,'')}'" }.join(',').html_safe %>]);
+    jasmine.rice.autoExecute = false;
+    require([<%= spec_files.map { |f| "'#{f.sub(/\.js$/,'')}'" }.join(',').html_safe %>], function() { jasmine.getEnv().execute() });
   </script>
   <%= csrf_meta_tags %>
 </head>
