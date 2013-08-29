@@ -34,7 +34,7 @@ en:
       submit-comment-link:
         already_registered: This link is already registered in cojiro. It was added by @%{name} on %{date}.
       header-modal:
-        edit_title_and_summary_in_lang: Edit title and summary in %{lang}
+        edit_title_and_summary: Edit title and summary
         edit_for: Edit for %{languages}.
         save: Save
         cancel: Cancel
@@ -84,10 +84,14 @@ en:
   attributes:
     thread:
       title: title
+      title_in_lang: Title in %{lang}
       summary: summary
+      summary_in_lang: Summary in %{lang}
     link:
       title: title
+      title_in_lang: Title in %{lang}
       summary: summary
+      summary_in_lang: Summary in %{lang}
       source_locale: This link is in
 
   date:

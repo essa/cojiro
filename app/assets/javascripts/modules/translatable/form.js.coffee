@@ -71,11 +71,13 @@ define [
       schema = @schema()
       translatableAttributes = @model.translatableAttributes
       keys = _(schema).keys()
-      locales = @locales || [ I18n.locale ]
+      locales = @locales
 
       _(keys).map (key) ->
         type = schema[key]['type']
-        label = schema[key]['label'] || key
+        if locales then label = schema[key]['label']
+        else label = _(schema[key]).result('label')
+        label ||= key
         value = self.model.get(key)
         values = schema[key]['values']
 
@@ -84,7 +86,7 @@ define [
           sourceValue = self.model.getAttrInSourceLocale(key)
           sourceLocale = self.model.getSourceLocale()
           html = {}
-          _(locales).each (locale) ->
+          _(locales || [ I18n.locale ]).each (locale) ->
             options = locale: locale, sourceLocale: sourceLocale
             _(options).extend(values: values) if values?
             html[locale] = self.getHtml(key, value[locale] || '', type, options)
@@ -168,10 +170,13 @@ define [
       prevLocale = @locales && @locales[0] || I18n.locale
       @locales = [ locale ]
       view = @
-      _.chain(@schema()).keys().each (key) ->
+      _(@schema()).each (attrSchema, key) ->
         id = "#{view.cid}-#{key}-#{prevLocale}"
         newId = "#{view.cid}-#{key}-#{locale}"
-        view.$("label.control-label[for='#{id}']").attr('for', newId)
+        label = view.$("label.control-label[for='#{id}']")
+        if _.isFunction(attrSchema.label)
+          label.text(attrSchema.label(locale))
+        label.attr('for', newId)
         view.$('#' + id)
           .attr('name', key + '-' + locale)
           .attr('id', newId)

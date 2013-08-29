@@ -98,7 +98,7 @@ define (require) ->
                 label: 'Title'
                 type: 'Text'
               summary:
-                label: 'Summary'
+                label: (locale) -> if locale then ('Summary (' + locale + ')') else 'Summary'
                 type: 'TextArea'
           @view = new Form(model: @model)
           @view.cid = '123'
@@ -110,6 +110,10 @@ define (require) ->
           expect(@view.$el).toContain('.control-group.title input#123-title-ja[name="title-ja"][type="text"][lang="ja"]')
           expect(@view.$el).not.toContain('#123-title-en')
           expect(@view.$el).not.toContain('#123-summary-en')
+
+        it 'changes labels', ->
+          @view.trigger('changeLocale', 'ja')
+          expect(@view.$el.find('label[for="123-summary-ja"]')).toHaveText('Summary (ja)')
 
         it 'retains original input field values', ->
           @$el = @view.$el
@@ -191,7 +195,7 @@ define (require) ->
             schema: ->
               title:
                 type: 'Text'
-                label: 'Title'
+                label: (locale) -> if locale then ('Title (' + locale + ')') else 'Title'
           @model.set(
             title:
               en: 'title in English'
@@ -206,23 +210,24 @@ define (require) ->
             @view.cid = '123'
             sinon.stub(@view, 'getHtml').returns('html')
             I18n.locale = 'ja'
+            @item = @view.getItems()[0]
 
           it 'sets translated to true', ->
-            expect(@view.getItems()[0]['translated']).toBeTruthy()
+            expect(@item['translated']).toBeTruthy()
+
+          it 'sets sourceLocale and sourceValue', ->
+            expect(@item.sourceLocale).toEqual('fr')
+            expect(@item.sourceValue).toEqual('title in French')
 
           it 'maps translated attributes to items with current locale', ->
-            expect(@view.getItems()).toEqual([
-              html: ja: 'html'
-              label: 'Title'
-              key: 'title'
-              translated: true
-              cid: '123'
-              sourceLocale: 'fr'
-              sourceValue: 'title in French'
-            ])
+            expect(@item.html).toEqual(ja: 'html')
+            expect(@item.key).toEqual('title')
+            expect(@item.cid).toEqual('123')
+
+          it 'sets label function to result of schema label function for attribute called with no argument', ->
+            expect(@item.label).toEqual('Title')
 
           it 'calls getHtml with attribute and value in current locale', ->
-            @view.getItems()
             expect(@view.getHtml).toHaveBeenCalledOnce()
             expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', locale: 'ja', sourceLocale: 'fr')
 
@@ -231,25 +236,25 @@ define (require) ->
             @view = new Form(model: @model, locales: ['en', 'ja'])
             @view.cid = '123'
             sinon.stub(@view, 'getHtml').returns('html')
+            @item = @view.getItems()[0]
 
           it 'sets translated to true', ->
-            expect(@view.getItems()[0]['translated']).toBeTruthy()
+            expect(@item['translated']).toBeTruthy()
+
+          it 'sets sourceLocale and sourceValue', ->
+            expect(@item.sourceLocale).toEqual('fr')
+            expect(@item.sourceValue).toEqual('title in French')
 
           it 'maps translated attributes to items with values for selected locales', ->
-            expect(@view.getItems()).toEqual([
-              html:
-                en: 'html'
-                ja: 'html'
-              label: 'Title'
-              key: 'title'
-              translated: true
-              cid: '123'
-              sourceLocale: 'fr'
-              sourceValue: 'title in French'
-            ])
+            expect(@item.html).toEqual(en: 'html', ja: 'html')
+            expect(@item.key).toEqual('title')
+            expect(@item.cid).toEqual('123')
+
+          it 'sets label function to schema label function for attribute', ->
+            expect(@item.label('en')).toEqual(@model.schema().title.label('en'))
+            expect(@item.label('ja')).toEqual(@model.schema().title.label('ja'))
 
           it 'calls getHtml on each translation of schema items', ->
-            @view.getItems()
             expect(@view.getHtml).toHaveBeenCalledTwice()
             expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in English', 'Text', locale: 'en', sourceLocale: 'fr')
             expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', locale: 'ja', sourceLocale: 'fr')

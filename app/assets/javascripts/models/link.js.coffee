@@ -65,10 +65,14 @@ define [
           _.object(_(I18n.availableLocales).map (locale) -> [locale, I18n.t(locale)]))
       title:
         type: 'TextArea'
-        label: _(I18n.t('attributes.link.title')).capitalize()
+        label: (locale) ->
+          if locale then I18n.t('attributes.link.title_in_lang', lang: I18n.t(locale))
+          else _(I18n.t('attributes.link.title')).capitalize()
       summary:
         type: 'TextArea'
-        label: _(I18n.t('attributes.link.summary')).capitalize()
+        label: (locale) ->
+          if locale then I18n.t('attributes.link.summary_in_lang', lang: I18n.t(locale))
+          else _(I18n.t('attributes.link.summary')).capitalize()
 
     toJSON: () ->
       url = @getUrl()

@@ -92,6 +92,20 @@ define (require) ->
 
     describe 'events', ->
 
+      describe 'showing the form', ->
+        beforeEach ->
+          @thread.set(title: ja: '日本語のタイトル')
+          @view = new ThreadHeaderModal(model: @thread)
+
+        it 'resets the language of the form', ->
+          @view.render()
+          @view.trigger('show')
+          @view.$('a[lang="ja"]').click()
+          expect(@view.$el.findField('Title')).toHaveValue('日本語のタイトル')
+          @view.trigger('hide')
+          @view.trigger('show')
+          expect(@view.$el.findField('Title')).toHaveValue('a title')
+
       describe 'clicking save button', ->
 
         describe 'with valid data', ->
@@ -158,10 +172,6 @@ define (require) ->
           @view.render()
           @view.trigger('show')
           @$button = @view.$('a[lang="ja"]')
-
-        it 'changes title', ->
-          @$button.click()
-          expect(@view.$el.find('.modal-header')).toContainText('Edit title and summary in Japanese')
 
         it 're-renders form in new locale', ->
           expect(@view.$el.findField('Title')).toHaveValue('a title')

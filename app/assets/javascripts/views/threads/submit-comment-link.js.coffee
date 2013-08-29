@@ -28,7 +28,7 @@ define [
 
     buildEvents: () ->
       _(super).extend
-        'change select': 'updateLabels'
+        'change select': 'updateForm'
         'click button[type="submit"]': 'next'
         'click button[type="cancel"]': 'prev'
 
@@ -101,13 +101,10 @@ define [
       @linkForm.$('.title textarea').val(embedData.title)
       @linkForm.$('.summary textarea').val(embedData.description)
 
-    updateLabels: () ->
-      self = @
+    updateForm: () ->
       selected = @linkForm.$('select option:selected')
       locale = selected.text()
       @linkForm.trigger('changeLocale', selected.val())
-      @linkForm.$('.title label').text('Title in ' + locale)
-      @linkForm.$('.summary label').text('Summary in ' + locale)
       @linkForm.$('.title textarea').attr('readonly', false)
       @linkForm.$('.summary textarea').attr('readonly', false)
       @linkForm.$('.control-group.source_locale').removeClass('error')

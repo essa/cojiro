@@ -20,6 +20,8 @@ define (require) ->
     initialize: (options) ->
       super(options)
       @form = new Form(model: @model)
+      @header = new ModalHeaderView(
+        title: I18n.t('views.threads.header-modal.edit_title_and_summary'))
       @footer = new ModalFooterView(
         cancel: I18n.t('views.threads.header-modal.cancel'),
         submit: I18n.t('views.threads.header-modal.save')
@@ -37,11 +39,7 @@ define (require) ->
       @$el.html(@template())
       @$el.addClass('header-modal')
 
-    renderHeader: ->
-      @header.leave() if @header
-      @header = new ModalHeaderView(
-        title: I18n.t('views.threads.header-modal.edit_title_and_summary_in_lang', lang: I18n.t(@currentLocale)))
-      @renderChildInto(@header, '.modal-header')
+    renderHeader: -> @renderChildInto(@header, '.modal-header')
 
     renderForm: ->
       @form.locales = [ @currentLocale ]
@@ -64,3 +62,7 @@ define (require) ->
       @model.save @form.serialize(),
         success: (model, resp) ->
           view.hideModal()
+
+    showModal: ->
+      @currentLocale = I18n.locale
+      super
