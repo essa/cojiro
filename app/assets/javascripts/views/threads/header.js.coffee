@@ -37,7 +37,8 @@ define (require) ->
 
       # event listeners
       view = @
-      @listenTo(@model, 'change', view.render)
+      @listenTo(@model, 'change:title', view.render)
+      @listenTo(@model, 'change:summary', view.render)
 
     render: ->
       @renderTemplate()
