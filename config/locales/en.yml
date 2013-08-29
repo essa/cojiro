@@ -1,6 +1,7 @@
 en:
   en: English
   ja: Japanese
+  fr: French
 
   views:
     threads:
@@ -35,6 +36,8 @@ en:
       header-modal:
         edit_title_and_summary: Edit title and summary
         edit_for: Edit for %{languages}.
+        save: Save
+        cancel: Cancel
 
     homepage:
       index:

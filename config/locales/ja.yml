@@ -1,6 +1,7 @@
 ja:
   en: 英語
   ja: 日本語
+  fr: フランス語
 
   views:
     threads:
@@ -33,8 +34,10 @@ ja:
       submit-comment-link:
         already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
       header-modal:
-        edit_title_and_summary: Edit title and summary
+        edit_title_and_summary: タイトルとサマリを編集する
         edit_for: Edit for %{languages}.
+        save: 保存する
+        cancel: キャンセルする
 
     homepage:
       index:

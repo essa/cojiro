@@ -21,7 +21,10 @@ define (require) ->
       @currentLocale = I18n.locale
       @header = new ModalHeaderView(title: I18n.t('views.threads.header-modal.edit_title_and_summary'))
       @form = new Form(model: @model)
-      @footer = new ModalFooterView(cancel: 'Cancel', submit: 'Save')
+      @footer = new ModalFooterView(
+        cancel: I18n.t('views.threads.header-modal.cancel'),
+        submit: I18n.t('views.threads.header-modal.save')
+      )
 
     render: ->
       @renderTemplate()
