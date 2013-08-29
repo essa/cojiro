@@ -15,11 +15,10 @@ define (require) ->
       _(super).extend
         'click button[type="submit"]': 'submitForm'
         'click button[type="cancel"]': 'hideModal'
+        'click a': 'changeLocale'
 
     initialize: (options) ->
       super(options)
-      @currentLocale = I18n.locale
-      @header = new ModalHeaderView(title: I18n.t('views.threads.header-modal.edit_title_and_summary'))
       @form = new Form(model: @model)
       @footer = new ModalFooterView(
         cancel: I18n.t('views.threads.header-modal.cancel'),
@@ -27,6 +26,7 @@ define (require) ->
       )
 
     render: ->
+      @currentLocale ||= I18n.locale
       @renderTemplate()
       @renderHeader()
       @renderForm()
@@ -36,15 +36,28 @@ define (require) ->
     renderTemplate: ->
       @$el.html(@template())
       @$el.addClass('header-modal')
-    renderHeader: -> @renderChildInto(@header, '.modal-header')
-    renderForm: -> @renderChildInto(@form, '.modal-body')
+
+    renderHeader: ->
+      @header.leave() if @header
+      @header = new ModalHeaderView(
+        title: I18n.t('views.threads.header-modal.edit_title_and_summary_in_lang', lang: I18n.t(@currentLocale)))
+      @renderChildInto(@header, '.modal-header')
+
+    renderForm: ->
+      @form.locales = [ @currentLocale ]
+      @renderChildInto(@form, '.modal-body')
 
     renderFooter: ->
       @renderChildInto(@footer, '.modal-footer')
       otherLocales = _(I18n.availableLocales).difference(@currentLocale)
-      languages = _(otherLocales).map (locale) -> "<a>#{I18n.t(locale)}</a>"
+      languages = _(otherLocales).map (locale) -> "<a lang='#{locale}' class='clickable'>#{I18n.t(locale)}</a>"
       @footer.$el.prepend(@languageSwitcher(
         editFor: I18n.t('views.threads.header-modal.edit_for', languages: languages)))
+
+    changeLocale: (e) ->
+      e.preventDefault()
+      @currentLocale = e.currentTarget.getAttribute('lang')
+      @render()
 
     submitForm: ->
       view = @

@@ -40,10 +40,9 @@
   clear: both;
 }
 
-tbody > {
-  .clickable {
-    cursor: pointer;
-  }
+/* this is also used in the thread header modal dialog */
+.clickable {
+  cursor: pointer;
 }
 
 #thread-filter {

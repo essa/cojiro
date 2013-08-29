@@ -34,7 +34,7 @@ ja:
       submit-comment-link:
         already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
       header-modal:
-        edit_title_and_summary: タイトルとサマリを編集する
+        edit_title_and_summary_in_lang: "%{lang}のタイトルとサマリを編集する"
         edit_for: Edit for %{languages}.
         save: 保存する
         cancel: キャンセルする

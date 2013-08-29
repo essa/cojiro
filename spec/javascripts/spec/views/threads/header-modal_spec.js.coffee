@@ -150,3 +150,24 @@ define (require) ->
           expect(@view.$el).toBeVisible()
           @$cancelButton.click()
           expect(@view.$el).not.toBeVisible()
+
+      describe 'clicking language switcher', ->
+        beforeEach ->
+          @thread.set(title: ja: '日本語のタイトル')
+          @view = new ThreadHeaderModal(model: @thread)
+          @view.render()
+          @view.trigger('show')
+          @$button = @view.$('a[lang="ja"]')
+
+        it 'changes title', ->
+          @$button.click()
+          expect(@view.$el.find('.modal-header')).toContainText('Edit title and summary in Japanese')
+
+        it 're-renders form in new locale', ->
+          expect(@view.$el.findField('Title')).toHaveValue('a title')
+          expect(@view.$el.findField('Summary')).toHaveValue('a summary')
+          @$button.click()
+          expect(@view.$el).toHaveField('Title')
+          expect(@view.$el.findField('Title')).toHaveValue('日本語のタイトル')
+          expect(@view.$el).toHaveField('Summary')
+          expect(@view.$el.findField('Summary')).toHaveValue('')
