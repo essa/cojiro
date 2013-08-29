@@ -115,7 +115,7 @@ define [
           fragment.push('</select>')
           fragment.join('')
       placeholder = ''
-      if locale && (locale != sourceLocale)
+      if locale && sourceLocale && (locale != sourceLocale)
         placeholder = I18n.t('modules.translatable.field-form.translate_to_lang', lang: I18n.t(locale))
       pattern && pattern
           .replace(/:cid/g, @cid)

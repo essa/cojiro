@@ -344,6 +344,12 @@ define (require) ->
               $el = $(@view.getHtml('attribute', 'value', 'Text', locale: 'fr', sourceLocale: 'ja'))
               expect($el).toHaveAttr('placeholder', 'Translate to French')
 
+          describe 'when source locale is not set', ->
+
+            it 'does not add placeholder text', ->
+              $el = $(@view.getHtml('attribute', 'value', 'Text', locale: 'fr', sourceLocale: undefined))
+              expect($el).not.toHaveAttr('placeholder')
+
         describe 'TextArea', ->
           it 'adds lang tag and appends lang to attribute name', ->
             $el = $(@view.getHtml('attribute', 'value', 'TextArea', locale: 'en'))
