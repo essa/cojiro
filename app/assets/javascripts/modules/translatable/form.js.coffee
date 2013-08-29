@@ -22,6 +22,9 @@ define [
                         <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
                     <div class="controls">
+                      <% if ((sourceValue = item.sourceValue) && (item.sourceLocale != locale)) { %>
+                        <div class="help-block source-value"><%= sourceValue %></div>
+                      <% } %>
                       <%= html %>
                       <div class="help-block"></div>
                     </div>
@@ -78,30 +81,32 @@ define [
 
         if translated = translatableAttributes && (key in translatableAttributes)
           value = value.toJSON()
+          sourceValue = self.model.getAttrInSourceLocale(key)
+          sourceLocale = self.model.getSourceLocale()
           html = {}
           _(locales).each (locale) ->
-            options = locale: locale
+            options = locale: locale, sourceLocale: sourceLocale
             _(options).extend(values: values) if values?
             html[locale] = self.getHtml(key, value[locale] || '', type, options)
         else
           options = values: values if values?
           html = self.getHtml(key, value, type, options)
-        {
+        _(translated? && (sourceLocale: sourceLocale, sourceValue: sourceValue)).extend
           html: html
           label: label
           key: key
           translated: translated
           cid: self.cid
-        }
 
     getHtml: (key, value, type, options = {}) ->
       key = (key + '-' + options.locale) if options.locale
       locale = options.locale || ''
+      sourceLocale = options.sourceLocale || ''
       pattern = switch(type)
         when 'Text'
-          '<input id=":cid-:key" name=":key" type="text" value=":value":lang/>'
+          '<input id=":cid-:key" name=":key" type="text" value=":value":placeholder:lang/>'
         when 'TextArea'
-          '<textarea id=":cid-:key" name=":key" type="text" rows="3":lang>:value</textarea>'
+          '<textarea id=":cid-:key" name=":key" type="text" rows="3":placeholder:lang>:value</textarea>'
         when 'Select'
           fragment = ['<select id=":cid-:key" name=":key">']
           fragment = fragment.concat(_(options.values || {}).map (displayVal, val) ->
@@ -109,11 +114,15 @@ define [
             '<option value="' + val + '"' + selected + '>' + displayVal + '</option>')
           fragment.push('</select>')
           fragment.join('')
+      placeholder = null
+      if locale && (locale != sourceLocale)
+        placeholder = I18n.t('modules.translatable.field-form.translate_to_lang', lang: I18n.t(locale))
       pattern && pattern
           .replace(/:cid/g, @cid)
           .replace(/:key/g, key)
           .replace(/:value/g, value || "")
           .replace(/:lang/g, locale && (' lang="' + locale + '"'))
+          .replace(/:placeholder/g, placeholder && (' placeholder="' + placeholder + '"'))
 
     serialize: =>
       form = if @tagName == 'form' then @$el else @$el.find('form')

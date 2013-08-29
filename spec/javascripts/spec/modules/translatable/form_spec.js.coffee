@@ -196,7 +196,9 @@ define (require) ->
             title:
               en: 'title in English'
               ja: 'title in Japanese'
+              fr: 'title in French'
           )
+          @model.setSourceLocale('fr')
 
         describe 'with locales option unset', ->
           beforeEach ->
@@ -215,12 +217,14 @@ define (require) ->
               key: 'title'
               translated: true
               cid: '123'
+              sourceLocale: 'fr'
+              sourceValue: 'title in French'
             ])
 
           it 'calls getHtml with attribute and value in current locale', ->
             @view.getItems()
             expect(@view.getHtml).toHaveBeenCalledOnce()
-            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', locale: 'ja')
+            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', locale: 'ja', sourceLocale: 'fr')
 
         describe 'with locales option set', ->
           beforeEach ->
@@ -240,13 +244,15 @@ define (require) ->
               key: 'title'
               translated: true
               cid: '123'
+              sourceLocale: 'fr'
+              sourceValue: 'title in French'
             ])
 
           it 'calls getHtml on each translation of schema items', ->
             @view.getItems()
             expect(@view.getHtml).toHaveBeenCalledTwice()
-            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in English', 'Text', locale: 'en')
-            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', locale: 'ja')
+            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in English', 'Text', locale: 'en', sourceLocale: 'fr')
+            expect(@view.getHtml).toHaveBeenCalledWith('title', 'title in Japanese', 'Text', locale: 'ja', sourceLocale: 'fr')
 
     describe '#getHtml', ->
       beforeEach ->
@@ -326,6 +332,18 @@ define (require) ->
             expect($el).toHaveAttr('lang', 'en')
             expect($el).toHaveValue('value')
 
+          describe 'when locale is the source locale', ->
+
+            it 'does not add placeholder text', ->
+              $el = $(@view.getHtml('attribute', 'value', 'Text', locale: 'fr', sourceLocale: 'fr'))
+              expect($el).not.toHaveAttr('placeholder')
+
+          describe 'when locale is different from the source locale', ->
+
+            it 'adds placeholder text', ->
+              $el = $(@view.getHtml('attribute', 'value', 'Text', locale: 'fr', sourceLocale: 'ja'))
+              expect($el).toHaveAttr('placeholder', 'Translate to French')
+
         describe 'TextArea', ->
           it 'adds lang tag and appends lang to attribute name', ->
             $el = $(@view.getHtml('attribute', 'value', 'TextArea', locale: 'en'))
@@ -336,6 +354,17 @@ define (require) ->
             expect($el).toHaveAttr('lang', 'en')
             expect($el).toHaveValue('value')
 
+          describe 'when locale is the source locale', ->
+
+            it 'does not add placeholder text', ->
+              $el = $(@view.getHtml('attribute', 'value', 'TextArea', locale: 'fr', sourceLocale: 'fr'))
+              expect($el).not.toHaveAttr('placeholder')
+
+          describe 'when locale is different from the source locale', ->
+
+            it 'adds placeholder text', ->
+              $el = $(@view.getHtml('attribute', 'value', 'TextArea', locale: 'fr', sourceLocale: 'ja'))
+              expect($el).toHaveAttr('placeholder', 'Translate to French')
 
     describe 'default template (output)', ->
       beforeEach ->
@@ -353,12 +382,14 @@ define (require) ->
         )
         @model.set
           attribute: 'some attribute'
+          source_locale: 'ja'
           title:
             en: 'Title in English'
             ja: 'Title in Japanese'
             fr: 'Title in French'
           summary:
             en: 'Summary in English'
+            ja: 'Summary in Japanese'
             fr: 'Summary in French'
         @view = new Form(model: @model, locales: ['en', 'ja'])
         @view.cid = '123'
@@ -387,6 +418,16 @@ define (require) ->
           expect(@view.$el).not.toContain('.control-group.title input#123-title-fr[name="title-fr"][type="text"][value="Title in French"]')
           expect(@view.$el).not.toContain('.control-group.summary textarea#123-summary-fr[name="summary-fr"][type="text"]:contains("Summary in French")')
 
+        it 'renders value in source locale as help text for each translated attribute', ->
+          @view.render()
+          $controlGroup = @view.$el.findField('Summary (en)').closest('.control-group')
+          expect($controlGroup).toContain('.help-block.source-value:contains("Summary in Japanese")')
+
+        it 'does not value in source locale as help text for value in source locale', ->
+          @view.render()
+          $controlGroup = @view.$el.findField('Summary (ja)').closest('.control-group')
+          expect($controlGroup).not.toContain('.help-block.source-value')
+
         it 'renders label if label is a value', ->
           @view.render()
           expect(@view.$el).toContain('label[for="123-title-en"]:contains("Title")')
@@ -394,6 +435,7 @@ define (require) ->
         it 'calls function with locale as argument if label is a function', ->
           @view.render()
           expect(@view.$el).toContain('label[for="123-summary-en"]:contains("Summary (en)")')
+          expect(@view.$el).toContain('label[for="123-summary-ja"]:contains("Summary (ja)")')
 
     describe '#serialize', ->
       it 'throws error if no form tag is found', ->
