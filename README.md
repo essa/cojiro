@@ -77,14 +77,13 @@ Supporters
 
 Cojiro is sponsored by a grant from the [Omidyar Network](http://www.omidyar.com/), as a recipient of the [Global Voices Innovation Award](http://www.globalvoicesonline.org). 
 
-Cojiro also receives support from Tokyo-based creative agency [AQ](http://www.aqworks.com) and system development company [Brain Co,.Ltd.](http://www.brain-tokyo.jp/).
+Cojiro also receives support from Tokyo-based creative agency [AQ](http://www.aqworks.com).
 
-[![Global Voices](http://ripplet.org/cojiro/gv.jpg)](http://www.globalvoicesonline.org)
-[![Omidyar Network](http://ripplet.org/cojiro/omidyar.jpg)](http://www.omidyar.com/)
-[![AQ](http://ripplet.org/cojiro/aq.jpg)](http://www.aqworks.com)
-[![Brain](http://ripplet.org/cojiro/brain.jpg)](http://www.brain-tokyo.jp/)
+[![Global Voices](http://netalab.github.com/cojiro/images/gv.jpg)](http://www.globalvoicesonline.org)
+[![Omidyar Network](http://netalab.github.com/cojiro/images/omidyar.jpg)](http://www.omidyar.com/)
+[![AQ](http://netalab.github.com/cojiro/images/aq.jpg)](http://www.aqworks.com)
 
 Copyright
 ---------
 
-Copyright (c) 2011 NetaLab. See [MIT-LICENSE](cojiro/blob/develop/MIT-LICENSE) for details.
+Copyright (c) 2011-2013 NetaLab. See [MIT-LICENSE](cojiro/blob/develop/MIT-LICENSE) for details.
