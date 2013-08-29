@@ -100,12 +100,12 @@ ul.nav-pills {
     height: 100%;
     border-right: 3px solid white;
   }
-  li.avatar {
-    padding-top: 8px;
-  }
   li > a.unstyled {
     padding: 0;
     margin: 0;
+  }
+  li.controls {
+    margin-top: 5px;
   }
 }
 
@@ -145,9 +145,6 @@ ul.nav-pills {
     font-weight: normal;
     font-size: 200%;
     margin-bottom: 15px;
-  }
-  #thread-header:hover {
-    cursor: pointer;
   }
   // based on bootstrap "thumbnail/thumbnails" classes
   .links {
@@ -304,7 +301,7 @@ ul.nav-pills {
 
 /* -------- Thread header modal - */
 
-#thread-header-modal.header-modal {
+#thread-modal.header-modal {
   width: 700px;
   margin-left: -400px;
   form {

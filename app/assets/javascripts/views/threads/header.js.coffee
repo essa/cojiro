@@ -19,21 +19,15 @@ define (require) ->
       </div>'
     className: 'thread-header'
 
-    buildEvents: () ->
-      _(super).extend
-        'click': 'showModal'
-
     initialize: (options = {}) ->
       super(options)
 
       # dynamic dependencies
-      @ThreadHeaderModal = options.ThreadHeaderModal || require('views/threads/header-modal')
       @InPlaceField = options.InPlaceField || require('modules/translatable/in-place-field')
 
       # create instances
       @titleField = new @InPlaceField(model: @model, field: "title", editable: false)
       @summaryField = new @InPlaceField(model: @model, field: "summary", editable: false)
-      @modal = new @ThreadHeaderModal(model: @model)
 
       # event listeners
       view = @
@@ -50,10 +44,3 @@ define (require) ->
     renderTranslatableFields: ->
       @renderChildInto(@titleField, '#title')
       @renderChildInto(@summaryField, '#summary')
-
-    renderModal: -> @renderChild(@modal)
-
-    showModal: ->
-      if globals.currentUser?
-        @renderModal()
-        @modal.trigger('show')

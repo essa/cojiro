@@ -1,12 +1,12 @@
 define (require) ->
 
-  ThreadHeaderModal = require('views/threads/header-modal')
+  ThreadModal = require('views/threads/modal')
   Thread = require('models/thread')
 
-  describe 'ThreadHeaderModal', ->
+  describe 'ThreadModal', ->
     beforeEach ->
       @$sandbox = @createSandbox()
-      @$sandbox.append(@createModal('thread-header-modal'))
+      @$sandbox.append(@createModal('thread-modal'))
       @thread = new Thread(
         title: en: 'a title'
         summary: en: 'a summary'
@@ -19,7 +19,7 @@ define (require) ->
 
     describe 'rendering', ->
       beforeEach ->
-        @view = new ThreadHeaderModal(model: @thread)
+        @view = new ThreadModal(model: @thread)
 
       it 'returns the view object', -> expect(@view.render()).toEqual(@view)
 
@@ -95,7 +95,7 @@ define (require) ->
       describe 'showing the form', ->
         beforeEach ->
           @thread.set(title: ja: '日本語のタイトル')
-          @view = new ThreadHeaderModal(model: @thread)
+          @view = new ThreadModal(model: @thread)
 
         it 'resets the language of the form', ->
           @view.render()
@@ -110,7 +110,7 @@ define (require) ->
 
         describe 'with valid data', ->
           beforeEach ->
-            @view = new ThreadHeaderModal(model: @thread)
+            @view = new ThreadModal(model: @thread)
             @view.render()
             @server = sinon.fakeServer.create()
             @$saveButton = @view.$('button[type="submit"]')
@@ -155,7 +155,7 @@ define (require) ->
 
       describe 'clicking cancel button', ->
         beforeEach ->
-          @view = new ThreadHeaderModal(model: @thread)
+          @view = new ThreadModal(model: @thread)
           @view.render()
           @view.trigger('show')
           @$cancelButton = @view.$('button[type="cancel"]')
@@ -168,7 +168,7 @@ define (require) ->
       describe 'clicking language switcher', ->
         beforeEach ->
           @thread.set(title: ja: '日本語のタイトル')
-          @view = new ThreadHeaderModal(model: @thread)
+          @view = new ThreadModal(model: @thread)
           @view.render()
           @view.trigger('show')
           @$button = @view.$('a[lang="ja"]')

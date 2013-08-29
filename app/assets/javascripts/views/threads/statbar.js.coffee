@@ -1,8 +1,9 @@
-define [
-  'underscore'
-  'modules/base/view'
-  'i18n'
-], (_, BaseView, I18n) ->
+define (require) ->
+
+  _ = require('underscore')
+  BaseView = require('modules/base/view')
+  globals = require('globals')
+  I18n = require('i18n')
 
   class StatbarView extends BaseView
     template: _.template '
@@ -16,7 +17,7 @@ define [
             <%= t(".links") %>
           </span>
         </li>
-        <li class="sep"></li>
+        <li class="sep" />
         <li>
           <span class="date"><%= createdAt %></span>
           <br />
@@ -32,17 +33,34 @@ define [
             <span class="handle">@<%= name %></span>
           </a>
         </li>
-        <li class="sep"></li>
+        <li class="sep"/>
         <li>
           <span class="date"><%= updatedAt %></span>
           <br />
           <span class="status"><%= t(".updated") %></span>
         </li>
+        <% if (!!currentUser) { %>
+          <li class="controls pull-right">
+            <a id="thread-edit" class="clickable"><icon class="icon-glyphicons-edit"></a>
+          </li>
+        <% } %>
       </ul>'
     className: 'statbar'
 
+    buildEvents: () ->
+      _(super).extend
+        'click #thread-edit': 'showModal'
+
     initialize: (options) ->
       super(options)
+
+      # dynamic dependencies
+      @ThreadModal = options.ThreadModal || require('views/threads/modal')
+
+      # create instances
+      @modal = new @ThreadModal(model: @model)
+
+      # event handlers
       @model.on('add:comments', @render, @)
 
     render: () ->
@@ -54,5 +72,13 @@ define [
         avatarUrl: @model.getUser().getAvatarMiniUrl()
         fullname: @model.getUser().getFullname()
         name: @model.getUserName()
+        currentUser: globals.currentUser
       ))
       @
+
+    renderModal: -> @renderChild(@modal)
+
+    showModal: ->
+      if globals.currentUser?
+        @renderModal()
+        @modal.trigger('show')

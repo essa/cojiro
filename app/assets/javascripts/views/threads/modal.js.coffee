@@ -7,8 +7,8 @@ define (require) ->
   ModalFooterView = require 'views/modals/footer'
   I18n = require 'i18n'
 
-  class ThreadHeaderModal extends ModalView
-    el: '#thread-header-modal'
+  class ThreadModal extends ModalView
+    el: '#thread-modal'
     languageSwitcher: _.template '<div id="lang-switcher"><%= editFor %></div>'
 
     buildEvents: () ->
