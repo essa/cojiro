@@ -59,9 +59,11 @@ define (require) ->
 
     submitForm: ->
       view = @
-      @model.save @form.serialize(),
-        success: (model, resp) ->
-          view.hideModal()
+      if @model.set(@form.serialize(), validate: true)
+        @model.save {},
+          wait: true
+          success: (model, resp) ->
+            view.hideModal()
 
     showModal: ->
       @currentLocale = I18n.locale

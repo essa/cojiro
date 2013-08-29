@@ -151,7 +151,18 @@ define (require) ->
             @server.respond()
             expect(@$sandbox).not.toContain('form')
 
-        xdescribe 'with invalid data'
+        describe 'with invalid data', ->
+          beforeEach ->
+            @view = new ThreadModal(model: @thread)
+            @view.render()
+            @$saveButton = @view.$('button[type="submit"]')
+
+            @thread.id = 123
+            @view.$el.findField('Title').val('')
+
+          it 'does not change the model', ->
+            @$saveButton.click()
+            expect(@thread.getAttr('title')).toEqual('a title')
 
       describe 'clicking cancel button', ->
         beforeEach ->
