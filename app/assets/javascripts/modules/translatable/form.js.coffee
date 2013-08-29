@@ -114,7 +114,7 @@ define [
             '<option value="' + val + '"' + selected + '>' + displayVal + '</option>')
           fragment.push('</select>')
           fragment.join('')
-      placeholder = null
+      placeholder = ''
       if locale && (locale != sourceLocale)
         placeholder = I18n.t('modules.translatable.field-form.translate_to_lang', lang: I18n.t(locale))
       pattern && pattern
