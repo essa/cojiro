@@ -79,6 +79,8 @@ Feature: Add link to thread
     Then I should see a link with url "http://blogs.yahoo.co.jp/aiteio0110/35349421.html" in the thread
     And the link element should have the title "底抜けキッド！ウルティモ・ブログ"
     And the link element should have the summary "７月２１日（日）代々木公園で行われた「ブラジル・フェスティバル２０１３」を見に行く。 前日はラモス瑠偉が来てたりサンバのショーがあったりしたらしい。 ブラジル料理を堪能しようと楽しみにしてたんだけど... この人混み、何じゃこりゃ〜！！ 結局、..."
+    And there should exist a link with Japanese title "底抜けキッド！ウルティモ・ブログ" in the database
+    And the link should have a Japanese summary "７月２１日（日）代々木公園で行われた「ブラジル・フェスティバル２０１３」を見に行く。 前日はラモス瑠偉が来てたりサンバのショーがあったりしたらしい。 ブラジル料理を堪能しようと楽しみにしてたんだけど... この人混み、何じゃこりゃ〜！！ 結局、..."
 
   @vcr
   Scenario: Add link with comment
