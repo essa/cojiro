@@ -296,6 +296,12 @@ ul.nav-pills {
   }
 }
 
+/* modal overrides */
+
+.modal-body {
+  padding: 20px 15px 0;
+}
+
 /* -------- Thread header modal - */
 
 #thread-header-modal.header-modal {
@@ -323,7 +329,6 @@ ul.nav-pills {
 
 #add-link-modal.add-url form {
   text-align: center;
-  margin-top: 20px;
 }
 
 #add-link-modal.add-url {
@@ -347,6 +352,10 @@ ul.nav-pills {
 
   form.link-form {
     margin-top: 20px;
+    margin-bottom: 0;
+  }
+
+  form.comment-form {
     margin-bottom: 0;
   }
 

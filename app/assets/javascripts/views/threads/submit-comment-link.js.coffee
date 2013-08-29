@@ -45,19 +45,25 @@ define [
       @thread = options.thread
 
     render: () ->
-      @$el.html(@template())
-      @renderChildInto(@header, '.modal-header')
-      @renderChildInto(@footer, '.modal-footer')
-      @renderChild(@linkForm)
-      @renderChild(@commentForm)
-      @formatForm(@linkForm)
+      @renderTemplate()
+      @renderHeader()
+      @renderFooter()
+      @renderLinkForm()
+      @renderCommentForm()
       if embedData = @model.getEmbedData()
-        @preFillForm(@linkForm, embedData)
+        @prefillLinkForm(embedData)
       @$('#link-details').html(@linkForm.el)
       @$('#link-details').append(@commentForm.el)
       @
 
-    formatForm: (form) ->
+    renderTemplate: -> @$el.html(@template())
+    renderHeader: -> @renderChildInto(@header, '.modal-header')
+    renderFooter: -> @renderChildInto(@footer, '.modal-footer')
+
+    renderLinkForm: () ->
+      @renderChild(@linkForm)
+      form = @linkForm
+
       form.$el.addClass('link-form')
 
       # link already exists
@@ -87,9 +93,13 @@ define [
         form.$('.title textarea').attr('readonly', true)
         form.$('.summary textarea').attr('readonly', true)
 
-    preFillForm: (form, embedData) ->
-      form.$('.title textarea').val(embedData.title)
-      form.$('.summary textarea').val(embedData.description)
+    renderCommentForm: () ->
+      @renderChild(@commentForm)
+      @commentForm.$el.addClass('comment-form')
+
+    prefillLinkForm: (embedData) ->
+      @linkForm.$('.title textarea').val(embedData.title)
+      @linkForm.$('.summary textarea').val(embedData.description)
 
     updateLabels: () ->
       self = @
