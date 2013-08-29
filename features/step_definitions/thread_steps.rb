@@ -47,6 +47,10 @@ When /^I delete the thread "([^"]*)"$/ do |title|
   end
 end
 
+When /^I click (?:on )the edit button in the statbar$/ do
+  page.find('a#thread-edit').click()
+end
+
 Then /^I should see the (?:new |)thread "([^"]*)"$/ do |title|
   @cothread = Cothread.find_by_title(title)
   page.should have_content(@cothread.title)
