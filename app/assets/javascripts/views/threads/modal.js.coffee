@@ -13,7 +13,8 @@ define (require) ->
 
     buildEvents: () ->
       _(super).extend
-        'click button[type="submit"]': 'submitForm'
+        'submit form': 'submitForm'
+        'click button[type="submit"]': 'saveThread'
         'click button[type="cancel"]': 'hideModal'
         'click a': 'changeLocale'
 
@@ -57,7 +58,9 @@ define (require) ->
       @currentLocale = e.currentTarget.getAttribute('lang')
       @render()
 
-    submitForm: ->
+    submitForm: (e) -> false
+
+    saveThread: () ->
       view = @
       if @model.set(@form.serialize(), validate: true)
         @model.save {},

@@ -106,6 +106,16 @@ define (require) ->
           @view.trigger('show')
           expect(@view.$el.findField('Title')).toHaveValue('a title')
 
+      describe 'submitting the form (by hitting enter while in form field)', ->
+        beforeEach ->
+          @view = new ThreadModal(model: @thread)
+          @view.render()
+
+        it 'prevents form submission', ->
+          spyEvent = spyOnEvent(@view.$('form'), 'submit')
+          @view.$('form').submit()
+          expect(spyEvent).toHaveBeenPrevented()
+
       describe 'clicking save button', ->
 
         describe 'with valid data', ->
