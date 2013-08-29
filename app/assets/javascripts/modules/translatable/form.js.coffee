@@ -9,7 +9,6 @@ define [
   class Form extends BaseView
     tagName: 'form'
     className: 'form-horizontal'
-    wildcard: 'xx'
 
     options:
       template:
@@ -18,11 +17,14 @@ define [
             <% _.each(items, function(item) { %>
               <% if (item.translated == true) { %>
                 <% _.each(item.html, function(html, locale) { %>
-                  <div class="control-group <%= item.key %> <%= item.key %>-<%= locale %>">
+                  <div class="control-group <%= item.key %>">
                     <label class="control-label" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
                         <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
                     <div class="controls">
+                      <% if ((sourceValue = item.sourceValue) && (item.sourceLocale != locale)) { %>
+                        <div class="help-block source-value"><%= sourceValue %></div>
+                      <% } %>
                       <%= html %>
                       <div class="help-block"></div>
                     </div>
@@ -53,10 +55,9 @@ define [
       @schema = -> _(@model).result('schema')
       if (@locales = @options.locales) && !(@locales instanceof Array)
         throw new Error("Translatable.Form's locales must be an array of locale strings.")
-      @wildcard = options.wildcard if options.wildcard
-      @sourceLocale = options.sourceLocale if options.sourceLocale
       self = @
       @model.on('invalid', (model, error) -> self.renderErrors(error))
+      @on('changeLocale', @changeLocale)
 
     render: ->
       @$el.html(@html())
@@ -65,50 +66,49 @@ define [
     html: ->
       @options.template(items: @getItems())
 
-    sourceLocale: -> I18n.locale
-
     getItems: ->
       self = @
-      wildcard = @wildcard
       schema = @schema()
       translatableAttributes = @model.translatableAttributes
       keys = _(schema).keys()
-      locales = @locales || [ wildcard ]
-      sourceLocale = @sourceLocale()
+      locales = @locales
 
       _(keys).map (key) ->
         type = schema[key]['type']
-        label = schema[key]['label'] || key
+        if locales then label = schema[key]['label']
+        else label = _(schema[key]).result('label')
+        label ||= key
         value = self.model.get(key)
         values = schema[key]['values']
 
         if translated = translatableAttributes && (key in translatableAttributes)
           value = value.toJSON()
-          value[wildcard] = value[sourceLocale]
+          sourceValue = self.model.getAttrInSourceLocale(key)
+          sourceLocale = self.model.getSourceLocale()
           html = {}
-          _(locales).each (locale) ->
-            options = locale: locale
+          _(locales || [ I18n.locale ]).each (locale) ->
+            options = locale: locale, sourceLocale: sourceLocale
             _(options).extend(values: values) if values?
             html[locale] = self.getHtml(key, value[locale] || '', type, options)
         else
           options = values: values if values?
           html = self.getHtml(key, value, type, options)
-        {
+        _(translated? && (sourceLocale: sourceLocale, sourceValue: sourceValue)).extend
           html: html
           label: label
           key: key
           translated: translated
           cid: self.cid
-        }
 
     getHtml: (key, value, type, options = {}) ->
       key = (key + '-' + options.locale) if options.locale
       locale = options.locale || ''
+      sourceLocale = options.sourceLocale || ''
       pattern = switch(type)
         when 'Text'
-          '<input id=":cid-:key" name=":key" type="text" value=":value":lang/>'
+          '<input id=":cid-:key" name=":key" type="text" value=":value":placeholder:lang/>'
         when 'TextArea'
-          '<textarea id=":cid-:key" name=":key" type="text" rows="3":lang>:value</textarea>'
+          '<textarea id=":cid-:key" name=":key" type="text" rows="3":placeholder:lang>:value</textarea>'
         when 'Select'
           fragment = ['<select id=":cid-:key" name=":key">']
           fragment = fragment.concat(_(options.values || {}).map (displayVal, val) ->
@@ -116,11 +116,15 @@ define [
             '<option value="' + val + '"' + selected + '>' + displayVal + '</option>')
           fragment.push('</select>')
           fragment.join('')
+      placeholder = ''
+      if locale && sourceLocale && (locale != sourceLocale)
+        placeholder = I18n.t('modules.translatable.field-form.translate_to_lang', lang: I18n.t(locale))
       pattern && pattern
           .replace(/:cid/g, @cid)
           .replace(/:key/g, key)
           .replace(/:value/g, value || "")
           .replace(/:lang/g, locale && (' lang="' + locale + '"'))
+          .replace(/:placeholder/g, placeholder && (' placeholder="' + placeholder + '"'))
 
     serialize: =>
       form = if @tagName == 'form' then @$el else @$el.find('form')
@@ -129,7 +133,7 @@ define [
       self = @
       o = {}
       _(form.serializeArray()).each (a, i) ->
-        name = a.name.replace(self.wildcard, self.sourceLocale())
+        name = a.name
         [attribute, locale] = name.split('-')
         if locale
           o[attribute] ||= {}
@@ -145,11 +149,9 @@ define [
         _(msg).each (value, key) -> self.renderError(msg[key], key, levels)
       else
         name = levels.join('-')
-        names = _.uniq([name, name.replace(@sourceLocale(), @wildcard)])
-        _(names).each (name) ->
-          controlGroup = self.$el.find("[name='#{name}']").closest('.control-group')
-          controlGroup.addClass('error')
-          controlGroup.find('.help-block').text(msg)
+        controlGroup = self.$el.find("[name='#{name}']").closest('.control-group')
+        controlGroup.addClass('error')
+        controlGroup.find('.help-block').text(msg)
 
     renderErrors: (errors) ->
       self = @
@@ -161,3 +163,21 @@ define [
         when 'false' then false
         when 'null' then null
         else val
+
+    changeLocale: (locale) ->
+      return if @locales && @locales.length > 1
+      return unless locale in I18n.availableLocales
+      prevLocale = @locales && @locales[0] || I18n.locale
+      @locales = [ locale ]
+      view = @
+      _(@schema()).each (attrSchema, key) ->
+        id = "#{view.cid}-#{key}-#{prevLocale}"
+        newId = "#{view.cid}-#{key}-#{locale}"
+        label = view.$("label.control-label[for='#{id}']")
+        if _.isFunction(attrSchema.label)
+          label.text(attrSchema.label(locale))
+        label.attr('for', newId)
+        view.$('#' + id)
+          .attr('name', key + '-' + locale)
+          .attr('id', newId)
+          .attr('lang', locale)

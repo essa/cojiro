@@ -3,7 +3,7 @@
 /* Navbar */
 
 .navbar-inner {
-  @include box-shadow(0 0 1px 0px $cojiroGray !important);
+  @include box-shadow(0 0 1px 1px $cojiroLightGray !important);
   border-bottom: 4px solid $cojiroGray !important;
 //  background-image: none !important;
 
@@ -40,10 +40,9 @@
   clear: both;
 }
 
-tbody > {
-  .clickable {
-    cursor: pointer;
-  }
+/* this is also used in the thread header modal dialog */
+.clickable {
+  cursor: pointer;
 }
 
 #thread-filter {
@@ -60,12 +59,11 @@ tbody > {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 30px;
   background-color: $statbarBackground; /* Old browsers */
   @include background(linear-gradient(top, $statbarBackground 0%, $statbarBackground 100%));
   @include border-radius(6px);
-  border: 2px solid $statbarBorder;
 
   .nav {
     padding: 0;
@@ -100,14 +98,14 @@ ul.nav-pills {
     padding: 0 !important;
     margin-top: 0;
     height: 100%;
-    border-right: 2px solid $statbarBorder;
-  }
-  li.avatar {
-    padding-top: 8px;
+    border-right: 3px solid white;
   }
   li > a.unstyled {
     padding: 0;
     margin: 0;
+  }
+  li.controls {
+    margin-top: 5px;
   }
 }
 
@@ -134,9 +132,9 @@ ul.nav-pills {
 /* Thread area */
 .thread {
   h1 {
-    font-size: 500%;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 450%;
+    margin-top: 0;
+    margin-bottom: 0;
     line-height: 80px;
     margin-right: 20px;
     input, textarea {
@@ -145,10 +143,8 @@ ul.nav-pills {
   }
   h2 {
     font-weight: normal;
-    margin-bottom: 40px;
-    input, textarea {
-      width: 100%;
-    }
+    font-size: 200%;
+    margin-bottom: 15px;
   }
   // based on bootstrap "thumbnail/thumbnails" classes
   .links {
@@ -297,14 +293,42 @@ ul.nav-pills {
   }
 }
 
-/* -------- Add link dialog ----- */
+/* modal overrides */
 
-#modal.add-url form {
-  text-align: center;
-  margin-top: 20px;
+.modal-body {
+  padding: 20px 15px 0;
 }
 
-#modal.add-url {
+/* -------- Thread header modal - */
+
+#thread-modal.header-modal {
+  width: 700px;
+  margin-left: -400px;
+  form {
+    text-align: left;
+    margin: 0;
+    input {
+      width: 80%;
+    }
+    textarea {
+      width: 80%;
+    }
+  }
+  label {
+    font-weight: bold;
+  }
+  #lang-switcher {
+    float: left;
+  }
+}
+
+/* -------- Add link dialog ----- */
+
+#add-link-modal.add-url form {
+  text-align: center;
+}
+
+#add-link-modal.add-url {
   #loading {
     display: block;
     margin-left: auto;
@@ -314,7 +338,7 @@ ul.nav-pills {
   }
 }
 
-#modal.submit-comment-link {
+#add-link-modal.submit-comment-link {
   width: 900px;
   margin-left: -450px;
 
@@ -325,6 +349,10 @@ ul.nav-pills {
 
   form.link-form {
     margin-top: 20px;
+    margin-bottom: 0;
+  }
+
+  form.comment-form {
     margin-bottom: 0;
   }
 
@@ -359,7 +387,10 @@ ul.nav-pills {
    horizontal ones */
 form .error {
   border-color: #B94A48;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+form .source-value {
+  padding: 5px 0;
 }
 
 @import "translatable/in_place_field";

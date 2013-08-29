@@ -6,20 +6,20 @@ define [
 
   class ModalFooterView extends BaseView
     template: _.template '
-      <button class="prev btn"><%= prev_string %></button>
-      <button class="next btn btn-primary"><%= next_string %></button>
+      <button type="cancel" class="btn"><%= cancel %></button>
+      <button type="submit" class="btn btn-primary"><%= submit %></button>
       '
 
     initialize: (options = {}) ->
       super(options)
 
-      @prevString = options.prevString
-      @nextString = options.nextString
+      @cancel = options.cancel
+      @submit = options.submit
 
     render: () ->
       @$el.html(
         @template
-          prev_string: @prevString
-          next_string: @nextString
+          cancel: @cancel
+          submit: @submit
       )
       @

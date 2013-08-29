@@ -47,6 +47,10 @@ When /^I delete the thread "([^"]*)"$/ do |title|
   end
 end
 
+When /^I click (?:on )the edit button in the statbar$/ do
+  page.find('a#thread-edit').click()
+end
+
 Then /^I should see the (?:new |)thread "([^"]*)"$/ do |title|
   @cothread = Cothread.find_by_title(title)
   page.should have_content(@cothread.title)
@@ -85,10 +89,10 @@ Then /^I should see a link with url "([^"]*)" in the thread$/ do |url|
   @el = a.first(:xpath, ".//ancestor::div[@class='link']")
 end
 
-Then /^the link should have the title "([^"]*)"$/ do |text|
+Then /^the (?:.+ |)element should have the title "([^"]*)"$/ do |text|
   @el.first('h3.title').should have_text(text)
 end
 
-Then /^the link should have the summary "(.*)"$/ do |text|
+Then /^the (?:.+ |)element should have the summary "(.*)"$/ do |text|
   @el.first('p.summary').should have_text(text)
 end

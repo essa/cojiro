@@ -1,6 +1,7 @@
 ja:
   en: 英語
   ja: 日本語
+  fr: フランス語
 
   views:
     threads:
@@ -32,6 +33,11 @@ ja:
         blank: URL cannot be blank.
       submit-comment-link:
         already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
+      header-modal:
+        edit_title_and_summary: タイトルとサマリを編集する
+        edit_for: Edit for %{languages}.
+        save: 保存する
+        cancel: キャンセルする
 
     homepage:
       index:
@@ -76,10 +82,14 @@ ja:
   attributes:
     thread:
       title: タイトル
+      title_in_lang: "%{lang}のタイトル"
       summary: サマリ
+      summary_in_lang: "%{lang}のサマリ"
     link:
       title: タイトル
+      title_in_lang: "%{lang}のタイトル"
       summary: サマリ
+      summary_in_lang: "%{lang}のサマリ"
       source_locale: This link is in
 
   date:

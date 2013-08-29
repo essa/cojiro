@@ -1,9 +1,10 @@
-define [
-  'jquery'
-  'underscore'
-  'backbone'
-  'modules/base/view'
-], ($, _, Backbone, BaseView) ->
+define (require) ->
+
+  # static dependencies
+  $ = require 'jquery'
+  _ = require 'underscore'
+  Backbone = require 'backbone'
+  BaseView = require 'modules/base/view'
 
   class ThreadListItemView extends BaseView
     template: _.template '

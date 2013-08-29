@@ -42,10 +42,14 @@ define [
     schema: ->
       title:
         type: 'Text'
-        label: _(I18n.t('attributes.thread.title')).capitalize()
+        label: (locale) ->
+          if locale then I18n.t('attributes.thread.title_in_lang', lang: I18n.t(locale))
+          else _(I18n.t('attributes.thread.title')).capitalize()
       summary:
         type: 'TextArea'
-        label: _(I18n.t('attributes.thread.summary')).capitalize()
+        label: (locale) ->
+          if locale then I18n.t('attributes.thread.summary_in_lang', lang: I18n.t(locale))
+          else _(I18n.t('attributes.thread.summary')).capitalize()
 
     # http://stackoverflow.com/questions/5306089/only-update-certain-model-attributes-using-backbone-js
     toJSON: () ->
@@ -53,7 +57,6 @@ define [
       summary: @get('summary').toJSON()
       source_locale: @get('source_locale')
 
-    getId: -> @id
     getUser: -> @get('user')
     getUserName: -> @getUser().getName()
     getComments: -> @get('comments')

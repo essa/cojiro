@@ -32,7 +32,6 @@ define [
         type: 'TextArea'
         label: 'Comment'
 
-    getId: -> @id
     getText: -> @getAttr('text')
     getLink: -> @get('link')
     getThread: -> @get('thread')

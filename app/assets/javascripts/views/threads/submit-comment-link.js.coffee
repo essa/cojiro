@@ -28,39 +28,42 @@ define [
 
     buildEvents: () ->
       _(super).extend
-        'change select': 'updateLabels'
-        'click button.next': 'next'
-        'click button.prev': 'prev'
+        'change select': 'updateForm'
+        'click button[type="submit"]': 'next'
+        'click button[type="cancel"]': 'prev'
 
     initialize: (options = {}) ->
       super(options)
-      @linkForm = new Form
-        model: @model
-        sourceLocale: -> @$('.source_locale select').val()
+      @linkForm = new Form model: @model
       @Comment = options.Comment || Comment
       @comment = new @Comment(link: @model)
-      @commentForm = new Form
-        model: @comment
+      @commentForm = new Form model: @comment
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
       @header = new @ModalHeaderView(title: 'Add <small>' + @model.getDisplayUrl() + '</small>')
       @ModalFooterView = options.ModalFooterView || ModalFooterView
-      @footer = new @ModalFooterView(prevString: 'Back', nextString: 'Add to this thread')
+      @footer = new @ModalFooterView(cancel: 'Back', submit: 'Add to this thread')
       @thread = options.thread
 
     render: () ->
-      @$el.html(@template())
-      @renderChildInto(@header, '.modal-header')
-      @renderChildInto(@footer, '.modal-footer')
-      @renderChild(@linkForm)
-      @renderChild(@commentForm)
-      @formatForm(@linkForm)
+      @renderTemplate()
+      @renderHeader()
+      @renderFooter()
+      @renderLinkForm()
+      @renderCommentForm()
       if embedData = @model.getEmbedData()
-        @preFillForm(@linkForm, embedData)
+        @prefillLinkForm(embedData)
       @$('#link-details').html(@linkForm.el)
       @$('#link-details').append(@commentForm.el)
       @
 
-    formatForm: (form) ->
+    renderTemplate: -> @$el.html(@template())
+    renderHeader: -> @renderChildInto(@header, '.modal-header')
+    renderFooter: -> @renderChildInto(@footer, '.modal-footer')
+
+    renderLinkForm: () ->
+      @renderChild(@linkForm)
+      form = @linkForm
+
       form.$el.addClass('link-form')
 
       # link already exists
@@ -90,15 +93,18 @@ define [
         form.$('.title textarea').attr('readonly', true)
         form.$('.summary textarea').attr('readonly', true)
 
-    preFillForm: (form, embedData) ->
-      form.$('.title textarea').val(embedData.title)
-      form.$('.summary textarea').val(embedData.description)
+    renderCommentForm: () ->
+      @renderChild(@commentForm)
+      @commentForm.$el.addClass('comment-form')
 
-    updateLabels: () ->
-      self = @
-      locale = @linkForm.$('select option:selected').text()
-      @linkForm.$('.title label').text('Title in ' + locale)
-      @linkForm.$('.summary label').text('Summary in ' + locale)
+    prefillLinkForm: (embedData) ->
+      @linkForm.$('.title textarea').val(embedData.title)
+      @linkForm.$('.summary textarea').val(embedData.description)
+
+    updateForm: () ->
+      selected = @linkForm.$('select option:selected')
+      locale = selected.text()
+      @linkForm.trigger('changeLocale', selected.val())
       @linkForm.$('.title textarea').attr('readonly', false)
       @linkForm.$('.summary textarea').attr('readonly', false)
       @linkForm.$('.control-group.source_locale').removeClass('error')
@@ -109,7 +115,6 @@ define [
       self = @
       if @model.getStatus() || @model.set(@linkForm.serialize(), validate: true)
         @comment.set('user', globals.currentUser)
-        attrs = _(@commentForm.serialize()).extend(thread: @thread)
         @comment.save _(@commentForm.serialize()).extend(thread: @thread),
           wait: true
           success: (model, resp) ->

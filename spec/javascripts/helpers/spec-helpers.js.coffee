@@ -1,6 +1,8 @@
 beforeEach ->
 
-  Backbone = require('backbone')
+  $ = require 'jquery'
+  Backbone = require 'backbone'
+  I18n = require 'i18n'
 
   # https://github.com/PaulUithol/Backbone-relational/issues/235
   oldReverseRelations = Backbone.Relational.store._reverseRelations
@@ -31,8 +33,36 @@ beforeEach ->
     # Backbone custom matchers
     toHaveMany: (key) -> @actual.get(key) instanceof Backbone.Collection
 
+    # does this element have a field with a given label?
+    toHaveField: (labelText) ->
+      unless ($el = @actual.find("label:contains('#{labelText}')")).length
+        @message = -> "Element has no label '" + labelText + "'"
+        return false
+      unless (id = $el.attr('for')).length
+        @message = -> "Label '" + labelText + "' has no 'for' attribute"
+        return false
+      @message = -> "Expected to find a field with id '" + id + " but none was found"
+      @actual.find('#' + id)?
+
   # response helpers
   @validResponse = (responseText) ->
     [ 200,
       {"Content-Type":"application/json"},
       JSON.stringify(responseText) ]
+
+  # form helpers
+  $.fn.findLabel = (labelText) -> @.find("label:contains(#{labelText})")
+
+  $.fn.findField = (labelText) ->
+    (id = @.findLabel(labelText).attr('for')) && @.find('#' + id)
+
+  @createModal = (id) -> $("<div id='#{id}' class='modal hide fade'>")
+
+  # create/destroy sandbox
+  @createSandbox = () ->
+    $('body').append('<div id="sandbox"></div>')
+    $('#sandbox')
+
+  @destroySandbox = () ->
+    $('#sandbox').remove()
+    $('body .modal-backdrop').remove()

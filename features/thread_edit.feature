@@ -1,4 +1,4 @@
-@wip @javascript
+@javascript
 Feature: Edit thread
   As a curator
   I want to edit a thread I have created
@@ -17,30 +17,28 @@ Feature: Edit thread
 
   Scenario: Edit thread title
     When I go to the thread with English title "Capoeira in Japan and around the world"
-    And I click on the edit button next to the "title and summary" field
-    And I enter the text "Brazilian martial art Capoeira in Japan and around the world" into the "title" field of the overlay
-    And I click the save button in the overlay
-    Then I should go back to the thread page
-    And the title of the thread should be "Brazilian martial art Capoeira in Japan and around the world"
+    And I click on the edit button in the statbar
+    And I fill in "Title in English" with "foo"
+    And I click "Save"
+    And I wait for the AJAX call to finish
+    Then I should see the text "foo" in the thread
+    And the title of the thread should be "foo"
 
   Scenario: Edit thread title and summary together
     When I go to the thread with English title "Capoeira in Japan and around the world"
-    And I click on the edit button next to the "title and summary" field
-    And I enter the text "Brazilian martial art Capoeira in Japan and around the world" into the "title" field of the overlay
-    And I enter the text "While the martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan." into the "summary" field
-    And I click the save button in the overlay
-    Then I should go back to the thread page
-    And the title of the thread should be "Capoeira in Japan and around the world"
-    And the summary of the thread should be "While the martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan."
+    And I click on the edit button in the statbar
+    And I fill in "Title in English" with "foo title"
+    And I fill in "Summary in English" with "bar summary"
+    And I click "Save"
+    And I wait for the AJAX call to finish
+    Then I should see the text "foo title" in the thread
+    Then I should see the text "bar summary" in the thread
+    And the title of the thread should be "foo title"
+    And the summary of the thread should be "bar summary"
 
-  Scenario Outline: Tries to save without a title
+  Scenario: Tries to save without a title
     When I go to the thread with English title "Capoeira in Japan and around the world"
-    And I click on the edit button next to the "title and summary" field
-    And I enter the text "" into field of the overlay
-    And I click the save button in the overlay
-    Then I should see an error message: "There were problems with the following fields:"
-    And I should see an error message: "<message>"
-
-    Examples:
-      | title   | summary                                             | message        |
-      |         | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. | can't be blank |
+    And I click on the edit button in the statbar
+    And I fill in "Title in English" with ""
+    And I click "Save"
+    Then I should see an error message: "can't be blank"

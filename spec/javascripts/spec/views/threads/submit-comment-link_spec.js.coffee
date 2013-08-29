@@ -192,7 +192,7 @@ define (require) ->
             beforeEach ->
               @view.render()
               @server = sinon.fakeServer.create()
-              @$nextButton = @view.$('button.next')
+              @$nextButton = @view.$('button[type="submit"]')
 
             afterEach -> @server.restore()
 
@@ -202,7 +202,7 @@ define (require) ->
 
             describe 'with valid data', ->
               beforeEach ->
-                @view.$('select').val('ja')
+                @view.$('select').val('ja').trigger('change')
                 @view.$('.title textarea').val('日本語のタイトル')
                 @view.$('.summary textarea').val('日本語のサマリ')
                 @view.$('.text textarea').val('a comment text')
@@ -382,7 +382,7 @@ define (require) ->
           beforeEach ->
             @view.render()
             @server = sinon.fakeServer.create()
-            @$nextButton = @view.$('button.next')
+            @$nextButton = @view.$('button[type="submit"]')
 
           afterEach -> @server.restore()
 
