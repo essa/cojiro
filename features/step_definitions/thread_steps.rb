@@ -85,10 +85,10 @@ Then /^I should see a link with url "([^"]*)" in the thread$/ do |url|
   @el = a.first(:xpath, ".//ancestor::div[@class='link']")
 end
 
-Then /^the link should have the title "([^"]*)"$/ do |text|
+Then /^the (?:.+ |)element should have the title "([^"]*)"$/ do |text|
   @el.first('h3.title').should have_text(text)
 end
 
-Then /^the link should have the summary "(.*)"$/ do |text|
+Then /^the (?:.+ |)element should have the summary "(.*)"$/ do |text|
   @el.first('p.summary').should have_text(text)
 end

@@ -33,10 +33,10 @@ Feature: Add link to thread
     And I click on "Add to this thread"
     And I wait for the AJAX call to finish
     Then I should see a link with url "http://youtu.be/Z8xxgFpK-NM" in the thread
-    And the link should have the title "The best capoeira video ever"
-    #And the link should have the summary "Capoeiristas Isaak and Bicudinho from the group Senzala de Santos. I don't own this video, I found it at www.d1autremonde.com"
+    And the link element should have the title "The best capoeira video ever"
+    #And the link element should have the summary "Capoeiristas Isaak and Bicudinho from the group Senzala de Santos. I don't own this video, I found it at www.d1autremonde.com"
     And I should see a link with url "http://youtu.be/6H0D8VaIli0" in the thread
-    And the link should have the title "Best Capoeira Brazil"
+    And the link element should have the title "Best Capoeira Brazil"
     And I should see that the thread has 2 links
 
   @vcr
@@ -56,8 +56,8 @@ Feature: Add link to thread
     And I click on "Add to this thread"
     And I wait for the AJAX call to finish
     Then I should see a link with url "http://youtu.be/Z8xxgFpK-NM" in the thread
-    And the link should have the title "foobar title"
-    #And the link should have the summary "Capoeiristas Isaak and Bicudinho from the group Senzala de Santos. I don't own this video, I found it at www.d1autremonde.com"
+    And the link element should have the title "foobar title"
+    #And the link element should have the summary "Capoeiristas Isaak and Bicudinho from the group Senzala de Santos. I don't own this video, I found it at www.d1autremonde.com"
 
   @vcr
   Scenario: Add link with new summary
@@ -67,8 +67,8 @@ Feature: Add link to thread
     And I click on "Add to this thread"
     And I wait for the AJAX call to finish
     Then I should see a link with url "http://www.rescue.org/blog/irc-and-capoeira-west-bank" in the thread
-    And the link should have the title "Capoeira in the West Bank | International Rescue Committee (IRC)"
-    And the link should have the summary "foobar summary"
+    And the link element should have the title "Capoeira in the West Bank | International Rescue Committee (IRC)"
+    And the link element should have the summary "foobar summary"
 
   @vcr
   Scenario: Add link with different source locale
@@ -77,8 +77,8 @@ Feature: Add link to thread
     And I click on "Add to this thread"
     And I wait for the AJAX call to finish
     Then I should see a link with url "http://blogs.yahoo.co.jp/aiteio0110/35349421.html" in the thread
-    And the link should have the title "底抜けキッド！ウルティモ・ブログ"
-    And the link should have the summary "７月２１日（日）代々木公園で行われた「ブラジル・フェスティバル２０１３」を見に行く。 前日はラモス瑠偉が来てたりサンバのショーがあったりしたらしい。 ブラジル料理を堪能しようと楽しみにしてたんだけど... この人混み、何じゃこりゃ〜！！ 結局、..."
+    And the link element should have the title "底抜けキッド！ウルティモ・ブログ"
+    And the link element should have the summary "７月２１日（日）代々木公園で行われた「ブラジル・フェスティバル２０１３」を見に行く。 前日はラモス瑠偉が来てたりサンバのショーがあったりしたらしい。 ブラジル料理を堪能しようと楽しみにしてたんだけど... この人混み、何じゃこりゃ〜！！ 結局、..."
 
   @vcr
   Scenario: Add link with comment
