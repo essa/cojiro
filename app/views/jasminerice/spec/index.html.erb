@@ -6,7 +6,14 @@
   <%= javascript_include_tag "jasminerice", "spec", :debug => true %>
   <script>
     jasmine.rice.autoExecute = false;
-    require([<%= spec_files.map { |f| "'#{f.sub(/\.js$/,'')}'" }.join(',').html_safe %>], function() { jasmine.getEnv().execute() });
+    require([<%= spec_files.map { |f| "'#{f.sub(/\.js$/,'')}'" }.join(',').html_safe %>],
+      function() { jasmine.getEnv().execute() },
+      function(err) {
+        var failedId = err.requireModules && err.requireModules[0];
+        requirejs.undef(failedId);
+        define(failedId, function() { return function() { console.debug(failedId + ': ' + err); null }; });
+        require([ failedId ], function() {} );
+      });
   </script>
   <%= csrf_meta_tags %>
 </head>
