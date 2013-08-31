@@ -35,6 +35,7 @@ gem 'omniauth-twitter'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
 gem 'mini_magick'
 gem 'journey', '1.0.4' # ref: https://github.com/rails/journey/issues/42
+gem 'embedly'
 
 group :test, :development do
   gem 'rspec-rails'
@@ -49,7 +50,6 @@ group :test, :development do
   gem 'timecop'
   gem 'chronic'
   gem 'launchy'
-  gem 'embedly'
   gem 'sqlite3'
   unless ENV['CI']
     gem 'pry'
