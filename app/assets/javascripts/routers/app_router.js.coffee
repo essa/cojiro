@@ -1,15 +1,15 @@
-define [
-  'jquery'
-  'underscore'
-  'backbone'
-  'views/other/navbar'
-  'views/homepage/index'
-  'views/threads/thread'
-  'views/threads/new-thread'
-  'models/thread'
-  'backbone-support'
-  'i18n'
-], ($, _, Backbone, NavbarView, HomepageView, ThreadView, NewThreadView, Thread, Support, I18n) ->
+define (require) ->
+
+  $ = require('jquery')
+  _ = require('underscore')
+  Backbone = require('backbone')
+  NavbarView = require('views/other/navbar')
+  HomepageView = require('views/homepage/index')
+  ThreadView = require('views/threads/thread')
+  NewThreadView = require('views/threads/new-thread')
+  Thread = require('models/thread')
+  Support = require('backbone-support')
+  I18n = require('i18n')
 
   class AppRouter extends Support.SwappingRouter
     routes:
@@ -19,6 +19,7 @@ define [
       ':locale/threads/:id': 'show'
 
     initialize: (options = {}) ->
+
       # isolate dependencies
       @NavbarView = options.NavbarView || NavbarView
       @HomepageView = options.HomepageView || HomepageView
@@ -28,24 +29,33 @@ define [
 
       # initialize router
       @navbar = new @NavbarView
-      $('#navbar').html(@navbar.render().$el)
+      @renderNavbar()
       @el = $('#content')
       @collection = options.collection
 
-    root: ->
-      @index(I18n.locale)
+    renderNavbar: -> $('#navbar').html(@navbar.render().$el)
+
+    setLocale: (locale) ->
+      if locale != I18n.locale
+        I18n.locale = locale
+        @renderNavbar()
+
+    root: -> @index(I18n.defaultLocale)
 
     index: (locale) ->
+      @setLocale(locale)
       view = new @HomepageView(collection: @collection)
       @swap(view)
 
     show: (locale, id) ->
+      @setLocale(locale)
       self = @
       @collection.deferred.done ->
         view = new self.ThreadView(model: self.collection.get(id))
         self.swap(view)
 
     new: (locale) ->
+      @setLocale(locale)
       thread = new @Thread({}, collection: @collection)
       view = new @NewThreadView(model: thread, collection: @collection, router: @)
       @swap(view)

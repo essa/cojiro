@@ -6,6 +6,7 @@ define (require) ->
   AppRouter = require('routers/app_router')
 
   describe 'AppRouter', ->
+
     beforeEach ->
       I18n.locale = 'en'
 
@@ -34,9 +35,9 @@ define (require) ->
     afterEach ->
       I18n.locale = I18n.defaultLocale
 
-    describe "initialization", ->
+    describe 'initialization', ->
 
-      it "can be instantiated", ->
+      it 'can be created', ->
         router = new AppRouter(@options)
         expect(router).not.toBeNull()
 
@@ -49,7 +50,7 @@ define (require) ->
         router = new AppRouter(_(@options).extend(collection: collection))
         expect(router.collection).toEqual(collection)
 
-    describe "routing", ->
+    describe 'routing', ->
       beforeEach ->
         @collection = new Backbone.Collection
         @router = new AppRouter(_(@options).extend(collection: @collection))
@@ -59,70 +60,87 @@ define (require) ->
             pushState: true
           Backbone.history.started = true
         catch e
-        @router.navigate "elsewhere"
+        @router.navigate 'elsewhere'
 
-      afterEach ->
-        @router.navigate "jasmine"
+      afterEach -> @router.navigate 'jasmine'
 
-      describe "root route", ->
+      sharedExamples = (route) ->
+        it 'changes the locale', ->
+          I18n.locale = 'ja'
+          @router.navigate route, true
+          expect(I18n.locale).toEqual('en')
 
-        it "fires the root route with a blank hash", ->
+        it 'renders the navbar', ->
+          sinon.spy(@navbarView, 'render')
+          I18n.locale = 'ja'
+          @router.navigate route, true
+          expect(@navbarView.render).toHaveBeenCalledOnce()
+          expect(@navbarView.render).toHaveBeenCalledWithExactly()
+
+      describe 'root route', ->
+
+        it 'fires the root route with a blank hash', ->
           spy = sinon.spy()
-          @router.bind "route:root", spy
-          @router.navigate "", true
+          @router.bind 'route:root', spy
+          @router.navigate '', true
           expect(spy).toHaveBeenCalledOnce()
           expect(spy).toHaveBeenCalledWithExactly()
 
-        it "forwards to the index route with the current locale as argument", ->
-          I18n.locale = 'en'
+        it 'forwards to the index route with the default locale as argument', ->
+          I18n.locale = 'ja'
+          I18n.defaultLocale = 'en'
           spy = sinon.spy(@router, 'index')
-          @router.navigate "", true
+          @router.navigate '', true
           expect(spy).toHaveBeenCalledOnce()
-          expect(spy).toHaveBeenCalledWithExactly("en")
+          expect(spy).toHaveBeenCalledWithExactly('en')
 
-      describe "index route", ->
+      describe 'index route', ->
 
-        it "fires the index route with a locale only", ->
+        sharedExamples('en')
+
+        it 'fires the index route with a locale only', ->
           spy = sinon.spy()
-          @router.bind "route:index", spy
-          @router.navigate "en", true
+          @router.bind 'route:index', spy
+          @router.navigate 'en', true
           expect(spy).toHaveBeenCalledOnce()
-          expect(spy).toHaveBeenCalledWithExactly("en")
+          expect(spy).toHaveBeenCalledWithExactly('en')
 
-        it "instantiates a new HomepageView", ->
-          @router.navigate "en", true
+        it 'creates a new HomepageView', ->
+          @router.navigate 'en', true
           expect(@HomepageView.calledWithNew()).toBeTruthy()
           expect(@HomepageView).toHaveBeenCalledWithExactly(collection: @collection)
 
-        it "renders the view onto the page", ->
+        it 'renders the view onto the page', ->
           spy = sinon.spy(@homepageView, 'render')
-          @router.navigate "", true
+          @router.navigate '', true
           expect(spy).toHaveBeenCalledOnce()
           expect(spy).toHaveBeenCalledWithExactly()
 
-      describe "thread show route", ->
+      describe 'thread show route', ->
         beforeEach ->
           sinon.stub(@collection, 'get').returns('thread')
           @collection.deferred = @deferred = $.Deferred()
         afterEach -> @collection.get.restore()
 
-        it "fires the show route with a :locale and :id hash", ->
+        sharedExamples('en/threads/1')
+
+        it 'fires the show route with a :locale and :id hash', ->
           spy = sinon.spy()
-          @router.bind "route:show", spy
-          @router.navigate "en/threads/1", true
+          @router.bind 'route:show', spy
+          @router.navigate 'en/threads/1', true
           expect(spy).toHaveBeenCalledOnce()
-          expect(spy).toHaveBeenCalledWithExactly("en", "1")
+          expect(spy).toHaveBeenCalledWithExactly('en', '1')
 
         describe 'once deferred fetch is done', ->
           beforeEach -> @deferred.resolve()
 
-          it "instantiates a new ThreadView", ->
-            @router.navigate "en/threads/1", true
+          it 'creates a new ThreadView', ->
+            @router.navigate 'en/threads/1', true
             expect(@ThreadView.calledWithNew()).toBeTruthy()
             expect(@ThreadView).toHaveBeenCalledWithExactly(model: 'thread')
 
-          it "renders the view onto the page", ->
-            spy = sinon.spy(@threadView, "render")
+          it 'renders the view onto the page', ->
+            spy = sinon.spy(@threadView, 'render')
             @router.navigate 'en/threads/1', true
             expect(spy).toHaveBeenCalledOnce()
             expect(spy).toHaveBeenCalledWithExactly()
@@ -131,8 +149,8 @@ define (require) ->
         describe 'if deferred fetch fails', ->
           beforeEach -> @deferred.reject()
 
-          it 'does not instantiate a new ThreadView', ->
-            @router.navigate "en/threads/1", true
+          it 'does not creates a new ThreadView', ->
+            @router.navigate 'en/threads/1', true
             expect(@ThreadView).not.toHaveBeenCalled()
 
           it 'does not render the view onto the page', ->
@@ -140,27 +158,29 @@ define (require) ->
             @router.navigate 'en/threads/1', true
             expect(spy).not.toHaveBeenCalled()
 
-      describe "new thread route", ->
+      describe 'new thread route', ->
 
-        it "fires the new route with a :locale", ->
+        sharedExamples('en/threads/new')
+
+        it 'fires the new route with a :locale', ->
           spy = sinon.spy()
-          @router.bind "route:new", spy
-          @router.navigate "en/threads/new", true
+          @router.bind 'route:new', spy
+          @router.navigate 'en/threads/new', true
           expect(spy).toHaveBeenCalledOnce()
-          expect(spy).toHaveBeenCalledWithExactly("en")
+          expect(spy).toHaveBeenCalledWithExactly('en')
 
-        it "instantiates a new Thread", ->
-          @router.navigate "en/threads/new", true
+        it 'creates a new Thread', ->
+          @router.navigate 'en/threads/new', true
           expect(@Thread.calledWithNew()).toBeTruthy()
           expect(@Thread).toHaveBeenCalledWithExactly({}, collection: @collection)
 
-        it "instantiates a new NewThreadView", ->
-          @router.navigate "en/threads/new", true
+        it 'creates a new NewThreadView', ->
+          @router.navigate 'en/threads/new', true
           expect(@NewThreadView.calledWithNew()).toBeTruthy()
           expect(@NewThreadView).toHaveBeenCalledWithExactly(model: @model, collection: @collection, router: @router)
 
-        it "renders the view onto the page", ->
+        it 'renders the view onto the page', ->
           spy = sinon.spy(@newThreadView, 'render')
-          @router.navigate "en/threads/new", true
+          @router.navigate 'en/threads/new', true
           expect(spy).toHaveBeenCalledOnce()
           expect(spy).toHaveBeenCalledWithExactly()
