@@ -3,7 +3,7 @@ define (require) ->
   _ = require('underscore')
   Backbone = require('backbone')
   I18n = require('i18n')
-  AppRouter = require('routers/app_router')
+  AppRouter = require('routers/app-router')
 
   describe 'AppRouter', ->
 

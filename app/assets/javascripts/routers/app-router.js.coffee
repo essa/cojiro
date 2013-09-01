@@ -38,7 +38,7 @@ define (require) ->
       @collection = options.collection
 
     renderNavbar: -> $('#navbar').html(@navbar.render().$el)
-    renderFooter: -> $('#footer').html(@footer.render().$el)
+    renderFooter: -> @footer.render()
 
     setLocale: (locale) ->
       if locale != I18n.locale
