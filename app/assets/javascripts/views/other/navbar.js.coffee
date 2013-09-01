@@ -1,10 +1,9 @@
-define [
-  'jquery'
-  'underscore'
-  'modules/base/view'
-  'globals'
-  'bootstrap'
-], ($, _, BaseView, globals) ->
+define (require) ->
+
+  _ = require('underscore')
+  BaseView = require('modules/base/view')
+  globals = require('globals')
+  require('bootstrap')
 
   class NavbarView extends BaseView
     template: _.template '

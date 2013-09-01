@@ -19,21 +19,38 @@ define (require) ->
       @newThreadView = render: () -> {}
       @NewThreadView = sinon.stub().returns(@newThreadView)
 
-      @navbarView = render: () -> {}
+      @navbarView = render: () ->
+        @el = document.createElement('div')
+        @el.setAttribute('class', 'navbar-fixed-top')
+        @$el = $(@el)
+        @
       @NavbarView = sinon.stub().returns(@navbarView)
+
+      @footerView = render: () ->
+        @el = document.createElement('div')
+        @el.setAttribute('class', 'navbar-fixed-bottom')
+        @$el = $(@el)
+        @
+      @FooterView = sinon.stub().returns(@footerView)
 
       @model = {}
       @Thread = sinon.stub().returns(@model)
 
       @options =
         NavbarView: @NavbarView
+        FooterView: @FooterView
         HomepageView: @HomepageView
         ThreadView: @ThreadView
         NewThreadView: @NewThreadView
         Thread: @Thread
 
+      @$sandbox = @createSandbox()
+      @$sandbox.append($('<div id="navbar"></div>'))
+      @$sandbox.append($('<div id="footer"></div>'))
+
     afterEach ->
       I18n.locale = I18n.defaultLocale
+      @destroySandbox()
 
     describe 'initialization', ->
 
@@ -49,6 +66,24 @@ define (require) ->
         collection = new Object
         router = new AppRouter(_(@options).extend(collection: collection))
         expect(router.collection).toEqual(collection)
+
+      it 'creates a navbar', ->
+        router = new AppRouter(NavbarView: @NavbarView)
+        expect(@NavbarView).toHaveBeenCalledOnce()
+        expect(@NavbarView).toHaveBeenCalledWithExactly()
+
+      it 'renders the navbar', ->
+        sinon.spy(@navbarView, 'render')
+        router = new AppRouter(NavbarView: @NavbarView)
+        expect(@navbarView.render).toHaveBeenCalledOnce()
+        expect(@navbarView.render).toHaveBeenCalledWithExactly()
+
+      it 'renders the footer', ->
+
+      it 'creates a footer', ->
+        router = new AppRouter(FooterView: @FooterView)
+        expect(@FooterView).toHaveBeenCalledOnce()
+        expect(@FooterView).toHaveBeenCalledWithExactly(router: router)
 
     describe 'routing', ->
       beforeEach ->
@@ -76,6 +111,25 @@ define (require) ->
           @router.navigate route, true
           expect(@navbarView.render).toHaveBeenCalledOnce()
           expect(@navbarView.render).toHaveBeenCalledWithExactly()
+
+        it 'inserts the navbar into the page', ->
+          $('#navbar').empty()
+          I18n.locale = 'ja'
+          @router.navigate route, true
+          expect($('#navbar')).toContain('.navbar-fixed-top')
+
+        it 'renders the footer', ->
+          sinon.spy(@footerView, 'render')
+          I18n.locale = 'ja'
+          @router.navigate route, true
+          expect(@footerView.render).toHaveBeenCalledOnce()
+          expect(@footerView.render).toHaveBeenCalledWithExactly()
+
+        it 'inserts the footer into the page', ->
+          $('#footer').empty()
+          I18n.locale = 'ja'
+          @router.navigate route, true
+          expect($('#footer')).toContain('.navbar-fixed-bottom')
 
       describe 'root route', ->
 

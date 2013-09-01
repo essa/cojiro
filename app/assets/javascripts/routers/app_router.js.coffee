@@ -4,6 +4,7 @@ define (require) ->
   _ = require('underscore')
   Backbone = require('backbone')
   NavbarView = require('views/other/navbar')
+  FooterView = require('views/other/footer')
   HomepageView = require('views/homepage/index')
   ThreadView = require('views/threads/thread')
   NewThreadView = require('views/threads/new-thread')
@@ -22,6 +23,7 @@ define (require) ->
 
       # isolate dependencies
       @NavbarView = options.NavbarView || NavbarView
+      @FooterView = options.FooterView || FooterView
       @HomepageView = options.HomepageView || HomepageView
       @ThreadView = options.ThreadView || ThreadView
       @NewThreadView = options.NewThreadView || NewThreadView
@@ -30,15 +32,19 @@ define (require) ->
       # initialize router
       @navbar = new @NavbarView
       @renderNavbar()
+      @footer = new @FooterView(router: @)
+      @renderFooter()
       @el = $('#content')
       @collection = options.collection
 
     renderNavbar: -> $('#navbar').html(@navbar.render().$el)
+    renderFooter: -> $('#footer').html(@footer.render().$el)
 
     setLocale: (locale) ->
       if locale != I18n.locale
         I18n.locale = locale
         @renderNavbar()
+        @renderFooter()
 
     root: -> @index(I18n.defaultLocale)
 
