@@ -5,17 +5,26 @@ define (require) ->
   globals = require('globals')
 
   describe 'NavbarView', ->
+    beforeEach ->
+      @$sandbox = @createSandbox()
+      @$sandbox.append($('<div id="navbar" class="navbar navbar-fixed-top"></div>'))
+
+    afterEach -> @destroySandbox()
 
     describe 'initialization', ->
       beforeEach -> @view = new NavbarView
 
       it 'creates a navbar', ->
         $el = @view.$el
-        expect($el).toBe('div')
-        expect($el).toHaveClass('navbar navbar-fixed-top')
+        expect($el).toEqual($('#navbar'))
 
     describe 'rendering', ->
       beforeEach -> @view = new NavbarView
+
+      it 'renders into #navbar element', ->
+        $('#navbar').empty()
+        @view.render()
+        expect($('#navbar')).toContain('.navbar-inner')
 
       it 'returns the view object', ->
         expect(@view.render()).toEqual(@view)

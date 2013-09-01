@@ -6,25 +6,34 @@ define (require) ->
   globals = require('globals')
 
   describe 'FooterView', ->
+    beforeEach ->
+      @$sandbox = @createSandbox()
+      @$sandbox.append($('<div id="footer" class="navbar navbar-fixed-bottom"></div>'))
+      @router = navigate: ->
+      @view = new FooterView(router: @router)
+
+    afterEach -> @destroySandbox()
 
     describe 'initialization', ->
-      beforeEach -> @view = new FooterView
 
       it 'creates a footer', ->
         $el = @view.$el
-        expect($el).toBe('div')
-        expect($el).toHaveClass('navbar navbar-fixed-bottom')
+        expect($el).toEqual($('#footer'))
+
+      it 'assigns router', -> expect(@view.router).toEqual(@router)
 
     describe 'rendering', ->
-      beforeEach -> @view = new FooterView
+
+      it 'renders into #footer element', ->
+        $('#footer').empty()
+        @view.render()
+        expect($('#footer')).toContain('.navbar-inner')
 
       it 'returns the view object', ->
         expect(@view.render()).toEqual(@view)
 
     describe 'template', ->
-      beforeEach ->
-        @view = new FooterView
-        @$el = @view.render().$el
+      beforeEach -> @$el = @view.render().$el
 
       it 'renders locale-switcher dropdown menu', ->
         expect(@$el).toContain('.dropdown-menu')
@@ -36,8 +45,6 @@ define (require) ->
 
     describe 'events', ->
       beforeEach ->
-        @router = navigate: ->
-        @view = new FooterView(router: @router)
         @view.render()
         
       xit 'jumps to page of dropdown language when selected', ->

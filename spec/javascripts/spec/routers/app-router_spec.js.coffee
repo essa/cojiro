@@ -27,10 +27,6 @@ define (require) ->
       @NavbarView = sinon.stub().returns(@navbarView)
 
       @footerView = render: () ->
-        @el = document.createElement('div')
-        @el.setAttribute('class', 'navbar-fixed-bottom')
-        @$el = $(@el)
-        @
       @FooterView = sinon.stub().returns(@footerView)
 
       @model = {}
@@ -78,12 +74,16 @@ define (require) ->
         expect(@navbarView.render).toHaveBeenCalledOnce()
         expect(@navbarView.render).toHaveBeenCalledWithExactly()
 
-      it 'renders the footer', ->
-
       it 'creates a footer', ->
         router = new AppRouter(FooterView: @FooterView)
         expect(@FooterView).toHaveBeenCalledOnce()
         expect(@FooterView).toHaveBeenCalledWithExactly(router: router)
+
+      it 'renders the footer', ->
+        sinon.spy(@footerView, 'render')
+        router = new AppRouter(FooterView: @FooterView)
+        expect(@footerView.render).toHaveBeenCalledOnce()
+        expect(@footerView.render).toHaveBeenCalledWithExactly()
 
     describe 'routing', ->
       beforeEach ->
@@ -124,12 +124,6 @@ define (require) ->
           @router.navigate route, true
           expect(@footerView.render).toHaveBeenCalledOnce()
           expect(@footerView.render).toHaveBeenCalledWithExactly()
-
-        it 'inserts the footer into the page', ->
-          $('#footer').empty()
-          I18n.locale = 'ja'
-          @router.navigate route, true
-          expect($('#footer')).toContain('.navbar-fixed-bottom')
 
       describe 'root route', ->
 

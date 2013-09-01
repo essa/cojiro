@@ -8,6 +8,7 @@ define (require) ->
   require('bootstrap')
 
   class FooterView extends BaseView
+    el: '#footer'
     template: _.template '
         <div class="navbar-inner">
           <div class="container">
@@ -30,7 +31,6 @@ define (require) ->
           </div>
         </div>
       '
-    className: 'navbar navbar-fixed-bottom'
 
     buildEvents: () ->
       _(super).extend
@@ -46,7 +46,6 @@ define (require) ->
 
     switchLocale: (e) ->
       newLocale = e.currentTarget.lang
-      console.log(newLocale)
       if (newLocale in I18n.availableLocales)
         newFragment = Backbone.history.fragment.replace(new RegExp("^#{I18n.locale}"), newLocale)
         @router.navigate(newFragment, true)

@@ -6,6 +6,7 @@ define (require) ->
   require('bootstrap')
 
   class NavbarView extends BaseView
+    el: '#navbar'
     template: _.template '
       <div class="navbar-inner">
         <div class="container">
@@ -43,7 +44,6 @@ define (require) ->
           </ul>
         </div>
       </div>'
-    className: 'navbar navbar-fixed-top'
 
     render: ->
       @$el.html(@template(
