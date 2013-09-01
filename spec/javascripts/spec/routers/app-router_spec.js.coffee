@@ -19,11 +19,7 @@ define (require) ->
       @newThreadView = render: () -> {}
       @NewThreadView = sinon.stub().returns(@newThreadView)
 
-      @navbarView = render: () ->
-        @el = document.createElement('div')
-        @el.setAttribute('class', 'navbar-fixed-top')
-        @$el = $(@el)
-        @
+      @navbarView = render: () -> {}
       @NavbarView = sinon.stub().returns(@navbarView)
 
       @footerView = render: () ->
@@ -111,12 +107,6 @@ define (require) ->
           @router.navigate route, true
           expect(@navbarView.render).toHaveBeenCalledOnce()
           expect(@navbarView.render).toHaveBeenCalledWithExactly()
-
-        it 'inserts the navbar into the page', ->
-          $('#navbar').empty()
-          I18n.locale = 'ja'
-          @router.navigate route, true
-          expect($('#navbar')).toContain('.navbar-fixed-top')
 
         it 'renders the footer', ->
           sinon.spy(@footerView, 'render')

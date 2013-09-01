@@ -37,7 +37,7 @@ define (require) ->
       @el = $('#content')
       @collection = options.collection
 
-    renderNavbar: -> $('#navbar').html(@navbar.render().$el)
+    renderNavbar: -> @navbar.render()
     renderFooter: -> @footer.render()
 
     setLocale: (locale) ->
