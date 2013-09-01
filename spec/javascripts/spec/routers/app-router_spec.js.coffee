@@ -124,13 +124,13 @@ define (require) ->
           expect(spy).toHaveBeenCalledOnce()
           expect(spy).toHaveBeenCalledWithExactly()
 
-        it 'forwards to the index route with the default locale as argument', ->
+        it 'redirects to the index route with the default locale as argument', ->
           I18n.locale = 'ja'
           I18n.defaultLocale = 'en'
-          spy = sinon.spy(@router, 'index')
+          spy = sinon.spy(@router, 'navigate')
           @router.navigate '', true
-          expect(spy).toHaveBeenCalledOnce()
-          expect(spy).toHaveBeenCalledWithExactly('en')
+          expect(spy).toHaveBeenCalledTwice()
+          expect(spy.secondCall.calledWithExactly('en', true)).toBeTruthy()
 
       describe 'index route', ->
 

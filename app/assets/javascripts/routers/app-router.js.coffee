@@ -46,7 +46,7 @@ define (require) ->
         @renderNavbar()
         @renderFooter()
 
-    root: -> @index(I18n.defaultLocale)
+    root: -> @navigate(I18n.defaultLocale, true)
 
     index: (locale) ->
       @setLocale(locale)
