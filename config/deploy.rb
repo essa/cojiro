@@ -8,6 +8,9 @@ set :rails_env, "production"
 set :scm, :git
 set :branch,      'master'
 
+set :uploads_dirs, %w(public/uploads)
+set :shared_children, fetch(:shared_children) + fetch(:uploads_dirs)
+
 role :web, "localhost"                          # Your HTTP server, Apache/etc
 role :app, "localhost"                          # This may be the same as your `Web` server
 role :db,  "localhost", :primary => true # This is where Rails migrations will run
@@ -49,4 +52,3 @@ namespace :deploy do
     run "kill -s QUIT `cat #{current_path}/#{unicorn_pid}`"
   end
 end
-
