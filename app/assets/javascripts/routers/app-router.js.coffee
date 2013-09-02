@@ -42,7 +42,7 @@ define (require) ->
 
     setLocale: (locale) ->
       if locale != I18n.locale
-        I18n.locale = locale
+        I18n.changeLocale(locale)
         @renderNavbar()
         @renderFooter()
 
