@@ -7,8 +7,7 @@
   a.dropdown-toggle:hover { cursor: pointer }
 }*/
 
-/*
-#navbar .navbar-inner {
+#navbar {
   @include box-shadow(0 0 1px 1px $cojiro-light-gray !important);
   border-bottom: 4px solid $cojiro-gray !important;
 //  background-image: none !important;
@@ -23,7 +22,6 @@
     }
   }
 }
-*/
 
 #footer {
   height: 35px;

@@ -11,18 +11,22 @@ define [
 
   class AddUrlView extends BaseView
     template: _.template '
-      <div class="modal-header"></div>
-      <div class="modal-body">
-        <div id="flash-box"></div>
-        <form class="form-inline">
-          <fieldset>
-            <label>URL:&nbsp;</label>
-            <div class="input-append">
-              <input class="col-md-4" type="text" name="url" placeholder="<%= t(".enter_a_url") %>" />
-              <button type="submit" class="btn"><%= t(".go") %></button>
-            </div>
-          </fieldset>
-        </form>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"></div>
+          <div class="modal-body">
+            <div id="flash-box"></div>
+            <form class="form-inline">
+              <fieldset>
+                <label>URL:&nbsp;</label>
+                <div class="input-append">
+                  <input class="col-md-4" type="text" name="url" placeholder="<%= t(".enter_a_url") %>" />
+                  <button type="submit" class="btn"><%= t(".go") %></button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
       </div>'
 
     buildEvents: () ->

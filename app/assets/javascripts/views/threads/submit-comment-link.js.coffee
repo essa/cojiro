@@ -15,16 +15,20 @@ define [
 
   class SubmitCommentLinkView extends BaseView
     template: _.template '
-      <div class="modal-header"></div>
-      <div class="modal-body">
-        <div class="row hide">
-          <div class="span12" id="flash-box"></div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"></div>
+          <div class="modal-body">
+            <div class="row hide">
+              <div class="span12" id="flash-box"></div>
+            </div>
+            <div class="row">
+              <div class="span12" id="link-details"></div>
+            </div>
+          </div>
+          <div class="modal-footer"></div>
         </div>
-        <div class="row">
-          <div class="span12" id="link-details"></div>
-        </div>
-      </div>
-      <div class="modal-footer"></div>'
+      </div>'
 
     buildEvents: () ->
       _(super).extend
