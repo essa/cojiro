@@ -19,7 +19,7 @@ define (require) ->
                 </a>
                 <ul class="dropdown-menu">
                   <% _(locales).each(function(locale) { %>
-                    <li>
+                    <li class="<% if (I18n.locale == locale) { %>disabled<% } %>">
                       <a lang="<%= locale %>" class="locale clickable">
                         <%= I18n.localeInWords(locale) %>
                       </a>

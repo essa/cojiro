@@ -43,6 +43,11 @@ define (require) ->
         expect(@$dropdown).toContain('a[lang="en"]:contains("English")')
         expect(@$dropdown).toContain('a[lang="ja"]:contains("日本語")')
 
+      it 'adds "disabled" class to current locale in dropdown', ->
+        @$dropdown = @view.$('.dropdown-menu')
+        expect(@$dropdown.find('[lang="en"]').closest('li')).toHaveClass('disabled')
+        expect(@$dropdown.find('[lang="ja"]').closest('li')).not.toHaveClass('disabled')
+
     describe 'events', ->
       beforeEach ->
         @view.render()
