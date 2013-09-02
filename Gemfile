@@ -21,7 +21,7 @@ group :assets do
   # gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', :branch => '2.0'
+  gem 'bootstrap-sass', :branch => '3', :git => 'https://github.com/thomas-mcdonald/bootstrap-sass.git'
   gem 'execjs'
   gem 'i18n-js', :git => 'https://github.com/fnando/i18n-js.git'
 end

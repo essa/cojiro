@@ -2,13 +2,15 @@
 
 /* Navbar / Footer */
 
+/*
 .navbar-inner {
   a.dropdown-toggle:hover { cursor: pointer }
-}
+}*/
 
+/*
 #navbar .navbar-inner {
-  @include box-shadow(0 0 1px 1px $cojiroLightGray !important);
-  border-bottom: 4px solid $cojiroGray !important;
+  @include box-shadow(0 0 1px 1px $cojiro-light-gray !important);
+  border-bottom: 4px solid $cojiro-gray !important;
 //  background-image: none !important;
 
   a.brand {
@@ -21,6 +23,7 @@
     }
   }
 }
+*/
 
 #footer {
   height: 35px;
@@ -76,8 +79,8 @@
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 30px;
-  background-color: $statbarBackground; /* Old browsers */
-  @include background(linear-gradient(top, $statbarBackground 0%, $statbarBackground 100%));
+  background-color: $statbar-background; /* Old browsers */
+  @include background(linear-gradient(top, $statbar-background 0%, $statbar-background 100%));
   @include border-radius(6px);
 
   .nav {
@@ -141,7 +144,7 @@ ul.nav-pills {
 .stattext, .status {
   text-transform: uppercase;
   font-size: 90%;
-  color: $statbarText;
+  color: $statbar-text;
 }
 
 /* Thread area */
@@ -163,10 +166,10 @@ ul.nav-pills {
   }
   // based on bootstrap "thumbnail/thumbnails" classes
   .links {
-    @include makeRow();
+    @include make-row();
   }
   .link {
-    @include makeColumn(3,0);
+    @include make-sm-column(3,0);
     margin-left: 20px;
     margin-bottom: 20px;
   }
@@ -174,23 +177,23 @@ ul.nav-pills {
     display: block;
     overflow: hidden;
     height: $linkHeight;
-    line-height: $baseLineHeight;
+    line-height: $line-height-base;
     @include border-radius(8px);
     @include box-shadow(#{0 1px 3px rgba(0,0,0,.055)});
     @include transition(all .2s ease-in-out);
-    background: $cojiroLightGray;
+    background: $cojiro-light-gray;
     a {
       text-decoration: none;
-      color: $black;
+      color: black;
     }
     a.add-link:hover {
       cursor: pointer;
     }
     .url {
-      color: $black;
+      color: black;
       display: block;
       overflow: hidden;
-      height: $linkUrlHeight;
+      height: $link-url-height;
       border-bottom: 2px solid white;
       padding: 10px 10px 5px;
       span.favicon {
@@ -201,16 +204,16 @@ ul.nav-pills {
         }
       }
       span.site {
-        font-size: $baseFontSize;
+        font-size: $font-size-base;
       }
       span.lang {
         text-transform: uppercase;
-        font-size: $baseFontSize * 0.8;
+        font-size: $font-size-base * 0.8;
         vertical-align: middle;
       }
     }
     .url:hover {
-      background: $cojiroGray;
+      background: $cojiro-gray;
     }
 
     a.description {
@@ -218,8 +221,8 @@ ul.nav-pills {
     }
     .description {
       display: block;
-      height: $linkDescriptionHeight;
-      border-bottom: 5px solid $cojiroLightGray;
+      height: $link-description-height;
+      border-bottom: 5px solid $cojiro-light-gray;
     }
     .description, .add-link {
       overflow: hidden;
@@ -227,10 +230,10 @@ ul.nav-pills {
       margin-bottom: 15px;
     }
     .title textarea {
-      height: $linkDescriptionHeight / 4;
+      height: $link-description-height / 4;
     }
     .summary textarea {
-      height: $linkDescriptionHeight / 2;
+      height: $link-description-height / 2;
     }
     .add-link {
       text-align: center;
@@ -249,8 +252,8 @@ ul.nav-pills {
     }
 
     h3.title {
-      font-size: $baseFontSize * 1.4;
-      line-height: $baseLineHeight * 1.4;
+      font-size: $font-size-base * 1.4;
+      line-height: $line-height-base * 1.4;
     }
 
     p.summary {
@@ -291,7 +294,7 @@ ul.nav-pills {
   }
   // Add a hover state for linked versions only
   a.link:hover {
-    border-color: $linkColor;
+    border-color: $link-color;
     @include box-shadow(#{0 1px 4px rgba(0,105,214,.25)});
   }
 
@@ -380,11 +383,11 @@ ul.nav-pills {
     }
 
     .title textarea,.title .uneditable-input {
-      height: $baseLineHeight;
+      height: $line-height-base;
     }
 
     .summary textarea,.summary .uneditable-input {
-      height: $baseLineHeight * 4;
+      height: $line-height-base * 4;
     }
 
     label {

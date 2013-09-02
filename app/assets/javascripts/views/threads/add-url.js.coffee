@@ -18,7 +18,7 @@ define [
           <fieldset>
             <label>URL:&nbsp;</label>
             <div class="input-append">
-              <input class="span4" type="text" name="url" placeholder="<%= t(".enter_a_url") %>" />
+              <input class="col-md-4" type="text" name="url" placeholder="<%= t(".enter_a_url") %>" />
               <button type="submit" class="btn"><%= t(".go") %></button>
             </div>
           </fieldset>

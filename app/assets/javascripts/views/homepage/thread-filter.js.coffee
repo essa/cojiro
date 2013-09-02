@@ -11,7 +11,7 @@ define [
         <label class="control-label" for="thread-filter">
           Show me:
         </label>
-        <select id="thread-filter" class="span3">
+        <select id="thread-filter" class="col-md-3">
           <option value="all">everything</option>
           <option value="mine">threads that I started</option>
         </select>

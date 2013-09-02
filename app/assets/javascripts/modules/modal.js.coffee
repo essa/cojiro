@@ -7,9 +7,11 @@ define (require) ->
   class ModalView extends BaseView
     el: '#modal'
     template: _.template '
-        <div class="modal-header"></div>
-        <div class="modal-body"></div>
-        <div class="modal-footer"></div>'
+        <div class="modal-dialog">
+          <div class="modal-content"><div class="modal-header"></div></div>
+          <div class="modal-content"><div class="modal-body"></div></div>
+          <div class="modal-content"><div class="modal-footer"></div></div>
+        </div>'
 
     buildEvents: () ->
       _(super).extend

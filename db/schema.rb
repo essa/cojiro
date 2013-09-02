@@ -78,13 +78,13 @@ ActiveRecord::Schema.define(:version => 20130822003100) do
   add_index "link_translations", ["locale"], :name => "index_link_translations_on_locale"
 
   create_table "links", :force => true do |t|
-    t.string   "url",                        :null => false
+    t.string   "url",                          :null => false
     t.integer  "user_id"
     t.text     "oembed_data"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.string   "source_locale", :limit => 2
-    t.text     "extract_data"
+    t.text     "extract_data",  :limit => 255
   end
 
   add_index "links", ["url"], :name => "index_links_on_url", :unique => true

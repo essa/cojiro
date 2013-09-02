@@ -15,6 +15,6 @@
           = content_tag :div, '<a class="close" href="#">×</a>'.html_safe + msg, :class => "alert alert-#{name} #{name}", :id => "flash_#{name}", :'data-dismiss' => 'alert' if msg.is_a?(String)
         = yield
     #footer.navbar.navbar-fixed-bottom
-    #modal.modal.hide.fade
-    #add-link-modal.modal.hide.fade
-    #thread-modal.modal.hide.fade
+    #modal.modal.fade
+    #add-link-modal.modal.fade
+    #thread-modal.modal.fade

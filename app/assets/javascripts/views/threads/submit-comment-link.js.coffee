@@ -17,10 +17,10 @@ define [
     template: _.template '
       <div class="modal-header"></div>
       <div class="modal-body">
-        <div class="row-fluid hide">
+        <div class="row hide">
           <div class="span12" id="flash-box"></div>
         </div>
-        <div class="row-fluid">
+        <div class="row">
           <div class="span12" id="link-details"></div>
         </div>
       </div>
@@ -85,7 +85,7 @@ define [
           close: false
         )
         @renderChild(@flash)
-        @$('.row-fluid.hide').removeClass('hide').find('#flash-box').html(@flash.el)
+        @$('.row.hide').removeClass('hide').find('#flash-box').html(@flash.el)
 
       # this is a new link
       else
