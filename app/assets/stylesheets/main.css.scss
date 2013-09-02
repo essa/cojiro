@@ -1,13 +1,15 @@
 @import 'base';
 
-/* Navbar */
+/* Navbar / Footer */
 
 .navbar-inner {
+  a.dropdown-toggle:hover { cursor: pointer }
+}
+
+#navbar .navbar-inner {
   @include box-shadow(0 0 1px 1px $cojiroLightGray !important);
   border-bottom: 4px solid $cojiroGray !important;
 //  background-image: none !important;
-
-  a.dropdown-toggle:hover { cursor: pointer }
 
   a.brand {
     height: 1px;
@@ -19,6 +21,19 @@
     }
   }
 }
+
+#footer {
+  height: 35px;
+  .navbar-inner {
+    border-top-width: 0;
+  }
+  a.dropdown-toggle {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+/* end Navbar / Footer */
 
 .hero-unit {
   padding-top: 20px !important;

@@ -99,7 +99,7 @@ Then /^I (should|should not) see the text:? "([^"]*)"$/ do |expectation, text|
 end
 
 Then /^I (should|should not) see the text:? "([^"]*)" in the (thread|threads list|navbar)$/ do |expectation, text, class_tag|
-  within(:css, ".#{class_tag.gsub(/ /,'_')}") do
+  within(:css, (class_tag == 'navbar') ? '#navbar' : ".#{class_tag.gsub(' ', '_')}") do
     page.send(expectation.gsub(' ','_'),have_content(text))
   end
 end

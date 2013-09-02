@@ -1,12 +1,12 @@
-define [
-  'jquery'
-  'underscore'
-  'modules/base/view'
-  'globals'
-  'bootstrap'
-], ($, _, BaseView, globals) ->
+define (require) ->
+
+  _ = require('underscore')
+  BaseView = require('modules/base/view')
+  globals = require('globals')
+  require('bootstrap')
 
   class NavbarView extends BaseView
+    el: '#navbar'
     template: _.template '
       <div class="navbar-inner">
         <div class="container">
@@ -44,7 +44,6 @@ define [
           </ul>
         </div>
       </div>'
-    className: 'navbar navbar-fixed-top'
 
     render: ->
       @$el.html(@template(

@@ -12,8 +12,7 @@ define (require) ->
     beforeEach ->
       @submitFormSpy = sinon.spy(NewThreadView.prototype, 'submitForm')
 
-    afterEach ->
-      NewThreadView.prototype.submitForm.restore()
+    afterEach -> NewThreadView.prototype.submitForm.restore()
 
     describe 'with stubbed Thread model', ->
       beforeEach ->
@@ -26,6 +25,8 @@ define (require) ->
 
         it 'creates the new thread element', ->
           expect(@$el).toBe('#new-thread')
+
+        it 'assigns router', -> expect(@view.router).toEqual(router)
 
       describe 'rendering', ->
 

@@ -2,7 +2,7 @@ define [
   'jquery'
   'backbone'
   'globals'
-  'routers/app_router'
+  'routers/app-router'
   'collections/threads'
   'collections/links'
 ], ($, Backbone, globals, AppRouter, Threads, Links) ->
