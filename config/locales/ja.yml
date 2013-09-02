@@ -51,6 +51,8 @@ ja:
         start_a_thread: スレッドを立てる
         twitter_sign_in: Twitterでサインインする
         logout: ログアウト
+      footer:
+        language: 言語
 
   models:
     comment:

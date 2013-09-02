@@ -32,6 +32,19 @@ define (require) ->
       it 'returns the view object', ->
         expect(@view.render()).toEqual(@view)
 
+      describe 'English locale', ->
+
+        it 'renders "Language" text', ->
+          @view.render()
+          expect(@view.$('a.dropdown-toggle')).toHaveText('Language')
+
+      describe 'Japanese locale', ->
+
+        it 'renders "Language" text', ->
+          I18n.locale = 'ja'
+          @view.render()
+          expect(@view.$('a.dropdown-toggle')).toHaveText('言語')
+
     describe 'template', ->
       beforeEach -> @$el = @view.render().$el
 

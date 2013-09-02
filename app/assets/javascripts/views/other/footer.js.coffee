@@ -15,7 +15,7 @@ define (require) ->
             <ul class="nav secondary-nav pull-right">
               <li id="locale-switcher" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown">
-                  Language <b class="caret" />
+                  <%= t(".language") %> <b class="caret" />
                 </a>
                 <ul class="dropdown-menu">
                   <% _(locales).each(function(locale) { %>
@@ -41,7 +41,7 @@ define (require) ->
       super
 
     render: ->
-      @$el.html(@template(locales: I18n.availableLocales))
+      @$el.html(@template(t: I18n.scoped('views.other.footer').t, locales: I18n.availableLocales))
       @
 
     switchLocale: (e) ->
