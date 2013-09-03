@@ -15,10 +15,22 @@ define (require) ->
       @view.remove()
 
     describe 'template', ->
-      beforeEach -> @$el = $('<div></div>').html(@view.template())
-      it 'has a header div', -> expect(@$el).toContain('.modal-header')
-      it 'has a body div', -> expect(@$el).toContain('.modal-body')
-      it 'has a footer div', -> expect(@$el).toContain('.modal-footer')
+      beforeEach -> @view.render()
+
+      it 'has a modal-dialog div', ->
+        expect(@view.$el).toContain('.modal-dialog')
+
+      it 'has a modal-content div inside the modal-dialog div', ->
+        expect(@view.$('.modal-dialog')).toContain('.modal-content')
+
+      it 'has a header div', ->
+        expect(@view.$('.modal-content')).toContain('.modal-header')
+
+      it 'has a body div', ->
+        expect(@view.$('.modal-content')).toContain('.modal-body')
+
+      it 'has a footer div', ->
+        expect(@view.$('.modal-content')).toContain('.modal-footer')
 
     describe 'events', ->
 
@@ -58,7 +70,7 @@ define (require) ->
           @view.$el.addClass('some-class')
           @view.trigger('hide')
           expect(@$modal).not.toHaveClass('some-class')
-          expect(@$modal).toHaveClass('modal hide fade')
+          expect(@$modal).toHaveClass('modal fade')
 
       describe 'when close button is clicked', ->
         beforeEach -> @view.template = -> '<button class="close"></button>'
@@ -80,7 +92,7 @@ define (require) ->
           @view.$el.addClass('some-class')
           @view.$('button').click()
           expect(@$modal).not.toHaveClass('some-class')
-          expect(@$modal).toHaveClass('modal hide fade')
+          expect(@$modal).toHaveClass('modal fade')
 
     describe '#remove', ->
       it 'does not remove #modal element from page', ->

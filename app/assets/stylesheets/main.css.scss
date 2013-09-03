@@ -64,6 +64,11 @@
 
 /* Statbar underneath the title */
 
+#statbar {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .statbar {
   width: 100%;
   margin-left: auto;
@@ -142,6 +147,7 @@ ul.nav-pills {
 .thread {
   h1 {
     font-size: 450%;
+    font-weight: bold;
     margin-top: 0;
     margin-bottom: 0;
     line-height: 80px;
@@ -160,15 +166,14 @@ ul.nav-pills {
     @include make-row();
   }
   .link {
-    @include make-sm-column(3,0);
-    margin-left: 20px;
+    @include make-sm-column(3,20px);
     margin-bottom: 20px;
   }
   .link-inner {
     display: block;
     overflow: hidden;
-    height: $linkHeight;
-    line-height: $line-height-base;
+    height: $link-height;
+    line-height: $line-height-computed;
     @include border-radius(8px);
     @include box-shadow(#{0 1px 3px rgba(0,0,0,.055)});
     @include transition(all .2s ease-in-out);
@@ -184,7 +189,6 @@ ul.nav-pills {
       color: black;
       display: block;
       overflow: hidden;
-      height: $link-url-height;
       border-bottom: 2px solid white;
       padding: 10px 10px 5px;
       span.favicon {
@@ -220,6 +224,9 @@ ul.nav-pills {
       padding: 10px;
       margin-bottom: 15px;
     }
+    .preview img {
+      width: 100%;
+    }
     .title textarea {
       height: $link-description-height / 4;
     }
@@ -228,8 +235,8 @@ ul.nav-pills {
     }
     .add-link {
       text-align: center;
-      height: $linkHeight/2 + 50px;
-      padding-top: $linkHeight/2 - 50px;
+      height: $link-height/2 + 50px;
+      padding-top: $link-height/2 - 50px;
       display: block;
       text-decoration: none;
     }
@@ -244,7 +251,8 @@ ul.nav-pills {
 
     h3.title {
       font-size: $font-size-base * 1.4;
-      line-height: $line-height-base * 1.4;
+      font-weight: bold;
+      line-height: $line-height-computed * 1.4;
     }
 
     p.summary {
@@ -310,22 +318,7 @@ ul.nav-pills {
 
 /* -------- Thread header modal - */
 
-#thread-modal.header-modal {
-  width: 700px;
-  margin-left: -400px;
-  form {
-    text-align: left;
-    margin: 0;
-    input {
-      width: 80%;
-    }
-    textarea {
-      width: 80%;
-    }
-  }
-  label {
-    font-weight: bold;
-  }
+#thread-modal {
   #lang-switcher {
     float: left;
   }
@@ -374,11 +367,11 @@ ul.nav-pills {
     }
 
     .title textarea,.title .uneditable-input {
-      height: $line-height-base;
+      height: $line-height-computed;
     }
 
     .summary textarea,.summary .uneditable-input {
-      height: $line-height-base * 4;
+      height: $line-height-computed * 4;
     }
 
     label {
@@ -400,6 +393,14 @@ form .error {
 
 form .source-value {
   padding: 5px 0;
+}
+
+icon {
+  display: inline-block;
+}
+
+#wrap.container, #navbar > .container, #footer > .container {
+  width: 70%;
 }
 
 @import "translatable/in_place_field";

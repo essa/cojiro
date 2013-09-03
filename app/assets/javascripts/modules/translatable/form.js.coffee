@@ -17,11 +17,11 @@ define [
             <% _.each(items, function(item) { %>
               <% if (item.translated == true) { %>
                 <% _.each(item.html, function(html, locale) { %>
-                  <div class="control-group <%= item.key %>">
-                    <label class="control-label" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
+                  <div class="form-group <%= item.key %>">
+                    <label class="control-label col-lg-2" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
                         <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
-                    <div class="controls">
+                    <div class="col-lg-10">
                       <% if ((sourceValue = item.sourceValue) && (item.sourceLocale != locale)) { %>
                         <div class="help-block source-value"><%= sourceValue %></div>
                       <% } %>
@@ -31,7 +31,7 @@ define [
                   </div>
                 <% }); %>
               <% } else { %>
-                <div class="control-group <%= item.key %>">
+                <div class="form-group <%= item.key %>">
                   <label class="control-label" for="<%= item.cid %>-<%= item.key %>">
                     <%= item.label %>
                   </label>
@@ -106,11 +106,11 @@ define [
       sourceLocale = options.sourceLocale || ''
       pattern = switch(type)
         when 'Text'
-          '<input id=":cid-:key" name=":key" type="text" value=":value":placeholder:lang/>'
+          '<input class="form-control" id=":cid-:key" name=":key" type="text" value=":value":placeholder:lang/>'
         when 'TextArea'
-          '<textarea id=":cid-:key" name=":key" type="text" rows="3":placeholder:lang>:value</textarea>'
+          '<textarea class="form-control" id=":cid-:key" name=":key" type="text" rows="3":placeholder:lang>:value</textarea>'
         when 'Select'
-          fragment = ['<select id=":cid-:key" name=":key">']
+          fragment = ['<select class="form-control" id=":cid-:key" name=":key">']
           fragment = fragment.concat(_(options.values || {}).map (displayVal, val) ->
             selected = if (value == val) then ' selected="selected"' else ''
             '<option value="' + val + '"' + selected + '>' + displayVal + '</option>')

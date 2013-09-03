@@ -9,7 +9,7 @@
     = csrf_meta_tags
   %body
     %nav#navbar.navbar.navbar-default.navbar-fixed-top{ role: 'navigation' }
-    .container
+    #wrap.container
       #content.content
         - flash.each do |name, msg|
           = content_tag :div, '<a class="close" href="#">×</a>'.html_safe + msg, :class => "alert alert-#{name} #{name}", :id => "flash_#{name}", :'data-dismiss' => 'alert' if msg.is_a?(String)

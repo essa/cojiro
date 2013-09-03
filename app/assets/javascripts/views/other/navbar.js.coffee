@@ -24,7 +24,7 @@ define (require) ->
         <ul class="nav navbar-nav navbar-right">
           <% if (!!currentUser) { %>
             <li id="profile-menu" class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown">
+              <a class="dropdown-toggle clickable" data-toggle="dropdown">
                 @<%= currentUser.name %> <b class="caret" />
               </a>
               <ul class="dropdown-menu">

@@ -40,7 +40,7 @@ define (require) ->
 
     reset: () ->
       classes = @getClasses()
-      @$el.attr('class', 'modal hide fade')
+      @$el.attr('class', 'modal fade')
       @$el.addClass('in') if 'in' in classes
 
     # override default to avoid removing element from view

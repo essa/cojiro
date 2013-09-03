@@ -17,9 +17,9 @@ $statbar-text: #777777;
 $link-url-height: 22px;
 $link-description-height: 228px;
 // 22px for border and padding
-$linkHeight: $link-url-height + $link-description-height + 52px;
+$link-height: $link-url-height + $link-description-height + 28px;
 
-$heroUnitBackground: $white;
+$hero-unit-background: $white;
 
 $navbar-background: lighten($cojiro-light-blue, 50%);
 $navbar-background-highlight: $white;

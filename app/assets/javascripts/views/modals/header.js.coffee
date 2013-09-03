@@ -8,8 +8,9 @@ define [
     template: _.template '
       <button class="close"
               type="button"
+              data-dismiss="modal"
               aria-hidden="true">&times;</button>
-      <h3><%= title %></h3>'
+      <h4 class="modal-title"><%= title %></h4>'
 
     initialize: (options = {}) ->
       super(options)
