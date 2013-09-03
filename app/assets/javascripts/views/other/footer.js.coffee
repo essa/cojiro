@@ -11,9 +11,9 @@ define (require) ->
     el: '#footer'
     template: _.template '
         <div class="container">
-          <ul class="nav navbar-nav secondary-nav pull-right">
+          <ul class="nav navbar-nav navbar-right">
             <li id="locale-switcher" class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown">
+              <a class="dropdown-toggle clickable" data-toggle="dropdown">
                 <%= t(".language") %> <b class="caret" />
               </a>
               <ul class="dropdown-menu">

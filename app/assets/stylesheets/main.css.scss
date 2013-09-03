@@ -8,8 +8,8 @@
 }*/
 
 #navbar {
-  @include box-shadow(0 0 1px 1px $cojiro-light-gray !important);
-  border-bottom: 4px solid $cojiro-gray !important;
+//  @include box-shadow(0 0 1px 1px $cojiro-light-gray !important);
+//  border-bottom: 4px solid $cojiro-gray !important;
 //  background-image: none !important;
 
   a.brand {
@@ -21,16 +21,9 @@
       margin-top: 1px;
     }
   }
-}
 
-#footer {
-  height: 35px;
-  .navbar-inner {
-    border-top-width: 0;
-  }
-  a.dropdown-toggle {
-    padding-top: 8px;
-    padding-bottom: 8px;
+  .navbar-brand {
+    padding-bottom: 0;
   }
 }
 

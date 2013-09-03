@@ -8,13 +8,13 @@
     %base{ :href => root_url.gsub(/\?.*/,""), :locale => nil }
     = csrf_meta_tags
   %body
-    #navbar.navbar.navbar-fixed-top
+    %nav#navbar.navbar.navbar-default.navbar-fixed-top{ role: 'navigation' }
     .container
       #content.content
         - flash.each do |name, msg|
           = content_tag :div, '<a class="close" href="#">×</a>'.html_safe + msg, :class => "alert alert-#{name} #{name}", :id => "flash_#{name}", :'data-dismiss' => 'alert' if msg.is_a?(String)
         = yield
-    #footer.navbar.navbar-fixed-bottom
+    %nav#footer.navbar.navbar-default.navbar-fixed-bottom
     #modal.modal.fade
     #add-link-modal.modal.fade
     #thread-modal.modal.fade

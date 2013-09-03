@@ -21,7 +21,7 @@ define (require) ->
             </li>
           <% } %>
         </ul>
-        <ul class="nav secondary-nav pull-right">
+        <ul class="nav navbar-nav navbar-right">
           <% if (!!currentUser) { %>
             <li id="profile-menu" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">
