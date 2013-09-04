@@ -5,7 +5,6 @@ define (require) ->
   BaseView = require('modules/base/view')
   globals = require('globals')
   I18n = require('i18n')
-  require('bootstrap')
 
   class FooterView extends BaseView
     el: '#footer'

@@ -3,7 +3,6 @@ define (require) ->
   _ = require('underscore')
   BaseView = require('modules/base/view')
   globals = require('globals')
-  require('bootstrap')
 
   class NavbarView extends BaseView
     el: '#navbar'

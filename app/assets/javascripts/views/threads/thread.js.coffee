@@ -10,7 +10,6 @@ define (require) ->
   globals = require 'globals'
   AddLinkModal = require 'views/threads/add-link-modal'
   CommentLinkView = require 'views/comments/comment-link'
-  require 'bootstrap'
 
   class ThreadView extends BaseView
     template: _.template '

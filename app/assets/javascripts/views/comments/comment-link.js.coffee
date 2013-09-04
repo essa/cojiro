@@ -7,7 +7,6 @@ define [
   'views/comments/comment-link-content'
   'modules/base/view'
   'globals'
-  'bootstrap'
 ], ($, _, Backbone, Link, StatusMessageView, CommentLinkContentView, BaseView, globals) ->
 
   class CommentLinkView extends BaseView

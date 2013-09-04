@@ -5,7 +5,6 @@ define [
   'modules/base/view',
   'modules/channel'
   'i18n'
-  'bootstrap'
 ], ($, _, Backbone, BaseView, channel, I18n) ->
 
   class FieldForm extends BaseView

@@ -2,7 +2,6 @@ define (require) ->
 
   _ = require 'underscore'
   BaseView = require 'modules/base/view'
-  require 'bootstrap'
 
   class ModalView extends BaseView
     el: '#modal'
