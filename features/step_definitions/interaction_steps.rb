@@ -60,14 +60,14 @@ end
 
 Then /^the "([^"]*)" field should have a red box around it$/ do |name|
   id = page.first('label', text: name)['for']
-  control_group = find_by_id(id).first(:xpath, ".//ancestor::div[contains(@class,'control-group')]")
-  control_group[:class].should include('error')
+  form_group = find_by_id(id).first(:xpath, ".//ancestor::div[contains(@class,'form-group')]")
+  form_group[:class].should include('has-error')
 end
 
 Then /^the "([^"]*)" field should have an error message:? "([^"]*)"$/ do |name, msg|
   id = page.first('label', text: name)['for']
-  control_group = find_by_id(id).first(:xpath, ".//ancestor::div[contains(@class,'control-group')]")
-  control_group.first('.help-block').should have_text(msg)
+  form_group = find_by_id(id).first(:xpath, ".//ancestor::div[contains(@class,'form-group')]")
+  form_group.first('.help-block').should have_text(msg)
 end
 
 Then 'I should see a $tag with "$val" in the link' do |tag, val|
@@ -83,8 +83,16 @@ Then /^I should see a (submit|cancel) button in the link$/ do |type|
 end
 
 Then /^I should see an? (error|success|notice|info) message(?::? "(.*)")?$/ do |msg_type,message|
-  page.should have_css(".#{msg_type.gsub('notice','message')}", :text => message)
+  msg_type = msg_type.gsub('error', 'danger').gsub('notice', 'message')
+  page.should have_css(".#{msg_type}", :text => message)
 end
+
+Then /^I should see an error message(?::? "(.*)") on the "([^"]*)" field$/ do |message,name|
+  id = page.first('label', text: name)['for']
+  form_group = find_by_id(id).first(:xpath, ".//ancestor::div[contains(@class,'form-group')]")
+  form_group[:class].split(' ').should include('has-error')
+end
+
 
 Then /^I should see a link to "([^"]*)"$/ do |link_text|
   page.should have_link(link_text)

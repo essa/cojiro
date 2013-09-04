@@ -36,9 +36,8 @@ Feature: Create new thread
     When I create the following thread:
       | Title   | <title>   |
       | Summary | <summary> |
-    Then I should see an error message: "There were problems with the following fields:"
-    And I should see an error message: "<message>"
+    Then I should see an error message: "<message>" on the "<field>" field
 
     Examples:
-      | title   | summary                                             | language        | message |
-      |         | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. | English | can't be blank |
+      | title   | summary                                             | language        | message | field |
+      |         | The martial art of capoeira originated in Brazil, but is now popular all around the world. There is a particularly vibrant community in Japan. | English | can't be blank | Title |

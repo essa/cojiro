@@ -41,4 +41,4 @@ Feature: Edit thread
     And I click on the edit button in the statbar
     And I fill in "Title in English" with ""
     And I click "Save"
-    Then I should see an error message: "can't be blank"
+    Then I should see an error message "can't be blank" on the "Title" field

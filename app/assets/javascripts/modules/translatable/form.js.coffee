@@ -21,7 +21,7 @@ define [
                     <label class="control-label col-xs-2" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
                         <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
-                    <div class="col-xs-10">
+                    <div class="col-xs-9 col-xs-offset-1">
                       <% if ((sourceValue = item.sourceValue) && (item.sourceLocale != locale)) { %>
                         <div class="help-block source-value"><%= sourceValue %></div>
                       <% } %>
@@ -35,7 +35,7 @@ define [
                   <label class="control-label col-xs-2" for="<%= item.cid %>-<%= item.key %>">
                     <%= item.label %>
                   </label>
-                  <div class="col-xs-10">
+                  <div class="col-xs-9 col-xs-offset-1">
                     <%= item.html %>
                     <div class="help-block"></div>
                   </div>
