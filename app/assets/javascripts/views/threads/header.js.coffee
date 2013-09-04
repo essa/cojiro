@@ -8,12 +8,12 @@ define (require) ->
   class ThreadHeaderView extends BaseView
     template: _.template '
       <div class="row">
-        <div class="span12">
+        <div class="col-xs-12">
           <h1 id="title"></h1>
         </div>
       </div>
       <div class="row">
-        <div class="span12">
+        <div class="col-xs-12">
           <h2 id="summary"></h2>
         </div>
       </div>'

@@ -17,7 +17,7 @@ define (require) ->
       <div id="thread-header">
       </div>
       <div class="row">
-        <div class="col-md-12" id="statbar">
+        <div id="statbar">
         </div>
       </div>
       <div class="links">
