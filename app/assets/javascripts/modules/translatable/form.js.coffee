@@ -18,10 +18,10 @@ define [
               <% if (item.translated == true) { %>
                 <% _.each(item.html, function(html, locale) { %>
                   <div class="form-group <%= item.key %>">
-                    <label class="control-label col-lg-2" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
+                    <label class="control-label col-xs-2" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
                         <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
-                    <div class="col-lg-10">
+                    <div class="col-xs-10">
                       <% if ((sourceValue = item.sourceValue) && (item.sourceLocale != locale)) { %>
                         <div class="help-block source-value"><%= sourceValue %></div>
                       <% } %>
@@ -32,10 +32,10 @@ define [
                 <% }); %>
               <% } else { %>
                 <div class="form-group <%= item.key %>">
-                  <label class="control-label" for="<%= item.cid %>-<%= item.key %>">
+                  <label class="control-label col-xs-2" for="<%= item.cid %>-<%= item.key %>">
                     <%= item.label %>
                   </label>
-                  <div class="controls">
+                  <div class="col-xs-10">
                     <%= item.html %>
                     <div class="help-block"></div>
                   </div>
@@ -149,9 +149,9 @@ define [
         _(msg).each (value, key) -> self.renderError(msg[key], key, levels)
       else
         name = levels.join('-')
-        controlGroup = self.$el.find("[name='#{name}']").closest('.control-group')
-        controlGroup.addClass('error')
-        controlGroup.find('.help-block').text(msg)
+        formGroup = self.$el.find("[name='#{name}']").closest('.form-group')
+        formGroup.addClass('has-error')
+        formGroup.find('.help-block').text(msg)
 
     renderErrors: (errors) ->
       self = @

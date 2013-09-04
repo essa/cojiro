@@ -10,13 +10,11 @@ define [
 
   class FieldForm extends BaseView
     template: _.template '
-      <form class="in-place-form form-inline">
-        <div class="form-group">
-          <div class="editable-input">
-            <span class="input-small">
-              <<%= (type == "Text") ? "input" : "textarea" %> name="<%= field %>" type="text" class="field input-medium form-control" />
-            </span>
-          </div>
+      <form class="in-place-form">
+        <div class="editable-input">
+          <span class="input-small">
+            <<%= (type == "Text") ? "input" : "textarea" %> name="<%= field %>" type="text" class="field input-medium form-control" />
+          </span>
         </div>
       </form>
       <button class="save-button btn btn-primary btn-sm" type="submit">

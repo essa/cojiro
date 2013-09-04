@@ -8,13 +8,17 @@ define [
   class ThreadFilterView extends BaseView
     template: _.template '
       <fieldset>
-        <label class="control-label" for="thread-filter">
-          Show me:
-        </label>
-        <select id="thread-filter" class="col-md-3">
-          <option value="all">everything</option>
-          <option value="mine">threads that I started</option>
-        </select>
+        <div class="form-group">
+          <label class="col-xs-4 control-label" for="thread-filter">
+            Show me:
+          </label>
+          <div class="col-xs-8">
+            <select id="thread-filter" class="form-control">
+              <option value="all">everything</option>
+              <option value="mine">threads that I started</option>
+            </select>
+          </div>
+        </div>
       </fieldset>
     '
     className: 'commentheader form-horizontal'
