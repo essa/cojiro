@@ -55,11 +55,11 @@ define [
 
     renderTranslatableFields: ->
       @renderChildInto(@titleField, '.title')
-      if @type == 'link'
+      if @type == 'video'
+        @renderChildInto(@previewField, '.preview')
+      else
         @$('.preview').append($('<p class="summary"></p>'))
         @renderChildInto(@previewField, '.summary')
-      else
-        @renderChildInto(@previewField, '.preview')
 
     isClosed: => (@$('.editable-input').length is 0)
     isOpened: -> (@$('.editable-input').length is 1)
