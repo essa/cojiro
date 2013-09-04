@@ -151,9 +151,9 @@ ul.nav-pills {
   h1 {
     font-size: 450%;
     font-weight: bold;
+    line-height: $line-height-computed * 3.8;
     margin-top: 0;
     margin-bottom: 0;
-    line-height: 80px;
     margin-right: 20px;
     input, textarea {
       width: 100%;
@@ -162,6 +162,7 @@ ul.nav-pills {
   h2 {
     font-weight: normal;
     font-size: 200%;
+    line-height: $line-height-computed * 2;
     margin-bottom: 15px;
   }
   // based on bootstrap "thumbnail/thumbnails" classes
