@@ -111,8 +111,8 @@ define [
       @linkForm.trigger('changeLocale', selected.val())
       @linkForm.$('.title textarea').attr('readonly', false)
       @linkForm.$('.summary textarea').attr('readonly', false)
-      @linkForm.$('.control-group.source_locale').removeClass('error')
-      @linkForm.$('.control-group .help-block').empty()
+      @linkForm.$('.form-group.source_locale').removeClass('error')
+      @linkForm.$('.form-group .help-block').empty()
       @linkForm.$('.source_locale select option[value=""]').remove()
 
     next: () ->

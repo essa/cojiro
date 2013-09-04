@@ -88,7 +88,7 @@ define (require) ->
           error = attribute: 'required'
           @model.trigger('invalid', @, error)
           $field = @view.$el.findField('Attribute')
-          expect($field.closest('.control-group')).toHaveClass('error')
+          expect($field.closest('.form-group')).toHaveClass('has-error')
 
       describe 'changeLocale', ->
         beforeEach ->
@@ -106,8 +106,8 @@ define (require) ->
 
         it 'changes locale-related tags of form input fields', ->
           @view.trigger('changeLocale', 'ja')
-          expect(@view.$el).toContain('.control-group.title input#123-title-ja[name="title-ja"][type="text"][lang="ja"]')
-          expect(@view.$el).toContain('.control-group.title input#123-title-ja[name="title-ja"][type="text"][lang="ja"]')
+          expect(@view.$el).toContain('.title input#123-title-ja[name="title-ja"][type="text"][lang="ja"]')
+          expect(@view.$el).toContain('.title input#123-title-ja[name="title-ja"][type="text"][lang="ja"]')
           expect(@view.$el).not.toContain('#123-title-en')
           expect(@view.$el).not.toContain('#123-summary-en')
 
@@ -409,35 +409,35 @@ define (require) ->
 
         it 'renders fields', ->
           @view.render()
-          expect(@view.$el).toContain('.control-group.attribute input#123-attribute[name="attribute"][type="text"][value="some attribute"]')
+          expect(@view.$el).toContain('.form-group.attribute input#123-attribute[name="attribute"][type="text"][value="some attribute"]')
 
         it 'renders labels', ->
           @view.render()
-          expect(@view.$el).toContain('.control-group.attribute label[for="123-attribute"]:contains("My Attribute")')
+          expect(@view.$el).toContain('.form-group.attribute label[for="123-attribute"]:contains("My Attribute")')
 
       describe 'translated attributes', ->
 
         it 'renders fields for attribute translations specified in locales option', ->
           @view.render()
           # English
-          expect(@view.$el).toContain('.control-group.title input#123-title-en[name="title-en"][type="text"][value="Title in English"]')
-          expect(@view.$el).toContain('.control-group.summary textarea#123-summary-en[name="summary-en"][type="text"]:contains("Summary in English")')
+          expect(@view.$el).toContain('.form-group.title input#123-title-en[name="title-en"][type="text"][value="Title in English"]')
+          expect(@view.$el).toContain('.form-group.summary textarea#123-summary-en[name="summary-en"][type="text"]:contains("Summary in English")')
           # Japanese
-          expect(@view.$el).toContain('.control-group.title input#123-title-ja[name="title-ja"][type="text"][value="Title in Japanese"]')
-          expect(@view.$el).toContain('.control-group.summary textarea#123-summary-ja[name="summary-ja"][type="text"]:contains("")')
+          expect(@view.$el).toContain('.form-group.title input#123-title-ja[name="title-ja"][type="text"][value="Title in Japanese"]')
+          expect(@view.$el).toContain('.form-group.summary textarea#123-summary-ja[name="summary-ja"][type="text"]:contains("")')
           # French
-          expect(@view.$el).not.toContain('.control-group.title input#123-title-fr[name="title-fr"][type="text"][value="Title in French"]')
-          expect(@view.$el).not.toContain('.control-group.summary textarea#123-summary-fr[name="summary-fr"][type="text"]:contains("Summary in French")')
+          expect(@view.$el).not.toContain('.form-group.title input#123-title-fr[name="title-fr"][type="text"][value="Title in French"]')
+          expect(@view.$el).not.toContain('.form-group.summary textarea#123-summary-fr[name="summary-fr"][type="text"]:contains("Summary in French")')
 
         it 'renders value in source locale as help text for each translated attribute', ->
           @view.render()
-          $controlGroup = @view.$el.findField('Summary (en)').closest('.control-group')
-          expect($controlGroup).toContain('.help-block.source-value:contains("Summary in Japanese")')
+          $formGroup = @view.$el.findField('Summary (en)').closest('.form-group')
+          expect($formGroup).toContain('.help-block.source-value:contains("Summary in Japanese")')
 
         it 'does not value in source locale as help text for value in source locale', ->
           @view.render()
-          $controlGroup = @view.$el.findField('Summary (ja)').closest('.control-group')
-          expect($controlGroup).not.toContain('.help-block.source-value')
+          $formGroup = @view.$el.findField('Summary (ja)').closest('.form-group')
+          expect($formGroup).not.toContain('.help-block.source-value')
 
         it 'renders label if label is a value', ->
           @view.render()
@@ -544,15 +544,15 @@ define (require) ->
                   type: 'Text'
             @view.render()
 
-          it 'appends error class to control-group for each attribute in errors object', ->
+          it 'appends has-error class to form-group for each attribute in errors object', ->
             @view.renderErrors(attribute: 'required')
             $field = @view.$el.findField('Attribute')
-            expect($field.closest('.control-group')).toHaveClass('error')
+            expect($field.closest('.form-group')).toHaveClass('has-error')
 
           it 'inserts error msg into help block', ->
             @view.renderErrors(attribute: 'required')
             $field = @view.$el.findField('Attribute')
-            expect($field.closest('.controls').find('.help-block')).toHaveText('required')
+            expect($field.closest('div').find('.help-block')).toHaveText('required')
 
         describe 'translated (nested) attributes', ->
           beforeEach ->
@@ -563,12 +563,12 @@ define (require) ->
                   type: 'Text'
             @view.render()
 
-          it 'appends error class to control-group for each attribute in errors object', ->
+          it 'appends has-error class to form-group for each attribute in errors object', ->
             @view.renderErrors(title: en: 'required')
             $field = @view.$el.findField('Title')
-            expect($field.closest('.control-group')).toHaveClass('error')
+            expect($field.closest('.form-group')).toHaveClass('has-error')
 
           it 'inserts error msg into help block', ->
             @view.renderErrors(title: en: 'required')
             $field = @view.$el.findField('Title')
-            expect($field.closest('.controls').find('.help-block')).toHaveText('required')
+            expect($field.closest('div').find('.help-block')).toHaveText('required')
