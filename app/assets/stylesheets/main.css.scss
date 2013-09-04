@@ -317,6 +317,12 @@ ul.nav-pills {
 /* -------- Thread header modal - */
 
 #thread-modal {
+  .modal-body {
+    padding-bottom: 0;
+  }
+  .modal-dialog {
+    width: 70%;
+  }
   #lang-switcher {
     float: left;
   }

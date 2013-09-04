@@ -14,13 +14,12 @@ define (require) ->
   summarySelector = '.summary textarea'
 
   beforeEach ->
-    @nextSpy = sinon.spy(SubmitCommentLinkView.prototype, 'next')
+    @nextSpy = sinon.spy(SubmitCommentLinkView::, 'next')
     @user = new User(name: 'foo')
     @thread = new Thread
     @thread.collection = url: '/collection'
 
-  afterEach ->
-    @nextSpy.restore()
+  afterEach -> @nextSpy.restore()
 
   sharedExamples = (link_attributes) ->
 

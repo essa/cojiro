@@ -23,10 +23,6 @@ define (require) ->
 
       it 'returns the view object', -> expect(@view.render()).toEqual(@view)
 
-      it 'adds #header-modal class', ->
-        @view.render()
-        expect(@view.$el).toHaveClass('header-modal')
-
       it 'renders modal title', ->
         @view.render()
         expect(@view.$('.modal-header')).toHaveText(/Edit title and summary/)

@@ -75,13 +75,13 @@ define (require) ->
           expect(@view.$el).toContain('button.save-button')
 
         it 'renders submit button icon', ->
-          expect(@view.$('button.save-button')).toContain('icon.icon-ok')
+          expect(@view.$('button.save-button')).toContain('span.glyphicon.glyphicon-ok')
 
         it 'renders cancel button', ->
           expect(@view.$el).toContain('button.cancel-button')
 
         it 'renders cancel button icon', ->
-          expect(@view.$('button.cancel-button')).toContain('icon.icon-remove')
+          expect(@view.$('button.cancel-button')).toContain('span.glyphicon.glyphicon-remove')
 
       describe 'text field form elements', ->
         beforeEach ->
@@ -131,8 +131,7 @@ define (require) ->
         sinon.stub(@model, 'save').returns(null)
         @view.render()
 
-      afterEach ->
-        @model.save.restore()
+      afterEach -> @model.save.restore()
 
       describe 'when save button is clicked', ->
 
@@ -154,8 +153,7 @@ define (require) ->
           expect(@model.save).toHaveBeenCalledOnce()
 
       describe 'when form is submitted (by hitting enter while in form field)', ->
-        beforeEach ->
-          @$form = @view.$('form')
+        beforeEach -> @$form = @view.$('form')
 
         it 'calls saveField', ->
           @$form.submit()
@@ -209,12 +207,11 @@ define (require) ->
           [ 204, {'Content-Type': 'application/json'}, '' ]
         )
 
-      afterEach ->
-        @server.restore()
+      afterEach -> @server.restore()
 
       it 'destroys popover', ->
         @view.$('.editable-input')
-          .popover(content: 'dummy text', trigger: 'manual')
+          .popover(content: 'dummy text', trigger: 'manual', animation: false)
           .popover('show')
         @view.$('button.save-button').click()
         @server.respond()
