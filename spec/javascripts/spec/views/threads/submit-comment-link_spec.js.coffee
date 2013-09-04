@@ -14,13 +14,12 @@ define (require) ->
   summarySelector = '.summary textarea'
 
   beforeEach ->
-    @nextSpy = sinon.spy(SubmitCommentLinkView.prototype, 'next')
+    @nextSpy = sinon.spy(SubmitCommentLinkView::, 'next')
     @user = new User(name: 'foo')
     @thread = new Thread
     @thread.collection = url: '/collection'
 
-  afterEach ->
-    @nextSpy.restore()
+  afterEach -> @nextSpy.restore()
 
   sharedExamples = (link_attributes) ->
 
@@ -182,11 +181,11 @@ define (require) ->
               expect(@view.$('select[name="source_locale"] option[value=""]').length).toEqual(0)
 
             it 'removes any existing errors on source locale', ->
-              @view.$('.control-group.source_locale').addClass('error')
-              @view.$('.control-group .help-block').html('an error message')
+              @view.$('.form-group.source_locale').addClass('error')
+              @view.$('.form-group .help-block').html('an error message')
               @view.$('select').val('en').trigger('change')
-              expect(@view.$('.control-group.source_locale')).not.toHaveClass('error')
-              expect(@view.$('.control-group .help-block')).toBeEmpty()
+              expect(@view.$('.form-group.source_locale')).not.toHaveClass('error')
+              expect(@view.$('.form-group .help-block')).toBeEmpty()
 
           describe 'submitting comment and nested link form data', ->
             beforeEach ->
@@ -321,13 +320,13 @@ define (require) ->
 
               it 'renders error if source locale is not set', ->
                 @$nextButton.click()
-                expect(@view.$('.control-group.source_locale')).toHaveClass('error')
+                expect(@view.$('.form-group.source_locale')).toHaveClass('has-error')
 
               it 'renders error if title is blank', ->
                 @view.$('select').val('en')
                 @view.$('.title textarea').val('')
                 @$nextButton.click()
-                expect(@view.$('.control-group.title')).toHaveClass('error')
+                expect(@view.$('.form-group.title')).toHaveClass('has-error')
 
     describe 'for a link that is already registered', ->
       describe 'shared behavior', ->
@@ -358,19 +357,19 @@ define (require) ->
           beforeEach -> @view.render()
 
           describe 'source_locale', ->
-            it 'replaces source locale field with uneditable span tag', ->
-              expect(@view.$el).toContain('span.uneditable-input:contains("Japanese")')
+            it 'replaces source locale field with form-control-static p tag', ->
+              expect(@view.$el).toContain('p.form-control-static:contains("Japanese")')
 
             it 'does not render select tag', ->
               expect(@view.$el).not.toContain('select[name="source_locale"]')
 
           describe 'title', ->
-            it 'renders title as uneditable input', ->
-              expect(@view.$('.title .uneditable-input')).toHaveText('日本語のタイトル')
+            it 'renders title as static text', ->
+              expect(@view.$('.title p.form-control-static')).toHaveText('日本語のタイトル')
 
           describe 'summary', ->
-            it 'renders summary as uneditable input', ->
-              expect(@view.$('.summary .uneditable-input')).toHaveText('日本語のサマリ')
+            it 'renders summary as static text', ->
+              expect(@view.$('.summary p.form-control-static')).toHaveText('日本語のサマリ')
 
           describe 'flash message', ->
             it 'appends flash message', ->

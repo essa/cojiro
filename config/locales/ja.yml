@@ -16,11 +16,6 @@ ja:
         start_a_thread: スレッドを立てる
         submit: 登録する
         cancel: キャンセル
-        errors:
-          body: 次の項目を確認してください。
-          header:
-            one: ! '%{model}にエラーが発生しました。'
-            other: ! '%{model}に%{count}つのエラーが発生しました。'
       thread-list-item:
         started_by: "@%{username}が登録した"
         updated_ago: "<time class='timeago' datetime='%{datetime}'></time> 更新しました"
@@ -33,7 +28,7 @@ ja:
         blank: URL cannot be blank.
       submit-comment-link:
         already_registered: This link is already registered in cojiro. It was added by %{name} on %{date}.
-      header-modal:
+      modal:
         edit_title_and_summary: タイトルとサマリを編集する
         edit_for: Edit for %{languages}.
         save: 保存する

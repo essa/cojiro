@@ -163,7 +163,7 @@ define (require) ->
                 @server.respond()
                 @$form.submit()
                 @server.respond()
-                expect(@view.$('#flash-error:contains("This link has already been added")').length).toEqual(1)
+                expect(@view.$('#flash-danger:contains("This link has already been added")').length).toEqual(1)
 
             describe 'thread has no link with the same normalized url', ->
               beforeEach ->

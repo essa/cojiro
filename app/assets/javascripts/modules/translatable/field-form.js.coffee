@@ -5,25 +5,22 @@ define [
   'modules/base/view',
   'modules/channel'
   'i18n'
-  'bootstrap'
 ], ($, _, Backbone, BaseView, channel, I18n) ->
 
   class FieldForm extends BaseView
     template: _.template '
-      <form class="in-place-form form-inline">
-        <div class="control-group">
-          <div class="editable-input">
-            <span class="input-small">
-              <<%= (type == "Text") ? "input" : "textarea" %> name="<%= field %>" type="text" class="field input-medium" />
-            </span>
-          </div>
+      <form class="in-place-form">
+        <div class="editable-input">
+          <span class="input-small">
+            <<%= (type == "Text") ? "input" : "textarea" %> name="<%= field %>" type="text" class="field input-medium form-control" />
+          </span>
         </div>
       </form>
-      <button class="save-button btn btn-primary btn-small" type="submit">
-        <icon class="icon-ok icon-white" />
+      <button class="save-button btn btn-primary btn-sm" type="submit">
+        <span class="glyphicon glyphicon-ok glyphicon-white" />
       </button>
-      <button class="cancel-button btn btn-small" type="cancel">
-        <icon class="icon-remove" />
+      <button class="cancel-button btn btn-sm" type="cancel">
+        <span class="glyphicon glyphicon-remove" />
       </button>'
 
     buildEvents: () ->

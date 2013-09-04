@@ -27,7 +27,7 @@ define (require) ->
       it 'renders into #footer element', ->
         $('#footer').empty()
         @view.render()
-        expect($('#footer')).toContain('.navbar-inner')
+        expect($('#footer')).toContain('.container')
 
       it 'returns the view object', ->
         expect(@view.render()).toEqual(@view)

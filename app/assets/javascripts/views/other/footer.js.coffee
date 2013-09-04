@@ -5,30 +5,27 @@ define (require) ->
   BaseView = require('modules/base/view')
   globals = require('globals')
   I18n = require('i18n')
-  require('bootstrap')
 
   class FooterView extends BaseView
     el: '#footer'
     template: _.template '
-        <div class="navbar-inner">
-          <div class="container">
-            <ul class="nav secondary-nav pull-right">
-              <li id="locale-switcher" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown">
-                  <%= t(".language") %> <b class="caret" />
-                </a>
-                <ul class="dropdown-menu">
-                  <% _(locales).each(function(locale) { %>
-                    <li class="<% if (I18n.locale == locale) { %>disabled<% } %>">
-                      <a lang="<%= locale %>" class="locale clickable">
-                        <%= I18n.localeInWords(locale) %>
-                      </a>
-                    </li>
-                  <% }); %>
-                </ul>
-              </li>
-            </ul>
-          </div>
+        <div class="container">
+          <ul class="nav navbar-nav navbar-right">
+            <li id="locale-switcher" class="dropdown">
+              <a class="dropdown-toggle clickable" data-toggle="dropdown">
+                <%= t(".language") %> <b class="caret" />
+              </a>
+              <ul class="dropdown-menu">
+                <% _(locales).each(function(locale) { %>
+                  <li class="<% if (I18n.locale == locale) { %>disabled<% } %>">
+                    <a lang="<%= locale %>" class="locale clickable">
+                      <%= I18n.localeInWords(locale) %>
+                    </a>
+                  </li>
+                <% }); %>
+              </ul>
+            </li>
+          </ul>
         </div>
       '
 

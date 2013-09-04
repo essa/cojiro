@@ -84,7 +84,6 @@ define (require) ->
           it 'has default classes', ->
             @view.render()
             expect(@view.$el).toHaveClass('modal')
-            expect(@view.$el).toHaveClass('hide')
             expect(@view.$el).toHaveClass('fade')
 
           it 'has add-url class', ->
@@ -143,7 +142,6 @@ define (require) ->
           it 'has default classes', ->
             @view.render()
             expect(@view.$el).toHaveClass('modal')
-            expect(@view.$el).toHaveClass('hide')
             expect(@view.$el).toHaveClass('fade')
 
           it 'has submit-comment-link class', ->

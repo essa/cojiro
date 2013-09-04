@@ -4,11 +4,10 @@ define [
   'backbone'
   'modules/base/view'
   'modules/translatable/form'
-  'views/other/flash'
   'views/other/form-actions'
   'globals'
   'i18n'
-], ($, _, Backbone, BaseView, Form, FlashView, FormActionsView, globals, I18n) ->
+], ($, _, Backbone, BaseView, Form, FormActionsView, globals, I18n) ->
 
   class NewThreadView extends BaseView
     id: 'new-thread'
@@ -55,12 +54,4 @@ define [
               msg: I18n.t("views.threads.new-thread.thread_created")
             self.router.navigate(model.url(), true )
         )
-      else
-        @flash.leave() if @flash
-        @flash = new FlashView(
-          name: 'error'
-          msg: I18n.t('views.threads.new-thread.errors.body')
-        )
-        @renderChild(@flash)
-        @$el.prepend(@flash.el)
       return false

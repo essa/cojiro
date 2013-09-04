@@ -24,7 +24,7 @@ define (require) ->
       it 'renders into #navbar element', ->
         $('#navbar').empty()
         @view.render()
-        expect($('#navbar')).toContain('.navbar-inner')
+        expect($('#navbar')).toContain('.container')
 
       it 'returns the view object', ->
         expect(@view.render()).toEqual(@view)

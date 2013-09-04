@@ -167,6 +167,9 @@ define (require) ->
             @$modal.hide()
             @view.render()
             @$sandbox.append(@view.el)
+            @clock = sinon.useFakeTimers()
+
+          afterEach -> @clock.restore()
 
           it 'creates addLinkModal with a new link model', ->
             @view.$('a.add-link').click()
@@ -177,6 +180,7 @@ define (require) ->
             # ensure that modal is initially hidden -- bootstrap will do this
             expect(@$modal).not.toBeVisible()
             $('a.add-link').trigger('click')
+            @clock.tick(200)
             expect(@$modal).toBeVisible()
 
         describe 'leave', ->

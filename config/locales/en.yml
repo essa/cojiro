@@ -16,11 +16,6 @@ en:
         start_a_thread: Start a thread
         submit: Create thread
         cancel: Cancel
-        errors:
-          body: ! 'There were problems with the following fields:'
-          header:
-            one: 1 error prohibited this %{model} from being saved
-            other: ! '%{count} errors prohibited this %{model} from being saved'
       thread-list-item:
         started_by: Started by @%{username}
         updated_ago: "Updated <time class='timeago' datetime='%{datetime}'></time>"
@@ -33,7 +28,7 @@ en:
         blank: URL cannot be blank.
       submit-comment-link:
         already_registered: This link is already registered in cojiro. It was added by @%{name} on %{date}.
-      header-modal:
+      modal:
         edit_title_and_summary: Edit title and summary
         edit_for: Edit for %{languages}.
         save: Save

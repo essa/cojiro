@@ -17,11 +17,11 @@ define [
             <% _.each(items, function(item) { %>
               <% if (item.translated == true) { %>
                 <% _.each(item.html, function(html, locale) { %>
-                  <div class="control-group <%= item.key %>">
-                    <label class="control-label" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
+                  <div class="form-group <%= item.key %>">
+                    <label class="control-label col-xs-2" for="<%= item.cid %>-<%= item.key %>-<%= locale %>">
                         <%= _(item.label).isFunction() ? item.label(locale) : item.label %>
                     </label>
-                    <div class="controls">
+                    <div class="col-xs-9 col-xs-offset-1">
                       <% if ((sourceValue = item.sourceValue) && (item.sourceLocale != locale)) { %>
                         <div class="help-block source-value"><%= sourceValue %></div>
                       <% } %>
@@ -31,11 +31,11 @@ define [
                   </div>
                 <% }); %>
               <% } else { %>
-                <div class="control-group <%= item.key %>">
-                  <label class="control-label" for="<%= item.cid %>-<%= item.key %>">
+                <div class="form-group <%= item.key %>">
+                  <label class="control-label col-xs-2" for="<%= item.cid %>-<%= item.key %>">
                     <%= item.label %>
                   </label>
-                  <div class="controls">
+                  <div class="col-xs-9 col-xs-offset-1">
                     <%= item.html %>
                     <div class="help-block"></div>
                   </div>
@@ -106,11 +106,11 @@ define [
       sourceLocale = options.sourceLocale || ''
       pattern = switch(type)
         when 'Text'
-          '<input id=":cid-:key" name=":key" type="text" value=":value":placeholder:lang/>'
+          '<input class="form-control" id=":cid-:key" name=":key" type="text" value=":value":placeholder:lang/>'
         when 'TextArea'
-          '<textarea id=":cid-:key" name=":key" type="text" rows="3":placeholder:lang>:value</textarea>'
+          '<textarea class="form-control" id=":cid-:key" name=":key" type="text" rows="3":placeholder:lang>:value</textarea>'
         when 'Select'
-          fragment = ['<select id=":cid-:key" name=":key">']
+          fragment = ['<select class="form-control" id=":cid-:key" name=":key">']
           fragment = fragment.concat(_(options.values || {}).map (displayVal, val) ->
             selected = if (value == val) then ' selected="selected"' else ''
             '<option value="' + val + '"' + selected + '>' + displayVal + '</option>')
@@ -149,9 +149,9 @@ define [
         _(msg).each (value, key) -> self.renderError(msg[key], key, levels)
       else
         name = levels.join('-')
-        controlGroup = self.$el.find("[name='#{name}']").closest('.control-group')
-        controlGroup.addClass('error')
-        controlGroup.find('.help-block').text(msg)
+        formGroup = self.$el.find("[name='#{name}']").closest('.form-group')
+        formGroup.addClass('has-error')
+        formGroup.find('.help-block').text(msg)
 
     renderErrors: (errors) ->
       self = @

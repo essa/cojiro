@@ -5,24 +5,24 @@
 
 /* Colors variables */
 $white: #FFFFFF;
-$cojiroBlue: #04B5F2;
-$cojiroLightBlue: lighten($cojiroBlue, 40%);
-$cojiroGray: #aaa;
-$cojiroLightGray: #eee;
+$cojiro-blue: #04B5F2;
+$cojiro-light-blue: lighten($cojiro-blue, 40%);
+$cojiro-gray: #aaa;
+$cojiro-light-gray: #eee;
 
-$statbarBackground: $cojiroLightGray;
-$statbarBackgroundLight: #E5E5E5;
-$statbarText: #777777;
+$statbar-background: $cojiro-light-gray;
+$statbar-backgroundLight: #E5E5E5;
+$statbar-text: #777777;
 
-$linkUrlHeight: 22px;
-$linkDescriptionHeight: 228px;
+$link-url-height: 22px;
+$link-description-height: 233px;
 // 22px for border and padding
-$linkHeight: $linkUrlHeight + $linkDescriptionHeight + 52px;
+$link-height: $link-url-height + $link-description-height + 28px;
 
-$heroUnitBackground: $white;
+$hero-unit-background: $white;
 
-$navbarBackground: lighten($cojiroLightBlue, 50%);
-$navbarBackgroundHighlight: $white;
-$navbarBorder: $cojiroLightBlue;
+$navbar-background: lighten($cojiro-light-blue, 50%);
+$navbar-background-highlight: $white;
+$navbar-border: $cojiro-light-blue;
 
 @import "bootstrap";

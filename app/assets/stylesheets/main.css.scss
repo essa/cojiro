@@ -2,13 +2,14 @@
 
 /* Navbar / Footer */
 
+/*
 .navbar-inner {
   a.dropdown-toggle:hover { cursor: pointer }
-}
+}*/
 
-#navbar .navbar-inner {
-  @include box-shadow(0 0 1px 1px $cojiroLightGray !important);
-  border-bottom: 4px solid $cojiroGray !important;
+#navbar {
+//  @include box-shadow(0 0 1px 1px $cojiro-light-gray !important);
+//  border-bottom: 4px solid $cojiro-gray !important;
 //  background-image: none !important;
 
   a.brand {
@@ -20,16 +21,9 @@
       margin-top: 1px;
     }
   }
-}
 
-#footer {
-  height: 35px;
-  .navbar-inner {
-    border-top-width: 0;
-  }
-  a.dropdown-toggle {
-    padding-top: 8px;
-    padding-bottom: 8px;
+  .navbar-brand {
+    padding-bottom: 0;
   }
 }
 
@@ -37,11 +31,11 @@
 
 .hero-unit {
   padding-top: 20px !important;
-  padding-left: 20px !important;
-  padding-right: 20px !important;
   padding-bottom: 10px !important;
 
   h1 {
+    font-weight: bold;
+    font-size: 60px;
     margin-bottom: 20px !important;
   }
 }
@@ -63,12 +57,20 @@
 #thread-filter {
   display: block;
   float: right;
-  margin-left: 10px;
+  label {
+    font-weight: normal;
+  }
 }
 
 /* Thread show page */
 
 /* Statbar underneath the title */
+
+#statbar {
+  @include make-xs-column(12, 0);
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
 .statbar {
   width: 100%;
@@ -76,8 +78,8 @@
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 30px;
-  background-color: $statbarBackground; /* Old browsers */
-  @include background(linear-gradient(top, $statbarBackground 0%, $statbarBackground 100%));
+  background-color: $statbar-background; /* Old browsers */
+  @include background(linear-gradient(top, $statbar-background 0%, $statbar-background 100%));
   @include border-radius(6px);
 
   .nav {
@@ -141,13 +143,14 @@ ul.nav-pills {
 .stattext, .status {
   text-transform: uppercase;
   font-size: 90%;
-  color: $statbarText;
+  color: $statbar-text;
 }
 
 /* Thread area */
 .thread {
   h1 {
     font-size: 450%;
+    font-weight: bold;
     margin-top: 0;
     margin-bottom: 0;
     line-height: 80px;
@@ -163,54 +166,52 @@ ul.nav-pills {
   }
   // based on bootstrap "thumbnail/thumbnails" classes
   .links {
-    @include makeRow();
+    @include make-row();
   }
   .link {
-    @include makeColumn(3,0);
-    margin-left: 20px;
+    @include make-xs-column(3,20px);
     margin-bottom: 20px;
   }
   .link-inner {
     display: block;
     overflow: hidden;
-    height: $linkHeight;
-    line-height: $baseLineHeight;
+    height: $link-height;
+    line-height: $line-height-computed;
     @include border-radius(8px);
     @include box-shadow(#{0 1px 3px rgba(0,0,0,.055)});
     @include transition(all .2s ease-in-out);
-    background: $cojiroLightGray;
+    background: $cojiro-light-gray;
     a {
       text-decoration: none;
-      color: $black;
+      color: black;
     }
     a.add-link:hover {
       cursor: pointer;
     }
     .url {
-      color: $black;
+      color: black;
       display: block;
       overflow: hidden;
-      height: $linkUrlHeight;
       border-bottom: 2px solid white;
       padding: 10px 10px 5px;
       span.favicon {
         img {
           max-width: 16px;
           max-height: 16px;
-          margin-top: -3px;
+          margin-top: -1px;
         }
       }
       span.site {
-        font-size: $baseFontSize;
+        font-size: $font-size-base;
       }
       span.lang {
         text-transform: uppercase;
-        font-size: $baseFontSize * 0.8;
+        font-size: $font-size-base * 0.8;
         vertical-align: middle;
       }
     }
     .url:hover {
-      background: $cojiroGray;
+      background: $cojiro-gray;
     }
 
     a.description {
@@ -218,24 +219,26 @@ ul.nav-pills {
     }
     .description {
       display: block;
-      height: $linkDescriptionHeight;
-      border-bottom: 5px solid $cojiroLightGray;
+      height: $link-description-height;
     }
     .description, .add-link {
       overflow: hidden;
       padding: 10px;
       margin-bottom: 15px;
     }
+    .preview img {
+      width: 100%;
+    }
     .title textarea {
-      height: $linkDescriptionHeight / 4;
+      height: $link-description-height / 4;
     }
     .summary textarea {
-      height: $linkDescriptionHeight / 2;
+      height: $link-description-height / 2;
     }
     .add-link {
       text-align: center;
-      height: $linkHeight/2 + 50px;
-      padding-top: $linkHeight/2 - 50px;
+      height: $link-height/2 + 50px;
+      padding-top: $link-height/2 - 50px;
       display: block;
       text-decoration: none;
     }
@@ -249,8 +252,10 @@ ul.nav-pills {
     }
 
     h3.title {
-      font-size: $baseFontSize * 1.4;
-      line-height: $baseLineHeight * 1.4;
+      font-size: $font-size-base * 1.4;
+      font-weight: bold;
+      line-height: $line-height-computed * 1.4;
+      margin-top: 10px;
     }
 
     p.summary {
@@ -263,6 +268,7 @@ ul.nav-pills {
     .summary > .in-place-field > div {
       position: absolute;
       top: 80px;
+      margin-right: 10px;
     }
 
   }
@@ -291,7 +297,7 @@ ul.nav-pills {
   }
   // Add a hover state for linked versions only
   a.link:hover {
-    border-color: $linkColor;
+    border-color: $link-color;
     @include box-shadow(#{0 1px 4px rgba(0,105,214,.25)});
   }
 
@@ -308,29 +314,14 @@ ul.nav-pills {
   }
 }
 
-/* modal overrides */
-
-.modal-body {
-  padding: 20px 15px 0;
-}
-
 /* -------- Thread header modal - */
 
-#thread-modal.header-modal {
-  width: 700px;
-  margin-left: -400px;
-  form {
-    text-align: left;
-    margin: 0;
-    input {
-      width: 80%;
-    }
-    textarea {
-      width: 80%;
-    }
+#thread-modal {
+  .modal-body {
+    padding-bottom: 0;
   }
-  label {
-    font-weight: bold;
+  .modal-dialog {
+    width: 70%;
   }
   #lang-switcher {
     float: left;
@@ -354,11 +345,11 @@ ul.nav-pills {
 }
 
 #add-link-modal.submit-comment-link {
-  width: 900px;
-  margin-left: -450px;
+
+  .modal-dialog { width: 80%; }
 
   .modal-body {
-    max-height: 80%;
+//    max-height: 80%;
     padding-bottom: 0;
   }
 
@@ -372,29 +363,8 @@ ul.nav-pills {
   }
 
   form {
-
-    .title, .summary, .text {
-      textarea,.uneditable-input {
-        width: 90%;
-      }
-    }
-
-    .title textarea,.title .uneditable-input {
-      height: $baseLineHeight;
-    }
-
-    .summary textarea,.summary .uneditable-input {
-      height: $baseLineHeight * 4;
-    }
-
-    label {
-      font-weight: bold;
-    }
-
-    .uneditable-input {
-      color: #555555;
-      white-space: normal;
-    }
+    .title textarea { height: $line-height-computed * 2; }
+    .summary textarea { height: $line-height-computed * 4; }
   }
 }
 
@@ -406,6 +376,15 @@ form .error {
 
 form .source-value {
   padding: 5px 0;
+}
+
+icon {
+  display: inline-block;
+}
+
+.container {
+  max-width: none;
+  width: 940px;
 }
 
 @import "translatable/in_place_field";

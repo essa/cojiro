@@ -15,16 +15,20 @@ define [
 
   class SubmitCommentLinkView extends BaseView
     template: _.template '
-      <div class="modal-header"></div>
-      <div class="modal-body">
-        <div class="row-fluid hide">
-          <div class="span12" id="flash-box"></div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"></div>
+          <div class="modal-body">
+            <div class="row hide">
+              <div class="col-xs-12" id="flash-box"></div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12" id="link-details"></div>
+            </div>
+          </div>
+          <div class="modal-footer"></div>
         </div>
-        <div class="row-fluid">
-          <div class="span12" id="link-details"></div>
-        </div>
-      </div>
-      <div class="modal-footer"></div>'
+      </div>'
 
     buildEvents: () ->
       _(super).extend
@@ -39,7 +43,7 @@ define [
       @comment = new @Comment(link: @model)
       @commentForm = new Form model: @comment
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
-      @header = new @ModalHeaderView(title: 'Add <small>' + @model.getDisplayUrl() + '</small>')
+      @header = new @ModalHeaderView(title: 'Add &nbsp; <small>' + @model.getDisplayUrl() + '</small>')
       @ModalFooterView = options.ModalFooterView || ModalFooterView
       @footer = new @ModalFooterView(cancel: 'Back', submit: 'Add to this thread')
       @thread = options.thread
@@ -69,11 +73,11 @@ define [
       # link already exists
       if @model.getStatus()
         sourceLocale = @model.getSourceLocale()
-        form.$('.source_locale select').replaceWith($("<span class='uneditable-input'>#{I18n.t(sourceLocale)}</span>"))
+        form.$('.source_locale select').replaceWith($("<p class='form-control-static'>#{I18n.t(sourceLocale)}</span>"))
         title = @model.getAttrInSourceLocale('title')
-        form.$('.title textarea').replaceWith($("<div class='uneditable-input'>#{title}</div>"))
+        form.$('.title textarea').replaceWith($("<p class='form-control-static'>#{title}</div>"))
         summary = @model.getAttrInSourceLocale('summary')
-        form.$('.summary textarea').replaceWith($("<div class='uneditable-input'>#{summary}</div>"))
+        form.$('.summary textarea').replaceWith($("<p class='form-control-static'>#{summary}</div>"))
         @flash.leave() if @flash
         @flash = new FlashView(
           name: 'info'
@@ -85,7 +89,7 @@ define [
           close: false
         )
         @renderChild(@flash)
-        @$('.row-fluid.hide').removeClass('hide').find('#flash-box').html(@flash.el)
+        @$('.row.hide').removeClass('hide').find('#flash-box').html(@flash.el)
 
       # this is a new link
       else
@@ -107,8 +111,8 @@ define [
       @linkForm.trigger('changeLocale', selected.val())
       @linkForm.$('.title textarea').attr('readonly', false)
       @linkForm.$('.summary textarea').attr('readonly', false)
-      @linkForm.$('.control-group.source_locale').removeClass('error')
-      @linkForm.$('.control-group .help-block').empty()
+      @linkForm.$('.form-group.source_locale').removeClass('error')
+      @linkForm.$('.form-group .help-block').empty()
       @linkForm.$('.source_locale select option[value=""]').remove()
 
     next: () ->

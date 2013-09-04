@@ -11,23 +11,30 @@ define [
 
   class AddUrlView extends BaseView
     template: _.template '
-      <div class="modal-header"></div>
-      <div class="modal-body">
-        <div id="flash-box"></div>
-        <form class="form-inline">
-          <fieldset>
-            <label>URL:&nbsp;</label>
-            <div class="input-append">
-              <input class="span4" type="text" name="url" placeholder="<%= t(".enter_a_url") %>" />
-              <button type="submit" class="btn"><%= t(".go") %></button>
-            </div>
-          </fieldset>
-        </form>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"></div>
+          <div class="modal-body">
+            <div id="flash-box"></div>
+            <form class="form-inline">
+              <fieldset>
+                <label for="new-link-url" class="sr-only">URL:&nbsp;</label>
+                <div class="form-group col-xs-10">
+                  <input id="new-link-url" class="form-control" type="text" name="url" placeholder="<%= t(".enter_a_url") %>" />
+                </div>
+                <div class="form-group col-xs-2">
+                  <button type="submit" class="btn btn-primary"><%= t(".go") %></button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
       </div>'
 
     buildEvents: () ->
       _(super).extend
         'submit form' : 'addUrl'
+        'click button' : 'addUrl'
 
     initialize: (options = {}) ->
       super(options)
@@ -58,7 +65,6 @@ define [
               self.renderError(I18n.t('views.threads.add-url.already_added'))
             else
               self.next()
-        @.$('.modal-body').hide()
         @$el.append('<img id="loading" src="/images/loading.gif"></img>')
       else
         @renderError(I18n.t('views.threads.add-url.blank'))
@@ -67,7 +73,7 @@ define [
       @$('input[name="url"]').addClass('error')
       if msg?
         @flash = new FlashView(
-          name: 'error'
+          name: 'danger'
           msg: msg
           close: false
         )

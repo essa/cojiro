@@ -5,13 +5,15 @@ define [
 ], ($, _, BaseView) ->
 
   class FormActionsView extends BaseView
-    className: 'form-actions'
+    className: 'form-group row'
     template: _.template '
-      <button class="btn btn-primary">
-        <%= submit %>
-      </button>
-      <div class="btn">
-        <%= cancel %>
+      <div class="col-md-10 col-md-offset-2">
+        <button class="btn btn-primary">
+          <%= submit %>
+        </button>
+        <div class="btn btn-default">
+          <%= cancel %>
+        </div>
       </div>
     '
 

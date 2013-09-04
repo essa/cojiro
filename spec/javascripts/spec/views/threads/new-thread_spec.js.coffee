@@ -98,8 +98,7 @@ define (require) ->
 
         it 'removes any previous alert(s) and adds a new one', ->
           @$form.submit()
-          expect(@view.$('.alert')).toHaveLength(1)
-          expect(@view.$('#flash-error')).toHaveText(/There were problems/)
+          expect(@view.$('.has-error')).toHaveLength(1)
 
       describe 'after a successful save', ->
         beforeEach ->

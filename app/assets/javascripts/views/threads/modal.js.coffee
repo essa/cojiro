@@ -22,10 +22,10 @@ define (require) ->
       super(options)
       @form = new Form(model: @model)
       @header = new ModalHeaderView(
-        title: I18n.t('views.threads.header-modal.edit_title_and_summary'))
+        title: I18n.t('views.threads.modal.edit_title_and_summary'))
       @footer = new ModalFooterView(
-        cancel: I18n.t('views.threads.header-modal.cancel'),
-        submit: I18n.t('views.threads.header-modal.save')
+        cancel: I18n.t('views.threads.modal.cancel'),
+        submit: I18n.t('views.threads.modal.save')
       )
 
     render: ->
@@ -36,9 +36,7 @@ define (require) ->
       @renderFooter()
       @
 
-    renderTemplate: ->
-      @$el.html(@template())
-      @$el.addClass('header-modal')
+    renderTemplate: -> @$el.html(@template())
 
     renderHeader: -> @renderChildInto(@header, '.modal-header')
 
@@ -51,7 +49,7 @@ define (require) ->
       otherLocales = _(I18n.availableLocales).difference(@currentLocale)
       languages = _(otherLocales).map (locale) -> "<a lang='#{locale}' class='clickable'>#{I18n.t(locale)}</a>"
       @footer.$el.prepend(@languageSwitcher(
-        editFor: I18n.t('views.threads.header-modal.edit_for', languages: languages)))
+        editFor: I18n.t('views.threads.modal.edit_for', languages: languages)))
 
     changeLocale: (e) ->
       e.preventDefault()

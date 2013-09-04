@@ -56,7 +56,8 @@ beforeEach ->
   $.fn.findField = (labelText) ->
     (id = @.findLabel(labelText).attr('for')) && @.find('#' + id)
 
-  @createModal = (id) -> $("<div id='#{id}' class='modal hide fade'>")
+  # leaving out "fade" class so that we don't have to wait for it to appear
+  @createModal = (id) -> $("<div id='#{id}' class='modal'>")
 
   # create/destroy sandbox
   @createSandbox = () ->
