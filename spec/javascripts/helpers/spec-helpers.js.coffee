@@ -1,6 +1,7 @@
 beforeEach ->
 
   $ = require 'jquery'
+  _ = require 'underscore'
   Backbone = require 'backbone'
   I18n = require 'i18n'
 
@@ -29,6 +30,11 @@ beforeEach ->
       @message = -> "Expected request to have url " + expected + " but was " + actual
       actual is expected
     toBeAsync: -> @actual.async
+    toBeValid: ->
+      return true unless _(@actual.validate).isFunction()
+      errors = @actual.validate()
+      @message = -> "Expected no validation errors, but found errors."
+      errors is undefined or errors.length is 0
 
     # Backbone custom matchers
     toHaveMany: (key) -> @actual.get(key) instanceof Backbone.Collection

@@ -67,7 +67,7 @@ define [
       return link?
 
     validate: (attrs) ->
-      errors = super(attrs) || {}
+      errors = {}
 
       if (attrs.source_locale is '' or attrs.source_locale is null)
         errors.source_locale = I18n.t('errors.messages.blank')

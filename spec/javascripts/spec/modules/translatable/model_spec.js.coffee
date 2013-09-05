@@ -213,13 +213,5 @@ define (require) ->
 
     describe 'validations', ->
       beforeEach ->
-        @spy = sinon.spy()
-        @model.bind('invalid', @spy)
 
-      it 'returns false if valid', ->
-        expect(@model.validate()).toBeFalsy()
-
-      it 'returns errors if invalid', ->
-        sinon.stub(MyModel.prototype, 'validate').returns('title': 'is empty')
-        expect(@model.validate()).toEqual('title': 'is empty')
-        MyModel.prototype.validate.restore()
+      it 'valid by default', -> expect(@model).toBeValid()

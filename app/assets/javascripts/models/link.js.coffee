@@ -99,7 +99,7 @@ define [
     getComments: -> @get('comments')
 
     validate: (attrs) ->
-      errors = super(attrs) || {}
+      errors = {}
 
       if (attrs.url is '' or attrs.url is null)
         errors.url = I18n.t('errors.messages.blank')

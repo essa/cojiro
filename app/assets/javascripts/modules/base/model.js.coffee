@@ -7,7 +7,6 @@ define [
   class BaseModel extends Backbone.RelationalModel
 
     getId: -> @id
-    validate: (attrs) -> {}
 
     @use: (classes...) ->
       for cl in classes

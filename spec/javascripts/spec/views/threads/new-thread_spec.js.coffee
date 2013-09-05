@@ -107,7 +107,12 @@ define (require) ->
           @server.respondWith(
             'POST'
             '/collection'
-            @validResponse(id: '123')
+            @validResponse(_(@fixtures.Thread.valid)
+              .extend(
+                id: '123'
+                title: 'a title'
+                summary: 'a summary'
+              ))
           )
           sinon.stub(router, 'navigate')
           @view.$('form input').val('a title')
@@ -125,6 +130,11 @@ define (require) ->
 
           expect(spy).toHaveBeenCalledOnce()
           expect(spy).toHaveBeenCalledWith(@model)
+
+        it 'saves the user data for the thread', ->
+          @view.$('form').trigger('submit')
+          @server.respond()
+          expect(@model.getUserName()).toEqual('csasaki')
 
         it 'navigates to the new thread', ->
           @view.$('form').trigger('submit')

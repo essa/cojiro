@@ -10,5 +10,3 @@ define [
       val = @get(locale)
       val &&= val.trim()
       if val == '' then undefined else val
-
-    validate: (attrs) -> false

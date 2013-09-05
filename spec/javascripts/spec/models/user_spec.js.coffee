@@ -25,38 +25,43 @@ define (require) ->
         I18n.locale = 'ja'
         expect(@user.url()).toEqual('/ja/users/alice')
 
-    describe '#getName', ->
-      it 'is defined', -> expect(@user.getName).toBeDefined()
+    describe 'getters', ->
 
-      it 'returns name attribute of user associated with user', ->
-        stub = sinon.stub(@user, 'get').returns('csasaki')
+      describe '#getName', ->
+        it 'is defined', -> expect(@user.getName).toBeDefined()
 
-        expect(@user.getName()).toEqual('csasaki')
-        expect(stub).toHaveBeenCalledWith('name')
+        it 'returns name attribute of user associated with user', ->
+          stub = sinon.stub(@user, 'get').returns('csasaki')
 
-    describe '#getFullname', ->
-      it 'is defined', -> expect(@user.getFullname).toBeDefined()
+          expect(@user.getName()).toEqual('csasaki')
+          expect(stub).toHaveBeenCalledWith('name')
 
-      it 'returns fullname attribute of user associated with user', ->
-        stub = sinon.stub(@user, 'get').returns('Cojiro Sasaki')
+      describe '#getFullname', ->
+        it 'is defined', -> expect(@user.getFullname).toBeDefined()
 
-        expect(@user.getFullname()).toEqual('Cojiro Sasaki')
-        expect(stub).toHaveBeenCalledWith('fullname')
+        it 'returns fullname attribute of user associated with user', ->
+          stub = sinon.stub(@user, 'get').returns('Cojiro Sasaki')
 
-    describe '#getAvatarUrl', ->
-      it 'is defined', -> expect(@user.getAvatarUrl).toBeDefined()
+          expect(@user.getFullname()).toEqual('Cojiro Sasaki')
+          expect(stub).toHaveBeenCalledWith('fullname')
 
-      it 'returns URL of original version of user avatar associated with user', ->
-        stub = sinon.stub(@user, 'get').returns('http://www.example.com/csasaki.png')
+      describe '#getAvatarUrl', ->
+        it 'is defined', -> expect(@user.getAvatarUrl).toBeDefined()
 
-        expect(@user.getAvatarUrl()).toEqual('http://www.example.com/csasaki.png')
-        expect(stub).toHaveBeenCalledWith('avatar_url')
+        it 'returns URL of original version of user avatar associated with user', ->
+          stub = sinon.stub(@user, 'get').returns('http://www.example.com/csasaki.png')
 
-    describe '#getAvatarMiniUrl', ->
-      it 'is defined', -> expect(@user.getAvatarMiniUrl).toBeDefined()
+          expect(@user.getAvatarUrl()).toEqual('http://www.example.com/csasaki.png')
+          expect(stub).toHaveBeenCalledWith('avatar_url')
 
-      it 'returns URL of mini version of user avatar associated with user', ->
-        stub = sinon.stub(@user, 'get').returns('http://www.example.com/mini_csasaki.png')
+      describe '#getAvatarMiniUrl', ->
+        it 'is defined', -> expect(@user.getAvatarMiniUrl).toBeDefined()
 
-        expect(@user.getAvatarMiniUrl()).toEqual('http://www.example.com/mini_csasaki.png')
-        expect(stub).toHaveBeenCalledWith('avatar_mini_url')
+        it 'returns URL of mini version of user avatar associated with user', ->
+          stub = sinon.stub(@user, 'get').returns('http://www.example.com/mini_csasaki.png')
+
+          expect(@user.getAvatarMiniUrl()).toEqual('http://www.example.com/mini_csasaki.png')
+          expect(stub).toHaveBeenCalledWith('avatar_mini_url')
+
+    describe 'validation', ->
+      it 'is valid by default', -> expect(@user).toBeValid()

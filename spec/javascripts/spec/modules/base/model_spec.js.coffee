@@ -10,11 +10,6 @@ define (require) ->
     it 'extends Backbone.Model', ->
       expect(@baseModel instanceof Backbone.Model).toBeTruthy()
 
-    describe "#validate", ->
-
-      it 'returns an empty object', ->
-        expect(@baseModel.validate()).toEqual({})
-
     describe '#getId', ->
       it 'is defined', -> expect(@baseModel.getId).toBeDefined()
 
