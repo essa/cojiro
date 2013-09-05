@@ -9,8 +9,8 @@ ja:
         add_a_link: ネタを追加する
       statbar:
         links: ネタ
-        started: に登録した
-        updated: last updated
+        started: "このスレッドは%{date}に<br /><a href='#'>%{name}</a>に登録されました."
+        updated: "更新されました"
       new-thread:
         thread_created: "スレッドは作成されました。"
         start_a_thread: スレッドを立てる
