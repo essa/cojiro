@@ -9,7 +9,7 @@ en:
         add_a_link: Add a link
       statbar:
         links: links
-        started: started
+        started: "This thread was started on<br />%{date} by <a href='#'>%{name}</a>."
         updated: last updated
       new-thread:
         thread_created: "Thread successfully created."

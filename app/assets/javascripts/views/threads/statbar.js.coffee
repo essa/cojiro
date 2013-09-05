@@ -8,6 +8,13 @@ define (require) ->
   class StatbarView extends BaseView
     template: _.template '
       <ul class="nav nav-pills">
+        <li class="avatar">
+          <img src="<%= avatarUrl %>" />
+        </li>
+        <li>
+          <%= t(".started", { date: createdAt, name: fullname }) %>
+        </li>
+        <li class="sep"/>
         <li>
           <span class="stat">
             <%= numLinks %>
@@ -18,22 +25,6 @@ define (require) ->
           </span>
         </li>
         <li class="sep" />
-        <li>
-          <span class="date"><%= createdAt %></span>
-          <br />
-          <span class="status"><%= t(".started") %></span>
-        </li>
-        <li class="avatar">
-          <img src="<%= avatarUrl %>" />
-        </li>
-        <li class="byline">
-          <span class="name"><%= fullname %></span>
-          <br />
-          <a class="unstyled" href="#">
-            <span class="handle">@<%= name %></span>
-          </a>
-        </li>
-        <li class="sep"/>
         <li>
           <span class="date"><%= updatedAt %></span>
           <br />

@@ -57,13 +57,11 @@ define (require) ->
       it 'renders thread info', ->
         @view.render()
         expect(@view.$el).toBe(".statbar")
-        expect(@view.$el).toHaveText(/May 4, 2013\s*started/)
+        expect(@view.$el).toHaveText(/This thread was started on\s*May 4, 2013 by Cojiro Sasaki/)
         expect(@view.$el).toHaveText(/June 5, 2013\s*last updated/)
 
-      it 'renders user info', ->
+      it 'renders user avatar', ->
         @view.render()
-        expect(@view.$el).toHaveText(/@csasaki/)
-        expect(@view.$el).toHaveText(/Cojiro Sasaki/)
         expect(@view.$el).toContain('img[src="http://www.example.com/csasaki_mini.png"]')
 
       it 'renders number of links', ->
