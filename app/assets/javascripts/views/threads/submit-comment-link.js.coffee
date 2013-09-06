@@ -40,7 +40,7 @@ define [
       super(options)
       @linkForm = new Form model: @model
       @Comment = options.Comment || Comment
-      @comment = new @Comment(link: @model)
+      @comment = new @Comment
       @commentForm = new Form model: @comment
       @ModalHeaderView = options.ModalHeaderView || ModalHeaderView
       @header = new @ModalHeaderView(title: 'Add &nbsp; <small>' + @model.getDisplayUrl() + '</small>')
@@ -108,7 +108,7 @@ define [
     next: () ->
       self = @
       if @model.getStatus() || @model.set(@linkForm.serialize(), validate: true)
-        @comment.set('user', globals.currentUser)
+        @comment.set(link: @model, user: globals.currentUser)
         @comment.save _(@commentForm.serialize()).extend(thread: @thread),
           wait: true
           success: (model, resp) ->
