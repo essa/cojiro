@@ -21,76 +21,77 @@ define (require) ->
 
   afterEach -> @nextSpy.restore()
 
-  sharedExamples = (link_attributes) ->
-
-    beforeEach ->
-      @model = new Link(link_attributes)
-      @model.set('user', @user)
-      @view = new SubmitCommentLinkView(model: @model, thread: @thread)
-
-    describe 'initialization', ->
-      beforeEach -> @$el = @view.$el
-
-      it 'creates a div element for the form', ->
-        expect(@$el).toBe('div')
-
-      it 'assigns options.thread to thread', ->
-        expect(@view.thread).toEqual(@thread)
-
-    describe 'rendering', ->
-      beforeEach -> @view.render()
-
-      it 'returns the view object', ->
-        expect(@view.render()).toEqual(@view)
-
-      it 'renders modal title', ->
-        $el = @view.render().$el
-        expect($el.find('.modal-header')).toHaveText(/Add/)
-
-      it 'renders url in title', ->
-        @view.render()
-        expect(@view.$('.modal-header')).toContain('small:contains("http://ja.wikipedia.org/wiki/カポエイラ")')
-
-      it 'renders form with bootstrap form-horizontal class', ->
-        expect(@view.$('form')).toHaveClass('form-horizontal')
-
-      it 'renders modal confirm button', ->
-        @view.render()
-        expect(@view.$el).toContain('button.btn-primary:contains("Add to this thread")')
-
-      it 'renders modal back button', ->
-        @view.render()
-        expect(@view.$el).toContain('button.btn:contains("Back")')
-
-      describe 'source locale', ->
-        it 'renders source_locale label', ->
-          expect(@view.$el).toContainText('This link is in')
-
-      describe 'cleaning up', ->
-
-        it 'calls leave on any existing header', ->
-          header =
-            leave: ->
-            render: ->
-          sinon.spy(header, 'leave')
-          @view.header = header
-          @view.render()
-          @view.leave()
-          expect(header.leave).toHaveBeenCalledOnce()
-
-        it 'calls leave on any existing footer', ->
-          footer =
-            leave: ->
-            render: ->
-          sinon.spy(footer, 'leave')
-          @view.footer = footer
-          @view.render()
-          @view.leave()
-          expect(footer.leave).toHaveBeenCalledOnce()
-
-        xit 'calls leave on any existing form'
-
   describe 'SubmitCommentLinkView', ->
+
+    sharedExamples = (link_attributes) ->
+
+      beforeEach ->
+        @model = new Link(link_attributes)
+        @model.set('user', @user)
+        @view = new SubmitCommentLinkView(model: @model, thread: @thread)
+
+      describe 'initialization', ->
+        beforeEach -> @$el = @view.$el
+
+        it 'creates a div element for the form', ->
+          expect(@$el).toBe('div')
+
+        it 'assigns options.thread to thread', ->
+          expect(@view.thread).toEqual(@thread)
+
+      describe 'rendering', ->
+        beforeEach -> @view.render()
+
+        it 'returns the view object', ->
+          expect(@view.render()).toEqual(@view)
+
+        it 'renders modal title', ->
+          $el = @view.render().$el
+          expect($el.find('.modal-header')).toHaveText(/Add/)
+
+        it 'renders url in title', ->
+          @view.render()
+          expect(@view.$('.modal-header')).toContain('small:contains("http://ja.wikipedia.org/wiki/カポエイラ")')
+
+        it 'renders form with bootstrap form-horizontal class', ->
+          expect(@view.$('form')).toHaveClass('form-horizontal')
+
+        it 'renders modal confirm button', ->
+          @view.render()
+          expect(@view.$el).toContain('button.btn-primary:contains("Add to this thread")')
+
+        it 'renders modal back button', ->
+          @view.render()
+          expect(@view.$el).toContain('button.btn:contains("Back")')
+
+        describe 'source locale', ->
+          it 'renders source_locale label', ->
+            expect(@view.$el).toContainText('This link is in')
+
+        describe 'cleaning up', ->
+
+          it 'calls leave on any existing header', ->
+            header =
+              leave: ->
+              render: ->
+            sinon.spy(header, 'leave')
+            @view.header = header
+            @view.render()
+            @view.leave()
+            expect(header.leave).toHaveBeenCalledOnce()
+
+          it 'calls leave on any existing footer', ->
+            footer =
+              leave: ->
+              render: ->
+            sinon.spy(footer, 'leave')
+            @view.footer = footer
+            @view.render()
+            @view.leave()
+            expect(footer.leave).toHaveBeenCalledOnce()
+
+          xit 'calls leave on any existing form'
+
     describe 'for a link that is not yet registered', ->
       describe 'shared behavior', ->
         sharedExamples(

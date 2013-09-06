@@ -23,12 +23,16 @@ define [
       @SubmitCommentLinkView = options.SubmitCommentLinkView || SubmitCommentLinkView
       @Link = options.Link || Link
       self = @
-      channel.on 'modal:next', ->
-        self.step = self.step + 1
-        self.render()
-      channel.on 'modal:prev', ->
-        self.step = self.step - 1 unless self.step == 1
-        self.render()
+      channel.on 'modal:next', @renderNext, @
+      channel.on 'modal:prev', @renderPrev, @
+
+    renderNext: () ->
+      @step += 1
+      @render()
+
+    renderPrev: () ->
+      @step -= 1 unless @step == 1
+      @render()
 
     render: () ->
       @modal.leave() if @modal
@@ -58,8 +62,8 @@ define [
       @
 
     leave: () ->
-      channel.off('modal:next')
-      channel.off('modal:prev')
+      channel.off('modal:next', null, @)
+      channel.off('modal:prev', null, @)
       super
 
     showModal: () ->
