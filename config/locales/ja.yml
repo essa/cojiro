@@ -52,6 +52,8 @@ ja:
   models:
     comment:
       added_ago: "@%{name}が<time class='timeago' datetime='%{datetime}'>%{timeago}</time>に追加した"
+      comment: コメント
+
   modules:
     translatable:
       field-form:
@@ -87,7 +89,7 @@ ja:
       title_in_lang: "%{lang}のタイトル"
       summary: サマリ
       summary_in_lang: "%{lang}のサマリ"
-      source_locale: This link is in
+      source_locale: このリンクの言語は
 
   date:
     abbr_day_names:
