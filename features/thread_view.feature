@@ -20,7 +20,6 @@ Feature: View a thread
     When I go to the page for the thread
     Then I should see the text "Co-working spaces in Tokyo" in the thread
     And I should see the text "I want to write an article about the increased popularity of co-working spaces." in the thread
-    And I should see the text "csasaki" in the thread
     And I should see the text "Cojiro Sasaki" in the thread
     And I should see the text "July 8, 2012" in the thread
 

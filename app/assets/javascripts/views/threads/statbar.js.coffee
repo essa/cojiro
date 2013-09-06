@@ -11,7 +11,7 @@ define (require) ->
         <li class="avatar">
           <img src="<%= avatarUrl %>" />
         </li>
-        <li>
+        <li class="credit">
           <%= t(".started", { date: createdAt, name: fullname }) %>
         </li>
         <li class="sep"/>
