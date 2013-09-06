@@ -114,10 +114,6 @@ define (require) ->
             it 'renders source_locale drop-down', ->
               expect(@view.$el).toContain('select[name="source_locale"]')
 
-            it 'renders default option', ->
-              expect(@view.$el).toContain('option[value=""]')
-              expect(@view.$('option[value=""]')).toHaveText('Select a language')
-
             it 'renders an option for every locale in I18n.availableLocales', ->
               expect(@view.$el).toContain('option[value="en"]')
               expect(@view.$('option[value="en"]')).toHaveText('English')
@@ -129,9 +125,6 @@ define (require) ->
             it 'renders title field', ->
               expect(@view.$el).toContain(titleSelector)
 
-            it 'sets title field to readonly until source locale has been selected', ->
-              expect(@view.$(titleSelector)).toHaveAttr('readonly')
-
             it 'prefills title field with title from embed data', ->
               @model.getEmbedData = -> title: 'a title'
               @view.render()
@@ -141,9 +134,6 @@ define (require) ->
 
             it 'renders summary field', ->
               expect(@view.$el).toContain(summarySelector)
-
-            it 'sets summary field to readonly until source locale has been selected', ->
-              expect(@view.$(summarySelector)).toHaveAttr('readonly')
 
             it 'prefills summary field with description from embed data', ->
               @model.getEmbedData = -> description: 'a summary'
@@ -164,21 +154,6 @@ define (require) ->
               expect(@view.$('.summary label')).toHaveText('Summary')
               @view.$('select').val('ja').trigger('change')
               expect(@view.$('.summary label')).toHaveText('Summary in Japanese')
-
-            it 'removes readonly restriction on title field', ->
-              expect(@view.$(titleSelector)).toHaveAttr('readonly')
-              @view.$('select').val('ja').trigger('change')
-              expect(@view.$(titleSelector)).not.toHaveAttr('readonly')
-
-            it 'removes readonly restriction on summary field', ->
-              expect(@view.$(summarySelector)).toHaveAttr('readonly')
-              @view.$('select').val('ja').trigger('change')
-              expect(@view.$(summarySelector)).not.toHaveAttr('readonly')
-
-            it 'removes default source locale option', ->
-              expect(@view.$('select[name="source_locale"] option[value=""]').length).toEqual(1)
-              @view.$('select').val('ja').trigger('change')
-              expect(@view.$('select[name="source_locale"] option[value=""]').length).toEqual(0)
 
             it 'removes any existing errors on source locale', ->
               @view.$('.form-group.source_locale').addClass('error')
@@ -317,10 +292,6 @@ define (require) ->
               it 'makes no request', ->
                 @$nextButton.click()
                 expect(@server.requests.length).toEqual(0)
-
-              it 'renders error if source locale is not set', ->
-                @$nextButton.click()
-                expect(@view.$('.form-group.source_locale')).toHaveClass('has-error')
 
               it 'renders error if title is blank', ->
                 @view.$('select').val('en')

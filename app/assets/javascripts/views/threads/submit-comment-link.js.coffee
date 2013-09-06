@@ -91,12 +91,6 @@ define [
         @renderChild(@flash)
         @$('.row.hide').removeClass('hide').find('#flash-box').html(@flash.el)
 
-      # this is a new link
-      else
-        # set to readonly
-        form.$('.title textarea').attr('readonly', true)
-        form.$('.summary textarea').attr('readonly', true)
-
     renderCommentForm: () ->
       @renderChild(@commentForm)
       @commentForm.$el.addClass('comment-form')
@@ -107,13 +101,9 @@ define [
 
     updateForm: () ->
       selected = @linkForm.$('select option:selected')
-      locale = selected.text()
       @linkForm.trigger('changeLocale', selected.val())
-      @linkForm.$('.title textarea').attr('readonly', false)
-      @linkForm.$('.summary textarea').attr('readonly', false)
       @linkForm.$('.form-group.source_locale').removeClass('error')
       @linkForm.$('.form-group .help-block').empty()
-      @linkForm.$('.source_locale select option[value=""]').remove()
 
     next: () ->
       self = @

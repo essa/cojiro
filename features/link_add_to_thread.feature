@@ -20,13 +20,6 @@ Feature: Add link to thread
     And I am on the thread "Capoeira in Japan and around the world"
 
   @vcr
-  Scenario: Add link with no source locale
-    Given I have added the link "http://youtu.be/Z8xxgFpK-NM"
-    When I click on "Add to this thread"
-    Then the "This link is in" field should have a red box around it
-    Then the "This link is in" field should have an error message "can't be blank"
-
-  @vcr
   Scenario: Add link with no changes
     Given I have added the link "http://youtu.be/Z8xxgFpK-NM"
     When I select "English" from the drop-down list
