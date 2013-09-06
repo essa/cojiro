@@ -19,6 +19,7 @@ Feature: Create new thread
     And I wait for the AJAX call to finish
     Then I should see the new thread "Capoeira in Japan and around the world"
     And I should see that the thread was created on "June 5, 2013"
+    And I should see that the thread was created by "Cojiro Sasaki"
     And I should see that the thread was updated on "June 5, 2013"
     And I should see a success message: "Thread successfully created."
 

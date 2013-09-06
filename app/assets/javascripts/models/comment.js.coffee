@@ -30,7 +30,7 @@ define [
     schema: ->
       text:
         type: 'TextArea'
-        label: 'Comment'
+        label: I18n.t('models.comment.comment')
 
     getText: -> @getAttr('text')
     getLink: -> @get('link')

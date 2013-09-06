@@ -61,8 +61,7 @@ define [
       source_locale:
         type: 'Select'
         label: I18n.t('attributes.link.source_locale')
-        values: _('': 'Select a language').extend(
-          _.object(_(I18n.availableLocales).map (locale) -> [locale, I18n.t(locale)]))
+        values: _.object(_(I18n.availableLocales).map (locale) -> [locale, I18n.t(locale)])
       title:
         type: 'TextArea'
         label: (locale) ->
