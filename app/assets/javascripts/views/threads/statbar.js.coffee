@@ -20,7 +20,7 @@ define (require) ->
             <%= numLinks %>
           </span>
           <br />
-          <span class="stattext">
+          <span class="status">
             <%= t(".links") %>
           </span>
         </li>
