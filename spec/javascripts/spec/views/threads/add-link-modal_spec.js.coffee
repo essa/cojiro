@@ -229,3 +229,10 @@ define (require) ->
           @view.leave()
           channel.trigger('modal:next')
           expect(@view.render).not.toHaveBeenCalled()
+
+        it 'does not unbind channel handlers for other contexts', ->
+          eventSpy = sinon.spy()
+          channel.on('modal:next', eventSpy, @)
+          @view.leave()
+          channel.trigger('modal:next')
+          expect(eventSpy).toHaveBeenCalledOnce()
