@@ -10,10 +10,14 @@ span.untranslated {
 }
 
 .editable-input, .in-place-form {
-  display: inline-block;
+  display: block;
   margin: 0;
   font-weight: normal;
   font-size: 14px;
+}
+
+.in-place-form-outer .form-buttons {
+  margin: 5px 0;
 }
 
 .in-place-form h3.popover-title {

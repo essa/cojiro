@@ -16,12 +16,15 @@ define [
           </span>
         </div>
       </form>
-      <button class="save-button btn btn-primary btn-sm" type="submit">
-        <span class="glyphicon glyphicon-ok glyphicon-white" />
-      </button>
-      <button class="cancel-button btn btn-sm" type="cancel">
-        <span class="glyphicon glyphicon-remove" />
-      </button>'
+      <div class="form-buttons">
+        <button class="save-button btn btn-primary btn-sm" type="submit">
+          <span class="glyphicon glyphicon-ok glyphicon-white" />
+        </button>
+        <button class="cancel-button btn btn-sm" type="cancel">
+          <span class="glyphicon glyphicon-remove" />
+        </button>
+      </div>'
+    className: 'in-place-form-outer'
 
     buildEvents: () ->
       _(super).extend
