@@ -86,11 +86,18 @@ define (require) ->
       describe '#getLinks', ->
         beforeEach ->
           @link = new Link(title: en: 'link #1')
-          @thread.set comments: [ link: @link ]
 
         it 'returns array of links for this thread', ->
+          @thread.set comments: [ link: @link ]
           links = @thread.getLinks()
-          expect(links).toEqual( [ @link ] )
+          expect(links.length).toEqual(1)
+          expect(links[0]).toBe(@link)
+
+        it 'filters out falsy-valued links', ->
+          @thread.set comments: [ { link: null}, { link: undefined}, { link: @link } ]
+          links = @thread.getLinks()
+          expect(links.length).toEqual(1)
+          expect(links[0]).toBe(@link)
 
     describe '#hasLink', ->
       beforeEach ->

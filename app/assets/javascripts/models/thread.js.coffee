@@ -60,7 +60,7 @@ define [
     getUser: -> @get('user')
     getUserName: -> @getUser().getName()
     getComments: -> @get('comments')
-    getLinks: -> @getComments().pluck('link')
+    getLinks: -> _(@getComments().pluck('link')).compact()
 
     hasLink: (url) ->
       link = _(@getLinks()).find (link) -> link.getUrl() is url
