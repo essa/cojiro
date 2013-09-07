@@ -103,6 +103,10 @@ class Link < ActiveRecord::Base
     self.class.embedly_api
   end
 
+  def has_comments?
+    persisted? && comments.exists?
+  end
+
   private
 
   def default_values

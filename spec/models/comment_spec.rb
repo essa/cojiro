@@ -52,8 +52,15 @@ describe Comment do
     # Note: it's important to test updating link translated attributes here
     context 'link with url already exists' do
       let!(:link) { FactoryGirl.create(:link, :with_valid_data) }
+      let(:alice) { FactoryGirl.create(:alice) }
+      let(:bob) { FactoryGirl.create(:bob) }
       let(:comment) do
-        comment = FactoryGirl.build(:comment)
+        comment = FactoryGirl.build(:comment, user: alice)
+        comment.link = FactoryGirl.build(:link_without_user, url: link.url, source_locale: 'en', title: 'foo')
+        comment
+      end
+      let(:other_comment) do
+        comment = FactoryGirl.build(:comment, user: bob)
         comment.link = FactoryGirl.build(:link_without_user, url: link.url, source_locale: 'en', title: 'foo')
         comment
       end
@@ -83,10 +90,17 @@ describe Comment do
         c.link.translation_for(:ja).title.should == 'タイトル'
       end
 
-      it 'sets user_id from comment' do
+      it 'sets user_id from comment if link has not yet been added to any thread (has no comments)' do
         comment.save
         comment.reload
-        comment.link.user_id.should == comment.user_id
+        comment.link.user_id.should == alice.id
+      end
+
+      it 'does not set user_id from comment if link has already been added to a thread (has at least one comment)' do
+        other_comment.save
+        comment.save
+        comment.reload
+        comment.link.user_id.should == bob.id
       end
 
       it 'sets link_id' do
