@@ -152,4 +152,42 @@ describe Cothread do
       }.should be_empty
     end
   end
+
+  describe '#participants' do
+    before do
+      # alice and bob are our two users
+      @alice = FactoryGirl.create(:alice)
+      @alices_cothread = FactoryGirl.create(:cothread, user: @alice)
+      @bob = FactoryGirl.create(:bob)
+      @bobs_cothread = FactoryGirl.create(:cothread, user: @bob)
+
+      # two more users
+      @csasaki = FactoryGirl.create(:csasaki)
+      @user = FactoryGirl.create(:user)
+
+      # bob has added @bobs_link to @bobs_thread
+      @bobs_link = FactoryGirl.create(:link, user: @bob)
+      @bobs_comment = FactoryGirl.create(:comment, link: @bobs_link, user: @bob, cothread: @bobs_cothread)
+
+      # now csasaki adds the same link to alice's thread
+      @csasakis_comment = FactoryGirl.create(:comment, link: @bobs_link, user: @csasaki, cothread: @alices_cothread)
+
+      @alices_cothread.reload
+    end
+    let(:participants) { @alices_cothread.participants }
+
+    it 'returns all users who have added comments or links to the thread' do
+      participants.should include(@bob)
+      participants.should include(@csasaki)
+    end
+
+    it 'does not include the creator of the thread itself' do
+      participants.size.should == 2
+      participants.should_not include(@alice)
+    end
+
+    it 'does not include other users' do
+      participants.should_not include(@user)
+    end
+  end
 end

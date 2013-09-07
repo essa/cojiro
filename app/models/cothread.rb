@@ -27,6 +27,12 @@ class Cothread < ActiveRecord::Base
                         :include => [ :user, :comments ]))
   end
 
+  def participants
+    users_who_added_links = User.includes(links: :comments).where(comments: { cothread_id: id })
+    users_who_added_comments = User.includes(:comments).where(comments: { cothread_id: id })
+    (users_who_added_links + users_who_added_comments).uniq
+  end
+
   private
 
   def default_values
