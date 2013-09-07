@@ -33,6 +33,10 @@ class Cothread < ActiveRecord::Base
     (users_who_added_links + users_who_added_comments).uniq
   end
 
+  def participants_names
+    participants.map(&:name)
+  end
+
   private
 
   def default_values

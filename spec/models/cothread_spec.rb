@@ -190,4 +190,19 @@ describe Cothread do
       participants.should_not include(@user)
     end
   end
+
+  describe '#participants_names' do
+    before do
+      @cothread = FactoryGirl.create(:cothread)
+      @alice = FactoryGirl.create(:alice)
+      @bob = FactoryGirl.create(:bob)
+      @cothread.stub(:participants).and_return([@alice, @bob])
+    end
+
+    it 'returns names of all participants of a thread' do
+      @cothread.participants_names.size.should == 2
+      @cothread.participants_names.should include(@alice.name)
+      @cothread.participants_names.should include(@bob.name)
+    end
+  end
 end
