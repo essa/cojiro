@@ -24,17 +24,13 @@ class Cothread < ActiveRecord::Base
 
   def serializable_hash(options = {})
     super(options.merge(:only => [:id, :created_at, :updated_at, :source_locale],
-                        :include => [ :user, :comments ]))
+                        :include => [ :user, :comments, :participants ]))
   end
 
   def participants
     users_who_added_links = User.includes(links: :comments).where(comments: { cothread_id: id })
     users_who_added_comments = User.includes(:comments).where(comments: { cothread_id: id })
     (users_who_added_links + users_who_added_comments).uniq
-  end
-
-  def participants_names
-    participants.map(&:name)
   end
 
   private
