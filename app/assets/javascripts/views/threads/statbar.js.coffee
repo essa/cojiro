@@ -30,6 +30,8 @@ define (require) ->
           <br />
           <span class="status"><%= t(".updated") %></span>
         </li>
+        <li class="sep" />
+        <li class="participants" />
         <% if (!!currentUser) { %>
           <li class="controls pull-right">
             <a id="thread-edit" class="clickable"><icon class="icon-glyphicons-edit"></a>
@@ -65,7 +67,13 @@ define (require) ->
         name: @model.getUserName()
         currentUser: globals.currentUser
       ))
+      @renderParticipants()
       @
+
+    renderParticipants: () ->
+      self = @
+      @model.getParticipants().each (p) ->
+        self.$('.participants').append "<img src='#{p.getAvatarMiniUrl()}' />"
 
     renderModal: -> @renderChild(@modal)
 

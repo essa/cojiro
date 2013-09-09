@@ -14,6 +14,13 @@ define (require) ->
           name: "csasaki"
           fullname: "Cojiro Sasaki"
           avatar_mini_url: "http://www.example.com/csasaki_mini.png"
+        participants: [
+            name: 'alice'
+            avatar_mini_url: 'http://www.example.com/alice.png'
+          ,
+            name: 'bob'
+            avatar_mini_url: 'http://www.example.com/bob.png'
+        ]
         comments: [
             text: 'comment 1'
             link: url: 'http://www.foo.com'
@@ -63,6 +70,11 @@ define (require) ->
       it 'renders user avatar', ->
         @view.render()
         expect(@view.$el).toContain('img[src="http://www.example.com/csasaki_mini.png"]')
+
+      it 'renders avatars of participants', ->
+        @view.render()
+        expect(@view.$('.participants')).toContain('img[src="http://www.example.com/alice.png"]')
+        expect(@view.$('.participants')).toContain('img[src="http://www.example.com/bob.png"]')
 
       it 'renders number of links', ->
         @view.render()
