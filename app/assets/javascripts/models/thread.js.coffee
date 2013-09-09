@@ -65,6 +65,7 @@ define [
     getUserName: -> @getUser().getName()
     getComments: -> @get('comments')
     getLinks: -> @getComments().pluck('link')
+    getParticipants: -> @get('participants')
 
     hasLink: (url) ->
       link = _(@getLinks()).find (link) -> link.getUrl() is url

@@ -8,6 +8,7 @@ define (require) ->
   Link = require('models/link')
   Comment = require('models/comment')
   Comments = require('collections/comments')
+  User = require('models/user')
   TranslatableAttribute = require('modules/translatable/attribute')
   sharedExamples = require('spec/models/shared')
 
@@ -91,6 +92,18 @@ define (require) ->
         it 'returns array of links for this thread', ->
           links = @thread.getLinks()
           expect(links).toEqual( [ @link ] )
+
+      describe '#getParticipants', ->
+        beforeEach ->
+          @alice = new User(name: 'alice')
+          @bob = new User(name: 'bob')
+          @thread.set 'participants', [ @alice, @bob ]
+
+        it 'returns collection of participants for this thread', ->
+          participants = @thread.getParticipants()
+          expect(participants instanceof Backbone.Collection).toBeTruthy()
+          expect(participants.at(0)).toBe(@alice)
+          expect(participants.at(1)).toBe(@bob)
 
     describe '#hasLink', ->
       beforeEach ->
