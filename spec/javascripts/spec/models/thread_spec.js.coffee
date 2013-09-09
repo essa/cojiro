@@ -209,14 +209,13 @@ define (require) ->
             expect(@spy).not.toHaveBeenCalled()
 
       describe 'parsing response data', ->
-        beforeEach ->
+
+        it 'parses the thread from the server', ->
           @fixture = @fixtures.Thread.valid
           @server.respondWith(
             'GET',
             '/collection',
             @validResponse(@fixture))
-
-        it 'should parse the thread from the server', ->
           @thread.fetch()
           @server.respond()
           expect(@thread.getAttr('title'))
@@ -229,3 +228,19 @@ define (require) ->
             .toEqual(@thread.toDateStr(@fixture.updated_at))
           expect(@thread.getSourceLocale())
             .toEqual(@fixture.source_locale)
+
+        describe 'participants', ->
+          beforeEach ->
+            @fixture = @fixtures.Thread.valid
+            @server.respondWith(
+              'GET',
+              '/collection',
+              @validResponse(@fixture))
+            @thread.fetch()
+            @server.respond()
+
+          it 'sets participants correctly', ->
+            expect(@thread.get('participants').at(0).get('name')).toEqual('alice')
+            expect(@thread.get('participants').at(0).get('fullname')).toEqual('Alice in Wonderland')
+            expect(@thread.get('participants').at(1).get('name')).toEqual('bob')
+            expect(@thread.get('participants').at(1).get('fullname')).toEqual('Bob the Builder')

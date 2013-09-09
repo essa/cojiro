@@ -24,6 +24,10 @@ define [
           includeInJSON: 'name'
       ,
         type: Backbone.HasMany
+        key: 'participants'
+        relatedModel: User
+      ,
+        type: Backbone.HasMany
         key: 'comments'
         relatedModel: Comment
         collectionType: Comments

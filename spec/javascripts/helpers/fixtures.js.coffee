@@ -14,6 +14,14 @@ beforeEach ->
         "user":
           "name":"csasaki"
           "fullname":"Cojiro Sasaki"
+        'participants':
+          [
+              'name': 'alice'
+              'fullname': 'Alice in Wonderland'
+            ,
+              'name': 'bob'
+              'fullname': 'Bob the Builder'
+          ]
       valid_in_ja:
         "created_at":"2010-07-20T12:20:00Z"
         "updated_at":"2010-09-10T10:20:00Z"
