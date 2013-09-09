@@ -150,7 +150,28 @@ describe Comment do
     describe 'cothread' do
       it { should validate_presence_of(:cothread_id) }
       it { should validate_presence_of(:user_id) }
-      pending { should validate_uniqueness_of(:cothread_id).scoped_to(:link_id) }
+
+      describe 'uniqueness validation' do
+        let!(:cothread) { FactoryGirl.create(:cothread) }
+        let!(:link) { FactoryGirl.create(:link) }
+
+        it 'is valid if no other comment on the same thread has the same link' do
+          comment = FactoryGirl.build(:comment, link: link, cothread: cothread)
+          comment.should be_valid
+        end
+
+        it 'is valid if there are other comments on the same thread with no links' do
+          FactoryGirl.create(:comment, cothread: cothread)
+          comment = FactoryGirl.build(:comment, cothread: cothread)
+          comment.should be_valid
+        end
+
+        it 'is not valid if another comment on the same thread has the same link' do
+          FactoryGirl.create(:comment, link: link, cothread: cothread)
+          comment = FactoryGirl.build(:comment, link: link, cothread: cothread)
+          comment.should_not be_valid
+        end
+      end
     end
   end
 

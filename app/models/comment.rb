@@ -9,7 +9,8 @@ class Comment < ActiveRecord::Base
 
   accepts_nested_attributes_for :link
 
-  validates :cothread_id, :presence => true, :uniqueness => { :scope => :link_id }
+  validates :cothread_id, :uniqueness => { :scope => :link_id }, :if => proc { |c| c.link.present? }
+  validates :cothread_id, :presence => true
   validates :user_id, :presence => true
 
   def user_name
