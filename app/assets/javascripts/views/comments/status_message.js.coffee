@@ -6,9 +6,10 @@ define [
   class StatusMessageView extends BaseView
     template: _.template '
       <img src="<%= avatarUrl %>" />
-      <div class="status-message"><%= msg %></div>
+      <div class="message"><%= msg %></div>
+      &nbsp;
     '
-    className: 'status-avatar'
+    className: 'status-message'
 
     render: () ->
       @$el.html(
