@@ -44,34 +44,36 @@ define [
       @renderPopover()
 
     renderTemplate: ->
-      statusMessage = new StatusMessageView(model: @model)
-      @renderChild(statusMessage)
-      statusMessageHtml = statusMessage.el.outerHTML
-      if @model.getText()
-        commentTitle = statusMessageHtml
-        commentText = @model.getText()
-      else
-        commentTitle = null
-        commentText = statusMessageHtml
       @$el.html(@template(
         url: @link.getUrl()
         faviconUrl: @link.getFaviconUrl()
         siteName: @link.getSiteName()
         sourceLocale: @link.getSourceLocale()
       ))
-      @$('[data-toggle="popover"]').attr('title', commentTitle)
-      @$('[data-toggle="popover"]').attr('data-content', commentText)
 
     renderContent: ->
       @renderChildInto(@contentView, '.comment-link-content')
 
     renderPopover: =>
+      @statusMessage = new StatusMessageView(model: @model)
+      @renderChild(@statusMessage)
+      [title, content] = @getStatusMessageText(
+        @statusMessage.el.outerHTML
+        @model.getText())
       @$('.link-inner').popover(
+        title: title
+        content: content
         trigger: 'hover'
         placement: 'top'
         html: true
         callback: @initTimeago)
       @
+
+    getStatusMessageText: (statusMessageHtml, commentText) ->
+      if commentText
+        [statusMessageHtml, commentText]
+      else
+        [null, statusMessageHtml]
 
     destroyPopover: => @$('.link-inner').popover('destroy')
     initTimeago: -> $('time.timeago').timeago()

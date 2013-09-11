@@ -41,12 +41,19 @@ define (require) ->
         expect(-> new CommentLinkView(model: new Comment)).toThrow('comment must have a link to render a CommentLinkView')
 
     describe 'with stubbed CommentLinkContentView', ->
+      beforeEach ->
+        @destroyPopoverSpy = sinon.spy(CommentLinkView::, 'destroyPopover')
+        @renderPopoverSpy = sinon.spy(CommentLinkView::, 'renderPopover')
+        @view = new CommentLinkView(
+          model: @comment
+          CommentLinkContentView: @CommentLinkContentView)
+
+      afterEach ->
+        @destroyPopoverSpy.restore()
+        @renderPopoverSpy.restore()
+
       describe 'rendering', ->
-        beforeEach ->
-          @view = new CommentLinkView(
-            model: @comment
-            CommentLinkContentView: @CommentLinkContentView)
-          @$el = @view.render().$el
+        beforeEach -> @$el = @view.render().$el
 
         it 'renders link element', ->
           expect(@$el).toBe(".link")
@@ -68,77 +75,68 @@ define (require) ->
           expect(@$el.find('.lang')).toHaveText('(en)')
 
       describe 'popover', ->
-        beforeEach ->
-          @destroyPopoverSpy = sinon.spy(CommentLinkView::, 'destroyPopover')
-          @renderPopoverSpy = sinon.spy(CommentLinkView::, 'renderPopover')
-          @view = new CommentLinkView(
-            model: @comment
-            CommentLinkContentView: @CommentLinkContentView
-          )
-
-        afterEach ->
-          @destroyPopoverSpy.restore()
-          @renderPopoverSpy.restore()
 
         it 'assigns popover to data-toggle attribute on .link-inner element', ->
           @view.render()
           expect(@view.$('.link-inner')).toHaveAttr('data-toggle', 'popover')
 
-        describe 'comment has text', ->
-          beforeEach ->
-            @comment.set(text: en: 'a comment text')
+      describe 'events', ->
 
-          it 'assigns comment text to popover content', ->
+        describe 'when user mouseovers link', ->
+          beforeEach -> @$sandbox = @createSandbox()
+          afterEach -> @destroySandbox()
+
+          it 'renders popover', ->
             @view.render()
-            expect(@view.$('.link-inner')).toHaveAttr('data-content', 'a comment text')
+            @$sandbox.html(@view.el)
+            expect($('.popover')).not.toBeVisible()
+            $('.link-inner').trigger('mouseover')
+            expect($('.popover')).toBeVisible()
 
-          it 'assigns comment status message to popover title', ->
-            sinon.stub(@comment, 'getStatusMessage').returns('foo updated 10 hours ago')
-            @view.render()
-            title = $(@view.$('.link-inner').data('original-title'))
-            expect(title).toHaveText('foo updated 10 hours ago')
+          describe 'comment has text', ->
+            beforeEach ->
+              @comment.set(text: en: 'a comment text')
+              @view.render()
+              @$sandbox.html(@view.el)
+              $('.link-inner').trigger('mouseover')
 
-          it 'renders avatar pic into popover title', ->
-            sinon.stub(@comment, 'getStatusMessage').returns('foo updated 10 hours ago')
-            @view.render()
-            title = $(@view.$('.link-inner').data('original-title'))
-            expect(title).toContain('img[src="http://www.example.com/csasaki_mini.png"]')
+            it 'assigns comment status message to popover title', ->
+              expect($('.popover .popover-title')).toHaveText('@csasaki added less than a minute ago')
 
-        describe 'comment has no text', ->
-          it 'assigns comment status message to popover content', ->
-            sinon.stub(@comment, 'getStatusMessage').returns('foo updated 10 hours ago')
-            @view.render()
-            content = $(@view.$('.link-inner').data('content'))
-            expect(content).toHaveText('foo updated 10 hours ago')
+            it 'renders avatar pic into popover title', ->
+              expect($('.popover .popover-title')).toContain('img[src="http://www.example.com/csasaki_mini.png"]')
 
-          it 'renders avatar pic into popover content', ->
-            sinon.stub(@comment, 'getStatusMessage').returns('foo updated 10 hours ago')
-            @view.render()
-            content = $(@view.$('.link-inner').data('content'))
-            expect(content).toContain('img[src="http://www.example.com/csasaki_mini.png"]')
+            it 'assigns comment text to popover content', ->
+              expect($('.popover .popover-content')).toHaveText(/a comment text/)
 
-          it 'does not set title', ->
-            @view.render()
-            expect(@view.$('.link-inner')).toHaveAttr('data-original-title', '')
+          describe 'comment has no text', ->
+            beforeEach ->
+              @view.render()
+              @$sandbox.html(@view.el)
+              $('.link-inner').trigger('mouseover')
 
-        describe 'events', ->
+            it 'assigns comment status message to popover content', ->
+              expect($('.popover .popover-content')).toHaveText('@csasaki added less than a minute ago')
+
+            it 'renders avatar pic into popover content', ->
+              expect($('.popover .popover-content')).toContain('img[src="http://www.example.com/csasaki_mini.png"]')
+
+            it 'does not set title', ->
+              expect($('.popover')).not.toContain('.popover .popover-title')
+
+        describe 'when content view is opened', ->
           beforeEach -> @view.render()
 
-          # TODO: actually check that popover is being rendered
-          # in each case. for some reason this wasn't working
-          # so just checking that methods are being called.
-          describe 'when user mouseovers link', ->
-            it 'renders popover'
+          it 'calls destroyPopover()', ->
+            @view.contentView.trigger('open')
+            expect(@destroyPopoverSpy).toHaveBeenCalledOnce()
+            expect(@destroyPopoverSpy).toHaveBeenCalledWithExactly()
 
-          describe 'when content view is opened', ->
-            it 'calls destroyPopover()', ->
-              @view.contentView.trigger('open')
-              expect(@destroyPopoverSpy).toHaveBeenCalledOnce()
-              expect(@destroyPopoverSpy).toHaveBeenCalledWithExactly()
+        describe 'when content view is closed', ->
+          beforeEach -> @view.render()
 
-          describe 'when content view is closed', ->
-            it 'calls renderPopover()', ->
-              @renderPopoverSpy.reset()
-              @view.contentView.trigger('close')
-              expect(@renderPopoverSpy).toHaveBeenCalledOnce()
-              expect(@renderPopoverSpy).toHaveBeenCalledWithExactly()
+          it 'calls renderPopover()', ->
+            @renderPopoverSpy.reset()
+            @view.contentView.trigger('close')
+            expect(@renderPopoverSpy).toHaveBeenCalledOnce()
+            expect(@renderPopoverSpy).toHaveBeenCalledWithExactly()
