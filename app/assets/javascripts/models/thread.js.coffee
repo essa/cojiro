@@ -24,6 +24,10 @@ define [
           includeInJSON: 'name'
       ,
         type: Backbone.HasMany
+        key: 'participants'
+        relatedModel: User
+      ,
+        type: Backbone.HasMany
         key: 'comments'
         relatedModel: Comment
         collectionType: Comments
@@ -61,6 +65,7 @@ define [
     getUserName: -> @getUser().getName()
     getComments: -> @get('comments')
     getLinks: -> _(@getComments().pluck('link')).compact()
+    getParticipants: -> @get('participants')
 
     hasLink: (url) ->
       link = _(@getLinks()).find (link) -> link.getUrl() is url

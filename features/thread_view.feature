@@ -9,6 +9,9 @@ Feature: View a thread
       | name     | Cojiro Sasaki |
       | uid      | 12345         |
       | nickname | csasaki       |
+    And the following users exist:
+      | name      | fullname            |
+      | alice     | Alice in Wonderland |
     And my locale is "en"
 
   Scenario: View a thread
@@ -17,11 +20,16 @@ Feature: View a thread
       | user    | csasaki                                                                            |
       | title   | Co-working spaces in Tokyo                                                         |
       | summary | I want to write an article about the increased popularity of co-working spaces. |
+    And the thread has the following links:
+      | user    | source_locale | title                 | summary | url                         |
+      | alice   | en            | Best Capoeira Brazil  |         | http://youtu.be/6H0D8VaIli0 |
+
     When I go to the page for the thread
     Then I should see the text "Co-working spaces in Tokyo" in the thread
     And I should see the text "I want to write an article about the increased popularity of co-working spaces." in the thread
-    And I should see the text "Cojiro Sasaki" in the thread
-    And I should see the text "July 8, 2012" in the thread
+    And I should see the text "Cojiro Sasaki" in the statbar
+    And I should see the text "July 8, 2012" in the statbar
+    And I should see the avatar of "alice" in the statbar
 
   Scenario: View a thread translation
     Given the date is "July 8, 2012 at 5pm"

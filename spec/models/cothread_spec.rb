@@ -7,6 +7,9 @@ describe Cothread do
     I18n.locale = 'en'
   end
 
+  let(:alice) { FactoryGirl.create(:alice) }
+  let(:bob) { FactoryGirl.create(:bob) }
+
   describe 'associations' do
     it { should have_many(:comments) }
     it { should have_many(:links).through(:comments) }
@@ -84,13 +87,16 @@ describe Cothread do
     before do
       Timecop.freeze(Time.utc(2002,7,20,12,20)) do
         @cothread = FactoryGirl.build(:cothread,
-                                      user: FactoryGirl.create(:csasaki),
-                                      comments: FactoryGirl.create_list(:comment, 3))
+                                      user: FactoryGirl.create(:csasaki))
         Globalize.with_locale(:fr) do
           @cothread.title = "title in French"
           @cothread.summary = "summary in French"
         end
         @cothread.save
+        FactoryGirl.create(:comment, cothread: @cothread, user: alice)
+        FactoryGirl.create(:comment, cothread: @cothread, user: bob)
+        FactoryGirl.create(:comment, cothread: @cothread, user: bob)
+        @cothread.reload
       end
     end
     let(:cothread_json) { JSON(@cothread.to_json) }
@@ -109,6 +115,24 @@ describe Cothread do
     its(['user']) { should have_key('profile') }
     its(['user']) { should have_key('avatar_url') }
     its(['user']) { should have_key('avatar_mini_url') }
+
+    its(['participants']) { should be }
+
+    describe 'participants' do
+      subject { cothread_json['participants'].map { |hash| hash['name'] } }
+      its(:size) { should == 2 }
+      it { should include 'alice' }
+      it { should include 'bob' }
+
+      describe 'participant json' do
+        subject { cothread_json['participants'].select { |a| a['name'] == 'alice' }.first }
+        it { should have_key('fullname') }
+        it { should have_key('location') }
+        it { should have_key('profile') }
+        it { should have_key('avatar_url') }
+        it { should have_key('avatar_mini_url') }
+      end
+    end
 
     describe 'comments' do
       subject { cothread_json['comments'] }
@@ -150,6 +174,42 @@ describe Cothread do
           "comments"
         ].include?(k)
       }.should be_empty
+    end
+  end
+
+  describe '#participants' do
+    before do
+      # alice and bob are our two users
+      @alices_cothread = FactoryGirl.create(:cothread, user: alice)
+      @bobs_cothread = FactoryGirl.create(:cothread, user: bob)
+
+      # two more users
+      @csasaki = FactoryGirl.create(:csasaki)
+      @user = FactoryGirl.create(:user)
+
+      # bob has added @bobs_link to @bobs_thread
+      @bobs_link = FactoryGirl.create(:link, user: @bob)
+      @bobs_comment = FactoryGirl.create(:comment, link: @bobs_link, user: @bob, cothread: @bobs_cothread)
+
+      # now csasaki adds the same link to alice's thread
+      @csasakis_comment = FactoryGirl.create(:comment, link: @bobs_link, user: @csasaki, cothread: @alices_cothread)
+
+      @alices_cothread.reload
+    end
+    let(:participants) { @alices_cothread.participants }
+
+    it 'returns all users who have added comments or links to the thread' do
+      participants.should include(@bob)
+      participants.should include(@csasaki)
+    end
+
+    it 'does not include the creator of the thread itself' do
+      participants.size.should == 2
+      participants.should_not include(@alice)
+    end
+
+    it 'does not include other users' do
+      participants.should_not include(@user)
     end
   end
 end

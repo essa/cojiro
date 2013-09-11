@@ -124,6 +124,9 @@ ul.nav-pills {
   li.controls {
     margin-top: 5px;
   }
+  li.participants img {
+    margin-right: 4px;
+  }
 }
 
 .stat, .date {
@@ -293,6 +296,27 @@ ul.nav-pills {
     padding: 9px;
     color: $gray;
   }
+}
+
+.status-message {
+  width: 220px;
+  position: relative;
+  height: 45px;
+}
+
+.status-message img {
+  display: block;
+  width: 32px;
+  left: 2px;
+  top: 5px;
+  position: absolute;
+}
+
+.status-message .message {
+  display: block;
+  left: 44px;
+  top: 3px;
+  position: absolute;
 }
 
 /* -------- Thread header modal - */

@@ -52,8 +52,15 @@ describe Comment do
     # Note: it's important to test updating link translated attributes here
     context 'link with url already exists' do
       let!(:link) { FactoryGirl.create(:link, :with_valid_data) }
+      let(:alice) { FactoryGirl.create(:alice) }
+      let(:bob) { FactoryGirl.create(:bob) }
       let(:comment) do
-        comment = FactoryGirl.build(:comment)
+        comment = FactoryGirl.build(:comment, user: alice)
+        comment.link = FactoryGirl.build(:link_without_user, url: link.url, source_locale: 'en', title: 'foo')
+        comment
+      end
+      let(:other_comment) do
+        comment = FactoryGirl.build(:comment, user: bob)
         comment.link = FactoryGirl.build(:link_without_user, url: link.url, source_locale: 'en', title: 'foo')
         comment
       end
@@ -83,10 +90,17 @@ describe Comment do
         c.link.translation_for(:ja).title.should == 'タイトル'
       end
 
-      it 'sets user_id from comment' do
+      it 'sets user_id from comment if link has not yet been added to any thread (has no comments)' do
         comment.save
         comment.reload
-        comment.link.user_id.should == comment.user_id
+        comment.link.user_id.should == alice.id
+      end
+
+      it 'does not set user_id from comment if link has already been added to a thread (has at least one comment)' do
+        other_comment.save
+        comment.save
+        comment.reload
+        comment.link.user_id.should == bob.id
       end
 
       it 'sets link_id' do
@@ -136,7 +150,28 @@ describe Comment do
     describe 'cothread' do
       it { should validate_presence_of(:cothread_id) }
       it { should validate_presence_of(:user_id) }
-      pending { should validate_uniqueness_of(:cothread_id).scoped_to(:link_id) }
+
+      describe 'uniqueness validation' do
+        let!(:cothread) { FactoryGirl.create(:cothread) }
+        let!(:link) { FactoryGirl.create(:link) }
+
+        it 'is valid if no other comment on the same thread has the same link' do
+          comment = FactoryGirl.build(:comment, link: link, cothread: cothread)
+          comment.should be_valid
+        end
+
+        it 'is valid if there are other comments on the same thread with no links' do
+          FactoryGirl.create(:comment, cothread: cothread)
+          comment = FactoryGirl.build(:comment, cothread: cothread)
+          comment.should be_valid
+        end
+
+        it 'is not valid if another comment on the same thread has the same link' do
+          FactoryGirl.create(:comment, link: link, cothread: cothread)
+          comment = FactoryGirl.build(:comment, link: link, cothread: cothread)
+          comment.should_not be_valid
+        end
+      end
     end
   end
 
