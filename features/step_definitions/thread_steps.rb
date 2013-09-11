@@ -100,3 +100,8 @@ end
 Then /^the (?:.+ |)element should have the summary "(.*)"$/ do |text|
   @el.first('p.summary').should have_text(text)
 end
+
+Then /^I should see the avatar of "([^"]*)" in the statbar$/ do |name|
+  u = User.find_by_name(name) || raise(ArgumentError, "User @#{name} not found")
+  page.find('.statbar').should have_css("img[src='#{u.avatar_mini_url}']")
+end
