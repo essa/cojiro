@@ -124,6 +124,10 @@ define (require) ->
             it 'does not set title', ->
               expect($('.popover')).not.toContain('.popover .popover-title')
 
+        #TODO: replace these two tests with tests which does not stub the
+        # CommentLinkContent class and instead actually checks that when
+        # a translatable field (title or summary) is clicked on, the popover
+        # actually disappears.
         describe 'when content view is opened', ->
           beforeEach -> @view.render()
 
